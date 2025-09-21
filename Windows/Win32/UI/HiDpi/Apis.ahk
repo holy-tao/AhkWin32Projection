@@ -87,14 +87,14 @@ class HiDpi {
     /**
      * Retrieves and per-monitor DPI scaling behavior overrides of a child window in a dialog.
      * @param {Pointer<Void>} hWnd The handle for the window to examine.
-     * @returns {Pointer} The flags set on the given window. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
+     * @returns {Integer} The flags set on the given window. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdialogcontroldpichangebehavior
      * @since windows10.0.15063
      */
     static GetDialogControlDpiChangeBehavior(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDialogControlDpiChangeBehavior", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetDialogControlDpiChangeBehavior", "ptr", hWnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -131,14 +131,14 @@ class HiDpi {
      * @remarks
      * It can be difficult to distinguish between a return value of <b>DDC_DEFAULT</b> and the error case, which is zero. To determine between the two, it is recommended that you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError()</a> to check the error.
      * @param {Pointer<Void>} hDlg The handle for the dialog to examine.
-     * @returns {Pointer} The flags set on the given dialog. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
+     * @returns {Integer} The flags set on the given dialog. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdialogdpichangebehavior
      * @since windows10.0.15063
      */
     static GetDialogDpiChangeBehavior(hDlg) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDialogDpiChangeBehavior", "ptr", hDlg)
+        result := DllCall("USER32.dll\GetDialogDpiChangeBehavior", "ptr", hDlg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -151,7 +151,7 @@ class HiDpi {
      * This function returns the same result as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> but scales it according to an arbitrary DPI you provide if appropriate.
      * @param {Integer} nIndex The system metric or configuration setting to be retrieved. See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> for the possible values.
      * @param {Integer} dpi The DPI to use for scaling the metric.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsystemmetricsfordpi
@@ -160,7 +160,7 @@ class HiDpi {
     static GetSystemMetricsForDpi(nIndex, dpi) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetSystemMetricsForDpi", "int", nIndex, "uint", dpi)
+        result := DllCall("USER32.dll\GetSystemMetricsForDpi", "int", nIndex, "uint", dpi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -313,12 +313,12 @@ class HiDpi {
      * @remarks
      * A <a href="https://docs.microsoft.com/windows/desktop/hidpi/dpi-awareness-context">DPI_AWARENESS_CONTEXT</a> contains multiple pieces of information. For example, it includes both the current and the inherited <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a>. This method retrieves the <b>DPI_AWARENESS</b> from the structure.
      * @param {Pointer<Void>} value The <b>DPI_AWARENESS_CONTEXT</b> you want to examine.
-     * @returns {Pointer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a>. If the provided <i>value</i> is <b>null</b> or invalid, this method will return <b>DPI_AWARENESS_INVALID</b>.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a>. If the provided <i>value</i> is <b>null</b> or invalid, this method will return <b>DPI_AWARENESS_INVALID</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getawarenessfromdpiawarenesscontext
      * @since windows10.0.14393
      */
     static GetAwarenessFromDpiAwarenessContext(value) {
-        result := DllCall("USER32.dll\GetAwarenessFromDpiAwarenessContext", "ptr", value)
+        result := DllCall("USER32.dll\GetAwarenessFromDpiAwarenessContext", "ptr", value, "int")
         return result
     }
 
@@ -327,12 +327,12 @@ class HiDpi {
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/hidpi/dpi-awareness-context">DPI_AWARENESS_CONTEXT</a> handles associated with values of <b>DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE</b> and <b>DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2</b> will return a value of 0 for their DPI. This is because the DPI of a per-monitor-aware window can change, and the actual DPI cannot be returned without the window's HWND.
      * @param {Pointer<Void>} value The <b>DPI_AWARENESS_CONTEXT</b> handle to examine.
-     * @returns {Pointer} The DPI value associated with the <b>DPI_AWARENESS_CONTEXT</b> handle.
+     * @returns {Integer} The DPI value associated with the <b>DPI_AWARENESS_CONTEXT</b> handle.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdpifromdpiawarenesscontext
      * @since windows10.0.17134
      */
     static GetDpiFromDpiAwarenessContext(value) {
-        result := DllCall("USER32.dll\GetDpiFromDpiAwarenessContext", "ptr", value)
+        result := DllCall("USER32.dll\GetDpiFromDpiAwarenessContext", "ptr", value, "uint")
         return result
     }
 
@@ -391,12 +391,12 @@ class HiDpi {
      * </tr>
      * </table>
      * @param {Pointer<Void>} hwnd The window that you want to get information about.
-     * @returns {Pointer} The DPI for the window, which depends on the [DPI_AWARENESS](/windows/win32/api/windef/ne-windef-dpi_awareness) of the window. See the **Remarks** section for more information. An invalid *hwnd* value will result in a return value of 0.
+     * @returns {Integer} The DPI for the window, which depends on the [DPI_AWARENESS](/windows/win32/api/windef/ne-windef-dpi_awareness) of the window. See the **Remarks** section for more information. An invalid *hwnd* value will result in a return value of 0.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdpiforwindow
      * @since windows10.0.14393
      */
     static GetDpiForWindow(hwnd) {
-        result := DllCall("USER32.dll\GetDpiForWindow", "ptr", hwnd)
+        result := DllCall("USER32.dll\GetDpiForWindow", "ptr", hwnd, "uint")
         return result
     }
 
@@ -406,12 +406,12 @@ class HiDpi {
      * The return value will be dependent based upon the calling context. If the current thread has a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a> value of <b>DPI_AWARENESS_UNAWARE</b>, the return value will be 96. That is because the current context always assumes a DPI of 96. For any other <b>DPI_AWARENESS</b> value, the return value will be the actual system DPI.
      * 
      * You should not cache the system DPI, but should use <b>GetDpiForSystem</b> whenever you need the system DPI value.
-     * @returns {Pointer} The system DPI value.
+     * @returns {Integer} The system DPI value.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdpiforsystem
      * @since windows10.0.14393
      */
     static GetDpiForSystem() {
-        result := DllCall("USER32.dll\GetDpiForSystem")
+        result := DllCall("USER32.dll\GetDpiForSystem", "uint")
         return result
     }
 
@@ -420,12 +420,12 @@ class HiDpi {
      * @remarks
      * The return value will be dependent based upon the process passed as a parameter. If the specified process has a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a> value of <b>DPI_AWARENESS_UNAWARE</b>, the return value will be 96. That is because the current context always assumes a DPI of 96. For any other <b>DPI_AWARENESS</b> value, the return value will be the actual system DPI of the given process.
      * @param {Pointer<Void>} hProcess The handle for the process to examine. If this value is null, this API behaves identically to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdpiforsystem">GetDpiForSystem</a>.
-     * @returns {Pointer} The process's system DPI value.
+     * @returns {Integer} The process's system DPI value.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsystemdpiforprocess
      * @since windows10.0.17134
      */
     static GetSystemDpiForProcess(hProcess) {
-        result := DllCall("USER32.dll\GetSystemDpiForProcess", "ptr", hProcess)
+        result := DllCall("USER32.dll\GetSystemDpiForProcess", "ptr", hProcess, "uint")
         return result
     }
 
@@ -519,12 +519,12 @@ class HiDpi {
      * 
      * Enabling mixed hosting behavior will not automatically adjust the thread's <b>DPI_AWARENESS_CONTEXT</b> to be compatible with legacy content. The thread's awareness context must still be manually changed before new windows are created to host such content.
      * @param {Integer} value The new <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> value for the current thread.
-     * @returns {Pointer} The previous <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> for the thread. If the hosting behavior passed in is invalid, the thread will not be updated and the return value will be <b>DPI_HOSTING_BEHAVIOR_INVALID</b>. You can use this value to restore the old <b>DPI_HOSTING_BEHAVIOR</b> after overriding it with a predefined value.
+     * @returns {Integer} The previous <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> for the thread. If the hosting behavior passed in is invalid, the thread will not be updated and the return value will be <b>DPI_HOSTING_BEHAVIOR_INVALID</b>. You can use this value to restore the old <b>DPI_HOSTING_BEHAVIOR</b> after overriding it with a predefined value.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setthreaddpihostingbehavior
      * @since windows10.0.17134
      */
     static SetThreadDpiHostingBehavior(value) {
-        result := DllCall("USER32.dll\SetThreadDpiHostingBehavior", "int", value)
+        result := DllCall("USER32.dll\SetThreadDpiHostingBehavior", "int", value, "int")
         return result
     }
 
@@ -532,12 +532,12 @@ class HiDpi {
      * Retrieves the DPI_HOSTING_BEHAVIOR from the current thread.
      * @remarks
      * This API returns the hosting behavior set by an earlier call of  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a>, or <b>DPI_HOSTING_BEHAVIOR_DEFAULT</b> if no earlier call has been made.
-     * @returns {Pointer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the current thread.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the current thread.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getthreaddpihostingbehavior
      * @since windows10.0.17134
      */
     static GetThreadDpiHostingBehavior() {
-        result := DllCall("USER32.dll\GetThreadDpiHostingBehavior")
+        result := DllCall("USER32.dll\GetThreadDpiHostingBehavior", "int")
         return result
     }
 
@@ -546,12 +546,12 @@ class HiDpi {
      * @remarks
      * This API allows you to examine the hosting behavior of a window after it has been created. A window's hosting behavior is the hosting behavior of the thread in which the window was created, as set by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a>. This is a permanent value and cannot be changed after the window is created, even if the thread's hosting behavior is changed.
      * @param {Pointer<Void>} hwnd The handle for the window to examine.
-     * @returns {Pointer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the specified window.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the specified window.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdpihostingbehavior
      * @since windows10.0.17134
      */
     static GetWindowDpiHostingBehavior(hwnd) {
-        result := DllCall("USER32.dll\GetWindowDpiHostingBehavior", "ptr", hwnd)
+        result := DllCall("USER32.dll\GetWindowDpiHostingBehavior", "ptr", hwnd, "int")
         return result
     }
 
@@ -570,7 +570,7 @@ class HiDpi {
      * 
      * If the DPI awareness level is not set, the default value is <b>PROCESS_DPI_UNAWARE</b>.
      * @param {Integer} value The DPI awareness value to set. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
-     * @returns {Integer} This function returns one of the following values.
+     * @returns {HRESULT} This function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -616,6 +616,9 @@ class HiDpi {
      */
     static SetProcessDpiAwareness(value) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\SetProcessDpiAwareness", "int", value, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -627,7 +630,7 @@ class HiDpi {
      * <c>GetAwarenessFromDpiAwarenessContext(GetThreadDpiAwarenessContext());</c>
      * @param {Pointer<Void>} hprocess Handle of the process that is being queried. If this parameter is NULL, the current process is queried.
      * @param {Pointer<Int32>} value The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
-     * @returns {Integer} This function returns one of the following values.
+     * @returns {HRESULT} This function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -673,6 +676,9 @@ class HiDpi {
      */
     static GetProcessDpiAwareness(hprocess, value) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", "ptr", hprocess, "int*", value, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -708,7 +714,7 @@ class HiDpi {
      * @param {Integer} dpiType The type of DPI being queried. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> enumeration.
      * @param {Pointer<UInt32>} dpiX The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated.
      * @param {Pointer<UInt32>} dpiY The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.
-     * @returns {Integer} This function returns one of the following values.
+     * @returns {HRESULT} This function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -743,6 +749,9 @@ class HiDpi {
      */
     static GetDpiForMonitor(hmonitor, dpiType, dpiX, dpiY) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", "ptr", hmonitor, "int", dpiType, "uint*", dpiX, "uint*", dpiY, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

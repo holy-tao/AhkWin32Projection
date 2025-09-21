@@ -3717,12 +3717,15 @@ class Display {
      * Retrieves the number of physical monitors associated with a Direct3D device.
      * @param {Pointer<IDirect3DDevice9>} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
      * @param {Pointer<UInt32>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the Direct3D device.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromidirect3ddevice9
      * @since windows6.0.6000
      */
     static GetNumberOfPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9, pdwNumberOfPhysicalMonitors) {
         result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint*", pdwNumberOfPhysicalMonitors, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3760,12 +3763,15 @@ class Display {
      * @param {Pointer<IDirect3DDevice9>} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
      * @param {Integer} dwPhysicalMonitorArraySize Number of elements in <i>pPhysicalMonitorArray</i>. To get the required size of the array, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromidirect3ddevice9">GetNumberOfPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<PHYSICAL_MONITOR>} pPhysicalMonitorArray Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor">PHYSICAL_MONITOR</a> structures. The caller must allocate the array.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9
      * @since windows6.0.6000
      */
     static GetPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
         result := DllCall("dxva2.dll\GetPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4779,12 +4785,12 @@ class Display {
      * 
      * A driver for a device that can download a clipping path might prefer this function for defining complex regions.
      * @param {Pointer<CLIPOBJ>} pco Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure that defines the specified clip region.
-     * @returns {Pointer} The return value is a pointer to a PATHOBJ structure if the function is successful. Otherwise, it is <b>NULL</b>, and an error code is logged.
+     * @returns {Pointer<PATHOBJ>} The return value is a pointer to a PATHOBJ structure if the function is successful. Otherwise, it is <b>NULL</b>, and an error code is logged.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-clipobj_ppogetpath
      * @since windows5.0
      */
     static CLIPOBJ_ppoGetPath(pco) {
-        result := DllCall("GDI32.dll\CLIPOBJ_ppoGetPath", "ptr", pco)
+        result := DllCall("GDI32.dll\CLIPOBJ_ppoGetPath", "ptr", pco, "ptr")
         return result
     }
 
@@ -4812,13 +4818,12 @@ class Display {
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure to be queried.
      * @param {Integer} cjSize Specifies the size in bytes of the buffer pointed to by <i>pfi</i>.
      * @param {Pointer<FONTINFO>} pfi Pointer to a buffer previously allocated by the driver. GDI writes a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontinfo">FONTINFO</a> structure to this buffer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-fontobj_vgetinfo
      * @since windows5.0
      */
     static FONTOBJ_vGetInfo(pfo, cjSize, pfi) {
-        result := DllCall("GDI32.dll\FONTOBJ_vGetInfo", "ptr", pfo, "uint", cjSize, "ptr", pfi)
-        return result
+        DllCall("GDI32.dll\FONTOBJ_vGetInfo", "ptr", pfo, "uint", cjSize, "ptr", pfi)
     }
 
     /**
@@ -4844,7 +4849,7 @@ class Display {
      * @remarks
      * The driver needs the notional-to-device transform to realize a driver-supplied font.
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure for which the transform is to be retrieved.
-     * @returns {Pointer} The return value is a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that describes the transform. The XFORMOBJ structure can be used by the <b>XFORMOBJ_</b><b><i>Xxx</i></b> service routines. The XFORMOBJ structure assumes that: 
+     * @returns {Pointer<UInt32>} The return value is a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that describes the transform. The XFORMOBJ structure can be used by the <b>XFORMOBJ_</b><b><i>Xxx</i></b> service routines. The XFORMOBJ structure assumes that: 
      * 
      * <ul>
      * <li>The distance between the pixels is in device space units. </li>
@@ -4855,19 +4860,19 @@ class Display {
      * @since windows5.0
      */
     static FONTOBJ_pxoGetXform(pfo) {
-        result := DllCall("GDI32.dll\FONTOBJ_pxoGetXform", "ptr", pfo)
+        result := DllCall("GDI32.dll\FONTOBJ_pxoGetXform", "ptr", pfo, "uint*")
         return result
     }
 
     /**
      * The FONTOBJ_pifi function retrieves the pointer to the IFIMETRICS structure associated with a specified font.
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure for which the associated IFIMETRICS structure is to be retrieved.
-     * @returns {Pointer} The return value is a pointer to the IFIMETRICS structure associated with the specified font if the function is successful. Otherwise, it is <b>NULL</b>.
+     * @returns {Pointer<IFIMETRICS>} The return value is a pointer to the IFIMETRICS structure associated with the specified font if the function is successful. Otherwise, it is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-fontobj_pifi
      * @since windows5.0
      */
     static FONTOBJ_pifi(pfo) {
-        result := DllCall("GDI32.dll\FONTOBJ_pifi", "ptr", pfo)
+        result := DllCall("GDI32.dll\FONTOBJ_pifi", "ptr", pfo, "ptr")
         return result
     }
 
@@ -4876,12 +4881,12 @@ class Display {
      * @remarks
      * Printer drivers can call <b>FONTOBJ_pfdg</b> to determine which Unicode code points are supported in a GDI font. The printer driver can then determine whether it can optimize performance by instead using a similar printer-resident font to display a text string.
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure for which the associated FD_GLYPHSET structure is to be returned.
-     * @returns {Pointer} <b>FONTOBJ_pfdg</b> returns a pointer to the FD_GLYPHSET structure associated with the specified font.
+     * @returns {Pointer<FD_GLYPHSET>} <b>FONTOBJ_pfdg</b> returns a pointer to the FD_GLYPHSET structure associated with the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-fontobj_pfdg
      * @since windows5.0
      */
     static FONTOBJ_pfdg(pfo) {
-        result := DllCall("GDI32.dll\FONTOBJ_pfdg", "ptr", pfo)
+        result := DllCall("GDI32.dll\FONTOBJ_pfdg", "ptr", pfo, "ptr")
         return result
     }
 
@@ -4943,13 +4948,12 @@ class Display {
      * @remarks
      * <b>PATHOBJ_vEnumStart</b> can be called at any time to restart an enumeration.
      * @param {Pointer<PATHOBJ>} ppo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure whose lines and/or curves are to be enumerated.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-pathobj_venumstart
      * @since windows5.0
      */
     static PATHOBJ_vEnumStart(ppo) {
-        result := DllCall("GDI32.dll\PATHOBJ_vEnumStart", "ptr", ppo)
-        return result
+        DllCall("GDI32.dll\PATHOBJ_vEnumStart", "ptr", ppo)
     }
 
     /**
@@ -4983,13 +4987,12 @@ class Display {
      * @param {Pointer<CLIPOBJ>} pco Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure that describes the clip region.
      * @param {Pointer<SURFOBJ>} pso Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure that GDI queries to retrieve information about styling steps.
      * @param {Pointer<LINEATTRS>} pla Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-lineattrs">LINEATTRS</a> structure that GDI queries to retrieve line width and styling information.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-pathobj_venumstartcliplines
      * @since windows5.0
      */
     static PATHOBJ_vEnumStartClipLines(ppo, pco, pso, pla) {
-        result := DllCall("GDI32.dll\PATHOBJ_vEnumStartClipLines", "ptr", ppo, "ptr", pco, "ptr", pso, "ptr", pla)
-        return result
+        DllCall("GDI32.dll\PATHOBJ_vEnumStartClipLines", "ptr", ppo, "ptr", pco, "ptr", pso, "ptr", pla)
     }
 
     /**
@@ -5016,13 +5019,12 @@ class Display {
      * The PATHOBJ_vGetBounds function retrieves the bounding rectangle for the specified path.
      * @param {Pointer<PATHOBJ>} ppo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure that describes the path for which a bounding rectangle is to be calculated.
      * @param {Pointer<RECTFX>} prectfx Pointer to the address where the RECTFX structure is to be written. The returned rectangle is exclusive of the bottom and right edges. An empty rectangle is specified by setting all four RECTFX members to zero. For a description of this data type, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-pathobj_vgetbounds
      * @since windows5.0
      */
     static PATHOBJ_vGetBounds(ppo, prectfx) {
-        result := DllCall("GDI32.dll\PATHOBJ_vGetBounds", "ptr", ppo, "ptr", prectfx)
-        return result
+        DllCall("GDI32.dll\PATHOBJ_vGetBounds", "ptr", ppo, "ptr", prectfx)
     }
 
     /**
@@ -5032,13 +5034,12 @@ class Display {
      * 
      * This function should be called by the driver prior to calling <b>STROBJ_bEnum</b>.
      * @param {Pointer<STROBJ>} pstro Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-strobj">STROBJ</a> structure whose data form is to be defined.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-strobj_venumstart
      * @since windows5.0
      */
     static STROBJ_vEnumStart(pstro) {
-        result := DllCall("GDI32.dll\STROBJ_vEnumStart", "ptr", pstro)
-        return result
+        DllCall("GDI32.dll\STROBJ_vEnumStart", "ptr", pstro)
     }
 
     /**
@@ -5400,12 +5401,12 @@ class Display {
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engunlocksurface">EngUnlockSurface</a> function to unlock the surface.
      * @param {Pointer<Void>} hsurf Handle to the surface to be locked.
-     * @returns {Pointer} <b>EngLockSurface</b> returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure if the function is successful. Otherwise, this function returns <b>NULL</b>.
+     * @returns {Pointer<SURFOBJ>} <b>EngLockSurface</b> returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure if the function is successful. Otherwise, this function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-englocksurface
      * @since windows5.0
      */
     static EngLockSurface(hsurf) {
-        result := DllCall("GDI32.dll\EngLockSurface", "ptr", hsurf)
+        result := DllCall("GDI32.dll\EngLockSurface", "ptr", hsurf, "ptr")
         return result
     }
 
@@ -5414,13 +5415,12 @@ class Display {
      * @remarks
      * The specified surface must previously have been locked by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-englocksurface">EngLockSurface</a>. The pointer to the SURFOBJ structure must not be used after this call.
      * @param {Pointer<SURFOBJ>} pso Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure that describes the surface to be unlocked.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engunlocksurface
      * @since windows5.0
      */
     static EngUnlockSurface(pso) {
-        result := DllCall("GDI32.dll\EngUnlockSurface", "ptr", pso)
-        return result
+        DllCall("GDI32.dll\EngUnlockSurface", "ptr", pso)
     }
 
     /**
@@ -5496,13 +5496,12 @@ class Display {
     /**
      * The EngDeletePath function deletes a path previously allocated by EngCreatePath.
      * @param {Pointer<PATHOBJ>} ppo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure to be deleted.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engdeletepath
      * @since windows5.0
      */
     static EngDeletePath(ppo) {
-        result := DllCall("GDI32.dll\EngDeletePath", "ptr", ppo)
-        return result
+        DllCall("GDI32.dll\EngDeletePath", "ptr", ppo)
     }
 
     /**
@@ -5542,25 +5541,24 @@ class Display {
      * The EngCreateClip function creates a CLIPOBJ structure that the driver uses in callbacks.
      * @remarks
      * The CLIPOBJ structure created by <b>EngCreateClip</b> allows GDI to directly access banked frame buffers. The structure must be initialized by the driver so that the <b>iDComplexity</b> member of the CLIPOBJ structure is set to DC_TRIVIAL or DC_RECT. If the <b>iDComplexity</b> member is set to DC_RECT, the driver can set the <b>rclBounds</b> member of CLIPOBJ to the extent of the frame buffer bank. The driver must delete this CLIPOBJ structure using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engdeleteclip">EngDeleteClip</a>.
-     * @returns {Pointer} The return value is a pointer to the newly-created CLIPOBJ structure if the function succeeds. Otherwise, it is <b>NULL</b>.
+     * @returns {Pointer<CLIPOBJ>} The return value is a pointer to the newly-created CLIPOBJ structure if the function succeeds. Otherwise, it is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engcreateclip
      * @since windows5.0
      */
     static EngCreateClip() {
-        result := DllCall("GDI32.dll\EngCreateClip")
+        result := DllCall("GDI32.dll\EngCreateClip", "ptr")
         return result
     }
 
     /**
      * The EngDeleteClip function deletes a CLIPOBJ structure allocated by EngCreateClip.
      * @param {Pointer<CLIPOBJ>} pco Pointer to the CLIPOBJ structure to delete.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engdeleteclip
      * @since windows5.0
      */
     static EngDeleteClip(pco) {
-        result := DllCall("GDI32.dll\EngDeleteClip", "ptr", pco)
-        return result
+        DllCall("GDI32.dll\EngDeleteClip", "ptr", pco)
     }
 
     /**
@@ -6257,13 +6255,12 @@ class Display {
     /**
      * The EngFreeModule function unmaps a file from system memory.
      * @param {Pointer<Void>} h Handle to the memory-mapped file to be freed. This handle was obtained from <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmodule">EngLoadModule</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmoduleforwrite">EngLoadModuleForWrite</a>.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engfreemodule
      * @since windows5.0
      */
     static EngFreeModule(h) {
-        result := DllCall("GDI32.dll\EngFreeModule", "ptr", h)
-        return result
+        DllCall("GDI32.dll\EngFreeModule", "ptr", h)
     }
 
     /**
@@ -6299,13 +6296,12 @@ class Display {
      * 
      * A call to this routine should be followed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engreleasesemaphore">EngReleaseSemaphore</a> as quickly as possible.
      * @param {Pointer<Void>} hsem Handle to the semaphore associated with the resource to be acquired.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engacquiresemaphore
      * @since windows5.0
      */
     static EngAcquireSemaphore(hsem) {
-        result := DllCall("GDI32.dll\EngAcquireSemaphore", "ptr", hsem)
-        return result
+        DllCall("GDI32.dll\EngAcquireSemaphore", "ptr", hsem)
     }
 
     /**
@@ -6315,25 +6311,23 @@ class Display {
      * 
      * The lock and asynchronous procedure call suspension were acquired in a call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engacquiresemaphore">EngAcquireSemaphore</a>.
      * @param {Pointer<Void>} hsem Handle to the semaphore to be released.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engreleasesemaphore
      * @since windows5.0
      */
     static EngReleaseSemaphore(hsem) {
-        result := DllCall("GDI32.dll\EngReleaseSemaphore", "ptr", hsem)
-        return result
+        DllCall("GDI32.dll\EngReleaseSemaphore", "ptr", hsem)
     }
 
     /**
      * The EngDeleteSemaphore function deletes a semaphore object from the system's resource list.
      * @param {Pointer<Void>} hsem Handle to the semaphore to be deleted. The semaphore was created in <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatesemaphore">EngCreateSemaphore</a>.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engdeletesemaphore
      * @since windows5.0
      */
     static EngDeleteSemaphore(hsem) {
-        result := DllCall("GDI32.dll\EngDeleteSemaphore", "ptr", hsem)
-        return result
+        DllCall("GDI32.dll\EngDeleteSemaphore", "ptr", hsem)
     }
 
     /**
@@ -6343,13 +6337,12 @@ class Display {
      * @param {Pointer<UInt32>} BytesInUnicodeString Pointer to a ULONG that receives the number of bytes written to <i>UnicodeString</i>.
      * @param {Pointer} MultiByteString Pointer to the ANSI source string that is to be converted to Unicode.
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString.</i>
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engmultibytetounicoden
      * @since windows5.0
      */
     static EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUnicodeString, MultiByteString, BytesInMultiByteString) {
-        result := DllCall("GDI32.dll\EngMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, "uint*", BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString)
-        return result
+        DllCall("GDI32.dll\EngMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, "uint*", BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString)
     }
 
     /**
@@ -6359,13 +6352,12 @@ class Display {
      * @param {Pointer<UInt32>} BytesInMultiByteString Pointer to a ULONG that receives the number of bytes written to <i>MultiByteString</i>.
      * @param {Pointer} UnicodeString Pointer to the Unicode source string that is to be converted to ANSI.
      * @param {Integer} BytesInUnicodeString Specifies the number of bytes in <i>UnicodeString.</i>
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engunicodetomultibyten
      * @since windows5.0
      */
     static EngUnicodeToMultiByteN(MultiByteString, MaxBytesInMultiByteString, BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-        result := DllCall("GDI32.dll\EngUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, "uint*", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString)
-        return result
+        DllCall("GDI32.dll\EngUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, "uint*", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString)
     }
 
     /**
@@ -6373,13 +6365,12 @@ class Display {
      * @remarks
      * <b>EngQueryLocalTime</b> returns the time at the current locale in the ENG_TIME_FIELDS structure.
      * @param {Pointer<ENG_TIME_FIELDS>} param0 
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engquerylocaltime
      * @since windows5.0
      */
     static EngQueryLocalTime(param0) {
-        result := DllCall("GDI32.dll\EngQueryLocalTime", "ptr", param0)
-        return result
+        DllCall("GDI32.dll\EngQueryLocalTime", "ptr", param0)
     }
 
     /**
@@ -6391,12 +6382,12 @@ class Display {
      * @param {Integer} nCodePage Specifies the code page supported.
      * @param {Integer} nFirstChar Specifies the character code of the first supported ANSI character.
      * @param {Integer} cChars Specifies the number of ANSI characters supported.
-     * @returns {Pointer} If the glyph set is computed successfully, the function returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fd_glyphset">FD_GLYPHSET</a> structure. If an error occurs, the function returns <b>NULL</b>.
+     * @returns {Pointer<FD_GLYPHSET>} If the glyph set is computed successfully, the function returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fd_glyphset">FD_GLYPHSET</a> structure. If an error occurs, the function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engcomputeglyphset
      * @since windows5.0
      */
     static EngComputeGlyphSet(nCodePage, nFirstChar, cChars) {
-        result := DllCall("GDI32.dll\EngComputeGlyphSet", "int", nCodePage, "int", nFirstChar, "int", cChars)
+        result := DllCall("GDI32.dll\EngComputeGlyphSet", "int", nCodePage, "int", nFirstChar, "int", cChars, "ptr")
         return result
     }
 
@@ -6407,12 +6398,12 @@ class Display {
      * @param {Integer} BytesInWideCharString Specifies the size, in bytes, of <i>WideCharString</i>. If <i>WideCharString</i> is not large enough to contain the translation, <b>EngMultiByteToWideChar</b> truncates the string, and does not report an error.
      * @param {Pointer} MultiByteString Pointer to the buffer containing the multibyte string to be translated.
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString.</i>
-     * @returns {Pointer} The <b>EngMultiByteToWideChar</b> function returns the number of bytes it converted to wide character form, if successful. Otherwise, the function returns -1.
+     * @returns {Integer} The <b>EngMultiByteToWideChar</b> function returns the number of bytes it converted to wide character form, if successful. Otherwise, the function returns -1.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engmultibytetowidechar
      * @since windows5.0
      */
     static EngMultiByteToWideChar(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
-        result := DllCall("GDI32.dll\EngMultiByteToWideChar", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString)
+        result := DllCall("GDI32.dll\EngMultiByteToWideChar", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString, "int")
         return result
     }
 
@@ -6423,12 +6414,12 @@ class Display {
      * @param {Integer} BytesInWideCharString Specifies the size, in bytes, of <i>WideCharString</i>.
      * @param {Pointer} MultiByteString Pointer to a buffer into which the translated character string is to be copied
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString</i>. If <i>MultiByteString</i> is not large enough to contain the translation, <b>EngWideCharToMultiByte</b> truncates the string, and does not report an error.
-     * @returns {Pointer} <b>EngWideCharToMultiByte</b> returns the number of bytes converted into multibyte form, if successful. Otherwise, it returns -1.
+     * @returns {Integer} <b>EngWideCharToMultiByte</b> returns the number of bytes converted into multibyte form, if successful. Otherwise, it returns -1.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engwidechartomultibyte
      * @since windows5.0
      */
     static EngWideCharToMultiByte(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
-        result := DllCall("GDI32.dll\EngWideCharToMultiByte", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString)
+        result := DllCall("GDI32.dll\EngWideCharToMultiByte", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString, "int")
         return result
     }
 
@@ -6438,13 +6429,12 @@ class Display {
      * <b>EngGetCurrentCodePage</b> returns the default code pages that are used by the system to translate from ANSI to Unicode. These values are set at boot time according to locale settings.
      * @param {Pointer<UInt16>} OemCodePage Pointer to a USHORT that receives the system's default OEM code page.
      * @param {Pointer<UInt16>} AnsiCodePage Pointer to a USHORT that receives the system's default ANSI code page.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-enggetcurrentcodepage
      * @since windows5.0
      */
     static EngGetCurrentCodePage(OemCodePage, AnsiCodePage) {
-        result := DllCall("GDI32.dll\EngGetCurrentCodePage", "ushort*", OemCodePage, "ushort*", AnsiCodePage)
-        return result
+        DllCall("GDI32.dll\EngGetCurrentCodePage", "ushort*", OemCodePage, "ushort*", AnsiCodePage)
     }
 
     /**

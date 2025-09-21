@@ -84,7 +84,7 @@ class DDHAL_RENDERMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 68, "int")

@@ -639,7 +639,7 @@ class Dialogs {
      * 
      * The length, in 
      * 					characters, of the buffer pointed to by the <i>lpszTitle</i> parameter.
-     * @returns {Pointer} Type: <b>short</b>
+     * @returns {Integer} Type: <b>short</b>
      * 
      * If the function succeeds, the return value is zero.
      * 
@@ -653,7 +653,7 @@ class Dialogs {
         param0 := param0 is String? StrPtr(param0) : param0
         Buf := Buf is String? StrPtr(Buf) : Buf
 
-        result := DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize)
+        result := DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize, "short")
         return result
     }
 
@@ -682,7 +682,7 @@ class Dialogs {
      * 
      * The length, in 
      * 					characters, of the buffer pointed to by the <i>lpszTitle</i> parameter.
-     * @returns {Pointer} Type: <b>short</b>
+     * @returns {Integer} Type: <b>short</b>
      * 
      * If the function succeeds, the return value is zero.
      * 
@@ -696,7 +696,7 @@ class Dialogs {
         param0 := param0 is String? StrPtr(param0) : param0
         Buf := Buf is String? StrPtr(Buf) : Buf
 
-        result := DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize)
+        result := DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize, "short")
         return result
     }
 
@@ -878,22 +878,28 @@ class Dialogs {
     /**
      * ASCII version of PrintDlgEx
      * @param {Pointer<PRINTDLGEXA>} pPD 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexa
      */
     static PrintDlgExA(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExA", "ptr", pPD, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Wide string version of PrintDlgEx
      * @param {Pointer<PRINTDLGEXW>} pPD 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexw
      */
     static PrintDlgExW(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExW", "ptr", pPD, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

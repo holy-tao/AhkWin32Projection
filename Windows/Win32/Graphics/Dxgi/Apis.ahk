@@ -240,13 +240,16 @@ class Dxgi {
      * @param {Pointer<Void>} ppFactory Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory">IDXGIFactory</a> object.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory
      */
     static CreateDXGIFactory(riid, ppFactory) {
         result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr", ppFactory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -280,7 +283,7 @@ class Dxgi {
      * @param {Pointer<Void>} ppFactory Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory1">IDXGIFactory1</a> object.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory1
@@ -288,6 +291,9 @@ class Dxgi {
      */
     static CreateDXGIFactory1(riid, ppFactory) {
         result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, "ptr", ppFactory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -312,7 +318,7 @@ class Dxgi {
      * @param {Pointer<Void>} ppFactory Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgifactory2">IDXGIFactory2</a> object.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK if successful; an error code otherwise. For a list of error codes, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-createdxgifactory2
@@ -320,6 +326,9 @@ class Dxgi {
      */
     static CreateDXGIFactory2(Flags, riid, ppFactory) {
         result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, "ptr", ppFactory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -330,12 +339,15 @@ class Dxgi {
      * @param {Integer} Flags Not used.
      * @param {Pointer<Guid>} riid The globally unique identifier (GUID) of the requested interface type, which can be the identifier for the <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug">IDXGIDebug</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug1">IDXGIDebug1</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgiinfoqueue">IDXGIInfoQueue</a> interfaces.
      * @param {Pointer<Void>} pDebug A pointer to a buffer that receives a pointer to the debugging interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-dxgigetdebuginterface1
      * @since windows8.1
      */
     static DXGIGetDebugInterface1(Flags, riid, pDebug) {
         result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, "ptr", pDebug, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -345,7 +357,7 @@ class Dxgi {
      * This function is graphics API-agnostic, meaning that apps running on other APIs, such as OpenGL and Vulkan, would also apply.
      * 
      * This function should be called once per process and before any device creation.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful; an error code otherwise. If this function is called after device creation, it returns <b>DXGI_ERROR_INVALID_CALL</b>. If this is not the first time that this function is called, it returns <b>DXGI_ERROR_ALREADY_EXISTS</b>. For a full list of error codes, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-dxgideclareadapterremovalsupport
@@ -353,6 +365,9 @@ class Dxgi {
      */
     static DXGIDeclareAdapterRemovalSupport() {
         result := DllCall("dxgi.dll\DXGIDeclareAdapterRemovalSupport", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -364,13 +379,16 @@ class Dxgi {
      * You should call **DXGIDisableVBlankVirtualization** once per process, before creating any swap chains or calling [IDXGIOutput::WaitForVBlank](/windows/win32/api/dxgi/nf-dxgi-idxgioutput-waitforvblank). It can't be disabled for the lifetime of the process, so any changes in v-blank timing or statistics from DRR boosting will remain observable to the process.
      * 
      * You can find more information on how Dynamic Refresh Rate works in the [Compositor clock](/windows/win32/directcomp/compositor-clock/compositor-clock) topic.
-     * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
+     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * Returns **S_OK** if successful; an error code otherwise. For a full list of error codes, see [**DXGI_ERROR**](/windows/win32/direct3ddxgi/dxgi-error).
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-dxgidisablevblankvirtualization
      */
     static DXGIDisableVBlankVirtualization() {
         result := DllCall("dxgi.dll\DXGIDisableVBlankVirtualization", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

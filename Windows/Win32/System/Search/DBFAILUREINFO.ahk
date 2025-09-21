@@ -28,7 +28,7 @@ class DBFAILUREINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     failure {
         get => NumGet(this, 16, "int")

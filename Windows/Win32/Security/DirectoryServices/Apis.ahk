@@ -138,7 +138,7 @@ class DirectoryServices {
      * @param {Pointer<PFNREADOBJECTSECURITY>} pfnReadSD A pointer to a function used to read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object. This value can be <b>NULL</b>. If <i>pfnReadSD</i> is not <b>NULL</b>, <b>DSCreateISecurityInfoObject</b>  calls the function referenced by <i>pfnReadSD</i> to retrieve the security descriptor of the object.
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD A pointer to  a function used to write the security descriptor of the object. This value can be <b>NULL</b>. If <i>pfnWriteSD</i> is not <b>NULL</b>, <b>DSCreateISecurityInfoObject</b>  calls the function referenced by <i>pfnWriteSD</i> to write the security descriptor of the object.
      * @param {Pointer} lpContext Context to pass to the functions identified by the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreateisecurityinfoobject
@@ -149,6 +149,9 @@ class DirectoryServices {
         pwszObjectClass := pwszObjectClass is String? StrPtr(pwszObjectClass) : pwszObjectClass
 
         result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", ppSI, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -248,7 +251,7 @@ class DirectoryServices {
      * @param {Pointer<PFNREADOBJECTSECURITY>} pfnReadSD A pointer to a function used to read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object. This value can be <b>NULL</b>. If <i>pfnReadSD</i> is not <b>NULL</b>, <a href="https://docs.microsoft.com/windows/desktop/api/dssec/nf-dssec-dscreateisecurityinfoobject">DSCreateISecurityInfoObject</a>  calls the function referenced by <i>pfnReadSD</i> to retrieve the security descriptor of the object.
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD A pointer to  a function used to write the security descriptor of the object. This value can be <b>NULL</b>. If <i>pfnWriteSD</i> is not <b>NULL</b>, <a href="https://docs.microsoft.com/windows/desktop/api/dssec/nf-dssec-dscreateisecurityinfoobject">DSCreateISecurityInfoObject</a>  calls the function referenced by <i>pfnWriteSD</i> to write the security descriptor of the object.
      * @param {Pointer} lpContext Context to pass to the functions identified by the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreateisecurityinfoobjectex
@@ -262,6 +265,9 @@ class DirectoryServices {
         pwszPassword := pwszPassword is String? StrPtr(pwszPassword) : pwszPassword
 
         result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, "uint", dwFlags, "ptr", ppSI, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -363,7 +369,7 @@ class DirectoryServices {
      * @param {Pointer<PFNREADOBJECTSECURITY>} pfnReadSD A pointer to a function used to read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object. This value can be <b>NULL</b>. If <i>pfnReadSD</i> is not <b>NULL</b>, <b>DSCreateSecurityPage</b>  calls the function referenced by <i>pfnReadSD</i> to retrieve the security descriptor of the object.
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD A pointer to  a function used to write the security descriptor of the object. This value can be <b>NULL</b>. If <i>pfnWriteSD</i> is not <b>NULL</b>, <b>DSCreateSecurityPage</b>  calls the function referenced by <i>pfnWriteSD</i> to write the security descriptor of the object.
      * @param {Pointer} lpContext Context to pass to the functions identified by <i>pfnReadSD</i> or <i>pfnWriteSD</i>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreatesecuritypage
@@ -374,6 +380,9 @@ class DirectoryServices {
         pwszObjectClass := pwszObjectClass is String? StrPtr(pwszObjectClass) : pwszObjectClass
 
         result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -387,7 +396,7 @@ class DirectoryServices {
      * @param {Pointer<PFNREADOBJECTSECURITY>} pfnReadSD The function for reading the object.
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD The function for writing the object.
      * @param {Pointer} lpContext The context passed into the read or write functions in the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dseditsecurity
@@ -399,6 +408,9 @@ class DirectoryServices {
         pwszCaption := pwszCaption is String? StrPtr(pwszCaption) : pwszCaption
 
         result := DllCall("DSSEC.dll\DSEditSecurity", "ptr", hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

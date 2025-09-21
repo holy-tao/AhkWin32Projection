@@ -19,7 +19,7 @@ class MPEG_STREAM_BUFFER extends Win32Struct
 
     /**
      * Specifies a status code. Use this value to check the status of the read request.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 0, "int")

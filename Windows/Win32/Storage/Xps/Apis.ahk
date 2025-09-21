@@ -464,7 +464,7 @@ class Xps {
      * @param {Integer} fwCapability 
      * @param {Pointer<Byte>} pOutput A pointer to an array. The format of the array depends on the setting of the <i>fwCapability</i> parameter. See each capability above to find out what is returned if <i>pOutput</i> is <b>NULL</b>.
      * @param {Pointer<DEVMODEA>} pDevMode A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure. If this parameter is <b>NULL</b>, <b>DeviceCapabilities</b> retrieves the current default initialization values for the specified printer driver. Otherwise, the function retrieves the values contained in the structure to which <i>pDevMode</i> points.
-     * @returns {Pointer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
+     * @returns {Integer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
      * If the function returns -1, this may mean either that the capability is not supported or there was a general function failure.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-devicecapabilitiesa
@@ -475,7 +475,7 @@ class Xps {
         pPort := pPort is String? StrPtr(pPort) : pPort
         pOutput := pOutput is String? StrPtr(pOutput) : pOutput
 
-        result := DllCall("winspool.drv\DeviceCapabilitiesA", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode)
+        result := DllCall("winspool.drv\DeviceCapabilitiesA", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode, "int")
         return result
     }
 
@@ -508,7 +508,7 @@ class Xps {
      * @param {Integer} fwCapability 
      * @param {Pointer<Char>} pOutput A pointer to an array. The format of the array depends on the setting of the <i>fwCapability</i> parameter. See each capability above to find out what is returned if <i>pOutput</i> is <b>NULL</b>.
      * @param {Pointer<DEVMODEW>} pDevMode A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure. If this parameter is <b>NULL</b>, <b>DeviceCapabilities</b> retrieves the current default initialization values for the specified printer driver. Otherwise, the function retrieves the values contained in the structure to which <i>pDevMode</i> points.
-     * @returns {Pointer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
+     * @returns {Integer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
      * If the function returns -1, this may mean either that the capability is not supported or there was a general function failure.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-devicecapabilitiesw
@@ -519,7 +519,7 @@ class Xps {
         pPort := pPort is String? StrPtr(pPort) : pPort
         pOutput := pOutput is String? StrPtr(pOutput) : pOutput
 
-        result := DllCall("winspool.drv\DeviceCapabilitiesW", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode)
+        result := DllCall("winspool.drv\DeviceCapabilitiesW", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode, "int")
         return result
     }
 
@@ -568,14 +568,14 @@ class Xps {
      * @param {Integer} cjIn The number of bytes of data pointed to by the <i>lpvInData</i> parameter. This can be 0.
      * @param {Pointer} pvIn A pointer to the input structure required for the specified escape.
      * @param {Pointer<Void>} pvOut A pointer to the structure that receives output from this escape. This parameter should be <b>NULL</b> if no data is returned.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero, except with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero, except with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
      * 
      * If the function fails, the return value is a system error code.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      * @since windows5.0
      */
     static Escape(hdc, iEscape, cjIn, pvIn, pvOut) {
-        result := DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, "ptr", pvOut)
+        result := DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, "ptr", pvOut, "int")
         return result
     }
 
@@ -819,12 +819,12 @@ class Xps {
      * @param {Pointer} lpInData A pointer to the input structure required for the specified escape. See also Remarks.
      * @param {Integer} cjOutput The number of bytes of data pointed to by the <i>lpszOutData</i> parameter.
      * @param {Pointer} lpOutData A pointer to the structure that receives output from this escape. This parameter must not be <b>NULL</b> if <b>ExtEscape</b> is called as a query function. If no data is to be returned in this structure, set <i>cbOutput</i> to 0. See also Remarks.
-     * @returns {Pointer} The return value specifies the outcome of the function. It is greater than zero if the function is successful, except for the QUERYESCSUPPORT printer escape, which checks for implementation only. The return value is zero if the escape is not implemented. A return value less than zero indicates an error.
+     * @returns {Integer} The return value specifies the outcome of the function. It is greater than zero if the function is successful, except for the QUERYESCSUPPORT printer escape, which checks for implementation only. The return value is zero if the escape is not implemented. A return value less than zero indicates an error.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extescape
      * @since windows5.0
      */
     static ExtEscape(hdc, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
-        result := DllCall("GDI32.dll\ExtEscape", "ptr", hdc, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData)
+        result := DllCall("GDI32.dll\ExtEscape", "ptr", hdc, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData, "int")
         return result
     }
 
@@ -838,14 +838,14 @@ class Xps {
      * Applications can use the value returned by <b>StartDoc</b> to retrieve or set the priority of a print job. Call the <a href="https://docs.microsoft.com/windows/desktop/printdocs/getjob">GetJob</a> or <a href="https://docs.microsoft.com/windows/desktop/printdocs/setjob">SetJob</a> function and supply this value as one of the required arguments.
      * @param {Pointer<Void>} hdc A handle to the device context for the print job.
      * @param {Pointer<DOCINFOA>} lpdi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-docinfoa">DOCINFO</a> structure containing the name of the document file and the name of the output file.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
      * 
      * If the function fails, the return value is less than or equal to zero.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-startdoca
      * @since windows5.0
      */
     static StartDocA(hdc, lpdi) {
-        result := DllCall("GDI32.dll\StartDocA", "ptr", hdc, "ptr", lpdi)
+        result := DllCall("GDI32.dll\StartDocA", "ptr", hdc, "ptr", lpdi, "int")
         return result
     }
 
@@ -859,14 +859,14 @@ class Xps {
      * Applications can use the value returned by <b>StartDoc</b> to retrieve or set the priority of a print job. Call the <a href="https://docs.microsoft.com/windows/desktop/printdocs/getjob">GetJob</a> or <a href="https://docs.microsoft.com/windows/desktop/printdocs/setjob">SetJob</a> function and supply this value as one of the required arguments.
      * @param {Pointer<Void>} hdc A handle to the device context for the print job.
      * @param {Pointer<DOCINFOW>} lpdi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-docinfow">DOCINFO</a> structure containing the name of the document file and the name of the output file.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
      * 
      * If the function fails, the return value is less than or equal to zero.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-startdocw
      * @since windows5.0
      */
     static StartDocW(hdc, lpdi) {
-        result := DllCall("GDI32.dll\StartDocW", "ptr", hdc, "ptr", lpdi)
+        result := DllCall("GDI32.dll\StartDocW", "ptr", hdc, "ptr", lpdi, "int")
         return result
     }
 
@@ -877,14 +877,14 @@ class Xps {
      * <div> </div>
      * Applications should call <b>EndDoc</b> immediately after finishing a print job.
      * @param {Pointer<Void>} hdc Handle to the device context for the print job.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enddoc
      * @since windows5.0
      */
     static EndDoc(hdc) {
-        result := DllCall("GDI32.dll\EndDoc", "ptr", hdc)
+        result := DllCall("GDI32.dll\EndDoc", "ptr", hdc, "int")
         return result
     }
 
@@ -897,14 +897,14 @@ class Xps {
      * 
      * Neither <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-endpage">EndPage</a> nor <b>StartPage</b> resets the device context attributes. Device context attributes remain constant across subsequent pages. You do not need to re-select objects and set up the mapping mode again before printing the next page; however, doing so will produce the same results and reduce code differences between versions of Windows.
      * @param {Pointer<Void>} hdc A handle to the device context for the print job.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-startpage
      * @since windows5.0
      */
     static StartPage(hdc) {
-        result := DllCall("GDI32.dll\StartPage", "ptr", hdc)
+        result := DllCall("GDI32.dll\StartPage", "ptr", hdc, "int")
         return result
     }
 
@@ -917,14 +917,14 @@ class Xps {
      * 
      * When a page in a spooled file exceeds approximately 350 MB, it may fail to print and not send an error message. For example, this can occur when printing large EMF files. The page size limit depends on many factors including the amount of virtual memory available, the amount of memory allocated by calling processes, and the amount of fragmentation in the process heap.
      * @param {Pointer<Void>} hdc A handle to the device context for the print job.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-endpage
      * @since windows5.0
      */
     static EndPage(hdc) {
-        result := DllCall("GDI32.dll\EndPage", "ptr", hdc)
+        result := DllCall("GDI32.dll\EndPage", "ptr", hdc, "int")
         return result
     }
 
@@ -937,14 +937,14 @@ class Xps {
      * 
      * If Print Manager was used to start the print job, calling <b>AbortDoc</b> erases the entire spool job, so that the printer receives nothing. If Print Manager was not used to start the print job, the data may already have been sent to the printer. In this case, the printer driver resets the printer (when possible) and ends the print job.
      * @param {Pointer<Void>} hdc Handle to the device context for the print job.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is SP_ERROR.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-abortdoc
      * @since windows5.0
      */
     static AbortDoc(hdc) {
-        result := DllCall("GDI32.dll\AbortDoc", "ptr", hdc)
+        result := DllCall("GDI32.dll\AbortDoc", "ptr", hdc, "int")
         return result
     }
 
@@ -955,14 +955,14 @@ class Xps {
      * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context for the print job.
      * @param {Pointer<ABORTPROC>} proc Pointer to the application-defined abort function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-abortproc">AbortProc</a> callback function.
-     * @returns {Pointer} If the function succeeds, the return value is greater than zero.
+     * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is SP_ERROR.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
      * @since windows5.0
      */
     static SetAbortProc(hdc, proc) {
-        result := DllCall("GDI32.dll\SetAbortProc", "ptr", hdc, "ptr", proc)
+        result := DllCall("GDI32.dll\SetAbortProc", "ptr", hdc, "ptr", proc, "int")
         return result
     }
 

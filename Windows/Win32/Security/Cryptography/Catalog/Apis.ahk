@@ -143,12 +143,12 @@ class Catalog {
     /**
      * Retrieves a CRYPTCATSTORE structure from a catalog handle.
      * @param {Pointer<Void>} hCatalog A handle to the catalog obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatopen">CryptCATOpen</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcathandlefromstore">CryptCATHandleFromStore</a> function.
-     * @returns {Pointer} A pointer to a [CRYPTCATSTORE](/windows/desktop/api/mscat/ns-mscat-cryptcatstore) structure that contains the catalog store. The caller must not free this pointer or any of its members.
+     * @returns {Pointer<CRYPTCATSTORE>} A pointer to a [CRYPTCATSTORE](/windows/desktop/api/mscat/ns-mscat-cryptcatstore) structure that contains the catalog store. The caller must not free this pointer or any of its members.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatstorefromhandle
      * @since windows5.1.2600
      */
     static CryptCATStoreFromHandle(hCatalog) {
-        result := DllCall("WINTRUST.dll\CryptCATStoreFromHandle", "ptr", hCatalog)
+        result := DllCall("WINTRUST.dll\CryptCATStoreFromHandle", "ptr", hCatalog, "ptr")
         return result
     }
 
@@ -229,12 +229,12 @@ class Catalog {
      * 
      * @param {Pointer<Void>} hCatalog 
      * @param {Pointer<Char>} pwszReferenceTag 
-     * @returns {Pointer} 
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} 
      */
     static CryptCATGetCatAttrInfo(hCatalog, pwszReferenceTag) {
         pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
-        result := DllCall("WINTRUST.dll\CryptCATGetCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag)
+        result := DllCall("WINTRUST.dll\CryptCATGetCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "ptr")
         return result
     }
 
@@ -329,7 +329,7 @@ class Catalog {
      * </table>
      * @param {Integer} cbData A value that specifies the number of bytes in the <i>pbData</i> buffer.
      * @param {Pointer<Byte>} pbData A pointer to a memory buffer that contains the attribute value.
-     * @returns {Pointer} A pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the catalog attribute. The caller must not free this pointer or any of its members.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} A pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the catalog attribute. The caller must not free this pointer or any of its members.
      * 
      * 
      * If this function returns <b>NULL</b>, additional error information can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> will return one of the following error codes.
@@ -372,7 +372,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATPutCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, "char*", pbData)
+        result := DllCall("WINTRUST.dll\CryptCATPutCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, "char*", pbData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -385,12 +385,12 @@ class Catalog {
      * Do not free the returned pointer nor any of the members pointed to by the returned pointer.
      * @param {Pointer<Void>} hCatalog Handle for the catalog whose attributes are being enumerated. This value cannot be <b>NULL</b>.
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to the previously returned pointer to  the [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure from this function or pointer to <b>NULL</b> to start the enumeration.
-     * @returns {Pointer} The return value is a pointer to the  [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the attribute information or <b>NULL</b>, if no more attributes are in the enumeration or if an error is encountered. The returned pointer is passed in as the <i>pPrevAttr</i> parameter for subsequent calls to this function.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} The return value is a pointer to the  [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the attribute information or <b>NULL</b>, if no more attributes are in the enumeration or if an error is encountered. The returned pointer is passed in as the <i>pPrevAttr</i> parameter for subsequent calls to this function.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatenumeratecatattr
      * @since windows5.1.2600
      */
     static CryptCATEnumerateCatAttr(hCatalog, pPrevAttr) {
-        result := DllCall("WINTRUST.dll\CryptCATEnumerateCatAttr", "ptr", hCatalog, "ptr", pPrevAttr)
+        result := DllCall("WINTRUST.dll\CryptCATEnumerateCatAttr", "ptr", hCatalog, "ptr", pPrevAttr, "ptr")
         return result
     }
 
@@ -400,14 +400,14 @@ class Catalog {
      * Do not free the returned pointer nor any of the members pointed to by the returned pointer.
      * @param {Pointer<Void>} hCatalog A handle to the catalog. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} pwszReferenceTag A pointer to a <b>null</b>-terminated string that represents the reference tag for the member information being retrieved.
-     * @returns {Pointer} A pointer to the [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information or <b>NULL</b>, if no information can be found.
+     * @returns {Pointer<CRYPTCATMEMBER>} A pointer to the [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information or <b>NULL</b>, if no information can be found.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatgetmemberinfo
      * @since windows5.1.2600
      */
     static CryptCATGetMemberInfo(hCatalog, pwszReferenceTag) {
         pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
-        result := DllCall("WINTRUST.dll\CryptCATGetMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag)
+        result := DllCall("WINTRUST.dll\CryptCATGetMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "ptr")
         return result
     }
 
@@ -415,12 +415,12 @@ class Catalog {
      * 
      * @param {Pointer<Void>} hCatalog 
      * @param {Pointer<Char>} pwszReferenceTag 
-     * @returns {Pointer} 
+     * @returns {Pointer<CRYPTCATMEMBER>} 
      */
     static CryptCATAllocSortedMemberInfo(hCatalog, pwszReferenceTag) {
         pwszReferenceTag := pwszReferenceTag is String? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
-        result := DllCall("WINTRUST.dll\CryptCATAllocSortedMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag)
+        result := DllCall("WINTRUST.dll\CryptCATAllocSortedMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "ptr")
         return result
     }
 
@@ -428,11 +428,10 @@ class Catalog {
      * 
      * @param {Pointer<Void>} hCatalog 
      * @param {Pointer<CRYPTCATMEMBER>} pCatMember 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static CryptCATFreeSortedMemberInfo(hCatalog, pCatMember) {
-        result := DllCall("WINTRUST.dll\CryptCATFreeSortedMemberInfo", "ptr", hCatalog, "ptr", pCatMember)
-        return result
+        DllCall("WINTRUST.dll\CryptCATFreeSortedMemberInfo", "ptr", hCatalog, "ptr", pCatMember)
     }
 
     /**
@@ -440,7 +439,7 @@ class Catalog {
      * @param {Pointer<Void>} hCatalog The handle of the catalog that contains the member to retrieve the attribute information for. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatopen">CryptCATOpen</a> function. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<CRYPTCATMEMBER>} pCatMember A pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that represents the member to retrieve the attribute information for. This can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatgetmemberinfo">CryptCATGetMemberInfo</a> function. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<Char>} pwszReferenceTag A pointer to a null-terminated Unicode string that contains the name of the attribute to retrieve the information for. This parameter is required and cannot be <b>NULL</b>.
-     * @returns {Pointer} This function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the attribute information. If the function fails, it returns <b>NULL</b>.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} This function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the attribute information. If the function fails, it returns <b>NULL</b>.
      * 
      * 
      * <div class="alert"><b>Important</b>  Do not free the returned pointer nor any of the members pointed to by the returned pointer.</div>
@@ -488,7 +487,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATGetAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag)
+        result := DllCall("WINTRUST.dll\CryptCATGetAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -504,7 +503,7 @@ class Catalog {
      * @param {Integer} dwCertVersion A value that specifies the certificate version.
      * @param {Integer} cbSIPIndirectData A value that specifies the number of bytes in the <i>pbSIPIndirectData</i> buffer.
      * @param {Pointer<Byte>} pbSIPIndirectData A pointer to  a memory buffer for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">subject interface package</a> (SIP)-indirect data.
-     * @returns {Pointer} A pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that contains the assigned member. The caller must not free this pointer or any of its members.
+     * @returns {Pointer<CRYPTCATMEMBER>} A pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that contains the assigned member. The caller must not free this pointer or any of its members.
      * 
      * 
      * If this function returns <b>NULL</b>, additional error information can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> will return one of the following error codes.
@@ -548,7 +547,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATPutMemberInfo", "ptr", hCatalog, "ptr", pwszFileName, "ptr", pwszReferenceTag, "ptr", pgSubjectType, "uint", dwCertVersion, "uint", cbSIPIndirectData, "char*", pbSIPIndirectData)
+        result := DllCall("WINTRUST.dll\CryptCATPutMemberInfo", "ptr", hCatalog, "ptr", pwszFileName, "ptr", pwszReferenceTag, "ptr", pgSubjectType, "uint", dwCertVersion, "uint", cbSIPIndirectData, "char*", pbSIPIndirectData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -647,7 +646,7 @@ class Catalog {
      * </table>
      * @param {Integer} cbData A value that specifies the number of bytes in the <i>pbData</i> buffer.
      * @param {Pointer<Byte>} pbData A pointer to a memory buffer that contains the attribute value.
-     * @returns {Pointer} Upon success, this function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the assigned attribute. The caller must not free this pointer or any of its members.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the assigned attribute. The caller must not free this pointer or any of its members.
      * 
      * 
      * If this function returns <b>NULL</b>, additional error information can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> will return one of the following error codes.
@@ -690,7 +689,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATPutAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, "char*", pbData)
+        result := DllCall("WINTRUST.dll\CryptCATPutAttrInfo", "ptr", hCatalog, "ptr", pCatMember, "ptr", pwszReferenceTag, "uint", dwAttrTypeAndAction, "uint", cbData, "char*", pbData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -703,12 +702,12 @@ class Catalog {
      * Do not free the returned pointer nor any of the members pointed to by the returned pointer.
      * @param {Pointer<Void>} hCatalog The handle of the catalog that contains the members to enumerate. This value cannot be <b>NULL</b>.
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember A pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that identifies which member of the catalog was last retrieved. If this parameter is <b>NULL</b>, this function will retrieve the first member of the catalog.
-     * @returns {Pointer} This function returns a pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that represents the next member of the catalog. If there are no more members in the catalog to enumerate, this function returns <b>NULL</b>.
+     * @returns {Pointer<CRYPTCATMEMBER>} This function returns a pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that represents the next member of the catalog. If there are no more members in the catalog to enumerate, this function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatenumeratemember
      * @since windows5.1.2600
      */
     static CryptCATEnumerateMember(hCatalog, pPrevMember) {
-        result := DllCall("WINTRUST.dll\CryptCATEnumerateMember", "ptr", hCatalog, "ptr", pPrevMember)
+        result := DllCall("WINTRUST.dll\CryptCATEnumerateMember", "ptr", hCatalog, "ptr", pPrevMember, "ptr")
         return result
     }
 
@@ -719,12 +718,12 @@ class Catalog {
      * @param {Pointer<Void>} hCatalog Handle for the catalog that contains the member identified by <i>pCatMember</i>. This value cannot be <b>NULL</b>.
      * @param {Pointer<CRYPTCATMEMBER>} pCatMember A pointer to the [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that identifies which member of the catalog is being enumerated.
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to the previously returned value from this function or pointer to <b>NULL</b> to start the enumeration.
-     * @returns {Pointer} The return value is a pointer to the  CRYPTCATATTRIBUTE structure that contains the attribute information or <b>NULL</b>, if no more attributes are in the enumeration or if an error is encountered. The returned pointer is passed in as the <i>pPrevAttr</i> parameter for subsequent calls to this function.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} The return value is a pointer to the  CRYPTCATATTRIBUTE structure that contains the attribute information or <b>NULL</b>, if no more attributes are in the enumeration or if an error is encountered. The returned pointer is passed in as the <i>pPrevAttr</i> parameter for subsequent calls to this function.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatenumerateattr
      * @since windows5.1.2600
      */
     static CryptCATEnumerateAttr(hCatalog, pCatMember, pPrevAttr) {
-        result := DllCall("WINTRUST.dll\CryptCATEnumerateAttr", "ptr", hCatalog, "ptr", pCatMember, "ptr", pPrevAttr)
+        result := DllCall("WINTRUST.dll\CryptCATEnumerateAttr", "ptr", hCatalog, "ptr", pCatMember, "ptr", pPrevAttr, "ptr")
         return result
     }
 
@@ -832,14 +831,14 @@ class Catalog {
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>The additional 	Catalog OIDs are not available.
      * @param {Pointer<Char>} pwszFilePath A pointer to a null-terminated string that contains the path of the CDF file to open.
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
-     * @returns {Pointer} Upon success, this function returns a pointer to the newly created [CRYPTCATCDF](/windows/desktop/api/mscat/ns-mscat-cryptcatcdf) structure. The <b>CryptCATCDFOpen</b> function returns a <b>NULL</b> pointer if it fails.
+     * @returns {Pointer<CRYPTCATCDF>} Upon success, this function returns a pointer to the newly created [CRYPTCATCDF](/windows/desktop/api/mscat/ns-mscat-cryptcatcdf) structure. The <b>CryptCATCDFOpen</b> function returns a <b>NULL</b> pointer if it fails.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatcdfopen
      * @since windows5.1.2600
      */
     static CryptCATCDFOpen(pwszFilePath, pfnParseError) {
         pwszFilePath := pwszFilePath is String? StrPtr(pwszFilePath) : pwszFilePath
 
-        result := DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, "ptr", pfnParseError)
+        result := DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, "ptr", pfnParseError, "ptr")
         return result
     }
 
@@ -864,12 +863,12 @@ class Catalog {
      * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [CRYPTCATCDF](/windows/desktop/api/mscat/ns-mscat-cryptcatcdf) structure.
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure for a catalog attribute in the CDF pointed to by <i>pCDF</i>.
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
-     * @returns {Pointer} Upon success, this function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure. The <b>CryptCATCDFEnumCatAttributes</b> function returns a <b>NULL</b> pointer if it fails.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure. The <b>CryptCATCDFEnumCatAttributes</b> function returns a <b>NULL</b> pointer if it fails.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatcdfenumcatattributes
      * @since windows5.1.2600
      */
     static CryptCATCDFEnumCatAttributes(pCDF, pPrevAttr, pfnParseError) {
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumCatAttributes", "ptr", pCDF, "ptr", pPrevAttr, "ptr", pfnParseError)
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumCatAttributes", "ptr", pCDF, "ptr", pPrevAttr, "ptr", pfnParseError, "ptr")
         return result
     }
 
@@ -878,10 +877,10 @@ class Catalog {
      * @param {Pointer<CRYPTCATCDF>} pCDF 
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember 
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @returns {Pointer} 
+     * @returns {Pointer<CRYPTCATMEMBER>} 
      */
     static CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", "ptr", pCDF, "ptr", pPrevMember, "ptr", pfnParseError)
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", "ptr", pCDF, "ptr", pPrevMember, "ptr", pfnParseError, "ptr")
         return result
     }
 
@@ -891,10 +890,10 @@ class Catalog {
      * @param {Pointer<CRYPTCATMEMBER>} pMember 
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @returns {Pointer} 
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} 
      */
     static CryptCATCDFEnumAttributes(pCDF, pMember, pPrevAttr, pfnParseError) {
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", "ptr", pCDF, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError)
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", "ptr", pCDF, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError, "ptr")
         return result
     }
 
@@ -1294,13 +1293,13 @@ class Catalog {
      * @param {Pointer<CRYPTCATMEMBER>} pMember A pointer to a [**CRYPTCATMEMBER**](/windows/win32/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information.
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure for a file member attribute in the CDF pointed to by *pCDF*.
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
-     * @returns {Pointer} Upon success, this function returns a pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure. The **CryptCATCDFEnumAttributesWithCDFTag** function returns a **NULL** pointer if it fails.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure. The **CryptCATCDFEnumAttributesWithCDFTag** function returns a **NULL** pointer if it fails.
      * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenumattributeswithcdftag
      */
     static CryptCATCDFEnumAttributesWithCDFTag(pCDF, pwszMemberTag, pMember, pPrevAttr, pfnParseError) {
         pwszMemberTag := pwszMemberTag is String? StrPtr(pwszMemberTag) : pwszMemberTag
 
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributesWithCDFTag", "ptr", pCDF, "ptr", pwszMemberTag, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError)
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributesWithCDFTag", "ptr", pCDF, "ptr", pwszMemberTag, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError, "ptr")
         return result
     }
 

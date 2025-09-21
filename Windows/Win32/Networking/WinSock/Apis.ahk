@@ -5700,7 +5700,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumprotocols">WSCEnumProtocols</a>, in bytes. On output, the minimum buffer size, in bytes, that can be passed to 
      * **WSCEnumProtocols** to retrieve all the requested information.
      * @param {Pointer<Int32>} lpErrno Pointer to the error code.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCEnumProtocols32** returns the number of protocols to be reported on. Otherwise, a value of SOCKET_ERROR is returned and a specific error code is available in <i>lpErrno</i>.
      * 
      * <table>
@@ -5747,7 +5747,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnumProtocols32(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCEnumProtocols32", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCEnumProtocols32", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno, "int")
         return result
     }
 
@@ -5770,7 +5770,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider. This value is stored within each 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structure.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCDeinstallProvider32** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is available in <i>lpErrno</i>.
      * 
      * <table>
@@ -5827,7 +5827,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCDeinstallProvider32(lpProviderId, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCDeinstallProvider32", "ptr", lpProviderId, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCDeinstallProvider32", "ptr", lpProviderId, "int*", lpErrno, "int")
         return result
     }
 
@@ -5868,7 +5868,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure defines a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If **WSCInstallProvider64_32** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If **WSCInstallProvider64_32** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -5948,7 +5948,7 @@ class WinSock {
     static WSCInstallProvider64_32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
         return result
     }
 
@@ -5964,7 +5964,7 @@ class WinSock {
      * @param {Pointer<Char>} lpszProviderDllPath Pointer to a buffer into which the provider DLL's path string is returned. The path is a null-terminated string and any embedded environment strings, such as %SystemRoot%, have not been expanded.
      * @param {Pointer<Int32>} lpProviderDllPathLen Size of the buffer pointed to by the <i>lpszProviderDllPath</i> parameter, in characters.
      * @param {Pointer<Int32>} lpErrno Pointer to the error code.
-     * @returns {Pointer} If 
+     * @returns {Integer} If 
      * no error occurs, **WSCGetProviderPath32** returns zero. Otherwise, it returns SOCKET_ERROR. The specific error code is available in <i>lpErrno</i>.
      * 
      * <table>
@@ -6001,7 +6001,7 @@ class WinSock {
     static WSCGetProviderPath32(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno, "int")
         return result
     }
 
@@ -6031,7 +6031,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure specifies or modifies a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCUpdateProvider32** returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code is available in <i>lpErrno</i>.
      * 
      * <table>
@@ -6090,7 +6090,7 @@ class WinSock {
     static WSCUpdateProvider32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
         return result
     }
 
@@ -6176,7 +6176,7 @@ class WinSock {
      * @param {Pointer} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCSetProviderInfo32** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, **WSCSetProviderInfo32** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If no error occurs, **WSCSetProviderInfo32** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -6243,7 +6243,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCSetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCSetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCSetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno, "int")
         return result
     }
 
@@ -6326,7 +6326,7 @@ class WinSock {
      * @param {Pointer<UIntPtr>} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter. If the Info parameter is **NULL**, then  **WSCGetProviderInfo32** returns failure and the <i>InfoSize</i> parameter will receive the size of the required buffer.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCGetProviderInfo32** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, **WSCGetProviderInfo32** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If no error occurs, **WSCGetProviderInfo32** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -6404,7 +6404,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCGetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCGetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno, "int")
         return result
     }
 
@@ -6421,7 +6421,7 @@ class WinSock {
      * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFOW</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * **WSCEnumNameSpaceProviders32**.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * **WSCEnumNameSpaceProviders32** function returns the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFOW</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -6471,7 +6471,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnumNameSpaceProviders32(lpdwBufferLength, lpnspBuffer) {
-        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
         return result
     }
 
@@ -6491,7 +6491,7 @@ class WinSock {
      * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * **WSCEnumNameSpaceProvidersEx32**.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * **WSCEnumNameSpaceProvidersEx32** function returns the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -6541,7 +6541,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnumNameSpaceProvidersEx32(lpdwBufferLength, lpnspBuffer) {
-        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
         return result
     }
 
@@ -6560,7 +6560,7 @@ class WinSock {
      * @param {Integer} dwNameSpace A descriptor that specifies the namespace supported by this provider.
      * @param {Integer} dwVersion A descriptor that specifies the version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A unique identifier for this provider. This GUID should be generated by Uuidgen.exe.
-     * @returns {Pointer} If no error occurs, the 
+     * @returns {Integer} If no error occurs, the 
      * **WSCInstallNameSpace32** function returns NO_ERROR (zero). Otherwise, it returns SOCKET_ERROR if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -6632,7 +6632,7 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("WS2_32.dll\WSCInstallNameSpace32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpace32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "int")
         return result
     }
 
@@ -6657,7 +6657,7 @@ class WinSock {
      * @param {Integer} dwVersion The version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a GUID  for the provider. This GUID should be generated by Uuidgen.exe.
      * @param {Pointer<BLOB>} lpProviderSpecific A provider-specific data blob associated with namespace entry.
-     * @returns {Pointer} If no error occurs, the 
+     * @returns {Integer} If no error occurs, the 
      * **WSCInstallNameSpaceEx32** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -6729,7 +6729,7 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("WS2_32.dll\WSCInstallNameSpaceEx32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpaceEx32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific, "int")
         return result
     }
 
@@ -6749,7 +6749,7 @@ class WinSock {
      * 
      * The caller of this function must remove any additional files or service provider–specific configuration information that is required to completely uninstall the service provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the name-space provider to be uninstalled.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCUnInstallNameSpace32** returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -6807,7 +6807,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCUnInstallNameSpace32(lpProviderId) {
-        result := DllCall("WS2_32.dll\WSCUnInstallNameSpace32", "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCUnInstallNameSpace32", "ptr", lpProviderId, "int")
         return result
     }
 
@@ -6827,7 +6827,7 @@ class WinSock {
      * For computers running on Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the namespace provider.
      * @param {Integer} fEnable A Boolean value that, if **TRUE**, the namespace provider is set to the active state. If **FALSE**, the namespace provider is disabled and will not be available for query operations or service registration.
-     * @returns {Pointer} If no error occurs, the 
+     * @returns {Integer} If no error occurs, the 
      * **WSCEnableNSProvider32** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -6885,7 +6885,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnableNSProvider32(lpProviderId, fEnable) {
-        result := DllCall("WS2_32.dll\WSCEnableNSProvider32", "ptr", lpProviderId, "int", fEnable)
+        result := DllCall("WS2_32.dll\WSCEnableNSProvider32", "ptr", lpProviderId, "int", fEnable, "int")
         return result
     }
 
@@ -6965,7 +6965,7 @@ class WinSock {
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<UInt32>} lpdwCatalogEntryId A pointer to the newly installed layered protocol entry for the transport provider in the Winsock 2 system configuration database. This was the ID used to build the protocol chain entries installed in the catalog for the LSP.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code generated by the call if the function fails.
-     * @returns {Pointer} If **WSCInstallProviderAndChains64_32** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If **WSCInstallProviderAndChains64_32** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -7058,7 +7058,7 @@ class WinSock {
         lpszProviderDllPath32 := lpszProviderDllPath32 is String? StrPtr(lpszProviderDllPath32) : lpszProviderDllPath32
         lpszLspName := lpszLspName is String? StrPtr(lpszLspName) : lpszLspName
 
-        result := DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "uint*", lpdwCatalogEntryId, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "uint*", lpdwCatalogEntryId, "int*", lpErrno, "int")
         return result
     }
 
@@ -7094,7 +7094,7 @@ class WinSock {
      * @param {Pointer<UInt32>} lpwdCatalogEntryId A pointer to an array of <b>CatalogEntryId</b> elements found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The order of the <b>CatalogEntryId</b> elements is the new priority ordering for the protocols.
      * @param {Integer} dwNumberOfEntries The number of elements in the <i>lpwdCatalogEntryId</i> array.
-     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * @returns {Integer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
      * 
      * <table>
      * <tr>
@@ -7150,7 +7150,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCWriteProviderOrder32(lpwdCatalogEntryId, dwNumberOfEntries) {
-        result := DllCall("WS2_32.dll\WSCWriteProviderOrder32", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteProviderOrder32", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries, "int")
         return result
     }
 
@@ -7186,7 +7186,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId An array of <b>NSProviderId</b> elements as found in the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structure.  The order of the <b>NSProviderId</b> elements is the new
      *       priority ordering for the namespace providers.
      * @param {Integer} dwNumberOfEntries The number of elements in the <b>NSProviderId</b> array.
-     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * @returns {Integer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
      * 
      * <table>
      * <tr>
@@ -7275,7 +7275,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCWriteNameSpaceOrder32(lpProviderId, dwNumberOfEntries) {
-        result := DllCall("WS2_32.dll\WSCWriteNameSpaceOrder32", "ptr", lpProviderId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteNameSpaceOrder32", "ptr", lpProviderId, "uint", dwNumberOfEntries, "int")
         return result
     }
 
@@ -7287,12 +7287,12 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} fd 
      * @param {Pointer<FD_SET>} param1 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-__wsafdisset
      * @since windows8.1
      */
     static __WSAFDIsSet(fd, param1) {
-        result := DllCall("WS2_32.dll\__WSAFDIsSet", "ptr", fd, "ptr", param1)
+        result := DllCall("WS2_32.dll\__WSAFDIsSet", "ptr", fd, "ptr", param1, "int")
         return result
     }
 
@@ -7555,7 +7555,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying an unbound socket.
      * @param {Pointer} name 
      * @param {Integer} namelen The length, in bytes, of the value pointed to by *addr*.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>bind</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -7694,7 +7694,7 @@ class WinSock {
     static bind(s, name, namelen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\bind", "ptr", s, "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\bind", "ptr", s, "ptr", name, "int", namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7871,7 +7871,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s A descriptor identifying the socket to close.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>closesocket</b> returns zero. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -7956,7 +7956,7 @@ class WinSock {
     static closesocket(s) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\closesocket", "ptr", s)
+        result := DllCall("WS2_32.dll\closesocket", "ptr", s, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8035,7 +8035,7 @@ class WinSock {
      * @param {Pointer} name A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to which the connection should be established.
      * @param {Integer} namelen The length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>name</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>connect</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -8307,7 +8307,7 @@ class WinSock {
     static connect(s, name, namelen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\connect", "ptr", s, "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\connect", "ptr", s, "ptr", name, "int", namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8336,7 +8336,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} cmd A command to perform on the socket <i>s</i>.
      * @param {Pointer<UInt32>} argp A pointer to a parameter for <i>cmd</i>.
-     * @returns {Pointer} Upon successful completion, the 
+     * @returns {Integer} Upon successful completion, the 
      * <b>ioctlsocket</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -8408,7 +8408,7 @@ class WinSock {
     static ioctlsocket(s, cmd, argp) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\ioctlsocket", "ptr", s, "int", cmd, "uint*", argp)
+        result := DllCall("WS2_32.dll\ioctlsocket", "ptr", s, "int", cmd, "uint*", argp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8436,7 +8436,7 @@ class WinSock {
      * @param {Pointer} name The 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that receives the address of the peer.
      * @param {Pointer<Int32>} namelen A pointer to the size, in bytes, of the <i>name</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>getpeername</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -8519,7 +8519,7 @@ class WinSock {
     static getpeername(s, name, namelen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getpeername", "ptr", s, "ptr", name, "int*", namelen)
+        result := DllCall("WS2_32.dll\getpeername", "ptr", s, "ptr", name, "int*", namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8549,7 +8549,7 @@ class WinSock {
      * @param {Pointer} name Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that receives the address (name) of the socket.
      * @param {Pointer<Int32>} namelen Size of the <i>name</i> buffer, in bytes.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>getsockname</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -8634,7 +8634,7 @@ class WinSock {
     static getsockname(s, name, namelen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getsockname", "ptr", s, "ptr", name, "int*", namelen)
+        result := DllCall("WS2_32.dll\getsockname", "ptr", s, "ptr", name, "int*", namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9087,7 +9087,7 @@ class WinSock {
      * @param {Integer} optname The socket option for which the value is to be retrieved. Example: <a href="https://docs.microsoft.com/windows/desktop/WinSock/socket-options-and-ioctls-2">SO_ACCEPTCONN</a>. The <i>optname</i> value must be a socket option defined within the specified <i>level</i>, or behavior is undefined.
      * @param {Pointer} optval A pointer to the buffer in which the value for the requested option is to be returned.
      * @param {Pointer<Int32>} optlen A pointer to the size, in bytes, of the <i>optval</i> buffer.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>getsockopt</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -9181,7 +9181,7 @@ class WinSock {
     static getsockopt(s, level, optname, optval, optlen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int*", optlen)
+        result := DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int*", optlen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9390,7 +9390,7 @@ class WinSock {
      * @param {Integer} backlog The maximum length of the queue of pending connections. If set to <b>SOMAXCONN</b>, the underlying service provider responsible for socket <i>s</i> will set the backlog to a maximum reasonable value. If set to <b>SOMAXCONN_HINT(N)</b> (where N is a number), the backlog value will be N, adjusted to be within the range (200, 65535). Note that <b>SOMAXCONN_HINT</b> can be used to set the backlog to a larger value than possible with SOMAXCONN.
      * 
      * <b>SOMAXCONN_HINT</b> is only supported by the Microsoft TCP/IP service provider. There is no standard provision to obtain the actual backlog value.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>listen</b> returns zero. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -9521,7 +9521,7 @@ class WinSock {
     static listen(s, backlog) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\listen", "ptr", s, "int", backlog)
+        result := DllCall("WS2_32.dll\listen", "ptr", s, "int", backlog, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9670,7 +9670,7 @@ class WinSock {
      * @param {Pointer} buf A pointer to the buffer to receive the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags A set of flags that influences the behavior of this function. See remarks below. See the Remarks section for details on the possible value for this parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>recv</b> returns the number of bytes received and the buffer pointed to by the <i>buf</i> parameter will contain this data received. If the connection has been gracefully closed, the return value is zero.
      * 
      *  Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
@@ -9868,7 +9868,7 @@ class WinSock {
     static recv(s, buf, len, flags) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\recv", "ptr", s, "ptr", buf, "int", len, "int", flags)
+        result := DllCall("WS2_32.dll\recv", "ptr", s, "ptr", buf, "int", len, "int", flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9942,7 +9942,7 @@ class WinSock {
      * @param {Pointer} from An optional pointer to a buffer in a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that will hold the source address upon return.
      * @param {Pointer<Int32>} fromlen An optional pointer to the size, in bytes, of the buffer pointed to by the <i>from</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>recvfrom</b> returns the number of bytes received. If the connection has been gracefully closed, the return value is zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -10129,7 +10129,7 @@ class WinSock {
     static recvfrom(s, buf, len, flags, from, fromlen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, "int*", fromlen)
+        result := DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, "int*", fromlen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10240,7 +10240,7 @@ class WinSock {
      * @param {Pointer<TIMEVAL>} timeout The maximum time for 
      * <b>select</b> to wait, provided in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-timeval">TIMEVAL</a> structure. Set the <i>timeout</i> parameter to <b>null</b> for blocking operations.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>select</b> function returns the total number of socket handles that are ready and contained in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-fd_set">fd_set</a> structures, zero if the time limit expired, or SOCKET_ERROR if an error occurred. If the return value is SOCKET_ERROR, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> can be used to retrieve a specific error code.
@@ -10336,7 +10336,7 @@ class WinSock {
     static select(nfds, readfds, writefds, exceptfds, timeout) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\select", "int", nfds, "ptr", readfds, "ptr", writefds, "ptr", exceptfds, "ptr", timeout)
+        result := DllCall("WS2_32.dll\select", "int", nfds, "ptr", readfds, "ptr", writefds, "ptr", exceptfds, "ptr", timeout, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10380,7 +10380,7 @@ class WinSock {
      * @param {Pointer} buf A pointer to a buffer containing the data to be transmitted.
      * @param {Integer} len The length, in bytes, of the data in buffer pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags 
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>send</b> returns the total number of bytes sent, which can be less than the number requested to be sent in the <i>len</i> parameter. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -10610,7 +10610,7 @@ class WinSock {
     static send(s, buf, len, flags) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\send", "ptr", s, "ptr", buf, "int", len, "int", flags)
+        result := DllCall("WS2_32.dll\send", "ptr", s, "ptr", buf, "int", len, "int", flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10662,7 +10662,7 @@ class WinSock {
      * @param {Pointer} to An optional pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the address of the target socket.
      * @param {Integer} tolen The size, in bytes, of the address pointed to by the <i>to</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>sendto</b> returns the total number of bytes sent, which can be less than the number indicated by <i>len</i>. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -10946,7 +10946,7 @@ class WinSock {
     static sendto(s, buf, len, flags, to, tolen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\sendto", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", to, "int", tolen)
+        result := DllCall("WS2_32.dll\sendto", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", to, "int", tolen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11185,7 +11185,7 @@ class WinSock {
      * @param {Integer} optname The socket option for which the value is to be set (for example, SO_BROADCAST). The <i>optname</i> parameter must be a socket option defined within the specified <i>level</i>, or behavior is undefined.
      * @param {Pointer} optval A pointer to the buffer in which the value for the requested option is specified.
      * @param {Integer} optlen The size, in bytes, of the buffer pointed to by the <i>optval</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>setsockopt</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -11301,7 +11301,7 @@ class WinSock {
     static setsockopt(s, level, optname, optval, optlen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\setsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int", optlen)
+        result := DllCall("WS2_32.dll\setsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int", optlen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11430,7 +11430,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>shutdown</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -11539,7 +11539,7 @@ class WinSock {
     static shutdown(s, how) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\shutdown", "ptr", s, "int", how)
+        result := DllCall("WS2_32.dll\shutdown", "ptr", s, "int", how, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12210,7 +12210,7 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} name A pointer to a buffer that receives the local host name.
      * @param {Integer} namelen The length, in bytes, of the buffer pointed to by the <i>name</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>gethostname</b> returns zero. Otherwise, it returns SOCKET_ERROR and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -12271,7 +12271,7 @@ class WinSock {
     static gethostname(name, namelen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\gethostname", "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\gethostname", "ptr", name, "int", namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12310,7 +12310,7 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Char>} name A pointer to a buffer that receives the local host name as a <b>null</b>-terminated Unicode string.
      * @param {Integer} namelen The length, in wide characters, of the buffer pointed to by the <i>name</i> parameter.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>GetHostNameW</b> returns zero. Otherwise, it returns <b>SOCKET_ERROR</b> and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -12362,7 +12362,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\GetHostNameW", "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\GetHostNameW", "ptr", name, "int", namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13099,7 +13099,7 @@ class WinSock {
      * @param {Integer} wVersionRequested 
      * @param {Pointer<WSADATA>} lpWSAData A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-wsadata">WSADATA</a> data structure that is to receive details of the Windows Sockets implementation.
-     * @returns {Pointer} If successful, the 
+     * @returns {Integer} If successful, the 
      * <b>WSAStartup</b> function returns zero. Otherwise, it returns one of the error codes listed below. 
      * 
      * The <b>WSAStartup</b> function directly returns the extended error code in the return value for this function. A call to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function is not needed and should  not be used.
@@ -13172,7 +13172,7 @@ class WinSock {
     static WSAStartup(wVersionRequested, lpWSAData) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAStartup", "ushort", wVersionRequested, "ptr", lpWSAData)
+        result := DllCall("WS2_32.dll\WSAStartup", "ushort", wVersionRequested, "ptr", lpWSAData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13216,7 +13216,7 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * In a multithreaded environment, 
@@ -13268,7 +13268,7 @@ class WinSock {
     static WSACleanup() {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSACleanup")
+        result := DllCall("WS2_32.dll\WSACleanup", "int")
         if(A_LastError)
             throw OSError()
 
@@ -13293,37 +13293,17 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Integer} iError Integer that specifies the error code to be returned by a subsequent 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> call.
-     * @returns {Pointer} This function generates no return values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Error code</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A successful 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsasetlasterror
      * @since windows8.1
      */
     static WSASetLastError(iError) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASetLastError", "int", iError)
+        DllCall("WS2_32.dll\WSASetLastError", "int", iError)
         if(A_LastError)
             throw OSError()
 
-        return result
     }
 
     /**
@@ -13388,14 +13368,14 @@ class WinSock {
 
     /**
      * This function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0. (WSAUnhookBlockingHook)
-     * @returns {Pointer} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaunhookblockinghook
      * @deprecated
      */
     static WSAUnhookBlockingHook() {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAUnhookBlockingHook")
+        result := DllCall("WS2_32.dll\WSAUnhookBlockingHook", "int")
         if(A_LastError)
             throw OSError()
 
@@ -13421,14 +13401,14 @@ class WinSock {
 
     /**
      * The WSACancelBlockingCall function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0.
-     * @returns {Pointer} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsacancelblockingcall
      * @deprecated
      */
     static WSACancelBlockingCall() {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSACancelBlockingCall")
+        result := DllCall("WS2_32.dll\WSACancelBlockingCall", "int")
         if(A_LastError)
             throw OSError()
 
@@ -14232,7 +14212,7 @@ class WinSock {
      * An attempt to cancel an existing asynchronous <b>WSAAsyncGetXByY</b> operation can fail with an error code of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a> for two reasons. First, the original operation has already completed and the application has dealt with the resultant message. Second, the original operation has already completed but the resultant message is still waiting in the application window queue.
      * @param {Pointer<Void>} hAsyncTaskHandle Handle that specifies the asynchronous operation to be canceled.
-     * @returns {Pointer} The value returned by 
+     * @returns {Integer} The value returned by 
      * <b>WSACancelAsyncRequest</b> is zero if the operation was successfully canceled. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -14311,7 +14291,7 @@ class WinSock {
     static WSACancelAsyncRequest(hAsyncTaskHandle) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSACancelAsyncRequest", "ptr", hAsyncTaskHandle)
+        result := DllCall("WS2_32.dll\WSACancelAsyncRequest", "ptr", hAsyncTaskHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14432,7 +14412,7 @@ class WinSock {
      * @param {Pointer<Void>} hWnd A handle that identifies the window that will receive a message when a network event occurs.
      * @param {Integer} wMsg A message to be received when a network event occurs.
      * @param {Integer} lEvent A bitmask that specifies a combination of network events in which the application is interested.
-     * @returns {Pointer} If the 
+     * @returns {Integer} If the 
      * <b>WSAAsyncSelect</b> function succeeds, the return value is zero, provided that the application's declaration of interest in the network event set was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -14609,7 +14589,7 @@ class WinSock {
     static WSAAsyncSelect(s, hWnd, wMsg, lEvent) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncSelect", "ptr", s, "ptr", hWnd, "uint", wMsg, "int", lEvent)
+        result := DllCall("WS2_32.dll\WSAAsyncSelect", "ptr", s, "ptr", hWnd, "uint", wMsg, "int", lEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15050,7 +15030,7 @@ class WinSock {
      * @param {Pointer<QOS>} lpSQOS A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structures for socket <i>s</i>, one for each direction.
      * @param {Pointer<QOS>} lpGQOS Reserved for future use with socket groups. A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structures for the socket group (if applicable). This parameter should be <b>NULL</b>.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAConnect</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. On a blocking socket, the return value indicates success or failure of the connection attempt.
      * 
@@ -15327,7 +15307,7 @@ class WinSock {
     static WSAConnect(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnect", "ptr", s, "ptr", name, "int", namelen, "ptr", lpCallerData, "ptr", lpCalleeData, "ptr", lpSQOS, "ptr", lpGQOS)
+        result := DllCall("WS2_32.dll\WSAConnect", "ptr", s, "ptr", name, "int", namelen, "ptr", lpCallerData, "ptr", lpCalleeData, "ptr", lpSQOS, "ptr", lpGQOS, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16037,7 +16017,7 @@ class WinSock {
      * @param {Integer} dwProcessId Process identifier of the target process in which the duplicated socket will be used.
      * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolInfo Pointer to a buffer, allocated by the client, that is large enough to contain a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The service provider copies the protocol information structure contents to this buffer.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSADuplicateSocket</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -16143,7 +16123,7 @@ class WinSock {
     static WSADuplicateSocketA(s, dwProcessId, lpProtocolInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSADuplicateSocketA", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo)
+        result := DllCall("WS2_32.dll\WSADuplicateSocketA", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16258,7 +16238,7 @@ class WinSock {
      * @param {Integer} dwProcessId Process identifier of the target process in which the duplicated socket will be used.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo Pointer to a buffer, allocated by the client, that is large enough to contain a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The service provider copies the protocol information structure contents to this buffer.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSADuplicateSocket</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -16363,7 +16343,7 @@ class WinSock {
     static WSADuplicateSocketW(s, dwProcessId, lpProtocolInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSADuplicateSocketW", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo)
+        result := DllCall("WS2_32.dll\WSADuplicateSocketW", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16509,7 +16489,7 @@ class WinSock {
      * @param {Pointer} hEventObject An optional handle identifying an associated event object to be reset.
      * @param {Pointer<WSANETWORKEVENTS>} lpNetworkEvents A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanetworkevents">WSANETWORKEVENTS</a> structure that is filled with a record of network events that occurred and any associated error codes.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -16591,7 +16571,7 @@ class WinSock {
     static WSAEnumNetworkEvents(s, hEventObject, lpNetworkEvents) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNetworkEvents", "ptr", s, "ptr", hEventObject, "ptr", lpNetworkEvents)
+        result := DllCall("WS2_32.dll\WSAEnumNetworkEvents", "ptr", s, "ptr", hEventObject, "ptr", lpNetworkEvents, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16628,7 +16608,7 @@ class WinSock {
      * @param {Pointer<UInt32>} lpdwBufferLength On input, number of bytes in the <i>lpProtocolBuffer</i> buffer passed to 
      * <b>WSAEnumProtocols</b>. On output, the minimum buffer size that can be passed to 
      * <b>WSAEnumProtocols</b> to retrieve all the requested information. This routine has no ability to enumerate over multiple calls; the passed-in buffer must be large enough to hold all entries in order for the routine to succeed. This reduces the complexity of the API and should not pose a problem because the number of protocols loaded on a computer is typically small.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAEnumProtocols</b> returns the number of protocols to be reported. Otherwise, a value of SOCKET_ERROR is returned and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -16713,7 +16693,7 @@ class WinSock {
     static WSAEnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAEnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16750,7 +16730,7 @@ class WinSock {
      * @param {Pointer<UInt32>} lpdwBufferLength On input, number of bytes in the <i>lpProtocolBuffer</i> buffer passed to 
      * <b>WSAEnumProtocols</b>. On output, the minimum buffer size that can be passed to 
      * <b>WSAEnumProtocols</b> to retrieve all the requested information. This routine has no ability to enumerate over multiple calls; the passed-in buffer must be large enough to hold all entries in order for the routine to succeed. This reduces the complexity of the API and should not pose a problem because the number of protocols loaded on a computer is typically small.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAEnumProtocols</b> returns the number of protocols to be reported. Otherwise, a value of SOCKET_ERROR is returned and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -16834,7 +16814,7 @@ class WinSock {
     static WSAEnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAEnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17015,7 +16995,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying the socket.
      * @param {Pointer} hEventObject A handle identifying the event object to be associated with the specified set of FD_XXX network events.
      * @param {Integer} lNetworkEvents A bitmask that specifies the combination of FD_XXX network events in which the application has interest.
-     * @returns {Pointer} The return value is zero if the application's specification of the network events and the associated event object was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the application's specification of the network events and the associated event object was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * As in the case of the 
@@ -17263,7 +17243,7 @@ class WinSock {
     static WSAEventSelect(s, hEventObject, lNetworkEvents) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEventSelect", "ptr", s, "ptr", hEventObject, "int", lNetworkEvents)
+        result := DllCall("WS2_32.dll\WSAEventSelect", "ptr", s, "ptr", hEventObject, "int", lNetworkEvents, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17519,7 +17499,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} hostlong A 32-bit number in host byte order.
      * @param {Pointer<UInt32>} lpnetlong A pointer to a 32-bit number to receive the number in network byte order.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAHtonl</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -17580,7 +17560,7 @@ class WinSock {
     static WSAHtonl(s, hostlong, lpnetlong) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAHtonl", "ptr", s, "uint", hostlong, "uint*", lpnetlong)
+        result := DllCall("WS2_32.dll\WSAHtonl", "ptr", s, "uint", hostlong, "uint*", lpnetlong, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17606,7 +17586,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} hostshort A 16-bit number in host byte order.
      * @param {Pointer<UInt16>} lpnetshort A pointer to a 16-bit buffer to receive the number in network byte order.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAHtons</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -17667,7 +17647,7 @@ class WinSock {
     static WSAHtons(s, hostshort, lpnetshort) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAHtons", "ptr", s, "ushort", hostshort, "ushort*", lpnetshort)
+        result := DllCall("WS2_32.dll\WSAHtons", "ptr", s, "ushort", hostshort, "ushort*", lpnetshort, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17727,7 +17707,7 @@ class WinSock {
      * 
      * <div class="alert"><b>Note</b>  A pointer to the completion routine called when the operation has been completed (ignored for non-overlapped sockets). See Remarks.</div>
      * <div> </div>
-     * @returns {Pointer} Upon successful completion, the 
+     * @returns {Integer} Upon successful completion, the 
      * <b>WSAIoctl</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -17843,7 +17823,7 @@ class WinSock {
     static WSAIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAIoctl", "ptr", s, "uint", dwIoControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSAIoctl", "ptr", s, "uint", dwIoControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18191,7 +18171,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} netlong A 32-bit number in network byte order.
      * @param {Pointer<UInt32>} lphostlong A pointer to a 32-bit number to receive the number in host byte order.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSANtohl</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -18252,7 +18232,7 @@ class WinSock {
     static WSANtohl(s, netlong, lphostlong) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSANtohl", "ptr", s, "uint", netlong, "uint*", lphostlong)
+        result := DllCall("WS2_32.dll\WSANtohl", "ptr", s, "uint", netlong, "uint*", lphostlong, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18278,7 +18258,7 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} netshort A 16-bit number in network byte order.
      * @param {Pointer<UInt16>} lphostshort A pointer to a 16-bit number to receive the number in host byte order.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSANtohs</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -18341,7 +18321,7 @@ class WinSock {
     static WSANtohs(s, netshort, lphostshort) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSANtohs", "ptr", s, "ushort", netshort, "ushort*", lphostshort)
+        result := DllCall("WS2_32.dll\WSANtohs", "ptr", s, "ushort", netshort, "ushort*", lphostshort, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18588,7 +18568,7 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the receive operation has been completed (ignored for nonoverlapped sockets).
-     * @returns {Pointer} If no error occurs and the receive operation has completed immediately, 
+     * @returns {Integer} If no error occurs and the receive operation has completed immediately, 
      * <b>WSARecv</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
@@ -18821,7 +18801,7 @@ class WinSock {
     static WSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSARecv", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSARecv", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18864,7 +18844,7 @@ class WinSock {
      * <div> </div>
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpInboundDisconnectData A pointer to the incoming disconnect data.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSARecvDisconnect</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -18959,7 +18939,7 @@ class WinSock {
     static WSARecvDisconnect(s, lpInboundDisconnectData) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSARecvDisconnect", "ptr", s, "ptr", lpInboundDisconnectData)
+        result := DllCall("WS2_32.dll\WSARecvDisconnect", "ptr", s, "ptr", lpInboundDisconnectData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19124,7 +19104,7 @@ class WinSock {
      * 
      * A pointer to the completion routine called when the 
      * <b>WSARecvFrom</b> operation has been completed (ignored for nonoverlapped sockets).
-     * @returns {Pointer} If no error occurs and the receive operation has completed immediately, 
+     * @returns {Integer} If no error occurs and the receive operation has completed immediately, 
      * <b>WSARecvFrom</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code <b>WSA_IO_PENDING</b> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
      * 
@@ -19288,7 +19268,7 @@ class WinSock {
     static WSARecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSARecvFrom", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpFrom, "int*", lpFromlen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSARecvFrom", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpFrom, "int*", lpFromlen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19516,7 +19496,7 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the send operation has been completed. This parameter is ignored for nonoverlapped sockets.
-     * @returns {Pointer} If no error occurs and the send operation has completed immediately, 
+     * @returns {Integer} If no error occurs and the send operation has completed immediately, 
      * <b>WSASend</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
@@ -19739,7 +19719,7 @@ class WinSock {
     static WSASend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASend", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSASend", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19872,7 +19852,7 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the send operation completes. Ignored for non-overlapped sockets.
-     * @returns {Pointer} Returns zero when successful and immediate completion occurs. When zero is returned, the specified completion routine is called when the calling thread is in the alertable state.
+     * @returns {Integer} Returns zero when successful and immediate completion occurs. When zero is returned, the specified completion routine is called when the calling thread is in the alertable state.
      * 
      * A return value of <b>SOCKET_ERROR</b>, and subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> that returns WSA_IO_PENDING, indicates the overlapped operation has successfully initiated; completion is then indicated through other means, such as through events or completion ports.
      * 
@@ -20116,7 +20096,7 @@ class WinSock {
     static WSASendMsg(Handle, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASendMsg", "ptr", Handle, "ptr", lpMsg, "uint", dwFlags, "uint*", lpNumberOfBytesSent, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSASendMsg", "ptr", Handle, "ptr", lpMsg, "uint", dwFlags, "uint*", lpNumberOfBytesSent, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20155,7 +20135,7 @@ class WinSock {
      * <div> </div>
      * @param {Pointer} s Descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpOutboundDisconnectData A pointer to the outgoing disconnect data.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSASendDisconnect</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -20250,7 +20230,7 @@ class WinSock {
     static WSASendDisconnect(s, lpOutboundDisconnectData) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASendDisconnect", "ptr", s, "ptr", lpOutboundDisconnectData)
+        result := DllCall("WS2_32.dll\WSASendDisconnect", "ptr", s, "ptr", lpOutboundDisconnectData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20409,7 +20389,7 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the send operation has been completed (ignored for nonoverlapped sockets).
-     * @returns {Pointer} If no error occurs and the send operation has completed immediately, 
+     * @returns {Integer} If no error occurs and the send operation has completed immediately, 
      * <b>WSASendTo</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
      * 
@@ -20675,7 +20655,7 @@ class WinSock {
     static WSASendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo, iTolen, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASendTo", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpTo, "int", iTolen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSASendTo", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpTo, "int", iTolen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22457,7 +22437,7 @@ class WinSock {
      * @param {Pointer<Byte>} lpszAddressString A pointer to the buffer that receives the human-readable address string.
      * @param {Pointer<UInt32>} lpdwAddressStringLength On input, this parameter specifies the length of the buffer pointed to by the <i>lpszAddressString</i> parameter. The length is represented in bytes for ANSI strings, and in WCHARs for Unicode strings. On output, this parameter returns the length of the string including the <b>NULL</b> terminator actually copied into the buffer pointed to by the <i>lpszAddressString</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAAddressToString</b> returns a value of zero. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -22521,7 +22501,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength)
+        result := DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22562,7 +22542,7 @@ class WinSock {
      * @param {Pointer<Char>} lpszAddressString A pointer to the buffer that receives the human-readable address string.
      * @param {Pointer<UInt32>} lpdwAddressStringLength On input, this parameter specifies the length of the buffer pointed to by the <i>lpszAddressString</i> parameter. The length is represented in bytes for ANSI strings, and in WCHARs for Unicode strings. On output, this parameter returns the length of the string including the <b>NULL</b> terminator actually copied into the buffer pointed to by the <i>lpszAddressString</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSAAddressToString</b> returns a value of zero. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -22625,7 +22605,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength)
+        result := DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22664,7 +22644,7 @@ class WinSock {
      * @param {Pointer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
      * @param {Pointer<Int32>} lpAddressLength A pointer to the length, in bytes, of the buffer pointed to by the <i>lpAddress</i> parameter. If the function call is successful, this parameter returns a pointer to the size of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure returned in the <i>lpAddress</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size in bytes.
-     * @returns {Pointer} The return value for 
+     * @returns {Integer} The return value for 
      * <b>WSAStringToAddress</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -22729,7 +22709,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength)
+        result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22768,7 +22748,7 @@ class WinSock {
      * @param {Pointer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
      * @param {Pointer<Int32>} lpAddressLength A pointer to the length, in bytes, of the buffer pointed to by the <i>lpAddress</i> parameter. If the function call is successful, this parameter returns a pointer to the size of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure returned in the <i>lpAddress</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size in bytes.
-     * @returns {Pointer} The return value for 
+     * @returns {Integer} The return value for 
      * <b>WSAStringToAddress</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -22832,7 +22812,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength)
+        result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23160,7 +23140,7 @@ class WinSock {
      * </table>
      * @param {Pointer<Void>} lphLookup A  handle to be used when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicenexta">WSALookupServiceNext</a> in order to start retrieving the results set.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -23234,7 +23214,7 @@ class WinSock {
     static WSALookupServiceBeginA(lpqsRestrictions, dwControlFlags, lphLookup) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceBeginA", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup)
+        result := DllCall("WS2_32.dll\WSALookupServiceBeginA", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23562,7 +23542,7 @@ class WinSock {
      * </table>
      * @param {Pointer<Void>} lphLookup A  handle to be used when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicenexta">WSALookupServiceNext</a> in order to start retrieving the results set.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -23635,7 +23615,7 @@ class WinSock {
     static WSALookupServiceBeginW(lpqsRestrictions, dwControlFlags, lphLookup) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceBeginW", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup)
+        result := DllCall("WS2_32.dll\WSALookupServiceBeginW", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23951,7 +23931,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, then it contains the minimum number of bytes to pass for the <i>lpqsResults</i> to retrieve the record.
      * @param {Pointer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> structure on return.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -24058,7 +24038,7 @@ class WinSock {
     static WSALookupServiceNextA(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceNextA", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults)
+        result := DllCall("WS2_32.dll\WSALookupServiceNextA", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24374,7 +24354,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, then it contains the minimum number of bytes to pass for the <i>lpqsResults</i> to retrieve the record.
      * @param {Pointer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> structure on return.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -24480,7 +24460,7 @@ class WinSock {
     static WSALookupServiceNextW(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceNextW", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults)
+        result := DllCall("WS2_32.dll\WSALookupServiceNextW", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24584,7 +24564,7 @@ class WinSock {
      * @param {Integer} cbOutBuffer The size, in bytes, of the output buffer.
      * @param {Pointer<UInt32>} lpcbBytesReturned A pointer to the number of bytes returned.
      * @param {Pointer<WSACOMPLETION>} lpCompletion A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsacompletion">WSACOMPLETION</a> structure, used for asynchronous processing. Set <i>lpCompletion</i> to <b>NULL</b> to force blocking (synchronous) execution.
-     * @returns {Pointer} Success returns NO_ERROR. Failure returns SOCKET_ERROR, and a specific error code can be retrieved by calling the 
+     * @returns {Integer} Success returns NO_ERROR. Failure returns SOCKET_ERROR, and a specific error code can be retrieved by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function. The following table describes the error codes.
      * 
      * <table>
@@ -24679,7 +24659,7 @@ class WinSock {
     static WSANSPIoctl(hLookup, dwControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpCompletion) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSANSPIoctl", "ptr", hLookup, "uint", dwControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpCompletion)
+        result := DllCall("WS2_32.dll\WSANSPIoctl", "ptr", hLookup, "uint", dwControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpCompletion, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24694,7 +24674,7 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Void>} hLookup Handle previously obtained by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a>.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -24743,7 +24723,7 @@ class WinSock {
     static WSALookupServiceEnd(hLookup) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceEnd", "ptr", hLookup)
+        result := DllCall("WS2_32.dll\WSALookupServiceEnd", "ptr", hLookup, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24762,7 +24742,7 @@ class WinSock {
      * 
      * See the section 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/name-resolution-data-structures-2">Service Class Data Structures</a> for a description of pertinent data structures.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -24868,7 +24848,7 @@ class WinSock {
     static WSAInstallServiceClassA(lpServiceClassInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAInstallServiceClassA", "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAInstallServiceClassA", "ptr", lpServiceClassInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24887,7 +24867,7 @@ class WinSock {
      * 
      * See the section 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/name-resolution-data-structures-2">Service Class Data Structures</a> for a description of pertinent data structures.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -24992,7 +24972,7 @@ class WinSock {
     static WSAInstallServiceClassW(lpServiceClassInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAInstallServiceClassW", "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAInstallServiceClassW", "ptr", lpServiceClassInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25002,7 +24982,7 @@ class WinSock {
     /**
      * The WSARemoveServiceClass function permanently removes the service class schema from the registry.
      * @param {Pointer<Guid>} lpServiceClassId Pointer to the GUID for the service class you want to remove.
-     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * @returns {Integer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -25088,7 +25068,7 @@ class WinSock {
     static WSARemoveServiceClass(lpServiceClassId) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSARemoveServiceClass", "ptr", lpServiceClassId)
+        result := DllCall("WS2_32.dll\WSARemoveServiceClass", "ptr", lpServiceClassId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25115,7 +25095,7 @@ class WinSock {
      * On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, this parameter specifies the minimum size, in bytes, of the buffer pointed to <i>lpServiceClassInfo</i> needed to retrieve the record.
      * @param {Pointer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
-     * @returns {Pointer} The return value is zero if the 
+     * @returns {Integer} The return value is zero if the 
      * <b>WSAGetServiceClassInfo</b> was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -25221,7 +25201,7 @@ class WinSock {
     static WSAGetServiceClassInfoA(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoA", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoA", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25248,7 +25228,7 @@ class WinSock {
      * On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, this parameter specifies the minimum size, in bytes, of the buffer pointed to <i>lpServiceClassInfo</i> needed to retrieve the record.
      * @param {Pointer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
-     * @returns {Pointer} The return value is zero if the 
+     * @returns {Integer} The return value is zero if the 
      * <b>WSAGetServiceClassInfo</b> was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -25353,7 +25333,7 @@ class WinSock {
     static WSAGetServiceClassInfoW(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoW", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoW", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25381,7 +25361,7 @@ class WinSock {
      * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProviders</b>.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>WSAEnumNameSpaceProviders</b> function returns the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -25434,7 +25414,7 @@ class WinSock {
     static WSAEnumNameSpaceProvidersA(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25462,7 +25442,7 @@ class WinSock {
      * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProviders</b>.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>WSAEnumNameSpaceProviders</b> function returns the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -25514,7 +25494,7 @@ class WinSock {
     static WSAEnumNameSpaceProvidersW(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25546,7 +25526,7 @@ class WinSock {
      * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProvidersEx</b>.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>WSAEnumNameSpaceProvidersEx</b> function returns the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -25599,7 +25579,7 @@ class WinSock {
     static WSAEnumNameSpaceProvidersExA(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25631,7 +25611,7 @@ class WinSock {
      * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProvidersEx</b>.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>WSAEnumNameSpaceProvidersEx</b> function returns the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
@@ -25683,7 +25663,7 @@ class WinSock {
     static WSAEnumNameSpaceProvidersExW(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25698,7 +25678,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class.
      * @param {Pointer} lpszServiceClassName A pointer to the service name.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the length of the buffer returned by <i>lpszServiceClassName</i>, in characters. On output, the length of the service name copied into <i>lpszServiceClassName</i>, in characters.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>WSAGetServiceClassNameByClassId</b> function returns a value of zero if successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -25804,7 +25784,7 @@ class WinSock {
     static WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25819,7 +25799,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class.
      * @param {Pointer} lpszServiceClassName A pointer to the service name.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the length of the buffer returned by <i>lpszServiceClassName</i>, in characters. On output, the length of the service name copied into <i>lpszServiceClassName</i>, in characters.
-     * @returns {Pointer} The 
+     * @returns {Integer} The 
      * <b>WSAGetServiceClassNameByClassId</b> function returns a value of zero if successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -25924,7 +25904,7 @@ class WinSock {
     static WSAGetServiceClassNameByClassIdW(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26163,7 +26143,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} The return value for 
+     * @returns {Integer} The return value for 
      * <b>WSASetService</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -26225,7 +26205,7 @@ class WinSock {
     static WSASetServiceA(lpqsRegInfo, essoperation, dwControlFlags) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASetServiceA", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags)
+        result := DllCall("WS2_32.dll\WSASetServiceA", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26464,7 +26444,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} The return value for 
+     * @returns {Integer} The return value for 
      * <b>WSASetService</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
@@ -26525,7 +26505,7 @@ class WinSock {
     static WSASetServiceW(lpqsRegInfo, essoperation, dwControlFlags) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASetServiceW", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags)
+        result := DllCall("WS2_32.dll\WSASetServiceW", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26561,7 +26541,7 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * Pointer to the completion routine called when the provider change notification is received.
-     * @returns {Pointer} If no error occurs the 
+     * @returns {Integer} If no error occurs the 
      * <b>WSAProviderConfigChange</b> returns 0. Otherwise, a value of SOCKET_ERROR is returned and a specific error code may be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion (and thus change event) will be indicated at a later time.
@@ -26634,7 +26614,7 @@ class WinSock {
     static WSAProviderConfigChange(lpNotificationHandle, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAProviderConfigChange", "ptr", lpNotificationHandle, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSAProviderConfigChange", "ptr", lpNotificationHandle, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26770,7 +26750,7 @@ class WinSock {
      * <td>Wait indefinitely.</td>
      * </tr>
      * </table>
-     * @returns {Pointer} Returns one of the following values.
+     * @returns {Integer} Returns one of the following values.
      * 			<table>
      * <tr>
      * <th>Return value</th>
@@ -26850,7 +26830,7 @@ class WinSock {
     static WSAPoll(fdArray, fds, timeout) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAPoll", "ptr", fdArray, "uint", fds, "int", timeout)
+        result := DllCall("WS2_32.dll\WSAPoll", "ptr", fdArray, "uint", fds, "int", timeout, "int")
         if(A_LastError)
             throw OSError()
 
@@ -28285,7 +28265,7 @@ class WinSock {
      * @param {Pointer} buf A pointer to the buffer to receive the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Pointer<Int32>} flags An indicator specifying whether the message is fully or partially received for datagram sockets.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <b>WSARecvEx</b> returns the number of bytes received. If the connection has been closed, it returns zero. Additionally, if a partial message was received, the MSG_PARTIAL bit is set in the <i>flags</i> parameter. If a complete message was received, MSG_PARTIAL is not set in <i>flags</i>
      * 
      * Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
@@ -28477,7 +28457,7 @@ class WinSock {
     static WSARecvEx(s, buf, len, flags) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, "int*", flags)
+        result := DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, "int*", flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29038,13 +29018,12 @@ class WinSock {
      * @param {Pointer<SOCKADDR>} RemoteSockaddr A pointer to the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that receives the remote address of the connection (the same information that would be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getpeername">getpeername</a> function). This parameter must be specified.
      * @param {Pointer<Int32>} RemoteSockaddrLength The size, in bytes, of the local address. This parameter must be specified.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mswsock/nf-mswsock-getacceptexsockaddrs
      * @since windows8.1
      */
     static GetAcceptExSockaddrs(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, LocalSockaddr, LocalSockaddrLength, RemoteSockaddr, RemoteSockaddrLength) {
-        result := DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr", LocalSockaddr, "int*", LocalSockaddrLength, "ptr", RemoteSockaddr, "int*", RemoteSockaddrLength)
-        return result
+        DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr", LocalSockaddr, "int*", LocalSockaddrLength, "ptr", RemoteSockaddr, "int*", RemoteSockaddrLength)
     }
 
     /**
@@ -29070,7 +29049,7 @@ class WinSock {
      * **WSCEnumProtocols**, in bytes. On output, the minimum buffer size, in bytes, that can be passed to 
      * **WSCEnumProtocols** to retrieve all the requested information.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCEnumProtocols** returns the number of protocols to be reported on. Otherwise, a value of SOCKET_ERROR is returned and a specific error code is available in <i>lpErrno</i>.
      * 
      * <table>
@@ -29117,7 +29096,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCEnumProtocols(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCEnumProtocols", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCEnumProtocols", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno, "int")
         return result
     }
 
@@ -29140,7 +29119,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider. This value is stored within each 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structure.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCDeinstallProvider** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is available in <i>lpErrno</i>.
      * 
      * 
@@ -29199,7 +29178,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCDeinstallProvider(lpProviderId, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCDeinstallProvider", "ptr", lpProviderId, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCDeinstallProvider", "ptr", lpProviderId, "int*", lpErrno, "int")
         return result
     }
 
@@ -29229,7 +29208,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure defines a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If **WSCInstallProvider** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If **WSCInstallProvider** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -29309,7 +29288,7 @@ class WinSock {
     static WSCInstallProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
         return result
     }
 
@@ -29323,7 +29302,7 @@ class WinSock {
      * @param {Pointer<Char>} lpszProviderDllPath A pointer to a buffer into which the provider DLL's path string is returned. The path is a null-terminated string and any embedded environment strings, such as %SystemRoot%, have not been expanded.
      * @param {Pointer<Int32>} lpProviderDllPathLen The size, in characters, of the buffer pointed to by the <i>lpszProviderDllPath</i> parameter.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCGetProviderPath** returns zero. Otherwise, it returns SOCKET_ERROR. The specific error code is available in <i>lpErrno</i>.
      * 
      * <table>
@@ -29360,7 +29339,7 @@ class WinSock {
     static WSCGetProviderPath(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno, "int")
         return result
     }
 
@@ -29387,7 +29366,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure specifies or modifies a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCUpdateProvider** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
@@ -29446,7 +29425,7 @@ class WinSock {
     static WSCUpdateProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
         return result
     }
 
@@ -29541,7 +29520,7 @@ class WinSock {
      * @param {Pointer} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCSetProviderInfo** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, **WSCSetProviderInfo** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If no error occurs, **WSCSetProviderInfo** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -29608,7 +29587,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCSetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCSetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCSetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno, "int")
         return result
     }
 
@@ -29690,7 +29669,7 @@ class WinSock {
      * @param {Pointer<UIntPtr>} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info </i> parameter. If the Info parameter is **NULL**, then  **WSCGetProviderInfo** returns failure and the <i>InfoSize</i> parameter will receive the size of the required buffer.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCGetProviderInfo** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, **WSCGetProviderInfo** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If no error occurs, **WSCGetProviderInfo** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -29768,7 +29747,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCGetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCGetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno, "int")
         return result
     }
 
@@ -29863,7 +29842,7 @@ class WinSock {
      * @param {Integer} PermittedLspCategories A DWORD value of the LSP categories which are permitted for all instances of this application. The application is identified by the combination of the values of the <i>Path</i> and <i>Extra</i> parameters.
      * @param {Pointer<UInt32>} pPrevPermLspCat A pointer to receive the previous set of permitted LSP categories which were permitted for all instances of this application. This parameter is optional can  be **NULL**.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, **WSCSetApplicationCategory** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If no error occurs, **WSCSetApplicationCategory** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -29911,7 +29890,7 @@ class WinSock {
         Path := Path is String? StrPtr(Path) : Path
         Extra := Extra is String? StrPtr(Extra) : Extra
 
-        result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, "uint*", pPrevPermLspCat, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, "uint*", pPrevPermLspCat, "int*", lpErrno, "int")
         return result
     }
 
@@ -29998,7 +29977,7 @@ class WinSock {
      * @param {Integer} ExtraLength The length, in characters, of the <i>Extra</i> parameter. This length does not include the terminating **NULL**.
      * @param {Pointer<UInt32>} pPermittedLspCategories A pointer to a DWORD value of permitted LSP categories which are permitted for all instances of this application. The application is identified by the combination of the values of the <i>Path</i> and <i>Extra</i> parameters.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {Pointer} If no error occurs, **WSCGetApplicationCategory** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * @returns {Integer} If no error occurs, **WSCGetApplicationCategory** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
      * 
      * <table>
      * <tr>
@@ -30060,7 +30039,7 @@ class WinSock {
         Path := Path is String? StrPtr(Path) : Path
         Extra := Extra is String? StrPtr(Extra) : Extra
 
-        result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint*", pPermittedLspCategories, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint*", pPermittedLspCategories, "int*", lpErrno, "int")
         return result
     }
 
@@ -30114,7 +30093,7 @@ class WinSock {
      * @param {Integer} dwError The completion status of the overlapped I/O operation whose completion is to be notified.
      * @param {Integer} cbTransferred The number of bytes transferred to or from client buffers (the direction of the transfer depends on the send or receive nature of the overlapped I/O operation whose completion is to be notified).
      * @param {Pointer<Int32>} lpErrno A pointer to the error code resulting from execution of this function.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WPUCompleteOverlappedRequest** returns zero and notifies completion of the overlapped I/O operation according to the mechanism selected by the client (signals an event found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure referenced by <i>lpOverlapped</i> and/or queues a completion status report to the completion port associated with the socket if a completion port is associated). Otherwise, 
      * **WPUCompleteOverlappedRequest** returns SOCKET_ERROR, and a specific error code is available in <i>lpErrno</i>.
@@ -30143,7 +30122,7 @@ class WinSock {
      * @since windows5.0
      */
     static WPUCompleteOverlappedRequest(s, lpOverlapped, dwError, cbTransferred, lpErrno) {
-        result := DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", "ptr", s, "ptr", lpOverlapped, "uint", dwError, "uint", cbTransferred, "int*", lpErrno)
+        result := DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", "ptr", s, "ptr", lpOverlapped, "uint", dwError, "uint", cbTransferred, "int*", lpErrno, "int")
         return result
     }
 
@@ -30160,7 +30139,7 @@ class WinSock {
      * @param {Integer} dwNameSpace The namespace supported by this provider.
      * @param {Integer} dwVersion The version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a GUID  for the provider. This GUID should be generated by Uuidgen.exe.
-     * @returns {Pointer} If no error occurs, the 
+     * @returns {Integer} If no error occurs, the 
      * **WSCInstallNameSpace** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -30232,7 +30211,7 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("WS2_32.dll\WSCInstallNameSpace", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpace", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "int")
         return result
     }
 
@@ -30253,7 +30232,7 @@ class WinSock {
      * 
      * The caller of this function must remove any additional files or service provider–specific configuration information that is required to completely uninstall the service provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the name-space provider to be uninstalled.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSCUnInstallNameSpace** returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -30311,7 +30290,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCUnInstallNameSpace(lpProviderId) {
-        result := DllCall("WS2_32.dll\WSCUnInstallNameSpace", "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCUnInstallNameSpace", "ptr", lpProviderId, "int")
         return result
     }
 
@@ -30334,7 +30313,7 @@ class WinSock {
      * @param {Integer} dwVersion The version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a GUID  for the provider. This GUID should be generated by Uuidgen.exe.
      * @param {Pointer<BLOB>} lpProviderSpecific A provider-specific data blob associated with namespace entry.
-     * @returns {Pointer} If no error occurs, the 
+     * @returns {Integer} If no error occurs, the 
      * **WSCInstallNameSpaceEx** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -30406,7 +30385,7 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("WS2_32.dll\WSCInstallNameSpaceEx", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpaceEx", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific, "int")
         return result
     }
 
@@ -30425,7 +30404,7 @@ class WinSock {
      * For computers running Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the namespace provider.
      * @param {Integer} fEnable A Boolean value that, if **TRUE**, the provider is set to the active state. If **FALSE**, the provider is disabled and will not be available for query operations or service registration.
-     * @returns {Pointer} If no error occurs, the 
+     * @returns {Integer} If no error occurs, the 
      * **WSCEnableNSProvider** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
      * 
@@ -30485,7 +30464,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCEnableNSProvider(lpProviderId, fEnable) {
-        result := DllCall("WS2_32.dll\WSCEnableNSProvider", "ptr", lpProviderId, "int", fEnable)
+        result := DllCall("WS2_32.dll\WSCEnableNSProvider", "ptr", lpProviderId, "int", fEnable, "int")
         return result
     }
 
@@ -30518,7 +30497,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> function makes a specific namespace provider no longer available for clients.
      * @param {Pointer<Guid>} puuidProviderId A pointer to the provider ID of the namespace provider to be advertised.
      * @param {Pointer<NSPV2_ROUTINE>} pNSPv2Routine A pointer to a **NSPV2_ROUTINE** structure with the namespace service provider version-2 entry points supported by the provider.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaprovidercompleteasynccall">WSAProviderCompleteAsyncCall</a> returns zero.
      * 
      * If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
@@ -30594,7 +30573,7 @@ class WinSock {
     static WSAAdvertiseProvider(puuidProviderId, pNSPv2Routine) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAdvertiseProvider", "ptr", puuidProviderId, "ptr", pNSPv2Routine)
+        result := DllCall("WS2_32.dll\WSAAdvertiseProvider", "ptr", puuidProviderId, "ptr", pNSPv2Routine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30611,7 +30590,7 @@ class WinSock {
      * 
      * In general, NSPv2 providers are implemented in processes other than the calling applications. NSPv2 providers are not activated as result of client activity. Each provider hosting application decides when to make a specific provider available or unavailable by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaadvertiseprovider">WSAAdvertiseProvider</a> and **WSAUnadvertiseProvider** functions. The client activity only results in attempts to contact the provider, when available (when the namespace provider is advertised).
      * @param {Pointer<Guid>} puuidProviderId A pointer to the provider ID of the namespace provider.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSAUnadvertiseProvider** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is available by calling <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * <table>
@@ -30637,7 +30616,7 @@ class WinSock {
     static WSAUnadvertiseProvider(puuidProviderId) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAUnadvertiseProvider", "ptr", puuidProviderId)
+        result := DllCall("WS2_32.dll\WSAUnadvertiseProvider", "ptr", puuidProviderId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30655,7 +30634,7 @@ class WinSock {
      * In general, NSPv2 providers are implemented in processes other than the calling applications. NSPv2 providers are not activated as result of client activity. Each provider hosting application decides when to make a specific provider available or unavailable by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaadvertiseprovider">WSAAdvertiseProvider</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> functions. The client activity only results in attempts to contact the provider, when available (when the namespace provider is advertised).
      * @param {Pointer<Void>} hAsyncCall The handle passed to the asynchronous call being completed. This handle is passed by the client to the namespace version-2 provider in the asynchronous function call.
      * @param {Integer} iRetCode The return code for the asynchronous call to the namespace version-2 provider.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * **WSAProviderCompleteAsyncCall** returns zero.
      * 
      * If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
@@ -30718,7 +30697,7 @@ class WinSock {
     static WSAProviderCompleteAsyncCall(hAsyncCall, iRetCode) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAProviderCompleteAsyncCall", "ptr", hAsyncCall, "int", iRetCode)
+        result := DllCall("WS2_32.dll\WSAProviderCompleteAsyncCall", "ptr", hAsyncCall, "int", iRetCode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30817,7 +30796,7 @@ class WinSock {
      * 
      * 
      * On output, the function sets this variable to the minimum buffer size needed to retrieve all of the requested information. For the function to succeed, the buffer must be at least this size.
-     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * @returns {Integer} If the function succeeds, the return value is the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures written to the buffer pointed to by <i>lpProtocolBuffer</i>.
      * 
      * If the function fails, the return value is SOCKET_ERROR(–1). To get extended error information, call 
@@ -30847,7 +30826,7 @@ class WinSock {
     static EnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\EnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
+        result := DllCall("MSWSOCK.dll\EnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30946,7 +30925,7 @@ class WinSock {
      * 
      * 
      * On output, the function sets this variable to the minimum buffer size needed to retrieve all of the requested information. For the function to succeed, the buffer must be at least this size.
-     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * @returns {Integer} If the function succeeds, the return value is the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures written to the buffer pointed to by <i>lpProtocolBuffer</i>.
      * 
      * If the function fails, the return value is SOCKET_ERROR(–1). To get extended error information, call 
@@ -30976,7 +30955,7 @@ class WinSock {
     static EnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\EnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
+        result := DllCall("MSWSOCK.dll\EnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31164,7 +31143,7 @@ class WinSock {
      * Upon output, this variable contains the total number of elements (characters) required to store the array of name strings. If this value is less than or equal to the input value of *<i>lpdwAliasBufferLength</i>, and the function is successful, this is the number of elements actually stored in the buffer. If this value is greater than the input value of *<i>lpdwAliasBufferLength</i>, the buffer was too small, and the output value of *<i>lpdwAliasBufferLength</i> is the minimal required buffer size.
      * 
      * If <i>lpAliasBuffer</i> is <b>NULL</b>, <i>lpdwAliasBufferLength</i> is meaningless and can also be <b>NULL</b>.
-     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * @returns {Integer} If the function succeeds, the return value is the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures written to the buffer pointed to by <i>lpCsaddrBuffer</i>.
      * 
      * If the function fails, the return value is SOCKET_ERROR( –1). To get extended error information, call 
@@ -31197,7 +31176,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength)
+        result := DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31385,7 +31364,7 @@ class WinSock {
      * Upon output, this variable contains the total number of elements (characters) required to store the array of name strings. If this value is less than or equal to the input value of *<i>lpdwAliasBufferLength</i>, and the function is successful, this is the number of elements actually stored in the buffer. If this value is greater than the input value of *<i>lpdwAliasBufferLength</i>, the buffer was too small, and the output value of *<i>lpdwAliasBufferLength</i> is the minimal required buffer size.
      * 
      * If <i>lpAliasBuffer</i> is <b>NULL</b>, <i>lpdwAliasBufferLength</i> is meaningless and can also be <b>NULL</b>.
-     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * @returns {Integer} If the function succeeds, the return value is the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures written to the buffer pointed to by <i>lpCsaddrBuffer</i>.
      * 
      * If the function fails, the return value is SOCKET_ERROR( –1). To get extended error information, call 
@@ -31418,7 +31397,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength)
+        result := DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31434,7 +31413,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a variable to receive a globally unique identifier (<b>GUID</b>) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several <b>GUID</b> service types and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @returns {Pointer} If the function succeeds, the return value is zero.
+     * @returns {Integer} If the function succeeds, the return value is zero.
      * 
      * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
@@ -31464,7 +31443,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetTypeByNameA", "ptr", lpServiceName, "ptr", lpServiceType)
+        result := DllCall("MSWSOCK.dll\GetTypeByNameA", "ptr", lpServiceName, "ptr", lpServiceType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31480,7 +31459,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a variable to receive a globally unique identifier (<b>GUID</b>) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several <b>GUID</b> service types and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @returns {Pointer} If the function succeeds, the return value is zero.
+     * @returns {Integer} If the function succeeds, the return value is zero.
      * 
      * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
@@ -31510,7 +31489,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetTypeByNameW", "ptr", lpServiceName, "ptr", lpServiceType)
+        result := DllCall("MSWSOCK.dll\GetTypeByNameW", "ptr", lpServiceName, "ptr", lpServiceType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31527,7 +31506,7 @@ class WinSock {
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
      * @param {Pointer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
      * @param {Integer} dwNameLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpServiceName</i>. On output, the variable contains the actual size of the service name string, in bytes.
-     * @returns {Pointer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
+     * @returns {Integer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
      * 
      * If the function fails, the return value is SOCKET_ERROR (–1). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -31537,7 +31516,7 @@ class WinSock {
     static GetNameByTypeA(lpServiceType, lpServiceName, dwNameLength) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetNameByTypeA", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
+        result := DllCall("MSWSOCK.dll\GetNameByTypeA", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31554,7 +31533,7 @@ class WinSock {
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
      * @param {Pointer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
      * @param {Integer} dwNameLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpServiceName</i>. On output, the variable contains the actual size of the service name string, in bytes.
-     * @returns {Pointer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
+     * @returns {Integer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
      * 
      * If the function fails, the return value is SOCKET_ERROR (–1). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -31564,7 +31543,7 @@ class WinSock {
     static GetNameByTypeW(lpServiceType, lpServiceName, dwNameLength) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetNameByTypeW", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
+        result := DllCall("MSWSOCK.dll\GetNameByTypeW", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31726,7 +31705,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
+     * @returns {Integer} If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can return the following extended error value.
      * 
      * <table>
@@ -31753,7 +31732,7 @@ class WinSock {
     static SetServiceA(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\SetServiceA", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags)
+        result := DllCall("MSWSOCK.dll\SetServiceA", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31915,7 +31894,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
+     * @returns {Integer} If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can return the following extended error value.
      * 
      * <table>
@@ -31942,7 +31921,7 @@ class WinSock {
     static SetServiceW(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\SetServiceW", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags)
+        result := DllCall("MSWSOCK.dll\SetServiceW", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32146,7 +32125,7 @@ class WinSock {
      * <b>NS_SERVICE_INFO</b> structures and the end of the buffer.
      * @param {Pointer<UInt32>} lpdwBufferSize A pointer to a variable that, on input, contains the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. On output, this variable contains the number of bytes required to store the requested information. If this output value is greater than the input value, the function has failed due to insufficient buffer size.
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use. Must be set to <b>NULL</b>.
-     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * @returns {Integer} If the function succeeds, the return value is the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures stored in *<i>lpBuffer</i>. Zero indicates that no structures were stored.
      * 
      * If the function fails, the return value is SOCKET_ERROR ( – 1). To get extended error information, call 
@@ -32188,7 +32167,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
+        result := DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32392,7 +32371,7 @@ class WinSock {
      * <b>NS_SERVICE_INFO</b> structures and the end of the buffer.
      * @param {Pointer<UInt32>} lpdwBufferSize A pointer to a variable that, on input, contains the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. On output, this variable contains the number of bytes required to store the requested information. If this output value is greater than the input value, the function has failed due to insufficient buffer size.
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use. Must be set to <b>NULL</b>.
-     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * @returns {Integer} If the function succeeds, the return value is the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures stored in *<i>lpBuffer</i>. Zero indicates that no structures were stored.
      * 
      * If the function fails, the return value is SOCKET_ERROR ( – 1). To get extended error information, call 
@@ -32434,7 +32413,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
+        result := DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32537,7 +32516,7 @@ class WinSock {
      * See the Remarks for more details.
      * @param {Pointer<ADDRINFOA>} ppResult A pointer to a linked list of one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structures that contains response information about the host.
-     * @returns {Pointer} Success returns zero. Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} Success returns zero. Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * 
      * Most nonzero error codes returned by the 
@@ -32728,7 +32707,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
+        result := DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32824,7 +32803,7 @@ class WinSock {
      * See the Remarks for more details.
      * @param {Pointer<ADDRINFOW>} ppResult A pointer to a linked list of one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structures that contains response information about the host.
-     * @returns {Pointer} Success returns zero. Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} Success returns zero. Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * 
      * Most nonzero error codes returned by the <b>GetAddrInfoW</b> function map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table lists these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
@@ -33012,7 +32991,7 @@ class WinSock {
         pNodeName := pNodeName is String? StrPtr(pNodeName) : pNodeName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
+        result := DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult, "int")
         return result
     }
 
@@ -33291,7 +33270,7 @@ class WinSock {
      * On Windows 8 and Windows Server 2012 whenever the <b>UNICODE</b> or <b>_UNICODE</b> macro is not defined,  this parameter is currently reserved and must be set to <b>NULL</b>. 
      * 
      * On Windows 7 and Windows Server 2008 R2 or earlier, this parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @returns {Pointer} On success,  <b>GetAddrInfoEx</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} On success,  <b>GetAddrInfoEx</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * 
      * Most nonzero error codes returned by the 
@@ -33492,7 +33471,7 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle, "int")
         return result
     }
 
@@ -33766,7 +33745,7 @@ class WinSock {
      * 
      * On Windows 7 and Windows Server 2008 R2 or earlier, this parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<Void>} lpHandle TBD
-     * @returns {Pointer} On success,  <b>GetAddrInfoEx</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} On success,  <b>GetAddrInfoEx</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * 
      * Most nonzero error codes returned by the 
@@ -33966,7 +33945,7 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle)
+        result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle, "int")
         return result
     }
 
@@ -33985,13 +33964,13 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Void>} lpHandle The handle of the asynchronous operation to cancel. This is the handle returned in the <i>lpNameHandle</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> function.
-     * @returns {Pointer} On success,  <b>GetAddrInfoExCancel</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} On success,  <b>GetAddrInfoExCancel</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexcancel
      * @since windows8.1
      */
     static GetAddrInfoExCancel(lpHandle) {
-        result := DllCall("WS2_32.dll\GetAddrInfoExCancel", "ptr", lpHandle)
+        result := DllCall("WS2_32.dll\GetAddrInfoExCancel", "ptr", lpHandle, "int")
         return result
     }
 
@@ -34006,13 +33985,13 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <b>OVERLAPPED</b> structure for the asynchronous operation.
-     * @returns {Pointer} On success,  the <b>GetAddrInfoExOverlappedResult</b> function returns <b>NO_ERROR</b> (0). When the
+     * @returns {Integer} On success,  the <b>GetAddrInfoExOverlappedResult</b> function returns <b>NO_ERROR</b> (0). When the
      *     underlying operation hasn't yet completed, the <b>GetAddrInfoExOverlappedResult</b> function  returns <b>WSAEINPROGRESS</b>. On failure, the <b>GetAddrInfoExOverlappedResult</b> function  returns <b>WSAEINVAL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexoverlappedresult
      * @since windows8.1
      */
     static GetAddrInfoExOverlappedResult(lpOverlapped) {
-        result := DllCall("WS2_32.dll\GetAddrInfoExOverlappedResult", "ptr", lpOverlapped)
+        result := DllCall("WS2_32.dll\GetAddrInfoExOverlappedResult", "ptr", lpOverlapped, "int")
         return result
     }
 
@@ -34135,7 +34114,7 @@ class WinSock {
      * @param {Pointer<OVERLAPPED>} lpOverlapped An optional pointer to an overlapped structure used for asynchronous operation. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<LPLOOKUPSERVICE_COMPLETION_ROUTINE>} lpCompletionRoutine An optional pointer to a function to be invoked upon successful completion for asynchronous operations. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<Void>} lpNameHandle An optional pointer used only for asynchronous operations.  This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @returns {Pointer} On success,  <b>SetAddrInfoEx</b> returns NO_ERROR (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} On success,  <b>SetAddrInfoEx</b> returns NO_ERROR (0). Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * 
      * <table>
@@ -34219,7 +34198,7 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle, "int")
         return result
     }
 
@@ -34342,7 +34321,7 @@ class WinSock {
      * @param {Pointer<OVERLAPPED>} lpOverlapped An optional pointer to an overlapped structure used for asynchronous operation. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<LPLOOKUPSERVICE_COMPLETION_ROUTINE>} lpCompletionRoutine An optional pointer to a function to be invoked upon successful completion for asynchronous operations. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<Void>} lpNameHandle An optional pointer used only for asynchronous operations.  This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @returns {Pointer} On success,  <b>SetAddrInfoEx</b> returns NO_ERROR (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * @returns {Integer} On success,  <b>SetAddrInfoEx</b> returns NO_ERROR (0). Failure returns a nonzero Windows Sockets error code, as found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * 
      * <table>
@@ -34425,7 +34404,7 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle, "int")
         return result
     }
 
@@ -34453,18 +34432,17 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure or linked list of 
      * <b>addrinfo</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfo</b> structure or structures is also freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfo
      * @since windows8.1
      */
     static freeaddrinfo(pAddrInfo) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\freeaddrinfo", "ptr", pAddrInfo)
+        DllCall("WS2_32.dll\freeaddrinfo", "ptr", pAddrInfo)
         if(A_LastError)
             throw OSError()
 
-        return result
     }
 
     /**
@@ -34490,13 +34468,12 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure or linked list of 
      * <b>addrinfoW</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfoW</b> structure or structures is also freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfow
      * @since windows8.1
      */
     static FreeAddrInfoW(pAddrInfo) {
-        result := DllCall("WS2_32.dll\FreeAddrInfoW", "ptr", pAddrInfo)
-        return result
+        DllCall("WS2_32.dll\FreeAddrInfoW", "ptr", pAddrInfo)
     }
 
     /**
@@ -34515,14 +34492,13 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure or linked list of 
      * <b>addrinfoex</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfoex</b> structure or structures is also freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoex
      * @deprecated
      * @since windows8.1
      */
     static FreeAddrInfoEx(pAddrInfoEx) {
-        result := DllCall("WS2_32.dll\FreeAddrInfoEx", "ptr", pAddrInfoEx)
-        return result
+        DllCall("WS2_32.dll\FreeAddrInfoEx", "ptr", pAddrInfoEx)
     }
 
     /**
@@ -34548,13 +34524,12 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure or linked list of 
      * <b>addrinfoex</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfoex</b> structure or structures is also freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoexw
      * @since windows8.1
      */
     static FreeAddrInfoExW(pAddrInfoEx) {
-        result := DllCall("WS2_32.dll\FreeAddrInfoExW", "ptr", pAddrInfoEx)
-        return result
+        DllCall("WS2_32.dll\FreeAddrInfoExW", "ptr", pAddrInfoEx)
     }
 
     /**
@@ -34583,7 +34558,7 @@ class WinSock {
      * @param {Integer} ServiceBufferSize The length, in bytes, of the buffer pointed to by the <i>serv</i> parameter. The caller must provide a buffer large enough to hold the service name, including the terminating <b>NULL</b> character.
      * @param {Integer} Flags A value used to customize processing of the 
      * <b>getnameinfo</b> function. See the Remarks section.
-     * @returns {Pointer} On success,  <b>getnameinfo</b> returns zero. Any nonzero return value indicates failure and a specific error code can be retrieved by calling 
+     * @returns {Integer} On success,  <b>getnameinfo</b> returns zero. Any nonzero return value indicates failure and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * Nonzero error codes returned by the 
@@ -34662,7 +34637,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
+        result := DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34693,7 +34668,7 @@ class WinSock {
      * @param {Integer} ServiceBufferSize The number of <b>WCHAR</b> characters in the buffer pointed to by the <i>pServiceBuffer</i> parameter. The caller must provide a buffer large enough to hold the Unicode service name, including the terminating <b>NULL</b> character.
      * @param {Integer} Flags A value used to customize processing of the 
      * <b>GetNameInfoW</b> function. See the Remarks section.
-     * @returns {Pointer} On success,  <b>GetNameInfoW</b> returns zero. Any nonzero return value indicates failure and a specific error code can be retrieved by calling 
+     * @returns {Integer} On success,  <b>GetNameInfoW</b> returns zero. Any nonzero return value indicates failure and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * Nonzero error codes returned by the 
@@ -34770,7 +34745,7 @@ class WinSock {
         pNodeBuffer := pNodeBuffer is String? StrPtr(pNodeBuffer) : pNodeBuffer
         pServiceBuffer := pServiceBuffer is String? StrPtr(pServiceBuffer) : pServiceBuffer
 
-        result := DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
+        result := DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags, "int")
         return result
     }
 
@@ -34848,7 +34823,7 @@ class WinSock {
      * When the <i>Family</i> parameter is <b>AF_INET</b>, this buffer should be large enough to hold an <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET6</b>,  this buffer should be large enough to hold an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * the <b>InetPton</b> function returns a value of 1 and the buffer pointed to by the <i>pAddrBuf</i> parameter contains the binary numeric IP address in network byte order.
      * 
      * The <b>InetPton</b> function returns a value of 0 if the <i>pAddrBuf</i> parameter points to a string that is not a valid IPv4 dotted-decimal string or a valid IPv6 address string. Otherwise, a value of -1 is returned, and a specific error code can be retrieved by calling the  
@@ -34892,7 +34867,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
+        result := DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34973,7 +34948,7 @@ class WinSock {
      * When the <i>Family</i> parameter is <b>AF_INET</b>, this buffer should be large enough to hold an <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET6</b>,  this buffer should be large enough to hold an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure.
-     * @returns {Pointer} If no error occurs, 
+     * @returns {Integer} If no error occurs, 
      * the <b>InetPton</b> function returns a value of 1 and the buffer pointed to by the <i>pAddrBuf</i> parameter contains the binary numeric IP address in network byte order.
      * 
      * The <b>InetPton</b> function returns a value of 0 if the <i>pAddrBuf</i> parameter points to a string that is not a valid IPv4 dotted-decimal string or a valid IPv6 address string. Otherwise, a value of -1 is returned, and a specific error code can be retrieved by calling the  
@@ -35015,7 +34990,7 @@ class WinSock {
     static InetPtonW(Family, pszAddrString, pAddrBuf) {
         pszAddrString := pszAddrString is String? StrPtr(pszAddrString) : pszAddrString
 
-        result := DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
+        result := DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf, "int")
         return result
     }
 
@@ -35384,7 +35359,7 @@ class WinSock {
      * @param {Integer} SecuritySettingsLen The size, in bytes, of the <i>SecuritySettings</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
      * 
      * Some possible error codes are listed below.
@@ -35456,7 +35431,7 @@ class WinSock {
     static WSASetSocketSecurity(Socket, SecuritySettings, SecuritySettingsLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", "ptr", Socket, "ptr", SecuritySettings, "uint", SecuritySettingsLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", "ptr", Socket, "ptr", SecuritySettings, "uint", SecuritySettingsLen, "ptr", Overlapped, "ptr", CompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35501,7 +35476,7 @@ class WinSock {
      * @param {Pointer<UInt32>} SecurityQueryInfoLen On input, a pointer to the size, in bytes, of the <i>SecurityQueryInfo</i> parameter.   If the buffer is too small to receive the queried information, the call will return SOCKET_ERROR, and the number of bytes needed to return the queried information will be set in the value pointed to by this parameter.  On a successful call, the number of bytes copied is returned.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
      * 
      * Some possible error codes are listed below.
@@ -35584,7 +35559,7 @@ class WinSock {
     static WSAQuerySocketSecurity(Socket, SecurityQueryTemplate, SecurityQueryTemplateLen, SecurityQueryInfo, SecurityQueryInfoLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", "ptr", Socket, "ptr", SecurityQueryTemplate, "uint", SecurityQueryTemplateLen, "ptr", SecurityQueryInfo, "uint*", SecurityQueryInfoLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", "ptr", Socket, "ptr", SecurityQueryTemplate, "uint", SecurityQueryTemplateLen, "ptr", SecurityQueryInfo, "uint*", SecurityQueryInfoLen, "ptr", Overlapped, "ptr", CompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35609,7 +35584,7 @@ class WinSock {
      * @param {Integer} PeerTargetNameLen The size, in bytes, of the <i>PeerTargetName</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
      * 
      * Some possible error codes are listed below.
@@ -35692,7 +35667,7 @@ class WinSock {
     static WSASetSocketPeerTargetName(Socket, PeerTargetName, PeerTargetNameLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", "ptr", Socket, "ptr", PeerTargetName, "uint", PeerTargetNameLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", "ptr", Socket, "ptr", PeerTargetName, "uint", PeerTargetNameLen, "ptr", Overlapped, "ptr", CompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35715,7 +35690,7 @@ class WinSock {
      * @param {Integer} PeerAddrLen The size, in bytes, of the <i>PeerAddr</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {Pointer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * @returns {Integer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
      * 
      * Some possible error codes are listed below.
@@ -35787,7 +35762,7 @@ class WinSock {
     static WSADeleteSocketPeerTargetName(Socket, PeerAddr, PeerAddrLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen, "ptr", Overlapped, "ptr", CompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35815,7 +35790,7 @@ class WinSock {
      * @param {Pointer} Socket Identifies the application socket.
      * @param {Pointer} PeerAddr The IP address of the peer to be impersonated.  For connection-oriented sockets, the connected socket uniquely identifies a peer.  In this case, this parameter is ignored.
      * @param {Integer} PeerAddrLen The size, in bytes, of the <i>PeerAddress</i> parameter.
-     * @returns {Pointer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * @returns {Integer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
      * 
      * Some possible error codes are listed below.
@@ -35876,7 +35851,7 @@ class WinSock {
     static WSAImpersonateSocketPeer(Socket, PeerAddr, PeerAddrLen) {
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSAImpersonateSocketPeer", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen)
+        result := DllCall("fwpuclnt.dll\WSAImpersonateSocketPeer", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35891,7 +35866,7 @@ class WinSock {
      *     impersonating a socket peer, no action is taken.
      * 
      * The <b>WSARevertImpersonation</b> function should be called after calling <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaimpersonatesocketpeer">WSAImpersonateSocketPeer</a> and all access checks are finished.
-     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * @returns {Integer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
      * 
      * Some possible error codes are listed below.
@@ -35919,7 +35894,7 @@ class WinSock {
     static WSARevertImpersonation() {
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSARevertImpersonation")
+        result := DllCall("fwpuclnt.dll\WSARevertImpersonation", "int")
         if(A_LastError)
             throw OSError()
 
@@ -35942,13 +35917,16 @@ class WinSock {
      * 
      * The <b>SetSocketMediaStreamingMode</b> function has no effect if the socket will not be sending or receiving packets over an 802.11 wireless adapter.
      * @param {Integer} value Indicates whether the network is to be used for transferring streaming media that requires quality of service. This ensures that sockets opened as low latency will get the right quality of service over 802.11 wireless networks.
-     * @returns {Integer} If no error occurs, 
+     * @returns {HRESULT} If no error occurs, 
      * <b>SetSocketMediaStreamingMode</b> returns S_OK. Otherwise, an error code is returned as an HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/socketapi/nf-socketapi-setsocketmediastreamingmode
      * @since windows8.0
      */
     static SetSocketMediaStreamingMode(value) {
         result := DllCall("Windows.Networking.dll\SetSocketMediaStreamingMode", "int", value, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -35982,7 +35960,7 @@ class WinSock {
      * @param {Pointer<UInt32>} lpwdCatalogEntryId A pointer to an array of <b>CatalogEntryId</b> elements found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The order of the <b>CatalogEntryId</b> elements is the new priority ordering for the protocols.
      * @param {Integer} dwNumberOfEntries The number of elements in the <i>lpwdCatalogEntryId</i> array.
-     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * @returns {Integer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
      * 
      * <table>
      * <tr>
@@ -36038,7 +36016,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCWriteProviderOrder(lpwdCatalogEntryId, dwNumberOfEntries) {
-        result := DllCall("WS2_32.dll\WSCWriteProviderOrder", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteProviderOrder", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries, "int")
         return result
     }
 
@@ -36074,7 +36052,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId An array of <b>NSProviderId</b> elements as found in the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structure.  The order of the <b>NSProviderId</b> elements is the new
      *       priority ordering for the namespace providers.
      * @param {Integer} dwNumberOfEntries The number of elements in the <b>NSProviderId</b> array.
-     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * @returns {Integer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
      * 
      * <table>
      * <tr>
@@ -36164,7 +36142,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCWriteNameSpaceOrder(lpProviderId, dwNumberOfEntries) {
-        result := DllCall("WS2_32.dll\WSCWriteNameSpaceOrder", "ptr", lpProviderId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteNameSpaceOrder", "ptr", lpProviderId, "uint", dwNumberOfEntries, "int")
         return result
     }
 

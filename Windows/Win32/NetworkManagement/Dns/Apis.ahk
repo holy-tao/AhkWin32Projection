@@ -1389,13 +1389,12 @@ class Dns {
      * Frees memory allocated for DNS records that was obtained using the DnsQuery function.
      * @param {Pointer<Void>} pData A pointer to the DNS data to be freed.
      * @param {Integer} FreeType A value that specifies the type of DNS data in <i>pData</i>. For more information and a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_free_type">DNS_FREE_TYPE</a> enumeration.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfree
      * @since windows5.1.2600
      */
     static DnsFree(pData, FreeType) {
-        result := DllCall("DNSAPI.dll\DnsFree", "ptr", pData, "int", FreeType)
-        return result
+        DllCall("DNSAPI.dll\DnsFree", "ptr", pData, "int", FreeType)
     }
 
     /**
@@ -1501,12 +1500,11 @@ class Dns {
      * @param {Pointer<DNS_CUSTOM_SERVER>} ppServers Type: \_Inout\_ **[DNS_CUSTOM_SERVER](ns-windns-dns_custom_server)\*\***
      * 
      * A pointer to an array of [DNS_CUSTOM_SERVER](ns-windns-dns_custom_server) that contains *pcServers* elements. This will be set to **NULL** after the function call.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfreecustomservers
      */
     static DnsFreeCustomServers(pcServers, ppServers) {
-        result := DllCall("DNSAPI.dll\DnsFreeCustomServers", "uint*", pcServers, "ptr", ppServers)
-        return result
+        DllCall("DNSAPI.dll\DnsFreeCustomServers", "uint*", pcServers, "ptr", ppServers)
     }
 
     /**
@@ -1680,11 +1678,10 @@ class Dns {
     /**
      * 
      * @param {Pointer<DNS_QUERY_RAW_RESULT>} queryResults 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DnsQueryRawResultFree(queryResults) {
-        result := DllCall("DNSAPI.dll\DnsQueryRawResultFree", "ptr", queryResults)
-        return result
+        DllCall("DNSAPI.dll\DnsQueryRawResultFree", "ptr", queryResults)
     }
 
     /**
@@ -1739,13 +1736,12 @@ class Dns {
     /**
      * The DnsReleaseContextHandle function releases memory used to store the credentials of a specific account.
      * @param {Pointer<Void>} hContext The credentials handle of a specific account.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsreleasecontexthandle
      * @since windows5.0
      */
     static DnsReleaseContextHandle(hContext) {
-        result := DllCall("DNSAPI.dll\DnsReleaseContextHandle", "ptr", hContext)
-        return result
+        DllCall("DNSAPI.dll\DnsReleaseContextHandle", "ptr", hContext)
     }
 
     /**
@@ -2294,15 +2290,14 @@ class Dns {
     /**
      * Frees memory allocated for the proxyName member of a DNS_PROXY_INFORMATION structure obtained using the DnsGetProxyInformation function.
      * @param {Pointer<Char>} proxyName A pointer to the <b>proxyName</b> string to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfreeproxyname
      * @since windows6.1
      */
     static DnsFreeProxyName(proxyName) {
         proxyName := proxyName is String? StrPtr(proxyName) : proxyName
 
-        result := DllCall("DNSAPI.dll\DnsFreeProxyName", "ptr", proxyName)
-        return result
+        DllCall("DNSAPI.dll\DnsFreeProxyName", "ptr", proxyName)
     }
 
     /**
@@ -2342,11 +2337,10 @@ class Dns {
     /**
      * 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO_EX>} pProxyInfoEx 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DnsConnectionFreeProxyInfoEx(pProxyInfoEx) {
-        result := DllCall("DNSAPI.dll\DnsConnectionFreeProxyInfoEx", "ptr", pProxyInfoEx)
-        return result
+        DllCall("DNSAPI.dll\DnsConnectionFreeProxyInfoEx", "ptr", pProxyInfoEx)
     }
 
     /**
@@ -2366,11 +2360,10 @@ class Dns {
     /**
      * 
      * @param {Pointer<DNS_CONNECTION_PROXY_INFO>} pProxyInfo 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DnsConnectionFreeProxyInfo(pProxyInfo) {
-        result := DllCall("DNSAPI.dll\DnsConnectionFreeProxyInfo", "ptr", pProxyInfo)
-        return result
+        DllCall("DNSAPI.dll\DnsConnectionFreeProxyInfo", "ptr", pProxyInfo)
     }
 
     /**
@@ -2416,11 +2409,10 @@ class Dns {
     /**
      * 
      * @param {Pointer<DNS_CONNECTION_PROXY_LIST>} pProxyList 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DnsConnectionFreeProxyList(pProxyList) {
-        result := DllCall("DNSAPI.dll\DnsConnectionFreeProxyList", "ptr", pProxyList)
-        return result
+        DllCall("DNSAPI.dll\DnsConnectionFreeProxyList", "ptr", pProxyList)
     }
 
     /**
@@ -2436,11 +2428,10 @@ class Dns {
     /**
      * 
      * @param {Pointer<DNS_CONNECTION_NAME_LIST>} pNameList 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DnsConnectionFreeNameList(pNameList) {
-        result := DllCall("DNSAPI.dll\DnsConnectionFreeNameList", "ptr", pNameList)
-        return result
+        DllCall("DNSAPI.dll\DnsConnectionFreeNameList", "ptr", pNameList)
     }
 
     /**
@@ -2515,13 +2506,12 @@ class Dns {
     /**
      * Used to free the resources associated with a [DNS_SERVICE_INSTANCE](../windns/ns-windns-dns_service_instance.md) structure.
      * @param {Pointer<DNS_SERVICE_INSTANCE>} pInstance A pointer to the [DNS_SERVICE_INSTANCE](ns-windns-dns_service_instance.md) structure that is to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsservicefreeinstance
      * @since windows10.0.10240
      */
     static DnsServiceFreeInstance(pInstance) {
-        result := DllCall("DNSAPI.dll\DnsServiceFreeInstance", "ptr", pInstance)
-        return result
+        DllCall("DNSAPI.dll\DnsServiceFreeInstance", "ptr", pInstance)
     }
 
     /**

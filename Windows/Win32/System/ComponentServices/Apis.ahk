@@ -78,7 +78,7 @@ class ComponentServices {
      * @param {Integer} aptType 
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface that is being requested on the default context. Typically, the caller requests IID_IObjectContext. The default context does not support all of the normal object context interfaces.
      * @param {Pointer<Void>} ppv A reference to the interface specified by riid on the default context. If the object's component is non-configured, (that is, the object's component has not been imported into a COM+ application), or if the <b>CoGetDefaultContext</b> function is called from a constructor or an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> method, this parameter is set to a <b>NULL</b> pointer.
-     * @returns {Integer} This method can return the following values.
+     * @returns {HRESULT} This method can return the following values.
      * 
      * <table>
      * <tr>
@@ -135,6 +135,9 @@ class ComponentServices {
      */
     static CoGetDefaultContext(aptType, riid, ppv) {
         result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -151,7 +154,7 @@ class ComponentServices {
      * @param {Pointer<IUnknown>} pIUnknown A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object, created from the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> class, that contains the configuration information for the services to be used within the activity created by <b>CoCreateActivity</b>.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned through the <i>ppObj</i> parameter. This parameter should always be IID_IServiceActivity so that a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iserviceactivity">IServiceActivity</a> is returned.
      * @param {Pointer<Void>} ppObj A pointer to the interface  of an activity object. The activity object is automatically created by the call to <b>CoCreateActivity</b>.
-     * @returns {Integer} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -219,6 +222,9 @@ class ComponentServices {
      */
     static CoCreateActivity(pIUnknown, riid, ppObj) {
         result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, "ptr", ppObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -237,7 +243,7 @@ class ComponentServices {
      * 
      * The <b>CoEnterServiceDomain</b> and <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coleaveservicedomain">CoLeaveServiceDomain</a> pairs can be nested.
      * @param {Pointer<IUnknown>} pConfigObject A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object, created from the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> class, that contains the configuration information for the services to be used within the enclosed code.
-     * @returns {Integer} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -305,6 +311,9 @@ class ComponentServices {
      */
     static CoEnterServiceDomain(pConfigObject) {
         result := DllCall("comsvcs.dll\CoEnterServiceDomain", "ptr", pConfigObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -324,13 +333,12 @@ class ComponentServices {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a> and <b>CoLeaveServiceDomain</b> pairs can be nested. It is up to the user to make sure that the pairs of calls are balanced so that every call to <b>CoLeaveServiceDomain</b> matches a previous call to <b>CoEnterServiceDomain</b>.
      * @param {Pointer<IUnknown>} pUnkStatus If you want to know the status of the transaction that is completed by the call, this must be a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of an object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-itransactionstatus">ITransactionStatus</a> interface. If the enclosed code did not use transactions or if you do not need to know the transaction status, this parameter should be <b>NULL</b>. This parameter is ignored if it is non-<b>NULL</b> and if no transactions were used in the service domain.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-coleaveservicedomain
      * @since windows5.1.2600
      */
     static CoLeaveServiceDomain(pUnkStatus) {
-        result := DllCall("comsvcs.dll\CoLeaveServiceDomain", "ptr", pUnkStatus)
-        return result
+        DllCall("comsvcs.dll\CoLeaveServiceDomain", "ptr", pUnkStatus)
     }
 
     /**
@@ -338,12 +346,15 @@ class ComponentServices {
      * @remarks
      * Several COM+ services, such as <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--just-in-time-activation">COM+ Just-in-Time Activation</a> and <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--events">COM+ Events</a>, support the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imanagedactivationevents">IManagedActivationEvents</a> interface. This interface provides additional code for managing serviced components (managed objects). To take advantage of this additional code, the serviced component must support the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imanagedobjectinfo">IManagedObjectInfo</a> interface. The <b>GetManagedExtensions</b> function allows you to determine the availability of this additional code in the installed version of COM+.
      * @param {Pointer<UInt32>} dwExts Indicates whether the installed version of COM+ supports managed extensions. A value of 1 indicates that it does, while a value of 0 indicates that it does not.
-     * @returns {Integer} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-getmanagedextensions
      * @since windows5.1.2600
      */
     static GetManagedExtensions(dwExts) {
         result := DllCall("comsvcs.dll\GetManagedExtensions", "uint*", dwExts, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -351,7 +362,7 @@ class ComponentServices {
      * SafeRef function
      * @param {Pointer<Guid>} rid A reference to the IID of the interface that the current object wants to pass to another object or client.
      * @param {Pointer<IUnknown>} pUnk A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the current object.
-     * @returns {Pointer} If the function succeeds, the return value is a pointer to the specified interface that can be passed outside the current object's context. Otherwise, the return value is <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the specified interface that can be passed outside the current object's context. Otherwise, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-saferef
      * @since windows5.0
      */
@@ -436,12 +447,15 @@ class ComponentServices {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-recyclesurrogate
      * @since windows5.0
      */
     static RecycleSurrogate(lReasonCode) {
         result := DllCall("comsvcs.dll\RecycleSurrogate", "int", lReasonCode, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -453,24 +467,30 @@ class ComponentServices {
      * <b>MTSCreateActivity</b> returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtsactivity">IMTSActivity</a> interface of the object that is created by the call to <b>MTSCreateActivity</b>. By using the methods of <b>IMTSActivity</b>, you determine whether the batch work is done synchronously or asynchronously. The batch work itself is implemented through the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtscall">IMTSCall</a> interface.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned by the <i>ppObj</i> parameter. This parameter should always be IID_IMTSActivity so that a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtsactivity">IMTSActivity</a> is returned.
      * @param {Pointer<Void>} ppobj A pointer to the interface of an activity object. The activity object is automatically created by the call to <b>MTSCreateActivity</b>.
-     * @returns {Integer} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-mtscreateactivity
      * @since windows5.0
      */
     static MTSCreateActivity(riid, ppobj) {
         result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, "ptr", ppobj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Retrieves the dispenser manager's IDispenserManager interface.
      * @param {Pointer<IDispenserManager>} param0 
-     * @returns {Integer} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
      * @see https://learn.microsoft.com/windows/win32/api/mtxdm/nf-mtxdm-getdispensermanager
      * @since windows5.0
      */
     static GetDispenserManager(param0) {
         result := DllCall("MTxDM.dll\GetDispenserManager", "ptr", param0, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

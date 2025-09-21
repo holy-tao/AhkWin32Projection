@@ -1679,7 +1679,7 @@ class TabletPC {
      * Creates a recognizer.
      * @param {Pointer<Guid>} pCLSID CLSID of the recognizer. This value is created in the registry when you register the recognizer.
      * @param {Pointer<Void>} phrec Handle for the recognizer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1747,13 +1747,16 @@ class TabletPC {
      */
     static CreateRecognizer(pCLSID, phrec) {
         result := DllCall("inkobjcore.dll\CreateRecognizer", "ptr", pCLSID, "ptr", phrec, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Destroys a recognizer.
      * @param {Pointer<Void>} hrec Handle to the recognizer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1810,6 +1813,9 @@ class TabletPC {
      */
     static DestroyRecognizer(hrec) {
         result := DllCall("inkobjcore.dll\DestroyRecognizer", "ptr", hrec, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1823,7 +1829,7 @@ class TabletPC {
      * The <i>awcFriendlyName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a> structure may be empty (that is, having the first element set to the null character) when you use this structure as a return value from the <b>GetRecoAttributes Function</b>. Because this is not an error, the return code for <i>awcFriendlyName</i> in <b>GetRecoAttributes Function</b> will be S_OK, and the other fields will contain data.
      * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<RECO_ATTRS>} pRecoAttrs The attributes of the recognizer. The attributes define the languages and capabilities that the recognizer supports. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a> structure.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1880,6 +1886,9 @@ class TabletPC {
      */
     static GetRecoAttributes(hrec, pRecoAttrs) {
         result := DllCall("inkobjcore.dll\GetRecoAttributes", "ptr", hrec, "ptr", pRecoAttrs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1887,7 +1896,7 @@ class TabletPC {
      * Creates a recognizer context.
      * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<Void>} phrc Pointer to the recognizer context.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1955,13 +1964,16 @@ class TabletPC {
      */
     static CreateContext(hrec, phrc) {
         result := DllCall("inkobjcore.dll\CreateContext", "ptr", hrec, "ptr", phrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Destroys a recognizer context.
      * @param {Pointer<Void>} hrc Handle to the recognizer context.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2018,6 +2030,9 @@ class TabletPC {
      */
     static DestroyContext(hrc) {
         result := DllCall("inkobjcore.dll\DestroyContext", "ptr", hrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2026,7 +2041,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<UInt32>} pPropertyCount On input, the number of GUIDs the <i>pPropertyGuid</i> buffer can hold. On output, the number of GUIDs the <i>pPropertyGuid</i> buffer contains.
      * @param {Pointer<Guid>} pPropertyGuid Array of properties the recognizer can return. The order of the array is arbitrary. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>. To determine the required size of the buffer, set <i>pPropertyGuid</i> to <b>NULL</b>; use the number of GUIDs to allocate the buffer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2094,6 +2109,9 @@ class TabletPC {
      */
     static GetResultPropertyList(hrec, pPropertyCount, pPropertyGuid) {
         result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, "uint*", pPropertyCount, "ptr", pPropertyGuid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2110,7 +2128,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<UInt32>} pcRanges On input, the number of ranges the <i>pcr</i> buffer can hold. On output, the number of ranges the <i>pcr</i> buffer contains.
      * @param {Pointer<CHARACTER_RANGE>} pcr Array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure contains a range of Unicode points that the recognizer supports. The order of the array is arbitrary. To determine the required size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2189,6 +2207,9 @@ class TabletPC {
      */
     static GetUnicodeRanges(hrec, pcRanges, pcr) {
         result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, "uint*", pcRanges, "ptr", pcr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2205,7 +2226,7 @@ class TabletPC {
      * @param {Integer} cbPacket Size, in bytes, of the <i>pPacket</i> buffer.
      * @param {Pointer<Byte>} pPacket Array of packets that contain tablet space coordinates.
      * @param {Pointer<XFORM>} pXForm Describes the transform that can be applied to ink to transform it from tablet space into ink space. A recognizer may choose to ignore this transform and implement their own ink rotation algorithms. These recognizers should still return properties calculated in the lattice data relative to this transform.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2295,6 +2316,9 @@ class TabletPC {
      */
     static AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
         result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, "char*", pPacket, "ptr", pXForm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2303,7 +2327,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Pointer<UInt32>} pcSize On input, the number of characters the <i>pwcBestResult</i> buffer can hold. On output, the number of characters the <i>pwcBestResult</i> buffer contains. If <i>pwcBestResult</i> is <b>NULL</b>, the function returns the required size of the buffer that you use to allocate the <i>pwcBestResult</i> buffer.
      * @param {Pointer<Char>} pwcBestResult Recognition result. If the buffer is too small, the function truncates the string. The string is not <b>NULL</b>-terminated. To determine the required size of the buffer, set <i>pwcBestResult</i> to <b>NULL</b>; use <i>pcSize</i> to allocate the <i>pwcBestResult</i> buffer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2397,6 +2421,9 @@ class TabletPC {
         pwcBestResult := pwcBestResult is String? StrPtr(pwcBestResult) : pwcBestResult
 
         result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, "uint*", pcSize, "ptr", pwcBestResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2407,7 +2434,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Pointer<RECO_GUIDE>} pGuide Guide to use for box or line input. Setting this parameter to <b>NULL</b> means that the context has no guide. This is the default and means the recognizer is in free input mode. For guide details, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_guide">RECO_GUIDE</a> structure.
      * @param {Integer} iIndex Index value to use for the first box or line in the context.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2486,6 +2513,9 @@ class TabletPC {
      */
     static SetGuide(hrc, pGuide, iIndex) {
         result := DllCall("inkobjcore.dll\SetGuide", "ptr", hrc, "ptr", pGuide, "uint", iIndex, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2499,7 +2529,7 @@ class TabletPC {
      * If you set the bNewStroke parameter to <b>FALSE</b> because a stroke was modified or deleted, you must also call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-resetcontext">ResetContext</a> function, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function to add the strokes from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object to the recognizer context. This is done automatically if you attach the recognizer context to the <b>InkDisp</b> object.
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Integer} bNewStroke <b>TRUE</b> if adding a new stroke. Set to <b>FALSE</b> if strokes were erased, split, merged, extracted, or deleted from the Ink object.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2556,6 +2586,9 @@ class TabletPC {
      */
     static AdviseInkChange(hrc, bNewStroke) {
         result := DllCall("inkobjcore.dll\AdviseInkChange", "ptr", hrc, "int", bNewStroke, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2569,7 +2602,7 @@ class TabletPC {
      * <div class="alert"><b>Note</b>  This function is not guaranteed to be called by all applications or operating system components, such as the Tablet PC Input Panel. Therefore, recognizers should not rely on it being called.</div>
      * <div> </div>
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2626,6 +2659,9 @@ class TabletPC {
      */
     static EndInkInput(hrc) {
         result := DllCall("inkobjcore.dll\EndInkInput", "ptr", hrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2637,7 +2673,7 @@ class TabletPC {
      * Typically an application specifies <b>FALSE</b> to process all the ink. The function does not process all the ink if you have not called the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function.
      * 
      * The function sets the <i>pbPartialProcessing</i> parameter to <b>TRUE</b> if there is enough ink left to continue processing; otherwise, <b>FALSE</b>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2715,6 +2751,9 @@ class TabletPC {
      */
     static Process(hrc, pbPartialProcessing) {
         result := DllCall("inkobjcore.dll\Process", "ptr", hrc, "int*", pbPartialProcessing, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2727,7 +2766,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Integer} cwcFactoid Number of characters in <i>pwcFactoid</i>.
      * @param {Pointer<Char>} pwcFactoid Identifies the factoid to use on the recognizer context. The string is not <b>NULL</b>-terminated.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2830,6 +2869,9 @@ class TabletPC {
         pwcFactoid := pwcFactoid is String? StrPtr(pwcFactoid) : pwcFactoid
 
         result := DllCall("inkobjcore.dll\SetFactoid", "ptr", hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2924,7 +2966,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3004,6 +3046,9 @@ class TabletPC {
      */
     static SetFlags(hrc, dwFlags) {
         result := DllCall("inkobjcore.dll\SetFlags", "ptr", hrc, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3011,7 +3056,7 @@ class TabletPC {
      * Retrieves a pointer to the lattice for the current results.
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<RECO_LATTICE>} ppLattice The recognition results.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3101,6 +3146,9 @@ class TabletPC {
      */
     static GetLatticePtr(hrc, ppLattice) {
         result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, "ptr", ppLattice, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3117,7 +3165,7 @@ class TabletPC {
      * @param {Pointer<Char>} pwcBefore Text string that comes before the text contained in the recognizer context. The string is not <b>NULL</b> terminated.
      * @param {Integer} cwcAfter Number of characters in <i>pwcAfter</i>.
      * @param {Pointer<Char>} pwcAfter Text string that comes after the text contained in the recognizer context. The string is not <b>NULL</b> -terminated.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3199,6 +3247,9 @@ class TabletPC {
         pwcAfter := pwcAfter is String? StrPtr(pwcAfter) : pwcAfter
 
         result := DllCall("inkobjcore.dll\SetTextContext", "ptr", hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3215,7 +3266,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Integer} cRanges The number of ranges in the <i>pRanges</i> buffer.
      * @param {Pointer<CHARACTER_RANGE>} pcr An array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure identifies a range of Unicode points that you want to enable in the recognizer. The order of the array is arbitrary.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3283,6 +3334,9 @@ class TabletPC {
      */
     static SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
         result := DllCall("inkobjcore.dll\SetEnabledUnicodeRanges", "ptr", hrc, "uint", cRanges, "ptr", pcr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3299,7 +3353,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Integer} wcString The count, in Unicode (wide) characters, of <i>pwcString</i>.
      * @param {Pointer<Char>} pwcString The Unicode (wide) characters to test.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3382,6 +3436,9 @@ class TabletPC {
         pwcString := pwcString is String? StrPtr(pwcString) : pwcString
 
         result := DllCall("inkobjcore.dll\IsStringSupported", "ptr", hrc, "uint", wcString, "ptr", pwcString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3395,7 +3452,7 @@ class TabletPC {
      * It is recommended that you limit the length of individual words in the wordlist to no more than 256 characters and limit memory allocation for wordlists to no more than 128 MB.
      * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Pointer<Void>} hwl Handle to recognition word list to be used.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3474,6 +3531,9 @@ class TabletPC {
      */
     static SetWordList(hrc, hwl) {
         result := DllCall("inkobjcore.dll\SetWordList", "ptr", hrc, "ptr", hwl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3482,7 +3542,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<UInt32>} pcSize A pointer to the size of the right separator.
      * @param {Pointer<Char>} pwcRightSeparator A pointer to the right separator.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getrightseparator
      * @since windows5.1.2600
      */
@@ -3490,6 +3550,9 @@ class TabletPC {
         pwcRightSeparator := pwcRightSeparator is String? StrPtr(pwcRightSeparator) : pwcRightSeparator
 
         result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcRightSeparator, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3498,7 +3561,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<UInt32>} pcSize A pointer to the size of the left separator.
      * @param {Pointer<Char>} pwcLeftSeparator A pointer to the left separator.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getleftseparator
      * @since windows5.1.2600
      */
@@ -3506,13 +3569,16 @@ class TabletPC {
         pwcLeftSeparator := pwcLeftSeparator is String? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
 
         result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcLeftSeparator, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Destroys the current word list.
      * @param {Pointer<Void>} hwl Handle to the word list.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3569,6 +3635,9 @@ class TabletPC {
      */
     static DestroyWordList(hwl) {
         result := DllCall("inkobjcore.dll\DestroyWordList", "ptr", hwl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3576,7 +3645,7 @@ class TabletPC {
      * Adds one or more words to the word list.
      * @param {Pointer<Void>} hwl Handle to the word list.
      * @param {Pointer<Char>} pwcWords Words to add to the word list. Separate words in this list with a \0 character and end the list with two \0 characters. Words that already exist in the list are not added.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3635,6 +3704,9 @@ class TabletPC {
         pwcWords := pwcWords is String? StrPtr(pwcWords) : pwcWords
 
         result := DllCall("inkobjcore.dll\AddWordsToWordList", "ptr", hwl, "ptr", pwcWords, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3643,7 +3715,7 @@ class TabletPC {
      * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<Char>} pBuffer Words to insert into the new word list. Separate words in this list with a \0 character and end the list with two \0 characters.
      * @param {Pointer<Void>} phwl Handle to the new word list.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3724,6 +3796,9 @@ class TabletPC {
         pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
 
         result := DllCall("inkobjcore.dll\MakeWordList", "ptr", hrec, "ptr", pBuffer, "ptr", phwl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3731,7 +3806,7 @@ class TabletPC {
      * Gets all recognizers.
      * @param {Pointer<Guid>} recognizerClsids Pointer to the CLSIDs of the recognizers. The CLSID value is created in the registry when you register the recognizer.
      * @param {Pointer<UInt32>} count Pointer to the number of recognizers.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3788,6 +3863,9 @@ class TabletPC {
      */
     static GetAllRecognizers(recognizerClsids, count) {
         result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr", recognizerClsids, "uint*", count, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3795,7 +3873,7 @@ class TabletPC {
      * Loads the cached attributes of a recognizer.
      * @param {Pointer<Guid>} clsid The CLSID of the recognizer. This value is created in the registry when you register the recognizer.
      * @param {Pointer<RECO_ATTRS>} pRecoAttributes Pointer to the recognizer attributes.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3852,6 +3930,9 @@ class TabletPC {
      */
     static LoadCachedAttributes(clsid, pRecoAttributes) {
         result := DllCall("inkobjcore.dll\LoadCachedAttributes", "ptr", clsid, "ptr", pRecoAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

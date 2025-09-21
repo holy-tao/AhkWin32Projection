@@ -15,7 +15,7 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
 
     /**
      * The result code of the last operation performed using this response context.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 0, "int")

@@ -60,7 +60,7 @@ class DD_SETENTRIESDATA extends Win32Struct
 
     /**
      * Specifies the location in which the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_palcb_setentries">DdSetEntries</a> callback. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">Return Values for DirectDraw</a>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 32, "int")

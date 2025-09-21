@@ -12518,7 +12518,7 @@ class Printing {
      * @param {Pointer<Byte>} pszDriverName A pointer to a constant, null-terminated string that specifies the name of the driver.
      * @param {Pointer<Byte>} pszEnvironment A pointer to a constant, null-terminated string that specifies the processor architecture (for example, Windows NT x86). This can be **NULL**.
      * @param {Integer} dwFlags This can only be 0 or IPDFP\_COPY\_ALL\_FILES. A value of 0 means that the printer driver must be added and any files in the printer driver directory that are newer than corresponding files currently in use must be copied. A value of IPDFP\_COPY\_ALL\_FILES means the printer driver and all the files in the printer driver directory must be added. The file time stamps are ignored when *dwFlags* has a value of IPDFP\_COPY\_ALL\_FILES.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/installprinterdriverfrompackage
@@ -12530,6 +12530,9 @@ class Printing {
         pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\InstallPrinterDriverFromPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12553,7 +12556,7 @@ class Printing {
      * @param {Pointer<Char>} pszDriverName A pointer to a constant, null-terminated string that specifies the name of the driver.
      * @param {Pointer<Char>} pszEnvironment A pointer to a constant, null-terminated string that specifies the processor architecture (for example, Windows NT x86). This can be **NULL**.
      * @param {Integer} dwFlags This can only be 0 or IPDFP\_COPY\_ALL\_FILES. A value of 0 means that the printer driver must be added and any files in the printer driver directory that are newer than corresponding files currently in use must be copied. A value of IPDFP\_COPY\_ALL\_FILES means the printer driver and all the files in the printer driver directory must be added. The file time stamps are ignored when *dwFlags* has a value of IPDFP\_COPY\_ALL\_FILES.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/installprinterdriverfrompackage
@@ -12565,6 +12568,9 @@ class Printing {
         pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\InstallPrinterDriverFromPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12596,7 +12602,7 @@ class Printing {
      * @param {Pointer<Void>} hwnd A handle to the copying user interface.
      * @param {Pointer<Byte>} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<UInt32>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
-     * @returns {Integer} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
@@ -12608,6 +12614,9 @@ class Printing {
         pszDestInfPath := pszDestInfPath is String? StrPtr(pszDestInfPath) : pszDestInfPath
 
         result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, "uint*", pcchDestInfPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12639,7 +12648,7 @@ class Printing {
      * @param {Pointer<Void>} hwnd A handle to the copying user interface.
      * @param {Pointer<Char>} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<UInt32>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
-     * @returns {Integer} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
@@ -12651,6 +12660,9 @@ class Printing {
         pszDestInfPath := pszDestInfPath is String? StrPtr(pszDestInfPath) : pszDestInfPath
 
         result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, "uint*", pcchDestInfPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12663,7 +12675,7 @@ class Printing {
      * @param {Pointer<Byte>} pszzCoreDriverDependencies A pointer to a null-terminated multi-string that specifies the GUIDs of the core printer drivers.
      * @param {Integer} cCorePrinterDrivers The number of strings in *pszzCoreDriverDependencies*.
      * @param {Pointer<CORE_PRINTER_DRIVERA>} pCorePrinterDrivers A pointer to an array of one or more [**CORE\_PRINTER\_DRIVER**](core-printer-driver.md) structures.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/getcoreprinterdrivers
@@ -12674,6 +12686,9 @@ class Printing {
         pszzCoreDriverDependencies := pszzCoreDriverDependencies is String? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
 
         result := DllCall("winspool.drv\GetCorePrinterDriversA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12686,7 +12701,7 @@ class Printing {
      * @param {Pointer<Char>} pszzCoreDriverDependencies A pointer to a null-terminated multi-string that specifies the GUIDs of the core printer drivers.
      * @param {Integer} cCorePrinterDrivers The number of strings in *pszzCoreDriverDependencies*.
      * @param {Pointer<CORE_PRINTER_DRIVERW>} pCorePrinterDrivers A pointer to an array of one or more [**CORE\_PRINTER\_DRIVER**](core-printer-driver.md) structures.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/getcoreprinterdrivers
@@ -12697,6 +12712,9 @@ class Printing {
         pszzCoreDriverDependencies := pszzCoreDriverDependencies is String? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
 
         result := DllCall("winspool.drv\GetCorePrinterDriversW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12711,7 +12729,7 @@ class Printing {
      * @param {Pointer} ftDriverDate The date of the core printer driver.
      * @param {Integer} dwlDriverVersion The version of the core printer driver.
      * @param {Pointer<Int32>} pbDriverInstalled A pointer to **TRUE** if the driver, or a newer version, is installed, **FALSE** otherwise.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
@@ -12721,6 +12739,9 @@ class Printing {
         pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", pbDriverInstalled, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12735,7 +12756,7 @@ class Printing {
      * @param {Pointer} ftDriverDate The date of the core printer driver.
      * @param {Integer} dwlDriverVersion The version of the core printer driver.
      * @param {Pointer<Int32>} pbDriverInstalled A pointer to **TRUE** if the driver, or a newer version, is installed, **FALSE** otherwise.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
@@ -12745,6 +12766,9 @@ class Printing {
         pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", pbDriverInstalled, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12766,7 +12790,7 @@ class Printing {
      * @param {Pointer<Byte>} pszDriverPackageCab A pointer to a null-terminated string that specifies the path to the cabinet file for the driver package. This can be **NULL**. See Remarks.
      * @param {Integer} cchDriverPackageCab The size, in characters, of the *pszDriverPackageCab* buffer. This can be **NULL**.
      * @param {Pointer<UInt32>} pcchRequiredSize A pointer to the required size of the *pszDriverPackageCab* buffer.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
@@ -12779,6 +12803,9 @@ class Printing {
         pszDriverPackageCab := pszDriverPackageCab is String? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
         result := DllCall("winspool.drv\GetPrinterDriverPackagePathA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", pcchRequiredSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12800,7 +12827,7 @@ class Printing {
      * @param {Pointer<Char>} pszDriverPackageCab A pointer to a null-terminated string that specifies the path to the cabinet file for the driver package. This can be **NULL**. See Remarks.
      * @param {Integer} cchDriverPackageCab The size, in characters, of the *pszDriverPackageCab* buffer. This can be **NULL**.
      * @param {Pointer<UInt32>} pcchRequiredSize A pointer to the required size of the *pszDriverPackageCab* buffer.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
@@ -12813,6 +12840,9 @@ class Printing {
         pszDriverPackageCab := pszDriverPackageCab is String? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
         result := DllCall("winspool.drv\GetPrinterDriverPackagePathW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", pcchRequiredSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12832,7 +12862,7 @@ class Printing {
      * @param {Pointer<Byte>} pszServer A pointer to a constant, null-terminated string that specifies the name of the print server from which the driver package is being deleted. A **NULL** pointer value means the local computer.
      * @param {Pointer<Byte>} pszInfPath A pointer to a constant, null-terminated string that specifies the path to the driver's \*.inf file.
      * @param {Pointer<Byte>} pszEnvironment A pointer to a constant, null-terminated string that specifies the processor architecture (for example, Windows NT x86). This can be **NULL**.
-     * @returns {Integer} S\_OK, if the operation succeeds.
+     * @returns {HRESULT} S\_OK, if the operation succeeds.
      * 
      * E\_ACCESSDENIED, if the package was shipped with Windows.
      * 
@@ -12849,6 +12879,9 @@ class Printing {
         pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\DeletePrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12868,7 +12901,7 @@ class Printing {
      * @param {Pointer<Char>} pszServer A pointer to a constant, null-terminated string that specifies the name of the print server from which the driver package is being deleted. A **NULL** pointer value means the local computer.
      * @param {Pointer<Char>} pszInfPath A pointer to a constant, null-terminated string that specifies the path to the driver's \*.inf file.
      * @param {Pointer<Char>} pszEnvironment A pointer to a constant, null-terminated string that specifies the processor architecture (for example, Windows NT x86). This can be **NULL**.
-     * @returns {Integer} S\_OK, if the operation succeeds.
+     * @returns {HRESULT} S\_OK, if the operation succeeds.
      * 
      * E\_ACCESSDENIED, if the package was shipped with Windows.
      * 
@@ -12885,6 +12918,9 @@ class Printing {
         pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\DeletePrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12902,13 +12938,16 @@ class Printing {
      * @param {Integer} jobId Identifies the print job for which to retrieve data. Use the [**AddJob**](addjob.md) function or [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) function to get a print job identifier.
      * @param {Integer} jobOperation Specifies whether the job is in the spooling phase or the rendering phase.
      * @param {Integer} jobProgress Specifies what part of the processing is currently underway. This value refers to events in either the spooling or rendering phase depending on the value of *jobOperation*.
-     * @returns {Integer} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
+     * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
      * @see https://learn.microsoft.com/windows/win32/printdocs/reportjobprocessingprogress
      */
     static ReportJobProcessingProgress(printerHandle, jobId, jobOperation, jobProgress) {
         result := DllCall("winspool.drv\ReportJobProcessingProgress", "ptr", printerHandle, "uint", jobId, "int", jobOperation, "int", jobProgress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13004,22 +13043,20 @@ class Printing {
     /**
      * 
      * @param {Pointer<PrintPropertyValue>} pValue 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static FreePrintPropertyValue(pValue) {
-        result := DllCall("winspool.drv\FreePrintPropertyValue", "ptr", pValue)
-        return result
+        DllCall("winspool.drv\FreePrintPropertyValue", "ptr", pValue)
     }
 
     /**
      * 
      * @param {Integer} cProperties 
      * @param {Pointer<PrintNamedProperty>} ppProperties 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static FreePrintNamedPropertyArray(cProperties, ppProperties) {
-        result := DllCall("winspool.drv\FreePrintNamedPropertyArray", "uint", cProperties, "ptr", ppProperties)
-        return result
+        DllCall("winspool.drv\FreePrintNamedPropertyArray", "uint", cProperties, "ptr", ppProperties)
     }
 
     /**
@@ -13067,12 +13104,15 @@ class Printing {
      * @param {Pointer<Char>} pszPrinter 
      * @param {Pointer<Void>} phFile 
      * @param {Pointer<Char>} ppszOutputFile 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetPrintOutputInfo(hWnd, pszPrinter, phFile, ppszOutputFile) {
         pszPrinter := pszPrinter is String? StrPtr(pszPrinter) : pszPrinter
 
         result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, "ptr", ppszOutputFile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13107,7 +13147,7 @@ class Printing {
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
      * @param {Pointer<Void>} phNotify A pointer to a structure that represents the registration.
-     * @returns {Integer} <table>
+     * @returns {HRESULT} <table>
      * <tr>
      * <th>HRESULT</th>
      * <th>Severity</th>
@@ -13191,6 +13231,9 @@ class Printing {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13207,7 +13250,7 @@ class Printing {
      * 
      * After this function succeeds, <i>hRegistrationHandler</i> is invalid and must not be used again.
      * @param {Pointer<Void>} param0 
-     * @returns {Integer} <table>
+     * @returns {HRESULT} <table>
      * <tr>
      * <th>HRESULT</th>
      * <th>Severity</th>
@@ -13282,6 +13325,9 @@ class Printing {
      */
     static UnRegisterForPrintAsyncNotifications(param0) {
         result := DllCall("winspool.drv\UnRegisterForPrintAsyncNotifications", "ptr", param0, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13318,7 +13364,7 @@ class Printing {
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be <b>NULL</b> if <i>directionality</i> is <b>kUniDirectional</b>.
      * @param {Pointer<IPrintAsyncNotifyChannel>} ppIAsynchNotification A pointer to the new channel.
-     * @returns {Integer} <table>
+     * @returns {HRESULT} <table>
      * <tr>
      * <th>HRESULT</th>
      * <th>Severity</th>
@@ -13386,6 +13432,9 @@ class Printing {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13715,11 +13764,10 @@ class Printing {
     /**
      * 
      * @param {Pointer<Void>} pMemPointer 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterFreeBidiMem(pMemPointer) {
-        result := DllCall("SPOOLSS.dll\RouterFreeBidiMem", "ptr", pMemPointer)
-        return result
+        DllCall("SPOOLSS.dll\RouterFreeBidiMem", "ptr", pMemPointer)
     }
 
     /**
@@ -13819,11 +13867,10 @@ class Printing {
     /**
      * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pInfo 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static SpoolerFreePrinterNotifyInfo(pInfo) {
-        result := DllCall("SPOOLSS.dll\SpoolerFreePrinterNotifyInfo", "ptr", pInfo)
-        return result
+        DllCall("SPOOLSS.dll\SpoolerFreePrinterNotifyInfo", "ptr", pInfo)
     }
 
     /**
@@ -13903,10 +13950,13 @@ class Printing {
      * 
      * @param {Pointer<Void>} hPrinter 
      * @param {Pointer<Void>} phDeviceObject 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static AddPrintDeviceObject(hPrinter, phDeviceObject) {
         result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13914,20 +13964,26 @@ class Printing {
      * 
      * @param {Pointer<Void>} hPrinter 
      * @param {Pointer<Void>} hDeviceObject 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UpdatePrintDeviceObject(hPrinter, hDeviceObject) {
         result := DllCall("SPOOLSS.dll\UpdatePrintDeviceObject", "ptr", hPrinter, "ptr", hDeviceObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hDeviceObject 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RemovePrintDeviceObject(hDeviceObject) {
         result := DllCall("SPOOLSS.dll\RemovePrintDeviceObject", "ptr", hDeviceObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -12392,10 +12392,13 @@ class HumanInterfaceDevice {
      * @param {Pointer<Guid>} riidltf 
      * @param {Pointer<Void>} ppvOut 
      * @param {Pointer<IUnknown>} punkOuter 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter) {
         result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, "ptr", ppvOut, "ptr", punkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12828,11 +12831,10 @@ class HumanInterfaceDevice {
     /**
      * 
      * @param {Pointer<Guid>} HidGuid 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static HidD_GetHidGuid(HidGuid) {
-        result := DllCall("HID.dll\HidD_GetHidGuid", "ptr", HidGuid)
-        return result
+        DllCall("HID.dll\HidD_GetHidGuid", "ptr", HidGuid)
     }
 
     /**

@@ -577,13 +577,12 @@ class Threading {
      * 
      * An unlocked SRW lock with no waiting threads is in its initial state and can be copied, moved, and forgotten without being explicitly destroyed.
      * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initializesrwlock
      * @since windows6.0.6000
      */
     static InitializeSRWLock(SRWLock) {
-        result := DllCall("KERNEL32.dll\InitializeSRWLock", "ptr", SRWLock)
-        return result
+        DllCall("KERNEL32.dll\InitializeSRWLock", "ptr", SRWLock)
     }
 
     /**
@@ -591,13 +590,12 @@ class Threading {
      * @remarks
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
      * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesrwlockexclusive
      * @since windows6.0.6000
      */
     static ReleaseSRWLockExclusive(SRWLock) {
-        result := DllCall("KERNEL32.dll\ReleaseSRWLockExclusive", "ptr", SRWLock)
-        return result
+        DllCall("KERNEL32.dll\ReleaseSRWLockExclusive", "ptr", SRWLock)
     }
 
     /**
@@ -605,37 +603,34 @@ class Threading {
      * @remarks
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
      * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesrwlockshared
      * @since windows6.0.6000
      */
     static ReleaseSRWLockShared(SRWLock) {
-        result := DllCall("KERNEL32.dll\ReleaseSRWLockShared", "ptr", SRWLock)
-        return result
+        DllCall("KERNEL32.dll\ReleaseSRWLockShared", "ptr", SRWLock)
     }
 
     /**
      * Acquires a slim reader/writer (SRW) lock in exclusive mode.
      * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-acquiresrwlockexclusive
      * @since windows6.0.6000
      */
     static AcquireSRWLockExclusive(SRWLock) {
-        result := DllCall("KERNEL32.dll\AcquireSRWLockExclusive", "ptr", SRWLock)
-        return result
+        DllCall("KERNEL32.dll\AcquireSRWLockExclusive", "ptr", SRWLock)
     }
 
     /**
      * Acquires a slim reader/writer (SRW) lock in shared mode.
      * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-acquiresrwlockshared
      * @since windows6.0.6000
      */
     static AcquireSRWLockShared(SRWLock) {
-        result := DllCall("KERNEL32.dll\AcquireSRWLockShared", "ptr", SRWLock)
-        return result
+        DllCall("KERNEL32.dll\AcquireSRWLockShared", "ptr", SRWLock)
     }
 
     /**
@@ -683,18 +678,12 @@ class Threading {
      * 
      * A critical section object must be deleted before it can be reinitialized. Initializing a critical section that has already been initialized results in undefined behavior.
      * @param {Pointer<CRITICAL_SECTION>} lpCriticalSection A pointer to the critical section object.
-     * @returns {Pointer} This function does not return a value.
-     * 
-     * 
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>In low memory situations, 
-     * <b>InitializeCriticalSection</b> can raise a <b>STATUS_NO_MEMORY</b> exception. Starting with Windows Vista, this exception was eliminated and <b>InitializeCriticalSection</b> always succeeds, even in low memory situations.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initializecriticalsection
      * @since windows5.1.2600
      */
     static InitializeCriticalSection(lpCriticalSection) {
-        result := DllCall("KERNEL32.dll\InitializeCriticalSection", "ptr", lpCriticalSection)
-        return result
+        DllCall("KERNEL32.dll\InitializeCriticalSection", "ptr", lpCriticalSection)
     }
 
     /**
@@ -727,15 +716,12 @@ class Threading {
      * 
      * While a process is exiting, if a call to <b>EnterCriticalSection</b> would block, it will instead terminate the process immediately. This may cause global destructors to not be called.
      * @param {Pointer<CRITICAL_SECTION>} lpCriticalSection A pointer to the critical section object.
-     * @returns {Pointer} This function does not return a value.
-     * 
-     * This function can raise <b>EXCEPTION_POSSIBLE_DEADLOCK</b>, also known as <b>STATUS_POSSIBLE_DEADLOCK</b>, if a wait operation on the critical section times out. The timeout interval is specified by the following registry value: <b>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager</b>&#92;<b>CriticalSectionTimeout</b>. Do not handle a possible deadlock exception; instead, debug the application.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-entercriticalsection
      * @since windows5.1.2600
      */
     static EnterCriticalSection(lpCriticalSection) {
-        result := DllCall("KERNEL32.dll\EnterCriticalSection", "ptr", lpCriticalSection)
-        return result
+        DllCall("KERNEL32.dll\EnterCriticalSection", "ptr", lpCriticalSection)
     }
 
     /**
@@ -754,13 +740,12 @@ class Threading {
      * Any thread of the process can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-deletecriticalsection">DeleteCriticalSection</a> function to release the system resources that were allocated when the critical section object was initialized. After this function has been called, the critical section object can no longer be used for synchronization.
      * @param {Pointer<CRITICAL_SECTION>} lpCriticalSection A pointer to the critical section object.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-leavecriticalsection
      * @since windows5.1.2600
      */
     static LeaveCriticalSection(lpCriticalSection) {
-        result := DllCall("KERNEL32.dll\LeaveCriticalSection", "ptr", lpCriticalSection)
-        return result
+        DllCall("KERNEL32.dll\LeaveCriticalSection", "ptr", lpCriticalSection)
     }
 
     /**
@@ -935,13 +920,12 @@ class Threading {
      * If a critical section is deleted while it is still owned, the state of the threads waiting for ownership of the deleted critical section is undefined.
      * @param {Pointer<CRITICAL_SECTION>} lpCriticalSection A pointer to the critical section object. The object must have been previously initialized with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializecriticalsection">InitializeCriticalSection</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-deletecriticalsection
      * @since windows5.1.2600
      */
     static DeleteCriticalSection(lpCriticalSection) {
-        result := DllCall("KERNEL32.dll\DeleteCriticalSection", "ptr", lpCriticalSection)
-        return result
+        DllCall("KERNEL32.dll\DeleteCriticalSection", "ptr", lpCriticalSection)
     }
 
     /**
@@ -954,13 +938,12 @@ class Threading {
      * 
      * A one-time initialization object cannot be moved or copied. The process must not modify the initialization object, and must instead treat it as logically opaque. Only use the one-time initialization functions to manage one-time initialization objects.
      * @param {Pointer<Void>} InitOnce A pointer to the one-time initialization structure.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initonceinitialize
      * @since windows6.0.6000
      */
     static InitOnceInitialize(InitOnce) {
-        result := DllCall("KERNEL32.dll\InitOnceInitialize", "ptr", InitOnce)
-        return result
+        DllCall("KERNEL32.dll\InitOnceInitialize", "ptr", InitOnce)
     }
 
     /**
@@ -1127,13 +1110,12 @@ class Threading {
      * 
      * A condition variable with no waiting threads is in its initial state and can be copied, moved, and forgotten without being explicitly destroyed.
      * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initializeconditionvariable
      * @since windows6.0.6000
      */
     static InitializeConditionVariable(ConditionVariable) {
-        result := DllCall("KERNEL32.dll\InitializeConditionVariable", "ptr", ConditionVariable)
-        return result
+        DllCall("KERNEL32.dll\InitializeConditionVariable", "ptr", ConditionVariable)
     }
 
     /**
@@ -1141,13 +1123,12 @@ class Threading {
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-wakeallconditionvariable">WakeAllConditionVariable</a> wakes all waiting threads while the <b>WakeConditionVariable</b> wakes only a single thread. Waking one thread is similar to setting an auto-reset event, while waking all threads is similar to pulsing a manual reset event but more reliable (see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-pulseevent">PulseEvent</a> for details).
      * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakeconditionvariable
      * @since windows6.0.6000
      */
     static WakeConditionVariable(ConditionVariable) {
-        result := DllCall("KERNEL32.dll\WakeConditionVariable", "ptr", ConditionVariable)
-        return result
+        DllCall("KERNEL32.dll\WakeConditionVariable", "ptr", ConditionVariable)
     }
 
     /**
@@ -1159,13 +1140,12 @@ class Threading {
      *     is similar to pulsing a manual reset event but more reliable (see 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-pulseevent">PulseEvent</a> for details).
      * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakeallconditionvariable
      * @since windows6.0.6000
      */
     static WakeAllConditionVariable(ConditionVariable) {
-        result := DllCall("KERNEL32.dll\WakeAllConditionVariable", "ptr", ConditionVariable)
-        return result
+        DllCall("KERNEL32.dll\WakeAllConditionVariable", "ptr", ConditionVariable)
     }
 
     /**
@@ -3245,13 +3225,12 @@ class Threading {
      * 
      * 
      * A value of INFINITE indicates that the suspension should not time out.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-sleep
      * @since windows5.1.2600
      */
     static Sleep(dwMilliseconds) {
-        result := DllCall("KERNEL32.dll\Sleep", "uint", dwMilliseconds)
-        return result
+        DllCall("KERNEL32.dll\Sleep", "uint", dwMilliseconds)
     }
 
     /**
@@ -3298,13 +3277,12 @@ class Threading {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitonaddress">WaitOnAddress</a> for this address, the system wakes the 
      *       waiting thread. If multiple threads are waiting for this address, the system wakes the first thread to 
      *       wait.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakebyaddresssingle
      * @since windows8.0
      */
     static WakeByAddressSingle(Address) {
-        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressSingle", "ptr", Address)
-        return result
+        DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressSingle", "ptr", Address)
     }
 
     /**
@@ -3316,13 +3294,12 @@ class Threading {
      * @param {Pointer<Void>} Address The address to signal. If any threads have previously called 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitonaddress">WaitOnAddress</a> for this address, the system wakes all 
      *       of the waiting threads.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakebyaddressall
      * @since windows8.0
      */
     static WakeByAddressAll(Address) {
-        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressAll", "ptr", Address)
-        return result
+        DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressAll", "ptr", Address)
     }
 
     /**
@@ -3595,13 +3572,12 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedpushentryslist">InterlockedPushEntrySList</a> function. To remove items from the list, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedpopentryslist">InterlockedPopEntrySList</a> function.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/interlockedapi/nf-interlockedapi-initializeslisthead
      * @since windows5.1.2600
      */
     static InitializeSListHead(ListHead) {
-        result := DllCall("KERNEL32.dll\InitializeSListHead", "ptr", ListHead)
-        return result
+        DllCall("KERNEL32.dll\InitializeSListHead", "ptr", ListHead)
     }
 
     /**
@@ -3676,12 +3652,12 @@ class Threading {
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only. 
      * 
      * The list must  be previously initialized with the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function.
-     * @returns {Pointer} The function returns the number of entries in the list, up to a maximum value of 65535.
+     * @returns {Integer} The function returns the number of entries in the list, up to a maximum value of 65535.
      * @see https://learn.microsoft.com/windows/win32/api/interlockedapi/nf-interlockedapi-querydepthslist
      * @since windows5.1.2600
      */
     static QueryDepthSList(ListHead) {
-        result := DllCall("KERNEL32.dll\QueryDepthSList", "ptr", ListHead)
+        result := DllCall("KERNEL32.dll\QueryDepthSList", "ptr", ListHead, "ushort")
         return result
     }
 
@@ -3863,13 +3839,12 @@ class Threading {
      * 
      * Exiting a process does not necessarily remove the process object from the operating system. A process object is deleted when the last handle to the process is closed.
      * @param {Integer} uExitCode The exit code for the process and all threads.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitprocess
      * @since windows5.1.2600
      */
     static ExitProcess(uExitCode) {
-        result := DllCall("KERNEL32.dll\ExitProcess", "uint", uExitCode)
-        return result
+        DllCall("KERNEL32.dll\ExitProcess", "uint", uExitCode)
     }
 
     /**
@@ -4418,7 +4393,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003:  </b>The handle must have the <b>THREAD_QUERY_INFORMATION</b> access right.
-     * @returns {Pointer} If the function succeeds, the return value is the thread's priority level.
+     * @returns {Integer} If the function succeeds, the return value is the thread's priority level.
      * 
      * If the function fails, the return value is <b>THREAD_PRIORITY_ERROR_RETURN</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4527,7 +4502,7 @@ class Threading {
     static GetThreadPriority(hThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadPriority", "ptr", hThread)
+        result := DllCall("KERNEL32.dll\GetThreadPriority", "ptr", hThread, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4573,13 +4548,12 @@ class Threading {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Integer} dwExitCode The exit code for the thread.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitthread
      * @since windows5.1.2600
      */
     static ExitThread(dwExitCode) {
-        result := DllCall("KERNEL32.dll\ExitThread", "uint", dwExitCode)
-        return result
+        DllCall("KERNEL32.dll\ExitThread", "uint", dwExitCode)
     }
 
     /**
@@ -5418,13 +5392,12 @@ class Threading {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure was specified by the process that created the calling process. It can be used to specify properties associated with the main window of the calling process.
      * @param {Pointer<STARTUPINFOW>} lpStartupInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure that receives the startup information.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getstartupinfow
      * @since windows5.1.2600
      */
     static GetStartupInfoW(lpStartupInfo) {
-        result := DllCall("KERNEL32.dll\GetStartupInfoW", "ptr", lpStartupInfo)
-        return result
+        DllCall("KERNEL32.dll\GetStartupInfoW", "ptr", lpStartupInfo)
     }
 
     /**
@@ -5991,13 +5964,12 @@ class Threading {
      * Flushes the write queue of each processor that is running a thread of the current process.
      * @remarks
      * The function generates an interprocessor interrupt (IPI) to all processors that are part of the current process affinity. It guarantees the visibility of write operations performed on one processor to the other processors.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-flushprocesswritebuffers
      * @since windows6.0.6000
      */
     static FlushProcessWriteBuffers() {
-        result := DllCall("KERNEL32.dll\FlushProcessWriteBuffers")
-        return result
+        DllCall("KERNEL32.dll\FlushProcessWriteBuffers")
     }
 
     /**
@@ -6065,13 +6037,12 @@ class Threading {
     /**
      * Deletes the specified list of attributes for process and thread creation.
      * @param {Pointer<Void>} lpAttributeList The attribute list. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist
      * @since windows6.0.6000
      */
     static DeleteProcThreadAttributeList(lpAttributeList) {
-        result := DllCall("KERNEL32.dll\DeleteProcThreadAttributeList", "ptr", lpAttributeList)
-        return result
+        DllCall("KERNEL32.dll\DeleteProcThreadAttributeList", "ptr", lpAttributeList)
     }
 
     /**
@@ -6732,13 +6703,12 @@ class Threading {
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0602. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UIntPtr>} LowLimit A pointer variable that receives the lower boundary of the current thread stack.
      * @param {Pointer<UIntPtr>} HighLimit A pointer variable that receives the upper boundary of the current thread stack.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadstacklimits
      * @since windows8.0
      */
     static GetCurrentThreadStackLimits(LowLimit, HighLimit) {
-        result := DllCall("KERNEL32.dll\GetCurrentThreadStackLimits", "ptr*", LowLimit, "ptr*", HighLimit)
-        return result
+        DllCall("KERNEL32.dll\GetCurrentThreadStackLimits", "ptr*", LowLimit, "ptr*", HighLimit)
     }
 
     /**
@@ -7038,13 +7008,12 @@ class Threading {
      * @remarks
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0601. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<PROCESSOR_NUMBER>} ProcNumber A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure that receives the processor group to which the logical processor is assigned and the number of the logical processor within its group.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessornumberex
      * @since windows6.1
      */
     static GetCurrentProcessorNumberEx(ProcNumber) {
-        result := DllCall("KERNEL32.dll\GetCurrentProcessorNumberEx", "ptr", ProcNumber)
-        return result
+        DllCall("KERNEL32.dll\GetCurrentProcessorNumberEx", "ptr", ProcNumber)
     }
 
     /**
@@ -7886,11 +7855,14 @@ class Threading {
      * Queries if the specified architecture is supported on the current system, either natively or by any form of compatibility or emulation layer.
      * @param {Integer} Machine An IMAGE_FILE_MACHINE_* value corresponding to the architecture of code to be tested for supportability. See the list of architecture values in [Image File Machine Constants](/windows/win32/sysinfo/image-file-machine-constants).
      * @param {Pointer<Int32>} MachineTypeAttributes Output parameter receives a pointer to a value from the [MACHINE_ATTRIBUTES](ne-processthreadsapi-machine_attributes.md) enumeration indicating if the specified code architecture can run in user mode, kernel mode, and/or under WOW64 on the host operating system.
-     * @returns {Integer} If the function fails, the return value is a nonzero HRESULT value. If the function succeeds, the return value is zero.
+     * @returns {HRESULT} If the function fails, the return value is a nonzero HRESULT value. If the function succeeds, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getmachinetypeattributes
      */
     static GetMachineTypeAttributes(Machine, MachineTypeAttributes) {
         result := DllCall("KERNEL32.dll\GetMachineTypeAttributes", "ushort", Machine, "int*", MachineTypeAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7902,7 +7874,7 @@ class Threading {
      * <b>Windows Server 2016</b>, <b>Windows 10 LTSB 2016</b> and <b>Windows 10 version 1607</b>: SetThreadDescription is only available by [Run Time Dynamic Linking](/windows/win32/dlls/using-run-time-dynamic-linking) in KernelBase.dll.
      * @param {Pointer<Void>} hThread A handle for the thread for which you want to set the description. The handle must have THREAD_SET_LIMITED_INFORMATION access.
      * @param {Pointer<Char>} lpThreadDescription A Unicode string that specifies the description of the thread.
-     * @returns {Integer} If the function succeeds, the return value is the **HRESULT** that denotes a successful operation.
+     * @returns {HRESULT} If the function succeeds, the return value is the **HRESULT** that denotes a successful operation.
      * If the function fails, the return value is an **HRESULT** that denotes the error.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreaddescription
      * @since windows10.0.14393
@@ -7911,6 +7883,9 @@ class Threading {
         lpThreadDescription := lpThreadDescription is String? StrPtr(lpThreadDescription) : lpThreadDescription
 
         result := DllCall("KERNEL32.dll\SetThreadDescription", "ptr", hThread, "ptr", lpThreadDescription, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7926,13 +7901,16 @@ class Threading {
      * To free the memory for the thread description, call the [LocalFree](../winbase/nf-winbase-localfree.md) method.
      * @param {Pointer<Void>} hThread A handle to the thread for which to retrieve the description. The handle must have THREAD_QUERY_LIMITED_INFORMATION access.
      * @param {Pointer<Char>} ppszThreadDescription A Unicode string that contains the description of the thread.
-     * @returns {Integer} If the function succeeds, the return value is the <b>HRESULT</b> that denotes a successful operation.
+     * @returns {HRESULT} If the function succeeds, the return value is the <b>HRESULT</b> that denotes a successful operation.
      * If the function fails, the return value is an <b>HRESULT</b> that denotes the error.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreaddescription
      * @since windows10.0.14393
      */
     static GetThreadDescription(hThread, ppszThreadDescription) {
         result := DllCall("KERNEL32.dll\GetThreadDescription", "ptr", hThread, "ptr", ppszThreadDescription, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8280,13 +8258,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
      * @param {Integer} cthrdMost The maximum number of threads.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-setthreadpoolthreadmaximum
      * @since windows6.0.6000
      */
     static SetThreadpoolThreadMaximum(ptpp, cthrdMost) {
-        result := DllCall("KERNEL32.dll\SetThreadpoolThreadMaximum", "ptr", ptpp, "uint", cthrdMost)
-        return result
+        DllCall("KERNEL32.dll\SetThreadpoolThreadMaximum", "ptr", ptpp, "uint", cthrdMost)
     }
 
     /**
@@ -8366,13 +8343,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpool
      * @since windows6.0.6000
      */
     static CloseThreadpool(ptpp) {
-        result := DllCall("KERNEL32.dll\CloseThreadpool", "ptr", ptpp)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpool", "ptr", ptpp)
     }
 
     /**
@@ -8453,13 +8429,12 @@ class Threading {
      * @param {Pointer} ptpcg A pointer to a <b>TP_CLEANUP_GROUP</b> structure that defines the cleanup group. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup">CreateThreadpoolCleanupGroup</a> function returns this pointer.
      * @param {Integer} fCancelPendingCallbacks If this parameter is TRUE, the function cancels outstanding callbacks that have not yet started. If this parameter is FALSE, the function waits for outstanding callback functions to complete.
      * @param {Pointer<Void>} pvCleanupContext The application-defined data to pass to the application's cleanup group callback function. You can specify the callback function when you call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setthreadpoolcallbackcleanupgroup">SetThreadpoolCallbackCleanupGroup</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpoolcleanupgroupmembers
      * @since windows6.0.6000
      */
     static CloseThreadpoolCleanupGroupMembers(ptpcg, fCancelPendingCallbacks, pvCleanupContext) {
-        result := DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", "ptr", ptpcg, "int", fCancelPendingCallbacks, "ptr", pvCleanupContext)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", "ptr", ptpcg, "int", fCancelPendingCallbacks, "ptr", pvCleanupContext)
     }
 
     /**
@@ -8469,13 +8444,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} ptpcg A pointer to a <b>TP_CLEANUP_GROUP</b> structure that defines the cleanup group. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup">CreateThreadpoolCleanupGroup</a> returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpoolcleanupgroup
      * @since windows6.0.6000
      */
     static CloseThreadpoolCleanupGroup(ptpcg) {
-        result := DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroup", "ptr", ptpcg)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroup", "ptr", ptpcg)
     }
 
     /**
@@ -8484,13 +8458,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @param {Pointer<Void>} evt A handle to the event to be set.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-seteventwhencallbackreturns
      * @since windows6.0.6000
      */
     static SetEventWhenCallbackReturns(pci, evt) {
-        result := DllCall("KERNEL32.dll\SetEventWhenCallbackReturns", "ptr", pci, "ptr", evt)
-        return result
+        DllCall("KERNEL32.dll\SetEventWhenCallbackReturns", "ptr", pci, "ptr", evt)
     }
 
     /**
@@ -8500,13 +8473,12 @@ class Threading {
      * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @param {Pointer<Void>} sem A handle to the semaphore.
      * @param {Integer} crel The amount by which to increment the semaphore object's count.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-releasesemaphorewhencallbackreturns
      * @since windows6.0.6000
      */
     static ReleaseSemaphoreWhenCallbackReturns(pci, sem, crel) {
-        result := DllCall("KERNEL32.dll\ReleaseSemaphoreWhenCallbackReturns", "ptr", pci, "ptr", sem, "uint", crel)
-        return result
+        DllCall("KERNEL32.dll\ReleaseSemaphoreWhenCallbackReturns", "ptr", pci, "ptr", sem, "uint", crel)
     }
 
     /**
@@ -8515,13 +8487,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @param {Pointer<Void>} mut A handle to the mutex.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-releasemutexwhencallbackreturns
      * @since windows6.0.6000
      */
     static ReleaseMutexWhenCallbackReturns(pci, mut) {
-        result := DllCall("KERNEL32.dll\ReleaseMutexWhenCallbackReturns", "ptr", pci, "ptr", mut)
-        return result
+        DllCall("KERNEL32.dll\ReleaseMutexWhenCallbackReturns", "ptr", pci, "ptr", mut)
     }
 
     /**
@@ -8530,13 +8501,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @param {Pointer<CRITICAL_SECTION>} pcs The critical section.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-leavecriticalsectionwhencallbackreturns
      * @since windows6.0.6000
      */
     static LeaveCriticalSectionWhenCallbackReturns(pci, pcs) {
-        result := DllCall("KERNEL32.dll\LeaveCriticalSectionWhenCallbackReturns", "ptr", pci, "ptr", pcs)
-        return result
+        DllCall("KERNEL32.dll\LeaveCriticalSectionWhenCallbackReturns", "ptr", pci, "ptr", pcs)
     }
 
     /**
@@ -8545,13 +8515,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @param {Pointer<Void>} mod A handle to the DLL.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-freelibrarywhencallbackreturns
      * @since windows6.0.6000
      */
     static FreeLibraryWhenCallbackReturns(pci, mod) {
-        result := DllCall("KERNEL32.dll\FreeLibraryWhenCallbackReturns", "ptr", pci, "ptr", mod)
-        return result
+        DllCall("KERNEL32.dll\FreeLibraryWhenCallbackReturns", "ptr", pci, "ptr", mod)
     }
 
     /**
@@ -8587,13 +8556,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-disassociatecurrentthreadfromcallback
      * @since windows6.0.6000
      */
     static DisassociateCurrentThreadFromCallback(pci) {
-        result := DllCall("KERNEL32.dll\DisassociateCurrentThreadFromCallback", "ptr", pci)
-        return result
+        DllCall("KERNEL32.dll\DisassociateCurrentThreadFromCallback", "ptr", pci)
     }
 
     /**
@@ -8653,13 +8621,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-submitthreadpoolwork
      * @since windows6.0.6000
      */
     static SubmitThreadpoolWork(pwk) {
-        result := DllCall("KERNEL32.dll\SubmitThreadpoolWork", "ptr", pwk)
-        return result
+        DllCall("KERNEL32.dll\SubmitThreadpoolWork", "ptr", pwk)
     }
 
     /**
@@ -8668,13 +8635,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
      * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-waitforthreadpoolworkcallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolWorkCallbacks(pwk, fCancelPendingCallbacks) {
-        result := DllCall("KERNEL32.dll\WaitForThreadpoolWorkCallbacks", "ptr", pwk, "int", fCancelPendingCallbacks)
-        return result
+        DllCall("KERNEL32.dll\WaitForThreadpoolWorkCallbacks", "ptr", pwk, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -8686,13 +8652,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpoolwork
      * @since windows6.0.6000
      */
     static CloseThreadpoolWork(pwk) {
-        result := DllCall("KERNEL32.dll\CloseThreadpoolWork", "ptr", pwk)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpoolWork", "ptr", pwk)
     }
 
     /**
@@ -8742,13 +8707,12 @@ class Threading {
      * The timer is set if the <i>pftDueTime</i> parameter is non-NULL.
      * @param {Integer} msPeriod The timer period, in milliseconds. If this parameter is zero, the timer is signaled once. If this parameter is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled.
      * @param {Integer} msWindowLength The maximum amount of time the system can delay before calling the timer callback. If this parameter is not set to zero, the system can batch calls to conserve power.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-setthreadpooltimer
      * @since windows6.0.6000
      */
     static SetThreadpoolTimer(pti, pftDueTime, msPeriod, msWindowLength) {
-        result := DllCall("KERNEL32.dll\SetThreadpoolTimer", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength)
-        return result
+        DllCall("KERNEL32.dll\SetThreadpoolTimer", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength)
     }
 
     /**
@@ -8774,13 +8738,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
      * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-waitforthreadpooltimercallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolTimerCallbacks(pti, fCancelPendingCallbacks) {
-        result := DllCall("KERNEL32.dll\WaitForThreadpoolTimerCallbacks", "ptr", pti, "int", fCancelPendingCallbacks)
-        return result
+        DllCall("KERNEL32.dll\WaitForThreadpoolTimerCallbacks", "ptr", pti, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -8801,13 +8764,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pti A pointer to <b>TP_TIMER</b> structure that defines the timer object.
      * The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpooltimer
      * @since windows6.0.6000
      */
     static CloseThreadpoolTimer(pti) {
-        result := DllCall("KERNEL32.dll\CloseThreadpoolTimer", "ptr", pti)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpoolTimer", "ptr", pti)
     }
 
     /**
@@ -8861,13 +8823,12 @@ class Threading {
      * @param {Pointer<FILETIME>} pftTimeout A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the absolute or relative time at which the wait operation should time out.  If this parameter points to a positive value, it indicates the absolute time since January 1, 1601 (UTC), in 100-nanosecond intervals. If this parameter points to a negative value, it indicates the amount of time to wait relative to the current time. For more information about time values, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
      * 
      * If this parameter points to 0, the wait times out immediately. If this parameter is NULL, the wait will not time out.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-setthreadpoolwait
      * @since windows6.0.6000
      */
     static SetThreadpoolWait(pwa, h, pftTimeout) {
-        result := DllCall("KERNEL32.dll\SetThreadpoolWait", "ptr", pwa, "ptr", h, "ptr", pftTimeout)
-        return result
+        DllCall("KERNEL32.dll\SetThreadpoolWait", "ptr", pwa, "ptr", h, "ptr", pftTimeout)
     }
 
     /**
@@ -8876,13 +8837,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
      * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-waitforthreadpoolwaitcallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolWaitCallbacks(pwa, fCancelPendingCallbacks) {
-        result := DllCall("KERNEL32.dll\WaitForThreadpoolWaitCallbacks", "ptr", pwa, "int", fCancelPendingCallbacks)
-        return result
+        DllCall("KERNEL32.dll\WaitForThreadpoolWaitCallbacks", "ptr", pwa, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -8902,13 +8862,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpoolwait
      * @since windows6.0.6000
      */
     static CloseThreadpoolWait(pwa) {
-        result := DllCall("KERNEL32.dll\CloseThreadpoolWait", "ptr", pwa)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpoolWait", "ptr", pwa)
     }
 
     /**
@@ -8952,13 +8911,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-startthreadpoolio
      * @since windows6.0.6000
      */
     static StartThreadpoolIo(pio) {
-        result := DllCall("KERNEL32.dll\StartThreadpoolIo", "ptr", pio)
-        return result
+        DllCall("KERNEL32.dll\StartThreadpoolIo", "ptr", pio)
     }
 
     /**
@@ -8972,13 +8930,12 @@ class Threading {
      * </ul>
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-cancelthreadpoolio
      * @since windows6.0.6000
      */
     static CancelThreadpoolIo(pio) {
-        result := DllCall("KERNEL32.dll\CancelThreadpoolIo", "ptr", pio)
-        return result
+        DllCall("KERNEL32.dll\CancelThreadpoolIo", "ptr", pio)
     }
 
     /**
@@ -8989,13 +8946,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
      * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-waitforthreadpooliocallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolIoCallbacks(pio, fCancelPendingCallbacks) {
-        result := DllCall("KERNEL32.dll\WaitForThreadpoolIoCallbacks", "ptr", pio, "int", fCancelPendingCallbacks)
-        return result
+        DllCall("KERNEL32.dll\WaitForThreadpoolIoCallbacks", "ptr", pio, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -9009,13 +8965,12 @@ class Threading {
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/threadpoolapiset/nf-threadpoolapiset-closethreadpoolio
      * @since windows6.0.6000
      */
     static CloseThreadpoolIo(pio) {
-        result := DllCall("KERNEL32.dll\CloseThreadpoolIo", "ptr", pio)
-        return result
+        DllCall("KERNEL32.dll\CloseThreadpoolIo", "ptr", pio)
     }
 
     /**
@@ -9114,11 +9069,11 @@ class Threading {
     /**
      * Sets the thread to the given machine architecture.
      * @param {Integer} Machine The machine architecture.
-     * @returns {Pointer} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @returns {Integer} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-wow64setthreaddefaultguestmachine
      */
     static Wow64SetThreadDefaultGuestMachine(Machine) {
-        result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\Wow64SetThreadDefaultGuestMachine", "ushort", Machine)
+        result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\Wow64SetThreadDefaultGuestMachine", "ushort", Machine, "ushort")
         return result
     }
 
@@ -9307,13 +9262,12 @@ class Threading {
      * @remarks
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 or later.
      * @param {Pointer<Void>} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/namespaceapi/nf-namespaceapi-deleteboundarydescriptor
      * @since windows6.0.6000
      */
     static DeleteBoundaryDescriptor(BoundaryDescriptor) {
-        result := DllCall("KERNEL32.dll\DeleteBoundaryDescriptor", "ptr", BoundaryDescriptor)
-        return result
+        DllCall("KERNEL32.dll\DeleteBoundaryDescriptor", "ptr", BoundaryDescriptor)
     }
 
     /**
@@ -10119,12 +10073,15 @@ class Threading {
 
     /**
      * Initializes the platform.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqstartup
      * @since windows8.1
      */
     static RtwqStartup() {
         result := DllCall("RTWorkQ.dll\RtwqStartup", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10132,36 +10089,45 @@ class Threading {
      * Shuts down the platform. Call this function once for every call to RtwqStartup. Do not call this function from work queue threads.
      * @remarks
      * In general, apps should not have pending work after they call this function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqshutdown
      * @since windows8.1
      */
     static RtwqShutdown() {
         result := DllCall("RTWorkQ.dll\RtwqShutdown", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Locks a work queue. (RtwqLockWorkQueue)
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqlockworkqueue
      * @since windows8.1
      */
     static RtwqLockWorkQueue(workQueueId) {
         result := DllCall("RTWorkQ.dll\RtwqLockWorkQueue", "uint", workQueueId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Unlocks a work queue. (RtwqUnlockWorkQueue)
      * @param {Integer} workQueueId Identifier for the work queue to be unlocked. This identifier is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateserialworkqueue">RtwqAllocateSerialWorkQueue</a>, <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqlocksharedworkqueue">RtwqLockSharedWorkQueue</a> functions.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqunlockworkqueue
      * @since windows8.1
      */
     static RtwqUnlockWorkQueue(workQueueId) {
         result := DllCall("RTWorkQ.dll\RtwqUnlockWorkQueue", "uint", workQueueId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10171,7 +10137,7 @@ class Threading {
      * @param {Integer} basePriority The base priority of the work-queue threads. If the regular-priority queue is being used (<c>usageClass=""</c>), then the value 0 must be passed in.
      * @param {Pointer<UInt32>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. If the regular priority queue is being used (<c>usageClass=""</c>), then <b>NULL</b> must be passed in. On output, receives the actual task group ID.
      * @param {Pointer<UInt32>} id Receives an identifier for the new work queue. Use this identifier when queuing work items.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqlocksharedworkqueue
      * @since windows8.1
      */
@@ -10179,6 +10145,9 @@ class Threading {
         usageClass := usageClass is String? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqLockSharedWorkQueue", "ptr", usageClass, "int", basePriority, "uint*", taskId, "uint*", id, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10187,12 +10156,15 @@ class Threading {
      * @param {Integer} workQueueId The ID of the work queue to redirect the I/O handle into.
      * @param {Pointer<Void>} hFile The network I/O handle.
      * @param {Pointer<Void>} out A cookie that represents the association between the network and I/O handles.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqjoinworkqueue
      * @since windows8.1
      */
     static RtwqJoinWorkQueue(workQueueId, hFile, out) {
         result := DllCall("RTWorkQ.dll\RtwqJoinWorkQueue", "uint", workQueueId, "ptr", hFile, "ptr", out, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10200,12 +10172,15 @@ class Threading {
      * Disassociates a work queue from an input/output (I/O) handle.
      * @param {Integer} workQueueId The ID of the work queue to disassociate.
      * @param {Pointer<Void>} hFile The associated  handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqjoinworkqueue">RtwqJoinWorkQueue</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqunjoinworkqueue
      * @since windows8.1
      */
     static RtwqUnjoinWorkQueue(workQueueId, hFile) {
         result := DllCall("RTWorkQ.dll\RtwqUnjoinWorkQueue", "uint", workQueueId, "ptr", hFile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10217,46 +10192,58 @@ class Threading {
      * @param {Pointer<IRtwqAsyncCallback>} callback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
      * @param {Pointer<IUnknown>} appState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
      * @param {Pointer<IRtwqAsyncResult>} asyncResult Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult
      * @since windows8.1
      */
     static RtwqCreateAsyncResult(appObject, callback, appState, asyncResult) {
         result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", appState, "ptr", asyncResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Invokes a callback method to complete an asynchronous operation. (RtwqInvokeCallback)
      * @param {Pointer<IRtwqAsyncResult>} result The asynchronous result. To create this object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqinvokecallback
      * @since windows8.1
      */
     static RtwqInvokeCallback(result) {
         result := DllCall("RTWorkQ.dll\RtwqInvokeCallback", "ptr", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Adds a reference to indicate to the platform that there are still pending asynchronous items. Blocks the RtwqShutdown function if there are active asynchronous items.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqlockplatform
      * @since windows8.1
      */
     static RtwqLockPlatform() {
         result := DllCall("RTWorkQ.dll\RtwqLockPlatform", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Unlocks the platform after it was locked by a call to the RtwqLockPlatform function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqunlockplatform
      * @since windows8.1
      */
     static RtwqUnlockPlatform() {
         result := DllCall("RTWorkQ.dll\RtwqUnlockPlatform", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10265,7 +10252,7 @@ class Threading {
      * @param {Pointer<Char>} usageClass The name of the MMCSS task.
      * @param {Pointer<UInt32>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. On output, receives the actual task group ID.
      * @param {Integer} lPriority The base priority of the work-queue threads.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqregisterplatformwithmmcss
      * @since windows8.1
      */
@@ -10273,17 +10260,23 @@ class Threading {
         usageClass := usageClass is String? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqRegisterPlatformWithMMCSS", "ptr", usageClass, "uint*", taskId, "int", lPriority, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Unregisters the platform work queues from a Multimedia Class Scheduler Service (MMCSS) task.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqunregisterplatformfrommmcss
      * @since windows8.1
      */
     static RtwqUnregisterPlatformFromMMCSS() {
         result := DllCall("RTWorkQ.dll\RtwqUnregisterPlatformFromMMCSS", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10292,12 +10285,15 @@ class Threading {
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard work queues, or a work queue created by the app. To access to a work queue, call [RtwqLockSharedWorkQueue](./nf-rtworkq-rtwqlocksharedworkqueue.md).
      * @param {Integer} lPriority The priority of the work item. Work items are performed in order of priority. This value should be -1, 0, or 1, where -1 is the lowest priority and 1 is the highest priority.
      * @param {Pointer<IRtwqAsyncResult>} result A pointer to the callback .  The caller must implement this interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqputworkitem
      * @since windows8.1
      */
     static RtwqPutWorkItem(dwQueue, lPriority, result) {
         result := DllCall("RTWorkQ.dll\RtwqPutWorkItem", "uint", dwQueue, "int", lPriority, "ptr", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10307,12 +10303,15 @@ class Threading {
      * @param {Integer} lPriority The priority of the work item. Work items are performed in order of priority.
      * @param {Pointer<IRtwqAsyncResult>} result A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
      * @param {Pointer<UInt64>} key Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter. This parameter can be <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqputwaitingworkitem
      * @since windows8.1
      */
     static RtwqPutWaitingWorkItem(hEvent, lPriority, result, key) {
         result := DllCall("RTWorkQ.dll\RtwqPutWaitingWorkItem", "ptr", hEvent, "int", lPriority, "ptr", result, "uint*", key, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10331,7 +10330,7 @@ class Threading {
      * <li>A serial queue created by the <b>RtwqAllocateSerialWorkQueue</b> function.</li>
      * </ul>
      * @param {Pointer<UInt32>} workQueueIdOut Receives an identifier for the new serial work queue. Use this identifier when queuing work items.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -10380,6 +10379,9 @@ class Threading {
      */
     static RtwqAllocateSerialWorkQueue(workQueueIdIn, workQueueIdOut) {
         result := DllCall("RTWorkQ.dll\RtwqAllocateSerialWorkQueue", "uint", workQueueIdIn, "uint*", workQueueIdOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10388,12 +10390,15 @@ class Threading {
      * @param {Pointer<IRtwqAsyncResult>} result A pointer to the callback. The caller must implement this interface.
      * @param {Integer} Timeout Time-out interval, in milliseconds. Set this parameter to a negative value. The callback is invoked after <i>−Timeout</i> milliseconds. For example, if <i>Timeout</i> is −5000, the callback is invoked after 5000 milliseconds.
      * @param {Pointer<UInt64>} key Receives a key that can be used to cancel the timer. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqscheduleworkitem
      * @since windows8.1
      */
     static RtwqScheduleWorkItem(result, Timeout, key) {
         result := DllCall("RTWorkQ.dll\RtwqScheduleWorkItem", "ptr", result, "int64", Timeout, "uint*", key, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10402,24 +10407,30 @@ class Threading {
      * @param {Pointer<RTWQPERIODICCALLBACK>} Callback Pointer to the callback function.
      * @param {Pointer<IUnknown>} context Pointer to a caller-provided object that implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or <b>NULL</b>. This parameter is passed to the callback function.
      * @param {Pointer<UInt32>} key Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqaddperiodiccallback
      * @since windows8.1
      */
     static RtwqAddPeriodicCallback(Callback, context, key) {
         result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", "ptr", Callback, "ptr", context, "uint*", key, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Cancels a callback function that was set by the RtwqAddPeriodicCallback function.
      * @param {Integer} dwKey Key that identifies the callback. This value is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqaddperiodiccallback">RtwqAddPeriodicCallback</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback
      * @since windows8.1
      */
     static RtwqRemovePeriodicCallback(dwKey) {
         result := DllCall("RTWorkQ.dll\RtwqRemovePeriodicCallback", "uint", dwKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10428,12 +10439,15 @@ class Threading {
      * @remarks
      * Because work items are asynchronous, the  work-item callback might still be invoked after <b>RtwqCancelWorkItem</b> is called.
      * @param {Integer} Key The key that was received in the <i>key</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqscheduleworkitem">RtwqScheduleWorkItem</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqcancelworkitem
      * @since windows8.1
      */
     static RtwqCancelWorkItem(Key) {
         result := DllCall("RTWorkQ.dll\RtwqCancelWorkItem", "uint", Key, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10478,12 +10492,15 @@ class Threading {
      * </tr>
      * </table>
      * @param {Pointer<UInt32>} workQueueId Receives an identifier for the work queue that was created.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue
      * @since windows8.1
      */
     static RtwqAllocateWorkQueue(WorkQueueType, workQueueId) {
         result := DllCall("RTWorkQ.dll\RtwqAllocateWorkQueue", "int", WorkQueueType, "uint*", workQueueId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10495,7 +10512,7 @@ class Threading {
      * @param {Integer} lPriority The base relative priority for the work-queue threads. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadpriority">AvSetMmThreadPriority</a>.
      * @param {Pointer<IRtwqAsyncCallback>} doneCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {Pointer<IUnknown>} doneState A pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqbeginregisterworkqueuewithmmcss
      * @since windows8.1
      */
@@ -10503,6 +10520,9 @@ class Threading {
         usageClass := usageClass is String? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqBeginRegisterWorkQueueWithMMCSS", "uint", workQueueId, "ptr", usageClass, "uint", dwTaskId, "int", lPriority, "ptr", doneCallback, "ptr", doneState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10511,12 +10531,15 @@ class Threading {
      * @param {Integer} workQueueId The identifier of the work queue.  For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Pointer<IRtwqAsyncCallback>} doneCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {Pointer<IUnknown>} doneState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqbeginunregisterworkqueuewithmmcss
      * @since windows8.1
      */
     static RtwqBeginUnregisterWorkQueueWithMMCSS(workQueueId, doneCallback, doneState) {
         result := DllCall("RTWorkQ.dll\RtwqBeginUnregisterWorkQueueWithMMCSS", "uint", workQueueId, "ptr", doneCallback, "ptr", doneState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10528,12 +10551,15 @@ class Threading {
      * To unregister the work queue from the MMCSS class, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqbeginunregisterworkqueuewithmmcss">RtwqBeginUnregisterWorkQueueWithMMCSS</a>.
      * @param {Pointer<IRtwqAsyncResult>} result Pointer to the asynchronous result. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasynccallback-invoke">IRtwqAsyncCallback::Invoke</a> method.
      * @param {Pointer<UInt32>} taskId The unique task identifier.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqendregisterworkqueuewithmmcss
      * @since windows8.1
      */
     static RtwqEndRegisterWorkQueueWithMMCSS(result, taskId) {
         result := DllCall("RTWorkQ.dll\RtwqEndRegisterWorkQueueWithMMCSS", "ptr", result, "uint*", taskId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10542,7 +10568,7 @@ class Threading {
      * @param {Integer} workQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Pointer<Char>} usageClass Pointer to a buffer that receives the name of the MMCSS class. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} usageClassLength On input, specifies the size of the <i>usageClass</i> buffer, in characters. On output, receives the required size of the buffer, in characters. The size includes the terminating null character.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqgetworkqueuemmcssclass
      * @since windows8.1
      */
@@ -10550,6 +10576,9 @@ class Threading {
         usageClass := usageClass is String? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSClass", "uint", workQueueId, "ptr", usageClass, "uint*", usageClassLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10559,12 +10588,15 @@ class Threading {
      * To associate a work queue with an MMCSS task, call <a href="<a href="https://docs.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqbeginregisterworkqueuewithmmcss">RtwqBeginRegisterWorkQueueWithMMCSSEx</a>">RtwqBeginRegisterWorkQueueWithMMCSSEx</a>.
      * @param {Integer} workQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Pointer<UInt32>} taskId Receives the task identifier.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsstaskid
      * @since windows8.1
      */
     static RtwqGetWorkQueueMMCSSTaskId(workQueueId, taskId) {
         result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSTaskId", "uint", workQueueId, "uint*", taskId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10574,24 +10606,30 @@ class Threading {
      * This function returns the relative thread priority set by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqbeginregisterworkqueuewithmmcss">RtwqBeginRegisterWorkQueueWithMMCSS</a> function.
      * @param {Integer} workQueueId The identifier of the work queue. For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Pointer<Int32>} priority Receives the relative thread priority.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsspriority
      * @since windows8.1
      */
     static RtwqGetWorkQueueMMCSSPriority(workQueueId, priority) {
         result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSPriority", "uint", workQueueId, "int*", priority, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Enables an app to listen to the RtwqStartup and RtwqShutdown functions.
      * @param {Pointer<IRtwqPlatformEvents>} platformEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqplatformevents">IRtwqPlatformEvents</a> object which provides the events.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqregisterplatformevents
      * @since windows8.1
      */
     static RtwqRegisterPlatformEvents(platformEvents) {
         result := DllCall("RTWorkQ.dll\RtwqRegisterPlatformEvents", "ptr", platformEvents, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10600,12 +10638,15 @@ class Threading {
      * @remarks
      * The app should use the same pointer that was passed to <a href="https://docs.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqregisterplatformevents">RtwqRegisterPlatformEvents</a>.
      * @param {Pointer<IRtwqPlatformEvents>} platformEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqplatformevents">IRtwqPlatformEvents</a>  object which provides the events.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqunregisterplatformevents
      * @since windows8.1
      */
     static RtwqUnregisterPlatformEvents(platformEvents) {
         result := DllCall("RTWorkQ.dll\RtwqUnregisterPlatformEvents", "ptr", platformEvents, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10613,12 +10654,15 @@ class Threading {
      * Indicates that the app will be submitting a hint that long running work will occur on this work queue.
      * @param {Integer} workQueueId The ID of the work queue.
      * @param {Integer} enable <b>true</b> if the app will be submitting the hint; otherwise, <b>false</b>. The default is <b>false</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqsetlongrunning
      * @since windows8.1
      */
     static RtwqSetLongRunning(workQueueId, enable) {
         result := DllCall("RTWorkQ.dll\RtwqSetLongRunning", "uint", workQueueId, "int", enable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10631,12 +10675,15 @@ class Threading {
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in hundred-nanosecond units. For example, if `deadlineInHNS` is 9600, that represents 9600 hundred-nanoseconds, which is equal to 960 microseconds, or 0.96 milliseconds.
      * @param {Pointer<Void>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqsetdeadline
      * @since windows10.0.10240
      */
     static RtwqSetDeadline(workQueueId, deadlineInHNS, pRequest) {
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline", "uint", workQueueId, "int64", deadlineInHNS, "ptr", pRequest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10650,23 +10697,29 @@ class Threading {
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in hundred-nanosecond units. For example, if `deadlineInHNS` is 9600, that represents 9600 hundred-nanoseconds, which is equal to 960 microseconds, or 0.96 milliseconds.
      * @param {Integer} preDeadlineInHNS The pre-deadline for the work in the queue to be completed, in hundred-nanosecond units. For example, if `preDeadlineInHNS` is 9600, that represents 9600 hundred-nanoseconds, which is equal to 960 microseconds, or 0.96 milliseconds.
      * @param {Pointer<Void>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqsetdeadline2
      * @since windows10.0.10240
      */
     static RtwqSetDeadline2(workQueueId, deadlineInHNS, preDeadlineInHNS, pRequest) {
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline2", "uint", workQueueId, "int64", deadlineInHNS, "int64", preDeadlineInHNS, "ptr", pRequest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Cancels a deadline that was previously set with RtwqSetDeadline.
      * @param {Pointer<Void>} pRequest Receives a handle to the request that can be used to cancel the request by calling <b>RtwqCancelDeadline</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqcanceldeadline
      */
     static RtwqCancelDeadline(pRequest) {
         result := DllCall("RTWorkQ.dll\RtwqCancelDeadline", "ptr", pRequest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10987,13 +11040,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0400 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Void>} lpFiber The address of the fiber to be scheduled.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-switchtofiber
      * @since windows5.1.2600
      */
     static SwitchToFiber(lpFiber) {
-        result := DllCall("KERNEL32.dll\SwitchToFiber", "ptr", lpFiber)
-        return result
+        DllCall("KERNEL32.dll\SwitchToFiber", "ptr", lpFiber)
     }
 
     /**
@@ -11009,13 +11061,12 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0400 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Void>} lpFiber The address of the fiber to be deleted.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deletefiber
      * @since windows5.1.2600
      */
     static DeleteFiber(lpFiber) {
-        result := DllCall("KERNEL32.dll\DeleteFiber", "ptr", lpFiber)
-        return result
+        DllCall("KERNEL32.dll\DeleteFiber", "ptr", lpFiber)
     }
 
     /**
@@ -12030,7 +12081,7 @@ class Threading {
      * </ol>
      * @param {Integer} uCmdShow The display options. For a list of the acceptable values, see the description of the <i>nCmdShow</i> parameter of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
-     * @returns {Pointer} If the function succeeds, the return value is greater than 31.
+     * @returns {Integer} If the function succeeds, the return value is greater than 31.
      * 
      * If the function fails, the return value is one of the following error values.
      * 
@@ -12090,7 +12141,7 @@ class Threading {
     static WinExec(lpCmdLine, uCmdShow) {
         lpCmdLine := lpCmdLine is String? StrPtr(lpCmdLine) : lpCmdLine
 
-        result := DllCall("KERNEL32.dll\WinExec", "ptr", lpCmdLine, "uint", uCmdShow)
+        result := DllCall("KERNEL32.dll\WinExec", "ptr", lpCmdLine, "uint", uCmdShow, "uint")
         return result
     }
 
@@ -12624,12 +12675,11 @@ class Threading {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure was specified by the process that created the calling process. It can be used to specify properties associated with the main window of the calling process.
      * @param {Pointer<STARTUPINFOA>} lpStartupInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure that receives the startup information.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getstartupinfow
      */
     static GetStartupInfoA(lpStartupInfo) {
-        result := DllCall("KERNEL32.dll\GetStartupInfoA", "ptr", lpStartupInfo)
-        return result
+        DllCall("KERNEL32.dll\GetStartupInfoA", "ptr", lpStartupInfo)
     }
 
     /**

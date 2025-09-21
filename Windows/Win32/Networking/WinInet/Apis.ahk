@@ -9880,12 +9880,11 @@ class WinInet {
      * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
      * @param {Pointer<INTERNET_COOKIE2>} pCookies Pointer to an array of [**INTERNET\_COOKIE2**](ns-wininet-internet_cookie2.md) structures.
      * @param {Integer} dwCookieCount The number of structures in the array.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfreecookies
      */
     static InternetFreeCookies(pCookies, dwCookieCount) {
-        result := DllCall("WININET.dll\InternetFreeCookies", "ptr", pCookies, "uint", dwCookieCount)
-        return result
+        DllCall("WININET.dll\InternetFreeCookies", "ptr", pCookies, "uint", dwCookieCount)
     }
 
     /**
@@ -14235,12 +14234,12 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Byte>} pszSymbol 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static FindP3PPolicySymbol(pszSymbol) {
         pszSymbol := pszSymbol is String? StrPtr(pszSymbol) : pszSymbol
 
-        result := DllCall("WININET.dll\FindP3PPolicySymbol", "ptr", pszSymbol)
+        result := DllCall("WININET.dll\FindP3PPolicySymbol", "ptr", pszSymbol, "int")
         return result
     }
 
@@ -14285,11 +14284,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hWait 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static HttpPushClose(hWait) {
-        result := DllCall("WININET.dll\HttpPushClose", "ptr", hWait)
-        return result
+        DllCall("WININET.dll\HttpPushClose", "ptr", hWait)
     }
 
     /**
@@ -14899,11 +14897,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<APP_CACHE_DOWNLOAD_LIST>} pDownloadList 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static AppCacheFreeDownloadList(pDownloadList) {
-        result := DllCall("WININET.dll\AppCacheFreeDownloadList", "ptr", pDownloadList)
-        return result
+        DllCall("WININET.dll\AppCacheFreeDownloadList", "ptr", pDownloadList)
     }
 
     /**
@@ -14958,21 +14955,19 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static AppCacheCloseHandle(hAppCache) {
-        result := DllCall("WININET.dll\AppCacheCloseHandle", "ptr", hAppCache)
-        return result
+        DllCall("WININET.dll\AppCacheCloseHandle", "ptr", hAppCache)
     }
 
     /**
      * 
      * @param {Pointer<APP_CACHE_GROUP_LIST>} pAppCacheGroupList 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static AppCacheFreeGroupList(pAppCacheGroupList) {
-        result := DllCall("WININET.dll\AppCacheFreeGroupList", "ptr", pAppCacheGroupList)
-        return result
+        DllCall("WININET.dll\AppCacheFreeGroupList", "ptr", pAppCacheGroupList)
     }
 
     /**
@@ -15082,11 +15077,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hDependencyHandle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static HttpCloseDependencyHandle(hDependencyHandle) {
-        result := DllCall("WININET.dll\HttpCloseDependencyHandle", "ptr", hDependencyHandle)
-        return result
+        DllCall("WININET.dll\HttpCloseDependencyHandle", "ptr", hDependencyHandle)
     }
 
     /**
@@ -15113,11 +15107,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UrlCacheFreeEntryInfo(pCacheEntryInfo) {
-        result := DllCall("WININET.dll\UrlCacheFreeEntryInfo", "ptr", pCacheEntryInfo)
-        return result
+        DllCall("WININET.dll\UrlCacheFreeEntryInfo", "ptr", pCacheEntryInfo)
     }
 
     /**
@@ -15137,11 +15130,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hEntryFile 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UrlCacheCloseEntryHandle(hEntryFile) {
-        result := DllCall("WININET.dll\UrlCacheCloseEntryHandle", "ptr", hEntryFile)
-        return result
+        DllCall("WININET.dll\UrlCacheCloseEntryHandle", "ptr", hEntryFile)
     }
 
     /**
@@ -15358,11 +15350,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<WININET_PROXY_INFO_LIST>} pProxyInfoList 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static InternetFreeProxyInfoList(pProxyInfoList) {
-        result := DllCall("WININET.dll\InternetFreeProxyInfoList", "ptr", pProxyInfoList)
-        return result
+        DllCall("WININET.dll\InternetFreeProxyInfoList", "ptr", pProxyInfoList)
     }
 
     /**

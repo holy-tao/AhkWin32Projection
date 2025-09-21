@@ -218,7 +218,7 @@ class UI {
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @param {Integer} uSIPage A value of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration that indicates the page type on which to display the elevated access control editor.
-     * @returns {Integer} If the function succeeds, the return value is S_OK.
+     * @returns {HRESULT} If the function succeeds, the return value is S_OK.
      * 
      * If the function fails, any other <b>HRESULT</b> value indicates an error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-editsecurityadvanced
@@ -226,6 +226,9 @@ class UI {
      */
     static EditSecurityAdvanced(hwndOwner, psi, uSIPage) {
         result := DllCall("ACLUI.dll\EditSecurityAdvanced", "ptr", hwndOwner, "ptr", psi, "int", uSIPage, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

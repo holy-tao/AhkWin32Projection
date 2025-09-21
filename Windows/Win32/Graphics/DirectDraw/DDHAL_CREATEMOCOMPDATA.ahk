@@ -80,7 +80,7 @@ class DDHAL_CREATEMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 76, "int")

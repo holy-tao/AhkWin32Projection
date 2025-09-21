@@ -2087,12 +2087,15 @@ class Appx {
      * 
      * @param {Pointer<Char>} packageFullName 
      * @param {Pointer<Int32>} isMSIXPackage 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CheckIsMSIXPackage(packageFullName, isMSIXPackage) {
         packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\CheckIsMSIXPackage", "ptr", packageFullName, "int*", isMSIXPackage, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2126,7 +2129,7 @@ class Appx {
      * @param {Pointer<Char>} packageDependencyId Type: <b>PWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the ID of the new package dependency. The caller is responsible for freeing this resource once it is no longer needed by calling [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree).
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2140,6 +2143,9 @@ class Appx {
         lifetimeArtifact := lifetimeArtifact is String? StrPtr(lifetimeArtifact) : lifetimeArtifact
 
         result := DllCall("KERNELBASE.dll\TryCreatePackageDependency", "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int", packageDependencyProcessorArchitectures, "int", lifetimeKind, "ptr", lifetimeArtifact, "int", options, "ptr", packageDependencyId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2152,7 +2158,7 @@ class Appx {
      * @param {Pointer<Char>} packageDependencyId Type: <b>PCWSTR</b>
      * 
      * The ID of the package dependency to remove.
-     * @returns {Integer} | Return code | Description |
+     * @returns {HRESULT} | Return code | Description |
      * |-------------|-------------|
      * | E_INVALIDARG | The *packageDependencyId* parameter is NULL on input. |
      * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-deletepackagedependency
@@ -2161,6 +2167,9 @@ class Appx {
         packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\DeletePackageDependency", "ptr", packageDependencyId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2191,7 +2200,7 @@ class Appx {
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the full name of the package to which the dependency has been resolved. The caller is responsible for freeing this resource once it is no longer needed by calling [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree).
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2204,6 +2213,9 @@ class Appx {
         packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, "int", rank, "int", options, "ptr", packageDependencyContext, "ptr", packageFullName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2215,7 +2227,7 @@ class Appx {
      * @param {Pointer<Void>} packageDependencyContext Type: <b>PACKAGEDEPENDENCY_CONTEXT</b>
      * 
      * The handle of the package dependency to remove.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2226,6 +2238,9 @@ class Appx {
      */
     static RemovePackageDependency(packageDependencyContext) {
         result := DllCall("KERNELBASE.dll\RemovePackageDependency", "ptr", packageDependencyContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2239,7 +2254,7 @@ class Appx {
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR*</b>
      * 
      * The full name of the package to which the dependency has been resolved. If the package dependency cannot be resolved, the function succeeds but this parameter is **nullptr** on output. Use the [HeapAlloc](/windows/win32/api/heapapi/nf-heapapi-heapalloc) function to allocate memory for this parameter, and use [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree) to deallocate the memory.
-     * @returns {Integer} | Return code | Description |
+     * @returns {HRESULT} | Return code | Description |
      * |-------------|-------------|
      * | E_INVALIDARG | The *packageDependencyId* or *packageFullName* parameter is NULL on input. |
      * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getresolvedpackagefullnameforpackagedependency
@@ -2248,6 +2263,9 @@ class Appx {
         packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\GetResolvedPackageFullNameForPackageDependency", "ptr", packageDependencyId, "ptr", packageFullName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2259,13 +2277,16 @@ class Appx {
      * @param {Pointer<Char>} packageDependencyId Type: <b>PCWSTR*</b>
      * 
      * The ID of the package dependency for the specified context handle. If the package dependency cannot be resolved, the function succeeds but this parameter is **nullptr** on output. Use the [HeapAlloc](/windows/win32/api/heapapi/nf-heapapi-heapalloc) function to allocate memory for this parameter, and use [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree) to deallocate the memory.
-     * @returns {Integer} | Return code | Description |
+     * @returns {HRESULT} | Return code | Description |
      * |-------------|-------------|
      * | E_INVALIDARG | The *packageDependencyContext* or *packageDependencyId* parameter is NULL on input. |
      * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getidforpackagedependencycontext
      */
     static GetIdForPackageDependencyContext(packageDependencyContext, packageDependencyId) {
         result := DllCall("KERNELBASE.dll\GetIdForPackageDependencyContext", "ptr", packageDependencyContext, "ptr", packageDependencyId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2410,12 +2431,15 @@ class Appx {
      * 
      * @param {Pointer<Char>} packageFamilyName 
      * @param {Pointer<Void>} context 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreatePackageVirtualizationContext(packageFamilyName, context) {
         packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\CreatePackageVirtualizationContext", "ptr", packageFamilyName, "ptr", context, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2423,41 +2447,45 @@ class Appx {
      * 
      * @param {Pointer<Void>} context 
      * @param {Pointer<UIntPtr>} cookie 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ActivatePackageVirtualizationContext(context, cookie) {
         result := DllCall("KERNEL32.dll\ActivatePackageVirtualizationContext", "ptr", context, "ptr*", cookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ReleasePackageVirtualizationContext(context) {
-        result := DllCall("KERNEL32.dll\ReleasePackageVirtualizationContext", "ptr", context)
-        return result
+        DllCall("KERNEL32.dll\ReleasePackageVirtualizationContext", "ptr", context)
     }
 
     /**
      * 
      * @param {Pointer} cookie 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DeactivatePackageVirtualizationContext(cookie) {
-        result := DllCall("KERNEL32.dll\DeactivatePackageVirtualizationContext", "ptr", cookie)
-        return result
+        DllCall("KERNEL32.dll\DeactivatePackageVirtualizationContext", "ptr", cookie)
     }
 
     /**
      * 
      * @param {Pointer<Void>} sourceContext 
      * @param {Pointer<Void>} destContext 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DuplicatePackageVirtualizationContext(sourceContext, destContext) {
         result := DllCall("KERNEL32.dll\DuplicatePackageVirtualizationContext", "ptr", sourceContext, "ptr", destContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2475,12 +2503,15 @@ class Appx {
      * @param {Pointer<Char>} packageFamilyName 
      * @param {Pointer<UInt32>} count 
      * @param {Pointer<Void>} processes 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetProcessesInVirtualizationContext(packageFamilyName, count, processes) {
         packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, "uint*", count, "ptr", processes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2510,7 +2541,7 @@ class Appx {
      * @param {Pointer<UInt32>} count Type: **UINT32\***
      * 
      * The number of structures in the buffer.
-     * @returns {Integer} Type: **LONG**
+     * @returns {HRESULT} Type: **LONG**
      * 
      * If the function succeeds it returns **ERROR_SUCCESS**. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -2522,6 +2553,9 @@ class Appx {
      */
     static GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, buffer, count) {
         result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, "uint*", bufferLength, "ptr", buffer, "uint*", count, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

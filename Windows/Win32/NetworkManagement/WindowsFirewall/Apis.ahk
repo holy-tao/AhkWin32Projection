@@ -33,13 +33,12 @@ class WindowsFirewall {
     /**
      * The NcFreeNetconProperties function frees memory associated with NETCON_PROPERTIES structures.
      * @param {Pointer<NETCON_PROPERTIES>} pProps Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ns-netcon-netcon_properties">NETCON_PROPERTIES</a> structure to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ncfreenetconproperties
      * @since windows5.1.2600
      */
     static NcFreeNetconProperties(pProps) {
-        result := DllCall("Netshell.dll\NcFreeNetconProperties", "ptr", pProps)
-        return result
+        DllCall("Netshell.dll\NcFreeNetconProperties", "ptr", pProps)
     }
 
     /**
@@ -81,7 +80,7 @@ class WindowsFirewall {
      * @param {Integer} binariesCount Type: <b>DWORD</b>
      * 
      * The number of paths contained in the <i>binaries</i> parameter.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the function succeeds, it returns S_OK.
      * 
@@ -95,6 +94,9 @@ class WindowsFirewall {
         displayName := displayName is String? StrPtr(displayName) : displayName
 
         result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, "ptr", binaries, "uint", binariesCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -195,7 +197,7 @@ class WindowsFirewall {
      * @param {Pointer<IEnumVARIANT>} newEnum Type: <b>IEnumVARIANT**</b>
      * 
      * Enumerator interface of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule3">INetFwRule3</a> object that represents the rules enforcing app containers.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationenumerateappcontainerrules
@@ -203,6 +205,9 @@ class WindowsFirewall {
      */
     static NetworkIsolationEnumerateAppContainerRules(newEnum) {
         result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr", newEnum, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

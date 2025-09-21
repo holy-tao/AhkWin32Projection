@@ -4903,7 +4903,7 @@ class Certificates {
      * This function's name in Certadm.dll is <b>CertSrvIsServerOnlineW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVISSERVERONLINEW</b> in the Certbcli.h header file.
      * @param {Pointer<Char>} pwszServerName A pointer to the NetBIOS or DNS machine name of the server to check for online status.
      * @param {Pointer<Int32>} pfServerOnline A pointer to Boolean value which will be <b>TRUE</b> if the Certificate Services server is online and <b>FALSE</b> if it is not online.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. This function will fail if Certificate Services is not running. If Certificate Services is running and ready to accept requests, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>TRUE</b>. If Certificate Services is running in suspended (or paused) mode, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>FALSE</b>.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. This function will fail if Certificate Services is not running. If Certificate Services is running and ready to accept requests, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>TRUE</b>. If Certificate Services is running in suspended (or paused) mode, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvisserveronlinew
      * @since windowsserver2003
      */
@@ -4911,6 +4911,9 @@ class Certificates {
         pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
 
         result := DllCall("certadm.dll\CertSrvIsServerOnlineW", "ptr", pwszServerName, "int*", pfServerOnline, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4925,12 +4928,15 @@ class Certificates {
      * 
      * Before calling this function, setting *<i>ppwszzFileList</i> to <b>NULL</b> is optional.
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzFileList</i>.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw
      * @since windowsserver2003
      */
     static CertSrvBackupGetDynamicFileListW(hbc, ppwszzFileList, pcbSize) {
         result := DllCall("certadm.dll\CertSrvBackupGetDynamicFileListW", "ptr", hbc, "ptr", ppwszzFileList, "uint*", pcbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4950,7 +4956,7 @@ class Certificates {
      * @param {Integer} grbitJet Value used by the database engine; this value should be set to zero.
      * @param {Integer} dwBackupFlags 
      * @param {Pointer<Void>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> will be set to an <b>HCSBC</b> which can be used by other Certificate Services backup APIs.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> will be set to an <b>HCSBC</b> which can be used by other Certificate Services backup APIs.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuppreparew
      * @since windowsserver2003
      */
@@ -4958,6 +4964,9 @@ class Certificates {
         pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
 
         result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, "ptr", phbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4993,12 +5002,15 @@ class Certificates {
      * 
      * You must free this allocated memory when done by calling <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a>. Before calling this function, setting *<i>ppwszzAttachmentInformation</i> to <b>NULL</b> is optional.
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzAttachmentInformation</i>.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw
      * @since windowsserver2003
      */
     static CertSrvBackupGetDatabaseNamesW(hbc, ppwszzAttachmentInformation, pcbSize) {
         result := DllCall("certadm.dll\CertSrvBackupGetDatabaseNamesW", "ptr", hbc, "ptr", ppwszzAttachmentInformation, "uint*", pcbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5016,7 +5028,7 @@ class Certificates {
      * @param {Integer} cbReadHintSize Number of bytes used as a hint when the file is read by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupread">CertSrvBackupRead</a>. The <i>cbReadHintSize</i> parameter passed to the first <b>CertSrvBackupOpenFile</b> call for the backup context is used to size the read buffer. Pass zero for this parameter, and the buffer will be sized at a reasonably efficient size chosen by <b>CertSrvBackupOpenFile</b>. If insufficient memory is available, the buffer size will be reduced until memory allocation succeeds or until the buffer size reaches its minimum possible value. Pass a nonzero size to cause <b>CertSrvBackupOpenFile</b> to size the buffer to a power of two near the value of <i>cbReadHintSize</i>. The  implementation will choose only powers of two between 64 KB and 4 MB.
      * @param {Pointer<Int64>} pliFileSize A pointer to a <b>LARGE_INTEGER</b> value that represents the number of bytes in the file.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupopenfilew
@@ -5026,6 +5038,9 @@ class Certificates {
         pwszAttachmentName := pwszAttachmentName is String? StrPtr(pwszAttachmentName) : pwszAttachmentName
 
         result := DllCall("certadm.dll\CertSrvBackupOpenFileW", "ptr", hbc, "ptr", pwszAttachmentName, "uint", cbReadHintSize, "int64*", pliFileSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5039,12 +5054,15 @@ class Certificates {
      * @param {Pointer<Void>} pvBuffer Void pointer to storage which will contain bytes read from the file being backed up.
      * @param {Integer} cbBuffer Size of the storage area referenced by <i>pvBuffer</i>.
      * @param {Pointer<UInt32>} pcbRead A pointer to a <b>DWORD</b> value which represents the actual number of bytes read by <b>CertSrvBackupRead</b>. The number of bytes read can be less than the size of the storage area allocated to <i>pvBuffer</i> if the end of the file has been reached.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupread
      * @since windowsserver2003
      */
     static CertSrvBackupRead(hbc, pvBuffer, cbBuffer, pcbRead) {
         result := DllCall("certadm.dll\CertSrvBackupRead", "ptr", hbc, "ptr", pvBuffer, "uint", cbBuffer, "uint*", pcbRead, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5053,12 +5071,15 @@ class Certificates {
      * @remarks
      * For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupopenfilew">CertSrvBackupOpenFile</a>, there should be a subsequent call to <b>CertSrvBackupClose</b>. Upon completion of backing up a  file, the file needs to be closed.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupclose
      * @since windowsserver2003
      */
     static CertSrvBackupClose(hbc) {
         result := DllCall("certadm.dll\CertSrvBackupClose", "ptr", hbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5072,12 +5093,15 @@ class Certificates {
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<Char>} ppwszzBackupLogFiles 
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzBackupLogFiles</i>.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
      * @since windowsserver2003
      */
     static CertSrvBackupGetBackupLogsW(hbc, ppwszzBackupLogFiles, pcbSize) {
         result := DllCall("certadm.dll\CertSrvBackupGetBackupLogsW", "ptr", hbc, "ptr", ppwszzBackupLogFiles, "uint*", pcbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5097,12 +5121,15 @@ class Certificates {
      * <b>CertSrvBackupGetBackupLogs</b>.</div>
      * <div> </div>
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuptruncatelogs
      * @since windowsserver2003
      */
     static CertSrvBackupTruncateLogs(hbc) {
         result := DllCall("certadm.dll\CertSrvBackupTruncateLogs", "ptr", hbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5111,12 +5138,15 @@ class Certificates {
      * @remarks
      * Upon completion of a backup session, the session needs to be terminated by means of <b>CertSrvBackupEnd</b>. For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackuppreparew">CertSrvBackupPrepare</a>, there should be a call to <b>CertSrvBackupEnd</b>.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupend
      * @since windowsserver2003
      */
     static CertSrvBackupEnd(hbc) {
         result := DllCall("certadm.dll\CertSrvBackupEnd", "ptr", hbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5143,13 +5173,12 @@ class Certificates {
      * </li>
      * </ul>
      * @param {Pointer<Void>} pv A pointer to the memory to be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupfree
      * @since windowsserver2003
      */
     static CertSrvBackupFree(pv) {
-        result := DllCall("certadm.dll\CertSrvBackupFree", "ptr", pv)
-        return result
+        DllCall("certadm.dll\CertSrvBackupFree", "ptr", pv)
     }
 
     /**
@@ -5161,12 +5190,15 @@ class Certificates {
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup or restore context.
      * @param {Pointer<Char>} ppwszzDatabaseLocationList 
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzDatabaseLocationList</i>.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
      * @since windowsserver2003
      */
     static CertSrvRestoreGetDatabaseLocationsW(hbc, ppwszzDatabaseLocationList, pcbSize) {
         result := DllCall("certadm.dll\CertSrvRestoreGetDatabaseLocationsW", "ptr", hbc, "ptr", ppwszzDatabaseLocationList, "uint*", pcbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5201,7 +5233,7 @@ class Certificates {
      * </tr>
      * </table>
      * @param {Pointer<Void>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> is set to an <b>HCSBC</b>, which can be used by other Certificate Services restore APIs.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> is set to an <b>HCSBC</b>, which can be used by other Certificate Services restore APIs.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestorepreparew
      * @since windowsserver2003
      */
@@ -5209,6 +5241,9 @@ class Certificates {
         pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
 
         result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, "ptr", phbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5233,7 +5268,7 @@ class Certificates {
      * @param {Pointer<Char>} pwszBackupLogPath A pointer to a null-terminated Unicode string that contains the path for the backup log directory. Pass <b>NULL</b> for this parameter if it is not needed.
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregisterw
      * @since windowsserver2003
      */
@@ -5243,6 +5278,9 @@ class Certificates {
         pwszBackupLogPath := pwszBackupLogPath is String? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
         result := DllCall("certadm.dll\CertSrvRestoreRegisterW", "ptr", hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, "ptr", rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5262,7 +5300,7 @@ class Certificates {
      * @param {Pointer<Char>} pwszBackupLogPath A pointer to a null-terminated Unicode string that contains the path for the backup log directory. Pass <b>NULL</b> for this parameter if it is not needed.
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregisterthroughfile
      * @since windowsserver2003
      */
@@ -5272,6 +5310,9 @@ class Certificates {
         pwszBackupLogPath := pwszBackupLogPath is String? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
         result := DllCall("certadm.dll\CertSrvRestoreRegisterThroughFile", "ptr", hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, "ptr", rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5281,13 +5322,16 @@ class Certificates {
      * If a registered restore operation is not completed, Certificate Services will not start.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services restore context. You must set this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreregisterw">CertSrvRestoreRegister</a> before using it in <b>CertSrvRestoreRegisterComplete</b>.
-     * @param {Integer} hrRestoreState <b>HRESULT</b> value indicating the success code for the restore operation. Set this value to S_OK if the restore operation was successful.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @param {HRESULT} hrRestoreState <b>HRESULT</b> value indicating the success code for the restore operation. Set this value to S_OK if the restore operation was successful.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregistercomplete
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterComplete(hbc, hrRestoreState) {
         result := DllCall("certadm.dll\CertSrvRestoreRegisterComplete", "ptr", hbc, "int", hrRestoreState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5298,12 +5342,15 @@ class Certificates {
      * 
      * When a restore is complete, it is important that you make a new full backup of the Certificate Services database. This is necessary to truncate the restored log files and to establish a base backup set for future restores. Backups performed after a restore cannot be mixed with backups (full or incremental) taken before the restore; that is, after a certificate services database is restored and has progressed to a subsequent state, you cannot use the pre-restoration backups to restore the database to that subsequent state.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreend
      * @since windowsserver2003
      */
     static CertSrvRestoreEnd(hbc) {
         result := DllCall("certadm.dll\CertSrvRestoreEnd", "ptr", hbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5334,7 +5381,7 @@ class Certificates {
      * </table>
      * @param {Pointer<UInt32>} pcbOut For future use, this parameter will be the number of bytes allocated to <i>ppbOut</i>. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
      * @param {Pointer<Byte>} ppbOut For future use, this parameter will be the pointer to pointer to bytes representing the output from the issued command. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
-     * @returns {Integer} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvservercontrolw
      * @since windowsserver2003
      */
@@ -5342,6 +5389,9 @@ class Certificates {
         pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
 
         result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, "uint*", pcbOut, "ptr", ppbOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

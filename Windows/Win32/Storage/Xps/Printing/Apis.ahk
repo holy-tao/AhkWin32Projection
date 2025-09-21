@@ -169,7 +169,7 @@ class Printing {
      * @param {Pointer<IXpsPrintJob>} xpsPrintJob A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjob">IXpsPrintJob</a> interface that represents the print job that is created by <b>StartXpsPrintJob</b>.  To get the status of the print job or to cancel it, use the <b>IXpsPrintJob</b> interface. If an <b>IXpsPrintJob</b> is not required, this parameter can be set to <b>NULL</b>.
      * @param {Pointer<IXpsPrintJobStream>} documentStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjobstream">IXpsPrintJobStream</a> interface into which the caller  writes the XPS document to be printed by this print job.
      * @param {Pointer<IXpsPrintJobStream>} printTicketStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjobstream">IXpsPrintJobStream</a> interface that is  used by  the caller to write the job-level print ticket that will be associated with this job.  If this parameter is set to <b>NULL</b>, the print tickets (if any exist) from the XPS document that is written to <i>documentStream</i> will be used.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -220,6 +220,9 @@ class Printing {
         outputFileName := outputFileName is String? StrPtr(outputFileName) : outputFileName
 
         result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "char*", printablePagesOn, "uint", printablePagesOnCount, "ptr", xpsPrintJob, "ptr", documentStream, "ptr", printTicketStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -271,7 +274,7 @@ class Printing {
      * @param {Pointer<IXpsOMPackageTarget>} printContentReceiver A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ff970304(v=vs.85)">IXpsOMPackageTarget</a> interface that this function created. This parameter is required and you cannot set it to <b>NULL</b>.
      * 
      * To send document content to the print job that this function created, use the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> interface that you  create by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ff970305(v=vs.85)">CreateXpsOMPackageWriter</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ff970304(v=vs.85)">IXpsOMPackageTarget</a> interface returned in <i>xpsOMPackageTarget</i>.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -322,6 +325,9 @@ class Printing {
         outputFileName := outputFileName is String? StrPtr(outputFileName) : outputFileName
 
         result := DllCall("XPSPRINT.dll\StartXpsPrintJob1", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "ptr", xpsPrintJob, "ptr", printContentReceiver, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

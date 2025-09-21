@@ -42,7 +42,7 @@ class SOLE_AUTHENTICATION_SERVICE extends Win32Struct
 
     /**
      * When used in <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>, set on return to indicate the status of the call to register the authentication services.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 16, "int")

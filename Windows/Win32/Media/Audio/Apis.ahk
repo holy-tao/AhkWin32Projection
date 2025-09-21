@@ -2298,12 +2298,15 @@ class Audio {
      * 
      * Note that this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the interface pointer to the message filter.
      * @param {Pointer<IMessageFilter>} lplpMessageFilter Address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a>* pointer variable that receives the interface pointer to the previously registered message filter. If there was no previously registered message filter for the current thread, the value of *<i>lplpMessageFilter</i> is <b>NULL</b>.
-     * @returns {Integer} If the instance was registered or revoked successfully, the return value is S_OK; otherwise, it is S_FALSE.
+     * @returns {HRESULT} If the instance was registered or revoked successfully, the return value is S_OK; otherwise, it is S_FALSE.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregistermessagefilter
      * @since windows5.0
      */
     static CoRegisterMessageFilter(lpMessageFilter, lplpMessageFilter) {
         result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr", lplpMessageFilter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2363,12 +2366,12 @@ class Audio {
 
     /**
      * The waveOutGetNumDevs function retrieves the number of waveform-audio output devices present in the system.
-     * @returns {Pointer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
+     * @returns {Integer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
      * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetnumdevs
      * @since windows5.0
      */
     static waveOutGetNumDevs() {
-        result := DllCall("WINMM.dll\waveOutGetNumDevs")
+        result := DllCall("WINMM.dll\waveOutGetNumDevs", "uint")
         return result
     }
 
@@ -3788,12 +3791,12 @@ class Audio {
 
     /**
      * The waveInGetNumDevs function returns the number of waveform-audio input devices present in the system.
-     * @returns {Pointer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
+     * @returns {Integer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
      * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetnumdevs
      * @since windows5.0
      */
     static waveInGetNumDevs() {
-        result := DllCall("WINMM.dll\waveInGetNumDevs")
+        result := DllCall("WINMM.dll\waveInGetNumDevs", "uint")
         return result
     }
 
@@ -4641,12 +4644,12 @@ class Audio {
 
     /**
      * The midiOutGetNumDevs function retrieves the number of MIDI output devices present in the system.
-     * @returns {Pointer} Returns the number of MIDI output devices. A return value of zero means that there are no devices (not that there is no error).
+     * @returns {Integer} Returns the number of MIDI output devices. A return value of zero means that there are no devices (not that there is no error).
      * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetnumdevs
      * @since windows5.0
      */
     static midiOutGetNumDevs() {
-        result := DllCall("WINMM.dll\midiOutGetNumDevs")
+        result := DllCall("WINMM.dll\midiOutGetNumDevs", "uint")
         return result
     }
 
@@ -6435,12 +6438,12 @@ class Audio {
 
     /**
      * The midiInGetNumDevs function retrieves the number of MIDI input devices in the system.
-     * @returns {Pointer} Returns the number of MIDI input devices present in the system. A return value of zero means that there are no devices (not that there is no error).
+     * @returns {Integer} Returns the number of MIDI input devices present in the system. A return value of zero means that there are no devices (not that there is no error).
      * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetnumdevs
      * @since windows5.0
      */
     static midiInGetNumDevs() {
-        result := DllCall("WINMM.dll\midiInGetNumDevs")
+        result := DllCall("WINMM.dll\midiInGetNumDevs", "uint")
         return result
     }
 
@@ -7352,12 +7355,12 @@ class Audio {
 
     /**
      * The auxGetNumDevs function retrieves the number of auxiliary output devices present in the system.
-     * @returns {Pointer} Returns the number of device. A return value of zero means that no devices are present or that an error occurred.
+     * @returns {Integer} Returns the number of device. A return value of zero means that no devices are present or that an error occurred.
      * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetnumdevs
      * @since windows5.0
      */
     static auxGetNumDevs() {
-        result := DllCall("WINMM.dll\auxGetNumDevs")
+        result := DllCall("WINMM.dll\auxGetNumDevs", "uint")
         return result
     }
 
@@ -7652,12 +7655,12 @@ class Audio {
 
     /**
      * The mixerGetNumDevs function retrieves the number of mixer devices present in the system.
-     * @returns {Pointer} Returns the number of mixer devices or zero if no mixer devices are available.
+     * @returns {Integer} Returns the number of mixer devices or zero if no mixer devices are available.
      * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetnumdevs
      * @since windows5.0
      */
     static mixerGetNumDevs() {
-        result := DllCall("WINMM.dll\mixerGetNumDevs")
+        result := DllCall("WINMM.dll\mixerGetNumDevs", "uint")
         return result
     }
 
@@ -9450,7 +9453,7 @@ class Audio {
      * Starting with TBD, you can specify [AUDIOCLIENT_ACTIVATION_PARAMS](/windows/desktop/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params) to activate the interface to include or exclude audio streams associated with a specified process ID.
      * @param {Pointer<IActivateAudioInterfaceCompletionHandler>} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
      * @param {Pointer<IActivateAudioInterfaceAsyncOperation>} activationOperation Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -9487,16 +9490,22 @@ class Audio {
         deviceInterfacePath := deviceInterfacePath is String? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
         result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr", activationOperation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitor(audioStateMonitor) {
         result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9504,10 +9513,13 @@ class Audio {
      * 
      * @param {Integer} category 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitorForCategory(category, audioStateMonitor) {
         result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9516,10 +9528,13 @@ class Audio {
      * @param {Integer} category 
      * @param {Integer} role 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role, audioStateMonitor) {
         result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9528,22 +9543,28 @@ class Audio {
      * @param {Integer} category 
      * @param {Pointer<Char>} deviceId 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
         deviceId := deviceId is String? StrPtr(deviceId) : deviceId
 
         result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitor(audioStateMonitor) {
         result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9551,10 +9572,13 @@ class Audio {
      * 
      * @param {Integer} category 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitorForCategory(category, audioStateMonitor) {
         result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9563,10 +9587,13 @@ class Audio {
      * @param {Integer} category 
      * @param {Integer} role 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role, audioStateMonitor) {
         result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9575,12 +9602,15 @@ class Audio {
      * @param {Integer} category 
      * @param {Pointer<Char>} deviceId 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
         deviceId := deviceId is String? StrPtr(deviceId) : deviceId
 
         result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

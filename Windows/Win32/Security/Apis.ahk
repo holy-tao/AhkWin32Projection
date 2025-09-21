@@ -3932,13 +3932,12 @@ class Security {
      * @param {Pointer<UInt32>} AccessMask A pointer to an access mask.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure specifying a mapping of generic access types to specific and standard access types.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-mapgenericmask
      * @since windows5.1.2600
      */
     static MapGenericMask(AccessMask, GenericMapping) {
-        result := DllCall("ADVAPI32.dll\MapGenericMask", "uint*", AccessMask, "ptr", GenericMapping)
-        return result
+        DllCall("ADVAPI32.dll\MapGenericMask", "uint*", AccessMask, "ptr", GenericMapping)
     }
 
     /**
@@ -4100,13 +4099,12 @@ class Security {
      * Creates an access mask that represents the access permissions necessary to query the specified object security information.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be queried.
      * @param {Pointer<UInt32>} DesiredAccess A pointer to the access mask that this function creates.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
      * @since windows6.0.6000
      */
     static QuerySecurityAccessMask(SecurityInformation, DesiredAccess) {
-        result := DllCall("ADVAPI32.dll\QuerySecurityAccessMask", "uint", SecurityInformation, "uint*", DesiredAccess)
-        return result
+        DllCall("ADVAPI32.dll\QuerySecurityAccessMask", "uint", SecurityInformation, "uint*", DesiredAccess)
     }
 
     /**
@@ -4387,13 +4385,12 @@ class Security {
      * Creates an access mask that represents the access permissions necessary to set the specified object security information.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be set.
      * @param {Pointer<UInt32>} DesiredAccess A pointer to the access mask that this function creates.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
      * @since windows6.0.6000
      */
     static SetSecurityAccessMask(SecurityInformation, DesiredAccess) {
-        result := DllCall("ADVAPI32.dll\SetSecurityAccessMask", "uint", SecurityInformation, "uint*", DesiredAccess)
-        return result
+        DllCall("ADVAPI32.dll\SetSecurityAccessMask", "uint", SecurityInformation, "uint*", DesiredAccess)
     }
 
     /**

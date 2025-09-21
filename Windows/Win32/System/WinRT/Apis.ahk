@@ -42,7 +42,7 @@ class WinRT {
      * @param {Integer} dwClientPid The process ID of the process that contains the proxy.
      * @param {Integer} ui64ProxyAddress The address of an interface on a proxy to the object.  <i>ui64ProxyAddress</i> is considered a 64-bit value type, rather than a pointer  to a 64-bit value, and isn't a pointer to an object in the debugger process. Instead, this address is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-readprocessmemory">ReadProcessMemory</a> function.
      * @param {Pointer<ServerInformation>} pServerInformation A structure that contains the process ID, the thread ID, and the address of the server.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -87,6 +87,9 @@ class WinRT {
      */
     static CoDecodeProxy(dwClientPid, ui64ProxyAddress, pServerInformation) {
         result := DllCall("OLE32.dll\CoDecodeProxy", "uint", dwClientPid, "uint", ui64ProxyAddress, "ptr", pServerInformation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -104,7 +107,7 @@ class WinRT {
      * @param {Pointer<Guid>} riid The interface ID of the object for which an agile reference is being obtained.
      * @param {Pointer<IUnknown>} pUnk Pointer to the interface to be encapsulated in an agile reference. It must be the same type as <i>riid</i>. It may be a pointer to an in-process object or a pointer to a proxy of an object.
      * @param {Pointer<IAgileReference>} ppAgileReference The agile reference for the object. Call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/iagilereference-resolve">Resolve</a> method to localize the object into the apartment in which <b>Resolve</b> is called.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -172,6 +175,9 @@ class WinRT {
      */
     static RoGetAgileReference(options, riid, pUnk, ppAgileReference) {
         result := DllCall("OLE32.dll\RoGetAgileReference", "int", options, "ptr", riid, "ptr", pUnk, "ptr", ppAgileReference, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -250,13 +256,12 @@ class WinRT {
      * The HSTRING_UserFree function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree)
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Void>} param1 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
      * @since windows8.0
      */
     static HSTRING_UserFree(param0, param1) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree", "uint*", param0, "ptr", param1)
-        return result
+        DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree", "uint*", param0, "ptr", param1)
     }
 
     /**
@@ -334,13 +339,12 @@ class WinRT {
      * The HSTRING_UserFree64 function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree64)
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Void>} param1 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
      * @since windows8.0
      */
     static HSTRING_UserFree64(param0, param1) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree64", "uint*", param0, "ptr", param1)
-        return result
+        DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree64", "uint*", param0, "ptr", param1)
     }
 
     /**
@@ -362,7 +366,7 @@ class WinRT {
      * @param {Pointer<Void>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A pointer to the newly created [**HSTRING**](/windows/win32/winrt/hstring), or <b>NULL</b> if an error occurs. Any existing  content in <i>string</i> is overwritten. The <b>HSTRING</b> is a standard handle type.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -423,6 +427,9 @@ class WinRT {
         sourceString := sourceString is String? StrPtr(sourceString) : sourceString
 
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -450,7 +457,7 @@ class WinRT {
      * @param {Pointer<Void>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A pointer to the newly created string, or <b>NULL</b> if an error occurs. Any existing  content in <i>string</i> is overwritten. The [**HSTRING**](/windows/win32/winrt/hstring) is a standard handle type.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -511,6 +518,9 @@ class WinRT {
         sourceString := sourceString is String? StrPtr(sourceString) : sourceString
 
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -521,7 +531,7 @@ class WinRT {
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be deleted. If <i>string</i> is a fast-pass string created by <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a>, or if <i>string</i> is <b>NULL</b> or empty, no action is taken and <b>S_OK</b> is returned.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function always returns <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsdeletestring
@@ -529,6 +539,9 @@ class WinRT {
      */
     static WindowsDeleteString(string) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", "ptr", string, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -544,7 +557,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A copy of <i>string</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -592,6 +605,9 @@ class WinRT {
      */
     static WindowsDuplicateString(string, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", string, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -658,7 +674,7 @@ class WinRT {
      * @param {Pointer<Int32>} hasEmbedNull Type: [out] <b>BOOL*</b>
      * 
      * <b>TRUE</b> if <i>string</i> has one or more embedded null characters; otherwise, <b>FALSE</b>. <b>FALSE</b> if  <i>string</i> is <b>NULL</b> or the empty string.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -695,6 +711,9 @@ class WinRT {
      */
     static WindowsStringHasEmbeddedNull(string, hasEmbedNull) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string, "int*", hasEmbedNull, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -730,7 +749,7 @@ class WinRT {
      * @param {Pointer<Int32>} result Type: [out] <b>INT32*</b>
      * 
      * A value that indicates the lexical relationship between <i>string1</i> and <i>string2</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -767,6 +786,9 @@ class WinRT {
      */
     static WindowsCompareStringOrdinal(string1, string2, result) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -783,7 +805,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -842,6 +864,9 @@ class WinRT {
      */
     static WindowsSubstring(string, startIndex, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", string, "uint", startIndex, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -861,7 +886,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -920,6 +945,9 @@ class WinRT {
      */
     static WindowsSubstringWithSpecifiedLength(string, startIndex, length, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", string, "uint", startIndex, "uint", length, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -936,7 +964,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The concatenation of <i>string1</i> and <i>string2</i>. If <i>string1</i> and <i>string2</i> are <b>NULL</b>, <i>newString</i> is <b>NULL</b>. If either <i>string1</i> or <i>string2</i> is <b>NULL</b>, <i>newString</i> is a copy of the non-null string.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -984,6 +1012,9 @@ class WinRT {
      */
     static WindowsConcatString(string1, string2, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", "ptr", string1, "ptr", string2, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1004,7 +1035,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the original, except that all instances of <i>stringReplaced</i> are replaced with <i>stringReplaceWith</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1052,6 +1083,9 @@ class WinRT {
      */
     static WindowsReplaceString(string, stringReplaced, stringReplaceWith, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", string, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1068,7 +1102,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the start of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1116,6 +1150,9 @@ class WinRT {
      */
     static WindowsTrimStringStart(string, trimString, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", string, "ptr", trimString, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1132,7 +1169,7 @@ class WinRT {
      * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the end of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1180,6 +1217,9 @@ class WinRT {
      */
     static WindowsTrimStringEnd(string, trimString, newString) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", string, "ptr", trimString, "ptr", newString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1199,7 +1239,7 @@ class WinRT {
      * @param {Pointer<Void>} bufferHandle Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>*</b>
      * 
      * The preallocated string buffer, or <b>NULL</b> if  <i>length</i> is 0.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1258,6 +1298,9 @@ class WinRT {
      */
     static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, "ptr", charBuffer, "ptr", bufferHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1275,7 +1318,7 @@ class WinRT {
      * @param {Pointer<Void>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The newly created [**HSTRING**](/windows/win32/winrt/hstring) that contains the contents of <i>bufferHandle</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1323,6 +1366,9 @@ class WinRT {
      */
     static WindowsPromoteStringBuffer(bufferHandle, string) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1336,7 +1382,7 @@ class WinRT {
      * @param {Pointer<Void>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
      * 
      * The buffer to discard. The <b>WindowsDeleteStringBuffer</b> function raises an exception if <i>bufferHandle</i> was not allocated by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1373,6 +1419,9 @@ class WinRT {
      */
     static WindowsDeleteStringBuffer(bufferHandle) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteStringBuffer", "ptr", bufferHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1394,7 +1443,7 @@ class WinRT {
      * @param {Pointer<UIntPtr>} targetStringAddress [out]
      * 
      * The target address of the raw <b>PCWSTR</b>, if the call to <i>callback</i> is successful; otherwise, <b>NULL</b>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1423,6 +1472,9 @@ class WinRT {
      */
     static WindowsInspectString(targetHString, machine, callback, context, length, targetStringAddress) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, "ptr", context, "uint*", length, "ptr*", targetStringAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1448,7 +1500,7 @@ class WinRT {
      * @param {Pointer<UInt64>} targetStringAddress [out]
      * 
      * The target address of the raw <b>PCWSTR</b>, if the call to <i>callback</i> is successful; otherwise, <b>NULL</b>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1476,6 +1528,9 @@ class WinRT {
      */
     static WindowsInspectString2(targetHString, machine, callback, context, length, targetStringAddress) {
         result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, "ptr", context, "uint*", length, "uint*", targetStringAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1501,11 +1556,14 @@ class WinRT {
      * 
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> is a WinRT object.</div>
      * <div> </div>
-     * @returns {Integer} <b>S_OK</b> for success; otherwise a failure code.
+     * @returns {HRESULT} <b>S_OK</b> for success; otherwise a failure code.
      * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
     static CreateDispatcherQueueController(options, dispatcherQueueController) {
         result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr", dispatcherQueueController, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1518,7 +1576,7 @@ class WinRT {
      * @param {Integer} initType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a></b>
      * 
      * The concurrency model for the thread. The default is <b>RO_INIT_MULTITHREADED</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return the standard return values <b>E_INVALIDARG</b>, <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the following values.
      * 
@@ -1566,6 +1624,9 @@ class WinRT {
      */
     static RoInitialize(initType) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoInitialize", "int", initType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1575,13 +1636,12 @@ class WinRT {
      * Call the <b>RoUninitialize</b> function to close the Windows Runtime on the current thread. This unloads all DLLs loaded by the thread, frees any other resources that the thread maintains, and forces all RPC connections on the thread to close.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function to initialize a thread in the Windows Runtime.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rouninitialize
      * @since windows8.0
      */
     static RoUninitialize() {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUninitialize")
-        return result
+        DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUninitialize")
     }
 
     /**
@@ -1594,7 +1654,7 @@ class WinRT {
      * @param {Pointer<IInspectable>} instance Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>**</b>
      * 
      * A pointer to the activated instance of the runtime class.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1675,6 +1735,9 @@ class WinRT {
      */
     static RoActivateInstance(activatableClassId, instance) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoActivateInstance", "ptr", activatableClassId, "ptr", instance, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1694,7 +1757,7 @@ class WinRT {
      * @param {Pointer<IntPtr>} cookie Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/ro-registration-cookie">RO_REGISTRATION_COOKIE</a>*</b>
      * 
      * A cookie that identifies the registered factories.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1775,6 +1838,9 @@ class WinRT {
      */
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count, cookie) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, "ptr", activationFactoryCallbacks, "uint", count, "ptr*", cookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1783,13 +1849,12 @@ class WinRT {
      * @remarks
      * Call the <b>RoRevokeActivationFactories</b> function remove the activation factories represented in the  <i>cookie</i> array from the Windows Runtime.
      * @param {Pointer} cookie Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/ro-registration-cookie">RO_REGISTRATION_COOKIE</a></b>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rorevokeactivationfactories
      * @since windows8.0
      */
     static RoRevokeActivationFactories(cookie) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRevokeActivationFactories", "ptr", cookie)
-        return result
+        DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRevokeActivationFactories", "ptr", cookie)
     }
 
     /**
@@ -1803,7 +1868,7 @@ class WinRT {
      * @param {Pointer<Void>} factory Type: <b>void**</b>
      * 
      * The activation factory.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetactivationfactory
@@ -1811,6 +1876,9 @@ class WinRT {
      */
     static RoGetActivationFactory(activatableClassId, iid, factory) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, "ptr", factory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1825,12 +1893,15 @@ class WinRT {
      * @param {Pointer<IApartmentShutdown>} callbackObject The application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
      * @param {Pointer<UInt64>} apartmentIdentifier The identifier for the current apartment.
      * @param {Pointer<Void>} regCookie A cookie that you can use to unregister the callback.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, "uint*", apartmentIdentifier, "ptr", regCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1843,24 +1914,30 @@ class WinRT {
      * <div> </div>
      * Don't call the <b>RoUnregisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
      * @param {Pointer<Void>} regCookie A registration cookie obtained from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rounregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoUnregisterForApartmentShutdown(regCookie) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUnregisterForApartmentShutdown", "ptr", regCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Gets a unique identifier for the current apartment.
      * @param {Pointer<UInt64>} apartmentIdentifier A process-unique identifier for the current apartment.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetapartmentidentifier
      * @since windows8.0
      */
     static RoGetApartmentIdentifier(apartmentIdentifier) {
         result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetApartmentIdentifier", "uint*", apartmentIdentifier, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1873,12 +1950,15 @@ class WinRT {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imarshal">IMarshal</a> implementation clones its contents to the original instance when the caller sets the Length property.
      * @param {Pointer<IMarshal>} bufferMarshaler pointer to Windows Runtime IBuffer marshaler
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/robuffer/nf-robuffer-rogetbuffermarshaler
      * @since windows8.0
      */
     static RoGetBufferMarshaler(bufferMarshaler) {
         result := DllCall("api-ms-win-core-winrt-robuffer-l1-1-0.dll\RoGetBufferMarshaler", "ptr", bufferMarshaler, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1889,7 +1969,7 @@ class WinRT {
      * @param {Pointer<UInt32>} pflags Type: <b>UINT32*</b>
      * 
      * A pointer to the bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/ne-roerrorapi-roerrorreportingflags">RO_ERROR_REPORTING_FLAGS</a> values that represents the current error-reporting behavior.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1926,6 +2006,9 @@ class WinRT {
      */
     static RoGetErrorReportingFlags(pflags) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoGetErrorReportingFlags", "uint*", pflags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1936,7 +2019,7 @@ class WinRT {
      * @param {Integer} flags Type: <b>UINT32</b>
      * 
      * A bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/ne-roerrorapi-roerrorreportingflags">RO_ERROR_REPORTING_FLAGS</a> values.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1973,6 +2056,9 @@ class WinRT {
      */
     static RoSetErrorReportingFlags(flags) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoSetErrorReportingFlags", "uint", flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1986,7 +2072,7 @@ class WinRT {
      * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a>**</b>
      * 
      * The output parameter for the object associated with the given reference.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -2038,6 +2124,9 @@ class WinRT {
         reference := reference is String? StrPtr(reference) : reference
 
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr", ppRestrictedErrorInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2050,12 +2139,15 @@ class WinRT {
      * 
      * The <b>SetRestrictedErrorInfo</b>  function releases the existing restricted error information object, if one exists, and sets <i>pRestrictedErrorInfo</i>.  For more info, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a> function.
      * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The restricted error information object associated with the current thread.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-setrestrictederrorinfo
      * @since windows8.0
      */
     static SetRestrictedErrorInfo(pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\SetRestrictedErrorInfo", "ptr", pRestrictedErrorInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2072,7 +2164,7 @@ class WinRT {
      * 
      * Calling the <b>GetRestrictedErrorInfo</b>  function fails if <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> isn't the system implementation. To create an <b>IRestrictedErrorInfo</b> object, call  the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">OriginateError</a>, <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerror">TransformError</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> functions.
      * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo The restricted error info object associated with the current thread.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2107,6 +2199,9 @@ class WinRT {
      */
     static GetRestrictedErrorInfo(ppRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\GetRestrictedErrorInfo", "ptr", ppRestrictedErrorInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2123,7 +2218,7 @@ class WinRT {
      * 
      * <div class="alert"><b>Note</b>  This is no ANSI version of the <b>RoOriginateErrorW</b> function. Message strings are required to be Unicode. </div>
      * <div> </div>
-     * @param {Integer} error Type: <b>HRESULT</b>
+     * @param {HRESULT} error Type: <b>HRESULT</b>
      * 
      * The error code associated with the error condition. If <i>error</i> is a success code, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
      * @param {Integer} cchMax Type: <b>UINT</b>
@@ -2190,7 +2285,7 @@ class WinRT {
      * Depending on the current configuration of the debugger, the <b>RoOriginateError</b> function may cause execution to halt in the debugger at the site of the exception.
      * 
      *  If the <b>UseSetErrorInfo</b> flag is set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function, and the calling thread has been initialized in COM, the function creates an appropriate error object that supports <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> and  associates it with the COM channel by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.  If the thread has not been initialized into COM, the call will still succeed with no  error, but the error will not be associated with the COM channel.
-     * @param {Integer} error Type: <b>HRESULT</b>
+     * @param {HRESULT} error Type: <b>HRESULT</b>
      * 
      * The error code associated with the error condition. If <i>error</i> is a success code, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
      * @param {Pointer<Void>} message Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
@@ -2254,10 +2349,10 @@ class WinRT {
      * 
      * <div class="alert"><b>Note</b>  This is no ANSI version of the <b>RoTransformErrorW</b> function. Message strings are required to be Unicode.</div>
      * <div> </div>
-     * @param {Integer} oldError Type: <b>HRESULT</b>
+     * @param {HRESULT} oldError Type: <b>HRESULT</b>
      * 
      * The original error code associated with the error condition.
-     * @param {Integer} newError Type: <b>HRESULT</b>
+     * @param {HRESULT} newError Type: <b>HRESULT</b>
      * 
      * The custom error code to associate with the error condition. If <i>oldError</i> and <i>newError</i>  are the same, or both are success codes, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>.
      * @param {Integer} cchMax Type: <b>UINT</b>
@@ -2320,10 +2415,10 @@ class WinRT {
      * The behavior of the  <b>RoTransformError</b> function is otherwise the same as the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerrorw">RoTransformErrorW</a> function.
      * 
      *  If the <b>UseSetErrorInfo</b> flag is set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function, and the calling thread has been initialized in COM, the function creates an appropriate error object that supports <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> and  associates it with the COM channel by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.  If the thread has not been initialized into COM, the call will still succeed with no  error, but the error will not be associated with the COM channel.
-     * @param {Integer} oldError Type: <b>HRESULT</b>
+     * @param {HRESULT} oldError Type: <b>HRESULT</b>
      * 
      * The original error code associated with the error condition.
-     * @param {Integer} newError Type: <b>HRESULT</b>
+     * @param {HRESULT} newError Type: <b>HRESULT</b>
      * 
      * A different  error code to associate with the error condition. If <i>oldError</i> and <i>newError</i>  are the same, or both are success codes, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>.
      * @param {Pointer<Void>} message Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
@@ -2379,13 +2474,16 @@ class WinRT {
      * The <b>RoCaptureErrorContext</b> function captures the context associated with an error, including the stack-backtrace. This information is stored in the restricted error object and is available to the Windows Error Reporting (WER) service, if WER is  enabled, and if a subsequent call is made to the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext">RoFailFastWithErrorContext</a> function from the same thread.
      * 
      * To use <b>RoCaptureErrorContext</b> function with <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">RoOriginateError</a>, call <b>RoOriginateError</b> first, and then call <b>RoCaptureErrorContext</b>.  Calling in the reverse order may cause the error context to be lost.
-     * @param {Integer} hr The <b>HRESULT</b> associated with the error.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @param {HRESULT} hr The <b>HRESULT</b> associated with the error.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext
      * @since windows8.0
      */
     static RoCaptureErrorContext(hr) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoCaptureErrorContext", "int", hr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2399,14 +2497,13 @@ class WinRT {
      * The process that calls <b>RoFailFastWithErrorContext</b> is terminated by a call to <a href="https://docs.microsoft.com/previous-versions/dd408166(v=vs.85)">RaiseFailFastException</a>.  The function does not validate the parameters and raises an exception for any value of the inputs.
      * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> function to save an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object that's associated with the current thread. The <b>RoFailFastWithErrorContext</b> function uses this contextual information to report the error call stack to the Windows Error Reporting service (WER), if it's enabled.
-     * @param {Integer} hrError The <b>HRESULT</b> associated with the current error. The exception is raised for any value of <i>hrError</i>.
-     * @returns {Pointer} 
+     * @param {HRESULT} hrError The <b>HRESULT</b> associated with the current error. The exception is raised for any value of <i>hrError</i>.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext
      * @since windows8.0
      */
     static RoFailFastWithErrorContext(hrError) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoFailFastWithErrorContext", "int", hrError)
-        return result
+        DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoFailFastWithErrorContext", "int", hrError)
     }
 
     /**
@@ -2415,7 +2512,7 @@ class WinRT {
      * The <b>RoOriginateLanguageException</b>  function behaves like <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">RoOriginateError</a> but takes another parameter that stores extra information about the error. Language projections use this function to store exception information alongside the COM error information. Language projections need to create an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> object that contains all the information necessary recreate it the exception a later point.
      * 
      * The error object must be apartment-agile, in-proc, and marshal-by-value across processes. The reason for this restriction is that the thread from which the error object is originated may no longer exist, for example due to a <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> call, by the time the error information is retrieved.
-     * @param {Integer} error The error code associated with the error condition. If <i>error</i> is a success code, like <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
+     * @param {HRESULT} error The error code associated with the error condition. If <i>error</i> is a success code, like <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
      * @param {Pointer<Void>} message An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing <b>NUL</b> character; longer strings are truncated.
      * 
      * If the string is empty, the function succeeds but no error information is reported. It is recommended that you always provide an informative string.
@@ -2466,13 +2563,12 @@ class WinRT {
      * Removes existing error information from the current thread environment block (TEB).
      * @remarks
      * Call the <b>RoClearError</b> function to remove existing thread error information from the thread environment block (TEB). If COM is not initialized, this call does nothing to create the TEB slot for this information. Language projections call this function to ensure there's no stale error information on the thread.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roclearerror
      * @since windows8.1
      */
     static RoClearError() {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoClearError")
-        return result
+        DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoClearError")
     }
 
     /**
@@ -2480,11 +2576,14 @@ class WinRT {
      * @remarks
      * The <b>RoReportUnhandledError</b> function enables language projections to trigger execution of the Global Error Handler when an exception reaches the top of the stack, which normally would terminate the application.
      * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportunhandlederror
      */
     static RoReportUnhandledError(pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportUnhandledError", "ptr", pRestrictedErrorInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2497,12 +2596,15 @@ class WinRT {
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
      * @param {Pointer<Void>} context Custom context data.
      * @param {Pointer<UIntPtr>} targetErrorInfoAddress The address of the error object.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo
      * @since windows8.1
      */
     static RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, context, targetErrorInfoAddress) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, "ptr", context, "ptr*", targetErrorInfoAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2518,12 +2620,15 @@ class WinRT {
      * @param {Pointer<Void>} context Custom context data.
      * @param {Pointer<UInt32>} frameCount The number of stack frames stored in the error object.
      * @param {Pointer<UIntPtr>} targetBackTraceAddress The stack back trace address in the target process.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace
      * @since windows8.1
      */
     static RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemoryCallback, context, frameCount, targetBackTraceAddress) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, "ptr", context, "uint*", frameCount, "ptr*", targetBackTraceAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2531,13 +2636,16 @@ class WinRT {
      * 
      * @remarks
      * The function checks to see if current error info matches the *hrIn* value passed in and, if not, it originates a matching error info.
-     * @param {Integer} hrIn An HRESULT representing the error for which restricted error info is retrieved.
+     * @param {HRESULT} hrIn An HRESULT representing the error for which restricted error info is retrieved.
      * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo Receives an instance of [IRestrictedErrorInfo](../restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo.md) representing the details of an error, including restricted error information.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
      */
     static RoGetMatchingRestrictedErrorInfo(hrIn, ppRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr", ppRestrictedErrorInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2545,11 +2653,14 @@ class WinRT {
      * Triggers the Global Error Handler when a delegate failure occurs.
      * @param {Pointer<IUnknown>} punkDelegate The delegate to report.
      * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportfaileddelegate
      */
     static RoReportFailedDelegate(punkDelegate, pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportFailedDelegate", "ptr", punkDelegate, "ptr", pRestrictedErrorInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2609,7 +2720,7 @@ class WinRT {
      * @param {Pointer<UInt32>} count Type: <b>DWORD*</b>
      * 
      * The count of activatable class IDs returned in the <i>activatableClassIds</i> array.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns <b>S_OK</b> on success, otherwise an error code, including the following. 
      * 
@@ -2646,6 +2757,9 @@ class WinRT {
      */
     static RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
         result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, "ptr", activatableClassIds, "uint*", count, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2659,7 +2773,7 @@ class WinRT {
      * @param {Integer} accessMode An <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">AccessMode</a> value that specifies the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates the file.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamonfile
      * @since windows8.0
      */
@@ -2667,6 +2781,9 @@ class WinRT {
         filePath := filePath is String? StrPtr(filePath) : filePath
 
         result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2682,12 +2799,15 @@ class WinRT {
      * @param {Integer} options One of the <a href="https://docs.microsoft.com/windows/desktop/api/shcore/ne-shcore-bsos_options">BSOS_OPTIONS</a> options that specify the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamoverstream
      * @since windows8.0
      */
     static CreateRandomAccessStreamOverStream(stream, options, riid, ppv) {
         result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2698,12 +2818,15 @@ class WinRT {
      * @param {Pointer<IUnknown>} randomAccessStream The source <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStream. This object encapsulates <i>randomAccessStream</i>.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createstreamoverrandomaccessstream
      * @since windows8.0
      */
     static CreateStreamOverRandomAccessStream(randomAccessStream, riid, ppv) {
         result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2715,11 +2838,14 @@ class WinRT {
      * If the call is successful, the  caller can call <b>QueryInterface</b> on the returned <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/corewindow/nn-corewindow-icoreinputinterop">ICoreInputInterop</a> object that created it.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
      * @param {Pointer<Void>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid, ppv) {
         result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr", ppv, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2739,11 +2865,14 @@ class WinRT {
      * @param {Pointer<IUnknown>} pCoreWindow Pointer to the parent <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> to which the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object will be attached. This parameter can’t be NULL.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
      * @param {Pointer<Void>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid, ppv) {
         result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr", ppv, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

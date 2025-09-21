@@ -3260,10 +3260,13 @@ class KernelStreaming {
      * @param {Pointer<Void>} ConnectionHandle 
      * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
      * @param {Pointer<Void>} AllocatorHandle 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsCreateAllocator2(ConnectionHandle, AllocatorFraming, AllocatorHandle) {
         result := DllCall("ksuser.dll\KsCreateAllocator2", "ptr", ConnectionHandle, "ptr", AllocatorFraming, "ptr", AllocatorHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3272,10 +3275,13 @@ class KernelStreaming {
      * @param {Pointer<Void>} ConnectionHandle 
      * @param {Pointer<UInt32>} ClockCreate 
      * @param {Pointer<Void>} ClockHandle 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsCreateClock2(ConnectionHandle, ClockCreate, ClockHandle) {
         result := DllCall("ksuser.dll\KsCreateClock2", "ptr", ConnectionHandle, "uint*", ClockCreate, "ptr", ClockHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3285,10 +3291,13 @@ class KernelStreaming {
      * @param {Pointer<KSPIN_CONNECT>} Connect 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<Void>} ConnectionHandle 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsCreatePin2(FilterHandle, Connect, DesiredAccess, ConnectionHandle) {
         result := DllCall("ksuser.dll\KsCreatePin2", "ptr", FilterHandle, "ptr", Connect, "uint", DesiredAccess, "ptr", ConnectionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3298,10 +3307,13 @@ class KernelStreaming {
      * @param {Pointer<KSNODE_CREATE>} NodeCreate 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<Void>} NodeHandle 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess, NodeHandle) {
         result := DllCall("ksuser.dll\KsCreateTopologyNode2", "ptr", ParentHandle, "ptr", NodeCreate, "uint", DesiredAccess, "ptr", NodeHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3309,10 +3321,13 @@ class KernelStreaming {
      * 
      * @param {Pointer<KSDATAFORMAT>} DataRange 
      * @param {Pointer<KSMULTIPLE_ITEM>} Attributes 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsResolveRequiredAttributes(DataRange, Attributes) {
         result := DllCall("ksproxy.ax\KsResolveRequiredAttributes", "ptr", DataRange, "ptr", Attributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3321,10 +3336,13 @@ class KernelStreaming {
      * @param {Pointer<Guid>} Category 
      * @param {Integer} Access 
      * @param {Pointer<Void>} DeviceHandle 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsOpenDefaultDevice(Category, Access, DeviceHandle) {
         result := DllCall("ksproxy.ax\KsOpenDefaultDevice", "ptr", Category, "uint", Access, "ptr", DeviceHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3337,10 +3355,13 @@ class KernelStreaming {
      * @param {Pointer} OutBuffer 
      * @param {Integer} OutLength 
      * @param {Pointer<UInt32>} BytesReturned 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsSynchronousDeviceControl(Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
         result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, "uint*", BytesReturned, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3350,10 +3371,13 @@ class KernelStreaming {
      * @param {Integer} PinFactoryId 
      * @param {Integer} PropertyId 
      * @param {Pointer<Void>} Items 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId, Items) {
         result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr", Items, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3362,10 +3386,13 @@ class KernelStreaming {
      * @param {Pointer<Void>} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @param {Pointer<UInt32>} MediaTypeCount 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsGetMediaTypeCount(FilterHandle, PinFactoryId, MediaTypeCount) {
         result := DllCall("ksproxy.ax\KsGetMediaTypeCount", "ptr", FilterHandle, "uint", PinFactoryId, "uint*", MediaTypeCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3375,10 +3402,13 @@ class KernelStreaming {
      * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 
      * @param {Pointer<Void>} FilterHandle 
      * @param {Integer} PinFactoryId 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static KsGetMediaType(Position, AmMediaType, FilterHandle, PinFactoryId) {
         result := DllCall("ksproxy.ax\KsGetMediaType", "int", Position, "ptr", AmMediaType, "ptr", FilterHandle, "uint", PinFactoryId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

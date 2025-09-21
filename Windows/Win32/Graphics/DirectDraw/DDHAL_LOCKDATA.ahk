@@ -56,7 +56,7 @@ class DDHAL_LOCKDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 48, "int")

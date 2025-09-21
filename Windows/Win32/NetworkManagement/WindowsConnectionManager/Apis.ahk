@@ -247,20 +247,19 @@ class WindowsConnectionManager {
     /**
      * Is used to release memory resources allocated by the WCM functions.
      * @param {Pointer<Void>} pMemory Pointer to the memory to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmfreememory
      * @since windows8.0
      */
     static WcmFreeMemory(pMemory) {
-        result := DllCall("wcmapi.dll\WcmFreeMemory", "ptr", pMemory)
-        return result
+        DllCall("wcmapi.dll\WcmFreeMemory", "ptr", pMemory)
     }
 
     /**
      * The OnDemandGetRoutingHint function looks up a destination in the Route Request cache and, if a match is found, return the corresponding Interface ID.
      * @param {Pointer<Char>} destinationHostName An PWSTR describing the target host name for a network communication.
      * @param {Pointer<UInt32>} interfaceIndex The interface index of the network adapter to be used for communicating with the target host.
-     * @returns {Integer} This function returns the following to indicate operation results:
+     * @returns {HRESULT} This function returns the following to indicate operation results:
      * 
      * <table>
      * <tr>
@@ -297,6 +296,9 @@ class WindowsConnectionManager {
         destinationHostName := destinationHostName is String? StrPtr(destinationHostName) : destinationHostName
 
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", interfaceIndex, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -312,24 +314,30 @@ class WindowsConnectionManager {
      * @param {Pointer<ONDEMAND_NOTIFICATION_CALLBACK>} callback A pointer to a function of type <b>ONDEMAND_NOTIFICATION_CALLBACK</b> to receive the notifications.
      * @param {Pointer<Void>} callbackContext A pointer to a memory location containing optional context to be passed to the callback.
      * @param {Pointer<Void>} registrationHandle A pointer to a HANDLE to receive a handle to the registration in case of success.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification
      * @since windows8.1
      */
     static OnDemandRegisterNotification(callback, callbackContext, registrationHandle) {
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, "ptr", callbackContext, "ptr", registrationHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The OnDemandUnregisterNotification function allows an application to unregister for notifications and clean up resources.
      * @param {Pointer<Void>} registrationHandle A HANDLE obtained from a successful <a href="https://docs.microsoft.com/windows/desktop/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification">OnDemandRegisterNotification</a>  call.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandunregisternotification
      * @since windows8.1
      */
     static OnDemandUnRegisterNotification(registrationHandle) {
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandUnRegisterNotification", "ptr", registrationHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -359,7 +367,7 @@ class WindowsConnectionManager {
      * @param {Pointer} ConnectionProfileFilterRawData The connection profile filter blog which is a byte cast of wcm_selection_filters.
      * @param {Integer} ConnectionProfileFilterRawDataSize The size of the <i>ConnectionProfileFilterRawData</i> in bytes.
      * @param {Pointer<NET_INTERFACE_CONTEXT_TABLE>} InterfaceContextTable This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
-     * @returns {Integer} This function returns the following <b>HRESULT</b> values depending on the status.
+     * @returns {HRESULT} This function returns the following <b>HRESULT</b> values depending on the status.
      * 
      * <table></table>
      *  
@@ -421,19 +429,21 @@ class WindowsConnectionManager {
         ProxyName := ProxyName is String? StrPtr(ProxyName) : ProxyName
 
         result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr", InterfaceContextTable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * This function frees the interface context table retrieved using the GetInterfaceContextTableForHostName function.
      * @param {Pointer<NET_INTERFACE_CONTEXT_TABLE>} InterfaceContextTable The interface context table retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-getinterfacecontexttableforhostname">GetInterfaceContextTableForHostName</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-freeinterfacecontexttable
      * @since windows10.0.10240
      */
     static FreeInterfaceContextTable(InterfaceContextTable) {
-        result := DllCall("OnDemandConnRouteHelper.dll\FreeInterfaceContextTable", "ptr", InterfaceContextTable)
-        return result
+        DllCall("OnDemandConnRouteHelper.dll\FreeInterfaceContextTable", "ptr", InterfaceContextTable)
     }
 
 ;@endregion Methods

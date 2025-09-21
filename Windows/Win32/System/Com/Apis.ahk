@@ -248,7 +248,7 @@ class Com {
      * Typically, the COM library is initialized on a thread only once. Subsequent calls to <b>CoInitialize</b> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> on the same thread will succeed, as long as they do not attempt to change the concurrency model, but will return S_FALSE. To close the COM library gracefully, each successful call to <b>CoInitialize</b> or <b>CoInitializeEx</b>, including those that return S_FALSE, must be balanced by a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a>. However, the first thread in the application that calls <b>CoInitialize</b> with 0 (or <b>CoInitializeEx</b> with COINIT_APARTMENTTHREADED) must be the last thread to call <b>CoUninitialize</b>. Otherwise, subsequent calls to <b>CoInitialize</b> on the STA will fail and the application will not work.
      * 
      * Because there is no way to control the order in which in-process servers are loaded or unloaded, do not call <b>CoInitialize</b>, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> from the <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -296,6 +296,9 @@ class Com {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoInitialize", "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -308,7 +311,7 @@ class Com {
      * 
      * When the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imallocspy">IMallocSpy</a> object is registered, whenever there is a call to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> methods, OLE first calls the corresponding <b>IMallocSpy</b> pre-method. Then, after executing the <b>IMalloc</b> method, OLE calls the corresponding <b>IMallocSpy</b> post-method. For example, whenever there is a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-alloc">IMalloc::Alloc</a>, from whatever source, OLE calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imallocspy-prealloc">IMallocSpy::PreAlloc</a>, calls <b>Alloc</b>, and after that allocation is completed, calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imallocspy-postalloc">IMallocSpy::PostAlloc</a>.
      * @param {Pointer<IMallocSpy>} pMallocSpy A pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imallocspy">IMallocSpy</a> implementation.
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -343,6 +346,9 @@ class Com {
      */
     static CoRegisterMallocSpy(pMallocSpy) {
         result := DllCall("OLE32.dll\CoRegisterMallocSpy", "ptr", pMallocSpy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -354,7 +360,7 @@ class Com {
      * 
      * 
      * If the return code is E_ACCESSDENIED, there are still outstanding allocations that were made while the spy was active. In this case, the registered spy cannot be revoked at this time because it may have attached arbitrary headers and/or trailers to these allocations that only the spy knows about. Only the spy's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imallocspy-prefree">PreFree</a> (or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imallocspy-prerealloc">PreRealloc</a>) method knows how to account for these headers and trailers. Before returning E_ACCESSDENIED, <b>CoRevokeMallocSpy</b> notes internally that a revoke is pending. When the outstanding allocations have been freed, the revoke proceeds automatically, releasing the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imallocspy">IMallocSpy</a> object. Thus, it is necessary to call <b>CoRevokeMallocSpy</b> only once for each call to <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coregistermallocspy">CoRegisterMallocSpy</a>, even if E_ACCESSDENIED is returned.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -400,6 +406,9 @@ class Com {
      */
     static CoRevokeMallocSpy() {
         result := DllCall("OLE32.dll\CoRevokeMallocSpy", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -426,7 +435,7 @@ class Com {
      * It is unpredictable whether a call to <b>CoRegisterInitializeSpy</b> from within an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> method call will be effective during the current top-level (non-nested) call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a>. A registered implementation of <b>IInitializeSpy</b> will always be effective for future top-level calls to <b>CoInitializeEx</b> or <b>CoUninitialize</b>.
      * @param {Pointer<IInitializeSpy>} pSpy A pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> implementation.
      * @param {Pointer<UInt64>} puliCookie The address at which to store a cookie that identifies this registration.
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -461,6 +470,9 @@ class Com {
      */
     static CoRegisterInitializeSpy(pSpy, puliCookie) {
         result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, "uint*", puliCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -473,12 +485,15 @@ class Com {
      * 
      * It is unpredictable whether a call to <b>CoRevokeInitializeSpy</b> from within an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> method call will have an effect during the current top-level (non-nested) call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a>. The revocation will always have an effect after the current top-level call to <b>CoInitializeEx</b> or <b>CoUninitialize</b> returns.
      * @param {Integer} uliCookie A <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a> cookie identifying the registration.
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as S_OK to indicate success.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as S_OK to indicate success.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-corevokeinitializespy
      * @since windows5.0
      */
     static CoRevokeInitializeSpy(uliCookie) {
         result := DllCall("OLE32.dll\CoRevokeInitializeSpy", "uint", uliCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -486,7 +501,7 @@ class Com {
      * Returns the default values of the Security Descriptors of the machine-wide launch and access permissions, as well as launch and access limits.
      * @param {Integer} comSDType A value from the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/ne-objbase-comsd">COMSD</a> enumeration. Specifies the type of the requested system security permissions, such as launch permissions, access permissions, launch restrictions, and access restrictions.
      * @param {Pointer<Void>} ppSD Pointer to a caller-supplied variable that this routine sets to the address of a buffer containing the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> for the system security permissions. Memory will be allocated by <b>CoGetSystemSecurityPermissions</b> and should be freed by caller with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -543,6 +558,9 @@ class Com {
      */
     static CoGetSystemSecurityPermissions(comSDType, ppSD) {
         result := DllCall("OLE32.dll\CoGetSystemSecurityPermissions", "int", comSDType, "ptr", ppSD, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -570,26 +588,24 @@ class Com {
      * @remarks
      * The <b>CoFreeLibrary</b> function should be called to free a library that is to be freed explicitly. This is established when the library is loaded with the <i>bAutoFree</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> set to <b>FALSE</b>. It is illegal to free a library explicitly when the corresponding <b>CoLoadLibrary</b> call specifies that it be freed automatically (the <i>bAutoFree</i> parameter is set to <b>TRUE</b>).
      * @param {Pointer<Void>} hInst A handle to the library module to be freed, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofreelibrary
      * @since windows5.0
      */
     static CoFreeLibrary(hInst) {
-        result := DllCall("OLE32.dll\CoFreeLibrary", "ptr", hInst)
-        return result
+        DllCall("OLE32.dll\CoFreeLibrary", "ptr", hInst)
     }
 
     /**
      * Frees all the DLLs that have been loaded with the CoLoadLibrary function (called internally by CoGetClassObject), regardless of whether they are currently in use.
      * @remarks
      * To unload libraries, <b>CoFreeAllLibraries</b> uses a list of loaded DLLs for each process that the COM library maintains. The <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleuninitialize">OleUninitialize</a> functions call <b>CoFreeAllLibraries</b> internally, so applications usually have no need to call this function directly.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofreealllibraries
      * @since windows5.0
      */
     static CoFreeAllLibraries() {
-        result := DllCall("OLE32.dll\CoFreeAllLibraries")
-        return result
+        DllCall("OLE32.dll\CoFreeAllLibraries")
     }
 
     /**
@@ -608,7 +624,7 @@ class Com {
      * Behind the scenes, the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iforegroundtransfer">IForegroundTransfer</a> interface is used to yield the foreground window between processes. A standard COM-provided proxy already implements <b>IForegroundTransfer</b>, so you don't have to do any extra work if you're using a standard proxy. Just call <b>CoAllowSetForegroundWindow</b> to transfer the foreground privilege to any out-of-process COM object.
      * @param {Pointer<IUnknown>} pUnk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the proxy of the 
      *       target COM server.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -667,6 +683,9 @@ class Com {
         static lpvReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoAllowSetForegroundWindow", "ptr", pUnk, "ptr", lpvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -674,11 +693,14 @@ class Com {
      * 
      * @param {Pointer<Void>} pvReserved 
      * @param {Pointer<UInt32>} pulReserved 
-     * @param {Integer} appsHR 
-     * @returns {Integer} 
+     * @param {HRESULT} appsHR 
+     * @returns {HRESULT} 
      */
     static DcomChannelSetHResult(pvReserved, pulReserved, appsHR) {
         result := DllCall("ole32.dll\DcomChannelSetHResult", "ptr", pvReserved, "uint*", pulReserved, "int", appsHR, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -732,7 +754,7 @@ class Com {
      * </ul>
      * @param {Pointer<Char>} lpszProgID A pointer to the ProgID whose CLSID is requested.
      * @param {Pointer<Guid>} lpclsid Receives a pointer to the retrieved CLSID on return.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -781,6 +803,9 @@ class Com {
         lpszProgID := lpszProgID is String? StrPtr(lpszProgID) : lpszProgID
 
         result := DllCall("OLE32.dll\CLSIDFromProgIDEx", "ptr", lpszProgID, "ptr", lpclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -863,12 +888,15 @@ class Com {
     /**
      * The CoFileTimeNow function (combaseapi.h) returns the current time as a FILETIME structure.
      * @param {Pointer<FILETIME>} lpFileTime A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the current time.
-     * @returns {Integer} This function returns S_OK to indicate success.
+     * @returns {HRESULT} This function returns S_OK to indicate success.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofiletimenow
      * @since windows5.0
      */
     static CoFileTimeNow(lpFileTime) {
         result := DllCall("OLE32.dll\CoFileTimeNow", "ptr", lpFileTime, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -876,11 +904,14 @@ class Com {
      * Registers a channel hook.
      * @param {Pointer<Guid>} ExtensionUuid The extension to register.
      * @param {Pointer<IChannelHook>} pChannelHook The channel hook to register.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregisterchannelhook
      */
     static CoRegisterChannelHook(ExtensionUuid, pChannelHook) {
         result := DllCall("ole32.dll\CoRegisterChannelHook", "ptr", ExtensionUuid, "ptr", pChannelHook, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -920,7 +951,7 @@ class Com {
      * <b>CoTreatAsClass</b> does not validate whether an appropriate registry entry for clsidNew currently exists.
      * @param {Pointer<Guid>} clsidOld The CLSID of the object to be emulated.
      * @param {Pointer<Guid>} clsidNew The CLSID of the object that should emulate the original object. This replaces any existing emulation for <i>clsidOld</i>. This parameter can be CLSID_NULL, in which case any existing emulation for <i>clsidOld</i> is removed.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -977,6 +1008,9 @@ class Com {
      */
     static CoTreatAsClass(clsidOld, clsidNew) {
         result := DllCall("OLE32.dll\CoTreatAsClass", "ptr", clsidOld, "ptr", clsidNew, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -985,7 +1019,7 @@ class Com {
      * @remarks
      * Call <b>CreateDataAdviseHolder</b> in your implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> to get a pointer to the OLE implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> interface. With this pointer, you can then complete the implementation of <b>IDataObject::DAdvise</b> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a> method, which creates an advisory connection between the calling object and the data object.
      * @param {Pointer<IDataAdviseHolder>} ppDAHolder Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> pointer variable that receives the interface pointer to the new advise holder object.
-     * @returns {Integer} This function returns S_OK on success. Other possible values include the following.
+     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
      * <tr>
@@ -1009,6 +1043,9 @@ class Com {
      */
     static CreateDataAdviseHolder(ppDAHolder) {
         result := DllCall("OLE32.dll\CreateDataAdviseHolder", "ptr", ppDAHolder, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1020,7 +1057,7 @@ class Com {
      * @param {Pointer<Guid>} rclsid CLSID used to generate icon labels. This value is typically CLSID_NULL.
      * @param {Pointer<Guid>} iid Reference to the identifier of the interface the caller wants to use to communicate with the cache. This value is typically IID_IOleCache (defined in the OLE headers to equal the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolecache">IOleCache</a>).
      * @param {Pointer<Void>} ppv Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the supplied cache object.
-     * @returns {Integer} This function returns S_OK on success. Other possible values include the following.
+     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
      * <tr>
@@ -1067,6 +1104,9 @@ class Com {
      */
     static CreateDataCache(pUnkOuter, rclsid, iid, ppv) {
         result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1077,7 +1117,7 @@ class Com {
      * @param {Pointer<uCLSSPEC>} pClassSpec A pointer to a <b>uCLSSPEC</b> union. The <b>tyspec</b> member must be set to TYSPEC_CLSID and the <b>clsid</b> member must be set to the CLSID to be installed. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DevNotes/tyspec">TYSPEC</a>.
      * @param {Pointer<QUERYCONTEXT>} pQuery A pointer to a <a href="https://docs.microsoft.com/previous-versions/bb432414(v=vs.85)">QUERYCONTEXT</a> structure. The <b>dwContext</b> field must be set to the desired <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> value. For more information, see <b>QUERYCONTEXT</b>.
      * @param {Pointer<Char>} pszCodeBase Reserved for future use; this value must be <b>NULL</b>.
-     * @returns {Integer} This function supports the standard return value E_INVALIDARG, as well as the following.
+     * @returns {HRESULT} This function supports the standard return value E_INVALIDARG, as well as the following.
      * 
      * 
      * 
@@ -1113,6 +1153,9 @@ class Com {
         pszCodeBase := pszCodeBase is String? StrPtr(pszCodeBase) : pszCodeBase
 
         result := DllCall("ole32.dll\CoInstall", "ptr", pbc, "uint", dwFlags, "ptr", pClassSpec, "ptr", pQuery, "ptr", pszCodeBase, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1137,7 +1180,7 @@ class Com {
      * @param {Integer} grfOpt This parameter is reserved for future use and must be 0.
      * @param {Pointer<Guid>} iidResult The interface identifier to be used to communicate with the object.
      * @param {Pointer<Void>} ppvResult The address of pointer variable that receives the interface pointer requested in <i>iidResult</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer. If an error occurs, *<i>ppvResult</i> is <b>NULL</b>. If the call is successful, the caller is responsible for releasing the pointer with a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @returns {Integer} This function can return the following error codes, or any of the error values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a> method.
+     * @returns {HRESULT} This function can return the following error codes, or any of the error values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a> method.
      * 
      * <table>
      * <tr>
@@ -1172,6 +1215,9 @@ class Com {
      */
     static BindMoniker(pmk, grfOpt, iidResult, ppvResult) {
         result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, "ptr", ppvResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1183,7 +1229,7 @@ class Com {
      * @param {Pointer<BIND_OPTS>} pBindOptions The binding options used to create a moniker that creates the actual object. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-bind_opts">BIND_OPTS</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid A reference to the identifier of an interface that is implemented on the object to be created.
      * @param {Pointer<Void>} ppv The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1264,6 +1310,9 @@ class Com {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1306,7 +1355,7 @@ class Com {
      * @param {Pointer<Char>} szUserName A pointer to the display name to be parsed.
      * @param {Pointer<UInt32>} pchEaten A pointer to the number of characters of <i>szUserName</i> that were consumed. If the function is successful, *<i>pchEaten</i> is the length of <i>szUserName</i>; otherwise, it is the number of characters successfully parsed.
      * @param {Pointer<IMoniker>} ppmk The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker that was built from <i>szUserName</i>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the specified interface pointer will contain as much of the moniker that the method was able to create before the error occurred.
-     * @returns {Integer} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1346,6 +1395,9 @@ class Com {
         szUserName := szUserName is String? StrPtr(szUserName) : szUserName
 
         result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, "uint*", pchEaten, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1361,7 +1413,7 @@ class Com {
      * @param {Pointer<IMoniker>} pmkDest A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be expressed relative to <i>pmkSrc</i>. This moniker identifies the destination of the relative moniker to be created.
      * @param {Pointer<IMoniker>} ppmkRelPath The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new relative moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the interface pointer value is <b>NULL</b>.
      * @param {Integer} dwReserved This parameter is reserved and must be nonzero.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1407,6 +1459,9 @@ class Com {
      */
     static MonikerRelativePathTo(pmkSrc, pmkDest, ppmkRelPath, dwReserved) {
         result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr", ppmkRelPath, "int", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1421,7 +1476,7 @@ class Com {
      * @param {Pointer<IMoniker>} pmkThis A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on one of the monikers for which a common prefix is sought; usually the moniker in which this call is used to implement <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-commonprefixwith">IMoniker::CommonPrefixWith</a>.
      * @param {Pointer<IMoniker>} pmkOther A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be compared with the first moniker.
      * @param {Pointer<IMoniker>} ppmkCommon The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker based on the common prefix of <i>pmkThis</i> and <i>pmkOther</i>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer value is <b>NULL</b>.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1500,6 +1555,9 @@ class Com {
      */
     static MonikerCommonPrefixWith(pmkThis, pmkOther, ppmkCommon) {
         result := DllCall("ole32.dll\MonikerCommonPrefixWith", "ptr", pmkThis, "ptr", pmkOther, "ptr", ppmkCommon, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1551,12 +1609,15 @@ class Com {
      * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-setbindoptions">IBindCtx::SetBindOptions</a> method to modify these default values.
      * @param {Integer} reserved This parameter is reserved and must be 0.
      * @param {Pointer<IBindCtx>} ppbc Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>* pointer variable that receives the interface pointer to the new bind context object. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the bind context. A <b>NULL</b> value for the bind context indicates that an error occurred.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createbindctx
      * @since windows5.0
      */
     static CreateBindCtx(reserved, ppbc) {
         result := DllCall("OLE32.dll\CreateBindCtx", "uint", reserved, "ptr", ppbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1571,7 +1632,7 @@ class Com {
      * @param {Pointer<IMoniker>} pmkFirst A pointer to the moniker to be composed to the left of the moniker that pmkRest points to. Can point to any kind of moniker, including a generic composite.
      * @param {Pointer<IMoniker>} pmkRest A pointer to the moniker to be composed to the right of the moniker to which <i>pmkFirst</i> points. Can point to any kind of moniker compatible with the type of the <i>pmkRest</i> moniker, including a generic composite.
      * @param {Pointer<IMoniker>} ppmkComposite The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the composite moniker object that is the result of composing <i>pmkFirst</i> and <i>pmkRest</i>. This object supports the OLE composite moniker implementation of <b>IMoniker</b>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If either <i>pmkFirst</i> or <i>pmkRest</i> are <b>NULL</b>, the supplied pointer is the one that is non-<b>NULL</b>. If both <i>pmkFirst</i> and <i>pmkRest</i> are <b>NULL</b>, or if an error occurs, the returned pointer is <b>NULL</b>.
-     * @returns {Integer} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1606,6 +1667,9 @@ class Com {
      */
     static CreateGenericComposite(pmkFirst, pmkRest, ppmkComposite) {
         result := DllCall("OLE32.dll\CreateGenericComposite", "ptr", pmkFirst, "ptr", pmkRest, "ptr", ppmkComposite, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1651,7 +1715,7 @@ class Com {
      * </ol>
      * @param {Pointer<Char>} szFilename A pointer to the filename for which you are requesting the associated CLSID.
      * @param {Pointer<Guid>} pclsid A pointer to the location where the associated CLSID is written on return.
-     * @returns {Integer} This function can return any of the file system errors, as well as the following values.
+     * @returns {HRESULT} This function can return any of the file system errors, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1699,6 +1763,9 @@ class Com {
         szFilename := szFilename is String? StrPtr(szFilename) : szFilename
 
         result := DllCall("OLE32.dll\GetClassFile", "ptr", szFilename, "ptr", pclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1708,7 +1775,7 @@ class Com {
      * The class moniker will support the binding to a fresh instance of the class identified by the CLSID in <i>rclsid</i>.
      * @param {Pointer<Guid>} rclsid A reference to the CLSID of the object type to which this moniker binds.
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new class moniker. On successful return, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the moniker pointer is <b>NULL</b>.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -1743,6 +1810,9 @@ class Com {
      */
     static CreateClassMoniker(rclsid, ppmk) {
         result := DllCall("OLE32.dll\CreateClassMoniker", "ptr", rclsid, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1758,7 +1828,7 @@ class Com {
      * 
      * This parameter can specify a relative path, a UNC path, or a drive-letter-based path. If based on a relative path, the resulting moniker must be composed onto another file moniker before it can be bound.
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new file moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the file moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the interface pointer is <b>NULL</b>.
-     * @returns {Integer} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -1795,6 +1865,9 @@ class Com {
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
         result := DllCall("OLE32.dll\CreateFileMoniker", "ptr", lpszPathName, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1815,7 +1888,7 @@ class Com {
      * @param {Pointer<Char>} lpszDelim A pointer to a wide character string (two bytes per character) zero-terminated string containing the delimiter (typically "!") used to separate this item's display name from the display name of its containing object.
      * @param {Pointer<Char>} lpszItem A pointer to a zero-terminated string indicating the containing object's name for the object being identified. This name can later be used to retrieve a pointer to the object in a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a>.
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the item moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the item moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer has a <b>NULL</b> value.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createitemmoniker
      * @since windows5.0
      */
@@ -1824,6 +1897,9 @@ class Com {
         lpszItem := lpszItem is String? StrPtr(lpszItem) : lpszItem
 
         result := DllCall("OLE32.dll\CreateItemMoniker", "ptr", lpszDelim, "ptr", lpszItem, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1845,12 +1921,15 @@ class Com {
      * </li>
      * </ol>
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new anti-moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the anti-moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the anti-moniker pointer is <b>NULL</b>.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createantimoniker
      * @since windows5.0
      */
     static CreateAntiMoniker(ppmk) {
         result := DllCall("OLE32.dll\CreateAntiMoniker", "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1864,12 +1943,15 @@ class Com {
      * Pointer monikers are not commonly used, so this function is not often called.
      * @param {Pointer<IUnknown>} punk A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object to be identified by the resulting moniker.
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new pointer moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the returned interface pointer has a <b>NULL</b> value.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createpointermoniker
      * @since windows5.0
      */
     static CreatePointerMoniker(punk, ppmk) {
         result := DllCall("OLE32.dll\CreatePointerMoniker", "ptr", punk, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1897,12 +1979,15 @@ class Com {
      * The script engine internally makes the calls to <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-mkparsedisplayname">MkParseDisplayName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a>, and the script can then use objMyInstance to refer directly to the running object.
      * @param {Pointer<IUnknown>} punk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that the moniker is to represent.
      * @param {Pointer<IMoniker>} ppmk Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the OBJREF moniker that was created.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createobjrefmoniker
      * @since windows5.0
      */
     static CreateObjrefMoniker(punk, ppmk) {
         result := DllCall("OLE32.dll\CreateObjrefMoniker", "ptr", punk, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1920,12 +2005,15 @@ class Com {
      * If you are implementing the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface to write a new moniker class, and you need an interface pointer to the ROT, call <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-getrunningobjecttable">IBindCtx::GetRunningObjectTable</a> rather than the <b>GetRunningObjectTable</b> function. This allows future implementations of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface to modify binding behavior.
      * @param {Integer} reserved This parameter is reserved and must be 0.
      * @param {Pointer<IRunningObjectTable>} pprot The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
-     * @returns {Integer} This function can return the standard return values E_UNEXPECTED and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_UNEXPECTED and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-getrunningobjecttable
      * @since windows5.0
      */
     static GetRunningObjectTable(reserved, pprot) {
         result := DllCall("OLE32.dll\GetRunningObjectTable", "uint", reserved, "ptr", pprot, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1935,12 +2023,15 @@ class Com {
      * @param {Pointer<Char>} pszTitle 
      * @param {Pointer<IBindStatusCallback>} pIbscCaller 
      * @param {Pointer<IBindStatusCallback>} ppIbsc 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateStdProgressIndicator(hwndParent, pszTitle, pIbscCaller, ppIbsc) {
         pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
 
         result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr", ppIbsc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1950,12 +2041,15 @@ class Com {
      * The pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface pointer received through the <i>ppMalloc</i> parameter cannot be used from a remote process; each process must have its own allocator.
      * @param {Integer} dwMemContext This parameter must be 1.
      * @param {Pointer<IMalloc>} ppMalloc The address of an <b>IMalloc*</b> pointer variable that receives the interface pointer to the memory allocator.
-     * @returns {Integer} This function can return the standard return values S_OK, E_INVALIDARG, and E_OUTOFMEMORY.
+     * @returns {HRESULT} This function can return the standard return values S_OK, E_INVALIDARG, and E_OUTOFMEMORY.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetmalloc
      * @since windows5.0
      */
     static CoGetMalloc(dwMemContext, ppMalloc) {
         result := DllCall("OLE32.dll\CoGetMalloc", "uint", dwMemContext, "ptr", ppMalloc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1975,13 +2069,12 @@ class Com {
      * 
      * 
      * Because there is no way to control the order in which in-process servers are loaded or unloaded, do not call <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a>, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>, or <b>CoUninitialize</b> from the <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-couninitialize
      * @since windows5.0
      */
     static CoUninitialize() {
-        result := DllCall("OLE32.dll\CoUninitialize")
-        return result
+        DllCall("OLE32.dll\CoUninitialize")
     }
 
     /**
@@ -2026,7 +2119,7 @@ class Com {
      * 
      * Because there is no way to control the order in which in-process servers are loaded or unloaded, do not call <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a>, <b>CoInitializeEx</b>, or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> from the <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function.
      * @param {Integer} dwCoInit The concurrency model and initialization options for the thread. Values for this parameter are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/ne-objbase-coinit">COINIT</a> enumeration. Any combination of values from <b>COINIT</b> can be used, except that the COINIT_APARTMENTTHREADED and COINIT_MULTITHREADED flags cannot both be set. The default is COINIT_MULTITHREADED.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -2074,6 +2167,9 @@ class Com {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoInitializeEx", "ptr", pvReserved, "uint", dwCoInit, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2084,7 +2180,7 @@ class Com {
      * 
      * There is no guarantee that the information returned from this API is not tampered with, so do not use the ID that is returned to make security decisions. The ID can only be used for logging and diagnostic purposes.
      * @param {Pointer<UInt32>} lpdwTID Receives the apartment ID of the caller's thread. For a single threaded apartment (STA), this is the current thread ID. For a multithreaded apartment (MTA), the value is 0.  For a neutral apartment (NA), the value is -1.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -2130,6 +2226,9 @@ class Com {
      */
     static CoGetCallerTID(lpdwTID) {
         result := DllCall("OLE32.dll\CoGetCallerTID", "uint*", lpdwTID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2138,7 +2237,7 @@ class Com {
      * @remarks
      * This function retrieves the identifier of the current logical thread under which this physical thread is operating. The current physical thread takes on the logical thread identifier of any client thread that makes a COM call into this application. Similarly, the logical thread identifier of the current physical thread is used to denote the causality for outgoing COM calls from this physical thread.
      * @param {Pointer<Guid>} pguid A pointer to a GUID that contains the logical thread ID on return.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -2184,13 +2283,16 @@ class Com {
      */
     static CoGetCurrentLogicalThreadId(pguid) {
         result := DllCall("OLE32.dll\CoGetCurrentLogicalThreadId", "ptr", pguid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Returns a pointer to an implementation of IObjContext for the current context.
      * @param {Pointer<UIntPtr>} pToken A pointer to an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iobjcontext">IObjContext</a> for the current context.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -2237,6 +2339,9 @@ class Com {
      */
     static CoGetContextToken(pToken) {
         result := DllCall("OLE32.dll\CoGetContextToken", "ptr*", pToken, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2254,7 +2359,7 @@ class Com {
      * In multithreaded scenarios, there is a race condition which can potentially cause an Access Violation within the process when executing the above sequence of operations. The <b>CoGetApartmentType</b> function is recommended as it does not potentially incur the Access Violation.
      * @param {Pointer<Int32>} pAptType <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-apttype">APTTYPE</a> enumeration value that specifies the type of the current apartment.
      * @param {Pointer<Int32>} pAptQualifier <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-apttypequalifier">APTTYPEQUALIFIER</a> enumeration value that specifies the type qualifier of the current apartment.
-     * @returns {Integer} Returns S_OK if the call succeeded. Otherwise, one of the following error codes is returned.
+     * @returns {HRESULT} Returns S_OK if the call succeeded. Otherwise, one of the following error codes is returned.
      * 
      * <table>
      * <tr>
@@ -2301,6 +2406,9 @@ class Com {
      */
     static CoGetApartmentType(pAptType, pAptQualifier) {
         result := DllCall("OLE32.dll\CoGetApartmentType", "int*", pAptType, "int*", pAptQualifier, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2328,11 +2436,14 @@ class Com {
      * <li> Your API implementation requires COM to be initialized, but has no information about whether the current thread is already in an apartment, and does not need the current thread to go into a particular apartment. </li>
      * </ul>
      * @param {Pointer<Void>} pCookie Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coincrementmtausage
      */
     static CoIncrementMTAUsage(pCookie) {
         result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2345,11 +2456,14 @@ class Com {
      * 
      * Don't call <b>CoDecrementMTAUsage</b> during process shutdown or inside dllmain. You can call <b>CoDecrementMTAUsage</b> before the call to start the shutdown process.
      * @param {Pointer<Void>} Cookie A <b>PVOID</b> variable that was set by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coincrementmtausage">CoIncrementMTAUsage</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecrementmtausage
      */
     static CoDecrementMTAUsage(Cookie) {
         result := DllCall("OLE32.dll\CoDecrementMTAUsage", "ptr", Cookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2362,12 +2476,15 @@ class Com {
      * 
      * For example, it's appropriate to call the <b>CoAllowUnmarshalerCLSID</b> function when an unmarshaler is known or believed to have a vulnerability but is required by an app. Also, it's appropriate to call <b>CoAllowUnmarshalerCLSID</b> if the unmarshaler is used in multiple processes, but only as part of an uncommon feature. Don't use the <b>CoAllowUnmarshalerCLSID</b> function as a replacement for hardening the unmarshaler.
      * @param {Pointer<Guid>} clsid The CLSID of the unmarshaler to be added to the per-process allowed list.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coallowunmarshalerclsid
      * @since windows8.0
      */
     static CoAllowUnmarshalerCLSID(clsid) {
         result := DllCall("OLE32.dll\CoAllowUnmarshalerCLSID", "ptr", clsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2385,7 +2502,7 @@ class Com {
      * 
      * For objects running within COM+ applications, IID_IObjectContext, IID_IObjectContextActivity IID_IObjectContextInfo, and IID_IContextState are available.
      * @param {Pointer<Void>} ppv The address of a pointer to the interface specified by <i>riid</i> on the context object.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -2431,6 +2548,9 @@ class Com {
      */
     static CoGetObjectContext(riid, ppv) {
         result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2477,7 +2597,7 @@ class Com {
      * @param {Pointer<Void>} pvReserved A pointer to computer on which to instantiate the class object. If this parameter is <b>NULL</b>, the class object is instantiated on the current computer or at the computer specified under the class's <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> key, according to the interpretation of the <i>dwClsCtx</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, which will be supplied in _ppv_ on successful return. This interface will be used to communicate with the class object. Typically this value is IID_IClassFactory, although other values such as IID_IClassFactory2 which supports a form of licensing are allowed. All OLE-defined interface IIDs are defined in the OLE header files as IID_interfacename, where interfacename is the name of the interface.
      * @param {Pointer<Void>} ppv The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -2591,6 +2711,9 @@ class Com {
      */
     static CoGetClassObject(rclsid, dwClsContext, pvReserved, riid, ppv) {
         result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, "ptr", pvReserved, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2632,7 +2755,7 @@ class Com {
      * @param {Integer} dwClsContext The context in which the executable code is to be run. For information on these context values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Integer} flags Indicates how connections are made to the class object. For information on these flags, see the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-regcls">REGCLS</a> enumeration.
      * @param {Pointer<UInt32>} lpdwRegister A pointer to a value that identifies the class object registered; later used by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a> function to revoke the registration.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -2656,6 +2779,9 @@ class Com {
      */
     static CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags, lpdwRegister) {
         result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, "uint*", lpdwRegister, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2668,7 +2794,7 @@ class Com {
      * 
      * An object application must call <b>CoRevokeClassObject</b> to revoke registered class objects before exiting the program. Class object implementers should call <b>CoRevokeClassObject</b> as part of the release sequence. You must specifically revoke the class object even when you have specified the flags value REGCLS_SINGLEUSE in a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, indicating that only one application can connect to the class object.
      * @param {Integer} dwRegister A token previously returned from the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a> function.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * 
      * <table>
@@ -2693,6 +2819,9 @@ class Com {
      */
     static CoRevokeClassObject(dwRegister) {
         result := DllCall("OLE32.dll\CoRevokeClassObject", "uint", dwRegister, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2702,12 +2831,15 @@ class Com {
      * Servers that can register multiple class objects call <b>CoResumeClassObjects</b> once, after having first called <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, specifying REGCLS_LOCAL_SERVER | REGCLS_SUSPENDED for each CLSID the server supports. This function causes OLE to inform the SCM about all the registered classes, and begins letting activation requests into the server process.
      * 
      * This reduces the overall registration time, and thus the server application startup time, by making a single call to the SCM, no matter how many CLSIDs are registered for the server. Another advantage is that if the server has multiple apartments with different CLSIDs registered in different apartments, or is a free-threaded server, no activation requests will come in until the server calls <b>CoResumeClassObjects</b>. This gives the server a chance to register all of its CLSIDs and get properly set up before having to deal with activation requests, and possibly shutdown requests.
-     * @returns {Integer} This function returns S_OK to indicate that the CLSID was retrieved successfully.
+     * @returns {HRESULT} This function returns S_OK to indicate that the CLSID was retrieved successfully.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coresumeclassobjects
      * @since windows5.0
      */
     static CoResumeClassObjects() {
         result := DllCall("OLE32.dll\CoResumeClassObjects", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2715,12 +2847,15 @@ class Com {
      * Prevents any new activation requests from the SCM on all class objects registered within the process.
      * @remarks
      * <b>CoSuspendClassObjects</b> prevents any new activation requests from the SCM on all class objects registered within the process. Even though a process may call this function, the process still must call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a> function for each CLSID it has registered, in the apartment it registered in. Applications typically do not need to call this function, which is generally only called internally by OLE when used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coreleaseserverprocess">CoReleaseServerProcess</a> function.
-     * @returns {Integer} This function returns S_OK to indicate that the activation of class objects was successfully suspended.
+     * @returns {HRESULT} This function returns S_OK to indicate that the activation of class objects was successfully suspended.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cosuspendclassobjects
      * @since windows5.0
      */
     static CoSuspendClassObjects() {
         result := DllCall("OLE32.dll\CoSuspendClassObjects", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2770,7 +2905,7 @@ class Com {
      * The <b>CoGetPSClsid</b> function looks at the <b>HKEY_CLASSES_ROOT</b>&#92;<b>Interfaces</b>&#92;<i>{string form of riid}</i>&#92;<b>ProxyStubClsid32</b> key in the registry to determine the CLSID of the DLL to load in order to create the proxy and stub for the interface specified by <i>riid</i>. This function also returns the CLSID for any interface IID registered by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterpsclsid">CoRegisterPSClsid</a> within the current process.
      * @param {Pointer<Guid>} riid The interface whose proxy/stub CLSID is to be returned.
      * @param {Pointer<Guid>} pClsid Specifies where to store the proxy/stub CLSID for the interface specified by <i>riid</i>.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -2816,6 +2951,9 @@ class Com {
      */
     static CoGetPSClsid(riid, pClsid) {
         result := DllCall("OLE32.dll\CoGetPSClsid", "ptr", riid, "ptr", pClsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2829,12 +2967,15 @@ class Com {
      * In some cases, however, it may be desirable or necessary for an in-process handler or in-process server to make its custom interfaces available without writing to the registry. A DLL downloaded across a network may not even have permission to access the local registry, and because the code originated on another computer, the user, for security purposes, may want to run it in a restricted environment. Or a DLL may have custom interfaces that it uses to talk to a remote server and may also include the ProxyStub code for those interfaces. In such cases, a DLL needs an alternative way to register its interfaces. <b>CoRegisterPSClsid</b>, used in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, provides that alternative.
      * @param {Pointer<Guid>} riid A pointer to the IID of the interface to be registered.
      * @param {Pointer<Guid>} rclsid A pointer to the CLSID of the DLL that contains the proxy/stub code for the custom interface specified by <i>riid</i>.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterpsclsid
      * @since windows5.0
      */
     static CoRegisterPSClsid(riid, rclsid) {
         result := DllCall("OLE32.dll\CoRegisterPSClsid", "ptr", riid, "ptr", rclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2847,12 +2988,15 @@ class Com {
      * 
      * As of Windows Server 2003, if a COM object application is registered as a service, COM verifies the registration. COM makes sure the process ID of the service, in the service control manager (SCM), matches the process ID of the registering process. If not, COM fails the registration.
      * @param {Pointer<ISurrogate>} pSurrogate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-isurrogate">ISurrogate</a> interface on the surrogate process to be registered.
-     * @returns {Integer} This function returns S_OK to indicate that the surrogate process was registered successfully.
+     * @returns {HRESULT} This function returns S_OK to indicate that the surrogate process was registered successfully.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregistersurrogate
      * @since windows5.0
      */
     static CoRegisterSurrogate(pSurrogate) {
         result := DllCall("OLE32.dll\CoRegisterSurrogate", "ptr", pSurrogate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2875,7 +3019,7 @@ class Com {
      * 
      * <b>CoDisconnectObject</b> does not necessarily disconnect out-of-process clients immediately. If any marshaled calls are pending on the server object, <b>CoDisconnectObject</b> disconnects the object only when those calls have returned. In the meantime, <b>CoDisconnectObject</b> sets a flag that causes any new marshaled calls to return CO_E_OBJNOTCONNECTED.
      * @param {Pointer<IUnknown>} pUnk A pointer to any interface derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> on the object to be disconnected.
-     * @returns {Integer} This function returns S_OK to indicate that all connections to remote processes were successfully deleted.
+     * @returns {HRESULT} This function returns S_OK to indicate that all connections to remote processes were successfully deleted.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codisconnectobject
      * @since windows5.0
      */
@@ -2883,6 +3027,9 @@ class Com {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoDisconnectObject", "ptr", pUnk, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2943,12 +3090,15 @@ class Com {
      * Otherwise, specify <b>FALSE</b>.
      * 
      * If <i>fLock</i> is <b>TRUE</b>, this parameter is ignored.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-colockobjectexternal
      * @since windows5.0
      */
     static CoLockObjectExternal(pUnk, fLock, fLastUnlockReleases) {
         result := DllCall("OLE32.dll\CoLockObjectExternal", "ptr", pUnk, "int", fLock, "int", fLastUnlockReleases, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3003,7 +3153,7 @@ class Com {
      * </ul>
      * @param {Pointer<IUnknown>} punkOuter A pointer to the aggregating object's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>.
      * @param {Pointer<IUnknown>} ppunkMarshal Address of the pointer variable that receives the interface pointer to the aggregatable marshaler.
-     * @returns {Integer} This function can return the standard return value E_OUTOFMEMORY, as well as the following value.
+     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following value.
      * 
      * <table>
      * <tr>
@@ -3027,6 +3177,9 @@ class Com {
      */
     static CoCreateFreeThreadedMarshaler(punkOuter, ppunkMarshal) {
         result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", "ptr", punkOuter, "ptr", ppunkMarshal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3034,13 +3187,12 @@ class Com {
      * Unloads any DLLs that are no longer in use, probably because the DLL no longer has any instantiated COM objects outstanding.
      * @remarks
      * Applications can call <b>CoFreeUnusedLibraries</b> periodically to free resources. It is most efficient to call it either at the top of a message loop or in some idle-time task. <b>CoFreeUnusedLibraries</b> internally calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-dllcanunloadnow">DllCanUnloadNow</a> for DLLs that implement and export that function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofreeunusedlibraries
      * @since windows5.0
      */
     static CoFreeUnusedLibraries() {
-        result := DllCall("OLE32.dll\CoFreeUnusedLibraries")
-        return result
+        DllCall("OLE32.dll\CoFreeUnusedLibraries")
     }
 
     /**
@@ -3066,15 +3218,14 @@ class Com {
      * 
      * This behavior is triggered by the DLL supplying components with threading models set to Free, Neutral, or Both. For a threading model set to Apartment (or if no threading model is specified), <i>dwUnloadDelay</i> is treated as 0 because these components are tied to the single thread hosting the apartment.
      * @param {Integer} dwUnloadDelay The delay in milliseconds between the time that the DLL has stated it can be unloaded until it becomes a candidate to unload. Setting this parameter to INFINITE uses the system default delay (10 minutes). Setting this parameter to 0 forces the unloading of any DLLs without any delay.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofreeunusedlibrariesex
      * @since windows5.1.2600
      */
     static CoFreeUnusedLibrariesEx(dwUnloadDelay) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\CoFreeUnusedLibrariesEx", "uint", dwUnloadDelay, "uint", dwReserved)
-        return result
+        DllCall("OLE32.dll\CoFreeUnusedLibrariesEx", "uint", dwUnloadDelay, "uint", dwReserved)
     }
 
     /**
@@ -3110,7 +3261,7 @@ class Com {
      * <li>COM interface pointers are context-sensitive. Therefore, any interface pointer created in the context to be disconnected can only be used within that context.</li>
      * </ul>
      * @param {Integer} dwTimeout The time in milliseconds after which <b>CoDisconnectContext</b> returns even if the proxy connections for all objects have not been disconnected. INFINITE is an acceptable value for this parameter.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -3168,6 +3319,9 @@ class Com {
      */
     static CoDisconnectContext(dwTimeout) {
         result := DllCall("OLE32.dll\CoDisconnectContext", "uint", dwTimeout, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3217,7 +3371,7 @@ class Com {
      * Outgoing calls from the client always use the impersonation level as specified. (It is not negotiated.) Incoming calls to the client can be at any impersonation level. By default, all <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> calls are made with this impersonation level, so even security-aware applications should set this level carefully. To determine which impersonation levels each authentication service supports, see the description of the authentication services in <a href="https://docs.microsoft.com/windows/desktop/com/com-and-security-packages">COM and Security Packages</a>. For more information about impersonation levels, see <a href="https://docs.microsoft.com/windows/desktop/com/impersonation">Impersonation</a>.
      * @param {Pointer<Void>} pAuthList A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-sole_authentication_list">SOLE_AUTHENTICATION_LIST</a>, which is an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-sole_authentication_info">SOLE_AUTHENTICATION_INFO</a> structures. This list indicates the information for each authentication service that a client can use to call a server. This parameter is used by COM only when a client calls <b>CoInitializeSecurity</b>.
      * @param {Integer} dwCapabilities Additional capabilities of the client or server, specified by setting one or more <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-eole_authentication_capabilities">EOLE_AUTHENTICATION_CAPABILITIES</a> values. Some of these value cannot be used simultaneously, and some cannot be set when particular authentication services are being used. For more information about these flags, see the Remarks section.
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -3277,6 +3431,9 @@ class Com {
         static pReserved1 := 0, pReserved3 := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoInitializeSecurity", "ptr", pSecDesc, "int", cAuthSvc, "ptr", asAuthSvc, "ptr", pReserved1, "uint", dwAuthnLevel, "uint", dwImpLevel, "ptr", pAuthList, "uint", dwCapabilities, "ptr", pReserved3, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3286,7 +3443,7 @@ class Com {
      * <b>CoGetCallContext</b> retrieves the context of the current call on the current thread. The <i>riid</i> parameter specifies the interface on the context to be retrieved. This is one of the functions provided to give the server access to any contextual information of the caller.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the call context that is being requested. If you are using the default call context supported by standard marshaling, IID_IServerSecurity is available. For COM+ applications using role-based security, IID_ISecurityCallContext is available.
      * @param {Pointer<Void>} ppInterface Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppInterface</i> contains the requested interface pointer.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -3321,6 +3478,9 @@ class Com {
      */
     static CoGetCallContext(riid, ppInterface) {
         result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, "ptr", ppInterface, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3352,12 +3512,15 @@ class Com {
      * @param {Pointer<UInt32>} pImpLevel A pointer to a variable that receives the current impersonation level. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-impersonation-level-constants">impersonation level constants</a>. If the caller specifies <b>NULL</b>, the current impersonation level is not retrieved.
      * @param {Pointer<Void>} pAuthInfo A pointer to a handle that receives the identity of the client that was passed to the last <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> call (or the default value). Default values are only valid until the proxy is released. If the caller specifies <b>NULL</b>, the client identity is not retrieved. The format of the structure that the handle refers to depends on the authentication service. The application should not write or free the memory. For NTLMSSP and Kerberos, if the client specified a structure in the <i>pAuthInfo</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>, that value is returned. For Schannel, if a certificate for the client could be retrieved from the certificate manager, that value is returned here. Otherwise, <b>NULL</b> is returned. See <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a>.
      * @param {Pointer<UInt32>} pCapabilites A pointer to a variable that receives the capabilities of the proxy. If the caller specifies <b>NULL</b>, the current capability flags are not retrieved.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coqueryproxyblanket
      * @since windows5.0
      */
     static CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
         result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, "uint*", pwAuthnSvc, "uint*", pAuthzSvc, "ptr", pServerPrincName, "uint*", pAuthnLevel, "uint*", pImpLevel, "ptr", pAuthInfo, "uint*", pCapabilites, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3402,7 +3565,7 @@ class Com {
      * 
      * <b>CoSetProxyBlanket</b> will fail if <i>pAuthInfo</i> is set and one of the cloaking flags is set in the <i>dwCapabilities</i> parameter.
      * @param {Integer} dwCapabilities The capabilities of this proxy. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-eole_authentication_capabilities">EOLE_AUTHENTICATION_CAPABILITIES</a> enumeration. The only flags that can be set through this function are EOAC_MUTUAL_AUTH, EOAC_STATIC_CLOAKING, EOAC_DYNAMIC_CLOAKING, EOAC_ANY_AUTHORITY (this flag is deprecated), EOAC_MAKE_FULLSIC, and EOAC_DEFAULT. Either EOAC_STATIC_CLOAKING or EOAC_DYNAMIC_CLOAKING can be set if <i>pAuthInfo</i> is not set and Schannel is not the authentication service. (See <a href="https://docs.microsoft.com/windows/desktop/com/cloaking">Cloaking</a> for more information.) If any capability flags other than those mentioned here are set, <b>CoSetProxyBlanket</b> will fail.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -3439,6 +3602,9 @@ class Com {
         pServerPrincName := pServerPrincName is String? StrPtr(pServerPrincName) : pServerPrincName
 
         result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, "ptr", pAuthInfo, "uint", dwCapabilities, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3463,7 +3629,7 @@ class Com {
      * Copies of the same proxy have a special relationship with respect to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>. Given a proxy, a, of the IA interface of a remote object, suppose a copy of a is created, called b. In this case, calling <b>QueryInterface</b> from the b proxy for IID_IA will not retrieve the IA interface on b, but the one on a, the original proxy with the "default" security settings for the IA interface.
      * @param {Pointer<IUnknown>} pProxy A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the proxy to be copied. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<IUnknown>} ppCopy Address of the pointer variable that receives the interface pointer to the copy of the proxy. This parameter cannot be <b>NULL</b>.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -3498,6 +3664,9 @@ class Com {
      */
     static CoCopyProxy(pProxy, ppCopy) {
         result := DllCall("OLE32.dll\CoCopyProxy", "ptr", pProxy, "ptr", ppCopy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3525,12 +3694,15 @@ class Com {
      * @param {Pointer<UInt32>} pImpLevel This parameter must be <b>NULL</b>.
      * @param {Pointer<Void>} pPrivs A pointer to a handle that receives the privilege information for the client application. The format of the structure that the handle refers to depends on the authentication service. The application should not write or free the memory. The information is valid only for the duration of the current call. For NTLMSSP and Kerberos, this is a string identifying the client principal. For Schannel, this is a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that represents the client's certificate. If the client has no certificate, <b>NULL</b> is returned. If the caller specifies <b>NULL</b>, the current privilege information is not retrieved. See <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-authz-handle">RPC_AUTHZ_HANDLE</a>.
      * @param {Pointer<UInt32>} pCapabilities A pointer to return flags indicating capabilities of the call. To request that the principal name be returned in fullsic form if Schannel is the authentication service, the caller can set the EOAC_MAKE_FULLSIC flag in this parameter. If the caller specifies <b>NULL</b>, the current capabilities are not retrieved.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coqueryclientblanket
      * @since windows5.0
      */
     static CoQueryClientBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
         result := DllCall("OLE32.dll\CoQueryClientBlanket", "uint*", pAuthnSvc, "uint*", pAuthzSvc, "ptr", pServerPrincName, "uint*", pAuthnLevel, "uint*", pImpLevel, "ptr", pPrivs, "uint*", pCapabilities, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3548,12 +3720,15 @@ class Com {
      * ```
      * 
      * <b>CoImpersonateClient</b> encapsulates the process of getting a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iserversecurity">IServerSecurity</a> that contains data about the current call, calling its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iserversecurity-impersonateclient">ImpersonateClient</a> method, and then releasing the pointer. One call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coreverttoself">CoRevertToSelf</a> (or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iserversecurity-reverttoself">IServerSecurity::RevertToSelf</a>) will undo any number of  calls to impersonate the client.
-     * @returns {Integer} This function supports the standard return values, including S_OK.
+     * @returns {HRESULT} This function supports the standard return values, including S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coimpersonateclient
      * @since windows5.0
      */
     static CoImpersonateClient() {
         result := DllCall("OLE32.dll\CoImpersonateClient", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3571,12 +3746,15 @@ class Com {
      *     pss-&gt;Release();
      * 
      * ```
-     * @returns {Integer} This function supports the standard return values, including S_OK to indicate success.
+     * @returns {HRESULT} This function supports the standard return values, including S_OK to indicate success.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coreverttoself
      * @since windows5.0
      */
     static CoRevertToSelf() {
         result := DllCall("OLE32.dll\CoRevertToSelf", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3590,12 +3768,15 @@ class Com {
      * Different authentication services support different levels of security. For example, NTLMSSP does not support delegation or mutual authentication while Kerberos does. The application is responsible only for registering authentication services that provide the features the application needs. This function provides a way to find out which services have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>.
      * @param {Pointer<UInt32>} pcAuthSvc A pointer to a variable that receives the number of entries returned in the <i>asAuthSvc</i> array.
      * @param {Pointer<SOLE_AUTHENTICATION_SERVICE>} asAuthSvc A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-sole_authentication_service">SOLE_AUTHENTICATION_SERVICE</a> structures. The list is allocated through a call to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function. The caller must free the list when finished with it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coqueryauthenticationservices
      * @since windows5.0
      */
     static CoQueryAuthenticationServices(pcAuthSvc, asAuthSvc) {
         result := DllCall("OLE32.dll\CoQueryAuthenticationServices", "uint*", pcAuthSvc, "ptr", asAuthSvc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3609,7 +3790,7 @@ class Com {
      * Call context objects provided by custom marshallers should support the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iserversecurity">IServerSecurity</a> interface.
      * @param {Pointer<IUnknown>} pNewObject A pointer to an interface on the new call context object. COM stores this pointer without adding a reference to the pointer until <b>CoSwitchCallContext</b> is called with another object. This parameter may be <b>NULL</b> if you are calling <b>CoSwitchCallContext</b> to switch back to the original call context but there was no original call context.
      * @param {Pointer<IUnknown>} ppOldObject The address of pointer variable that receives a pointer to the call context object of the call currently in progress. This value is returned so that the original call context can be restored by the custom marshaller. The returned pointer will be <b>NULL</b> if there was no call in progress.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -3644,6 +3825,9 @@ class Com {
      */
     static CoSwitchCallContext(pNewObject, ppOldObject) {
         result := DllCall("OLE32.dll\CoSwitchCallContext", "ptr", pNewObject, "ptr", ppOldObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3668,7 +3852,7 @@ class Com {
      * @param {Integer} dwClsContext Context in which the code that manages the newly created object will run. The values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a>.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be used to communicate with the object.
      * @param {Pointer<Void>} ppv Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer. Upon failure, *<i>ppv</i> contains <b>NULL</b>.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -3736,6 +3920,9 @@ class Com {
      */
     static CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
         result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3757,7 +3944,7 @@ class Com {
      * @param {Pointer<COSERVERINFO>} pServerInfo Information about the computer on which to instantiate the object. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a>. This parameter can be <b>NULL</b>, in which case the object is instantiated on the local computer or at the computer specified in the registry under the class's <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> value, according to the interpretation of the <i>dwClsCtx</i> parameter.
      * @param {Integer} dwCount The number of structures in <i>pResults</i>. This value must be greater than 0.
      * @param {Pointer<MULTI_QI>} pResults An array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-multi_qi">MULTI_QI</a> structures. Each structure has three members: the identifier for a requested interface (<b>pIID</b>), the location to return the interface pointer (<b>pItf</b>) and the return value of the call to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> (<b>hr</b>).
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -3825,6 +4012,9 @@ class Com {
      */
     static CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pResults) {
         result := DllCall("OLE32.dll\CoCreateInstanceEx", "ptr", Clsid, "ptr", punkOuter, "uint", dwClsCtx, "ptr", pServerInfo, "uint", dwCount, "ptr", pResults, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3845,7 +4035,7 @@ class Com {
      * @param {Pointer<Void>} reserved Reserved for future use.
      * @param {Integer} dwCount The number of structures in <i>pResults</i>. This value must be greater than 0.
      * @param {Pointer<MULTI_QI>} pResults An array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-multi_qi">MULTI_QI</a> structures. Each structure has three members: the identifier for a requested interface (<b>pIID</b>), the location to return the interface pointer (<b>pItf</b>) and the return value of the call to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> (<b>hr</b>).
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -3913,6 +4103,9 @@ class Com {
      */
     static CoCreateInstanceFromApp(Clsid, punkOuter, dwClsCtx, reserved, dwCount, pResults) {
         result := DllCall("OLE32.dll\CoCreateInstanceFromApp", "ptr", Clsid, "ptr", punkOuter, "uint", dwClsCtx, "ptr", reserved, "uint", dwCount, "ptr", pResults, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3921,12 +4114,15 @@ class Com {
      * @remarks
      * This registers one and only one process-wide filter.
      * @param {Pointer<IActivationFilter>} pActivationFilter Pointer to the filter to register.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisteractivationfilter
      * @since windows5.1.2600
      */
     static CoRegisterActivationFilter(pActivationFilter) {
         result := DllCall("OLE32.dll\CoRegisterActivationFilter", "ptr", pActivationFilter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3939,7 +4135,7 @@ class Com {
      * @param {Integer} dwThreadId The identifier of the thread on which the pending COM call is to be canceled. If this parameter is 0, the call is on the current thread.
      * @param {Pointer<Guid>} iid The globally unique identifier of an interface on the cancel object for the call to be canceled. This argument is usually IID_ICancelMethodCalls.
      * @param {Pointer<Void>} ppUnk Receives the address of a pointer to the interface specified by <i>riid</i>.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -3974,6 +4170,9 @@ class Com {
      */
     static CoGetCancelObject(dwThreadId, iid, ppUnk) {
         result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, "ptr", ppUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3988,7 +4187,7 @@ class Com {
      * 
      * <b>CoSetCancelObject</b> does not set or reset cancel objects for asynchronous methods.
      * @param {Pointer<IUnknown>} pUnk Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the cancel object to be set or reset on the current thread. If this parameter is <b>NULL</b>, the topmost cancel object is reset.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -4024,6 +4223,9 @@ class Com {
      */
     static CoSetCancelObject(pUnk) {
         result := DllCall("OLE32.dll\CoSetCancelObject", "ptr", pUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4037,7 +4239,7 @@ class Com {
      * The object server can determine if the call has been canceled by periodically calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotestcancel">CoTestCancel</a>. If the call has been canceled, the object server should clean up and return control to the client.
      * @param {Integer} dwThreadId The identifier of the thread on which the pending DCOM call is to be canceled. If this parameter is 0, the call is on the current thread.
      * @param {Integer} ulTimeout The number of seconds <b>CoCancelCall</b> waits for the server to complete the outbound call after the client requests cancellation.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -4105,6 +4307,9 @@ class Com {
      */
     static CoCancelCall(dwThreadId, ulTimeout) {
         result := DllCall("OLE32.dll\CoCancelCall", "uint", dwThreadId, "uint", ulTimeout, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4116,7 +4321,7 @@ class Com {
      * <b>CoTestCancel</b> calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetcallcontext">CoGetCallContext</a> to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-icancelmethodcalls">ICancelMethodCalls</a> interface on the current cancel object and then calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-icancelmethodcalls-testcancel">ICancelMethodCalls::TestCancel</a>. Objects that implement custom marshaling should first call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coswitchcallcontext">CoSwitchCallContext</a> to install the appropriate call context object.
      * 
      * This function does not test cancellation for asynchronous calls.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -4151,6 +4356,9 @@ class Com {
      */
     static CoTestCancel() {
         result := DllCall("OLE32.dll\CoTestCancel", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4162,7 +4370,7 @@ class Com {
      * Unless you want to enable call cancellation on a thread at all times, you should pair calls to <b>CoEnableCallCancellation</b> with calls to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codisablecallcancellation">CoDisableCallCancellation</a>. Call cancellation is disabled only if <b>CoDisableCallCancellation</b> has been called once for each time <b>CoEnableCallCancellation</b> was called successfully.
      * 
      * A call will be cancelable or not depending on the state of the thread at the time the call was made. Subsequently enabling or disabling call cancellation has no effect on any calls that are pending on the thread.
-     * @returns {Integer} This function can return the standard return values S_OK, E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY.
+     * @returns {HRESULT} This function can return the standard return values S_OK, E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coenablecallcancellation
      * @since windows5.0
      */
@@ -4170,6 +4378,9 @@ class Com {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoEnableCallCancellation", "ptr", pReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4189,7 +4400,7 @@ class Com {
      * A call will be cancelable or not depending on the state of the thread at the time the call was made. Subsequently enabling or disabling call cancellation has no effect on any calls that are pending on the thread.
      * 
      * If a thread is uninitialized and then reinitialized by calls to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a>, call cancellation is disabled on the thread, even if it was enabled when the thread was uninitialized.
-     * @returns {Integer} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -4226,6 +4437,9 @@ class Com {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("OLE32.dll\CoDisableCallCancellation", "ptr", pReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4237,12 +4451,15 @@ class Com {
      * The caller is responsible for freeing the memory allocated for the string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} rclsid The CLSID to be converted.
      * @param {Pointer<Char>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromclsid
      * @since windows5.0
      */
     static StringFromCLSID(rclsid, lplpsz) {
         result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr", lplpsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4254,7 +4471,7 @@ class Com {
      * Passing the <a href="https://docs.microsoft.com/windows/win32/com/progid">ProgID</a> results in saving associated CLSID in <b>pclsid</b>. Passing <b>NULL</b> results in <b>GUID_NULL</b>.
      * @param {Pointer<Char>} lpsz The zero terminated string representation of the CLSID or the <a href="https://docs.microsoft.com/windows/win32/com/progid">ProgID</a> or <b>NULL</b>.
      * @param {Pointer<Guid>} pclsid A pointer to the CLSID.
-     * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
+     * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
      * <table>
      * <tr>
@@ -4291,6 +4508,9 @@ class Com {
         lpsz := lpsz is String? StrPtr(lpsz) : lpsz
 
         result := DllCall("OLE32.dll\CLSIDFromString", "ptr", lpsz, "ptr", pclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4300,12 +4520,15 @@ class Com {
      * The caller is responsible for freeing the memory allocated for the string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} rclsid The interface identifier to be converted.
      * @param {Pointer<Char>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
-     * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromiid
      * @since windows5.0
      */
     static StringFromIID(rclsid, lplpsz) {
         result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr", lplpsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4319,7 +4542,7 @@ class Com {
      * Passing <b>NULL</b> results in <b>GUID_NULL</b> value.
      * @param {Pointer<Char>} lpsz A pointer to the string representation of the IID or <b>NULL</b>.
      * @param {Pointer<Guid>} lpiid A pointer to the requested IID on return.
-     * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
+     * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-iidfromstring
      * @since windows5.0
      */
@@ -4327,6 +4550,9 @@ class Com {
         lpsz := lpsz is String? StrPtr(lpsz) : lpsz
 
         result := DllCall("OLE32.dll\IIDFromString", "ptr", lpsz, "ptr", lpiid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4346,7 +4572,7 @@ class Com {
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromprogid">CLSIDFromProgID</a> function to find the CLSID associated with a given ProgID. Be sure to free the returned ProgID  when you are finished with it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} clsid The CLSID for which the ProgID is to be requested.
      * @param {Pointer<Char>} lplpszProgID The address of a pointer variable that receives the ProgID string. The string that represents <i>clsid</i> includes enclosing braces.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -4392,6 +4618,9 @@ class Com {
      */
     static ProgIDFromCLSID(clsid, lplpszProgID) {
         result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr", lplpszProgID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4401,7 +4630,7 @@ class Com {
      * Given a ProgID, <b>CLSIDFromProgID</b> looks up its associated CLSID in the registry. If the ProgID cannot be found in the registry, <b>CLSIDFromProgID</b> creates an OLE 1 CLSID for the ProgID and a CLSID entry in the registry. Because of the restrictions placed on OLE 1 CLSID values, <b>CLSIDFromProgID</b> and <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromstring">CLSIDFromString</a> are the only two functions that can be used to generate a CLSID for an OLE 1 object.
      * @param {Pointer<Char>} lpszProgID A pointer to the ProgID whose CLSID is requested.
      * @param {Pointer<Guid>} lpclsid Receives a pointer to the retrieved CLSID on return.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -4450,6 +4679,9 @@ class Com {
         lpszProgID := lpszProgID is String? StrPtr(lpszProgID) : lpszProgID
 
         result := DllCall("OLE32.dll\CLSIDFromProgID", "ptr", lpszProgID, "ptr", lpclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4458,14 +4690,14 @@ class Com {
      * @param {Pointer<Guid>} rguid The GUID to be converted.
      * @param {Pointer<Char>} lpsz A pointer to a caller-allocated string variable to receive the resulting string. The string that represents <i>rguid</i> includes enclosing braces.
      * @param {Integer} cchMax The number of characters available in the <i>lpsz</i> buffer.
-     * @returns {Pointer} If the function succeeds, the return value is the number of characters in the returned string, including the null terminator. If the buffer is too small to contain the string, the return value is 0.
+     * @returns {Integer} If the function succeeds, the return value is the number of characters in the returned string, including the null terminator. If the buffer is too small to contain the string, the return value is 0.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromguid2
      * @since windows5.0
      */
     static StringFromGUID2(rguid, lpsz, cchMax) {
         lpsz := lpsz is String? StrPtr(lpsz) : lpsz
 
-        result := DllCall("OLE32.dll\StringFromGUID2", "ptr", rguid, "ptr", lpsz, "int", cchMax)
+        result := DllCall("OLE32.dll\StringFromGUID2", "ptr", rguid, "ptr", lpsz, "int", cchMax, "int")
         return result
     }
 
@@ -4474,7 +4706,7 @@ class Com {
      * @remarks
      * The <b>CoCreateGuid</b> function calls the RPC function <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-uuidcreate">UuidCreate</a>, which creates a GUID, a globally unique 128-bit integer. Use <b>CoCreateGuid</b> when you need an absolutely unique number that you will use as a persistent identifier in a distributed environment. To a very high degree of certainty, this function returns a unique value – no other invocation, on the same or any other system (networked or not), should return the same value.
      * @param {Pointer<Guid>} pguid A pointer to the requested GUID.
-     * @returns {Integer} <table>
+     * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
      * <th>Description</th>
@@ -4499,6 +4731,9 @@ class Com {
      */
     static CoCreateGuid(pguid) {
         result := DllCall("OLE32.dll\CoCreateGuid", "ptr", pguid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4528,7 +4763,7 @@ class Com {
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_ALERTABLE</a> flag is set in <i>dwFlags</i>, a value of WAIT_IO_COMPLETION indicates the wait was ended by one or more user-mode asynchronous procedure calls (APC) queued to the thread.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitformultipleobjectsex">WaitForMultipleObjectsEx</a> for more information.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <div class="alert"><b>Note</b>  The return value of <b>CoWaitForMultipleHandles</b> can be nondeterministic if the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_ALERTABLE</a> flag is set in <i>dwFlags</i>, or if <i>pHandles</i> includes one or more handles to mutex objects. The recommended workaround is to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError(ERROR_SUCCESS)</a> before <b>CoWaitForMultipleHandles</b>.</div>
      * <div> </div>
@@ -4587,6 +4822,9 @@ class Com {
      */
     static CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles, lpdwindex) {
         result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", lpdwindex, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4597,11 +4835,14 @@ class Com {
      * @param {Integer} cHandles The length of the <i>pHandles</i> array. Must be &lt;= 56.
      * @param {Pointer<Void>} pHandles An array of handles to waitable kernel objects.
      * @param {Pointer<UInt32>} lpdwindex Receives the index of the handle that satisfied the wait.
-     * @returns {Integer} Same return values as <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cowaitformultiplehandles">CoWaitForMultipleHandles</a>, except the ASTA-specific CO_E_NOTSUPPORTED cases instead return E_INVALIDARG from all apartment types.
+     * @returns {HRESULT} Same return values as <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cowaitformultiplehandles">CoWaitForMultipleHandles</a>, except the ASTA-specific CO_E_NOTSUPPORTED cases instead return E_INVALIDARG from all apartment types.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultipleobjects
      */
     static CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles, lpdwindex) {
         result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", lpdwindex, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4611,7 +4852,7 @@ class Com {
      * <b>CoGetTreatAsClass</b> returns the <a href="https://docs.microsoft.com/windows/desktop/com/treatas">TreatAs</a> entry in the registry for the specified object. The <b>TreatAs</b> entry, if set, is the CLSID of a registered object (an application) that can emulate the object in question. The <b>TreatAs</b> entry is set through a call to the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-cotreatasclass">CoTreatAsClass</a> function. Emulation allows an application to open and edit an object of a different format, while retaining the original format of the object. Objects of the original CLSID are activated and treated as objects of the second CLSID. When the object is saved, this may result in loss of edits not supported by the original format. If there is no <b>TreatAs</b> entry for the specified object, this function returns the CLSID of the original object (<i>clsidOld</i>).
      * @param {Pointer<Guid>} clsidOld The CLSID of the object that can be emulated (treated as) an object with a different CLSID.
      * @param {Pointer<Guid>} pClsidNew A pointer to where the CLSID that can emulate <i>clsidOld</i> objects is retrieved. This parameter cannot be <b>NULL</b>. If there is no emulation information for <i>clsidOld</i> objects, the <i>clsidOld</i> parameter is supplied.
-     * @returns {Integer} This function can return the following values, as well as any error values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromstring">CLSIDFromString</a> function.
+     * @returns {HRESULT} This function can return the following values, as well as any error values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromstring">CLSIDFromString</a> function.
      * 
      * <table>
      * <tr>
@@ -4657,6 +4898,9 @@ class Com {
      */
     static CoGetTreatAsClass(clsidOld, pClsidNew) {
         result := DllCall("OLE32.dll\CoGetTreatAsClass", "ptr", clsidOld, "ptr", pClsidNew, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4667,7 +4911,7 @@ class Com {
      * 
      * The OLE Service Control Manager will flush unused binding handles over time. It is not necessary to call <b>CoInvalidateRemoteMachineBindings</b> to do this.
      * @param {Pointer<Char>} pszMachineName The computer name for which binding handles should be flushed, or an empty string to signify that all handles in the cache should be flushed.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -4727,6 +4971,9 @@ class Com {
         pszMachineName := pszMachineName is String? StrPtr(pszMachineName) : pszMachineName
 
         result := DllCall("OLE32.dll\CoInvalidateRemoteMachineBindings", "ptr", pszMachineName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4778,13 +5025,12 @@ class Com {
      * 
      * The number of bytes freed equals the number of bytes that were originally allocated or reallocated. After the call, the memory block pointed to by pv is invalid and can no longer be used.
      * @param {Pointer<Void>} pv A pointer to the memory block to be freed. If this parameter is <b>NULL</b>, the function has no effect.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree
      * @since windows5.0
      */
     static CoTaskMemFree(pv) {
-        result := DllCall("OLE32.dll\CoTaskMemFree", "ptr", pv)
-        return result
+        DllCall("OLE32.dll\CoTaskMemFree", "ptr", pv)
     }
 
     /**
@@ -4795,13 +5041,16 @@ class Com {
      * @param {Pointer<Void>} cookie Type: \_Out\_ **CO_DEVICE_CATALOG_COOKIE\***
      * 
      * Returns an instance of **CO_DEVICE_CATALOG_COOKIE**. You can use this value to revoke the device catalog using [CoRevokeDeviceCatalog](nf-combaseapi-corevokedevicecatalog.md).
-     * @returns {Integer} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
+     * @returns {HRESULT} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog
      */
     static CoRegisterDeviceCatalog(deviceInstanceId, cookie) {
         deviceInstanceId := deviceInstanceId is String? StrPtr(deviceInstanceId) : deviceInstanceId
 
         result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4810,11 +5059,14 @@ class Com {
      * @param {Pointer<Void>} cookie Type: \_In\_ **CO_DEVICE_CATALOG_COOKIE**
      * 
      * The **CO_DEVICE_CATALOG_COOKIE** that was returned by **CoRegisterDeviceCatalog**.
-     * @returns {Integer} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
+     * @returns {HRESULT} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-corevokedevicecatalog
      */
     static CoRevokeDeviceCatalog(cookie) {
         result := DllCall("OLE32.dll\CoRevokeDeviceCatalog", "ptr", cookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4823,7 +5075,7 @@ class Com {
      * @param {Pointer<Char>} pwzURI 
      * @param {Integer} dwFlags 
      * @param {Pointer<IUri>} ppURI 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateUri(pwzURI, dwFlags, ppURI) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -4831,6 +5083,9 @@ class Com {
         pwzURI := pwzURI is String? StrPtr(pwzURI) : pwzURI
 
         result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, "uint", dwFlags, "ptr", dwReserved, "ptr", ppURI, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4840,7 +5095,7 @@ class Com {
      * @param {Pointer<Char>} pwzFragment 
      * @param {Integer} dwFlags 
      * @param {Pointer<IUri>} ppURI 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateUriWithFragment(pwzURI, pwzFragment, dwFlags, ppURI) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -4849,6 +5104,9 @@ class Com {
         pwzFragment := pwzFragment is String? StrPtr(pwzFragment) : pwzFragment
 
         result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr", ppURI, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4859,7 +5117,7 @@ class Com {
      * @param {Integer} dwCodePage 
      * @param {Integer} dwCreateFlags 
      * @param {Pointer<IUri>} ppUri 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage, dwCreateFlags, ppUri) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -4867,6 +5125,9 @@ class Com {
         pszANSIInputUri := pszANSIInputUri is String? StrPtr(pszANSIInputUri) : pszANSIInputUri
 
         result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr", ppUri, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4876,10 +5137,13 @@ class Com {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
      * @param {Pointer<IUriBuilder>} ppIUriBuilder 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateIUriBuilder(pIUri, dwFlags, dwReserved, ppIUriBuilder) {
         result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, "uint", dwFlags, "ptr", dwReserved, "ptr", ppIUriBuilder, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4905,11 +5169,14 @@ class Com {
      * Entering the COM modal message loop will clear any existing error object. A called object should not enter a message loop after calling <b>SetErrorInfo</b>.
      * @param {Integer} dwReserved Reserved for future use. Must be zero.
      * @param {Pointer<IErrorInfo>} perrinfo An error object.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo
      */
     static SetErrorInfo(dwReserved, perrinfo) {
         result := DllCall("OLEAUT32.dll\SetErrorInfo", "uint", dwReserved, "ptr", perrinfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4921,7 +5188,7 @@ class Com {
      * Making a COM call that goes through a proxy-stub will clear any existing error object for the calling thread. A called object should not make any such calls after calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a> and before returning. The caller should not make any such calls after the call returns and before calling <b>GetErrorInfo</b>. As a rule of thumb, an interface method should return as soon as possible after calling <b>SetErrorInfo</b>, and the caller should call <b>GetErrorInfo</b> as soon as possible after the call returns.
      * @param {Integer} dwReserved Reserved for future use. Must be zero.
      * @param {Pointer<IErrorInfo>} pperrinfo An error object.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4956,6 +5223,9 @@ class Com {
      */
     static GetErrorInfo(dwReserved, pperrinfo) {
         result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr", pperrinfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

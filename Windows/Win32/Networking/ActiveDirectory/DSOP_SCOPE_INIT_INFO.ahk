@@ -81,7 +81,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/objsel/nf-objsel-idsobjectpicker-initialize">IDsObjectPicker::Initialize</a> method successfully creates the scope, or scopes, specified by this structure, <b>hr</b> contains <b>S_OK</b>. Otherwise, <b>hr</b> contains an error code.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/objsel/nf-objsel-idsobjectpicker-initialize">IDsObjectPicker::Initialize</a> returns <b>S_OK</b>, the <b>hr</b> members of all the specified <b>DSOP_SCOPE_INIT_INFO</b> structures also contain <b>S_OK</b>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 48, "int")

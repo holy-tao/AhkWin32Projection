@@ -1000,24 +1000,30 @@ class DeploymentServices {
      * @param {Pointer<Void>} Handle A handle to a WDS session or image. This function can close handles opened with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> functions.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliclose
      * @since windows6.0.6000
      */
     static WdsCliClose(Handle) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliClose", "ptr", Handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Registers a callback function that will receive debugging messages.
      * @param {Pointer<PFN_WdsCliTraceFunction>} pfn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nc-wdsclientapi-pfn_wdsclitracefunction">PFN_WdsCliTraceFunction</a> callback function that receives debugging messages.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliregistertrace
      * @since windows6.0.6000
      */
     static WdsCliRegisterTrace(pfn) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", pfn, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1025,12 +1031,15 @@ class DeploymentServices {
      * This function can be used to free the array of string values that gets allocated by the WdsCliObtainDriverPackages function.
      * @param {Pointer<Char>} ppwszArray Pointer to the array of string values being freed.
      * @param {Integer} ulCount Number of strings in the array that is pointed to by <i>ppwszArray</i>.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclifreestringarray
      * @since windows6.1
      */
     static WdsCliFreeStringArray(ppwszArray, ulCount) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliFreeStringArray", "ptr", ppwszArray, "uint", ulCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1047,12 +1056,15 @@ class DeploymentServices {
      * 
      * <div class="alert"><b>Note</b>  Information about the image can only be obtained from the find handle by using the image information functions of the WDS client API.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage
      * @since windows6.0.6000
      */
     static WdsCliFindFirstImage(hSession, phFindHandle) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliFindFirstImage", "ptr", hSession, "ptr", phFindHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1062,7 +1074,7 @@ class DeploymentServices {
      * To enumerate all the images on a WDS Server, first get the WDS image find handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function, and then make repeated calls to <b>WdsCliFindNextImage</b> until the function returns <b>HRESULT_FROM_WIN32(ERROR_NO_MORE_FILES)</b>.
      * @param {Pointer<Void>} Handle The find handle returned by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. If the <b>WdsCliFindNextImage</b> function is successful, the reference of the find handle is advanced to the next image stored on the WDS server.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * 
      * If the function succeeds, and the end of the enumeration has been reached, the return is  <b>HRESULT_FROM_WIN32(ERROR_NO_MORE_FILES)</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage
@@ -1070,6 +1082,9 @@ class DeploymentServices {
      */
     static WdsCliFindNextImage(Handle) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliFindNextImage", "ptr", Handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1100,12 +1115,15 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetenumerationflags
      * @since windows6.0.6000
      */
     static WdsCliGetEnumerationFlags(Handle, pdwFlags) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "uint*", pdwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1115,12 +1133,15 @@ class DeploymentServices {
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function to close the image handle returned by this function.
      * @param {Pointer<Void>} FindHandle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Void>} phImageHandle A pointer to a location that contains an image handle for the current image referenced by the find handle.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagehandlefromfindhandle
      * @since windows6.0.6000
      */
     static WdsCliGetImageHandleFromFindHandle(FindHandle, phImageHandle) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromFindHandle", "ptr", FindHandle, "ptr", phImageHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1132,12 +1153,15 @@ class DeploymentServices {
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function to close the image handle returned by this function.
      * @param {Pointer<Void>} hTransfer A WDS transfer handle that has completed the transfer. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
      * @param {Pointer<Void>} phImageHandle A pointer to a location that contains an image handle.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagehandlefromtransferhandle
      * @since windows6.0.6000
      */
     static WdsCliGetImageHandleFromTransferHandle(hTransfer, phImageHandle) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromTransferHandle", "ptr", hTransfer, "ptr", phImageHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1150,7 +1174,7 @@ class DeploymentServices {
      * @param {Pointer<WDS_CLI_CRED>} pCred A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred">WDS_CLI_CRED</a> structure that contains the 
      *       client's credentials. This parameter can be null  for a session without authentication.
      * @param {Pointer<Void>} phSession A pointer to a handle for the new session. This parameter is unmodified if the function is unsuccessful.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1166,6 +1190,9 @@ class DeploymentServices {
         if(A_LastError)
             throw OSError()
 
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1175,12 +1202,15 @@ class DeploymentServices {
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
      * @param {Pointer<WDS_CLI_CRED>} pCred Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred">WDS_CLI_CRED</a> structure that contains the 
      *       client's credentials.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliauthorizesession
      * @since windows6.0.6000
      */
     static WdsCliAuthorizeSession(hSession, pCred) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliAuthorizeSession", "ptr", hSession, "ptr", pCred, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1192,7 +1222,7 @@ class DeploymentServices {
      * @param {Pointer<Char>} pwszClientId A pointer to a string value that contains a GUID that represents this WDS client. This is typically the GUID for the System Management BIOS (SMBIOS.)
      * @param {Pointer<Char>} pwszClientAddress A pointer to a string value that contains the network address of the WDS client. This is typically the IP address in string form, for example, 
      *       "127.0.0.1".
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>. 
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>. 
      * 
      * If logging has already been initialize for the session, the return value is 
      *       <b>HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED)</b>.
@@ -1204,6 +1234,9 @@ class DeploymentServices {
         pwszClientAddress := pwszClientAddress is String? StrPtr(pwszClientAddress) : pwszClientAddress
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliInitializeLog", "ptr", hSession, "uint", ulClientArchitecture, "ptr", pwszClientId, "ptr", pwszClientAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1313,12 +1346,15 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclilog
      * @since windows6.0.6000
      */
     static WdsCliLog(hSession, ulLogLevel, ulMessageCode) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliLog", "ptr", hSession, "uint", ulLogLevel, "uint", ulMessageCode, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1333,12 +1369,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains the name of the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagename
      * @since windows6.0.6000
      */
     static WdsCliGetImageName(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageName", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1353,12 +1392,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains a description of the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagedescription
      * @since windows6.0.6000
      */
     static WdsCliGetImageDescription(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageDescription", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1366,10 +1408,13 @@ class DeploymentServices {
      * 
      * @param {Pointer<Void>} hIfh 
      * @param {Pointer<Int32>} pImageType 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static WdsCliGetImageType(hIfh, pImageType) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, "int*", pImageType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1378,10 +1423,13 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh 
      * @param {Pointer<Char>} pppwszFiles 
      * @param {Pointer<UInt32>} pdwCount 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static WdsCliGetImageFiles(hIfh, pppwszFiles, pdwCount) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr", pppwszFiles, "uint*", pdwCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1396,12 +1444,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains the default language for the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagelanguage
      * @since windows6.0.6000
      */
     static WdsCliGetImageLanguage(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguage", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1418,12 +1469,15 @@ class DeploymentServices {
      *       array contains a language of the current 
      *       image.
      * @param {Pointer<UInt32>} pdwNumValues Pointer to a value that contains the number of languages in the <i>pppszValues</i> parameter.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagelanguages
      * @since windows6.0.6000
      */
     static WdsCliGetImageLanguages(hIfh, pppszValues, pdwNumValues) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr", pppszValues, "uint*", pdwNumValues, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1437,12 +1491,15 @@ class DeploymentServices {
      *       current handle.
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a null-terminated string value that contains the version of the current version.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimageversion
      * @since windows6.0.6000
      */
     static WdsCliGetImageVersion(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageVersion", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1459,12 +1516,15 @@ class DeploymentServices {
      *       image file, prefix the relative path returned in <i>ppWszValue</i> with "&#92;&#92;<i>Server</i>\\RemInst\".
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a null-terminated string that contains the relative path of the image file for the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagepath
      * @since windows6.0.6000
      */
     static WdsCliGetImagePath(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImagePath", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1479,12 +1539,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt32>} pdwValue A pointer to a 
      *       value that contains the image index for the current image WIM file.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimageindex
      * @since windows6.0.6000
      */
     static WdsCliGetImageIndex(hIfh, pdwValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, "uint*", pdwValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1498,12 +1561,15 @@ class DeploymentServices {
      *       current handle.
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt32>} pdwValue Pointer to a value that describes the processor architecture of the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagearchitecture
      * @since windows6.0.6000
      */
     static WdsCliGetImageArchitecture(hIfh, pdwValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, "uint*", pdwValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1517,12 +1583,15 @@ class DeploymentServices {
      *       current handle.
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<SYSTEMTIME>} ppSysTimeValue A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the last-modified time of the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagelastmodifiedtime
      * @since windows6.0.6000
      */
     static WdsCliGetImageLastModifiedTime(hIfh, ppSysTimeValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, "ptr", ppSysTimeValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1536,12 +1605,15 @@ class DeploymentServices {
      *       current handle.
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt64>} pullValue A pointer to a value that contains the size of the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagesize
      * @since windows6.0.6000
      */
     static WdsCliGetImageSize(hIfh, pullValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, "uint*", pullValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1556,12 +1628,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to  a 
      *       null-terminated string value that contains the HAL name for the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagehalname
      * @since windows6.0.6000
      */
     static WdsCliGetImageHalName(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHalName", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1576,12 +1651,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a 
      *       null-terminated string value that contains the name of the image group for the current image.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagegroup
      * @since windows6.0.6000
      */
     static WdsCliGetImageGroup(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageGroup", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1596,12 +1674,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains the namespace of the current image. If there is no namespace associated with this image, this returns null or an empty string.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagenamespace
      * @since windows6.0.6000
      */
     static WdsCliGetImageNamespace(hIfh, ppwszValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageNamespace", "ptr", hIfh, "ptr", ppwszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1611,10 +1692,13 @@ class DeploymentServices {
      * @param {Integer} ParamType 
      * @param {Pointer} pResponse 
      * @param {Integer} uResponseLen 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static WdsCliGetImageParameter(hIfh, ParamType, pResponse, uResponseLen) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageParameter", "ptr", hIfh, "int", ParamType, "ptr", pResponse, "uint", uResponseLen, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1628,23 +1712,25 @@ class DeploymentServices {
      *       current handle.
      * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt64>} pullValue A pointer to a value that contains the size of the current transfer.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligettransfersize
      * @since windows6.0.6000
      */
     static WdsCliGetTransferSize(hIfh, pullValue) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, "uint*", pullValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Integer} ulSizeInBytes 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static WdsCliSetTransferBufferSize(ulSizeInBytes) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliSetTransferBufferSize", "uint", ulSizeInBytes)
-        return result
+        DllCall("WDSCLIENTAPI.dll\WdsCliSetTransferBufferSize", "uint", ulSizeInBytes)
     }
 
     /**
@@ -1675,7 +1761,7 @@ class DeploymentServices {
      * @param {Pointer<PFN_WdsCliCallback>} pfnWdsCliCallback A pointer to an optional callback function that will receive callbacks for this transfer.
      * @param {Pointer<Void>} pvUserData A pointer to optional user information that can be passed to the callback function.
      * @param {Pointer<Void>} phTransfer A pointer to a transfer handle that can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer">WdsCliWaitForTransfer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer">WdsCliCancelTransfer</a> functions to wait for the transfer to complete or to cancel the transfer.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage
      * @since windows6.0.6000
      */
@@ -1683,6 +1769,9 @@ class DeploymentServices {
         pwszLocalPath := pwszLocalPath is String? StrPtr(pwszLocalPath) : pwszLocalPath
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1716,7 +1805,7 @@ class DeploymentServices {
      * @param {Pointer<PFN_WdsCliCallback>} pfnWdsCliCallback A pointer to an optional callback function for this transfer.
      * @param {Pointer<Void>} pvUserData A pointer to optional user information that can be passed to the callback function.
      * @param {Pointer<Void>} phTransfer A pointer to a transfer handle that can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer">WdsCliWaitForTransfer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer">WdsCliCancelTransfer</a> functions to wait for the transfer to complete or to cancel the transfer.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile
      * @since windows6.0.6000
      */
@@ -1727,6 +1816,9 @@ class DeploymentServices {
         pwszLocalFilePath := pwszLocalFilePath is String? StrPtr(pwszLocalFilePath) : pwszLocalFilePath
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1735,12 +1827,15 @@ class DeploymentServices {
      * @remarks
      * This function can be called from a callback function.
      * @param {Pointer<Void>} hTransfer A handle for the WDS transfer operation being canceled. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer
      * @since windows6.0.6000
      */
     static WdsCliCancelTransfer(hTransfer) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliCancelTransfer", "ptr", hTransfer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1749,12 +1844,15 @@ class DeploymentServices {
      * @remarks
      * Calling this function from a callback function is not recommended.
      * @param {Pointer<Void>} hTransfer A WDS transfer handle for the transfer being canceled. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer
      * @since windows6.0.6000
      */
     static WdsCliWaitForTransfer(hTransfer) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliWaitForTransfer", "ptr", hTransfer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1766,12 +1864,15 @@ class DeploymentServices {
      * 
      * <div class="code"></div>
      * @param {Pointer<UInt32>} pulCount The number of driver packages returned by <i>pppwszDriverPackages</i>.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliobtaindriverpackages
      * @since windows6.1
      */
     static WdsCliObtainDriverPackages(hImage, ppwszServerName, pppwszDriverPackages, pulCount) {
         result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "uint*", pulCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1782,7 +1883,7 @@ class DeploymentServices {
      * @param {Pointer<Char>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
      * @param {Pointer<Char>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
      * @param {Pointer<UInt32>} pulCount The number of driver packages returned by pppwszDriverPackages.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliobtaindriverpackagesex
      * @since windows8.0
      */
@@ -1790,6 +1891,9 @@ class DeploymentServices {
         pwszMachineInfo := pwszMachineInfo is String? StrPtr(pwszMachineInfo) : pwszMachineInfo
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "uint*", pulCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1797,7 +1901,7 @@ class DeploymentServices {
      * This function generates an XML string which can be used to query a WDS server for driver packages using the WdsCliObtainDriverPackagesEx function.
      * @param {Pointer<Char>} pwszWinDirPath The path to the Windows directory of the applied image. This parameter is optional. If it is specified,  the section of the WDS driver query XML  for the target operating system is generated.
      * @param {Pointer<Char>} ppwszDriverQuery A pointer to a pointer to a string that receives the generated WDS driver query XML. The caller has to free this buffer using "delete\[\]\(\*ppwszDriverQuery\)".
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetdriverqueryxml
      * @since windows8.0
      */
@@ -1805,6 +1909,9 @@ class DeploymentServices {
         pwszWinDirPath := pwszWinDirPath is String? StrPtr(pwszWinDirPath) : pwszWinDirPath
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetDriverQueryXml", "ptr", pwszWinDirPath, "ptr", ppwszDriverQuery, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3019,12 +3126,15 @@ class DeploymentServices {
      * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} CallbackId The value of this parameter is a <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/ne-wdstpdi-transportprovider_callback_id">TRANSPORTPROVIDER_CALLBACK_ID</a> structure.
      * @param {Pointer<Void>} pfnCallback Pointer to the function pointer associated with this id.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverregistercallback
      * @since windowsserver2008
      */
     static WdsTransportServerRegisterCallback(hProvider, CallbackId, pfnCallback) {
         result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", hProvider, "int", CallbackId, "ptr", pfnCallback, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3033,13 +3143,16 @@ class DeploymentServices {
      * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} ulBytesRead The number of bytes read.
      * @param {Pointer<Void>} pvUserData User data specified by <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderreadcontent">WdsTransportProviderReadContent</a>.
-     * @param {Integer} hReadResult The status of this read operation.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @param {HRESULT} hReadResult The status of this read operation.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservercompleteread
      * @since windowsserver2008
      */
     static WdsTransportServerCompleteRead(hProvider, ulBytesRead, pvUserData, hReadResult) {
         result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", hProvider, "uint", ulBytesRead, "ptr", pvUserData, "int", hReadResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3048,7 +3161,7 @@ class DeploymentServices {
      * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} Severity Severity level of the message.
      * @param {Pointer<Char>} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertrace
      * @since windowsserver2008
      */
@@ -3056,6 +3169,9 @@ class DeploymentServices {
         pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
 
         result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3065,7 +3181,7 @@ class DeploymentServices {
      * @param {Integer} Severity Severity level of the message.
      * @param {Pointer<Char>} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
      * @param {Pointer<SByte>} Params A list of parameters used by the formatted string.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertracev
      * @since windowsserver2008
      */
@@ -3073,6 +3189,9 @@ class DeploymentServices {
         pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
 
         result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "char*", Params, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3093,12 +3212,15 @@ class DeploymentServices {
      * Releases memory used by a buffer.
      * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Pointer<Void>} pvBuffer Pointer to location of buffer to be released.
-     * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverfreebuffer
      * @since windowsserver2008
      */
     static WdsTransportServerFreeBuffer(hProvider, pvBuffer) {
         result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", hProvider, "ptr", pvBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

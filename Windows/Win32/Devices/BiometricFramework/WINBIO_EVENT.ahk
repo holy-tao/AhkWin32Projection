@@ -66,7 +66,7 @@ class WINBIO_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Error {
         get => NumGet(this, 8, "int")

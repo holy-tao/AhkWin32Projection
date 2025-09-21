@@ -1528,7 +1528,7 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer} size 
-     * @returns {Pointer} 
+     * @returns {Pointer<Void>} 
      */
     static GdipAlloc(size) {
         result := DllCall("gdiplus.dll\GdipAlloc", "ptr", size)
@@ -1538,11 +1538,10 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<Void>} ptr 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static GdipFree(ptr) {
-        result := DllCall("gdiplus.dll\GdipFree", "ptr", ptr)
-        return result
+        DllCall("gdiplus.dll\GdipFree", "ptr", ptr)
     }
 
     /**
@@ -1561,12 +1560,11 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer} token 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @since windows5.1.2600
      */
     static GdiplusShutdown(token) {
-        result := DllCall("gdiplus.dll\GdiplusShutdown", "ptr", token)
-        return result
+        DllCall("gdiplus.dll\GdiplusShutdown", "ptr", token)
     }
 
     /**
@@ -9256,10 +9254,10 @@ class GdiPlus {
      * @param {Pointer<Byte>} pData16 
      * @param {Integer} iMapMode 
      * @param {Integer} eFlags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static GdipEmfToWmfBits(hemf, cbData16, pData16, iMapMode, eFlags) {
-        result := DllCall("gdiplus.dll\GdipEmfToWmfBits", "ptr", hemf, "uint", cbData16, "char*", pData16, "int", iMapMode, "int", eFlags)
+        result := DllCall("gdiplus.dll\GdipEmfToWmfBits", "ptr", hemf, "uint", cbData16, "char*", pData16, "int", iMapMode, "int", eFlags, "uint")
         return result
     }
 
@@ -9298,11 +9296,10 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer} token 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static GdiplusNotificationUnhook(token) {
-        result := DllCall("gdiplus.dll\GdiplusNotificationUnhook", "ptr", token)
-        return result
+        DllCall("gdiplus.dll\GdiplusNotificationUnhook", "ptr", token)
     }
 
     /**

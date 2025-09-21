@@ -40,12 +40,15 @@ class CloudFilters {
      * @remarks
      * The *platform* is defined as the combination of the filter and the API library, which are always kept in sync with each other. This API is mainly intended for sync providers that run on multiple Windows versions and need to make decisions based on the platform capabilities. The platform version information consists of three parts: build number, revision number, and integration number. The build number and revision number change when the platform is serviced by Windows Update. The integration number on its own is indicative of the platform capability, both in terms of the API contracts and the availability of critical bug fixes. The integration number increments monotonically. The platform never loses capability with the increment of the integration number. Applications that are cloud files aware may also find this API useful.
      * @param {Pointer<CF_PLATFORM_INFO>} PlatformVersion The platform version information. See [CF_PLATFORM_INFO](ns-cfapi-cf_platform_info.md) for more details.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplatforminfo
      * @since windows10.0.16299
      */
     static CfGetPlatformInfo(PlatformVersion) {
         result := DllCall("cldapi.dll\CfGetPlatformInfo", "ptr", PlatformVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -140,7 +143,7 @@ class CloudFilters {
      * | **CF_REGISTER_FLAG_UPDATE** | A sync provider can pass **CF_REGISTER_FLAG_UPDATE** to re-register previously registered sync root identities and policies. |
      * | **CF_REGISTER_FLAG_DISABLE_ON_DEMAND_POPULATION_ON_ROOT** | The on-demand directory/folder population behavior is globally controlled by the population policy. This flag allows a sync provider to opt out of the on-demand population behavior just for the sync root itself while keeping on-demand population on for all other directories under the sync root. This is useful when the sync provider would like to pre-populate the immediate child files/directories of the sync root. |
      * | **CF_REGISTER_FLAG_MARK_IN_SYNC_ON_ROOT** | This flag allows a sync provider to mark the sync root to be registered in-sync simultaneously at the registration time. The alternative is to call [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) on the sync root later. |
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfregistersyncroot
      * @since windows10.0.16299
      */
@@ -148,6 +151,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfRegisterSyncRoot", "ptr", SyncRootPath, "ptr", Registration, "ptr", Policies, "int", RegisterFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -173,7 +179,7 @@ class CloudFilters {
      * >[!NOTE]
      * >If the placeholder files or directories cannot be reverted or deleted, it will be skipped, and the unregistering process will continue until the full sync root tree has been traversed.
      * @param {Pointer<Char>} SyncRootPath The path to the sync root to be unregistered.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfunregistersyncroot
      * @since windows10.0.16299
      */
@@ -181,6 +187,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfUnregisterSyncRoot", "ptr", SyncRootPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -203,7 +212,7 @@ class CloudFilters {
      * | **REQUIRE_FULL_FILE_PATH** | The platform returns the full path of the placeholder being requested in the callback parameters when this flag is specified. |
      * | **BLOCK_SELF_IMPLICIT_HYDRATION** | The implicit hydration, which is not performed via [CfHydratePlaceholder](nf-cfapi-cfhydrateplaceholder.md), can happen when Anti-Virus software scans sync provider’s file system activities on non-hydrated cloud file placeholders. This kind of implicit hydrations is not expected. If the sync provider never initiates implicit hydration operations itself, it can instruct the platform block all such implicit hydration operations as opposed to failing the **FETCH_DATA** callbacks later. |
      * @param {Pointer<Int64>} ConnectionKey On successful return, this API will return an opaque *ConnectionKey* back to the sync provider. This represents the communication channel that was just established, and the sync provider may remember the *ConnectionKey* and pass it when calling various sync provider APIs. If a sync provider only expects to establish a single connection, then the *ConnectionKey* could be stored in a global. However, the platform supports a single provider process connecting to multiple different sync roots at the same time, and for each connection there will be a different *ConnectionKey* returned. A good place to store each *ConnectionKey* would be inside the sync provider’s internal structure identified by the *CallbackContext*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfconnectsyncroot
      * @since windows10.0.16299
      */
@@ -211,6 +220,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, "ptr", CallbackTable, "ptr", CallbackContext, "int", ConnectFlags, "int64*", ConnectionKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -225,12 +237,15 @@ class CloudFilters {
      * 
      * A sync provider should have **WRITE_DATA** or **WRITE_DAC** access to the sync root to be disconnected or a call to **CfDisconnectSyncRoot** will be failed with **HRESULT(ERROR_CLOUD_FILE_ACCESS_DENIED)**. Also, if the sync root has not been previously connected, the call will be failed with invalid parameters. This API could be called as part of gracefully shutting down the sync provider. However, if the sync provider process chooses to terminate without calling this API, or unexpectedly crashes, the platform will detect this and perform the necessary cleanup.
      * @param {Integer} ConnectionKey The connection key returned from [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md) that is now used to disconnect the sync root.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfdisconnectsyncroot
      * @since windows10.0.16299
      */
     static CfDisconnectSyncRoot(ConnectionKey) {
         result := DllCall("cldapi.dll\CfDisconnectSyncRoot", "int64", ConnectionKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -244,12 +259,15 @@ class CloudFilters {
      * The *TransferKey* is valid as long as the *FileHandle* used to obtain it remains open. The sync provider must pass the *TransferKey* to [CfExecute](nf-cfapi-cfexecute.md) to perform the desired operation on the placeholder file or folder. When a *TransferKey* is no longer being used, it must be released using [CfReleaseTransferKey](nf-cfapi-cfreleasetransferkey.md).
      * @param {Pointer<Void>} FileHandle The file handle of the placeholder.
      * @param {Pointer<Int64>} TransferKey An opaque handle to the placeholder to be serviced.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgettransferkey
      * @since windows10.0.16299
      */
     static CfGetTransferKey(FileHandle, TransferKey) {
         result := DllCall("cldapi.dll\CfGetTransferKey", "ptr", FileHandle, "int64*", TransferKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -259,13 +277,12 @@ class CloudFilters {
      * **CfReleaseTransferKey** has no security requirement.
      * @param {Pointer<Void>} FileHandle The file handle of the placeholder.
      * @param {Pointer<Int64>} TransferKey An opaque handle to the placeholder.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreleasetransferkey
      * @since windows10.0.16299
      */
     static CfReleaseTransferKey(FileHandle, TransferKey) {
-        result := DllCall("cldapi.dll\CfReleaseTransferKey", "ptr", FileHandle, "int64*", TransferKey)
-        return result
+        DllCall("cldapi.dll\CfReleaseTransferKey", "ptr", FileHandle, "int64*", TransferKey)
     }
 
     /**
@@ -285,12 +302,15 @@ class CloudFilters {
      * All operations can be performed in an arbitrary thread context in the sync provider process.
      * @param {Pointer<CF_OPERATION_INFO>} OpInfo Information about an operation on a placeholder.
      * @param {Pointer<CF_OPERATION_PARAMETERS>} OpParams Parameters of an operation on a placeholder.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfexecute
      * @since windows10.0.16299
      */
     static CfExecute(OpInfo, OpParams) {
         result := DllCall("cldapi.dll\CfExecute", "ptr", OpInfo, "ptr", OpParams, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -298,12 +318,15 @@ class CloudFilters {
      * Updates the current status of the sync provider.
      * @param {Integer} ConnectionKey A connection key representing a communication channel with the sync filter.
      * @param {Integer} ProviderStatus The current status of the sync provider. The status persists for the life of the sync root connection. The sync root connection is torn down either when [CfDisconnectSyncRoot](nf-cfapi-cfdisconnectsyncroot.md) is called or if the sync provider process is terminated.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfupdatesyncproviderstatus
      * @since windows10.0.16299
      */
     static CfUpdateSyncProviderStatus(ConnectionKey, ProviderStatus) {
         result := DllCall("cldapi.dll\CfUpdateSyncProviderStatus", "int64", ConnectionKey, "uint", ProviderStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -311,12 +334,15 @@ class CloudFilters {
      * Queries a sync provider to get the status of the provider.
      * @param {Integer} ConnectionKey A connection key representing a communication channel with the sync filter.
      * @param {Pointer<UInt32>} ProviderStatus The current status of the sync provider.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfquerysyncproviderstatus
      * @since windows10.0.16299
      */
     static CfQuerySyncProviderStatus(ConnectionKey, ProviderStatus) {
         result := DllCall("cldapi.dll\CfQuerySyncProviderStatus", "int64", ConnectionKey, "uint*", ProviderStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -332,7 +358,7 @@ class CloudFilters {
      * **CfReportSyncStatus** clears the previously-saved sync status when being called with a `NULL` sync status. No change will be made to the existing sync status if the function call fails.
      * @param {Pointer<Char>} SyncRootPath Path to the sync root.
      * @param {Pointer<CF_SYNC_STATUS>} SyncStatus The sync status to report; if `NULL`, clears the previously-saved sync status. For more information, see the [Remarks](#-remarks) section, below.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreportsyncstatus
      * @since windows10.0.17134
      */
@@ -340,6 +366,9 @@ class CloudFilters {
         SyncRootPath := SyncRootPath is String? StrPtr(SyncRootPath) : SyncRootPath
 
         result := DllCall("cldapi.dll\CfReportSyncStatus", "ptr", SyncRootPath, "ptr", SyncStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -371,7 +400,7 @@ class CloudFilters {
      * - **CF_CREATE_FLAG_NONE** is the default mode where the API processes all entries in the array even when errors are encountered.
      * - **CF_CREATE_FLAG_STOP_ON_ERROR** causes the API to return immediately if creation of a placeholder fails. In that case, the API returns the failure code.
      * @param {Pointer<UInt32>} EntriesProcessed The number of entries processed, including failed entries. If **CF_CREATE_FLAG_STOP_ON_ERROR** was not specified in *CreateFlags*, the API returns the first failure code encountered, but continues processing as many entries as possible; the caller must then inspect the array to see which placeholder creation(s) failed.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfcreateplaceholders
      * @since windows10.0.16299
      */
@@ -379,6 +408,9 @@ class CloudFilters {
         BaseDirectoryPath := BaseDirectoryPath is String? StrPtr(BaseDirectoryPath) : BaseDirectoryPath
 
         result := DllCall("cldapi.dll\CfCreatePlaceholders", "ptr", BaseDirectoryPath, "ptr", PlaceholderArray, "uint", PlaceholderCount, "int", CreateFlags, "uint*", EntriesProcessed, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -391,7 +423,7 @@ class CloudFilters {
      * @param {Pointer<Char>} FilePath Fully qualified path to the file or directory to be opened.
      * @param {Integer} Flags 
      * @param {Pointer<Void>} ProtectedHandle An opaque handle to the file or directory that is just opened. Note that this is not a normal Win32 handle and hence cannot be used with non-CfApi Win32 APIs directly.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfopenfilewithoplock
      * @since windows10.0.16299
      */
@@ -399,6 +431,9 @@ class CloudFilters {
         FilePath := FilePath is String? StrPtr(FilePath) : FilePath
 
         result := DllCall("cldapi.dll\CfOpenFileWithOplock", "ptr", FilePath, "int", Flags, "ptr", ProtectedHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -439,25 +474,23 @@ class CloudFilters {
     /**
      * Releases a protected handle referenced by CfReferenceProtectedHandle.
      * @param {Pointer<Void>} ProtectedHandle The protected handle to be released.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreleaseprotectedhandle
      * @since windows10.0.16299
      */
     static CfReleaseProtectedHandle(ProtectedHandle) {
-        result := DllCall("cldapi.dll\CfReleaseProtectedHandle", "ptr", ProtectedHandle)
-        return result
+        DllCall("cldapi.dll\CfReleaseProtectedHandle", "ptr", ProtectedHandle)
     }
 
     /**
      * Closes the file or directory handle returned by CfOpenFileWithOplock. This should not be used with standard Win32 file handles, only on handles used within CfApi.h.
      * @param {Pointer<Void>} FileHandle The file or directory handle to be closed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfclosehandle
      * @since windows10.0.16299
      */
     static CfCloseHandle(FileHandle) {
-        result := DllCall("cldapi.dll\CfCloseHandle", "ptr", FileHandle)
-        return result
+        DllCall("cldapi.dll\CfCloseHandle", "ptr", FileHandle)
     }
 
     /**
@@ -490,12 +523,15 @@ class CloudFilters {
      * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfConvertToPlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
      * 
      * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfconverttoplaceholder
      * @since windows10.0.16299
      */
     static CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, ConvertFlags, ConvertUsn, Overlapped) {
         result := DllCall("cldapi.dll\CfConvertToPlaceholder", "ptr", FileHandle, "ptr", FileIdentity, "uint", FileIdentityLength, "int", ConvertFlags, "int64*", ConvertUsn, "ptr", Overlapped, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -547,12 +583,15 @@ class CloudFilters {
      * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfUpdatePlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
      * 
      * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfupdateplaceholder
      * @since windows10.0.16299
      */
     static CfUpdatePlaceholder(FileHandle, FsMetadata, FileIdentity, FileIdentityLength, DehydrateRangeArray, DehydrateRangeCount, UpdateFlags, UpdateUsn, Overlapped) {
         result := DllCall("cldapi.dll\CfUpdatePlaceholder", "ptr", FileHandle, "ptr", FsMetadata, "ptr", FileIdentity, "uint", FileIdentityLength, "ptr", DehydrateRangeArray, "uint", DehydrateRangeCount, "int", UpdateFlags, "int64*", UpdateUsn, "ptr", Overlapped, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -569,12 +608,15 @@ class CloudFilters {
      * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfRevertPlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
      * 
      * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfrevertplaceholder
      * @since windows10.0.16299
      */
     static CfRevertPlaceholder(FileHandle, RevertFlags, Overlapped) {
         result := DllCall("cldapi.dll\CfRevertPlaceholder", "ptr", FileHandle, "int", RevertFlags, "ptr", Overlapped, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -591,12 +633,15 @@ class CloudFilters {
      * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfHydratePlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
      * 
      * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfhydrateplaceholder
      * @since windows10.0.16299
      */
     static CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, Overlapped) {
         result := DllCall("cldapi.dll\CfHydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", HydrateFlags, "ptr", Overlapped, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -607,10 +652,13 @@ class CloudFilters {
      * @param {Integer} Length 
      * @param {Integer} DehydrateFlags 
      * @param {Pointer<OVERLAPPED>} Overlapped 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CfDehydratePlaceholder(FileHandle, StartingOffset, Length, DehydrateFlags, Overlapped) {
         result := DllCall("cldapi.dll\CfDehydratePlaceholder", "ptr", FileHandle, "int64", StartingOffset, "int64", Length, "int", DehydrateFlags, "ptr", Overlapped, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -628,12 +676,15 @@ class CloudFilters {
      * - If **CF_PIN_FLAG_RECURSE_ONLY** is specified, the platform applies the pin state to every file recursively beneath *FileHandle*, but not to *FileHandle* itself.
      * - If **CF_PIN_FLAG_RECURSE_STOP_ERROR** is specified, the platform will stop the recursion when encountering first error. Otherwise, the platform skips the error and continues the recursion.
      * @param {Pointer<OVERLAPPED>} Overlapped Allows the call to be performed asynchronously. See the [Remarks](#-remarks) section for more details.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfsetpinstate
      * @since windows10.0.16299
      */
     static CfSetPinState(FileHandle, PinState, PinFlags, Overlapped) {
         result := DllCall("cldapi.dll\CfSetPinState", "ptr", FileHandle, "int", PinState, "int", PinFlags, "ptr", Overlapped, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -643,12 +694,15 @@ class CloudFilters {
      * @param {Integer} InSyncState 
      * @param {Integer} InSyncFlags The in-sync state flags. See [CF_SET_IN_SYNC_FLAGS](ne-cfapi-cf_set_in_sync_flags.md) for more details.
      * @param {Pointer<Int64>} InSyncUsn When specified, on input, *InSyncUsn* instructs the platform to only perform in-sync setting if the file still has the same USN value as the one passed in. This is to close a race where the sync provider has just sync’d placeholder changes up to the cloud, but before the call to **CfSetInSyncState**, the placeholder changed in some way. Passing a pointer to a USN value of `0` on input is the same as passing a `NULL` pointer. On return, *InSYncUsn* receives the final USN value after setting the in-sync state.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfsetinsyncstate
      * @since windows10.0.16299
      */
     static CfSetInSyncState(FileHandle, InSyncState, InSyncFlags, InSyncUsn) {
         result := DllCall("cldapi.dll\CfSetInSyncState", "ptr", FileHandle, "int", InSyncState, "int", InSyncFlags, "int64*", InSyncUsn, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -658,12 +712,15 @@ class CloudFilters {
      * The platform automatically assigns a correlation vector to each file when it is first opened, and provides this correlation vector with each callback to the sync provider as part of the common [CF_CALLBACK_INFO](ns-cfapi-cf_callback_info.md). It is suggested that the sync engine call this function to increment the last digit of the correlation vector “clock” as the sync provider progresses through internal stages (as defined by the sync provider) of satisfying the request.
      * @param {Pointer<Void>} FileHandle The handle to the placeholder file. The platform properly synchronizes the operation with other active requests. An attribute or no-access handle is sufficient.
      * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector A specific correlation vector to be associated with the *FileHandle*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfsetcorrelationvector
      * @since windows10.0.16299
      */
     static CfSetCorrelationVector(FileHandle, CorrelationVector) {
         result := DllCall("cldapi.dll\CfSetCorrelationVector", "ptr", FileHandle, "ptr", CorrelationVector, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -673,12 +730,15 @@ class CloudFilters {
      * The caller must have **READ_DATA** or **WRITE_DAC** access to the placeholder to be hydrated. Otherwise the operation will be failed with **STATUS_CLOUD_FILE_ACCESS_DENIED**.
      * @param {Pointer<Void>} FileHandle The handle to the placeholder file. The platform properly synchronizes the operation with other active requests. An attribute or no-access handle is sufficient.
      * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector The correlation vector currently associated with the *FileHandle*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetcorrelationvector
      * @since windows10.0.16299
      */
     static CfGetCorrelationVector(FileHandle, CorrelationVector) {
         result := DllCall("cldapi.dll\CfGetCorrelationVector", "ptr", FileHandle, "ptr", CorrelationVector, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -700,12 +760,12 @@ class CloudFilters {
      * | **CF_PLACEHOLDER_STATE_INVALID** | This is an invalid state when the API fails to parse the various information of the file or directory. |
      * @param {Integer} FileAttributes The file attribute information.
      * @param {Integer} ReparseTag The reparse tag information from a file.
-     * @returns {Pointer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
+     * @returns {Integer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderstatefromattributetag
      * @since windows10.0.16299
      */
     static CfGetPlaceholderStateFromAttributeTag(FileAttributes, ReparseTag) {
-        result := DllCall("cldapi.dll\CfGetPlaceholderStateFromAttributeTag", "uint", FileAttributes, "uint", ReparseTag)
+        result := DllCall("cldapi.dll\CfGetPlaceholderStateFromAttributeTag", "uint", FileAttributes, "uint", ReparseTag, "uint")
         return result
     }
 
@@ -717,12 +777,12 @@ class CloudFilters {
      * Not all information classes supported by [GetFileInformationByHandleEx](/windows/win32/api/winbase/nf-winbase-getfileinformationbyhandleex) are supported by this API. If the *FileAttributes* and *ReparseTag* can’t be extracted from a given information class, this API will return **CF_PLACEHOLDER_STATE_INVALID** and set last error properly.
      * @param {Pointer<Void>} InfoBuffer An info buffer about the file.
      * @param {Integer} InfoClass An info class so the function knows how to interpret the *InfoBuffer*.
-     * @returns {Pointer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
+     * @returns {Integer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfileinfo
      * @since windows10.0.16299
      */
     static CfGetPlaceholderStateFromFileInfo(InfoBuffer, InfoClass) {
-        result := DllCall("cldapi.dll\CfGetPlaceholderStateFromFileInfo", "ptr", InfoBuffer, "int", InfoClass)
+        result := DllCall("cldapi.dll\CfGetPlaceholderStateFromFileInfo", "ptr", InfoBuffer, "int", InfoClass, "uint")
         return result
     }
 
@@ -731,12 +791,12 @@ class CloudFilters {
      * @remarks
      * The **WIN32_FIND_DATA** structure is obtained from the [FindFirstFile](/windows/win32/api/fileapi/nf-fileapi-findfirstfilea)/[FindNextFile](/windows/win32/api/fileapi/nf-fileapi-findnextfilea) functions.
      * @param {Pointer<WIN32_FIND_DATAA>} FindData The find data information on the file.
-     * @returns {Pointer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
+     * @returns {Integer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfinddata
      * @since windows10.0.16299
      */
     static CfGetPlaceholderStateFromFindData(FindData) {
-        result := DllCall("cldapi.dll\CfGetPlaceholderStateFromFindData", "ptr", FindData)
+        result := DllCall("cldapi.dll\CfGetPlaceholderStateFromFindData", "ptr", FindData, "uint")
         return result
     }
 
@@ -762,12 +822,15 @@ class CloudFilters {
      * @param {Pointer} InfoBuffer A pointer to a buffer that will receive information about the placeholder.
      * @param {Integer} InfoBufferLength The length of the *InfoBuffer*, in bytes. If the buffer is not large enough to hold all the information requested, the API will return as much data as it can fit into the buffer, and the call will fail with **HRESULT_FROM_WIN32(ERROR_MORE_DATA)**.
      * @param {Pointer<UInt32>} ReturnedLength The number of bytes returned in the *InfoBuffer*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderinfo
      * @since windows10.0.16299
      */
     static CfGetPlaceholderInfo(FileHandle, InfoClass, InfoBuffer, InfoBufferLength, ReturnedLength) {
         result := DllCall("cldapi.dll\CfGetPlaceholderInfo", "ptr", FileHandle, "int", InfoClass, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", ReturnedLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -786,7 +849,7 @@ class CloudFilters {
      * @param {Pointer<Void>} InfoBuffer A pointer to a buffer that will receive the sync root information.
      * @param {Integer} InfoBufferLength Length, in bytes, of the *InfoBuffer*.
      * @param {Pointer<UInt32>} ReturnedLength Length, in bytes, of the returned sync root information. Refer to [CfRegisterSyncRoot](nf-cfapi-cfregistersyncroot.md) for details about the sync root information.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetsyncrootinfobypath
      * @since windows10.0.16299
      */
@@ -794,6 +857,9 @@ class CloudFilters {
         FilePath := FilePath is String? StrPtr(FilePath) : FilePath
 
         result := DllCall("cldapi.dll\CfGetSyncRootInfoByPath", "ptr", FilePath, "int", InfoClass, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", ReturnedLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -808,12 +874,15 @@ class CloudFilters {
      * @param {Pointer<Void>} InfoBuffer A pointer to a buffer that will receive the sync root information.
      * @param {Integer} InfoBufferLength Length, in bytes, of the *InfoBuffer*.
      * @param {Pointer<UInt32>} ReturnedLength The number of bytes returned in the *InfoBuffer*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetsyncrootinfobyhandle
      * @since windows10.0.16299
      */
     static CfGetSyncRootInfoByHandle(FileHandle, InfoClass, InfoBuffer, InfoBufferLength, ReturnedLength) {
         result := DllCall("cldapi.dll\CfGetSyncRootInfoByHandle", "ptr", FileHandle, "int", InfoClass, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", ReturnedLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -828,7 +897,7 @@ class CloudFilters {
      * @param {Pointer} InfoBuffer Pointer to a buffer that will receive the data. The buffer is an array of **CF_FILE_RANGE** structures, which are offset/length pairs, describing the requested ranges.
      * @param {Integer} InfoBufferLength The length of *InfoBuffer* in bytes.
      * @param {Pointer<UInt32>} ReturnedLength The length of the returned range of placeholder data in the *InfoBuffer*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code. Some common error codes are listed in the following table:
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code. Some common error codes are listed in the following table:
      * 
      * | Error code | Meaning |
      * |--------|--------|
@@ -839,6 +908,9 @@ class CloudFilters {
      */
     static CfGetPlaceholderRangeInfo(FileHandle, InfoClass, StartingOffset, Length, InfoBuffer, InfoBufferLength, ReturnedLength) {
         result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfo", "ptr", FileHandle, "int", InfoClass, "int64", StartingOffset, "int64", Length, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", ReturnedLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -873,7 +945,7 @@ class CloudFilters {
      * @param {Pointer} InfoBuffer Pointer to a buffer that will receive the data. The buffer is an array of **CF_FILE_RANGE** structures, which are offset/length pairs, describing the requested ranges.
      * @param {Integer} InfoBufferSize The length of *InfoBuffer* in bytes.
      * @param {Pointer<UInt32>} InfoBufferWritten Receives the number of bytes returned in *InfoBuffer*.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code. Some common error codes are listed in the following table:
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code. Some common error codes are listed in the following table:
      * 
      * | Error code | Meaning |
      * |--------|--------|
@@ -883,6 +955,9 @@ class CloudFilters {
      */
     static CfGetPlaceholderRangeInfoForHydration(ConnectionKey, TransferKey, FileId, InfoClass, StartingOffset, RangeLength, InfoBuffer, InfoBufferSize, InfoBufferWritten) {
         result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfoForHydration", "int64", ConnectionKey, "int64", TransferKey, "int64", FileId, "int", InfoClass, "int64", StartingOffset, "int64", RangeLength, "ptr", InfoBuffer, "uint", InfoBufferSize, "uint*", InfoBufferWritten, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -896,12 +971,15 @@ class CloudFilters {
      * @param {Integer} TransferKey An opaque handle to the placeholder.
      * @param {Integer} ProviderProgressTotal The total progress of the sync provider in response to a fetch data callback.
      * @param {Integer} ProviderProgressCompleted The completed progress of the sync provider in response to a fetch data callback.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreportproviderprogress
      * @since windows10.0.16299
      */
     static CfReportProviderProgress(ConnectionKey, TransferKey, ProviderProgressTotal, ProviderProgressCompleted) {
         result := DllCall("cldapi.dll\CfReportProviderProgress", "int64", ConnectionKey, "int64", TransferKey, "int64", ProviderProgressTotal, "int64", ProviderProgressCompleted, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -913,11 +991,14 @@ class CloudFilters {
      * @param {Integer} ProviderProgressTotal The total progress of the sync provider in response to a fetch data callback.
      * @param {Integer} ProviderProgressCompleted The completed progress of the sync provider in response to a fetch data callback.
      * @param {Integer} TargetSessionId Indicates the session at which this progress information is targeted.
-     * @returns {Integer} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreportproviderprogress2
      */
     static CfReportProviderProgress2(ConnectionKey, TransferKey, RequestKey, ProviderProgressTotal, ProviderProgressCompleted, TargetSessionId) {
         result := DllCall("cldapi.dll\CfReportProviderProgress2", "int64", ConnectionKey, "int64", TransferKey, "int64", RequestKey, "int64", ProviderProgressTotal, "int64", ProviderProgressCompleted, "uint", TargetSessionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

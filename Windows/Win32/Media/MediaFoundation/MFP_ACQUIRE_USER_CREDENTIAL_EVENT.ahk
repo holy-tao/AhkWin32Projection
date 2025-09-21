@@ -68,7 +68,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The response code of the authentication challenge.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrAuthenticationStatus {
         get => NumGet(this, 44, "int")

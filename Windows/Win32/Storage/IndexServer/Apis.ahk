@@ -745,7 +745,7 @@ class IndexServer {
      * @param {Pointer<Char>} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -826,6 +826,9 @@ class IndexServer {
         pwcsPath := pwcsPath is String? StrPtr(pwcsPath) : pwcsPath
 
         result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr", ppIUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -835,12 +838,15 @@ class IndexServer {
      * @param {Integer} dwFlags 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppIUnk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static LoadIFilterEx(pwcsPath, dwFlags, riid, ppIUnk) {
         pwcsPath := pwcsPath is String? StrPtr(pwcsPath) : pwcsPath
 
         result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr", ppIUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -851,7 +857,7 @@ class IndexServer {
      * @param {Pointer<IStorage>} pStg A pointer to the <b>IStorage</b> interface to be used to access the file.
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -930,6 +936,9 @@ class IndexServer {
      */
     static BindIFilterFromStorage(pStg, pUnkOuter, ppIUnk) {
         result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, "ptr", ppIUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -940,7 +949,7 @@ class IndexServer {
      * @param {Pointer<IStream>} pStm A pointer to the <b>IStream</b> interface to be used to access the file.
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this stream object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1019,6 +1028,9 @@ class IndexServer {
      */
     static BindIFilterFromStream(pStm, pUnkOuter, ppIUnk) {
         result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, "ptr", ppIUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

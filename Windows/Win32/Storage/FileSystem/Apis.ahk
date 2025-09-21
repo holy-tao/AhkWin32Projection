@@ -6896,13 +6896,16 @@ class FileSystem {
      * 
      * If this parameter is `NULL`, the function uses the root of the current disk.
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo A [**DISK_SPACE_INFORMATION**](ns-fileapi-disk_space_information.md) structure containing information about the current disk space for the volume at the given root path.
-     * @returns {Integer} Returns `TRUE` if the function succeeds, or `FALSE` if it fails. To get extended error information, call the `GetLastError` function.
+     * @returns {HRESULT} Returns `TRUE` if the function succeeds, or `FALSE` if it fails. To get extended error information, call the `GetLastError` function.
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationa
      */
     static GetDiskSpaceInformationA(rootPath, diskSpaceInfo) {
         rootPath := rootPath is String? StrPtr(rootPath) : rootPath
 
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationA", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6914,13 +6917,16 @@ class FileSystem {
      * 
      * If this parameter is `NULL`, the function uses the root of the current disk.
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo A [**DISK_SPACE_INFORMATION**](ns-fileapi-disk_space_information.md) structure containing information about the current disk space for the volume at the given root path.
-     * @returns {Integer} Returns `TRUE` if the function succeeds, or `FALSE` if it fails. To get extended error information, call the `GetLastError` function.
+     * @returns {HRESULT} Returns `TRUE` if the function succeeds, or `FALSE` if it fails. To get extended error information, call the `GetLastError` function.
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationw
      */
     static GetDiskSpaceInformationW(rootPath, diskSpaceInfo) {
         rootPath := rootPath is String? StrPtr(rootPath) : rootPath
 
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationW", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7000,7 +7006,7 @@ class FileSystem {
      * 
      * A trailing backslash is required. If this parameter is <b>NULL</b>, the function uses the 
      *        root of the current directory.
-     * @returns {Pointer} The return value specifies the type of drive, which can be one of the following values.
+     * @returns {Integer} The return value specifies the type of drive, which can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -7098,7 +7104,7 @@ class FileSystem {
     static GetDriveTypeA(lpRootPathName) {
         lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
 
-        result := DllCall("KERNEL32.dll\GetDriveTypeA", "ptr", lpRootPathName)
+        result := DllCall("KERNEL32.dll\GetDriveTypeA", "ptr", lpRootPathName, "uint")
         return result
     }
 
@@ -7178,7 +7184,7 @@ class FileSystem {
      * 
      * A trailing backslash is required. If this parameter is <b>NULL</b>, the function uses the 
      *        root of the current directory.
-     * @returns {Pointer} The return value specifies the type of drive, which can be one of the following values.
+     * @returns {Integer} The return value specifies the type of drive, which can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -7276,7 +7282,7 @@ class FileSystem {
     static GetDriveTypeW(lpRootPathName) {
         lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
 
-        result := DllCall("KERNEL32.dll\GetDriveTypeW", "ptr", lpRootPathName)
+        result := DllCall("KERNEL32.dll\GetDriveTypeW", "ptr", lpRootPathName, "uint")
         return result
     }
 
@@ -9653,7 +9659,7 @@ class FileSystem {
      *        <i>uUnique</i> is nonzero.
      * @param {Pointer<Char>} lpTempFileName A pointer to the buffer that receives the temporary file name. This buffer should be 
      *        <b>MAX_PATH</b> characters to accommodate the path plus the terminating null character.
-     * @returns {Pointer} If the function succeeds, the return value specifies the unique numeric value used in the temporary file 
+     * @returns {Integer} If the function succeeds, the return value specifies the unique numeric value used in the temporary file 
      *        name. If the <i>uUnique</i> parameter is nonzero, the return value specifies that same 
      *        number.
      * 
@@ -9693,7 +9699,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTempFileNameW", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName)
+        result := DllCall("KERNEL32.dll\GetTempFileNameW", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -16330,7 +16336,7 @@ class FileSystem {
      *        <i>uUnique</i> is nonzero.
      * @param {Pointer<Byte>} lpTempFileName A pointer to the buffer that receives the temporary file name. This buffer should be 
      *        <b>MAX_PATH</b> characters to accommodate the path plus the terminating null character.
-     * @returns {Pointer} If the function succeeds, the return value specifies the unique numeric value used in the temporary file 
+     * @returns {Integer} If the function succeeds, the return value specifies the unique numeric value used in the temporary file 
      *        name. If the <i>uUnique</i> parameter is nonzero, the return value specifies that same 
      *        number.
      * 
@@ -16370,7 +16376,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTempFileNameA", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName)
+        result := DllCall("KERNEL32.dll\GetTempFileNameA", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -16473,13 +16479,12 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistooem
      * @since windows5.1.2600
      */
     static SetFileApisToOEM() {
-        result := DllCall("KERNEL32.dll\SetFileApisToOEM")
-        return result
+        DllCall("KERNEL32.dll\SetFileApisToOEM")
     }
 
     /**
@@ -16579,13 +16584,12 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistoansi
      * @since windows5.1.2600
      */
     static SetFileApisToANSI() {
-        result := DllCall("KERNEL32.dll\SetFileApisToANSI")
-        return result
+        DllCall("KERNEL32.dll\SetFileApisToANSI")
     }
 
     /**
@@ -21559,13 +21563,12 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash_list">ENCRYPTION_CERTIFICATE_HASH_LIST</a>, which was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/nf-winefs-queryusersonencryptedfile">QueryUsersOnEncryptedFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/nf-winefs-queryrecoveryagentsonencryptedfile">QueryRecoveryAgentsOnEncryptedFile</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-freeencryptioncertificatehashlist
      * @since windows5.1.2600
      */
     static FreeEncryptionCertificateHashList(pUsers) {
-        result := DllCall("ADVAPI32.dll\FreeEncryptionCertificateHashList", "ptr", pUsers)
-        return result
+        DllCall("ADVAPI32.dll\FreeEncryptionCertificateHashList", "ptr", pUsers)
     }
 
     /**
@@ -21874,30 +21877,28 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Byte>} pbMetadata 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @deprecated
      */
     static FreeEncryptedFileMetadata(pbMetadata) {
-        result := DllCall("ADVAPI32.dll\FreeEncryptedFileMetadata", "char*", pbMetadata)
-        return result
+        DllCall("ADVAPI32.dll\FreeEncryptedFileMetadata", "char*", pbMetadata)
     }
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static LZStart() {
-        result := DllCall("KERNEL32.dll\LZStart")
+        result := DllCall("KERNEL32.dll\LZStart", "int")
         return result
     }
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static LZDone() {
-        result := DllCall("KERNEL32.dll\LZDone")
-        return result
+        DllCall("KERNEL32.dll\LZDone")
     }
 
     /**
@@ -22135,7 +22136,7 @@ class FileSystem {
      * 
      * CsvFs will do redirected IO for compressed files.
      * @param {Integer} hfSource A handle to the file.
-     * @returns {Pointer} If the function succeeds, the return value is a new LZ file handle.
+     * @returns {Integer} If the function succeeds, the return value is a new LZ file handle.
      * 
      * If the function fails, the return value is an LZERROR_* code. These codes have values less than zero. Note that 
      * <b>LZInit</b> calls neither 
@@ -22202,7 +22203,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZInit(hfSource) {
-        result := DllCall("KERNEL32.dll\LZInit", "int", hfSource)
+        result := DllCall("KERNEL32.dll\LZInit", "int", hfSource, "int")
         return result
     }
 
@@ -22279,7 +22280,7 @@ class FileSystem {
      * > The lzexpand.h header defines GetExpandedName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Byte>} lpszSource The name of the compressed file.
      * @param {Pointer<Byte>} lpszBuffer A pointer to a buffer that receives the original name of the compressed file.
-     * @returns {Pointer} If the function succeeds, the return value is 1.
+     * @returns {Integer} If the function succeeds, the return value is 1.
      * 
      * If the function fails, the return value is LZERROR_BADVALUE. There is no extended error information for this function; do not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22297,7 +22298,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetExpandedNameA", "ptr", lpszSource, "ptr", lpszBuffer)
+        result := DllCall("KERNEL32.dll\GetExpandedNameA", "ptr", lpszSource, "ptr", lpszBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22377,7 +22378,7 @@ class FileSystem {
      * > The lzexpand.h header defines GetExpandedName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Char>} lpszSource The name of the compressed file.
      * @param {Pointer<Char>} lpszBuffer A pointer to a buffer that receives the original name of the compressed file.
-     * @returns {Pointer} If the function succeeds, the return value is 1.
+     * @returns {Integer} If the function succeeds, the return value is 1.
      * 
      * If the function fails, the return value is LZERROR_BADVALUE. There is no extended error information for this function; do not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22395,7 +22396,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetExpandedNameW", "ptr", lpszSource, "ptr", lpszBuffer)
+        result := DllCall("KERNEL32.dll\GetExpandedNameW", "ptr", lpszSource, "ptr", lpszBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22502,7 +22503,7 @@ class FileSystem {
      * The <b>szPathName</b> member of this structure contains characters from the original 
      *        equipment manufacturer (OEM) character set.
      * @param {Integer} wStyle 
-     * @returns {Pointer} If the function succeeds and the value specified by the <i>wStyle</i> parameter is not 
+     * @returns {Integer} If the function succeeds and the value specified by the <i>wStyle</i> parameter is not 
      *        <b>OF_READ</b>, the return value is a handle identifying the file. If the file is compressed 
      *        and opened with <i>wStyle</i> set to <b>OF_READ</b>, the return value is 
      *        a special file handle.
@@ -22555,7 +22556,7 @@ class FileSystem {
     static LZOpenFileA(lpFileName, lpReOpenBuf, wStyle) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("KERNEL32.dll\LZOpenFileA", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle)
+        result := DllCall("KERNEL32.dll\LZOpenFileA", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle, "int")
         return result
     }
 
@@ -22659,7 +22660,7 @@ class FileSystem {
      * The <b>szPathName</b> member of this structure contains characters from the original 
      *        equipment manufacturer (OEM) character set.
      * @param {Integer} wStyle 
-     * @returns {Pointer} If the function succeeds and the value specified by the <i>wStyle</i> parameter is not 
+     * @returns {Integer} If the function succeeds and the value specified by the <i>wStyle</i> parameter is not 
      *        <b>OF_READ</b>, the return value is a handle identifying the file. If the file is compressed 
      *        and opened with <i>wStyle</i> set to <b>OF_READ</b>, the return value is 
      *        a special file handle.
@@ -22712,7 +22713,7 @@ class FileSystem {
     static LZOpenFileW(lpFileName, lpReOpenBuf, wStyle) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("KERNEL32.dll\LZOpenFileW", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle)
+        result := DllCall("KERNEL32.dll\LZOpenFileW", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle, "int")
         return result
     }
 
@@ -22919,7 +22920,7 @@ class FileSystem {
      * @param {Integer} hFile A handle to the file.
      * @param {Pointer} lpBuffer A pointer to a buffer that receives the bytes read from the file. Ensure that this buffer is larger than <i>cbRead</i>.
      * @param {Integer} cbRead The count of bytes to be read.
-     * @returns {Pointer} If the function succeeds, the return value specifies the number of bytes read.
+     * @returns {Integer} If the function succeeds, the return value specifies the number of bytes read.
      * 
      * If the function fails, the return value is an LZERROR_* code. These codes have values less than zero. Note that 
      * <b>LZRead</b> calls neither <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> nor <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setlasterrorex">SetLastErrorEx</a>; thus, its failure does not affect a thread's last-error code.
@@ -23017,7 +23018,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZRead(hFile, lpBuffer, cbRead) {
-        result := DllCall("KERNEL32.dll\LZRead", "int", hFile, "ptr", lpBuffer, "int", cbRead)
+        result := DllCall("KERNEL32.dll\LZRead", "int", hFile, "ptr", lpBuffer, "int", cbRead, "int")
         return result
     }
 
@@ -23095,13 +23096,12 @@ class FileSystem {
      * 
      * CsvFs will do redirected IO for compressed files.
      * @param {Integer} hFile A handle to the file to be closed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzclose
      * @since windows5.1.2600
      */
     static LZClose(hFile) {
-        result := DllCall("KERNEL32.dll\LZClose", "int", hFile)
-        return result
+        DllCall("KERNEL32.dll\LZClose", "int", hFile)
     }
 
     /**
@@ -23127,11 +23127,14 @@ class FileSystem {
      * @param {Pointer<Void>} FileOrVolumeHandle A handle to a file or volume opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
      * @param {Integer} Provider Indicates which provider the version query is intended for. Multiple versions of Wof may exist on the same volume at the same time for different providers.
      * @param {Pointer<UInt32>} WofVersion Pointer to a ULONG which will contain the version upon successful completion of this function.
-     * @returns {Integer} This function returns an HRESULT indicating success or the reason for failure. If no driver is attached on the specified volume for the specified provider, the function will fail with HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION).
+     * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure. If no driver is attached on the specified volume for the specified provider, the function will fail with HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION).
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofgetdriverversion
      */
     static WofGetDriverVersion(FileOrVolumeHandle, Provider, WofVersion) {
         result := DllCall("WOFUTIL.dll\WofGetDriverVersion", "ptr", FileOrVolumeHandle, "uint", Provider, "uint*", WofVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23182,11 +23185,14 @@ class FileSystem {
      * <td>sizeof(WOF_FILE_COMPRESSION_INFO)</td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns an HRESULT indicating success or the reason for failure.
+     * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofsetfiledatalocation
      */
     static WofSetFileDataLocation(FileHandle, Provider, ExternalFileInfo, Length) {
         result := DllCall("WOFUTIL.dll\WofSetFileDataLocation", "ptr", FileHandle, "uint", Provider, "ptr", ExternalFileInfo, "uint", Length, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23237,13 +23243,16 @@ class FileSystem {
      * <td>sizeof(WOF_FILE_COMPRESSION_INFO)</td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns an HRESULT indicating success or the reason for failure. If the buffer specified in <i>ExternalFileInfo</i> is not of the correct size, the function will return S_OK and indicate the required buffer size in <i>BufferLength</i>.
+     * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure. If the buffer specified in <i>ExternalFileInfo</i> is not of the correct size, the function will return S_OK and indicate the required buffer size in <i>BufferLength</i>.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofisexternalfile
      */
     static WofIsExternalFile(FilePath, IsExternalFile, Provider, ExternalFileInfo, BufferLength) {
         FilePath := FilePath is String? StrPtr(FilePath) : FilePath
 
         result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, "int*", IsExternalFile, "uint*", Provider, "ptr", ExternalFileInfo, "uint*", BufferLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23261,13 +23270,16 @@ class FileSystem {
      * </table>
      * @param {Pointer<WofEnumEntryProc>} EnumProc The callback function for each data source. The enumeration will stop          if <i>EnumProc</i> returns <b>FALSE</b>.
      * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofenumentries
      */
     static WofEnumEntries(VolumeName, Provider, EnumProc, UserData) {
         VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, "ptr", UserData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23278,7 +23290,7 @@ class FileSystem {
      * @param {Integer} WimType The type of WIM. Can be <b>WIM_BOOT_OS_WIM</b> or <b>WIM_BOOT_NOT_OS_WIM</b>.
      * @param {Integer} WimIndex Index of the image in the WIM which is applied.
      * @param {Pointer<Int64>} DataSourceId On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimaddentry
      */
     static WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex, DataSourceId) {
@@ -23286,6 +23298,9 @@ class FileSystem {
         WimPath := WimPath is String? StrPtr(WimPath) : WimPath
 
         result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, "int64*", DataSourceId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23295,13 +23310,16 @@ class FileSystem {
      * @param {Integer} DataSourceId Identifier used to identify the WIM entry.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for file provided by the WIM entry.
      * @param {Pointer<Void>} UserData Optional user defined data passed to <i>EnumProc</i>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimenumfiles
      */
     static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, UserData) {
         VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, "ptr", UserData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23311,13 +23329,16 @@ class FileSystem {
      * If the volume currently has files whose data is derived from the WIM file, the data for those files will become temporarily inaccessible. This should not be performed on a WIM from which the system is currently operating.
      * @param {Pointer<Char>} VolumeName The volume name which contained files whose data was provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimsuspendentry
      */
     static WofWimSuspendEntry(VolumeName, DataSourceId) {
         VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimSuspendEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23327,13 +23348,16 @@ class FileSystem {
      * If the volume currently has files whose data is derived from the WIM file, the data for those files will become permanently inaccessible. It is good practice to remove any files referring to the WIM file prior to removing the data source from a volume.  Once all data sources for a WIM file have been removed, the WIM file itself can be renamed or deleted.
      * @param {Pointer<Char>} VolumeName The volume name which contained files whose data was provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimremoveentry
      */
     static WofWimRemoveEntry(VolumeName, DataSourceId) {
         VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimRemoveEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23342,7 +23366,7 @@ class FileSystem {
      * @param {Pointer<Char>} VolumeName The volume name which contains files whose data is provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
      * @param {Pointer<Char>} NewWimPath The new location of the WIM file.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimupdateentry
      */
     static WofWimUpdateEntry(VolumeName, DataSourceId, NewWimPath) {
@@ -23350,6 +23374,9 @@ class FileSystem {
         NewWimPath := NewWimPath is String? StrPtr(NewWimPath) : NewWimPath
 
         result := DllCall("WOFUTIL.dll\WofWimUpdateEntry", "ptr", VolumeName, "int64", DataSourceId, "ptr", NewWimPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23359,13 +23386,16 @@ class FileSystem {
      * @param {Integer} Algorithm The compression algorithm to enumerate.  For a list of valid compression algorithms, see <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/ns-wofapi-wof_file_compression_info_v1">WOF_FILE_COMPRESSION_INFO_V1</a>.  If this value is MAX_ULONG, files compressed with any supported compression algorithm will be returned.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for each data source. The enumeration will stop if <i>EnumProc</i> returns FALSE.
      * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-woffileenumfiles
      */
     static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, UserData) {
         VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, "ptr", UserData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23558,23 +23588,21 @@ class FileSystem {
     /**
      * Sets the MiniVersion that a subsequent create should open.
      * @param {Integer} MiniVersion A USHORT identifying which version should be opened by create.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txfsetthreadminiversionforcreate
      */
     static TxfSetThreadMiniVersionForCreate(MiniVersion) {
-        result := DllCall("txfw32.dll\TxfSetThreadMiniVersionForCreate", "ushort", MiniVersion)
-        return result
+        DllCall("txfw32.dll\TxfSetThreadMiniVersionForCreate", "ushort", MiniVersion)
     }
 
     /**
      * Returns the MiniVersion a subsequent create is set to open.
      * @param {Pointer<UInt16>} MiniVersion Pointer to a USHORT which will receive the result.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txfgetthreadminiversionforcreate
      */
     static TxfGetThreadMiniVersionForCreate(MiniVersion) {
-        result := DllCall("txfw32.dll\TxfGetThreadMiniVersionForCreate", "ushort*", MiniVersion)
-        return result
+        DllCall("txfw32.dll\TxfGetThreadMiniVersionForCreate", "ushort*", MiniVersion)
     }
 
     /**
@@ -26208,11 +26236,14 @@ class FileSystem {
      * @remarks
      * The results of this call are internally cached per-process, so this is efficient to call multiple times as only the first will transition to the kernel to retrieve the data.Note that the results are not guaranteed to contain the same values between runs of the same process or even between processes on the same system.  So applications should not store this information beyond the lifetime of the process and should not assume that other processes have the same support.
      * @param {Pointer<IORING_CAPABILITIES>} capabilities Receives a pointer to an [IORING_CAPABILITIES](ns-ioringapi-ioring_capabilities.md) representing the I/O ring API capabilities.
-     * @returns {Integer} S_OK on success.
+     * @returns {HRESULT} S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-queryioringcapabilities
      */
     static QueryIoRingCapabilities(capabilities) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\QueryIoRingCapabilities", "ptr", capabilities, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26242,7 +26273,7 @@ class FileSystem {
      * @param {Integer} submissionQueueSize The requested minimum submission queue size. The system may round up the size as needed to ensure the actual size is a power of 2. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md). You can get the maximum submission queue size on the current system by calling [QueryIoRingCapabilities](nf-ioringapi-queryioringcapabilities.md).
      * @param {Integer} completionQueueSize The requested minimum size of the completion queue. The system will round this size up to a power of two that is no less than two times the actual submission queue size to allow for submissions while some operations are still in progress. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md).
      * @param {Pointer<Void>} h Receives the resulting **HIORING**  handle, if creation was successful. The returned **HIORING** ring must be closed by calling [CloseIoRing](nf-ioringapi-closeioring.md), not [CloseHandle](../handleapi/nf-handleapi-closehandle.md), to release the underlying resources for the IORING.
-     * @returns {Integer} An HRESULT, including but not limited to the following:
+     * @returns {HRESULT} An HRESULT, including but not limited to the following:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26252,6 +26283,9 @@ class FileSystem {
      */
     static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize, h) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26259,11 +26293,14 @@ class FileSystem {
      * Gets information about the API version and queue sizes of an I/O ring.
      * @param {Pointer<Void>} ioRing An **HIORING** representing a handle to the I/O ring for which information is being queried.
      * @param {Pointer<IORING_INFO>} info Receives a pointer to an [IORING_INFO](ns-ioringapi-ioring_info.md) structure specifying API version and queue sizes for the specified I/O ring.
-     * @returns {Integer} S_OK on success.
+     * @returns {HRESULT} S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-getioringinfo
      */
     static GetIoRingInfo(ioRing, info) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\GetIoRingInfo", "ptr", ioRing, "ptr", info, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26275,7 +26312,7 @@ class FileSystem {
      * @param {Integer} waitOperations The number of completion queue entries to wait for. Specifying 0 indicates that the call should not wait. This value must be less than the sum of the number of entries in the submission queue and the number of operations currently in progress.
      * @param {Integer} milliseconds The number of milliseconds to wait for the operations to complete. Specify **INFINITE** to wait indefinitely. This value is ignored if 0 is specified for *waitOperations*.
      * @param {Pointer<UInt32>} submittedEntries Optional. Receives a pointer to an array of **UINT_32** values representing the number of entries submitted.
-     * @returns {Integer} Returns an HRESULT including, but not limited to, one of the following:
+     * @returns {HRESULT} Returns an HRESULT including, but not limited to, one of the following:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26286,6 +26323,9 @@ class FileSystem {
      */
     static SubmitIoRing(ioRing, waitOperations, milliseconds, submittedEntries) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", "ptr", ioRing, "uint", waitOperations, "uint", milliseconds, "uint*", submittedEntries, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26296,11 +26336,14 @@ class FileSystem {
      * 
      * It is possible that reads from or writes to memory buffers may still occur after **CloseIoRing** returns. If you want to ensure that no pending reads or writes occur, you must wait for the completions to appear in the completion queue for all the operations that are submitted. You may choose to cancel the previously submitted operations before waiting on their completions. As an alternative to submitting multiple cancel requests, you can call [CancelIoEx](/windows/win32/api/ioapiset/nf-ioapiset-cancelioex) with the file handle and NULL for the overlapped pointer to effectively cancel all pending operations on the handle.
      * @param {Pointer<Void>} ioRing The **HIORING** handle to close.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-closeioring
      */
     static CloseIoRing(ioRing) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CloseIoRing", "ptr", ioRing, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26308,7 +26351,7 @@ class FileSystem {
      * Pops a single entry from the completion queue, if one is available.
      * @param {Pointer<Void>} ioRing An **HIORING** representing a handle to the I/O ring from which an entry from the completion queue is popped.
      * @param {Pointer<IORING_CQE>} cqe Pointer to an [IORING_CQE](ns-ioringapi-ioring_cqe.md) structure that will recieve the data for the completed queue entry.
-     * @returns {Integer} Returns an HRESULT including, but not limitted to the following:
+     * @returns {HRESULT} Returns an HRESULT including, but not limitted to the following:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26318,6 +26361,9 @@ class FileSystem {
      */
     static PopIoRingCompletion(ioRing, cqe) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\PopIoRingCompletion", "ptr", ioRing, "ptr", cqe, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26331,7 +26377,7 @@ class FileSystem {
      * There is, at most, one event handle associated with an HIORING, attempting to set a second one will replace any that already exists.
      * @param {Pointer<Void>} ioRing An **HIORING** representing a handle to the I/O ring for which the completion event is registered.
      * @param {Pointer<Void>} hEvent A handle to the event object. The [CreateEvent](../synchapi/nf-synchapi-createeventa.md) or [OpenEvent](../synchapi/nf-synchapi-openeventa.md) function returns this handle.
-     * @returns {Integer} Returns an HRESULT including the following values:
+     * @returns {HRESULT} Returns an HRESULT including the following values:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26342,6 +26388,9 @@ class FileSystem {
      */
     static SetIoRingCompletionEvent(ioRing, hEvent) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SetIoRingCompletionEvent", "ptr", ioRing, "ptr", hEvent, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26353,7 +26402,7 @@ class FileSystem {
      * @param {Pointer} file An [IORING_HANDLE_REF](ns-ioringapi-ioring_handle_ref.md) representing the file associated with the operation to cancel.
      * @param {Pointer} opToCancel A **UINT_PTR** specifying the operation to cancel. This value is the same value provided in the *userData* parameter when the operation was registered. To support cancellation, the *userData* value must be unique for each operation.
      * @param {Pointer} userData A UINT_PTR value identifying the cancellation operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
-     * @returns {Integer} | Value | Description |
+     * @returns {HRESULT} | Value | Description |
      * |-------|-------------|
      * | S_OK  | Success |
      * | IORING_E_SUBMISSION_QUEUE_FULL | The submission queue is full, and no additional entries are available to build. The application must submit the existing entries and wait for some of them to complete before adding more operations to the queue. |
@@ -26362,6 +26411,9 @@ class FileSystem {
      */
     static BuildIoRingCancelRequest(ioRing, file, opToCancel, userData) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", file, "ptr", opToCancel, "ptr", userData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26376,7 +26428,7 @@ class FileSystem {
      * @param {Integer} fileOffset The offset into the file to begin reading.
      * @param {Pointer} userData A UINT_PTR value identifying the file read operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @param {Integer} sqeFlags 
-     * @returns {Integer} Returns an HRESULT including, but not limited to the following:
+     * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26387,6 +26439,9 @@ class FileSystem {
      */
     static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26398,7 +26453,7 @@ class FileSystem {
      * @param {Integer} count A UINT32 specifying the number of handles provided in the *handles* parameter.
      * @param {Pointer<Void>} handles An array of HANDLE values to be registered.
      * @param {Pointer} userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
-     * @returns {Integer} Returns an HRESULT including, but not limited to the following:
+     * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26409,6 +26464,9 @@ class FileSystem {
      */
     static BuildIoRingRegisterFileHandles(ioRing, count, handles, userData) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", userData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26420,7 +26478,7 @@ class FileSystem {
      * @param {Integer} count A UINT32 specifying the number of buffers provided in the *buffers* parameter.
      * @param {Pointer<IORING_BUFFER_INFO>} buffers An array of [IORING_BUFFER_INFO](../ntioring_x/ns-ntioring_x-ioring_buffer_info.md) structures representing the buffers to be registered.
      * @param {Pointer} userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
-     * @returns {Integer} Returns an HRESULT including, but not limited to the following:
+     * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -26431,6 +26489,9 @@ class FileSystem {
      */
     static BuildIoRingRegisterBuffers(ioRing, count, buffers, userData) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", userData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26444,10 +26505,13 @@ class FileSystem {
      * @param {Integer} writeFlags 
      * @param {Pointer} userData 
      * @param {Integer} sqeFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
         result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26458,10 +26522,13 @@ class FileSystem {
      * @param {Integer} flushMode 
      * @param {Pointer} userData 
      * @param {Integer} sqeFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static BuildIoRingFlushFile(ioRing, fileRef, flushMode, userData, sqeFlags) {
         result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", userData, "int", sqeFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31312,13 +31379,12 @@ class FileSystem {
      * Note that SMB 3.0 does not support EFS on shares with continuous availability capability.
      * @param {Pointer<Void>} pvContext A pointer to a system-defined context block. The
      *          <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openencryptedfilerawa">OpenEncryptedFileRaw</a> function returns the context block.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-closeencryptedfileraw
      * @since windows5.1.2600
      */
     static CloseEncryptedFileRaw(pvContext) {
-        result := DllCall("ADVAPI32.dll\CloseEncryptedFileRaw", "ptr", pvContext)
-        return result
+        DllCall("ADVAPI32.dll\CloseEncryptedFileRaw", "ptr", pvContext)
     }
 
     /**
@@ -38047,7 +38113,7 @@ class FileSystem {
      * @param {Pointer<COPYFILE2_EXTENDED_PARAMETERS>} pExtendedParameters Optional address of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-copyfile2_extended_parameters">COPYFILE2_EXTENDED_PARAMETERS</a> 
      *       structure.
-     * @returns {Integer} If the function succeeds, the return value will return <b>TRUE</b> when passed to the 
+     * @returns {HRESULT} If the function succeeds, the return value will return <b>TRUE</b> when passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> macro.
      * 
      * <table>
@@ -38130,6 +38196,9 @@ class FileSystem {
         pwszNewFileName := pwszNewFileName is String? StrPtr(pwszNewFileName) : pwszNewFileName
 
         result := DllCall("KERNEL32.dll\CopyFile2", "ptr", pwszExistingFileName, "ptr", pwszNewFileName, "ptr", pExtendedParameters, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

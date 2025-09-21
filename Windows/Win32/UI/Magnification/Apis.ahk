@@ -195,14 +195,14 @@ class Magnification {
      * @param {Pointer<Void>} pHWND Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * The list of window handles.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the count of window handles in the filter list, or -1 if the <i>hwnd</i> parameter is not valid.
      * @see https://learn.microsoft.com/windows/win32/api/magnification/nf-magnification-maggetwindowfilterlist
      * @since windows6.0.6000
      */
     static MagGetWindowFilterList(hwnd, pdwFilterMode, count, pHWND) {
-        result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", "ptr", hwnd, "uint*", pdwFilterMode, "int", count, "ptr", pHWND)
+        result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", "ptr", hwnd, "uint*", pdwFilterMode, "int", count, "ptr", pHWND, "int")
         return result
     }
 

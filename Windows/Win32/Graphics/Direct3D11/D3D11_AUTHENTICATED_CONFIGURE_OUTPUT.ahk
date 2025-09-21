@@ -55,7 +55,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct
 
     /**
      * The result code for the command.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ReturnCode {
         get => NumGet(this, 36, "int")

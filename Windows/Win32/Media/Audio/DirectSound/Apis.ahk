@@ -1640,10 +1640,13 @@ class DirectSound {
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {Pointer<IDirectSound>} ppDS 
      * @param {Pointer<IUnknown>} pUnkOuter 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundCreate(pcGuidDevice, ppDS, pUnkOuter) {
         result := DllCall("DSOUND.dll\DirectSoundCreate", "ptr", pcGuidDevice, "ptr", ppDS, "ptr", pUnkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1651,10 +1654,13 @@ class DirectSound {
      * 
      * @param {Pointer<LPDSENUMCALLBACKA>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundEnumerateA(pDSEnumCallback, pContext) {
         result := DllCall("DSOUND.dll\DirectSoundEnumerateA", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1662,10 +1668,13 @@ class DirectSound {
      * 
      * @param {Pointer<LPDSENUMCALLBACKW>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundEnumerateW(pDSEnumCallback, pContext) {
         result := DllCall("DSOUND.dll\DirectSoundEnumerateW", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1674,10 +1683,13 @@ class DirectSound {
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {Pointer<IDirectSoundCapture>} ppDSC 
      * @param {Pointer<IUnknown>} pUnkOuter 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundCaptureCreate(pcGuidDevice, ppDSC, pUnkOuter) {
         result := DllCall("DSOUND.dll\DirectSoundCaptureCreate", "ptr", pcGuidDevice, "ptr", ppDSC, "ptr", pUnkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1685,10 +1697,13 @@ class DirectSound {
      * 
      * @param {Pointer<LPDSENUMCALLBACKA>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
         result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1696,10 +1711,13 @@ class DirectSound {
      * 
      * @param {Pointer<LPDSENUMCALLBACKW>} pDSEnumCallback 
      * @param {Pointer<Void>} pContext 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundCaptureEnumerateW(pDSEnumCallback, pContext) {
         result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1708,10 +1726,13 @@ class DirectSound {
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {Pointer<IDirectSound8>} ppDS8 
      * @param {Pointer<IUnknown>} pUnkOuter 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundCreate8(pcGuidDevice, ppDS8, pUnkOuter) {
         result := DllCall("DSOUND.dll\DirectSoundCreate8", "ptr", pcGuidDevice, "ptr", ppDS8, "ptr", pUnkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1720,10 +1741,13 @@ class DirectSound {
      * @param {Pointer<Guid>} pcGuidDevice 
      * @param {Pointer<IDirectSoundCapture>} ppDSC8 
      * @param {Pointer<IUnknown>} pUnkOuter 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DirectSoundCaptureCreate8(pcGuidDevice, ppDSC8, pUnkOuter) {
         result := DllCall("DSOUND.dll\DirectSoundCaptureCreate8", "ptr", pcGuidDevice, "ptr", ppDSC8, "ptr", pUnkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1739,7 +1763,7 @@ class DirectSound {
      * @param {Pointer<IDirectSoundCaptureBuffer8>} ppDSCBuffer8 
      * @param {Pointer<IDirectSoundBuffer8>} ppDSBuffer8 
      * @param {Pointer<IUnknown>} pUnkOuter 
-     * @returns {Integer} *...* 
+     * @returns {HRESULT} *...* 
      * 
      * 
      * If this function succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
@@ -1747,6 +1771,9 @@ class DirectSound {
      */
     static DirectSoundFullDuplexCreate(pcGuidCaptureDevice, pcGuidRenderDevice, pcDSCBufferDesc, pcDSBufferDesc, hWnd, dwLevel, ppDSFD, ppDSCBuffer8, ppDSBuffer8, pUnkOuter) {
         result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", "ptr", pcGuidCaptureDevice, "ptr", pcGuidRenderDevice, "ptr", pcDSCBufferDesc, "ptr", pcDSBufferDesc, "ptr", hWnd, "uint", dwLevel, "ptr", ppDSFD, "ptr", ppDSCBuffer8, "ptr", ppDSBuffer8, "ptr", pUnkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1754,10 +1781,13 @@ class DirectSound {
      * 
      * @param {Pointer<Guid>} pGuidSrc 
      * @param {Pointer<Guid>} pGuidDest 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetDeviceID(pGuidSrc, pGuidDest) {
         result := DllCall("DSOUND.dll\GetDeviceID", "ptr", pGuidSrc, "ptr", pGuidDest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

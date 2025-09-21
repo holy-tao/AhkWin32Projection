@@ -8030,13 +8030,13 @@ class Shell {
      * 
      * **FileIconInit** is not included in a header file. You must call it directly from Shell32.dll, using ordinal 660.
      * @param {Integer} fRestoreCache Type: **BOOL**
-     * @returns {Pointer} Type: **BOOL**
+     * @returns {Integer} Type: **BOOL**
      * 
      * **TRUE** if the cache was successfully refreshed, **FALSE** if the initialization failed.
      * @see https://learn.microsoft.com/windows/win32/shell/fileiconinit
      */
     static FileIconInit(fRestoreCache) {
-        result := DllCall("SHELL32.dll\FileIconInit", "int", fRestoreCache)
+        result := DllCall("SHELL32.dll\FileIconInit", "int", fRestoreCache, "int")
         return result
     }
 
@@ -8408,7 +8408,7 @@ class Shell {
      * @param {Integer} cchProfilePath Type: <b>DWORD</b>
      * 
      * Size of the buffer pointed to by <i>pszProfilePath</i>, in characters.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -8449,6 +8449,9 @@ class Shell {
         pszProfilePath := pszProfilePath is String? StrPtr(pszProfilePath) : pszProfilePath
 
         result := DllCall("USERENV.dll\CreateProfile", "ptr", pszUserSid, "ptr", pszUserName, "ptr", pszProfilePath, "uint", cchProfilePath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8792,7 +8795,7 @@ class Shell {
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromstrret
@@ -8800,6 +8803,9 @@ class Shell {
      */
     static InitPropVariantFromStrRet(pstrret, pidl, ppropvar) {
         result := DllCall("PROPSYS.dll\InitPropVariantFromStrRet", "ptr", pstrret, "ptr", pidl, "ptr", ppropvar, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8824,7 +8830,7 @@ class Shell {
      * @param {Pointer<STRRET>} pstrret Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * Points to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When this function returns, the structure has been initialized to contain a copy of the extracted string.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostrret
@@ -8832,6 +8838,9 @@ class Shell {
      */
     static PropVariantToStrRet(propvar, pstrret) {
         result := DllCall("PROPSYS.dll\PropVariantToStrRet", "ptr", propvar, "ptr", pstrret, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8851,7 +8860,7 @@ class Shell {
      * @param {Pointer<VARIANT>} pvar Type: <b>VARIANT*</b>
      * 
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromstrret
@@ -8859,6 +8868,9 @@ class Shell {
      */
     static InitVariantFromStrRet(pstrret, pidl, pvar) {
         result := DllCall("PROPSYS.dll\InitVariantFromStrRet", "ptr", pstrret, "ptr", pidl, "ptr", pvar, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8870,7 +8882,7 @@ class Shell {
      * @param {Pointer<STRRET>} pstrret Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * Pointer to the extracted string if one exists.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostrret
@@ -8878,6 +8890,9 @@ class Shell {
      */
     static VariantToStrRet(varIn, pstrret) {
         result := DllCall("PROPSYS.dll\VariantToStrRet", "ptr", varIn, "ptr", pstrret, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9448,7 +9463,7 @@ class Shell {
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromidlist
@@ -9456,6 +9471,9 @@ class Shell {
      */
     static SHCreateItemFromIDList(pidl, riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9482,7 +9500,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname
@@ -9492,6 +9510,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9513,7 +9534,7 @@ class Shell {
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemwithparent
@@ -9521,6 +9542,9 @@ class Shell {
      */
     static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid, ppvItem) {
         result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, "ptr", ppvItem, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9542,7 +9566,7 @@ class Shell {
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will usually be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromrelativename
@@ -9552,6 +9576,9 @@ class Shell {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9572,7 +9599,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder
@@ -9582,6 +9609,9 @@ class Shell {
         pszItem := pszItem is String? StrPtr(pszItem) : pszItem
 
         result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9593,7 +9623,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this function returns, contains a pointer to the PIDL of the given object.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetidlistfromobject
@@ -9601,6 +9631,9 @@ class Shell {
      */
     static SHGetIDListFromObject(punk, ppidl) {
         result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, "ptr", ppidl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9617,7 +9650,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or a related interface.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetitemfromobject
@@ -9625,6 +9658,9 @@ class Shell {
      */
     static SHGetItemFromObject(punk, riid, ppv) {
         result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9641,7 +9677,7 @@ class Shell {
      * @param {Pointer<Char>} ppszName Type: <b>PWSTR*</b>
      * 
      * A value that, when this function returns successfully, receives the address of a pointer to the retrieved display name.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetnamefromidlist
@@ -9649,6 +9685,9 @@ class Shell {
      */
     static SHGetNameFromIDList(pidl, sigdnName, ppszName) {
         result := DllCall("SHELL32.dll\SHGetNameFromIDList", "ptr", pidl, "int", sigdnName, "ptr", ppszName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9668,7 +9707,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetitemfromdataobject
@@ -9676,6 +9715,9 @@ class Shell {
      */
     static SHGetItemFromDataObject(pdtobj, dwFlags, riid, ppv) {
         result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9696,7 +9738,7 @@ class Shell {
      * @param {Pointer<IShellItemArray>} ppsiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * When this function returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> interface pointer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarray
@@ -9704,6 +9746,9 @@ class Shell {
      */
     static SHCreateShellItemArray(pidlParent, psf, cidl, ppidl, ppsiItemArray) {
         result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, "ptr", ppidl, "ptr", ppsiItemArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9724,7 +9769,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromdataobject
@@ -9732,6 +9777,9 @@ class Shell {
      */
     static SHCreateShellItemArrayFromDataObject(pdo, riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9746,7 +9794,7 @@ class Shell {
      * @param {Pointer<IShellItemArray>} ppsiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * When this function returns, contains an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> interface pointer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromidlists
@@ -9754,6 +9802,9 @@ class Shell {
      */
     static SHCreateShellItemArrayFromIDLists(cidl, rgpidl, ppsiItemArray) {
         result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, "ptr", rgpidl, "ptr", ppsiItemArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9770,7 +9821,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromshellitem
@@ -9778,6 +9829,9 @@ class Shell {
      */
     static SHCreateShellItemArrayFromShellItem(psi, riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9789,7 +9843,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration">IApplicationAssociationRegistration</a> object.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateassociationregistration
@@ -9797,6 +9851,9 @@ class Shell {
      */
     static SHCreateAssociationRegistration(riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9849,7 +9906,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * The address of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit">IDefaultExtractIconInit</a> interface pointer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreatedefaultextracticon
@@ -9857,6 +9914,9 @@ class Shell {
      */
     static SHCreateDefaultExtractIcon(riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9867,7 +9927,7 @@ class Shell {
      * @param {Pointer<Char>} AppID Type: <b>PCWSTR</b>
      * 
      * Pointer to the AppUserModelID to assign to the current process.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-setcurrentprocessexplicitappusermodelid
@@ -9877,6 +9937,9 @@ class Shell {
         AppID := AppID is String? StrPtr(AppID) : AppID
 
         result := DllCall("SHELL32.dll\SetCurrentProcessExplicitAppUserModelID", "ptr", AppID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9889,7 +9952,7 @@ class Shell {
      * @param {Pointer<Char>} AppID Type: <b>PWSTR*</b>
      * 
      * A pointer that receives the address of the AppUserModelID assigned to the process. The caller is responsible for freeing this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-getcurrentprocessexplicitappusermodelid
@@ -9897,6 +9960,9 @@ class Shell {
      */
     static GetCurrentProcessExplicitAppUserModelID(AppID) {
         result := DllCall("SHELL32.dll\GetCurrentProcessExplicitAppUserModelID", "ptr", AppID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9911,7 +9977,7 @@ class Shell {
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * A pointer to the temporary property for the item.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgettemporarypropertyforitem
@@ -9919,6 +9985,9 @@ class Shell {
      */
     static SHGetTemporaryPropertyForItem(psi, propkey, ppropvar) {
         result := DllCall("SHELL32.dll\SHGetTemporaryPropertyForItem", "ptr", psi, "ptr", propkey, "ptr", ppropvar, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9935,7 +10004,7 @@ class Shell {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> that contains the value of the temporary property.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shsettemporarypropertyforitem
@@ -9943,6 +10012,9 @@ class Shell {
      */
     static SHSetTemporaryPropertyForItem(psi, propkey, propvar) {
         result := DllCall("SHELL32.dll\SHSetTemporaryPropertyForItem", "ptr", psi, "ptr", propkey, "ptr", propvar, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9963,7 +10035,7 @@ class Shell {
      * @param {Integer} lmdOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions">LIBRARYMANAGEDIALOGOPTIONS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions">LIBRARYMANAGEDIALOGOPTIONS</a> enumeration that specifies the behavior of the management dialog box.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shshowmanagelibraryui
@@ -9974,6 +10046,9 @@ class Shell {
         pszInstruction := pszInstruction is String? StrPtr(pszInstruction) : pszInstruction
 
         result := DllCall("SHELL32.dll\SHShowManageLibraryUI", "ptr", psiLibrary, "ptr", hwndOwner, "ptr", pszTitle, "ptr", pszInstruction, "int", lmdOptions, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9986,7 +10061,7 @@ class Shell {
      * @param {Pointer<IShellItem>} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the library.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shresolvelibrary
@@ -9994,6 +10069,9 @@ class Shell {
      */
     static SHResolveLibrary(psiLibrary) {
         result := DllCall("SHELL32.dll\SHResolveLibrary", "ptr", psiLibrary, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10006,7 +10084,7 @@ class Shell {
      * @param {Pointer<IEnumAssocHandlers>} ppEnumHandler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a> object.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shassocenumhandlers
@@ -10016,6 +10094,9 @@ class Shell {
         pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr", ppEnumHandler, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10032,7 +10113,7 @@ class Shell {
      * @param {Pointer<Void>} enumHandlers Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shassocenumhandlersforprotocolbyapplication
@@ -10042,6 +10123,9 @@ class Shell {
         protocol := protocol is String? StrPtr(protocol) : protocol
 
         result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr", enumHandlers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10085,11 +10169,10 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Void>} param1 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static HMONITOR_UserFree(param0, param1) {
-        result := DllCall("OLE32.dll\HMONITOR_UserFree", "uint*", param0, "ptr", param1)
-        return result
+        DllCall("OLE32.dll\HMONITOR_UserFree", "uint*", param0, "ptr", param1)
     }
 
     /**
@@ -10132,11 +10215,10 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Void>} param1 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static HMONITOR_UserFree64(param0, param1) {
-        result := DllCall("OLE32.dll\HMONITOR_UserFree64", "uint*", param0, "ptr", param1)
-        return result
+        DllCall("OLE32.dll\HMONITOR_UserFree64", "uint*", param0, "ptr", param1)
     }
 
     /**
@@ -10149,7 +10231,7 @@ class Shell {
      * @param {Pointer<IFileOperation>} ppFileOp Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a>**</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> interface pointer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-shcreatedefaultpropertiesop
@@ -10157,6 +10239,9 @@ class Shell {
      */
     static SHCreateDefaultPropertiesOp(psi, ppFileOp) {
         result := DllCall("SHELL32.dll\SHCreateDefaultPropertiesOp", "ptr", psi, "ptr", ppFileOp, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10176,7 +10261,7 @@ class Shell {
      * @param {Pointer<IFileOperationProgressSink>} pfops Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object used to follow the progress of the operation. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for details. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-shsetdefaultproperties
@@ -10184,6 +10269,9 @@ class Shell {
      */
     static SHSetDefaultProperties(hwnd, psi, dwFileOpFlags, pfops) {
         result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", hwnd, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10194,7 +10282,7 @@ class Shell {
      * @param {Pointer<IMalloc>} ppMalloc Type: <b>LPMALLOC*</b>
      * 
      * The address of a pointer that receives the Shell's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface pointer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetmalloc
@@ -10202,6 +10290,9 @@ class Shell {
      */
     static SHGetMalloc(ppMalloc) {
         result := DllCall("SHELL32.dll\SHGetMalloc", "ptr", ppMalloc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10212,7 +10303,7 @@ class Shell {
      * @param {Pointer} cb Type: <b>SIZE_T</b>
      * 
      * The number of bytes of memory to allocate.
-     * @returns {Pointer} Type: <b>LPVOID</b>
+     * @returns {Pointer<Void>} Type: <b>LPVOID</b>
      * 
      * A pointer to the allocated memory.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shalloc
@@ -10228,13 +10319,12 @@ class Shell {
      * @param {Pointer<Void>} pv Type: <b>void*</b>
      * 
      * A pointer to the memory allocated by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shalloc">SHAlloc</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shfree
      * @since windows5.0
      */
     static SHFree(pv) {
-        result := DllCall("SHELL32.dll\SHFree", "ptr", pv)
-        return result
+        DllCall("SHELL32.dll\SHFree", "ptr", pv)
     }
 
     /**
@@ -10256,7 +10346,7 @@ class Shell {
      * @param {Integer} iIconIndex Type: <b>int</b>
      * 
      * The icon's index in the file pointed to by <i>pszIconPath</i>. To request a standard overlay icon, set <i>pszIconPath</i> to <b>NULL</b>, and <i>iIconIndex</i> to one of the following:
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the overlay icon in the system image list if successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgeticonoverlayindexa
@@ -10265,7 +10355,7 @@ class Shell {
     static SHGetIconOverlayIndexA(pszIconPath, iIconIndex) {
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\SHGetIconOverlayIndexA", "ptr", pszIconPath, "int", iIconIndex)
+        result := DllCall("SHELL32.dll\SHGetIconOverlayIndexA", "ptr", pszIconPath, "int", iIconIndex, "int")
         return result
     }
 
@@ -10288,7 +10378,7 @@ class Shell {
      * @param {Integer} iIconIndex Type: <b>int</b>
      * 
      * The icon's index in the file pointed to by <i>pszIconPath</i>. To request a standard overlay icon, set <i>pszIconPath</i> to <b>NULL</b>, and <i>iIconIndex</i> to one of the following:
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the overlay icon in the system image list if successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgeticonoverlayindexw
@@ -10297,7 +10387,7 @@ class Shell {
     static SHGetIconOverlayIndexW(pszIconPath, iIconIndex) {
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\SHGetIconOverlayIndexW", "ptr", pszIconPath, "int", iIconIndex)
+        result := DllCall("SHELL32.dll\SHGetIconOverlayIndexW", "ptr", pszIconPath, "int", iIconIndex, "int")
         return result
     }
 
@@ -10364,13 +10454,12 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PIDLIST_RELATIVE</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure to be freed. This parameter can be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilfree
      * @since windows5.1.2600
      */
     static ILFree(pidl) {
-        result := DllCall("SHELL32.dll\ILFree", "ptr", pidl)
-        return result
+        DllCall("SHELL32.dll\ILFree", "ptr", pidl)
     }
 
     /**
@@ -10394,14 +10483,14 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * The size of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure specified by <i>pidl</i>, in bytes.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilgetsize
      * @since windows5.1.2600
      */
     static ILGetSize(pidl) {
-        result := DllCall("SHELL32.dll\ILGetSize", "ptr", pidl)
+        result := DllCall("SHELL32.dll\ILGetSize", "ptr", pidl, "uint")
         return result
     }
 
@@ -10514,7 +10603,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure to be saved.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilsavetostream
@@ -10522,6 +10611,9 @@ class Shell {
      */
     static ILSaveToStream(pstm, pidl) {
         result := DllCall("SHELL32.dll\ILSaveToStream", "ptr", pstm, "ptr", pidl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10538,7 +10630,7 @@ class Shell {
      * When this method returns and succeeds, contains the resulting absolute 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. If it fails, contains 
      *       <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-illoadfromstreamex
@@ -10546,6 +10638,9 @@ class Shell {
      */
     static ILLoadFromStreamEx(pstm, pidl) {
         result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, "ptr", pidl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10612,7 +10707,7 @@ class Shell {
      * @param {Pointer<UInt32>} rgfInOut Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that, on entry, indicates any attributes of the folder named in <i>pszPath</i> that the calling application would like to retrieve along with the PIDL. On exit, this value contains those requested attributes. For a list of possible attribute flags for this parameter, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shilcreatefrompath
@@ -10622,6 +10717,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr", ppidl, "uint*", rgfInOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10758,7 +10856,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the fully qualified path of the directory. This string should have no more than MAX_PATH characters, including the terminating null character.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful. If the operation fails, other error codes can be returned, including those listed here. For values not specifically listed, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
@@ -10829,7 +10927,7 @@ class Shell {
     static SHCreateDirectory(hwnd, pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd, "ptr", pszPath)
+        result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd, "ptr", pszPath, "int")
         return result
     }
 
@@ -10859,7 +10957,7 @@ class Shell {
      * @param {Pointer<SECURITY_ATTRIBUTES>} psa Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
      *  A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure with the directory's security attribute. Set this parameter to <b>NULL</b> if no security attributes need to be set.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful. If the operation fails, other error codes can be returned, including those listed here. For values not specifically listed, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
@@ -10941,7 +11039,7 @@ class Shell {
     static SHCreateDirectoryExA(hwnd, pszPath, psa) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd, "ptr", pszPath, "ptr", psa)
+        result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
     }
 
@@ -10971,7 +11069,7 @@ class Shell {
      * @param {Pointer<SECURITY_ATTRIBUTES>} psa Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
      *  A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure with the directory's security attribute. Set this parameter to <b>NULL</b> if no security attributes need to be set.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful. If the operation fails, other error codes can be returned, including those listed here. For values not specifically listed, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
@@ -11053,7 +11151,7 @@ class Shell {
     static SHCreateDirectoryExW(hwnd, pszPath, psa) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd, "ptr", pszPath, "ptr", psa)
+        result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
     }
 
@@ -11073,7 +11171,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The optional flags. Under Windows XP this parameter is ignored. In Windows Vista, the following flags are defined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shopenfolderandselectitems
@@ -11081,6 +11179,9 @@ class Shell {
      */
     static SHOpenFolderAndSelectItems(pidlFolder, cidl, apidl, dwFlags) {
         result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", "ptr", pidlFolder, "uint", cidl, "ptr", apidl, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11146,7 +11247,7 @@ class Shell {
      * @param {Pointer<IShellItem>} ppsi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When this method returns, contains the interface pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreateshellitem
@@ -11154,6 +11255,9 @@ class Shell {
      */
     static SHCreateShellItem(pidlParent, psfParent, pidl, ppsi) {
         result := DllCall("SHELL32.dll\SHCreateShellItem", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", ppsi, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11165,7 +11269,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * A PIDL specifying the folder's location relative to the root of the namespace (the desktop). It is the responsibility of the calling application to free the returned IDList by using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation
@@ -11175,6 +11279,9 @@ class Shell {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr", ppidl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11278,13 +11385,12 @@ class Shell {
      * 
      * For more information on special folders, see the <i>Special Folders and CSIDLs</i> section 
      *     of <a href="https://docs.microsoft.com/windows/desktop/shell/folder-id">Getting a Folder's ID</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shflushsfcache
      * @since windows5.1.2600
      */
     static SHFlushSFCache() {
-        result := DllCall("SHELL32.dll\SHFlushSFCache")
-        return result
+        DllCall("SHELL32.dll\SHFlushSFCache")
     }
 
     /**
@@ -11379,7 +11485,7 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string of length MAX_PATH which will receive the path. If an error occurs or S_FALSE is returned, this string will be empty. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpatha
@@ -11391,6 +11497,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11486,7 +11595,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPWSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string of length MAX_PATH which will receive the path. If an error occurs or S_FALSE is returned, this string will be empty. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathw
@@ -11498,6 +11607,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11523,7 +11635,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The address of a pointer to an item identifier list structure that specifies the folder's location relative to the root of the namespace (the desktop). The <i>ppidl</i> parameter is set to <b>NULL</b> on failure. The calling application is responsible for freeing this resource by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -11562,6 +11674,9 @@ class Shell {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", ppidl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11596,7 +11711,7 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the folder's new path. This value cannot be <b>NULL</b>, and the string cannot be of zero length.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns standard <b>HRESULT</b> codes, including the following:
      * 
@@ -11644,6 +11759,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetFolderPathA", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11678,7 +11796,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the folder's new path. This value cannot be <b>NULL</b>, and the string cannot be of zero length.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns standard <b>HRESULT</b> codes, including the following:
      * 
@@ -11726,6 +11844,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetFolderPathW", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11749,7 +11870,7 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * When this function returns, this value points to the directory path and appended subpath. This is a <b>null</b>-terminated string of length MAX_PATH. This string is empty when the function returns an error code.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdira
@@ -11762,6 +11883,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11785,7 +11909,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
      * 
      * When this function returns, this value points to the directory path and appended subpath. This is a <b>null</b>-terminated string of length MAX_PATH. This string is empty when the function returns an error code.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdirw
@@ -11798,6 +11922,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11825,7 +11952,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns, contains a pointer to the PIDL of the folder. This parameter is passed uninitialized. The caller is responsible for freeing the returned PIDL when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -11851,6 +11978,9 @@ class Shell {
      */
     static SHGetKnownFolderIDList(rfid, dwFlags, hToken, ppidl) {
         result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", ppidl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11884,7 +12014,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to the folder's new path. This is a null-terminated Unicode string of length MAX_PATH. This path cannot be of zero length.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -11912,6 +12042,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11937,7 +12070,7 @@ class Shell {
      * @param {Pointer<Char>} ppszPath Type: <b>PWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the path of the known folder. The calling process is responsible for freeing this resource once it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>, whether <b>SHGetKnownFolderPath</b> succeeds or not. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -11974,6 +12107,9 @@ class Shell {
      */
     static SHGetKnownFolderPath(rfid, dwFlags, hToken, ppszPath) {
         result := DllCall("SHELL32.dll\SHGetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", ppszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12008,7 +12144,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -12034,6 +12170,9 @@ class Shell {
      */
     static SHGetKnownFolderItem(rfid, flags, hToken, riid, ppv) {
         result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12050,7 +12189,7 @@ class Shell {
      * 
      * A pointer to a null-terminated Unicode string that contains the path to the folder. The length of  <b>pszPath</b> must be MAX_PATH or less, including the terminating null character.
      * @param {Integer} dwReadWrite Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetsetfoldercustomsettings
@@ -12060,6 +12199,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSetFolderCustomSettings", "ptr", pfcs, "ptr", pszPath, "uint", dwReadWrite, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12182,7 +12324,7 @@ class Shell {
      * @param {Pointer<Guid>} rclsid Type: <b>REFCLSID</b>
      * 
      * The CLSID of the object class to be created.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise. In Windows Vista and later versions, always returns E_NOTIMPL.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shloadinproc
@@ -12190,6 +12332,9 @@ class Shell {
      */
     static SHLoadInProc(rclsid) {
         result := DllCall("SHELL32.dll\SHLoadInProc", "ptr", rclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12198,7 +12343,7 @@ class Shell {
      * @param {Pointer<IShellFolder>} ppshf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>**</b>
      * 
      * When this method returns, receives an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface pointer for the desktop folder. The calling application is responsible for eventually freeing the interface by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetdesktopfolder
@@ -12206,6 +12351,9 @@ class Shell {
      */
     static SHGetDesktopFolder(ppshf) {
         result := DllCall("SHELL32.dll\SHGetDesktopFolder", "ptr", ppshf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12223,13 +12371,12 @@ class Shell {
      * @param {Pointer<Void>} dwItem2 Type: <b>LPCVOID</b>
      * 
      * Optional. Second event-dependent value.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotify
      * @since windows5.1.2600
      */
     static SHChangeNotify(wEventId, uFlags, dwItem1, dwItem2) {
-        result := DllCall("SHELL32.dll\SHChangeNotify", "int", wEventId, "uint", uFlags, "ptr", dwItem1, "ptr", dwItem2)
-        return result
+        DllCall("SHELL32.dll\SHChangeNotify", "int", wEventId, "uint", uFlags, "ptr", dwItem1, "ptr", dwItem2)
     }
 
     /**
@@ -12345,13 +12492,12 @@ class Shell {
      * 
      * 
      * Set this parameter to <b>NULL</b> to clear all usage data on all items.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shaddtorecentdocs
      * @since windows5.1.2600
      */
     static SHAddToRecentDocs(uFlags, pv) {
-        result := DllCall("SHELL32.dll\SHAddToRecentDocs", "uint", uFlags, "ptr", pv)
-        return result
+        DllCall("SHELL32.dll\SHAddToRecentDocs", "uint", uFlags, "ptr", pv)
     }
 
     /**
@@ -12361,14 +12507,14 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlExtra Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The index in the system image list that has changed, specified in the <i>pidl2</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ishellchangenotify-onchange">IShellChangeNotify::OnChange</a>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns -1 on failure or the index of the changed image list entry on success.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shhandleupdateimage
      * @since windows5.1.2600
      */
     static SHHandleUpdateImage(pidlExtra) {
-        result := DllCall("SHELL32.dll\SHHandleUpdateImage", "ptr", pidlExtra)
+        result := DllCall("SHELL32.dll\SHHandleUpdateImage", "ptr", pidlExtra, "int")
         return result
     }
 
@@ -12397,15 +12543,14 @@ class Shell {
      * @param {Integer} iImageIndex Type: <b>int</b>
      * 
      * An integer that specifies the index in the system image list of the icon that is being updated.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shupdateimagea
      * @since windows5.0
      */
     static SHUpdateImageA(pszHashItem, iIndex, uFlags, iImageIndex) {
         pszHashItem := pszHashItem is String? StrPtr(pszHashItem) : pszHashItem
 
-        result := DllCall("SHELL32.dll\SHUpdateImageA", "ptr", pszHashItem, "int", iIndex, "uint", uFlags, "int", iImageIndex)
-        return result
+        DllCall("SHELL32.dll\SHUpdateImageA", "ptr", pszHashItem, "int", iIndex, "uint", uFlags, "int", iImageIndex)
     }
 
     /**
@@ -12433,15 +12578,14 @@ class Shell {
      * @param {Integer} iImageIndex Type: <b>int</b>
      * 
      * An integer that specifies the index in the system image list of the icon that is being updated.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shupdateimagew
      * @since windows5.0
      */
     static SHUpdateImageW(pszHashItem, iIndex, uFlags, iImageIndex) {
         pszHashItem := pszHashItem is String? StrPtr(pszHashItem) : pszHashItem
 
-        result := DllCall("SHELL32.dll\SHUpdateImageW", "ptr", pszHashItem, "int", iIndex, "uint", uFlags, "int", iImageIndex)
-        return result
+        DllCall("SHELL32.dll\SHUpdateImageW", "ptr", pszHashItem, "int", iIndex, "uint", uFlags, "int", iImageIndex)
     }
 
     /**
@@ -12561,7 +12705,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidlReal Type: <b>PITEMID_CHILD*</b>
      * 
      * When this method returns, contains a pointer to the full converted PIDL. If the function fails, this parameter is set to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetrealidl
@@ -12569,6 +12713,9 @@ class Shell {
      */
     static SHGetRealIDL(psf, pidlSimple, ppidlReal) {
         result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, "ptr", ppidlReal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12585,7 +12732,7 @@ class Shell {
      * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * When this function returns successfully, contains the address of the host process' <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer. This is a free-threaded interface used to prevent the host process from terminating. If the function call fails, this value is set to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetinstanceexplorer
@@ -12593,6 +12740,9 @@ class Shell {
      */
     static SHGetInstanceExplorer(ppunk) {
         result := DllCall("SHELL32.dll\SHGetInstanceExplorer", "ptr", ppunk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12623,7 +12773,7 @@ class Shell {
      * @param {Integer} cb Type: <b>int</b>
      * 
      * Size of the buffer at <i>pv</i>, in bytes.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or E_INVALIDARG otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetdatafromidlista
@@ -12631,6 +12781,9 @@ class Shell {
      */
     static SHGetDataFromIDListA(psf, pidl, nFormat, pv, cb) {
         result := DllCall("SHELL32.dll\SHGetDataFromIDListA", "ptr", psf, "ptr", pidl, "int", nFormat, "ptr", pv, "int", cb, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12661,7 +12814,7 @@ class Shell {
      * @param {Integer} cb Type: <b>int</b>
      * 
      * Size of the buffer at <i>pv</i>, in bytes.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or E_INVALIDARG otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetdatafromidlistw
@@ -12669,6 +12822,9 @@ class Shell {
      */
     static SHGetDataFromIDListW(psf, pidl, nFormat, pv, cb) {
         result := DllCall("SHELL32.dll\SHGetDataFromIDListW", "ptr", psf, "ptr", pidl, "int", nFormat, "ptr", pv, "int", cb, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12683,7 +12839,7 @@ class Shell {
      * @param {Integer} dwReturn Type: <b>DWORD</b>
      * 
      * The flags that specify the type of shutdown.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the identifier of the button that was pressed to close the dialog box.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-restartdialog
@@ -12692,7 +12848,7 @@ class Shell {
     static RestartDialog(hwnd, pszPrompt, dwReturn) {
         pszPrompt := pszPrompt is String? StrPtr(pszPrompt) : pszPrompt
 
-        result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn)
+        result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "int")
         return result
     }
 
@@ -12714,7 +12870,7 @@ class Shell {
      *     					
      * 
      * <b>Windows 2000:</b> This parameter is ignored.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the identifier of the button that was pressed to close the dialog box.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-restartdialogex
@@ -12723,7 +12879,7 @@ class Shell {
     static RestartDialogEx(hwnd, pszPrompt, dwReturn, dwReasonCode) {
         pszPrompt := pszPrompt is String? StrPtr(pszPrompt) : pszPrompt
 
-        result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode)
+        result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
         return result
     }
 
@@ -12746,7 +12902,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this function returns successfully, receives the interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcocreateinstance
@@ -12756,6 +12912,9 @@ class Shell {
         pszCLSID := pszCLSID is String? StrPtr(pszCLSID) : pszCLSID
 
         result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12787,7 +12946,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedataobject
@@ -12795,6 +12954,9 @@ class Shell {
      */
     static SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, "ptr", apidl, "ptr", pdtInner, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12814,7 +12976,7 @@ class Shell {
      * @param {Pointer<IDataObject>} ppdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>**</b>
      * 
      * The address to a pointer to the object that implements <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-cidldata_createfromidarray
@@ -12822,6 +12984,9 @@ class Shell {
      */
     static CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl, ppdtobj) {
         result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, "ptr", apidl, "ptr", ppdtobj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12836,7 +13001,7 @@ class Shell {
      * @param {Pointer<IEnumFORMATETC>} ppenumFormatEtc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a>**</b>
      * 
      * When this function returns successfully, receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interface pointer. Receives <b>NULL</b> on failure.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatestdenumfmtetc
@@ -12844,6 +13009,9 @@ class Shell {
      */
     static SHCreateStdEnumFmtEtc(cfmt, afmt, ppenumFormatEtc) {
         result := DllCall("SHELL32.dll\SHCreateStdEnumFmtEtc", "uint", cfmt, "ptr", afmt, "ptr", ppenumFormatEtc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12870,7 +13038,7 @@ class Shell {
      * @param {Pointer<UInt32>} pdwEffect Type: <b>DWORD*</b>
      * 
      * A pointer to a value that indicates how the drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function supports the standard return value E_OUTOFMEMORY, as well as the following values:
      * 
@@ -12918,6 +13086,9 @@ class Shell {
      */
     static SHDoDragDrop(hwnd, pdata, pdsrc, dwEffect, pdwEffect) {
         result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", pdwEffect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13267,7 +13438,7 @@ class Shell {
      * @param {Integer} fFlags Type: <b>UINT</b>
      * 
      * Flags that specify how the function operates.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns <b>TRUE</b>, unless PRF_VERIFYEXISTS is set. If that flag is set, the function returns <b>TRUE</b> if the file is verified to exist and <b>FALSE</b> otherwise. It also sets an ERROR_FILE_NOT_FOUND error code that you can retrieve by calling <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathresolve
@@ -13278,7 +13449,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ptr", dirs, "uint", fFlags)
+        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ptr", dirs, "uint", fFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13332,7 +13503,7 @@ class Shell {
      * @param {Integer} iDrive Type: <b>int</b>
      * 
      * The number of the drive that you want to test. "A:" corresponds to 0, "B:" to 1, and so on.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns one of the following values.
      * 
@@ -13423,7 +13594,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static DriveType(iDrive) {
-        result := DllCall("SHELL32.dll\DriveType", "int", iDrive)
+        result := DllCall("SHELL32.dll\DriveType", "int", iDrive, "int")
         return result
     }
 
@@ -13435,7 +13606,7 @@ class Shell {
      * @param {Integer} fOKToHitNet Type: <b>BOOL</b>
      * 
      * Reserved. Must be set to 0.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns one of the following values.
      * 
@@ -13526,7 +13697,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static RealDriveType(iDrive, fOKToHitNet) {
-        result := DllCall("SHELL32.dll\RealDriveType", "int", iDrive, "int", fOKToHitNet)
+        result := DllCall("SHELL32.dll\RealDriveType", "int", iDrive, "int", fOKToHitNet, "int")
         return result
     }
 
@@ -13535,7 +13706,7 @@ class Shell {
      * @param {Integer} iDrive Type: <b>int</b>
      * 
      * An integer that indicates which drive letter you want to test. Set it to 0 for  A:, 1 for B:, and so on.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * This function returns one of the following values.
      * 
@@ -13582,7 +13753,7 @@ class Shell {
      * @since windows5.0
      */
     static IsNetDrive(iDrive) {
-        result := DllCall("SHELL32.dll\IsNetDrive", "int", iDrive)
+        result := DllCall("SHELL32.dll\IsNetDrive", "int", iDrive, "int")
         return result
     }
 
@@ -13606,14 +13777,14 @@ class Shell {
      * @param {Integer} uFlags Type: <b>ULONG</b>
      * 
      * One or more of the following flags.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the next open ID at the end of the menu (the maximum adjusted ID + 1).
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_mergemenus
      * @since windows5.1.2600
      */
     static Shell_MergeMenus(hmDst, hmSrc, uInsert, uIDAdjust, uIDAdjustMax, uFlags) {
-        result := DllCall("SHELL32.dll\Shell_MergeMenus", "ptr", hmDst, "ptr", hmSrc, "uint", uInsert, "uint", uIDAdjust, "uint", uIDAdjustMax, "uint", uFlags)
+        result := DllCall("SHELL32.dll\Shell_MergeMenus", "ptr", hmDst, "ptr", hmSrc, "uint", uInsert, "uint", uIDAdjust, "uint", uIDAdjustMax, "uint", uFlags, "uint")
         return result
     }
 
@@ -13715,13 +13886,12 @@ class Shell {
      * @param {Pointer<Void>} hpsxa Type: <b>HPSXA</b>
      * 
      * The handle of the array that contains pointers to the property sheet handlers to destroy.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray
      * @since windows5.1.2600
      */
     static SHDestroyPropSheetExtArray(hpsxa) {
-        result := DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", hpsxa)
-        return result
+        DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", hpsxa)
     }
 
     /**
@@ -13739,14 +13909,14 @@ class Shell {
      * @param {Pointer} lParam Type: <b>LPARAM</b>
      * 
      * A pointer to application-defined data. This data is passed to the callback function specified by <i>lpfnAddPage</i>.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the number of pages actually added.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray
      * @since windows5.0
      */
     static SHAddFromPropSheetExtArray(hpsxa, lpfnAddPage, lParam) {
-        result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", hpsxa, "ptr", lpfnAddPage, "ptr", lParam)
+        result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", hpsxa, "ptr", lpfnAddPage, "ptr", lParam, "uint")
         return result
     }
 
@@ -13764,14 +13934,14 @@ class Shell {
      * @param {Pointer} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * The number of replacements actually performed.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shreplacefrompropsheetextarray
      * @since windows5.1.2600
      */
     static SHReplaceFromPropSheetExtArray(hpsxa, uPageID, lpfnReplaceWith, lParam) {
-        result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", hpsxa, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", lParam)
+        result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", hpsxa, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", lParam, "uint")
         return result
     }
 
@@ -13787,7 +13957,7 @@ class Shell {
      * 
      * A null-terminated Unicode string that specifies the value to be accessed.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {Pointer<IStream>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns the address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface if successful, or <b>NULL</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-openregstream
@@ -13797,7 +13967,7 @@ class Shell {
         pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode)
+        result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -13827,15 +13997,14 @@ class Shell {
      * @param {Pointer<Char>} pszLongPath Type: <b>PWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that contains the long path. When the function returns, it contains the equivalent short path.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathgetshortpath
      * @since windows5.1.2600
      */
     static PathGetShortPath(pszLongPath) {
         pszLongPath := pszLongPath is String? StrPtr(pszLongPath) : pszLongPath
 
-        result := DllCall("SHELL32.dll\PathGetShortPath", "ptr", pszLongPath)
-        return result
+        DllCall("SHELL32.dll\PathGetShortPath", "ptr", pszLongPath)
     }
 
     /**
@@ -13968,7 +14137,7 @@ class Shell {
      * @param {Pointer<Int32>} pfFoundPropKey Type: <b>BOOL*</b>
      * 
      * When this function returns, contains a flag that is <b>TRUE</b> if the property key was found, otherwise <b>FALSE</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-assocgetdetailsofpropkey
@@ -13976,6 +14145,9 @@ class Shell {
      */
     static AssocGetDetailsOfPropKey(psf, pidl, pkey, pv, pfFoundPropKey) {
         result := DllCall("SHELL32.dll\AssocGetDetailsOfPropKey", "ptr", psf, "ptr", pidl, "ptr", pkey, "ptr", pv, "int*", pfFoundPropKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13991,7 +14163,7 @@ class Shell {
      * 
      * A pointer to a null-terminated character string that specifies the remote network name. This value can be set to <b>NULL</b>.
      * @param {Integer} dwType Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shstartnetconnectiondialogw
@@ -14001,6 +14173,9 @@ class Shell {
         pszRemoteName := pszRemoteName is String? StrPtr(pszRemoteName) : pszRemoteName
 
         result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd, "ptr", pszRemoteName, "uint", dwType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14032,7 +14207,7 @@ class Shell {
      * @param {Integer} nIconSize Type: <b>UINT</b>
      * 
      * A value that contains the large icon size in its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> and the small icon size in its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a>. Size is measured in pixels. Pass 0 to specify default large and small sizes.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -14082,6 +14257,9 @@ class Shell {
         pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHELL32.dll\SHDefExtractIconA", "ptr", pszIconFile, "int", iIndex, "uint", uFlags, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14113,7 +14291,7 @@ class Shell {
      * @param {Integer} nIconSize Type: <b>UINT</b>
      * 
      * A value that contains the large icon size in its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> and the small icon size in its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a>. Size is measured in pixels. Pass 0 to specify default large and small sizes.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -14163,6 +14341,9 @@ class Shell {
         pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHELL32.dll\SHDefExtractIconW", "ptr", pszIconFile, "int", iIndex, "uint", uFlags, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14178,7 +14359,7 @@ class Shell {
      * @param {Pointer<OPENASINFO>} poainfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-openasinfo">OPENASINFO</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-openasinfo">OPENASINFO</a> structure, which specifies the contents of the resulting dialog.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shopenwithdialog
@@ -14186,6 +14367,9 @@ class Shell {
      */
     static SHOpenWithDialog(hwndParent, poainfo) {
         result := DllCall("SHELL32.dll\SHOpenWithDialog", "ptr", hwndParent, "ptr", poainfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14226,7 +14410,7 @@ class Shell {
      * @param {Integer} uIconFlags Type: <b>UINT</b>
      * 
      * Not used.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image, or –1 on failure.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getcachedimageindex
@@ -14235,7 +14419,7 @@ class Shell {
     static Shell_GetCachedImageIndex(pwszIconPath, iIconIndex, uIconFlags) {
         pwszIconPath := pwszIconPath is String? StrPtr(pwszIconPath) : pwszIconPath
 
-        result := DllCall("SHELL32.dll\Shell_GetCachedImageIndex", "ptr", pwszIconPath, "int", iIconIndex, "uint", uIconFlags)
+        result := DllCall("SHELL32.dll\Shell_GetCachedImageIndex", "ptr", pwszIconPath, "int", iIconIndex, "uint", uIconFlags, "int")
         return result
     }
 
@@ -14259,7 +14443,7 @@ class Shell {
      * @param {Integer} uIconFlags Type: <b>UINT</b>
      * 
      * Not used.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image, or –1 on failure.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getcachedimageindexa
@@ -14268,7 +14452,7 @@ class Shell {
     static Shell_GetCachedImageIndexA(pszIconPath, iIconIndex, uIconFlags) {
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\Shell_GetCachedImageIndexA", "ptr", pszIconPath, "int", iIconIndex, "uint", uIconFlags)
+        result := DllCall("SHELL32.dll\Shell_GetCachedImageIndexA", "ptr", pszIconPath, "int", iIconIndex, "uint", uIconFlags, "int")
         return result
     }
 
@@ -14292,7 +14476,7 @@ class Shell {
      * @param {Integer} uIconFlags Type: <b>UINT</b>
      * 
      * Not used.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image, or –1 on failure.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getcachedimageindexw
@@ -14301,7 +14485,7 @@ class Shell {
     static Shell_GetCachedImageIndexW(pszIconPath, iIconIndex, uIconFlags) {
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\Shell_GetCachedImageIndexW", "ptr", pszIconPath, "int", iIconIndex, "uint", uIconFlags)
+        result := DllCall("SHELL32.dll\Shell_GetCachedImageIndexW", "ptr", pszIconPath, "int", iIconIndex, "uint", uIconFlags, "int")
         return result
     }
 
@@ -14342,13 +14526,12 @@ class Shell {
      * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to a free-threaded <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Components can use this interface (through <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetinstanceexplorer">SHGetInstanceExplorer</a>) to prevent the host process from terminating. This value can be <b>NULL</b>, in which case the process reference is no longer made available to components.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shsetinstanceexplorer
      * @since windows5.1.2600
      */
     static SHSetInstanceExplorer(punk) {
-        result := DllCall("SHELL32.dll\SHSetInstanceExplorer", "ptr", punk)
-        return result
+        DllCall("SHELL32.dll\SHSetInstanceExplorer", "ptr", punk)
     }
 
     /**
@@ -14477,7 +14660,7 @@ class Shell {
      * @param {Pointer<IShellView>} ppsv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
      * 
      * When this function returns successfully, contains an interface pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> object. On failure, this value is <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreateshellfolderview
@@ -14485,6 +14668,9 @@ class Shell {
      */
     static SHCreateShellFolderView(pcsfv, ppsv) {
         result := DllCall("SHELL32.dll\SHCreateShellFolderView", "ptr", pcsfv, "ptr", ppsv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14522,7 +14708,7 @@ class Shell {
      * @param {Pointer<IContextMenu>} ppcm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> interface pointer that, when this function returns successfully, points to the <b>IContextMenu</b> object that represents the context menu.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-cdeffoldermenu_create2
@@ -14530,6 +14716,9 @@ class Shell {
      */
     static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys, ppcm) {
         result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, "ptr", apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr", ppcm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14548,7 +14737,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedefaultcontextmenu
@@ -14556,6 +14745,9 @@ class Shell {
      */
     static SHCreateDefaultContextMenu(pdcm, riid, ppv) {
         result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14573,14 +14765,14 @@ class Shell {
      * @param {Integer} idCmdLast Type: <b>UINT</b>
      * 
      * The ID of the last menu item.
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>*</b>
+     * @returns {Pointer<IContextMenu>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>*</b>
      * 
      * If successful, returns an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> pointer. On failure, returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shfind_initmenupopup
      * @since windows5.1.2600
      */
     static SHFind_InitMenuPopup(hmenu, hwndOwner, idCmdFirst, idCmdLast) {
-        result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", hmenu, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast)
+        result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", hmenu, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast, "ptr")
         return result
     }
 
@@ -14596,7 +14788,7 @@ class Shell {
      * @param {Pointer<IShellView>} ppsv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface pointer that, when this function returns successfully, points to the new view object. On failure, this value is <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreateshellfolderviewex
@@ -14604,6 +14796,9 @@ class Shell {
      */
     static SHCreateShellFolderViewEx(pcsfv, ppsv) {
         result := DllCall("SHELL32.dll\SHCreateShellFolderViewEx", "ptr", pcsfv, "ptr", ppsv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14618,13 +14813,12 @@ class Shell {
      * @param {Integer} bSet Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to indicate that the contents of <i>lpss</i> should be used to set the Shell settings, <b>FALSE</b> to indicate that the Shell settings should be retrieved to <i>lpss</i>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetsetsettings
      * @since windows5.1.2600
      */
     static SHGetSetSettings(lpss, dwMask, bSet) {
-        result := DllCall("SHELL32.dll\SHGetSetSettings", "ptr", lpss, "uint", dwMask, "int", bSet)
-        return result
+        DllCall("SHELL32.dll\SHGetSetSettings", "ptr", lpss, "uint", dwMask, "int", bSet)
     }
 
     /**
@@ -14633,13 +14827,12 @@ class Shell {
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shellflagstate">SHELLFLAGSTATE</a> structure that receives the Shell option settings.
      * @param {Integer} dwMask Type: <b>DWORD</b>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetsettings
      * @since windows5.0
      */
     static SHGetSettings(psfs, dwMask) {
-        result := DllCall("SHELL32.dll\SHGetSettings", "int*", psfs, "uint", dwMask)
-        return result
+        DllCall("SHELL32.dll\SHGetSettings", "int*", psfs, "uint", dwMask)
     }
 
     /**
@@ -14661,7 +14854,7 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  <b>SHBindToParent</b> does not allocate a new PIDL; it simply receives a pointer through this parameter. Therefore, you are not responsible for freeing this resource.</div>
      * <div> </div>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtoparent
@@ -14669,6 +14862,9 @@ class Shell {
      */
     static SHBindToParent(pidl, riid, ppv, ppidlLast) {
         result := DllCall("SHELL32.dll\SHBindToParent", "ptr", pidl, "ptr", riid, "ptr", ppv, "ptr", ppidlLast, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14692,7 +14888,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
      * 
      * A pointer to the last ID of the <i>pidl</i> parameter, and is a child ID relative to the parent folder returned in <i>ppv</i>. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtofolderidlistparent
@@ -14700,6 +14896,9 @@ class Shell {
      */
     static SHBindToFolderIDListParent(psfRoot, pidl, riid, ppv, ppidlLast) {
         result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, "ptr", pidl, "ptr", riid, "ptr", ppv, "ptr", ppidlLast, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14723,7 +14922,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
      * 
      * A pointer to the last ID of the <i>pidl</i> parameter, and is a child ID relative to the parent folder returned in <i>ppv</i>. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtofolderidlistparentex
@@ -14731,6 +14930,9 @@ class Shell {
      */
     static SHBindToFolderIDListParentEx(psfRoot, pidl, ppbc, riid, ppv, ppidlLast) {
         result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, "ptr", pidl, "ptr", ppbc, "ptr", riid, "ptr", ppv, "ptr", ppidlLast, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14755,7 +14957,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer as specified in <i>riid</i> to the bound object. If an error occurs, contains a <b>NULL</b> pointer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtoobject
@@ -14763,6 +14965,9 @@ class Shell {
      */
     static SHBindToObject(psf, pidl, pbc, riid, ppv) {
         result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14785,7 +14990,7 @@ class Shell {
      * @param {Pointer<UInt32>} psfgaoOut Type: <b>SFGAOF*</b>
      * 
      * A pointer to a <b>ULONG</b>. On return, those attributes that are true for the object and were requested in <i>sfgaoIn</i> are set. An object's attribute flags can be zero or a combination of SFGAO flags. For a list of available SFGAO flags, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shparsedisplayname
@@ -14795,6 +15000,9 @@ class Shell {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, "ptr", ppidl, "uint", sfgaoIn, "uint*", psfgaoOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14818,7 +15026,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that specifies the path to be verified as valid for writing. This can be a UNC or file drive path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the path is available, or an error code otherwise. Note that a return value of S_OK does not mean that the medium is writable; it simply means that the path is available.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpathprepareforwritea
@@ -14828,6 +15036,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14851,7 +15062,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that specifies the path to be verified as valid for writing. This can be a UNC or file drive path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the path is available, or an error code otherwise. Note that a return value of S_OK does not mean that the medium is writable; it simply means that the path is available.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpathprepareforwritew
@@ -14861,6 +15072,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14878,7 +15092,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iextracticona">IExtractIcon</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatefileextracticonw
@@ -14888,6 +15102,9 @@ class Shell {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14899,7 +15116,7 @@ class Shell {
      * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface pointer. This object must also implement <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iitemnamelimits">IItemNameLimits</a>, which supplies a list of invalid characters and a maximum name length.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shlimitinputedit
@@ -14907,6 +15124,9 @@ class Shell {
      */
     static SHLimitInputEdit(hwndEdit, psf) {
         result := DllCall("SHELL32.dll\SHLimitInputEdit", "ptr", hwndEdit, "ptr", psf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14924,7 +15144,7 @@ class Shell {
      * @param {Pointer<UInt32>} pcItems Type: <b>UINT*</b>
      * 
      * A pointer to a <b>UINT</b> that, when this function returns successfully, receives the number of PIDLs in the data object pointed to by <i>pdo</i>. This pointer can be <b>NULL</b> if this information is not needed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -14961,6 +15181,9 @@ class Shell {
      */
     static SHGetAttributesFromDataObject(pdo, dwAttributeMask, pdwAttributes, pcItems) {
         result := DllCall("SHELL32.dll\SHGetAttributesFromDataObject", "ptr", pdo, "uint", dwAttributeMask, "uint*", pdwAttributes, "uint*", pcItems, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14975,14 +15198,14 @@ class Shell {
      * @param {Pointer<Int32>} piIndexSel Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that, when this function returns successfully, receives the index of the item's <b>open</b> icon in the system image list. If the item does not have a special <b>open</b> icon then the index of its normal icon is returned. If the <b>open</b> icon exists and cannot be obtained, then the value pointed to by <i>piIndex</i> is set to -1. This parameter can be <b>NULL</b> if the calling application is not interested in the <b>open</b> icon.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the item's normal icon in the system image list if successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shmappidltosystemimagelistindex
      * @since windows5.1.2600
      */
     static SHMapPIDLToSystemImageListIndex(pshf, pidl, piIndexSel) {
-        result := DllCall("SHELL32.dll\SHMapPIDLToSystemImageListIndex", "ptr", pshf, "ptr", pidl, "int*", piIndexSel)
+        result := DllCall("SHELL32.dll\SHMapPIDLToSystemImageListIndex", "ptr", pshf, "ptr", pidl, "int*", piIndexSel, "int")
         return result
     }
 
@@ -14994,7 +15217,7 @@ class Shell {
      * @param {Pointer<Guid>} pclsid Type: <b>CLSID*</b>
      * 
      * A pointer to a CLSID value that, when this function returns successfully, receives the converted string as a CLSID.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shclsidfromstring
@@ -15004,6 +15227,9 @@ class Shell {
         psz := psz is String? StrPtr(psz) : psz
 
         result := DllCall("SHELL32.dll\SHCLSIDFromString", "ptr", psz, "ptr", pclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15021,7 +15247,7 @@ class Shell {
      * @param {Pointer<Int32>} piIconIndex Type: <b>int*</b>
      * 
      * A pointer to an integer that on entry specifies the index of the initial selection and, when this function returns successfully, receives the index of the icon that was selected.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns 1 if successful; otherwise, 0.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg
@@ -15030,7 +15256,7 @@ class Shell {
     static PickIconDlg(hwnd, pszIconPath, cchIconPath, piIconIndex) {
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd, "ptr", pszIconPath, "uint", cchIconPath, "int*", piIconIndex)
+        result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd, "ptr", pszIconPath, "uint", cchIconPath, "int*", piIconIndex, "int")
         return result
     }
 
@@ -15053,7 +15279,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-stgmakeuniquename
@@ -15063,6 +15289,9 @@ class Shell {
         pszFileSpec := pszFileSpec is String? StrPtr(pszFileSpec) : pszFileSpec
 
         result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15071,25 +15300,23 @@ class Shell {
      * @param {Integer} status Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a></b>
      * 
      * Indicates whether the function is being used to register or deregister the thread. One of the values of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shchangenotifyregisterthread
      * @since windows6.0.6000
      */
     static SHChangeNotifyRegisterThread(status) {
-        result := DllCall("SHELL32.dll\SHChangeNotifyRegisterThread", "int", status)
-        return result
+        DllCall("SHELL32.dll\SHChangeNotifyRegisterThread", "int", status)
     }
 
     /**
      * 
      * @param {Pointer<Char>} psz 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static PathQualify(psz) {
         psz := psz is String? StrPtr(psz) : psz
 
-        result := DllCall("SHELL32.dll\PathQualify", "ptr", psz)
-        return result
+        DllCall("SHELL32.dll\PathQualify", "ptr", psz)
     }
 
     /**
@@ -15325,7 +15552,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Must be set to 0.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shmultifileproperties
@@ -15333,6 +15560,9 @@ class Shell {
      */
     static SHMultiFileProperties(pdtobj, dwFlags) {
         result := DllCall("SHELL32.dll\SHMultiFileProperties", "ptr", pdtobj, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15343,7 +15573,7 @@ class Shell {
      * @param {Pointer<IMoniker>} ppmoniker Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>**</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface pointer that, when this function returns successfully, receives the <b>QueryCancelAutoPlay</b> class moniker. If this function call fails, this value is <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shcreatequerycancelautoplaymoniker
@@ -15351,6 +15581,9 @@ class Shell {
      */
     static SHCreateQueryCancelAutoPlayMoniker(ppmoniker) {
         result := DllCall("SHELL32.dll\SHCreateQueryCancelAutoPlayMoniker", "ptr", ppmoniker, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15377,7 +15610,7 @@ class Shell {
      * @param {Integer} deviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
      * 
      * The value that indicates the type of the display device.
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a></b>
      * 
      * A value that indicates the scale factor that should be used with the specified <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a>.
      * 
@@ -15427,7 +15660,7 @@ class Shell {
      * @since windows8.0
      */
     static GetScaleFactorForDevice(deviceType) {
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\GetScaleFactorForDevice", "int", deviceType)
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\GetScaleFactorForDevice", "int", deviceType, "int")
         return result
     }
 
@@ -15447,7 +15680,7 @@ class Shell {
      * @param {Pointer<UInt32>} pdwCookie Type: <b>DWORD*</b>
      * 
      * Pointer to a value that, when this function returns successfully, receives a registration token. This token is used to revoke notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications">RevokeScaleChangeNotifications</a>.
-     * @returns {Integer} Type: <b>STDAPI</b>
+     * @returns {HRESULT} Type: <b>STDAPI</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-registerscalechangenotifications
@@ -15455,6 +15688,9 @@ class Shell {
      */
     static RegisterScaleChangeNotifications(displayDevice, hwndNotify, uMsgNotify, pdwCookie) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RegisterScaleChangeNotifications", "int", displayDevice, "ptr", hwndNotify, "uint", uMsgNotify, "uint*", pdwCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15466,7 +15702,7 @@ class Shell {
      * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
      * The registration token returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-registerscalechangenotifications">RegisterScaleChangeNotifications</a>.
-     * @returns {Integer} Type: <b>STDAPI</b>
+     * @returns {HRESULT} Type: <b>STDAPI</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications
@@ -15474,6 +15710,9 @@ class Shell {
      */
     static RevokeScaleChangeNotifications(displayDevice, dwCookie) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RevokeScaleChangeNotifications", "int", displayDevice, "uint", dwCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15486,12 +15725,15 @@ class Shell {
      *                         
      * 
      * If the function call fails, this value points to a valid scale factor so that apps can opt to continue on with incorrectly sized resources.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getscalefactorformonitor
      * @since windows8.1
      */
     static GetScaleFactorForMonitor(hMon, pScale) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetScaleFactorForMonitor", "ptr", hMon, "int*", pScale, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15501,36 +15743,42 @@ class Shell {
      * The event is raised whenever something that can affect scale changes, but just because the scale can be affected doesn't mean that it has been. Callers can cache the scale factor to verify that the monitor's scale actually has changed. The event handle will be duplicated, so callers can close their handle at any time.
      * @param {Pointer<Void>} hEvent Handle of the event to register for scale change notifications.
      * @param {Pointer<UIntPtr>} pdwCookie When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-registerscalechangeevent
      * @since windows8.1
      */
     static RegisterScaleChangeEvent(hEvent, pdwCookie) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\RegisterScaleChangeEvent", "ptr", hEvent, "ptr*", pdwCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Unregisters for the scale change event registered through RegisterScaleChangeEvent. This function replaces RevokeScaleChangeNotifications.
      * @param {Pointer} dwCookie A pointer to the cookie retrieved in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-registerscalechangeevent">RegisterScaleChangeEvent</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent
      * @since windows8.1
      */
     static UnregisterScaleChangeEvent(dwCookie) {
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\UnregisterScaleChangeEvent", "ptr", dwCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Retrieves the dots per inch (dpi) occupied by a SHELL_UI_COMPONENT based on the current scale factor and PROCESS_DPI_AWARENESS.
      * @param {Integer} param0 
-     * @returns {Pointer} The DPI required for an icon of this type.
+     * @returns {Integer} The DPI required for an icon of this type.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getdpiforshelluicomponent
      * @since windows8.1
      */
     static GetDpiForShellUIComponent(param0) {
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-2.dll\GetDpiForShellUIComponent", "int", param0)
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-2.dll\GetDpiForShellUIComponent", "int", param0, "uint")
         return result
     }
 
@@ -15607,7 +15855,7 @@ class Shell {
      * @param {Integer} cch Type: <b>UINT</b>
      * 
      * The size, in characters, of the <i>lpszFile</i> buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * A nonzero value indicates a successful call.
      * 
@@ -15622,7 +15870,7 @@ class Shell {
     static DragQueryFileA(hDrop, iFile, lpszFile, cch) {
         lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
 
-        result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch)
+        result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
     }
 
@@ -15643,7 +15891,7 @@ class Shell {
      * @param {Integer} cch Type: <b>UINT</b>
      * 
      * The size, in characters, of the <i>lpszFile</i> buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * A nonzero value indicates a successful call.
      * 
@@ -15658,7 +15906,7 @@ class Shell {
     static DragQueryFileW(hDrop, iFile, lpszFile, cch) {
         lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
 
-        result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch)
+        result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
     }
 
@@ -15688,13 +15936,12 @@ class Shell {
      * @param {Pointer<Void>} hDrop Type: <b>HDROP</b>
      * 
      * Identifier of the structure that describes dropped files. This handle is retrieved from the <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragfinish
      * @since windows5.1.2600
      */
     static DragFinish(hDrop) {
-        result := DllCall("SHELL32.dll\DragFinish", "ptr", hDrop)
-        return result
+        DllCall("SHELL32.dll\DragFinish", "ptr", hDrop)
     }
 
     /**
@@ -15707,13 +15954,12 @@ class Shell {
      * @param {Integer} fAccept Type: <b>BOOL</b>
      * 
      * A value that indicates if the window identified by the <i>hWnd</i> parameter accepts dropped files. This value is <b>TRUE</b> to accept dropped files or <b>FALSE</b> to discontinue accepting dropped files.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragacceptfiles
      * @since windows5.1.2600
      */
     static DragAcceptFiles(hWnd, fAccept) {
-        result := DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "int", fAccept)
-        return result
+        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "int", fAccept)
     }
 
     /**
@@ -16538,7 +16784,7 @@ class Shell {
      * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
      * 
      * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellabouta
@@ -16548,7 +16794,7 @@ class Shell {
         szApp := szApp is String? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String? StrPtr(szOtherStuff) : szOtherStuff
 
-        result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon)
+        result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
         return result
     }
 
@@ -16582,7 +16828,7 @@ class Shell {
      * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
      * 
      * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellaboutw
@@ -16592,7 +16838,7 @@ class Shell {
         szApp := szApp is String? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String? StrPtr(szOtherStuff) : szOtherStuff
 
-        result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon)
+        result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
         return result
     }
 
@@ -17081,7 +17327,7 @@ class Shell {
      * @param {Integer} nIcons Type: <b>UINT</b>
      * 
      * The number of icons to extract from the file.
-     * @returns {Pointer} Type: **UINT**
+     * @returns {Integer} Type: **UINT**
      * 
      * If the *nIconIndex* parameter is -1 and both the *phiconLarge* and *phiconSmall* parameters are **NULL**, then the return value is the number of icons contained in the specified file.
      * 
@@ -17097,7 +17343,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\ExtractIconExA", "ptr", lpszFile, "int", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIcons)
+        result := DllCall("SHELL32.dll\ExtractIconExA", "ptr", lpszFile, "int", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIcons, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -17138,7 +17384,7 @@ class Shell {
      * @param {Integer} nIcons Type: <b>UINT</b>
      * 
      * The number of icons to extract from the file.
-     * @returns {Pointer} Type: **UINT**
+     * @returns {Integer} Type: **UINT**
      * 
      * If the *nIconIndex* parameter is -1 and both the *phiconLarge* and *phiconSmall* parameters are **NULL**, then the return value is the number of icons contained in the specified file.
      * 
@@ -17154,7 +17400,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\ExtractIconExW", "ptr", lpszFile, "int", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIcons)
+        result := DllCall("SHELL32.dll\ExtractIconExW", "ptr", lpszFile, "int", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIcons, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -17214,7 +17460,7 @@ class Shell {
      * @param {Pointer<SHFILEOPSTRUCTA>} lpFileOp Type: <b>LPSHFILEOPSTRUCT</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa">SHFILEOPSTRUCT</a> structure that contains information this function needs to carry out the specified operation. This parameter must contain a valid value that is not <b>NULL</b>. You are responsible for validating the value. If you do not validate it, you will experience unexpected results.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if successful; otherwise nonzero. Applications normally should simply check for zero or nonzero. 
      * 
@@ -17371,7 +17617,7 @@ class Shell {
     static SHFileOperationA(lpFileOp) {
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\SHFileOperationA", "ptr", lpFileOp)
+        result := DllCall("SHELL32.dll\SHFileOperationA", "ptr", lpFileOp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17431,7 +17677,7 @@ class Shell {
      * @param {Pointer<SHFILEOPSTRUCTW>} lpFileOp Type: <b>LPSHFILEOPSTRUCT</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa">SHFILEOPSTRUCT</a> structure that contains information this function needs to carry out the specified operation. This parameter must contain a valid value that is not <b>NULL</b>. You are responsible for validating the value. If you do not validate it, you will experience unexpected results.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if successful; otherwise nonzero. Applications normally should simply check for zero or nonzero. 
      * 
@@ -17588,7 +17834,7 @@ class Shell {
     static SHFileOperationW(lpFileOp) {
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\SHFileOperationW", "ptr", lpFileOp)
+        result := DllCall("SHELL32.dll\SHFileOperationW", "ptr", lpFileOp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17600,13 +17846,12 @@ class Shell {
      * @param {Pointer<Void>} hNameMappings Type: <b>HANDLE</b>
      * 
      * A handle to the file name mapping object to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shfreenamemappings
      * @since windows5.1.2600
      */
     static SHFreeNameMappings(hNameMappings) {
-        result := DllCall("SHELL32.dll\SHFreeNameMappings", "ptr", hNameMappings)
-        return result
+        DllCall("SHELL32.dll\SHFreeNameMappings", "ptr", hNameMappings)
     }
 
     /**
@@ -17864,7 +18109,7 @@ class Shell {
      *                     
      * 
      * This parameter can be <b>NULL</b> if this function is not being used in association with a call to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shevaluatesystemcommandtemplate
@@ -17874,6 +18119,9 @@ class Shell {
         pszCmdTemplate := pszCmdTemplate is String? StrPtr(pszCmdTemplate) : pszCmdTemplate
 
         result := DllCall("SHELL32.dll\SHEvaluateSystemCommandTemplate", "ptr", pszCmdTemplate, "ptr", ppszApplication, "ptr", ppszCommandLine, "ptr", ppszParameters, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17893,7 +18141,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-assoccreateforclasses
@@ -17901,6 +18149,9 @@ class Shell {
      */
     static AssocCreateForClasses(rgClasses, cClasses, riid, ppv) {
         result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17921,7 +18172,7 @@ class Shell {
      * @param {Pointer<SHQUERYRBINFO>} pSHQueryRBInfo Type: <b>LPSHQUERYRBINFO</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shqueryrbinfo">SHQUERYRBINFO</a> structure that receives the Recycle Bin information. The <b>cbSize</b> member of the structure must be set to the size of the structure before calling this API.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryrecyclebina
@@ -17931,6 +18182,9 @@ class Shell {
         pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHQueryRecycleBinA", "ptr", pszRootPath, "ptr", pSHQueryRBInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17951,7 +18205,7 @@ class Shell {
      * @param {Pointer<SHQUERYRBINFO>} pSHQueryRBInfo Type: <b>LPSHQUERYRBINFO</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shqueryrbinfo">SHQUERYRBINFO</a> structure that receives the Recycle Bin information. The <b>cbSize</b> member of the structure must be set to the size of the structure before calling this API.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryrecyclebinw
@@ -17961,6 +18215,9 @@ class Shell {
         pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHQueryRecycleBinW", "ptr", pszRootPath, "ptr", pSHQueryRBInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17976,7 +18233,7 @@ class Shell {
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebina
@@ -17986,6 +18243,9 @@ class Shell {
         pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18001,7 +18261,7 @@ class Shell {
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebinw
@@ -18011,6 +18271,9 @@ class Shell {
         pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18023,7 +18286,7 @@ class Shell {
      * @param {Pointer<Int32>} pquns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
      * 
      * When this function returns, contains a pointer to one of the values of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a> enumeration.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryusernotificationstate
@@ -18031,6 +18294,9 @@ class Shell {
      */
     static SHQueryUserNotificationState(pquns) {
         result := DllCall("SHELL32.dll\SHQueryUserNotificationState", "int*", pquns, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18154,7 +18420,7 @@ class Shell {
      * @param {Pointer<RECT>} iconLocation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that, when this function returns successfully, receives the coordinates of the icon.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shell_notifyicongetrect
@@ -18162,6 +18428,9 @@ class Shell {
      */
     static Shell_NotifyIconGetRect(identifier, iconLocation) {
         result := DllCall("SHELL32.dll\Shell_NotifyIconGetRect", "ptr", identifier, "ptr", iconLocation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18384,7 +18653,7 @@ class Shell {
      * @param {Pointer<SHSTOCKICONINFO>} psii Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shstockiconinfo">SHSTOCKICONINFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shstockiconinfo">SHSTOCKICONINFO</a> structure. When this function is called, the <b>cbSize</b> member of this structure needs to be set to the size of the <b>SHSTOCKICONINFO</b> structure. When this function returns, contains a pointer to a <b>SHSTOCKICONINFO</b> structure that contains the requested information.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetstockiconinfo
@@ -18392,6 +18661,9 @@ class Shell {
      */
     static SHGetStockIconInfo(siid, uFlags, psii) {
         result := DllCall("SHELL32.dll\SHGetStockIconInfo", "int", siid, "uint", uFlags, "ptr", psii, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18643,7 +18915,7 @@ class Shell {
      * A call to <b>SHLoadNonloadedIconOverlayIdentifiers</b> does not result in the immediate loading of a Shell extension, nor does it cause an icon overlay handler to be loaded. A call to <b>SHLoadNonloadedIconOverlayIdentifiers</b> results in a situation such that the next code to ask for icon overlay information triggers a comparison of icon overlays in the registry to those that are already loaded. If an icon overlay is newly registered and the system has not already reached its upper limit of fifteen icon overlays, the new overlay is loaded. <b>SHLoadNonloadedIconOverlayIdentifiers</b> alone does not load a new icon overlay; you also need to trigger an action that uses the overlay, such as a refresh of a Windows Explorer view.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/how-to-implement-icon-overlay-handlers">How to Implement Icon Overlay Handlers</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shloadnonloadediconoverlayidentifiers
@@ -18651,6 +18923,9 @@ class Shell {
      */
     static SHLoadNonloadedIconOverlayIdentifiers() {
         result := DllCall("SHELL32.dll\SHLoadNonloadedIconOverlayIdentifiers", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18666,7 +18941,7 @@ class Shell {
      * @param {Pointer<UInt32>} pdwStatus Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable of type <b>DWORD</b> that receives one or more of the following flags if the function succeeds.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -18716,6 +18991,9 @@ class Shell {
         pwszPath := pwszPath is String? StrPtr(pwszPath) : pwszPath
 
         result := DllCall("SHELL32.dll\SHIsFileAvailableOffline", "ptr", pwszPath, "uint*", pdwStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18738,7 +19016,7 @@ class Shell {
      * @param {Integer} idsRes Type: <b>int</b>
      * 
      * An integer ID that specifies the localized file name in the string resource.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shsetlocalizedname
@@ -18749,6 +19027,9 @@ class Shell {
         pszResModule := pszResModule is String? StrPtr(pszResModule) : pszResModule
 
         result := DllCall("SHELL32.dll\SHSetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "int", idsRes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18763,7 +19044,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that specifies the fully qualified path of the target file.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shremovelocalizedname
@@ -18773,6 +19054,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHRemoveLocalizedName", "ptr", pszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18790,7 +19074,7 @@ class Shell {
      * @param {Pointer<Int32>} pidsRes Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the ID of the localized file name in the resource file.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetlocalizedname
@@ -18801,6 +19085,9 @@ class Shell {
         pszResModule := pszResModule is String? StrPtr(pszResModule) : pszResModule
 
         result := DllCall("SHELL32.dll\SHGetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "uint", cch, "int*", pidsRes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18824,7 +19111,7 @@ class Shell {
      * @param {Integer} fuStyle Type: <b>UINT</b>
      * 
      * Specifies the contents and behavior of the dialog box. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * An integer value indicating a button that was pressed in the message box. For specific values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
      * 
@@ -18840,7 +19127,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl ptr")
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -18867,7 +19154,7 @@ class Shell {
      * @param {Integer} fuStyle Type: <b>UINT</b>
      * 
      * Specifies the contents and behavior of the dialog box. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * An integer value indicating a button that was pressed in the message box. For specific values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
      * 
@@ -18883,7 +19170,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl ptr")
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -18936,7 +19223,7 @@ class Shell {
      * @param {Integer} cchMailAddress Type: <b>int</b>
      * 
      * The number of characters in the email address.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shenumerateunreadmailaccountsw
@@ -18946,6 +19233,9 @@ class Shell {
         pszMailAddress := pszMailAddress is String? StrPtr(pszMailAddress) : pszMailAddress
 
         result := DllCall("SHELL32.dll\SHEnumerateUnreadMailAccountsW", "ptr", hKeyUser, "uint", dwIndex, "ptr", pszMailAddress, "int", cchMailAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18969,7 +19259,7 @@ class Shell {
      * @param {Integer} cchShellExecuteCommand Type: <b>int</b>
      * 
      * The maximum size, in characters, of the ShellExecute command buffer pointed to by <i>pszShellExecuteCommand</i>. This parameter must be zero for total counts when <i>pszMailAddress</i> is <b>NULL</b>. It can also be <b>NULL</b> whenever the ShellExecute command string is not required.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetunreadmailcountw
@@ -18980,6 +19270,9 @@ class Shell {
         pszShellExecuteCommand := pszShellExecuteCommand is String? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
         result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", "ptr", hKeyUser, "ptr", pszMailAddress, "uint*", pdwCount, "ptr", pFileTime, "ptr", pszShellExecuteCommand, "int", cchShellExecuteCommand, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19004,7 +19297,7 @@ class Shell {
      * @param {Pointer<Char>} pszShellExecuteCommand Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string in Unicode that contains the full text of a command that can be passed to ShellExecute. This command should start the email application that owns the account referenced by <i>pszMailAddress</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * <b>HRESULT</b>, which includes the following possible values.
      * 
@@ -19055,6 +19348,9 @@ class Shell {
         pszShellExecuteCommand := pszShellExecuteCommand is String? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
         result := DllCall("SHELL32.dll\SHSetUnreadMailCountW", "ptr", pszMailAddress, "uint", dwCount, "ptr", pszShellExecuteCommand, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19092,7 +19388,7 @@ class Shell {
      * @param {Pointer<Void>} ppvObj Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetimagelist
@@ -19100,6 +19396,9 @@ class Shell {
      */
     static SHGetImageList(iImageList, riid, ppvObj) {
         result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19128,7 +19427,7 @@ class Shell {
      * @param {Pointer<UInt32>} pdwMediaContent Type: <b>DWORD*</b>
      * 
      * A pointer to the type of media in the given drive. A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iquerycancelautoplay-allowautoplay">ARCONTENT</a> flags.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetdrivemedia
@@ -19138,6 +19437,9 @@ class Shell {
         pszDrive := pszDrive is String? StrPtr(pszDrive) : pszDrive
 
         result := DllCall("SHELL32.dll\SHGetDriveMedia", "ptr", pszDrive, "uint*", pdwMediaContent, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19327,7 +19629,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpna
@@ -19337,7 +19639,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNA", "ptr", psz1, "ptr", psz2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNA", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
     }
 
@@ -19355,7 +19657,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnw
@@ -19365,7 +19667,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNW", "ptr", psz1, "ptr", psz2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNW", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
     }
 
@@ -19383,7 +19685,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnia
@@ -19393,7 +19695,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNIA", "ptr", psz1, "ptr", psz2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNIA", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
     }
 
@@ -19411,7 +19713,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpniw
@@ -19421,7 +19723,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNIW", "ptr", psz1, "ptr", psz2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNIW", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
     }
 
@@ -19441,7 +19743,7 @@ class Shell {
      * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the characters to search for.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspna
@@ -19451,7 +19753,7 @@ class Shell {
         pszStr := pszStr is String? StrPtr(pszStr) : pszStr
         pszSet := pszSet is String? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrCSpnA", "ptr", pszStr, "ptr", pszSet)
+        result := DllCall("SHLWAPI.dll\StrCSpnA", "ptr", pszStr, "ptr", pszSet, "int")
         return result
     }
 
@@ -19471,7 +19773,7 @@ class Shell {
      * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the characters to search for.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspnw
@@ -19481,7 +19783,7 @@ class Shell {
         pszStr := pszStr is String? StrPtr(pszStr) : pszStr
         pszSet := pszSet is String? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrCSpnW", "ptr", pszStr, "ptr", pszSet)
+        result := DllCall("SHLWAPI.dll\StrCSpnW", "ptr", pszStr, "ptr", pszSet, "int")
         return result
     }
 
@@ -19501,7 +19803,7 @@ class Shell {
      * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the characters to search for.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspnia
@@ -19511,7 +19813,7 @@ class Shell {
         pszStr := pszStr is String? StrPtr(pszStr) : pszStr
         pszSet := pszSet is String? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrCSpnIA", "ptr", pszStr, "ptr", pszSet)
+        result := DllCall("SHLWAPI.dll\StrCSpnIA", "ptr", pszStr, "ptr", pszSet, "int")
         return result
     }
 
@@ -19531,7 +19833,7 @@ class Shell {
      * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the characters to search for.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspniw
@@ -19541,7 +19843,7 @@ class Shell {
         pszStr := pszStr is String? StrPtr(pszStr) : pszStr
         pszSet := pszSet is String? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrCSpnIW", "ptr", pszStr, "ptr", pszSet)
+        result := DllCall("SHLWAPI.dll\StrCSpnIW", "ptr", pszStr, "ptr", pszSet, "int")
         return result
     }
 
@@ -19626,7 +19928,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszBuf</i>, in characters.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesizeex
@@ -19636,6 +19938,9 @@ class Shell {
         pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatByteSizeEx", "uint", ull, "int", flags, "ptr", pszBuf, "uint", cchBuf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19949,7 +20254,7 @@ class Shell {
      * <td>1 min</td>
      * </tr>
      * </table>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters in <i>pszOut</i>, excluding the terminating <b>NULL</b> character.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strfromtimeintervala
@@ -19958,7 +20263,7 @@ class Shell {
     static StrFromTimeIntervalA(pszOut, cchMax, dwTimeMS, digits) {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
-        result := DllCall("SHLWAPI.dll\StrFromTimeIntervalA", "ptr", pszOut, "uint", cchMax, "uint", dwTimeMS, "int", digits)
+        result := DllCall("SHLWAPI.dll\StrFromTimeIntervalA", "ptr", pszOut, "uint", cchMax, "uint", dwTimeMS, "int", digits, "int")
         return result
     }
 
@@ -20019,7 +20324,7 @@ class Shell {
      * <td>1 min</td>
      * </tr>
      * </table>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters in <i>pszOut</i>, excluding the terminating <b>NULL</b> character.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strfromtimeintervalw
@@ -20028,7 +20333,7 @@ class Shell {
     static StrFromTimeIntervalW(pszOut, cchMax, dwTimeMS, digits) {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
-        result := DllCall("SHLWAPI.dll\StrFromTimeIntervalW", "ptr", pszOut, "uint", cchMax, "uint", dwTimeMS, "int", digits)
+        result := DllCall("SHLWAPI.dll\StrFromTimeIntervalW", "ptr", pszOut, "uint", cchMax, "uint", dwTimeMS, "int", digits, "int")
         return result
     }
 
@@ -20421,7 +20726,7 @@ class Shell {
      * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated character buffer that contains the set of characters for which to search.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the length, in characters, of the matching string or zero if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strspna
@@ -20431,7 +20736,7 @@ class Shell {
         psz := psz is String? StrPtr(psz) : psz
         pszSet := pszSet is String? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrSpnA", "ptr", psz, "ptr", pszSet)
+        result := DllCall("SHLWAPI.dll\StrSpnA", "ptr", psz, "ptr", pszSet, "int")
         return result
     }
 
@@ -20446,7 +20751,7 @@ class Shell {
      * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated character buffer that contains the set of characters for which to search.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the length, in characters, of the matching string or zero if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strspnw
@@ -20456,7 +20761,7 @@ class Shell {
         psz := psz is String? StrPtr(psz) : psz
         pszSet := pszSet is String? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrSpnW", "ptr", psz, "ptr", pszSet)
+        result := DllCall("SHLWAPI.dll\StrSpnW", "ptr", psz, "ptr", pszSet, "int")
         return result
     }
 
@@ -20633,7 +20938,7 @@ class Shell {
      * ```
      * 
      * The optional sign can be the character '-' or '+'; if omitted, the sign is assumed to be positive.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the <b>int</b> value represented by <i>pszSrc</i>. For instance, the string "123" returns the integer value 123.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtointa
@@ -20642,7 +20947,7 @@ class Shell {
     static StrToIntA(pszSrc) {
         pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrToIntA", "ptr", pszSrc)
+        result := DllCall("SHLWAPI.dll\StrToIntA", "ptr", pszSrc, "int")
         return result
     }
 
@@ -20669,7 +20974,7 @@ class Shell {
      * ```
      * 
      * The optional sign can be the character '-' or '+'; if omitted, the sign is assumed to be positive.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the <b>int</b> value represented by <i>pszSrc</i>. For instance, the string "123" returns the integer value 123.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtointw
@@ -20678,7 +20983,7 @@ class Shell {
     static StrToIntW(pszSrc) {
         pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrToIntW", "ptr", pszSrc)
+        result := DllCall("SHLWAPI.dll\StrToIntW", "ptr", pszSrc, "int")
         return result
     }
 
@@ -21026,7 +21331,7 @@ class Shell {
      * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>psz1</i> is greater than that pointed to by <i>psz2</i>. Returns a negative value if the string pointed to by <i>psz1</i> is less than that pointed to by <i>psz2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpw
@@ -21036,7 +21341,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpW", "ptr", psz1, "ptr", psz2)
+        result := DllCall("SHLWAPI.dll\StrCmpW", "ptr", psz1, "ptr", psz2, "int")
         return result
     }
 
@@ -21048,7 +21353,7 @@ class Shell {
      * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>psz1</i> is greater than that pointed to by <i>psz2</i>. Returns a negative value if the string pointed to by <i>psz1</i> is less than that pointed to by <i>psz2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpiw
@@ -21058,7 +21363,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpIW", "ptr", psz1, "ptr", psz2)
+        result := DllCall("SHLWAPI.dll\StrCmpIW", "ptr", psz1, "ptr", psz2, "int")
         return result
     }
 
@@ -21245,7 +21550,7 @@ class Shell {
      * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
      * 
      * A pointer to a list of command-line parameters used to customize the output.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wvnsprintfa
@@ -21255,7 +21560,7 @@ class Shell {
         pszDest := pszDest is String? StrPtr(pszDest) : pszDest
         pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
 
-        result := DllCall("SHLWAPI.dll\wvnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "char*", arglist)
+        result := DllCall("SHLWAPI.dll\wvnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "char*", arglist, "int")
         return result
     }
 
@@ -21281,7 +21586,7 @@ class Shell {
      * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
      * 
      * A pointer to a list of command-line parameters used to customize the output.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wvnsprintfw
@@ -21291,7 +21596,7 @@ class Shell {
         pszDest := pszDest is String? StrPtr(pszDest) : pszDest
         pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
 
-        result := DllCall("SHLWAPI.dll\wvnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "char*", arglist)
+        result := DllCall("SHLWAPI.dll\wvnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "char*", arglist, "int")
         return result
     }
 
@@ -21316,7 +21621,7 @@ class Shell {
      * @param {Pointer<Byte>} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wnsprintfa
@@ -21326,7 +21631,7 @@ class Shell {
         pszDest := pszDest is String? StrPtr(pszDest) : pszDest
         pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
 
-        result := DllCall("SHLWAPI.dll\wnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl ptr")
+        result := DllCall("SHLWAPI.dll\wnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl int")
         return result
     }
 
@@ -21351,7 +21656,7 @@ class Shell {
      * @param {Pointer<Char>} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wnsprintfw
@@ -21361,7 +21666,7 @@ class Shell {
         pszDest := pszDest is String? StrPtr(pszDest) : pszDest
         pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
 
-        result := DllCall("SHLWAPI.dll\wnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl ptr")
+        result := DllCall("SHLWAPI.dll\wnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl int")
         return result
     }
 
@@ -21379,7 +21684,7 @@ class Shell {
      * @param {Pointer<Byte>} ppsz Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettostra
@@ -21387,6 +21692,9 @@ class Shell {
      */
     static StrRetToStrA(pstr, pidl, ppsz) {
         result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr, "ptr", pidl, "ptr", ppsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21404,7 +21712,7 @@ class Shell {
      * @param {Pointer<Char>} ppsz Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettostrw
@@ -21412,6 +21720,9 @@ class Shell {
      */
     static StrRetToStrW(pstr, pidl, ppsz) {
         result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr, "ptr", pidl, "ptr", ppsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21438,7 +21749,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of <i>pszBuf</i>, in characters. If <i>cchBuf</i> is too small, the string will be truncated to fit.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobufa
@@ -21448,6 +21759,9 @@ class Shell {
         pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21474,7 +21788,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of <i>pszBuf</i>, in characters. If <i>cchBuf</i> is too small, the string will be truncated to fit.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobufw
@@ -21484,6 +21798,9 @@ class Shell {
         pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21510,7 +21827,7 @@ class Shell {
      *                     
      * 
      * In the case of failure, this value is NULL.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shstrdupa
@@ -21520,6 +21837,9 @@ class Shell {
         psz := psz is String? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\SHStrDupA", "ptr", psz, "ptr", ppwsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21546,7 +21866,7 @@ class Shell {
      *                     
      * 
      * In the case of failure, this value is NULL.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shstrdupw
@@ -21556,6 +21876,9 @@ class Shell {
         psz := psz is String? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\SHStrDupW", "ptr", psz, "ptr", ppwsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21606,7 +21929,7 @@ class Shell {
      * @param {Pointer<Char>} psz2 Type: <b>PCWSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * <ul>
      * <li>Returns zero if the strings are identical.</li>
@@ -21620,7 +21943,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCmpLogicalW", "ptr", psz1, "ptr", psz2)
+        result := DllCall("SHLWAPI.dll\StrCmpLogicalW", "ptr", psz1, "ptr", psz2, "int")
         return result
     }
 
@@ -21667,7 +21990,7 @@ class Shell {
      * @param {Pointer<Char>} pbstr Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * A pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that receives the converted string.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobstr
@@ -21675,6 +21998,9 @@ class Shell {
      */
     static StrRetToBSTR(pstr, pidl, pbstr) {
         result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr, "ptr", pidl, "ptr", pbstr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21768,7 +22094,7 @@ class Shell {
      * @param {Integer} cchOutBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszOutBuf</i>, in characters.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shloadindirectstring
@@ -21781,6 +22107,9 @@ class Shell {
         pszOutBuf := pszOutBuf is String? StrPtr(pszOutBuf) : pszOutBuf
 
         result := DllCall("SHLWAPI.dll\SHLoadIndirectString", "ptr", pszSource, "ptr", pszOutBuf, "uint", cchOutBuf, "ptr", ppvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21853,7 +22182,7 @@ class Shell {
      * @param {Pointer<Byte>} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpca
@@ -21863,7 +22192,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpCA", "ptr", pszStr1, "ptr", pszStr2)
+        result := DllCall("SHLWAPI.dll\StrCmpCA", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
     }
 
@@ -21888,7 +22217,7 @@ class Shell {
      * @param {Pointer<Char>} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpcw
@@ -21898,7 +22227,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpCW", "ptr", pszStr1, "ptr", pszStr2)
+        result := DllCall("SHLWAPI.dll\StrCmpCW", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
     }
 
@@ -21923,7 +22252,7 @@ class Shell {
      * @param {Pointer<Byte>} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpica
@@ -21933,7 +22262,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpICA", "ptr", pszStr1, "ptr", pszStr2)
+        result := DllCall("SHLWAPI.dll\StrCmpICA", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
     }
 
@@ -21958,7 +22287,7 @@ class Shell {
      * @param {Pointer<Char>} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpicw
@@ -21968,7 +22297,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpICW", "ptr", pszStr1, "ptr", pszStr2)
+        result := DllCall("SHLWAPI.dll\StrCmpICW", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
     }
 
@@ -21996,7 +22325,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater than the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnca
@@ -22006,7 +22335,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNCA", "ptr", pszStr1, "ptr", pszStr2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNCA", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
     }
 
@@ -22034,7 +22363,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater than the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpncw
@@ -22044,7 +22373,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNCW", "ptr", pszStr1, "ptr", pszStr2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNCW", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
     }
 
@@ -22072,7 +22401,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnica
@@ -22082,7 +22411,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNICA", "ptr", pszStr1, "ptr", pszStr2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNICA", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
     }
 
@@ -22110,7 +22439,7 @@ class Shell {
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnicw
@@ -22120,7 +22449,7 @@ class Shell {
         pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
         pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
 
-        result := DllCall("SHLWAPI.dll\StrCmpNICW", "ptr", pszStr1, "ptr", pszStr2, "int", nChar)
+        result := DllCall("SHLWAPI.dll\StrCmpNICW", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
     }
 
@@ -22626,7 +22955,7 @@ class Shell {
      * @param {Pointer<Byte>} achPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the common prefix. This buffer must be at least MAX_PATH characters in size. If there is no common prefix, it is set to <b>NULL</b>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the count of common prefix characters in the path. If the output buffer pointer is not <b>NULL</b>, then these characters are copied to the output buffer.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcommonprefixa
@@ -22637,7 +22966,7 @@ class Shell {
         pszFile2 := pszFile2 is String? StrPtr(pszFile2) : pszFile2
         achPath := achPath is String? StrPtr(achPath) : achPath
 
-        result := DllCall("SHLWAPI.dll\PathCommonPrefixA", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath)
+        result := DllCall("SHLWAPI.dll\PathCommonPrefixA", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath, "int")
         return result
     }
 
@@ -22655,7 +22984,7 @@ class Shell {
      * @param {Pointer<Char>} achPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the common prefix. This buffer must be at least MAX_PATH characters in size. If there is no common prefix, it is set to <b>NULL</b>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the count of common prefix characters in the path. If the output buffer pointer is not <b>NULL</b>, then these characters are copied to the output buffer.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcommonprefixw
@@ -22666,7 +22995,7 @@ class Shell {
         pszFile2 := pszFile2 is String? StrPtr(pszFile2) : pszFile2
         achPath := achPath is String? StrPtr(achPath) : achPath
 
-        result := DllCall("SHLWAPI.dll\PathCommonPrefixW", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath)
+        result := DllCall("SHLWAPI.dll\PathCommonPrefixW", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath, "int")
         return result
     }
 
@@ -23090,7 +23419,7 @@ class Shell {
      * @param {Integer} ch Type: <b>TUCHAR</b>
      * 
      * The character for which to determine the type.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns one or more of the following values that define the type of character.
      * 
@@ -23159,7 +23488,7 @@ class Shell {
      * @since windows5.0
      */
     static PathGetCharTypeA(ch) {
-        result := DllCall("SHLWAPI.dll\PathGetCharTypeA", "char", ch)
+        result := DllCall("SHLWAPI.dll\PathGetCharTypeA", "char", ch, "uint")
         return result
     }
 
@@ -23171,7 +23500,7 @@ class Shell {
      * @param {Integer} ch Type: <b>TUCHAR</b>
      * 
      * The character for which to determine the type.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns one or more of the following values that define the type of character.
      * 
@@ -23240,7 +23569,7 @@ class Shell {
      * @since windows5.0
      */
     static PathGetCharTypeW(ch) {
-        result := DllCall("SHLWAPI.dll\PathGetCharTypeW", "char", ch)
+        result := DllCall("SHLWAPI.dll\PathGetCharTypeW", "char", ch, "uint")
         return result
     }
 
@@ -23252,7 +23581,7 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns 0 through 25 (corresponding to 'A' through 'Z') if the path has a drive letter, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetdrivenumbera
@@ -23261,7 +23590,7 @@ class Shell {
     static PathGetDriveNumberA(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathGetDriveNumberA", "ptr", pszPath)
+        result := DllCall("SHLWAPI.dll\PathGetDriveNumberA", "ptr", pszPath, "int")
         return result
     }
 
@@ -23273,7 +23602,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns 0 through 25 (corresponding to 'A' through 'Z') if the path has a drive letter, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetdrivenumberw
@@ -23282,7 +23611,7 @@ class Shell {
     static PathGetDriveNumberW(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathGetDriveNumberW", "ptr", pszPath)
+        result := DllCall("SHLWAPI.dll\PathGetDriveNumberW", "ptr", pszPath, "int")
         return result
     }
 
@@ -23990,7 +24319,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Modifies the search condition. The following are valid flags.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following values.
      * 
@@ -24030,6 +24359,9 @@ class Shell {
         pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecExA", "ptr", pszFile, "ptr", pszSpec, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -24047,7 +24379,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Modifies the search condition. The following are valid flags.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following values.
      * 
@@ -24087,6 +24419,9 @@ class Shell {
         pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecExW", "ptr", pszFile, "ptr", pszSpec, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -24097,7 +24432,7 @@ class Shell {
      * @param {Pointer<Byte>} pszIconFile Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains a file location string. It should be in the form "<i>path</i>,<i>iconindex</i>". When the function returns, <i>pszIconFile</i> will point to the file's path.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the valid icon index value.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathparseiconlocationa
@@ -24106,7 +24441,7 @@ class Shell {
     static PathParseIconLocationA(pszIconFile) {
         pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
 
-        result := DllCall("SHLWAPI.dll\PathParseIconLocationA", "ptr", pszIconFile)
+        result := DllCall("SHLWAPI.dll\PathParseIconLocationA", "ptr", pszIconFile, "int")
         return result
     }
 
@@ -24117,7 +24452,7 @@ class Shell {
      * @param {Pointer<Char>} pszIconFile Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains a file location string. It should be in the form "<i>path</i>,<i>iconindex</i>". When the function returns, <i>pszIconFile</i> will point to the file's path.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the valid icon index value.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathparseiconlocationw
@@ -24126,7 +24461,7 @@ class Shell {
     static PathParseIconLocationW(pszIconFile) {
         pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
 
-        result := DllCall("SHLWAPI.dll\PathParseIconLocationW", "ptr", pszIconFile)
+        result := DllCall("SHLWAPI.dll\PathParseIconLocationW", "ptr", pszIconFile, "int")
         return result
     }
 
@@ -24251,15 +24586,14 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove arguments.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveargsa
      * @since windows5.0
      */
     static PathRemoveArgsA(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveArgsA", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathRemoveArgsA", "ptr", pszPath)
     }
 
     /**
@@ -24269,15 +24603,14 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove arguments.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveargsw
      * @since windows5.0
      */
     static PathRemoveArgsW(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveArgsW", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathRemoveArgsW", "ptr", pszPath)
     }
 
     /**
@@ -24330,15 +24663,14 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to strip all leading and trailing spaces.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveblanksa
      * @since windows5.0
      */
     static PathRemoveBlanksA(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveBlanksA", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathRemoveBlanksA", "ptr", pszPath)
     }
 
     /**
@@ -24349,15 +24681,14 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to strip all leading and trailing spaces.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveblanksw
      * @since windows5.0
      */
     static PathRemoveBlanksW(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveBlanksW", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathRemoveBlanksW", "ptr", pszPath)
     }
 
     /**
@@ -24368,15 +24699,14 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to remove the extension.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveextensiona
      * @since windows5.0
      */
     static PathRemoveExtensionA(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveExtensionA", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathRemoveExtensionA", "ptr", pszPath)
     }
 
     /**
@@ -24387,15 +24717,14 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to remove the extension.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveextensionw
      * @since windows5.0
      */
     static PathRemoveExtensionW(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveExtensionW", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathRemoveExtensionW", "ptr", pszPath)
     }
 
     /**
@@ -24560,15 +24889,14 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to set in the control.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathsetdlgitempatha
      * @since windows5.0
      */
     static PathSetDlgItemPathA(hDlg, id, pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathSetDlgItemPathA", "ptr", hDlg, "int", id, "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathSetDlgItemPathA", "ptr", hDlg, "int", id, "ptr", pszPath)
     }
 
     /**
@@ -24585,15 +24913,14 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to set in the control.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathsetdlgitempathw
      * @since windows5.0
      */
     static PathSetDlgItemPathW(hDlg, id, pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathSetDlgItemPathW", "ptr", hDlg, "int", id, "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathSetDlgItemPathW", "ptr", hDlg, "int", id, "ptr", pszPath)
     }
 
     /**
@@ -24646,15 +24973,14 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path and file name. When this function returns successfully, the string contains only the file name, with the path removed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathstrippatha
      * @since windows5.0
      */
     static PathStripPathA(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathStripPathA", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathStripPathA", "ptr", pszPath)
     }
 
     /**
@@ -24665,15 +24991,14 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path and file name. When this function returns successfully, the string contains only the file name, with the path removed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathstrippathw
      * @since windows5.0
      */
     static PathStripPathW(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathStripPathW", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathStripPathW", "ptr", pszPath)
     }
 
     /**
@@ -24895,15 +25220,14 @@ class Shell {
      * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
      * 
      * A null-terminated string of length MAX_PATH that contains the path. When the function returns, <i>pszPath</i> points to the undecorated string.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathundecoratea
      * @since windows5.0
      */
     static PathUndecorateA(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathUndecorateA", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathUndecorateA", "ptr", pszPath)
     }
 
     /**
@@ -24913,15 +25237,14 @@ class Shell {
      * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
      * 
      * A null-terminated string of length MAX_PATH that contains the path. When the function returns, <i>pszPath</i> points to the undecorated string.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathundecoratew
      * @since windows5.0
      */
     static PathUndecorateW(pszPath) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathUndecorateW", "ptr", pszPath)
-        return result
+        DllCall("SHLWAPI.dll\PathUndecorateW", "ptr", pszPath)
     }
 
     /**
@@ -25092,7 +25415,7 @@ class Shell {
      * @param {Integer} fIgnoreSlash Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> to have <b>UrlCompare</b> ignore a trailing '/' character on either or both URLs.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the two strings are equal. The function will also return zero if <i>fIgnoreSlash</i> is set to <b>TRUE</b> and one of the strings has a trailing '\' character. The function returns a negative integer if the string pointed to by <i>psz1</i> is less than the string pointed to by <i>psz2</i>. Otherwise, it returns a positive integer.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcomparea
@@ -25102,7 +25425,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\UrlCompareA", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash)
+        result := DllCall("SHLWAPI.dll\UrlCompareA", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash, "int")
         return result
     }
 
@@ -25126,7 +25449,7 @@ class Shell {
      * @param {Integer} fIgnoreSlash Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> to have <b>UrlCompare</b> ignore a trailing '/' character on either or both URLs.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the two strings are equal. The function will also return zero if <i>fIgnoreSlash</i> is set to <b>TRUE</b> and one of the strings has a trailing '\' character. The function returns a negative integer if the string pointed to by <i>psz1</i> is less than the string pointed to by <i>psz2</i>. Otherwise, it returns a positive integer.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcomparew
@@ -25136,7 +25459,7 @@ class Shell {
         psz1 := psz1 is String? StrPtr(psz1) : psz1
         psz2 := psz2 is String? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\UrlCompareW", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash)
+        result := DllCall("SHLWAPI.dll\UrlCompareW", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash, "int")
         return result
     }
 
@@ -25194,7 +25517,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify how the URL is converted to canonical form. The following flags can be combined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns standard COM error codes, including the following.
      * 
@@ -25235,6 +25558,9 @@ class Shell {
         pszCombined := pszCombined is String? StrPtr(pszCombined) : pszCombined
 
         result := DllCall("SHLWAPI.dll\UrlCombineA", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, "uint*", pcchCombined, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25292,7 +25618,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify how the URL is converted to canonical form. The following flags can be combined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns standard COM error codes, including the following.
      * 
@@ -25333,6 +25659,9 @@ class Shell {
         pszCombined := pszCombined is String? StrPtr(pszCombined) : pszCombined
 
         result := DllCall("SHLWAPI.dll\UrlCombineW", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, "uint*", pcchCombined, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25367,7 +25696,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags that specify how the URL is converted to canonical form. The following flags can be combined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcanonicalizea
@@ -25378,6 +25707,9 @@ class Shell {
         pszCanonicalized := pszCanonicalized is String? StrPtr(pszCanonicalized) : pszCanonicalized
 
         result := DllCall("SHLWAPI.dll\UrlCanonicalizeA", "ptr", pszUrl, "ptr", pszCanonicalized, "uint*", pcchCanonicalized, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25412,7 +25744,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags that specify how the URL is converted to canonical form. The following flags can be combined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcanonicalizew
@@ -25423,6 +25755,9 @@ class Shell {
         pszCanonicalized := pszCanonicalized is String? StrPtr(pszCanonicalized) : pszCanonicalized
 
         result := DllCall("SHLWAPI.dll\UrlCanonicalizeW", "ptr", pszUrl, "ptr", pszCanonicalized, "uint*", pcchCanonicalized, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25676,7 +26011,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that control which characters are unescaped. It can be a combination of the following flags.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <b>URL_UNESCAPE_INPLACE</b> flag is not set, the value pointed to by <i>pcchUnescaped</i> will be set to the number of characters in the output buffer pointed to by <i>pszUnescaped</i>. Returns E_POINTER if the <b>URL_UNESCAPE_INPLACE</b> flag is not set and the output buffer is too small. The <i>pcchUnescaped</i> parameter will be set to the required buffer size. Otherwise, returns a standard error value.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlunescapea
@@ -25687,6 +26022,9 @@ class Shell {
         pszUnescaped := pszUnescaped is String? StrPtr(pszUnescaped) : pszUnescaped
 
         result := DllCall("SHLWAPI.dll\UrlUnescapeA", "ptr", pszUrl, "ptr", pszUnescaped, "uint*", pcchUnescaped, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25714,7 +26052,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that control which characters are unescaped. It can be a combination of the following flags.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <b>URL_UNESCAPE_INPLACE</b> flag is not set, the value pointed to by <i>pcchUnescaped</i> will be set to the number of characters in the output buffer pointed to by <i>pszUnescaped</i>. Returns E_POINTER if the <b>URL_UNESCAPE_INPLACE</b> flag is not set and the output buffer is too small. The <i>pcchUnescaped</i> parameter will be set to the required buffer size. Otherwise, returns a standard error value.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlunescapew
@@ -25725,6 +26063,9 @@ class Shell {
         pszUnescaped := pszUnescaped is String? StrPtr(pszUnescaped) : pszUnescaped
 
         result := DllCall("SHLWAPI.dll\UrlUnescapeW", "ptr", pszUrl, "ptr", pszUnescaped, "uint*", pcchUnescaped, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25825,7 +26166,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags that indicate which portion of the URL is being provided in <i>pszURL</i> and which characters in that string should be converted to their escape sequences. The following flags are defined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <i>pcchEscaped</i> buffer was too small to contain the result, E_POINTER is returned, and the value pointed to by <i>pcchEscaped</i> is set to the required buffer size. Otherwise, a standard error value is returned.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlescapea
@@ -25836,6 +26177,9 @@ class Shell {
         pszEscaped := pszEscaped is String? StrPtr(pszEscaped) : pszEscaped
 
         result := DllCall("SHLWAPI.dll\UrlEscapeA", "ptr", pszUrl, "ptr", pszEscaped, "uint*", pcchEscaped, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25936,7 +26280,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags that indicate which portion of the URL is being provided in <i>pszURL</i> and which characters in that string should be converted to their escape sequences. The following flags are defined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <i>pcchEscaped</i> buffer was too small to contain the result, E_POINTER is returned, and the value pointed to by <i>pcchEscaped</i> is set to the required buffer size. Otherwise, a standard error value is returned.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlescapew
@@ -25947,6 +26291,9 @@ class Shell {
         pszEscaped := pszEscaped is String? StrPtr(pszEscaped) : pszEscaped
 
         result := DllCall("SHLWAPI.dll\UrlEscapeW", "ptr", pszUrl, "ptr", pszEscaped, "uint*", pcchEscaped, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -25972,7 +26319,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Set this parameter to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_FALSE if <i>pszPath</i> is already in URL format. In this case, <i>pszPath</i> will simply be copied to <i>pszUrl</i>. Otherwise, it returns S_OK if successful or a standard COM error value if not.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcreatefrompatha
@@ -25983,6 +26330,9 @@ class Shell {
         pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlCreateFromPathA", "ptr", pszPath, "ptr", pszUrl, "uint*", pcchUrl, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26008,7 +26358,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Set this parameter to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_FALSE if <i>pszPath</i> is already in URL format. In this case, <i>pszPath</i> will simply be copied to <i>pszUrl</i>. Otherwise, it returns S_OK if successful or a standard COM error value if not.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcreatefrompathw
@@ -26019,6 +26369,9 @@ class Shell {
         pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlCreateFromPathW", "ptr", pszPath, "ptr", pszUrl, "uint*", pcchUrl, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26039,7 +26392,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Set this parameter to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcreatefromurla
@@ -26050,6 +26403,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlA", "ptr", pszUrl, "ptr", pszPath, "uint*", pcchPath, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26070,7 +26426,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Set this parameter to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcreatefromurlw
@@ -26081,6 +26437,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlW", "ptr", pszUrl, "ptr", pszPath, "uint*", pcchPath, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26095,7 +26454,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved, must be 0.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcreatefromurlalloc
@@ -26105,6 +26464,9 @@ class Shell {
         pszIn := pszIn is String? StrPtr(pszIn) : pszIn
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlAlloc", "ptr", pszIn, "ptr", ppszOut, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26128,7 +26490,7 @@ class Shell {
      * @param {Integer} cbHash Type: <b>DWORD</b>
      * 
      * The number of elements in the array at <i>pbHash</i>. It should be no larger than 256.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlhasha
@@ -26138,6 +26500,9 @@ class Shell {
         pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlHashA", "ptr", pszUrl, "ptr", pbHash, "uint", cbHash, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26161,7 +26526,7 @@ class Shell {
      * @param {Integer} cbHash Type: <b>DWORD</b>
      * 
      * The number of elements in the array at <i>pbHash</i>. It should be no larger than 256.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlhashw
@@ -26171,6 +26536,9 @@ class Shell {
         pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlHashW", "ptr", pszUrl, "ptr", pbHash, "uint", cbHash, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26192,7 +26560,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * A flag that can be set to keep the URL scheme, in addition to the part that is specified by <i>dwPart</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. The value pointed to by <i>pcchOut</i> will be set to the number of characters written to the output buffer, excluding the terminating <b>NULL</b>. If the buffer was too small, E_POINTER is returned, and the value pointed to by <i>pcchOut</i> will be set to the minimum number of characters that the buffer must be able to contain, including the terminating <b>NULL</b> character. Otherwise, a COM error value is returned.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlgetpartw
@@ -26203,6 +26571,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlGetPartW", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwPart, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26224,7 +26595,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * A flag that can be set to keep the URL scheme, in addition to the part that is specified by <i>dwPart</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. The value pointed to by <i>pcchOut</i> will be set to the number of characters written to the output buffer, excluding the terminating <b>NULL</b>. If the buffer was too small, E_POINTER is returned, and the value pointed to by <i>pcchOut</i> will be set to the minimum number of characters that the buffer must be able to contain, including the terminating <b>NULL</b> character. Otherwise, a COM error value is returned.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlgetparta
@@ -26235,6 +26606,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlGetPartA", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwPart, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26260,7 +26634,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags that specify how to determine the scheme. The following flags can be combined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a standard COM return value, including the following.
      * 
@@ -26311,6 +26685,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlApplySchemeA", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26336,7 +26713,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags that specify how to determine the scheme. The following flags can be combined.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a standard COM return value, including the following.
      * 
@@ -26387,6 +26764,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlApplySchemeW", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26404,7 +26784,7 @@ class Shell {
      * @param {Integer} cbHash Type: <b>DWORD</b>
      * 
      * The number of elements in <i>pbHash</i>. It should be no larger than 256.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-hashdata
@@ -26412,6 +26792,9 @@ class Shell {
      */
     static HashData(pbData, cbData, pbHash, cbHash) {
         result := DllCall("SHLWAPI.dll\HashData", "ptr", pbData, "uint", cbData, "ptr", pbHash, "uint", cbHash, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26434,7 +26817,7 @@ class Shell {
      * @param {Integer} cchMax Type: <b>DWORD</b>
      * 
      * The number of <b>WCHAR</b> characters that can be contained in the buffer pointed to by <i>pszTranslatedUrl</i>. This parameter must be greater than zero.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the proposed URL was already acceptable or was successfully corrected. The <i>pszTranslatedUrl</i> buffer contains the corrected URL, or the original URL if no correction was needed. Returns S_FALSE if the proposed URL could not be recognized sufficiently to be corrected. Otherwise, returns a standard COM error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlfixupw
@@ -26445,6 +26828,9 @@ class Shell {
         pszTranslatedUrl := pszTranslatedUrl is String? StrPtr(pszTranslatedUrl) : pszTranslatedUrl
 
         result := DllCall("SHLWAPI.dll\UrlFixupW", "ptr", pcszUrl, "ptr", pszTranslatedUrl, "uint", cchMax, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26458,7 +26844,7 @@ class Shell {
      * @param {Pointer<PARSEDURLA>} ppu Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ns-shlwapi-parsedurla">PARSEDURL</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ns-shlwapi-parsedurla">PARSEDURL</a> structure that receives the parsed results. The calling application must set the structure's <i>cbSize</i> member to the size of the structure before calling <b>ParseURL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success, or a COM error code otherwise. The function returns <b>URL_E_INVALID_SYNTAX</b> (defined in Intshcut.h) if the string could not be parsed as a URL.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-parseurla
@@ -26468,6 +26854,9 @@ class Shell {
         pcszURL := pcszURL is String? StrPtr(pcszURL) : pcszURL
 
         result := DllCall("SHLWAPI.dll\ParseURLA", "ptr", pcszURL, "ptr", ppu, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -26481,7 +26870,7 @@ class Shell {
      * @param {Pointer<PARSEDURLW>} ppu Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ns-shlwapi-parsedurla">PARSEDURL</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ns-shlwapi-parsedurla">PARSEDURL</a> structure that receives the parsed results. The calling application must set the structure's <i>cbSize</i> member to the size of the structure before calling <b>ParseURL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success, or a COM error code otherwise. The function returns <b>URL_E_INVALID_SYNTAX</b> (defined in Intshcut.h) if the string could not be parsed as a URL.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-parseurlw
@@ -26491,6 +26880,9 @@ class Shell {
         pcszURL := pcszURL is String? StrPtr(pcszURL) : pcszURL
 
         result := DllCall("SHLWAPI.dll\ParseURLW", "ptr", pcszURL, "ptr", ppu, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -28631,7 +29023,7 @@ class Shell {
      * @param {Integer} iDefault Type: <b>int</b>
      * 
      * An <b>int</b> that specifies the value returned if the registry value cannot be retrieved successfully.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the converted string as an <b>int</b>, or the default value specified by <i>nDefault</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetintw
@@ -28640,7 +29032,7 @@ class Shell {
     static SHRegGetIntW(hk, pwzKey, iDefault) {
         pwzKey := pwzKey is String? StrPtr(pwzKey) : pwzKey
 
-        result := DllCall("SHLWAPI.dll\SHRegGetIntW", "ptr", hk, "ptr", pwzKey, "int", iDefault)
+        result := DllCall("SHLWAPI.dll\SHRegGetIntW", "ptr", hk, "ptr", pwzKey, "int", iDefault, "int")
         return result
     }
 
@@ -28719,7 +29111,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void*</b>
      * 
      * When this method returns, contains the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assoccreate
@@ -28727,6 +29119,9 @@ class Shell {
      */
     static AssocCreate(clsid, riid, ppv) {
         result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -28764,7 +29159,7 @@ class Shell {
      * If the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOTRUNCATE</a> flag is set in <i>flags</i> and the buffer specified in <i>pszOut</i> is too small, the function returns E_POINTER and the value is set to the required size of the buffer.
      * 
      * If <i>pszOut</i> is <b>NULL</b>, the function returns S_FALSE and <i>pcchOut</i> points to the required size, in characters, of the buffer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a standard COM error value, including the following:
      *     
@@ -28797,6 +29192,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringA", "uint", flags, "int", str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -28834,7 +29232,7 @@ class Shell {
      * If the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOTRUNCATE</a> flag is set in <i>flags</i> and the buffer specified in <i>pszOut</i> is too small, the function returns E_POINTER and the value is set to the required size of the buffer.
      * 
      * If <i>pszOut</i> is <b>NULL</b>, the function returns S_FALSE and <i>pcchOut</i> points to the required size, in characters, of the buffer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a standard COM error value, including the following:
      *     
@@ -28867,6 +29265,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringW", "uint", flags, "int", str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -28904,7 +29305,7 @@ class Shell {
      * If the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOTRUNCATE</a> flag is set in <i>flags</i> and the buffer specified in <i>pszOut</i> is too small, the function returns E_POINTER and the value is set to the required size of the buffer.
      * 
      * If <i>pszOut</i> is <b>NULL</b>, the function returns S_FALSE and <i>pcchOut</i> points to the required size of the buffer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a standard COM error value, including the following:
      * 
@@ -28936,6 +29337,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyA", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -28973,7 +29377,7 @@ class Shell {
      * If the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_NOTRUNCATE</a> flag is set in <i>flags</i> and the buffer specified in <i>pszOut</i> is too small, the function returns E_POINTER and the value is set to the required size of the buffer.
      * 
      * If <i>pszOut</i> is <b>NULL</b>, the function returns S_FALSE and <i>pcchOut</i> points to the required size of the buffer.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a standard COM error value, including the following:
      * 
@@ -29005,6 +29409,9 @@ class Shell {
         pszOut := pszOut is String? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyW", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29033,7 +29440,7 @@ class Shell {
      * @param {Pointer<Void>} phkeyOut Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerykeya
@@ -29044,6 +29451,9 @@ class Shell {
         pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHLWAPI.dll\AssocQueryKeyA", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29072,7 +29482,7 @@ class Shell {
      * @param {Pointer<Void>} phkeyOut Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerykeyw
@@ -29083,6 +29493,9 @@ class Shell {
         pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHLWAPI.dll\AssocQueryKeyW", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29124,7 +29537,7 @@ class Shell {
      * @param {Pointer<Char>} ppszType Type: <b>PWSTR*</b>
      * 
      * If the function returns a success code, this contains the address of a pointer to a buffer that receives the perceived type string, for instance "text" or "video". This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocgetperceivedtype
@@ -29134,6 +29547,9 @@ class Shell {
         pszExt := pszExt is String? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHLWAPI.dll\AssocGetPerceivedType", "ptr", pszExt, "int*", ptype, "uint*", pflag, "ptr", ppszType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29157,7 +29573,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {Pointer<IStream>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, or an inability to open the stream. 
      * 
@@ -29172,7 +29588,7 @@ class Shell {
         pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode)
+        result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29196,7 +29612,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {Pointer<IStream>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, or an inability to open the stream. 
      * 
@@ -29211,7 +29627,7 @@ class Shell {
         pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode)
+        result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29235,7 +29651,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {Pointer<IStream>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, a subkey named by <i>pszSubkey</i> that does not exist, a caller without sufficient permissions to access the subkey, or an inability to open the stream.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstream2a
@@ -29245,7 +29661,7 @@ class Shell {
         pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode)
+        result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29269,7 +29685,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {Pointer<IStream>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, a subkey named by <i>pszSubkey</i> that does not exist, a caller without sufficient permissions to access the subkey, or an inability to open the stream.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstream2w
@@ -29279,7 +29695,7 @@ class Shell {
         pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode)
+        result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29302,7 +29718,7 @@ class Shell {
      * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatestreamonfilea
@@ -29312,6 +29728,9 @@ class Shell {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr", ppstm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29334,7 +29753,7 @@ class Shell {
      * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatestreamonfilew
@@ -29344,6 +29763,9 @@ class Shell {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr", ppstm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29418,7 +29840,7 @@ class Shell {
      * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatestreamonfileex
@@ -29428,6 +29850,9 @@ class Shell {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr", ppstm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29454,14 +29879,14 @@ class Shell {
      * @param {Integer} cbInit Type: <b>UINT</b>
      * 
      * The number of bytes in the buffer pointed to by <i>pInit</i>. If <i>pInit</i> is set to <b>NULL</b>, <i>cbInit</i> must be zero.
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {Pointer<IStream>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * On success, returns a pointer to the created memory stream. Returns <b>NULL</b> if the stream object could not be allocated.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatememstream
      * @since windows5.0
      */
     static SHCreateMemStream(pInit, cbInit) {
-        result := DllCall("SHLWAPI.dll\SHCreateMemStream", "ptr", pInit, "uint", cbInit)
+        result := DllCall("SHLWAPI.dll\SHCreateMemStream", "ptr", pInit, "uint", cbInit, "ptr")
         return result
     }
 
@@ -29491,7 +29916,7 @@ class Shell {
      * On entry, this value is the size of <i>pszLanguages</i>, including the terminating null character.
      * 
      * On exit, it is the actual size of <i>pszLanguages</i>, not including the terminating null character.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getacceptlanguagesa
@@ -29501,6 +29926,9 @@ class Shell {
         pszLanguages := pszLanguages is String? StrPtr(pszLanguages) : pszLanguages
 
         result := DllCall("SHLWAPI.dll\GetAcceptLanguagesA", "ptr", pszLanguages, "uint*", pcchLanguages, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29530,7 +29958,7 @@ class Shell {
      * On entry, this value is the size of <i>pszLanguages</i>, including the terminating null character.
      * 
      * On exit, it is the actual size of <i>pszLanguages</i>, not including the terminating null character.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getacceptlanguagesw
@@ -29540,6 +29968,9 @@ class Shell {
         pszLanguages := pszLanguages is String? StrPtr(pszLanguages) : pszLanguages
 
         result := DllCall("SHLWAPI.dll\GetAcceptLanguagesW", "ptr", pszLanguages, "uint*", pcchLanguages, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29561,13 +29992,12 @@ class Shell {
      * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * The interface pointer to be copied to <i>ppunk</i>. If the value is non-<b>NULL</b>, the function increments the interface's reference count.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_set
      * @since windows5.0
      */
     static IUnknown_Set(ppunk, punk) {
-        result := DllCall("SHLWAPI.dll\IUnknown_Set", "ptr", ppunk, "ptr", punk)
-        return result
+        DllCall("SHLWAPI.dll\IUnknown_Set", "ptr", ppunk, "ptr", punk)
     }
 
     /**
@@ -29577,13 +30007,12 @@ class Shell {
      * @param {Pointer<Void>} ppunk Type: <b>void**</b>
      * 
      * The address of a pointer to a COM interface.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_atomicrelease
      * @since windows5.0
      */
     static IUnknown_AtomicRelease(ppunk) {
-        result := DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", "ptr", ppunk)
-        return result
+        DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", "ptr", ppunk)
     }
 
     /**
@@ -29599,7 +30028,7 @@ class Shell {
      * @param {Pointer<Void>} phwnd Type: <b>HWND*</b>
      * 
      * A pointer to a HWND that, when this function returns successfully, receives the window handle. If a window handle was not obtained, this parameter is set to <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if a window handle was successfully returned, or a COM error code otherwise. If no suitable interface was found, the function returns E_NOINTERFACE. Otherwise, the function returns the <b>HRESULT</b> returned by the corresponding interface's <b>GetWindow</b> method.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_getwindow
@@ -29607,6 +30036,9 @@ class Shell {
      */
     static IUnknown_GetWindow(punk, phwnd) {
         result := DllCall("SHLWAPI.dll\IUnknown_GetWindow", "ptr", punk, "ptr", phwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29620,7 +30052,7 @@ class Shell {
      * @param {Pointer<IUnknown>} punkSite Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the IUnknown interface of the new site.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the site was successfully set, or a COM error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_setsite
@@ -29628,6 +30060,9 @@ class Shell {
      */
     static IUnknown_SetSite(punk, punkSite) {
         result := DllCall("SHLWAPI.dll\IUnknown_SetSite", "ptr", punk, "ptr", punkSite, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29644,7 +30079,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>VOID**</b>
      * 
      * The address of the pointer to receive the requested interface pointer. If the function call is successful, <i>ppvSite</i> will contain the requested interface pointer. If no site is available or the requested interface is not supported, <i>ppvSite</i> is set to <b>NULL</b> and the function returns a COM error code.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if the site was successfully retrieved or a COM error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_getsite
@@ -29652,6 +30087,9 @@ class Shell {
      */
     static IUnknown_GetSite(punk, riid, ppv) {
         result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29673,7 +30111,7 @@ class Shell {
      * @param {Pointer<Void>} ppvOut Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested <i>riid</i>. If successful, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> using this value when the service is no longer needed. In the case of failure, this value is <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful. Returns <b>E_FAIL</b> if the object does not support <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>. Otherwise, the function returns the <b>HRESULT</b> returned by the object's <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_queryservice
@@ -29681,6 +30119,9 @@ class Shell {
      */
     static IUnknown_QueryService(punk, guidService, riid, ppvOut) {
         result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, "ptr", ppvOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29697,7 +30138,7 @@ class Shell {
      * @param {Integer} cb Type: <b>ULONG</b>
      * 
      * The number of bytes of data that the function should attempt to read from the input stream.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if the function successfully reads the specified number of bytes from the stream, or a COM failure code otherwise. In particular, if the read attempt was successful but fewer than <i>cb</i> bytes were read, the function returns <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_read
@@ -29705,6 +30146,9 @@ class Shell {
      */
     static IStream_Read(pstm, pv, cb) {
         result := DllCall("SHLWAPI.dll\IStream_Read", "ptr", pstm, "ptr", pv, "uint", cb, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29719,7 +30163,7 @@ class Shell {
      * @param {Integer} cb Type: <b>ULONG</b>
      * 
      * The number of bytes of data to write to the target stream.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the function successfully wrote the specified number of bytes to the stream, or an error value otherwise. In particular, if less than <i>cb</i> bytes was written to the target stream, even if some data was successfully written, the function returns E_FAIL.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_write
@@ -29727,6 +30171,9 @@ class Shell {
      */
     static IStream_Write(pstm, pv, cb) {
         result := DllCall("SHLWAPI.dll\IStream_Write", "ptr", pstm, "ptr", pv, "uint", cb, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29737,7 +30184,7 @@ class Shell {
      * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream whose position is to be reset.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success or a COM failure code otherwise. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">IStream::Seek</a> for further discussion of possible error codes.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_reset
@@ -29745,6 +30192,9 @@ class Shell {
      */
     static IStream_Reset(pstm) {
         result := DllCall("SHLWAPI.dll\IStream_Reset", "ptr", pstm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29758,7 +30208,7 @@ class Shell {
      * @param {Pointer<UInt64>} pui Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a> structure to receive the size of the stream.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success or a COM failure code otherwise. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">IStream::Stat</a> for further discussion of possible error codes.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_size
@@ -29766,6 +30216,9 @@ class Shell {
      */
     static IStream_Size(pstm, pui) {
         result := DllCall("SHLWAPI.dll\IStream_Size", "ptr", pstm, "uint*", pui, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29789,7 +30242,7 @@ class Shell {
      * @param {Pointer<IConnectionPoint>} ppcpOut Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iconnectionpoint">IConnectionPoint</a>**</b>
      * 
      * A pointer to the connection point container's <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iconnectionpoint">IConnectionPoint</a> interface, if the operation was successful. The calling application must release this pointer when it is no longer needed. If the request is unsuccessful, the pointer receives <b>NULL</b>. This parameter is optional and can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-connecttoconnectionpoint
@@ -29797,6 +30250,9 @@ class Shell {
      */
     static ConnectToConnectionPoint(punk, riidEvent, fConnect, punkTarget, pdwCookie, ppcpOut) {
         result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, "ptr", riidEvent, "int", fConnect, "ptr", punkTarget, "uint*", pdwCookie, "ptr", ppcpOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29808,7 +30264,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} ppidlOut Type: <b>PIDLIST_RELATIVE*</b>
      * 
      * A pointer to the resulting PIDL.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_readpidl
@@ -29816,6 +30272,9 @@ class Shell {
      */
     static IStream_ReadPidl(pstm, ppidlOut) {
         result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, "ptr", ppidlOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29827,7 +30286,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlWrite Type: <b>PCUIDLIST_RELATIVE</b>
      * 
      * The source PIDL.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_writepidl
@@ -29835,6 +30294,9 @@ class Shell {
      */
     static IStream_WritePidl(pstm, pidlWrite) {
         result := DllCall("SHLWAPI.dll\IStream_WritePidl", "ptr", pstm, "ptr", pidlWrite, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29846,7 +30308,7 @@ class Shell {
      * @param {Pointer<Char>} ppsz Type: <b>PWSTR*</b>
      * 
      * A pointer to the null-terminated, Unicode string into which the stream is written.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_readstr
@@ -29854,6 +30316,9 @@ class Shell {
      */
     static IStream_ReadStr(pstm, ppsz) {
         result := DllCall("SHLWAPI.dll\IStream_ReadStr", "ptr", pstm, "ptr", ppsz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29865,7 +30330,7 @@ class Shell {
      * @param {Pointer<Char>} psz Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string from which to read.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_writestr
@@ -29875,6 +30340,9 @@ class Shell {
         psz := psz is String? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\IStream_WriteStr", "ptr", pstm, "ptr", psz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29889,7 +30357,7 @@ class Shell {
      * @param {Integer} cb Type: <b>DWORD</b>
      * 
      * The number of bytes to copy from the source stream.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_copy
@@ -29897,6 +30365,9 @@ class Shell {
      */
     static IStream_Copy(pstmFrom, pstmTo, cb) {
         result := DllCall("SHLWAPI.dll\IStream_Copy", "ptr", pstmFrom, "ptr", pstmTo, "uint", cb, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29924,7 +30395,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetviewstatepropertybag
@@ -29934,6 +30405,9 @@ class Shell {
         pszBagName := pszBagName is String? StrPtr(pszBagName) : pszBagName
 
         result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -29959,7 +30433,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The number of TCHARs that can be contained by the buffer pointed to by <i>pszBuf</i>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of TCHARs written to the buffer, including the terminating null character. On failure, this value is 0.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shformatdatetimea
@@ -29968,7 +30442,7 @@ class Shell {
     static SHFormatDateTimeA(pft, pdwFlags, pszBuf, cchBuf) {
         pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\SHFormatDateTimeA", "ptr", pft, "uint*", pdwFlags, "ptr", pszBuf, "uint", cchBuf)
+        result := DllCall("SHLWAPI.dll\SHFormatDateTimeA", "ptr", pft, "uint*", pdwFlags, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
     }
 
@@ -29994,7 +30468,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The number of TCHARs that can be contained by the buffer pointed to by <i>pszBuf</i>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of TCHARs written to the buffer, including the terminating null character. On failure, this value is 0.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shformatdatetimew
@@ -30003,7 +30477,7 @@ class Shell {
     static SHFormatDateTimeW(pft, pdwFlags, pszBuf, cchBuf) {
         pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\SHFormatDateTimeW", "ptr", pft, "uint*", pdwFlags, "ptr", pszBuf, "uint", cchBuf)
+        result := DllCall("SHLWAPI.dll\SHFormatDateTimeW", "ptr", pft, "uint*", pdwFlags, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
     }
 
@@ -30028,7 +30502,7 @@ class Shell {
      * @param {Integer} cwchBuf Type: <b>int</b>
      * 
      * The number of Unicode characters that can be contained by the buffer pointed to by <i>pwszDst</i>. This parameter must be greater than zero.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of Unicode characters written to <i>pwszDst</i>, including the terminating null character. Returns 0 if unsuccessful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shansitounicode
@@ -30038,7 +30512,7 @@ class Shell {
         pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
         pwszDst := pwszDst is String? StrPtr(pwszDst) : pwszDst
 
-        result := DllCall("SHLWAPI.dll\SHAnsiToUnicode", "ptr", pszSrc, "ptr", pwszDst, "int", cwchBuf)
+        result := DllCall("SHLWAPI.dll\SHAnsiToUnicode", "ptr", pszSrc, "ptr", pwszDst, "int", cwchBuf, "int")
         return result
     }
 
@@ -30062,7 +30536,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>int</b>
      * 
      * The number of characters that can be contained by the buffer pointed to by <i>pszDst</i>. This parameter must be greater than zero.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to <i>pszDst</i>, including the terminating null character. Returns 0 if unsuccessful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shansitoansi
@@ -30072,7 +30546,7 @@ class Shell {
         pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
         pszDst := pszDst is String? StrPtr(pszDst) : pszDst
 
-        result := DllCall("SHLWAPI.dll\SHAnsiToAnsi", "ptr", pszSrc, "ptr", pszDst, "int", cchBuf)
+        result := DllCall("SHLWAPI.dll\SHAnsiToAnsi", "ptr", pszSrc, "ptr", pszDst, "int", cchBuf, "int")
         return result
     }
 
@@ -30097,7 +30571,7 @@ class Shell {
      * @param {Integer} cchBuf Type: <b>int</b>
      * 
      * The number of <b>CHAR</b> values that can be contained by the buffer pointed to by <i>pszDst</i>. The value assigned to parameter must be greater than zero.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of <b>CHAR</b> values written to the output buffer, including the terminating null character. Returns 0 if unsuccessful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shunicodetoansi
@@ -30107,7 +30581,7 @@ class Shell {
         pwszSrc := pwszSrc is String? StrPtr(pwszSrc) : pwszSrc
         pszDst := pszDst is String? StrPtr(pszDst) : pszDst
 
-        result := DllCall("SHLWAPI.dll\SHUnicodeToAnsi", "ptr", pwszSrc, "ptr", pszDst, "int", cchBuf)
+        result := DllCall("SHLWAPI.dll\SHUnicodeToAnsi", "ptr", pwszSrc, "ptr", pszDst, "int", cchBuf, "int")
         return result
     }
 
@@ -30134,7 +30608,7 @@ class Shell {
      * @param {Integer} cwchBuf Type: <b>int</b>
      * 
      * The number of <b>WCHAR</b> characters that can be contained by the buffer pointed to by <i>pwzDst</i> parameter. This parameter must be greater than zero.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of <b>WCHAR</b> characters written to the output buffer, including the terminating null character. Returns 0 if unsuccessful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shunicodetounicode
@@ -30144,7 +30618,7 @@ class Shell {
         pwzSrc := pwzSrc is String? StrPtr(pwzSrc) : pwzSrc
         pwzDst := pwzDst is String? StrPtr(pwzDst) : pwzDst
 
-        result := DllCall("SHLWAPI.dll\SHUnicodeToUnicode", "ptr", pwzSrc, "ptr", pwzDst, "int", cwchBuf)
+        result := DllCall("SHLWAPI.dll\SHUnicodeToUnicode", "ptr", pwzSrc, "ptr", pwzDst, "int", cwchBuf, "int")
         return result
     }
 
@@ -30210,7 +30684,7 @@ class Shell {
      * @param {Pointer<Byte>} pszRegVal Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains a unique string value to associate with this message. To avoid collisions with values used by Microsoft, this string should include a GUID. This string must not exceed REGSTR_MAX_VALUE_LENGTH characters in length, including the terminating null character.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the user has already chosen to suppress the message box, the function immediately returns the value assigned to <i>iDefault</i>.
      * 
@@ -30227,7 +30701,7 @@ class Shell {
         pszCaption := pszCaption is String? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String? StrPtr(pszRegVal) : pszRegVal
 
-        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal)
+        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
     }
 
@@ -30294,7 +30768,7 @@ class Shell {
      * @param {Pointer<Char>} pszRegVal Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains a unique string value to associate with this message. To avoid collisions with values used by Microsoft, this string should include a GUID. This string must not exceed REGSTR_MAX_VALUE_LENGTH characters in length, including the terminating null character.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the user has already chosen to suppress the message box, the function immediately returns the value assigned to <i>iDefault</i>.
      * 
@@ -30311,7 +30785,7 @@ class Shell {
         pszCaption := pszCaption is String? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String? StrPtr(pszRegVal) : pszRegVal
 
-        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal)
+        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
     }
 
@@ -30611,7 +31085,7 @@ class Shell {
      * @param {Integer} dwProcessId Type: <b>DWORD</b>
      * 
      * The process ID of the process from which you want to map the block of memory.
-     * @returns {Pointer} Returns a void pointer to the shared memory. Returns <b>NULL</b> if unsuccessful.
+     * @returns {Pointer<Void>} Returns a void pointer to the shared memory. Returns <b>NULL</b> if unsuccessful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shlockshared
      * @since windows5.1.2600
      */
@@ -30647,7 +31121,7 @@ class Shell {
      * WhichPlatform may be altered or unavailable.
      * @remarks
      * This function always returns PLATFORM_INTEGRATED because Windows XP comes with an integrated shell.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * <table>
      * <tr>
@@ -30703,7 +31177,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static WhichPlatform() {
-        result := DllCall("SHLWAPI.dll\WhichPlatform")
+        result := DllCall("SHLWAPI.dll\WhichPlatform", "uint")
         return result
     }
 
@@ -30734,7 +31208,7 @@ class Shell {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the requested interface was found in the table or if the requested interface was IUnknown. Returns E_NOINTERFACE if the requested interface was not found.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-qisearch
@@ -30742,6 +31216,9 @@ class Shell {
      */
     static QISearch(that, pqit, riid, ppv) {
         result := DllCall("SHLWAPI.dll\QISearch", "ptr", that, "ptr", pqit, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30776,14 +31253,14 @@ class Shell {
      * @param {Integer} id Type: <b>UINT</b>
      * 
      * An application-defined 16-bit value that identifies the menu item.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The item's zero-based position in the menu.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getmenuposfromid
      * @since windows5.1.2600
      */
     static GetMenuPosFromID(hmenu, id) {
-        result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", hmenu, "uint", id)
+        result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", hmenu, "uint", id, "int")
         return result
     }
 
@@ -30819,7 +31296,7 @@ class Shell {
      * @param {Integer} cbMap Type: <b>ULONG</b>
      * 
      * The size of the buffer pointed to by <i>pbMap</i>, which also defines its contents. Two values are recognized.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetinversecmap
@@ -30827,6 +31304,9 @@ class Shell {
      */
     static SHGetInverseCMAP(pbMap, cbMap) {
         result := DllCall("SHLWAPI.dll\SHGetInverseCMAP", "ptr", pbMap, "uint", cbMap, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30846,7 +31326,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * The flags to control the operation of <b>SHAutoComplete</b>. The first four flags are used to override the Internet Explorer registry settings. The user can change these settings manually by launching the <b>Internet Options</b> property sheet from the <b>Tools</b> menu and clicking the <b>Advanced</b> tab.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shautocomplete
@@ -30854,6 +31334,9 @@ class Shell {
      */
     static SHAutoComplete(hwndEdit, dwFlags) {
         result := DllCall("SHLWAPI.dll\SHAutoComplete", "ptr", hwndEdit, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30867,7 +31350,7 @@ class Shell {
      * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. If successful, this parameter holds the thread's <b>IUnknown</b> pointer on return. Your application is responsible for freeing the pointer when it is finished.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatethreadref
@@ -30875,6 +31358,9 @@ class Shell {
      */
     static SHCreateThreadRef(pcRef, ppunk) {
         result := DllCall("SHLWAPI.dll\SHCreateThreadRef", "int*", pcRef, "ptr", ppunk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30885,7 +31371,7 @@ class Shell {
      * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object for which you want to store a reference. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsetthreadref
@@ -30893,6 +31379,9 @@ class Shell {
      */
     static SHSetThreadRef(punk) {
         result := DllCall("SHLWAPI.dll\SHSetThreadRef", "ptr", punk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30901,7 +31390,7 @@ class Shell {
      * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer that, when this function returns successfully, points to the object whose reference is stored. Your application is responsible for freeing this resource when it is no longer needed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the object reference exists, or <b>E_NOINTERFACE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetthreadref
@@ -30909,6 +31398,9 @@ class Shell {
      */
     static SHGetThreadRef(ppunk) {
         result := DllCall("SHLWAPI.dll\SHGetThreadRef", "ptr", ppunk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31050,7 +31542,7 @@ class Shell {
 
     /**
      * Releases a thread reference before the thread procedure returns.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreleasethreadref
@@ -31058,6 +31550,9 @@ class Shell {
      */
     static SHReleaseThreadRef() {
         result := DllCall("SHLWAPI.dll\SHReleaseThreadRef", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31104,13 +31599,12 @@ class Shell {
      * 
      * A pointer to a value that, when this method returns successfully, receives the HLS saturation value.
      * Can range from 0 to 240.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-colorrgbtohls
      * @since windows5.0
      */
     static ColorRGBToHLS(clrRGB, pwHue, pwLuminance, pwSaturation) {
-        result := DllCall("SHLWAPI.dll\ColorRGBToHLS", "uint", clrRGB, "ushort*", pwHue, "ushort*", pwLuminance, "ushort*", pwSaturation)
-        return result
+        DllCall("SHLWAPI.dll\ColorRGBToHLS", "uint", clrRGB, "ushort*", pwHue, "ushort*", pwLuminance, "ushort*", pwSaturation)
     }
 
     /**
@@ -31187,13 +31681,16 @@ class Shell {
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31207,7 +31704,7 @@ class Shell {
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         pwzTarget := pwzTarget is String? StrPtr(pwzTarget) : pwzTarget
@@ -31215,6 +31712,9 @@ class Shell {
         pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31226,20 +31726,26 @@ class Shell {
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IDataObject>} piDataObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkQueryCreateFromData(piDataObj) {
         result := DllCall("hlink.dll\HlinkQueryCreateFromData", "ptr", piDataObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31250,10 +31756,13 @@ class Shell {
      * @param {Pointer<IHlinkSite>} pihlsiteForClone 
      * @param {Integer} dwSiteData 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData, ppvObj) {
         result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31262,10 +31771,13 @@ class Shell {
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateBrowseContext(piunkOuter, riid, ppvObj) {
         result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31280,13 +31792,16 @@ class Shell {
      * @param {Pointer<IBindCtx>} pibc 
      * @param {Pointer<IBindStatusCallback>} pibsc 
      * @param {Pointer<IHlinkBrowseContext>} pihlbc 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkNavigateToStringReference(pwzTarget, pwzLocation, pihlsite, dwSiteData, pihlframe, grfHLNF, pibc, pibsc, pihlbc) {
         pwzTarget := pwzTarget is String? StrPtr(pwzTarget) : pwzTarget
         pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
 
         result := DllCall("hlink.dll\HlinkNavigateToStringReference", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pihlsite, "uint", dwSiteData, "ptr", pihlframe, "uint", grfHLNF, "ptr", pibc, "ptr", pibsc, "ptr", pihlbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31298,10 +31813,13 @@ class Shell {
      * @param {Pointer<IBindCtx>} pbc 
      * @param {Pointer<IBindStatusCallback>} pibsc 
      * @param {Pointer<IHlinkBrowseContext>} pihlbc 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkNavigate(pihl, pihlframe, grfHLNF, pbc, pibsc, pihlbc) {
         result := DllCall("hlink.dll\HlinkNavigate", "ptr", pihl, "ptr", pihlframe, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31314,13 +31832,16 @@ class Shell {
      * @param {Pointer<Char>} pwzLocation 
      * @param {Pointer<Char>} pwzFriendlyName 
      * @param {Pointer<UInt32>} puHLID 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkOnNavigate(pihlframe, pihlbc, grfHLNF, pimkTarget, pwzLocation, pwzFriendlyName, puHLID) {
         pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkOnNavigate", "ptr", pihlframe, "ptr", pihlbc, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint*", puHLID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31332,13 +31853,16 @@ class Shell {
      * @param {Pointer<IMoniker>} pimkTrgt 
      * @param {Pointer<Char>} pwzLocation 
      * @param {Pointer<Char>} pwzFriendlyName 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkUpdateStackItem(pihlframe, pihlbc, uHLID, pimkTrgt, pwzLocation, pwzFriendlyName) {
         pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkUpdateStackItem", "ptr", pihlframe, "ptr", pihlbc, "uint", uHLID, "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31348,10 +31872,13 @@ class Shell {
      * @param {Pointer<IHlinkBrowseContext>} pihlbc 
      * @param {Pointer<IMoniker>} pimkOld 
      * @param {Pointer<IMoniker>} pimkNew 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkOnRenameDocument(dwReserved, pihlbc, pimkOld, pimkNew) {
         result := DllCall("hlink.dll\HlinkOnRenameDocument", "uint", dwReserved, "ptr", pihlbc, "ptr", pimkOld, "ptr", pimkNew, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31364,10 +31891,13 @@ class Shell {
      * @param {Pointer<FORMATETC>} rgFmtetc 
      * @param {Pointer<IBindStatusCallback>} pibsc 
      * @param {Pointer<IMoniker>} pimkBase 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkResolveMonikerForData(pimkReference, reserved, pibc, cFmtetc, rgFmtetc, pibsc, pimkBase) {
         result := DllCall("hlink.dll\HlinkResolveMonikerForData", "ptr", pimkReference, "uint", reserved, "ptr", pibc, "uint", cFmtetc, "ptr", rgFmtetc, "ptr", pibsc, "ptr", pimkBase, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31380,12 +31910,15 @@ class Shell {
      * @param {Pointer<FORMATETC>} rgFmtetc 
      * @param {Pointer<IBindStatusCallback>} pibsc 
      * @param {Pointer<IMoniker>} pimkBase 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkResolveStringForData(pwzReference, reserved, pibc, cFmtetc, rgFmtetc, pibsc, pimkBase) {
         pwzReference := pwzReference is String? StrPtr(pwzReference) : pwzReference
 
         result := DllCall("hlink.dll\HlinkResolveStringForData", "ptr", pwzReference, "uint", reserved, "ptr", pibc, "uint", cFmtetc, "ptr", rgFmtetc, "ptr", pibsc, "ptr", pimkBase, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31396,12 +31929,15 @@ class Shell {
      * @param {Integer} fNoForceAbs 
      * @param {Pointer<UInt32>} pcchEaten 
      * @param {Pointer<IMoniker>} ppimk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten, ppimk) {
         pwzDisplayName := pwzDisplayName is String? StrPtr(pwzDisplayName) : pwzDisplayName
 
         result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, "uint*", pcchEaten, "ptr", ppimk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31414,7 +31950,7 @@ class Shell {
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid, ppvObj) {
         pwzAdditionalHeaders := pwzAdditionalHeaders is String? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders
@@ -31422,6 +31958,9 @@ class Shell {
         pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
 
         result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31430,10 +31969,13 @@ class Shell {
      * @param {Pointer<IBindCtx>} pibc 
      * @param {Pointer<IMoniker>} pimkIn 
      * @param {Pointer<IMoniker>} ppimkOut 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkPreprocessMoniker(pibc, pimkIn, ppimkOut) {
         result := DllCall("hlink.dll\HlinkPreprocessMoniker", "ptr", pibc, "ptr", pimkIn, "ptr", ppimkOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31442,10 +31984,13 @@ class Shell {
      * @param {Pointer<IUnknown>} piunk 
      * @param {Pointer<IStream>} pistm 
      * @param {Integer} fClearDirty 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static OleSaveToStreamEx(piunk, pistm, fClearDirty) {
         result := DllCall("hlink.dll\OleSaveToStreamEx", "ptr", piunk, "ptr", pistm, "int", fClearDirty, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31453,12 +31998,15 @@ class Shell {
      * 
      * @param {Integer} uReference 
      * @param {Pointer<Char>} pwzReference 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkSetSpecialReference(uReference, pwzReference) {
         pwzReference := pwzReference is String? StrPtr(pwzReference) : pwzReference
 
         result := DllCall("hlink.dll\HlinkSetSpecialReference", "uint", uReference, "ptr", pwzReference, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31466,10 +32014,13 @@ class Shell {
      * 
      * @param {Integer} uReference 
      * @param {Pointer<Char>} ppwzReference 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkGetSpecialReference(uReference, ppwzReference) {
         result := DllCall("hlink.dll\HlinkGetSpecialReference", "uint", uReference, "ptr", ppwzReference, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31481,13 +32032,16 @@ class Shell {
      * @param {Pointer<Char>} pwzFileName 
      * @param {Pointer<Char>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateShortcut(grfHLSHORTCUTF, pihl, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
         pwzDir := pwzDir is String? StrPtr(pwzDir) : pwzDir
         pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcut", "uint", grfHLSHORTCUTF, "ptr", pihl, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31500,7 +32054,7 @@ class Shell {
      * @param {Pointer<Char>} pwzFileName 
      * @param {Pointer<Char>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateShortcutFromMoniker(grfHLSHORTCUTF, pimkTarget, pwzLocation, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
         pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
@@ -31508,6 +32062,9 @@ class Shell {
         pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcutFromMoniker", "uint", grfHLSHORTCUTF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31520,7 +32077,7 @@ class Shell {
      * @param {Pointer<Char>} pwzFileName 
      * @param {Pointer<Char>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkCreateShortcutFromString(grfHLSHORTCUTF, pwzTarget, pwzLocation, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
         pwzTarget := pwzTarget is String? StrPtr(pwzTarget) : pwzTarget
@@ -31529,6 +32086,9 @@ class Shell {
         pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcutFromString", "uint", grfHLSHORTCUTF, "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31540,12 +32100,15 @@ class Shell {
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         pwzShortcutFileName := pwzShortcutFileName is String? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
         result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31554,12 +32117,15 @@ class Shell {
      * @param {Pointer<Char>} pwzShortcutFileName 
      * @param {Pointer<IMoniker>} ppimkTarget 
      * @param {Pointer<Char>} ppwzLocation 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkResolveShortcutToMoniker(pwzShortcutFileName, ppimkTarget, ppwzLocation) {
         pwzShortcutFileName := pwzShortcutFileName is String? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
         result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr", ppimkTarget, "ptr", ppwzLocation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31568,24 +32134,30 @@ class Shell {
      * @param {Pointer<Char>} pwzShortcutFileName 
      * @param {Pointer<Char>} ppwzTarget 
      * @param {Pointer<Char>} ppwzLocation 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkResolveShortcutToString(pwzShortcutFileName, ppwzTarget, ppwzLocation) {
         pwzShortcutFileName := pwzShortcutFileName is String? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
         result := DllCall("hlink.dll\HlinkResolveShortcutToString", "ptr", pwzShortcutFileName, "ptr", ppwzTarget, "ptr", ppwzLocation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Char>} pwzFileName 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkIsShortcut(pwzFileName) {
         pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkIsShortcut", "ptr", pwzFileName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31594,13 +32166,16 @@ class Shell {
      * @param {Pointer<Char>} pwzParams 
      * @param {Pointer<Char>} pwzName 
      * @param {Pointer<Char>} ppwzValue 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkGetValueFromParams(pwzParams, pwzName, ppwzValue) {
         pwzParams := pwzParams is String? StrPtr(pwzParams) : pwzParams
         pwzName := pwzName is String? StrPtr(pwzName) : pwzName
 
         result := DllCall("hlink.dll\HlinkGetValueFromParams", "ptr", pwzParams, "ptr", pwzName, "ptr", ppwzValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31609,12 +32184,15 @@ class Shell {
      * @param {Pointer<Char>} pwzURL 
      * @param {Integer} grfFlags 
      * @param {Pointer<Char>} ppwzTranslatedURL 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkTranslateURL(pwzURL, grfFlags, ppwzTranslatedURL) {
         pwzURL := pwzURL is String? StrPtr(pwzURL) : pwzURL
 
         result := DllCall("hlink.dll\HlinkTranslateURL", "ptr", pwzURL, "uint", grfFlags, "ptr", ppwzTranslatedURL, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31767,7 +32345,7 @@ class Shell {
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<Char>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to the terminating null character at the end of the string.
      * @param {Pointer<UIntPtr>} pcchRemaining A pointer to a value that, when this function returns successfully, is set to the number of unused characters in the destination buffer, including the terminating null character.
-     * @returns {Integer} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchaddbackslashex
      * @since windows8.0
      */
@@ -31775,6 +32353,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, "ptr*", pcchRemaining, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31782,7 +32363,7 @@ class Shell {
      * Adds a backslash to the end of a string to create the correct syntax for a path. (PathCchAddBackslash)
      * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @returns {Integer} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchaddbackslash
      * @since windows8.0
      */
@@ -31790,6 +32371,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslash", "ptr", pszPath, "ptr", cchPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31801,7 +32385,7 @@ class Shell {
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<Char>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to end of the new string. If the string is a root path such as "C:\", the pointer points to the backslash; otherwise the pointer points to the string's terminating null character.
      * @param {Pointer<UIntPtr>} pcchRemaining A pointer to a value that, when this function returns successfully, receives the number of unused characters in the destination buffer, including the terminating null character. If the string is a root path such as "C:\", this count includes the backslash in that string.
-     * @returns {Integer} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremovebackslashex
      * @since windows8.0
      */
@@ -31809,6 +32393,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, "ptr*", pcchRemaining, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31818,7 +32405,7 @@ class Shell {
      * This function will not remove the backslash from a root path string, such as "C:\".
      * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @returns {Integer} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremovebackslash
      * @since windows8.0
      */
@@ -31826,6 +32413,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslash", "ptr", pszPath, "ptr", cchPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31833,7 +32423,7 @@ class Shell {
      * Retrieves a pointer to the first character in a path following the drive letter or Universal Naming Convention (UNC) server/share path elements.This function differs from PathSkipRoot in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
      * @param {Pointer<Char>} pszPath A pointer to the path string.
      * @param {Pointer<Char>} ppszRootEnd The address of a pointer that, when this function returns successfully, points to the first character in a path following the drive letter or UNC server/share path elements. If the path consists of only a root, this value will point to the string's terminating null character.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchskiproot
      * @since windows8.0
      */
@@ -31841,6 +32431,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchSkipRoot", "ptr", pszPath, "ptr", ppszRootEnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31869,7 +32462,7 @@ class Shell {
      * </table>
      * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, this string contains only the root information taken from that path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @returns {Integer} This function returns <b>S_OK</b> if the path was truncated, <b>S_FALSE</b> if the path was already just a root, or an <b>HRESULT</b> failure code.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the path was truncated, <b>S_FALSE</b> if the path was already just a root, or an <b>HRESULT</b> failure code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchstriptoroot
      * @since windows8.0
      */
@@ -31877,6 +32470,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchStripToRoot", "ptr", pszPath, "ptr", cchPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31913,7 +32509,7 @@ class Shell {
      * </table>
      * @param {Pointer<Char>} pszPath A pointer to the fully-qualified path string. When this function returns successfully, the string will have had its last element and its leading backslash removed. This function does not affect root paths such as "C:\". In the case of a root path, the path string is returned unaltered. If a path string ends with a trailing backslash, only that backslash is removed.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @returns {Integer} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if there was nothing to remove, or an error code otherwise.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if there was nothing to remove, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremovefilespec
      * @since windows8.0
      */
@@ -31921,6 +32517,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveFileSpec", "ptr", pszPath, "ptr", cchPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31929,7 +32528,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath A pointer to the path to search.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<Char>} ppszExt The address of a pointer that, when this function returns successfully, points to the "." character that precedes the extension within <i>pszPath</i>. If no extension is found, it points to the string's terminating null character.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchfindextension
      * @since windows8.0
      */
@@ -31937,6 +32536,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchFindExtension", "ptr", pszPath, "ptr", cchPath, "ptr", ppszExt, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31947,7 +32549,7 @@ class Shell {
      * <div class="alert"><b>Note</b>  If the original string already has a file name extension present, no new extension will be added and the original string will be unchanged.</div>
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<Char>} pszExt A pointer to the file name extension string. This string can be given either with or without a preceding period (".ext" or "ext").
-     * @returns {Integer} This function returns an <b>HRESULT</b> code, including the following.
+     * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
      * <tr>
@@ -32003,6 +32605,9 @@ class Shell {
         pszExt := pszExt is String? StrPtr(pszExt) : pszExt
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddExtension", "ptr", pszPath, "ptr", cchPath, "ptr", pszExt, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32011,7 +32616,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, this value points to the same string, but with the renamed or added extension.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<Char>} pszExt A pointer to the new extension string. The leading '.' character is optional. In the case of an empty string (""), any existing extension in the path string is removed.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchrenameextension
      * @since windows8.0
      */
@@ -32020,6 +32625,9 @@ class Shell {
         pszExt := pszExt is String? StrPtr(pszExt) : pszExt
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRenameExtension", "ptr", pszPath, "ptr", cchPath, "ptr", pszExt, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32027,7 +32635,7 @@ class Shell {
      * Removes the file name extension from a path, if one is present.This function differs from PathRemoveExtension in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
      * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any extension removed. If no extension was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @returns {Integer} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if no extension was found, or an error code otherwise.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if no extension was found, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremoveextension
      * @since windows8.0
      */
@@ -32035,6 +32643,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveExtension", "ptr", pszPath, "ptr", cchPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32170,7 +32781,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including but not limited to the following.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including but not limited to the following.
      * 
      * <table>
      * <tr>
@@ -32216,6 +32827,9 @@ class Shell {
         pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCanonicalizeEx", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32265,7 +32879,7 @@ class Shell {
      * @param {Pointer<Char>} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the canonicalized path string.
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
      * @param {Pointer<Char>} pszPathIn A pointer to the original path string. If this value points to an empty string, or results in an empty string once the "." and ".." elements are removed, a single backslash is copied to the buffer pointed to by <i>pszPathOut</i>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
      * <tr>
@@ -32311,6 +32925,9 @@ class Shell {
         pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCanonicalize", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32394,7 +33011,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns an <b>HRESULT</b> code, including the following.
+     * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
      * <tr>
@@ -32451,6 +33068,9 @@ class Shell {
         pszMore := pszMore is String? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombineEx", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32462,7 +33082,7 @@ class Shell {
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
      * @param {Pointer<Char>} pszPathIn A pointer to the first path string. This value can be <b>NULL</b>.
      * @param {Pointer<Char>} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualified, it is copied directly to the output buffer without being combined with the other path. This value can be <b>NULL</b>.
-     * @returns {Integer} This function returns an <b>HRESULT</b> code, including the following.
+     * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
      * <tr>
@@ -32519,6 +33139,9 @@ class Shell {
         pszMore := pszMore is String? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombine", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32599,7 +33222,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following. 
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following. 
      * 
      * <table>
      * <tr>
@@ -32645,6 +33268,9 @@ class Shell {
         pszMore := pszMore is String? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppendEx", "ptr", pszPath, "ptr", cchPath, "ptr", pszMore, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32655,7 +33281,7 @@ class Shell {
      * @param {Pointer<Char>} pszPath A pointer to a buffer that, on entry, contains the original path. When this function returns successfully, the buffer contains the original path plus the appended path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<Char>} pszMore A pointer to the path to append to the end of the path pointed to by <i>pszPath</i>. UNC paths and paths beginning with the "\\?\" sequence are accepted and recognized as fully-qualified paths. These paths replace the string pointed to by <i>pszPath</i> instead of being appended to it.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
      * <tr>
@@ -32701,6 +33327,9 @@ class Shell {
         pszMore := pszMore is String? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppend", "ptr", pszPath, "ptr", cchPath, "ptr", pszMore, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32708,7 +33337,7 @@ class Shell {
      * Removes the &quot;\\?\&quot; prefix, if present, from a file path.
      * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the same path string will have had the prefix removed, if the prefix was present. If no prefix was present, the string will be unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @returns {Integer} This function returns <b>S_OK</b> if the prefix was removed, <b>S_FALSE</b> if the path did not have a prefix to remove, or an <b>HRESULT</b> failure code.
+     * @returns {HRESULT} This function returns <b>S_OK</b> if the prefix was removed, <b>S_FALSE</b> if the path did not have a prefix to remove, or an <b>HRESULT</b> failure code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchstripprefix
      * @since windows8.0
      */
@@ -32716,6 +33345,9 @@ class Shell {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchStripPrefix", "ptr", pszPath, "ptr", cchPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32815,7 +33447,7 @@ class Shell {
      * </tr>
      * </table>
      * @param {Pointer<Char>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the combined path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathalloccombine
      * @since windows8.0
      */
@@ -32824,6 +33456,9 @@ class Shell {
         pszMore := pszMore is String? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "ptr", ppszPathOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32922,7 +33557,7 @@ class Shell {
      * </tr>
      * </table>
      * @param {Pointer<Char>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the canonicalized path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathalloccanonicalize
      * @since windows8.0
      */
@@ -32930,6 +33565,9 @@ class Shell {
         pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCanonicalize", "ptr", pszPathIn, "uint", dwFlags, "ptr", ppszPathOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -32949,12 +33587,11 @@ class Shell {
     /**
      * Cancels a change notification registered through RegisterAppStateChangeNotification.
      * @param {Pointer} Registration A pointer to the registration handle retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-registerappstatechangenotification">RegisterAppStateChangeNotification</a> through its <i>Registration</i> parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-unregisterappstatechangenotification
      */
     static UnregisterAppStateChangeNotification(Registration) {
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\UnregisterAppStateChangeNotification", "ptr", Registration)
-        return result
+        DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\UnregisterAppStateChangeNotification", "ptr", Registration)
     }
 
     /**
@@ -32972,11 +33609,10 @@ class Shell {
     /**
      * 
      * @param {Pointer} Registration 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UnregisterAppConstrainedChangeNotification(Registration) {
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\UnregisterAppConstrainedChangeNotification", "ptr", Registration)
-        return result
+        DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\UnregisterAppConstrainedChangeNotification", "ptr", Registration)
     }
 
 ;@endregion Methods

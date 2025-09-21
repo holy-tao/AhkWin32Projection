@@ -16,7 +16,7 @@ class WSD_EVENT extends Win32Struct
 
     /**
      * The result code of the event.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Hr {
         get => NumGet(this, 0, "int")

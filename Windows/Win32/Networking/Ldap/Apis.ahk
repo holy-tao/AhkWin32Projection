@@ -1657,7 +1657,7 @@ class Ldap {
      * @param {Pointer<Char>} HostName A pointer to a null-terminated string. A domain name, a list of host names, or dotted strings that represent the IP address of LDAP server hosts. Use a single space to separate the host names in the list. Each host name in the list may be followed by a port number. The optional port number is separated from the host itself with a colon (:). The LDAP run time attempts connection with the hosts in the order listed, stopping when a successful connection is made. Be aware that only <b>ldap_open</b> attempts to make the connection before returning to the caller. The function 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_init">ldap_init</a> does not connect to the LDAP server.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. The default LDAP port, 389, can be obtained by supplying the constant <b>LDAP_PORT</b>. If a host name includes a port number then this parameter is ignored.
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an LDAP data structure. Free the session handle, when no longer required,  with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a>.
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an LDAP data structure. Free the session handle, when no longer required,  with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a>.
      * 
      * If the function fails, it returns <b>NULL</b>. Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> function to retrieve the error code.
@@ -1692,7 +1692,7 @@ class Ldap {
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string. A domain name, a list of host names, or dotted strings that represent the IP address of LDAP server hosts. Use a single space to separate the host names in the list. Each host name in the list may be followed by a port number. The optional port number is separated from the host itself with a colon (:). The LDAP run time attempts connection with the hosts in the order listed, stopping when a successful connection is made. Be aware that only <b>ldap_open</b> attempts to make the connection before returning to the caller. The function 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_init">ldap_init</a> does not connect to the LDAP server.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. The default LDAP port, 389, can be obtained by supplying the constant <b>LDAP_PORT</b>. If a host name includes a port number then this parameter is ignored.
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an LDAP data structure. Free the session handle, when no longer required,  with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a>.
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an LDAP data structure. Free the session handle, when no longer required,  with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a>.
      * 
      * If the function fails, it returns <b>NULL</b>. Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> function to retrieve the error code.
@@ -1745,7 +1745,7 @@ class Ldap {
      * > The winldap.h header defines ldap_init as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Char>} HostName A pointer to a null-terminated string that contains a domain name, or a space-separated list of host names or dotted strings that represent the IP address of hosts running an LDAP server to which to connect. Each host name in the list can include an optional port number which is separated from the host itself with a colon (:). For more information about the use of the <b>LDAP_OPT_AREC_EXCLUSIVE</b> option when connecting to Active Directory servers, see the Remarks section.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. Set to <b>LDAP_PORT</b> to obtain the default port, 389. This parameter is ignored if a host name includes a port number.
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an 
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. The session handle must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
      * 
      * If the function fails, it returns <b>NULL</b>. Use 
@@ -1793,7 +1793,7 @@ class Ldap {
      * <div> </div>
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string that contains a domain name, or a space-separated list of host names or dotted strings that represent the IP address of hosts running an LDAP server to which to connect. Each host name in the list can include an optional port number which is separated from the host itself with a colon (:). For more information about the use of the <b>LDAP_OPT_AREC_EXCLUSIVE</b> option when connecting to Active Directory servers, see the Remarks section.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. Set to <b>LDAP_PORT</b> to obtain the default port, 389. This parameter is ignored if a host name includes a port number.
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an 
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. The session handle must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
      * 
      * If the function fails, it returns <b>NULL</b>. Use 
@@ -1832,7 +1832,7 @@ class Ldap {
      * @param {Pointer<Char>} HostName A pointer to a null-terminated string that contains a space-separated list of host names or dotted strings representing the IP address of hosts running an LDAP server to which to connect. Each host name in the list can include an optional port number which is separated from the host itself with a colon (:) character.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. Set to <b>LDAP_SSL_PORT</b> to obtain the default port, 636. This parameter is ignored if a host name includes a port number.
      * @param {Integer} secure If nonzero, the function uses SSL encryption. If the value is 0, the function establishes a plain TCP connection and uses clear text (no encryption).
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an 
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> structure. The session handle must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer needed.
      * 
      * If the function fails, the return value is <b>NULL</b>. Use 
@@ -1864,7 +1864,7 @@ class Ldap {
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string that contains a space-separated list of host names or dotted strings representing the IP address of hosts running an LDAP server to which to connect. Each host name in the list can include an optional port number which is separated from the host itself with a colon (:) character.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. Set to <b>LDAP_SSL_PORT</b> to obtain the default port, 636. This parameter is ignored if a host name includes a port number.
      * @param {Integer} secure If nonzero, the function uses SSL encryption. If the value is 0, the function establishes a plain TCP connection and uses clear text (no encryption).
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an 
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> structure. The session handle must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer needed.
      * 
      * If the function fails, the return value is <b>NULL</b>. Use 
@@ -1923,7 +1923,7 @@ class Ldap {
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string. A domain name, a list of host names, or dotted strings that represent the IP address of LDAP server hosts. Use a single space to separate the host names in the list. Each host name in the list may be followed by a port number. The optional port number is separated from the host itself with a colon (:). The LDAP run time attempts connection with the hosts in the order listed, stopping when a successful connection is made. Be aware that only <b>ldap_open</b> attempts to make the connection before returning to the caller. The function 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_init">ldap_init</a> does not connect to the LDAP server.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. The default LDAP port, 389, can be obtained by supplying the constant <b>LDAP_PORT</b>. If a host name includes a port number then this parameter is ignored.
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an LDAP data structure. Free the session handle, when no longer required,  with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a>.
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an LDAP data structure. Free the session handle, when no longer required,  with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a>.
      * 
      * If the function fails, it returns <b>NULL</b>. Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> function to retrieve the error code.
@@ -1970,7 +1970,7 @@ class Ldap {
      * <div> </div>
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string that contains a domain name, or a space-separated list of host names or dotted strings that represent the IP address of hosts running an LDAP server to which to connect. Each host name in the list can include an optional port number which is separated from the host itself with a colon (:). For more information about the use of the <b>LDAP_OPT_AREC_EXCLUSIVE</b> option when connecting to Active Directory servers, see the Remarks section.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. Set to <b>LDAP_PORT</b> to obtain the default port, 389. This parameter is ignored if a host name includes a port number.
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an 
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. The session handle must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
      * 
      * If the function fails, it returns <b>NULL</b>. Use 
@@ -2002,7 +2002,7 @@ class Ldap {
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string that contains a space-separated list of host names or dotted strings representing the IP address of hosts running an LDAP server to which to connect. Each host name in the list can include an optional port number which is separated from the host itself with a colon (:) character.
      * @param {Integer} PortNumber Contains the TCP port number to which to connect. Set to <b>LDAP_SSL_PORT</b> to obtain the default port, 636. This parameter is ignored if a host name includes a port number.
      * @param {Integer} secure If nonzero, the function uses SSL encryption. If the value is 0, the function establishes a plain TCP connection and uses clear text (no encryption).
-     * @returns {Pointer} If the function succeeds, it returns a session handle, in the form of a pointer to an 
+     * @returns {Pointer<LDAP>} If the function succeeds, it returns a session handle, in the form of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> structure. The session handle must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer needed.
      * 
      * If the function fails, the return value is <b>NULL</b>. Use 
@@ -2037,7 +2037,7 @@ class Ldap {
      * > The winldap.h header defines cldap_open as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Char>} HostName A pointer to a null-terminated string that contains a list of host names or dotted strings that represent the IP address of LDAP server hosts. Use a single space to separate the host names in the list. Each host name in the list may be followed by a port number. The optional port number is separated from the host itself with a colon (:). The LDAP run time attempts connection with the hosts in the order listed, stopping when a successful connection is made.
      * @param {Integer} PortNumber The port number to be used. If no port number is specified, the default is port 389, which is defined as LDAP_PORT. If  port numbers are included in the <i>HostName</i> parameter, this parameter is ignored.
-     * @returns {Pointer} If the function succeeds, a session handle, in the form of a pointer to an LDAP structure is returned. Free the session handle with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
+     * @returns {Pointer<LDAP>} If the function succeeds, a session handle, in the form of a pointer to an LDAP structure is returned. Free the session handle with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get the error code, call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> or the Win32 function 
@@ -2071,7 +2071,7 @@ class Ldap {
      * <div> </div>
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string that contains a list of host names or dotted strings that represent the IP address of LDAP server hosts. Use a single space to separate the host names in the list. Each host name in the list may be followed by a port number. The optional port number is separated from the host itself with a colon (:). The LDAP run time attempts connection with the hosts in the order listed, stopping when a successful connection is made.
      * @param {Integer} PortNumber The port number to be used. If no port number is specified, the default is port 389, which is defined as LDAP_PORT. If  port numbers are included in the <i>HostName</i> parameter, this parameter is ignored.
-     * @returns {Pointer} If the function succeeds, a session handle, in the form of a pointer to an LDAP structure is returned. Free the session handle with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
+     * @returns {Pointer<LDAP>} If the function succeeds, a session handle, in the form of a pointer to an LDAP structure is returned. Free the session handle with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get the error code, call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> or the Win32 function 
@@ -2105,7 +2105,7 @@ class Ldap {
      * <div> </div>
      * @param {Pointer<Byte>} HostName A pointer to a null-terminated string that contains a list of host names or dotted strings that represent the IP address of LDAP server hosts. Use a single space to separate the host names in the list. Each host name in the list may be followed by a port number. The optional port number is separated from the host itself with a colon (:). The LDAP run time attempts connection with the hosts in the order listed, stopping when a successful connection is made.
      * @param {Integer} PortNumber The port number to be used. If no port number is specified, the default is port 389, which is defined as LDAP_PORT. If  port numbers are included in the <i>HostName</i> parameter, this parameter is ignored.
-     * @returns {Pointer} If the function succeeds, a session handle, in the form of a pointer to an LDAP structure is returned. Free the session handle with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
+     * @returns {Pointer<LDAP>} If the function succeeds, a session handle, in the form of a pointer to an LDAP structure is returned. Free the session handle with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> when it is no longer required.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get the error code, call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> or the Win32 function 
@@ -2870,7 +2870,7 @@ class Ldap {
      * @param {Pointer<LDAPControlA>} ServerCtrls A list of LDAP server controls.
      * @param {Pointer<LDAPControlA>} ClientCtrls A list of LDAP client controls.
      * @param {Pointer<Int32>} MessageNumber The message ID for the bind operation.
-     * @returns {Pointer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
+     * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -2881,7 +2881,7 @@ class Ldap {
         DistName := DistName is String? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "int*", MessageNumber, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "int*", MessageNumber, "CDecl int")
         return result
     }
 
@@ -2906,7 +2906,7 @@ class Ldap {
      * @param {Pointer<LDAPControlW>} ServerCtrls A list of LDAP server controls.
      * @param {Pointer<LDAPControlW>} ClientCtrls A list of LDAP client controls.
      * @param {Pointer<Int32>} MessageNumber The message ID for the bind operation.
-     * @returns {Pointer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
+     * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -2917,7 +2917,7 @@ class Ldap {
         DistName := DistName is String? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "int*", MessageNumber, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "int*", MessageNumber, "CDecl int")
         return result
     }
 
@@ -2942,7 +2942,7 @@ class Ldap {
      * @param {Pointer<LDAPControlA>} ServerCtrls A list of LDAP server controls.
      * @param {Pointer<LDAPControlA>} ClientCtrls A list of LDAP client controls.
      * @param {Pointer<LDAP_BERVAL>} ServerData Authentication data returned by the server in response to the bind request.
-     * @returns {Pointer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
+     * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -2953,7 +2953,7 @@ class Ldap {
         DistName := DistName is String? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl int")
         return result
     }
 
@@ -2978,7 +2978,7 @@ class Ldap {
      * @param {Pointer<LDAPControlW>} ServerCtrls A list of LDAP server controls.
      * @param {Pointer<LDAPControlW>} ClientCtrls A list of LDAP client controls.
      * @param {Pointer<LDAP_BERVAL>} ServerData Authentication data returned by the server in response to the bind request.
-     * @returns {Pointer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
+     * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -2989,7 +2989,7 @@ class Ldap {
         DistName := DistName is String? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl int")
         return result
     }
 
@@ -7372,15 +7372,14 @@ class Ldap {
      * Obsolete function. It exists only for compatibility.
      * @param {Pointer<LDAP>} ld Session handle.
      * @param {Pointer<Byte>} msg A message.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_perror
      * @since windows6.0.6000
      */
     static ldap_perror(ld, msg) {
         msg := msg is String? StrPtr(msg) : msg
 
-        result := DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", msg, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", msg, "CDecl ")
     }
 
     /**
@@ -7393,7 +7392,7 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {Pointer<LDAPMessage>} res The search result, as obtained by a call to one of the synchronous search routines or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a>.
-     * @returns {Pointer} If the search returned valid results, this function returns a pointer to the first result entry. If no entry or reference exists in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
+     * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the first result entry. If no entry or reference exists in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_entry
      * @since windows6.0.6000
      */
@@ -7412,7 +7411,7 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {Pointer<LDAPMessage>} entry The entry returned by a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_entry">ldap_first_entry</a> or <b>ldap_next_entry</b>.
-     * @returns {Pointer} If the search returned valid results, this function returns a pointer to the next result entry in the results set. If no further entries or references exist in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
+     * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the next result entry in the results set. If no further entries or references exist in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_entry
      * @since windows6.0.6000
      */
@@ -8251,15 +8250,14 @@ class Ldap {
      * > [!NOTE]
      * > The winldap.h header defines ldap_memfree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Char>} Block A pointer to a null-terminated string that contains a pointer to memory allocated by the LDAP library.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_memfreew
      * @since windows6.0.6000
      */
     static ldap_memfreeW(Block) {
         Block := Block is String? StrPtr(Block) : Block
 
-        result := DllCall("WLDAP32.dll\ldap_memfreeW", "ptr", Block, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ldap_memfreeW", "ptr", Block, "CDecl ")
     }
 
     /**
@@ -8270,15 +8268,14 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_open">ldap_open</a>, 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_values">ldap_get_values</a>, and others.
      * @param {Pointer<Byte>} Block A pointer to a null-terminated string that contains a pointer to memory allocated by the LDAP library.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_memfreea
      * @since windows6.0.6000
      */
     static ldap_memfreeA(Block) {
         Block := Block is String? StrPtr(Block) : Block
 
-        result := DllCall("WLDAP32.dll\ldap_memfreeA", "ptr", Block, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ldap_memfreeA", "ptr", Block, "CDecl ")
     }
 
     /**
@@ -8286,13 +8283,12 @@ class Ldap {
      * @remarks
      * Applications should not call this function to free <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that they themselves have allocated.
      * @param {Pointer<LDAP_BERVAL>} bv TBD
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ber_bvfree
      * @since windows6.0.6000
      */
     static ber_bvfree(bv) {
-        result := DllCall("WLDAP32.dll\ber_bvfree", "ptr", bv, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ber_bvfree", "ptr", bv, "CDecl ")
     }
 
     /**
@@ -8303,15 +8299,14 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_open">ldap_open</a>, 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_values">ldap_get_values</a>, and others.
      * @param {Pointer<Byte>} Block A pointer to a null-terminated string that contains a pointer to memory allocated by the LDAP library.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_memfree
      * @since windows6.0.6000
      */
     static ldap_memfree(Block) {
         Block := Block is String? StrPtr(Block) : Block
 
-        result := DllCall("WLDAP32.dll\ldap_memfree", "ptr", Block, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ldap_memfree", "ptr", Block, "CDecl ")
     }
 
     /**
@@ -8514,11 +8509,10 @@ class Ldap {
     /**
      * 
      * @param {Pointer<DBGPRINT>} DebugPrintRoutine 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ldap_set_dbg_routine(DebugPrintRoutine) {
-        result := DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine, "CDecl ")
     }
 
     /**
@@ -8527,7 +8521,7 @@ class Ldap {
      * @param {Integer} cchSrc An integer that specifies the size, in characters, of the <i>lpSrcStr</i> string.
      * @param {Pointer<Char>} lpDestStr A pointer to a buffer that receives the converted Unicode string, without a null terminator.
      * @param {Integer} cchDest An integer that specifies the size, in characters, of the <i>lpDestStr</i> buffer.
-     * @returns {Pointer} The return value is the number of characters written to the <i>lpDestStr</i> buffer.
+     * @returns {Integer} The return value is the number of characters written to the <i>lpDestStr</i> buffer.
      *       If the <i>lpDestStr</i> buffer is too small, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * 
      * When the <i>cchDest</i> parameter is zero, the required size of the destination buffer is returned.
@@ -8540,7 +8534,7 @@ class Ldap {
 
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\LdapUTF8ToUnicode", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\LdapUTF8ToUnicode", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -8553,7 +8547,7 @@ class Ldap {
      * @param {Integer} cchSrc An integer that specifies the size, in characters, of the <i>lpSrcStr</i> string.
      * @param {Pointer<Byte>} lpDestStr A pointer to a buffer that receives the converted UTF-8 character string, without a null terminator.
      * @param {Integer} cchDest An integer that specifies the size, in characters, of the <i>lpDestStr</i> buffer.
-     * @returns {Pointer} The return value is the size, in characters, written to the <i>lpDestStr</i> buffer.
+     * @returns {Integer} The return value is the size, in characters, written to the <i>lpDestStr</i> buffer.
      *       If the <i>lpDestStr</i> buffer is too small, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * 
      * When the <i>cchDest</i> parameter is zero, the required size of the destination buffer is returned.
@@ -8566,7 +8560,7 @@ class Ldap {
 
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\LdapUnicodeToUTF8", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\LdapUnicodeToUTF8", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -9220,13 +9214,13 @@ class Ldap {
      * @param {Pointer<LDAPVLVInfo>} VlvInfo The address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapvlvinfo">LDAPVLVInfo</a> structure whose contents are used to construct the value of the control created.
      * @param {Integer} IsCritical If this value is not zero, the control created will have its criticality set to <b>TRUE</b>.
      * @param {Pointer<LDAPControlW>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
-     * @returns {Pointer} The <b>ldap_create_vlv_control</b> function returns an 
+     * @returns {Integer} The <b>ldap_create_vlv_control</b> function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> to indicate failure, or LDAP_SUCCESS if successful.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_vlv_controlw
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlW(ExternalHandle, VlvInfo, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr", Control, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr", Control, "CDecl int")
         return result
     }
 
@@ -9248,13 +9242,13 @@ class Ldap {
      * @param {Pointer<LDAPVLVInfo>} VlvInfo The address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapvlvinfo">LDAPVLVInfo</a> structure whose contents are used to construct the value of the control created.
      * @param {Integer} IsCritical If this value is not zero, the control created will have its criticality set to <b>TRUE</b>.
      * @param {Pointer<LDAPControlA>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
-     * @returns {Pointer} The <b>ldap_create_vlv_control</b> function returns an 
+     * @returns {Integer} The <b>ldap_create_vlv_control</b> function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> to indicate failure, or LDAP_SUCCESS if successful.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_vlv_controla
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlA(ExternalHandle, VlvInfo, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr", Control, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr", Control, "CDecl int")
         return result
     }
 
@@ -9280,7 +9274,7 @@ class Ldap {
      * @param {Pointer<UInt32>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
      * @param {Pointer<LDAP_BERVAL>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
      * @param {Pointer<Int32>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
-     * @returns {Pointer} This function returns an 
+     * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
      * 
      * VLV uses the following LDAP return value codes:
@@ -9304,7 +9298,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, "ptr", Control, "uint*", TargetPos, "uint*", ListCount, "ptr", Context, "int*", ErrCode, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, "ptr", Control, "uint*", TargetPos, "uint*", ListCount, "ptr", Context, "int*", ErrCode, "CDecl int")
         return result
     }
 
@@ -9330,7 +9324,7 @@ class Ldap {
      * @param {Pointer<UInt32>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
      * @param {Pointer<LDAP_BERVAL>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
      * @param {Pointer<Int32>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
-     * @returns {Pointer} This function returns an 
+     * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
      * 
      * VLV uses the following LDAP return value codes:
@@ -9354,7 +9348,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, "ptr", Control, "uint*", TargetPos, "uint*", ListCount, "ptr", Context, "int*", ErrCode, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, "ptr", Control, "uint*", TargetPos, "uint*", ListCount, "ptr", Context, "int*", ErrCode, "CDecl int")
         return result
     }
 
@@ -9448,7 +9442,7 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {Pointer<LDAPMessage>} res The search result, as obtained by a call to one of the synchronous search routines or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a>.
-     * @returns {Pointer} If the search returned valid results, this function returns a pointer to the first result reference. If no entry or reference exists in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
+     * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the first result reference. If no entry or reference exists in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_reference
      * @since windows6.0.6000
      */
@@ -9470,7 +9464,7 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {Pointer<LDAPMessage>} entry The entry returned by a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_reference">ldap_first_reference</a> or <b>ldap_next_reference</b>.
-     * @returns {Pointer} If the search returned valid results, this function returns a pointer to the next result entry in the results set. If no further entries or references exist in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
+     * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the next result entry in the results set. If no further entries or references exist in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_reference
      * @since windows6.0.6000
      */
@@ -9842,7 +9836,7 @@ class Ldap {
      * @param {Pointer<LDAP>} PrimaryConn A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> session handle of the message, if known. If the <b>LDAP</b> session handle for the message is unknown, then <b>NULL</b> may be passed for this parameter provided that the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_REF_DEREF_CONN_PER_MSG</a> session option had been previously set for the message session.
      * @param {Pointer<LDAPMessage>} res The <b>LDAP</b> message queried.  If <b>NULL</b> is passed for this parameter, then the function will respond with a <b>NULL</b> return value.
-     * @returns {Pointer} The return value is the <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> session handle (connection pointer) where the message originated from. This function returns <b>NULL</b> if the originating session has closed or if a <b>NULL</b> <b>LDAPMessage</b> pointer is passed to the function and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_REF_DEREF_CONN_PER_MSG</a> session option was not previously set for the message session.
+     * @returns {Pointer<LDAP>} The return value is the <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> session handle (connection pointer) where the message originated from. This function returns <b>NULL</b> if the originating session has closed or if a <b>NULL</b> <b>LDAPMessage</b> pointer is passed to the function and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_REF_DEREF_CONN_PER_MSG</a> session option was not previously set for the message session.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_conn_from_msg
      * @since windows6.0.6000
      */
@@ -9857,7 +9851,7 @@ class Ldap {
      * Call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_free">ber_free</a> to free a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure allocated with this function.
      * @param {Pointer<LDAP_BERVAL>} pBerVal Pointer to the source <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure.
-     * @returns {Pointer} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
+     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * 
      * If the function fails, it returns a <b>NULL</b> pointer.
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_init
@@ -9874,13 +9868,12 @@ class Ldap {
      * @param {Integer} fbuf Must be set to 0 if freeing structures allocated by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_attribute">ldap_first_attribute</a>/
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_next_attribute">ldap_next_attribute</a>, otherwise it must be set to 1.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_free
      * @since windows6.0.6000
      */
     static ber_free(pBerElement, fbuf) {
-        result := DllCall("WLDAP32.dll\ber_free", "ptr", pBerElement, "int", fbuf, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ber_free", "ptr", pBerElement, "int", fbuf, "CDecl ")
     }
 
     /**
@@ -9891,13 +9884,12 @@ class Ldap {
      * 
      * An application should not call this function to free a <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that it has allocated.
      * @param {Pointer<LDAP_BERVAL>} pBerVal Pointer to a NULL-terminated array of <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures to be deallocated.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_bvecfree
      * @since windows6.0.6000
      */
     static ber_bvecfree(pBerVal) {
-        result := DllCall("WLDAP32.dll\ber_bvecfree", "ptr", pBerVal, "CDecl ptr")
-        return result
+        DllCall("WLDAP32.dll\ber_bvecfree", "ptr", pBerVal, "CDecl ")
     }
 
     /**
@@ -9925,7 +9917,7 @@ class Ldap {
      * @param {Integer} options A bitwise OR of the options used to generate the encoding or decoding of the <b>BerElement</b>. The <b>LBER_USE_DER</b> flag (0x01) should always be specified, which causes the element lengths to be encoded in the minimum number of octets.
      * 
      * Unrecognized option bits are ignored.
-     * @returns {Pointer} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
+     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * 
      * If the function fails, it returns a <b>NULL</b> pointer.
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_alloc_t
@@ -10011,12 +10003,12 @@ class Ldap {
      * @param {Pointer<Byte>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {Pointer<LDAP_BERVAL>} pBerVal Pointer to the newly allocated <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure, which should be freed using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_bvfree">ber_bvfree</a>.
-     * @returns {Pointer} The function returns 0 on success and -1 on failure.
+     * @returns {Integer} The function returns 0 on success and -1 on failure.
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_flatten
      * @since windows6.0.6000
      */
     static ber_flatten(pBerElement, pBerVal) {
-        result := DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, "ptr", pBerVal, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, "ptr", pBerVal, "CDecl int")
         return result
     }
 
@@ -10092,14 +10084,14 @@ class Ldap {
      * Each left brace (<b>{</b>) character must be paired with a right brace (<b>}</b>) character later in the format string, or in the format string of a subsequent call to <b>ber_printf</b> for that specific <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a>. The same applies to the left bracket ([) character and right bracket (]) characters.
      * @param {Pointer<Byte>} pBerElement A pointer to the encoded <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {Pointer<Byte>} fmt An encoding format string. For more information, see Remarks.
-     * @returns {Pointer} If the function succeeds, a non-negative number is returned. If the function fails,  -1 is returned.
+     * @returns {Integer} If the function succeeds, a non-negative number is returned. If the function fails,  -1 is returned.
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_printf
      * @since windows6.0.6000
      */
     static ber_printf(pBerElement, fmt) {
         fmt := fmt is String? StrPtr(fmt) : fmt
 
-        result := DllCall("WLDAP32.dll\ber_printf", "ptr", pBerElement, "ptr", fmt, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ber_printf", "ptr", pBerElement, "ptr", fmt, "CDecl int")
         return result
     }
 

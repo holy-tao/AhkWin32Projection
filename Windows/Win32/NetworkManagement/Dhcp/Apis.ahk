@@ -1628,24 +1628,22 @@ class Dhcp {
     /**
      * The Dhcpv6CApiInitialize function must be the first function call made by users of DHCPv6.
      * @param {Pointer<UInt32>} Version Pointer to the DHCPv6 version implemented by the client.  If a valid pointer is passed, the DHCPv6 client will be returned through it.
-     * @returns {Pointer} Returns ERROR_SUCCESS upon successful completion.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capiinitialize
      * @since windows6.0.6000
      */
     static Dhcpv6CApiInitialize(Version) {
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", "uint*", Version)
-        return result
+        DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", "uint*", Version)
     }
 
     /**
      * The Dhcpv6CApiCleanup function enables DHCPv6 to properly clean up resources allocated throughout the use of DHCPv6 function calls. The Dhcpv6CApiCleanup function must only be called if a previous call to Dhcpv6CApiInitialize executed successfully.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capicleanup
      * @since windows6.0.6000
      */
     static Dhcpv6CApiCleanup() {
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6CApiCleanup")
-        return result
+        DllCall("dhcpcsvc6.dll\Dhcpv6CApiCleanup")
     }
 
     /**
@@ -1959,13 +1957,12 @@ class Dhcp {
 
     /**
      * The DhcpCApiCleanup function enables DHCP to properly clean up resources allocated throughout the use of DHCP function calls. The DhcpCApiCleanup function must only be called if a previous call to DhcpCApiInitialize executed successfully.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpcapicleanup
      * @since windows5.0
      */
     static DhcpCApiCleanup() {
-        result := DllCall("dhcpcsvc.dll\DhcpCApiCleanup")
-        return result
+        DllCall("dhcpcsvc.dll\DhcpCApiCleanup")
     }
 
     /**
@@ -4103,13 +4100,12 @@ class Dhcp {
      * @remarks
      * This function should be called to release the memory consumed by any structures.
      * @param {Pointer<Void>} BufferPointer Pointer to an address that contains a structure (or structures, in the case of an array) returned as a parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory
      * @since windowsserver2000
      */
     static DhcpRpcFreeMemory(BufferPointer) {
-        result := DllCall("DHCPSAPI.dll\DhcpRpcFreeMemory", "ptr", BufferPointer)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpRpcFreeMemory", "ptr", BufferPointer)
     }
 
     /**
@@ -7860,13 +7856,12 @@ class Dhcp {
 
     /**
      * The DhcpDsCleanup function frees up directory service resources allocated for DHCP services by DhcpDsInit. This function should be called exactly once for each corresponding DHCP service process, and only when the process is terminated.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdscleanup
      * @since windowsserver2000
      */
     static DhcpDsCleanup() {
-        result := DllCall("DHCPSAPI.dll\DhcpDsCleanup")
-        return result
+        DllCall("DHCPSAPI.dll\DhcpDsCleanup")
     }
 
     /**
@@ -8369,11 +8364,10 @@ class Dhcp {
     /**
      * 
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_VQ>} ConfigInfo 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DhcpServerAuditlogParamsFree(ConfigInfo) {
-        result := DllCall("DHCPSAPI.dll\DhcpServerAuditlogParamsFree", "ptr", ConfigInfo)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpServerAuditlogParamsFree", "ptr", ConfigInfo)
     }
 
     /**
@@ -11503,63 +11497,57 @@ class Dhcp {
     /**
      * Frees the memory of all the data structures within a DHCP server policy structure.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the policy structure  to free.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprfreev4policy
      * @since windowsserver2012
      */
     static DhcpHlprFreeV4Policy(Policy) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4Policy", "ptr", Policy)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4Policy", "ptr", Policy)
     }
 
     /**
      * 
      * @param {Pointer<DHCP_POLICY_ARRAY>} PolicyArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DhcpHlprFreeV4PolicyArray(PolicyArray) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyArray", "ptr", PolicyArray)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyArray", "ptr", PolicyArray)
     }
 
     /**
      * 
      * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DhcpHlprFreeV4PolicyEx(PolicyEx) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyEx", "ptr", PolicyEx)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyEx", "ptr", PolicyEx)
     }
 
     /**
      * 
      * @param {Pointer<DHCP_POLICY_EX_ARRAY>} PolicyExArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DhcpHlprFreeV4PolicyExArray(PolicyExArray) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyExArray", "ptr", PolicyExArray)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyExArray", "ptr", PolicyExArray)
     }
 
     /**
      * 
      * @param {Pointer<DHCP_PROPERTY>} Property 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DhcpHlprFreeV4DhcpProperty(Property) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property)
     }
 
     /**
      * 
      * @param {Pointer<DHCP_PROPERTY_ARRAY>} PropertyArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static DhcpHlprFreeV4DhcpPropertyArray(PropertyArray) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpPropertyArray", "ptr", PropertyArray)
-        return result
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpPropertyArray", "ptr", PropertyArray)
     }
 
     /**

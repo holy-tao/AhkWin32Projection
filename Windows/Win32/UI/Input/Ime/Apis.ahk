@@ -3079,14 +3079,14 @@ class Ime {
      * @param {Integer} uBufLen Size, in characters, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed for the complete description, excluding the terminating null character.
      * 
      * <b>Windows NT, Windows 2000, Windows XP:</b> The size of the buffer is in Unicode characters, each consisting of two bytes. If the parameter is set to 0, the function returns the size of the buffer required in Unicode characters, excluding the Unicode terminating null character.
-     * @returns {Pointer} Returns the number of characters copied to the output buffer. If the application sets the <i>uBufLen</i> parameter to 0, the function returns the size of the buffer required to receive the description. Neither value includes the terminating null character. For Unicode, the function returns the number of Unicode characters, not including the Unicode terminating null character.
+     * @returns {Integer} Returns the number of characters copied to the output buffer. If the application sets the <i>uBufLen</i> parameter to 0, the function returns the size of the buffer required to receive the description. Neither value includes the terminating null character. For Unicode, the function returns the number of Unicode characters, not including the Unicode terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetdescriptiona
      * @since windows5.1.2600
      */
     static ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
         lpszDescription := lpszDescription is String? StrPtr(lpszDescription) : lpszDescription
 
-        result := DllCall("IMM32.dll\ImmGetDescriptionA", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen)
+        result := DllCall("IMM32.dll\ImmGetDescriptionA", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen, "uint")
         return result
     }
 
@@ -3100,14 +3100,14 @@ class Ime {
      * @param {Integer} uBufLen Size, in characters, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed for the complete description, excluding the terminating null character.
      * 
      * <b>Windows NT, Windows 2000, Windows XP:</b> The size of the buffer is in Unicode characters, each consisting of two bytes. If the parameter is set to 0, the function returns the size of the buffer required in Unicode characters, excluding the Unicode terminating null character.
-     * @returns {Pointer} Returns the number of characters copied to the output buffer. If the application sets the <i>uBufLen</i> parameter to 0, the function returns the size of the buffer required to receive the description. Neither value includes the terminating null character. For Unicode, the function returns the number of Unicode characters, not including the Unicode terminating null character.
+     * @returns {Integer} Returns the number of characters copied to the output buffer. If the application sets the <i>uBufLen</i> parameter to 0, the function returns the size of the buffer required to receive the description. Neither value includes the terminating null character. For Unicode, the function returns the number of Unicode characters, not including the Unicode terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetdescriptionw
      * @since windows5.1.2600
      */
     static ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
         lpszDescription := lpszDescription is String? StrPtr(lpszDescription) : lpszDescription
 
-        result := DllCall("IMM32.dll\ImmGetDescriptionW", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen)
+        result := DllCall("IMM32.dll\ImmGetDescriptionW", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen, "uint")
         return result
     }
 
@@ -3126,7 +3126,7 @@ class Ime {
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Byte>} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
      * @param {Integer} uBufLen Size, in bytes, of the output buffer. The application specifies 0 if the function is to return the buffer size needed to receive the file name, not including the terminating null character. For Unicode, <i>uBufLen</i> specifies the size in Unicode characters, not including the terminating null character.
-     * @returns {Pointer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
+     * @returns {Integer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
      * 
      * For Unicode, the function returns the number of Unicode characters copied into the output buffer, not including the Unicode terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimefilenamea
@@ -3135,7 +3135,7 @@ class Ime {
     static ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
         lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("IMM32.dll\ImmGetIMEFileNameA", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen)
+        result := DllCall("IMM32.dll\ImmGetIMEFileNameA", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen, "uint")
         return result
     }
 
@@ -3154,7 +3154,7 @@ class Ime {
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Char>} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
      * @param {Integer} uBufLen Size, in bytes, of the output buffer. The application specifies 0 if the function is to return the buffer size needed to receive the file name, not including the terminating null character. For Unicode, <i>uBufLen</i> specifies the size in Unicode characters, not including the terminating null character.
-     * @returns {Pointer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
+     * @returns {Integer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
      * 
      * For Unicode, the function returns the number of Unicode characters copied into the output buffer, not including the Unicode terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimefilenamew
@@ -3163,7 +3163,7 @@ class Ime {
     static ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
         lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("IMM32.dll\ImmGetIMEFileNameW", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen)
+        result := DllCall("IMM32.dll\ImmGetIMEFileNameW", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen, "uint")
         return result
     }
 
@@ -4321,12 +4321,12 @@ class Ime {
      * 
      * message loop.
      * @param {Pointer<Void>} param0 
-     * @returns {Pointer} If <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> has been called by the application, <b>ImmGetVirtualKey</b> returns VK_PROCESSKEY; otherwise, it returns the virtual key.
+     * @returns {Integer} If <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> has been called by the application, <b>ImmGetVirtualKey</b> returns VK_PROCESSKEY; otherwise, it returns the virtual key.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetvirtualkey
      * @since windows5.1.2600
      */
     static ImmGetVirtualKey(param0) {
-        result := DllCall("IMM32.dll\ImmGetVirtualKey", "ptr", param0)
+        result := DllCall("IMM32.dll\ImmGetVirtualKey", "ptr", param0, "uint")
         return result
     }
 
@@ -4426,12 +4426,12 @@ class Ime {
      * @param {Pointer<Void>} param0 
      * @param {Integer} nItem Maximum number of styles that the output buffer can hold. The application sets this parameter to 0 if the function is to count the number of styles available in the IME.
      * @param {Pointer<STYLEBUFA>} lpStyleBuf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-stylebufa">STYLEBUF</a> structure in which the function retrieves the style information.
-     * @returns {Pointer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
+     * @returns {Integer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetregisterwordstylea
      * @since windows5.1.2600
      */
     static ImmGetRegisterWordStyleA(param0, nItem, lpStyleBuf) {
-        result := DllCall("IMM32.dll\ImmGetRegisterWordStyleA", "ptr", param0, "uint", nItem, "ptr", lpStyleBuf)
+        result := DllCall("IMM32.dll\ImmGetRegisterWordStyleA", "ptr", param0, "uint", nItem, "ptr", lpStyleBuf, "uint")
         return result
     }
 
@@ -4443,12 +4443,12 @@ class Ime {
      * @param {Pointer<Void>} param0 
      * @param {Integer} nItem Maximum number of styles that the output buffer can hold. The application sets this parameter to 0 if the function is to count the number of styles available in the IME.
      * @param {Pointer<STYLEBUFW>} lpStyleBuf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-stylebufa">STYLEBUF</a> structure in which the function retrieves the style information.
-     * @returns {Pointer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
+     * @returns {Integer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetregisterwordstylew
      * @since windows5.1.2600
      */
     static ImmGetRegisterWordStyleW(param0, nItem, lpStyleBuf) {
-        result := DllCall("IMM32.dll\ImmGetRegisterWordStyleW", "ptr", param0, "uint", nItem, "ptr", lpStyleBuf)
+        result := DllCall("IMM32.dll\ImmGetRegisterWordStyleW", "ptr", param0, "uint", nItem, "ptr", lpStyleBuf, "uint")
         return result
     }
 
@@ -4465,7 +4465,7 @@ class Ime {
      * @param {Integer} param3 
      * @param {Pointer<Byte>} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
      * @param {Pointer<Void>} param5 
-     * @returns {Pointer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
+     * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterworda
      * @since windows5.1.2600
      */
@@ -4473,7 +4473,7 @@ class Ime {
         lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String? StrPtr(lpszRegister) : lpszRegister
 
-        result := DllCall("IMM32.dll\ImmEnumRegisterWordA", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5)
+        result := DllCall("IMM32.dll\ImmEnumRegisterWordA", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
         return result
     }
 
@@ -4490,7 +4490,7 @@ class Ime {
      * @param {Integer} param3 
      * @param {Pointer<Char>} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
      * @param {Pointer<Void>} param5 
-     * @returns {Pointer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
+     * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterwordw
      * @since windows5.1.2600
      */
@@ -4498,7 +4498,7 @@ class Ime {
         lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String? StrPtr(lpszRegister) : lpszRegister
 
-        result := DllCall("IMM32.dll\ImmEnumRegisterWordW", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5)
+        result := DllCall("IMM32.dll\ImmEnumRegisterWordW", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
         return result
     }
 

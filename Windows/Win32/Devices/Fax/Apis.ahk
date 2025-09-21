@@ -4956,11 +4956,10 @@ class Fax {
     /**
      * 
      * @param {Pointer<Void>} Buffer 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static FaxFreeBuffer(Buffer) {
-        result := DllCall("WINFAX.dll\FaxFreeBuffer", "ptr", Buffer)
-        return result
+        DllCall("WINFAX.dll\FaxFreeBuffer", "ptr", Buffer)
     }
 
     /**
@@ -5587,10 +5586,13 @@ class Fax {
      * @param {Integer} dwVer 
      * @param {Pointer<IStillImageW>} ppSti 
      * @param {Pointer<IUnknown>} punkOuter 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static StiCreateInstanceW(hinst, dwVer, ppSti, punkOuter) {
         result := DllCall("STI.dll\StiCreateInstanceW", "ptr", hinst, "uint", dwVer, "ptr", ppSti, "ptr", punkOuter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

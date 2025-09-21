@@ -98,7 +98,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     VmQueryStatus {
         get => NumGet(this, 0, "int")
@@ -117,7 +117,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     VmReadStatus {
         get => NumGet(this, 0, "int")
@@ -133,7 +133,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 0, "int")

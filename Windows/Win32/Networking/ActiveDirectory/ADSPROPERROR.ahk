@@ -51,7 +51,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Contains an <b>HRESULT</b> value that specifies the  code of the error that occurred. If <i>hr</i> is not equal to <b>S_OK</b>, then <i>pszError</i> is ignored. If <i>hr</i> is equal to <b>S_OK</b>, then <i>pszError</i> contains an error message.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 32, "int")

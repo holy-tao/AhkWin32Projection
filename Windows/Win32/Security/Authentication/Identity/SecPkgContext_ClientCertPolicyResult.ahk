@@ -12,7 +12,7 @@ class SecPkgContext_ClientCertPolicyResult extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     dwPolicyResult {
         get => NumGet(this, 0, "int")

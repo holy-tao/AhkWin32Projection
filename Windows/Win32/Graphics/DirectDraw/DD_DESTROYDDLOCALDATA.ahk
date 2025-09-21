@@ -28,7 +28,7 @@ class DD_DESTROYDDLOCALDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 16, "int")

@@ -371,7 +371,7 @@ class Direct2D {
      * @param {Pointer<Void>} ppIFactory Type: <b>void**</b>
      * 
      * When this method returns, contains the address to a pointer to the new factory.
-     * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
+     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1createfactory
@@ -379,6 +379,9 @@ class Direct2D {
      */
     static D2D1CreateFactory(factoryType, riid, pFactoryOptions, ppIFactory) {
         result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr", ppIFactory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -395,13 +398,12 @@ class Direct2D {
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * When this method returns, contains the new rotation transformation. You must allocate storage for this parameter.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makerotatematrix
      * @since windows6.1
      */
     static D2D1MakeRotateMatrix(angle, center, matrix) {
-        result := DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix)
-        return result
+        DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix)
     }
 
     /**
@@ -418,13 +420,12 @@ class Direct2D {
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * When this method returns, contains the rotation transformation. You must allocate storage for this parameter.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makeskewmatrix
      * @since windows6.1
      */
     static D2D1MakeSkewMatrix(angleX, angleY, center, matrix) {
-        result := DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix)
-        return result
+        DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix)
     }
 
     /**
@@ -468,7 +469,7 @@ class Direct2D {
      * @param {Pointer<IDXGIDevice>} dxgiDevice The DXGI device the Direct2D device is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device.
      * @param {Pointer<ID2D1Device>} d2dDevice When this function returns, contains the address of a pointer to a Direct2D device.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -493,6 +494,9 @@ class Direct2D {
      */
     static D2D1CreateDevice(dxgiDevice, creationProperties, d2dDevice) {
         result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr", d2dDevice, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -509,7 +513,7 @@ class Direct2D {
      * @param {Pointer<IDXGISurface>} dxgiSurface The DXGI surface the Direct2D device context is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device context.
      * @param {Pointer<ID2D1DeviceContext>} d2dDeviceContext When this function returns, contains the address of a pointer to a Direct2D device context.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -534,6 +538,9 @@ class Direct2D {
      */
     static D2D1CreateDeviceContext(dxgiSurface, creationProperties, d2dDeviceContext) {
         result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr", d2dDeviceContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -569,12 +576,11 @@ class Direct2D {
      * @param {Pointer<Single>} c Type: <b>FLOAT*</b>
      * 
      * The cosine of the angle.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1sincos
      */
     static D2D1SinCos(angle, s, c) {
-        result := DllCall("d2d1.dll\D2D1SinCos", "float", angle, "float*", s, "float*", c)
-        return result
+        DllCall("d2d1.dll\D2D1SinCos", "float", angle, "float*", s, "float*", c)
     }
 
     /**
@@ -582,13 +588,13 @@ class Direct2D {
      * @param {Float} angle Type: <b>FLOAT</b>
      * 
      * The angle to calculate the tangent for.
-     * @returns {Pointer} Type: <b>FLOAT</b>
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The tangent of the angle.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1tan
      */
     static D2D1Tan(angle) {
-        result := DllCall("d2d1.dll\D2D1Tan", "float", angle)
+        result := DllCall("d2d1.dll\D2D1Tan", "float", angle, "float")
         return result
     }
 
@@ -603,13 +609,13 @@ class Direct2D {
      * @param {Float} z Type: <b>FLOAT</b>
      * 
      * The  z value of the vector.
-     * @returns {Pointer} Type: <b>FLOAT</b>
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The length of the vector.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1vec3length
      */
     static D2D1Vec3Length(x, y, z) {
-        result := DllCall("d2d1.dll\D2D1Vec3Length", "float", x, "float", y, "float", z)
+        result := DllCall("d2d1.dll\D2D1Vec3Length", "float", x, "float", y, "float", z, "float")
         return result
     }
 
@@ -623,12 +629,12 @@ class Direct2D {
      * <div class="alert"><b>Note</b>  Since this describes how M affects vectors (rather than points), the translation components (_31 and _32) of M are ignored.</div>
      * <div> </div>
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix The input transform matrix.
-     * @returns {Pointer} The scale factor.
+     * @returns {Float} The scale factor.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-d2d1computemaximumscalefactor
      * @since windows8.1
      */
     static D2D1ComputeMaximumScaleFactor(matrix) {
-        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix)
+        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix, "float")
         return result
     }
 
@@ -684,13 +690,12 @@ class Direct2D {
      * @param {Pointer<D2D_POINT_2F>} pTensorPoint22 Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
      * 
      * Returns the interior point for the gradient mesh corresponding to point22 in the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch">D2D1_GRADIENT_MESH_PATCH</a> structure.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-d2d1getgradientmeshinteriorpointsfromcoonspatch
      * @since windows10.0.10240
      */
     static D2D1GetGradientMeshInteriorPointsFromCoonsPatch(pPoint0, pPoint1, pPoint2, pPoint3, pPoint4, pPoint5, pPoint6, pPoint7, pPoint8, pPoint9, pPoint10, pPoint11, pTensorPoint11, pTensorPoint12, pTensorPoint21, pTensorPoint22) {
-        result := DllCall("d2d1.dll\D2D1GetGradientMeshInteriorPointsFromCoonsPatch", "ptr", pPoint0, "ptr", pPoint1, "ptr", pPoint2, "ptr", pPoint3, "ptr", pPoint4, "ptr", pPoint5, "ptr", pPoint6, "ptr", pPoint7, "ptr", pPoint8, "ptr", pPoint9, "ptr", pPoint10, "ptr", pPoint11, "ptr", pTensorPoint11, "ptr", pTensorPoint12, "ptr", pTensorPoint21, "ptr", pTensorPoint22)
-        return result
+        DllCall("d2d1.dll\D2D1GetGradientMeshInteriorPointsFromCoonsPatch", "ptr", pPoint0, "ptr", pPoint1, "ptr", pPoint2, "ptr", pPoint3, "ptr", pPoint4, "ptr", pPoint5, "ptr", pPoint6, "ptr", pPoint7, "ptr", pPoint8, "ptr", pPoint9, "ptr", pPoint10, "ptr", pPoint11, "ptr", pTensorPoint11, "ptr", pTensorPoint12, "ptr", pTensorPoint21, "ptr", pTensorPoint22)
     }
 
 ;@endregion Methods

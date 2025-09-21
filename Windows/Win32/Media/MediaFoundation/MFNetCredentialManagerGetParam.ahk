@@ -15,7 +15,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The response code of the authentication challenge. For example, NS_E_PROXY_ACCESSDENIED.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrOp {
         get => NumGet(this, 0, "int")

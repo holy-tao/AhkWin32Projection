@@ -20718,7 +20718,7 @@ class NetManagement {
      * @param {Pointer<DSREG_JOIN_INFO>} ppJoinInfo The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
      *                      the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netfreeaadjoininformation">NetFreeAadJoinInformation</a> function to free the memory allocated for
      *                      this structure.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetaadjoininformation
      * @since windows10.0.10240
      */
@@ -20726,19 +20726,21 @@ class NetManagement {
         pcszTenantId := pcszTenantId is String? StrPtr(pcszTenantId) : pcszTenantId
 
         result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr", ppJoinInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Frees the memory allocated for the specified DSREG_JOIN_INFO structure, which contains join information for a tenant and which you retrieved by calling the NetGetAadJoinInformation function.
      * @param {Pointer<DSREG_JOIN_INFO>} pJoinInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-dsreg_join_info">DSREG_JOIN_INFO</a> structure for which you want to free the memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netfreeaadjoininformation
      * @since windows10.0.10240
      */
     static NetFreeAadJoinInformation(pJoinInfo) {
-        result := DllCall("NETAPI32.dll\NetFreeAadJoinInformation", "ptr", pJoinInfo)
-        return result
+        DllCall("NETAPI32.dll\NetFreeAadJoinInformation", "ptr", pJoinInfo)
     }
 
     /**
@@ -20794,7 +20796,7 @@ class NetManagement {
      * @param {Pointer<Char>} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being retrieved.
      * @param {Integer} ccAccount The number of characters, including the NULL terminator, allocated for <i>wszAccount</i>. The maximum allowed length for this value is the maximum domain name length plus the maximum user name length plus 2, expressed as DNLEN + UNLEN + 2. (The last two characters are the "\" character and the NULL terminator.)
      * @param {Pointer<Char>} wszAccount An array of wide characters, including the NULL terminator, that receives the account information.
-     * @returns {Integer} The return value is an HRESULT. A value of S_OK indicates the function succeeded, and the account information is  returned in <i>wszAccount</i>. A value of S_FALSE  indicates the function succeeded, and the account is the Local System account (no information will be returned in <i>wszAccount</i>). Any other return values indicate an error condition.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the function succeeded, and the account information is  returned in <i>wszAccount</i>. A value of S_FALSE  indicates the function succeeded, and the account is the Local System account (no information will be returned in <i>wszAccount</i>). Any other return values indicate an error condition.
      * @see https://learn.microsoft.com/windows/win32/api/atacct/nf-atacct-getnetscheduleaccountinformation
      * @since windows6.0.6000
      */
@@ -20803,6 +20805,9 @@ class NetManagement {
         wszAccount := wszAccount is String? StrPtr(wszAccount) : wszAccount
 
         result := DllCall("mstask.dll\GetNetScheduleAccountInformation", "ptr", pwszServerName, "uint", ccAccount, "ptr", wszAccount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -20813,7 +20818,7 @@ class NetManagement {
      * @param {Pointer<Char>} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being set.
      * @param {Pointer<Char>} pwszAccount A pointer to a NULL-terminated wide character string for the account. To specify the local system account, set this parameter to <b>NULL</b>.
      * @param {Pointer<Char>} pwszPassword A pointer to a NULL-terminated wide character string for the password. For information about securing password information, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @returns {Integer} The return value is an HRESULT. A value of S_OK indicates the account name and password were successfully set. Any other value indicates an error condition.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the account name and password were successfully set. Any other value indicates an error condition.
      * 
      * If the function fails, some of the possible return values are listed below. 
      * 
@@ -20868,6 +20873,9 @@ class NetManagement {
         pwszPassword := pwszPassword is String? StrPtr(pwszPassword) : pwszPassword
 
         result := DllCall("mstask.dll\SetNetScheduleAccountInformation", "ptr", pwszServerName, "ptr", pwszAccount, "ptr", pwszPassword, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -21305,11 +21313,10 @@ class NetManagement {
      * @param {Integer} cNumberOfSubStrings 
      * @param {Pointer<Byte>} plpwsSubStrings 
      * @param {Integer} dwErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static LogErrorA(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-        result := DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
-        return result
+        DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
     }
 
     /**
@@ -21318,11 +21325,10 @@ class NetManagement {
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
      * @param {Pointer<Byte>} plpwsSubStrings 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static LogEventA(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-        result := DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
-        return result
+        DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
     }
 
     /**
@@ -21331,11 +21337,10 @@ class NetManagement {
      * @param {Integer} cNumberOfSubStrings 
      * @param {Pointer<Char>} plpwsSubStrings 
      * @param {Integer} dwErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static LogErrorW(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-        result := DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
-        return result
+        DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
     }
 
     /**
@@ -21344,11 +21349,10 @@ class NetManagement {
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
      * @param {Pointer<Char>} plpwsSubStrings 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static LogEventW(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-        result := DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
-        return result
+        DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
     }
 
     /**
@@ -21366,11 +21370,10 @@ class NetManagement {
     /**
      * 
      * @param {Pointer<Void>} hLogHandle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogDeregisterA(hLogHandle) {
-        result := DllCall("rtutils.dll\RouterLogDeregisterA", "ptr", hLogHandle)
-        return result
+        DllCall("rtutils.dll\RouterLogDeregisterA", "ptr", hLogHandle)
     }
 
     /**
@@ -21381,11 +21384,10 @@ class NetManagement {
      * @param {Integer} dwSubStringCount 
      * @param {Pointer<Byte>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
-        result := DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
-        return result
+        DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
     }
 
     /**
@@ -21397,11 +21399,10 @@ class NetManagement {
      * @param {Pointer<Byte>} plpszSubStringArray 
      * @param {Integer} dwDataBytes 
      * @param {Pointer<Byte>} lpDataBytes 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
-        result := DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "char*", lpDataBytes)
-        return result
+        DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "char*", lpDataBytes)
     }
 
     /**
@@ -21413,11 +21414,10 @@ class NetManagement {
      * @param {Pointer<Byte>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwErrorIndex 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventStringA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
-        result := DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
-        return result
+        DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
     }
 
     /**
@@ -21427,13 +21427,12 @@ class NetManagement {
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
      * @param {Pointer<Byte>} ptszFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        result := DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ptr")
-        return result
+        DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
     }
 
     /**
@@ -21444,13 +21443,12 @@ class NetManagement {
      * @param {Integer} dwMessageId 
      * @param {Pointer<Byte>} ptszFormat 
      * @param {Pointer<SByte>} arglist 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        result := DllCall("rtutils.dll\RouterLogEventValistExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
-        return result
+        DllCall("rtutils.dll\RouterLogEventValistExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
     }
 
     /**
@@ -21479,11 +21477,10 @@ class NetManagement {
     /**
      * 
      * @param {Pointer<Void>} hLogHandle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogDeregisterW(hLogHandle) {
-        result := DllCall("rtutils.dll\RouterLogDeregisterW", "ptr", hLogHandle)
-        return result
+        DllCall("rtutils.dll\RouterLogDeregisterW", "ptr", hLogHandle)
     }
 
     /**
@@ -21494,11 +21491,10 @@ class NetManagement {
      * @param {Integer} dwSubStringCount 
      * @param {Pointer<Char>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
-        result := DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
-        return result
+        DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
     }
 
     /**
@@ -21510,11 +21506,10 @@ class NetManagement {
      * @param {Pointer<Char>} plpszSubStringArray 
      * @param {Integer} dwDataBytes 
      * @param {Pointer<Byte>} lpDataBytes 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
-        result := DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "char*", lpDataBytes)
-        return result
+        DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "char*", lpDataBytes)
     }
 
     /**
@@ -21526,11 +21521,10 @@ class NetManagement {
      * @param {Pointer<Char>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwErrorIndex 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventStringW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
-        result := DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
-        return result
+        DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
     }
 
     /**
@@ -21540,13 +21534,12 @@ class NetManagement {
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
      * @param {Pointer<Char>} ptszFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        result := DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ptr")
-        return result
+        DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
     }
 
     /**
@@ -21557,13 +21550,12 @@ class NetManagement {
      * @param {Integer} dwMessageId 
      * @param {Pointer<Char>} ptszFormat 
      * @param {Pointer<SByte>} arglist 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        result := DllCall("rtutils.dll\RouterLogEventValistExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
-        return result
+        DllCall("rtutils.dll\RouterLogEventValistExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
     }
 
     /**
@@ -21583,15 +21575,14 @@ class NetManagement {
      * @param {Pointer<Byte>} pszFileName 
      * @param {Integer} dwLineNumber 
      * @param {Pointer<Byte>} pszMessage 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RouterAssert(pszFailedAssertion, pszFileName, dwLineNumber, pszMessage) {
         pszFailedAssertion := pszFailedAssertion is String? StrPtr(pszFailedAssertion) : pszFailedAssertion
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
         pszMessage := pszMessage is String? StrPtr(pszMessage) : pszMessage
 
-        result := DllCall("rtutils.dll\RouterAssert", "ptr", pszFailedAssertion, "ptr", pszFileName, "uint", dwLineNumber, "ptr", pszMessage)
-        return result
+        DllCall("rtutils.dll\RouterAssert", "ptr", pszFailedAssertion, "ptr", pszFileName, "uint", dwLineNumber, "ptr", pszMessage)
     }
 
     /**

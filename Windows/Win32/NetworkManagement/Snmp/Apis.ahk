@@ -480,14 +480,14 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the copy.
      * @param {Pointer<AsnObjectIdentifier>} pOidSrc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to copy.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidcpy
      * @since windows5.0
      */
     static SnmpUtilOidCpy(pOidDst, pOidSrc) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidCpy", "ptr", pOidDst, "ptr", pOidSrc)
+        result := DllCall("snmpapi.dll\SnmpUtilOidCpy", "ptr", pOidDst, "ptr", pOidSrc, "int")
         return result
     }
 
@@ -506,7 +506,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the source structure.
      * @param {Pointer<AsnObjectIdentifier>} pOidSrc Pointer to an 
      * <b>AsnObjectIdentifier</b> structure to append.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. This function does not generate Windows Sockets errors. The application should call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> may return the following error codes.
@@ -545,7 +545,7 @@ class Snmp {
     static SnmpUtilOidAppend(pOidDst, pOidSrc) {
         A_LastError := 0
 
-        result := DllCall("snmpapi.dll\SnmpUtilOidAppend", "ptr", pOidDst, "ptr", pOidSrc)
+        result := DllCall("snmpapi.dll\SnmpUtilOidAppend", "ptr", pOidDst, "ptr", pOidSrc, "int")
         if(A_LastError)
             throw OSError()
 
@@ -559,12 +559,12 @@ class Snmp {
      * @param {Pointer<AsnObjectIdentifier>} pOid2 Pointer to a second 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to compare.
      * @param {Integer} nSubIds Specifies the number of subidentifiers to compare.
-     * @returns {Pointer} The function returns a value greater than zero if <i>pOid1</i> is greater than <i>pOid2</i>, zero if <i>pOid1</i> equals <i>pOid2</i>, and less than zero if <i>pOid1</i> is less than <i>pOid2</i>.
+     * @returns {Integer} The function returns a value greater than zero if <i>pOid1</i> is greater than <i>pOid2</i>, zero if <i>pOid1</i> equals <i>pOid2</i>, and less than zero if <i>pOid1</i> is less than <i>pOid2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidncmp
      * @since windows5.0
      */
     static SnmpUtilOidNCmp(pOid1, pOid2, nSubIds) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidNCmp", "ptr", pOid1, "ptr", pOid2, "uint", nSubIds)
+        result := DllCall("snmpapi.dll\SnmpUtilOidNCmp", "ptr", pOid1, "ptr", pOid2, "uint", nSubIds, "int")
         return result
     }
 
@@ -578,12 +578,12 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to compare.
      * @param {Pointer<AsnObjectIdentifier>} pOid2 Pointer to a second 
      * <b>AsnObjectIdentifier</b> structure to compare.
-     * @returns {Pointer} The function returns a value greater than zero if <i>pOid1</i> is greater than <i>pOid2</i>, zero if <i>pOid1</i> equals <i>pOid2</i>, and less than zero if <i>pOid1</i> is less than <i>pOid2</i>.
+     * @returns {Integer} The function returns a value greater than zero if <i>pOid1</i> is greater than <i>pOid2</i>, zero if <i>pOid1</i> equals <i>pOid2</i>, and less than zero if <i>pOid1</i> is less than <i>pOid2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidcmp
      * @since windows5.0
      */
     static SnmpUtilOidCmp(pOid1, pOid2) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidCmp", "ptr", pOid1, "ptr", pOid2)
+        result := DllCall("snmpapi.dll\SnmpUtilOidCmp", "ptr", pOid1, "ptr", pOid2, "int")
         return result
     }
 
@@ -591,13 +591,12 @@ class Snmp {
      * The SnmpUtilOidFree function frees the memory allocated for the specified object identifier. This function is an element of the SNMP Utility API.
      * @param {Pointer<AsnObjectIdentifier>} pOid Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure whose memory should be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidfree
      * @since windows5.0
      */
     static SnmpUtilOidFree(pOid) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidFree", "ptr", pOid)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilOidFree", "ptr", pOid)
     }
 
     /**
@@ -610,12 +609,12 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to compare.
      * @param {Pointer<AsnOctetString>} pOctets2 Pointer to a second 
      * <b>AsnOctetString</b> structure to compare.
-     * @returns {Pointer} The function returns a value greater than zero if <i>pOctets1</i> is greater than <i>pOctets2</i>, zero if <i>pOctets1</i> equals <i>pOctets2</i>, and less than zero if <i>pOctets1</i> is less than <i>pOctets2</i>.
+     * @returns {Integer} The function returns a value greater than zero if <i>pOctets1</i> is greater than <i>pOctets2</i>, zero if <i>pOctets1</i> equals <i>pOctets2</i>, and less than zero if <i>pOctets1</i> is less than <i>pOctets2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetscmp
      * @since windows5.0
      */
     static SnmpUtilOctetsCmp(pOctets1, pOctets2) {
-        result := DllCall("snmpapi.dll\SnmpUtilOctetsCmp", "ptr", pOctets1, "ptr", pOctets2)
+        result := DllCall("snmpapi.dll\SnmpUtilOctetsCmp", "ptr", pOctets1, "ptr", pOctets2, "int")
         return result
     }
 
@@ -630,12 +629,12 @@ class Snmp {
      * @param {Pointer<AsnOctetString>} pOctets2 Pointer to a second 
      * <b>AsnOctetString</b> structure to compare.
      * @param {Integer} nChars Specifies the number of subidentifiers to compare.
-     * @returns {Pointer} The function returns a value greater than zero if <i>pOctets1</i> is greater than <i>pOctets2</i>, zero if <i>pOctets1</i> equals <i>pOctets2</i>, and less than zero if <i>pOctets1</i> is less than <i>pOctets2</i>.
+     * @returns {Integer} The function returns a value greater than zero if <i>pOctets1</i> is greater than <i>pOctets2</i>, zero if <i>pOctets1</i> equals <i>pOctets2</i>, and less than zero if <i>pOctets1</i> is less than <i>pOctets2</i>.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetsncmp
      * @since windows5.0
      */
     static SnmpUtilOctetsNCmp(pOctets1, pOctets2, nChars) {
-        result := DllCall("snmpapi.dll\SnmpUtilOctetsNCmp", "ptr", pOctets1, "ptr", pOctets2, "uint", nChars)
+        result := DllCall("snmpapi.dll\SnmpUtilOctetsNCmp", "ptr", pOctets1, "ptr", pOctets2, "uint", nChars, "int")
         return result
     }
 
@@ -649,14 +648,14 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to receive the copy.
      * @param {Pointer<AsnOctetString>} pOctetsSrc Pointer to an 
      * <b>AsnOctetString</b> structure to copy.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetscpy
      * @since windows5.0
      */
     static SnmpUtilOctetsCpy(pOctetsDst, pOctetsSrc) {
-        result := DllCall("snmpapi.dll\SnmpUtilOctetsCpy", "ptr", pOctetsDst, "ptr", pOctetsSrc)
+        result := DllCall("snmpapi.dll\SnmpUtilOctetsCpy", "ptr", pOctetsDst, "ptr", pOctetsSrc, "int")
         return result
     }
 
@@ -668,13 +667,12 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloctetscpy">SnmpUtilOctetsCpy</a> function allocates.
      * @param {Pointer<AsnOctetString>} pOctets Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure whose memory should be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetsfree
      * @since windows5.0
      */
     static SnmpUtilOctetsFree(pOctets) {
-        result := DllCall("snmpapi.dll\SnmpUtilOctetsFree", "ptr", pOctets)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilOctetsFree", "ptr", pOctets)
     }
 
     /**
@@ -687,14 +685,14 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnany">AsnAny</a> structure to receive the copy.
      * @param {Pointer<AsnAny>} pAnySrc Pointer to an 
      * <b>AsnAny</b> structure to copy.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilasnanycpy
      * @since windows5.0
      */
     static SnmpUtilAsnAnyCpy(pAnyDst, pAnySrc) {
-        result := DllCall("snmpapi.dll\SnmpUtilAsnAnyCpy", "ptr", pAnyDst, "ptr", pAnySrc)
+        result := DllCall("snmpapi.dll\SnmpUtilAsnAnyCpy", "ptr", pAnyDst, "ptr", pAnySrc, "int")
         return result
     }
 
@@ -706,13 +704,12 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilasnanycpy">SnmpUtilAsnAnyCpy</a> function allocates.
      * @param {Pointer<AsnAny>} pAny Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnany">AsnAny</a> structure whose memory should be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilasnanyfree
      * @since windows5.0
      */
     static SnmpUtilAsnAnyFree(pAny) {
-        result := DllCall("snmpapi.dll\SnmpUtilAsnAnyFree", "ptr", pAny)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilAsnAnyFree", "ptr", pAny)
     }
 
     /**
@@ -725,14 +722,14 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> structure to receive the copy.
      * @param {Pointer<SnmpVarBind>} pVbSrc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> structure to copy.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindcpy
      * @since windows5.0
      */
     static SnmpUtilVarBindCpy(pVbDst, pVbSrc) {
-        result := DllCall("snmpapi.dll\SnmpUtilVarBindCpy", "ptr", pVbDst, "ptr", pVbSrc)
+        result := DllCall("snmpapi.dll\SnmpUtilVarBindCpy", "ptr", pVbDst, "ptr", pVbSrc, "int")
         return result
     }
 
@@ -740,13 +737,12 @@ class Snmp {
      * The SnmpUtilVarBindFree function frees the memory allocated for an SnmpVarBind structure. This function is an element of the SNMP Utility API.
      * @param {Pointer<SnmpVarBind>} pVb Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> structure whose memory should be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindfree
      * @since windows5.0
      */
     static SnmpUtilVarBindFree(pVb) {
-        result := DllCall("snmpapi.dll\SnmpUtilVarBindFree", "ptr", pVb)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilVarBindFree", "ptr", pVb)
     }
 
     /**
@@ -759,14 +755,14 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the copy.
      * @param {Pointer<SnmpVarBindList>} pVblSrc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to copy.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindlistcpy
      * @since windows5.0
      */
     static SnmpUtilVarBindListCpy(pVblDst, pVblSrc) {
-        result := DllCall("snmpapi.dll\SnmpUtilVarBindListCpy", "ptr", pVblDst, "ptr", pVblSrc)
+        result := DllCall("snmpapi.dll\SnmpUtilVarBindListCpy", "ptr", pVblDst, "ptr", pVblSrc, "int")
         return result
     }
 
@@ -774,13 +770,12 @@ class Snmp {
      * The SnmpUtilVarBindListFree function frees the memory allocated for an SnmpVarBindList structure. This function is an element of the SNMP Utility API.
      * @param {Pointer<SnmpVarBindList>} pVbl Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure whose allocated memory should be freed.
-     * @returns {Pointer} This function has no return values.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindlistfree
      * @since windows5.0
      */
     static SnmpUtilVarBindListFree(pVbl) {
-        result := DllCall("snmpapi.dll\SnmpUtilVarBindListFree", "ptr", pVbl)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilVarBindListFree", "ptr", pVbl)
     }
 
     /**
@@ -789,13 +784,12 @@ class Snmp {
      * Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemalloc">SnmpUtilMemAlloc</a> function to allocate the memory for the object.
      * @param {Pointer<Void>} pMem Pointer to the memory object to release.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilmemfree
      * @since windows5.0
      */
     static SnmpUtilMemFree(pMem) {
-        result := DllCall("snmpapi.dll\SnmpUtilMemFree", "ptr", pMem)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilMemFree", "ptr", pMem)
     }
 
     /**
@@ -898,13 +892,12 @@ class Snmp {
      * <b>SnmpUtilPrintOid</b> function can assist with the debugging of command-line SNMP applications. The function prints the object identifier as a sequence of numbers separated by periods ('.'); for example, 1.3.6.1.4.1.311.
      * @param {Pointer<AsnObjectIdentifier>} Oid Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to print.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilprintoid
      * @since windows5.0
      */
     static SnmpUtilPrintOid(Oid) {
-        result := DllCall("snmpapi.dll\SnmpUtilPrintOid", "ptr", Oid)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilPrintOid", "ptr", Oid)
     }
 
     /**
@@ -914,13 +907,12 @@ class Snmp {
      * <b>SnmpUtilPrintAsnAny</b> function for debugging and development purposes. This function does not generally print the data in a form that a manager application would typically need.
      * @param {Pointer<AsnAny>} pAny Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnany">AsnAny</a> structure for a value to print.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilprintasnany
      * @since windows5.0
      */
     static SnmpUtilPrintAsnAny(pAny) {
-        result := DllCall("snmpapi.dll\SnmpUtilPrintAsnAny", "ptr", pAny)
-        return result
+        DllCall("snmpapi.dll\SnmpUtilPrintAsnAny", "ptr", pAny)
     }
 
     /**
@@ -953,13 +945,12 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> and 
      * <b>SnmpSvcSetLogLevel</b> functions during development to adjust the output of debugging information. Extension agents can integrate the information with the debug output from the SNMP service.
      * @param {Integer} nLogLevel Specifies a signed integer variable that indicates the level of detail of the debug output from the
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetloglevel
      * @since windows5.0
      */
     static SnmpSvcSetLogLevel(nLogLevel) {
-        result := DllCall("snmpapi.dll\SnmpSvcSetLogLevel", "int", nLogLevel)
-        return result
+        DllCall("snmpapi.dll\SnmpSvcSetLogLevel", "int", nLogLevel)
     }
 
     /**
@@ -969,13 +960,12 @@ class Snmp {
      * <b>SnmpSvcSetLogType</b> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetloglevel">SnmpSvcSetLogLevel</a> functions during development to adjust the output of debugging information. Extension agents can integrate the information with the debug output from the SNMP service.
      * @param {Integer} nLogType Specifies a signed integer variable that represents the destination for the debug output from the
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetlogtype
      * @since windows5.0
      */
     static SnmpSvcSetLogType(nLogType) {
-        result := DllCall("snmpapi.dll\SnmpSvcSetLogType", "int", nLogType)
-        return result
+        DllCall("snmpapi.dll\SnmpSvcSetLogType", "int", nLogType)
     }
 
     /**
@@ -989,15 +979,14 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> function to specify the destination for the debug output.
      * @param {Integer} nLogLevel 
      * @param {Pointer<Byte>} szFormat Pointer to a null-terminated format string that is similar to the standard C library function <b>printf</b> style.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputildbgprint
      * @since windows5.0
      */
     static SnmpUtilDbgPrint(nLogLevel, szFormat) {
         szFormat := szFormat is String? StrPtr(szFormat) : szFormat
 
-        result := DllCall("snmpapi.dll\SnmpUtilDbgPrint", "int", nLogLevel, "ptr", szFormat, "CDecl ptr")
-        return result
+        DllCall("snmpapi.dll\SnmpUtilDbgPrint", "int", nLogLevel, "ptr", szFormat, "CDecl ")
     }
 
     /**
@@ -1198,7 +1187,7 @@ class Snmp {
      * <div> </div>
      * @param {Pointer<UInt32>} errorStatus 
      * @param {Pointer<Int32>} errorIndex Pointer to a variable in which the error index result will be returned.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which may return one of the following error codes.
@@ -1238,7 +1227,7 @@ class Snmp {
     static SnmpMgrRequest(session, requestType, variableBindings, errorStatus, errorIndex) {
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrRequest", "ptr", session, "char", requestType, "ptr", variableBindings, "uint*", errorStatus, "int*", errorIndex)
+        result := DllCall("mgmtapi.dll\SnmpMgrRequest", "ptr", session, "char", requestType, "ptr", variableBindings, "uint*", errorStatus, "int*", errorIndex, "int")
         if(A_LastError)
             throw OSError()
 

@@ -116,7 +116,7 @@ class WINBIO_PRESENCE extends Win32Struct
 
     /**
      * The status of the identification procedure for the individual.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 8, "int")

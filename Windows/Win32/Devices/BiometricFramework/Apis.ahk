@@ -651,7 +651,7 @@ class BiometricFramework {
      * @param {Integer} Factor A bitmask of WINBIO_BIOMETRIC_TYPE flags that specifies the biometric unit types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
      * @param {Pointer<WINBIO_BSP_SCHEMA>} BspSchemaArray Address of a variable that receives a pointer  to an array of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bsp-schema">WINBIO_BSP_SCHEMA</a> structures that contain information about each of the available service providers.  If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
      * @param {Pointer<UIntPtr>} BspCount Pointer to a value that specifies the number of structures pointed to by the <i>BspSchemaArray</i> parameter.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -697,6 +697,9 @@ class BiometricFramework {
      */
     static WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
         result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, "ptr", BspSchemaArray, "ptr*", BspCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -713,7 +716,7 @@ class BiometricFramework {
      * @param {Integer} Factor A bitmask of WINBIO_BIOMETRIC_TYPE flags that specifies the biometric unit types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
      * @param {Pointer<WINBIO_UNIT_SCHEMA>} UnitSchemaArray Address of a variable that receives a pointer to an array of   <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-unit-schema">WINBIO_UNIT_SCHEMA</a> structures that contain information about each enumerated biometric unit. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
      * @param {Pointer<UIntPtr>} UnitCount Pointer to a value that specifies the number of structures pointed to by the <i>UnitSchemaArray</i> parameter.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -770,6 +773,9 @@ class BiometricFramework {
      */
     static WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
         result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, "ptr", UnitSchemaArray, "ptr*", UnitCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -784,7 +790,7 @@ class BiometricFramework {
      * @param {Integer} Factor A bitmask of WINBIO_BIOMETRIC_TYPE flags that specifies the biometric unit types to be enumerated.  Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
      * @param {Pointer<WINBIO_STORAGE_SCHEMA>} StorageSchemaArray Address of a variable that receives a pointer to  an array of   <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-storage-schema">WINBIO_STORAGE_SCHEMA</a> structures that contain information about each database. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
      * @param {Pointer<UIntPtr>} StorageCount Pointer to a value that specifies the number of structures pointed to by the <i>StorageSchemaArray</i> parameter.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -830,6 +836,9 @@ class BiometricFramework {
      */
     static WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
         result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, "ptr", StorageSchemaArray, "ptr*", StorageCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -872,7 +881,7 @@ class BiometricFramework {
      * If the session is opened synchronously and successfully, this parameter will contain a pointer to the  session handle.
      * 
      * If you specify that the session be opened asynchronously, this method returns immediately, the session handle will be <b>NULL</b>, and you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure to determine whether the session was successfully opened.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -920,6 +929,9 @@ class BiometricFramework {
      */
     static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, FrameworkHandle) {
         result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", FrameworkHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -928,12 +940,15 @@ class BiometricFramework {
      * @remarks
      * This function never blocks.
      * @param {Integer} FrameworkHandle Handle to the framework session that will be closed.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiocloseframework
      * @since windows8.0
      */
     static WinBioCloseFramework(FrameworkHandle) {
         result := DllCall("winbio.dll\WinBioCloseFramework", "uint", FrameworkHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -951,7 +966,7 @@ class BiometricFramework {
      * Calling <b>WinBioAsyncEnumServiceProviders</b> causes a single notification to be sent to the client application.
      * @param {Integer} FrameworkHandle Handle to the framework session opened by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * @param {Integer} Factor A bitmask of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/winbio_ioctl/ns-winbio_ioctl-_winbio_sensor_attributes">WINBIO_BIOMETRIC_TYPE</a> flags that specifies the biometric service provider types to be enumerated. For Windows 8, only <b>WINBIO_TYPE_FINGERPRINT</b> is supported.
-     * @returns {Integer} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the function's arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the function's arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * 
      * <table>
      * <tr>
@@ -1008,6 +1023,9 @@ class BiometricFramework {
      */
     static WinBioAsyncEnumServiceProviders(FrameworkHandle, Factor) {
         result := DllCall("winbio.dll\WinBioAsyncEnumServiceProviders", "uint", FrameworkHandle, "uint", Factor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1025,7 +1043,7 @@ class BiometricFramework {
      * Calling <b>WinBioAsyncEnumBiometricUnits</b> causes a single notification to be sent to the client application.
      * @param {Integer} FrameworkHandle Handle to the framework session opened by calling  <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * @param {Integer} Factor A bitmask of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/winbio_ioctl/ns-winbio_ioctl-_winbio_sensor_attributes">WINBIO_BIOMETRIC_TYPE</a> flags that specifies the biometric unit types to be enumerated.  Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @returns {Integer} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * 
      * <table>
      * <tr>
@@ -1104,6 +1122,9 @@ class BiometricFramework {
      */
     static WinBioAsyncEnumBiometricUnits(FrameworkHandle, Factor) {
         result := DllCall("winbio.dll\WinBioAsyncEnumBiometricUnits", "uint", FrameworkHandle, "uint", Factor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1121,7 +1142,7 @@ class BiometricFramework {
      * Calling <b>WinBioAsyncEnumDatabases</b> causes a single notification to be sent to the client application.
      * @param {Integer} FrameworkHandle Handle to the framework session opened by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * @param {Integer} Factor A bitmask of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/winbio_ioctl/ns-winbio_ioctl-_winbio_sensor_attributes">WINBIO_BIOMETRIC_TYPE</a> flags that specifies the biometric database types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @returns {Integer} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the function's arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the function's arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * 
      * <table>
      * <tr>
@@ -1178,6 +1199,9 @@ class BiometricFramework {
      */
     static WinBioAsyncEnumDatabases(FrameworkHandle, Factor) {
         result := DllCall("winbio.dll\WinBioAsyncEnumDatabases", "uint", FrameworkHandle, "uint", Factor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1240,7 +1264,7 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the function arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b> indicating success or failure. Note that success indicates only that the function arguments were valid. Failures encountered during the execution of the operation will be returned asynchronously to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure using the notification method specified in <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a>.
      * 
      * <table>
      * <tr>
@@ -1286,6 +1310,9 @@ class BiometricFramework {
      */
     static WinBioAsyncMonitorFrameworkChanges(FrameworkHandle, ChangeTypes) {
         result := DllCall("winbio.dll\WinBioAsyncMonitorFrameworkChanges", "uint", FrameworkHandle, "uint", ChangeTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1402,7 +1429,7 @@ class BiometricFramework {
      * </tr>
      * </table>
      * @param {Pointer<UInt32>} SessionHandle Pointer to the new session handle. If the function does not succeed, the handle is set to zero.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -1492,6 +1519,9 @@ class BiometricFramework {
      */
     static WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, SessionHandle) {
         result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "uint*", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1713,7 +1743,7 @@ class BiometricFramework {
      * If the session is opened synchronously and successfully, this parameter will contain a pointer to the  session handle.
      * 
      * If you specify that the session be opened asynchronously, this method returns immediately, the session handle will be <b>NULL</b>, and you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure to determine whether the session was successfully opened.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -1816,6 +1846,9 @@ class BiometricFramework {
      */
     static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, SessionHandle) {
         result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1832,7 +1865,7 @@ class BiometricFramework {
      * </ul>
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> from your callback implementation to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session. Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -1856,6 +1889,9 @@ class BiometricFramework {
      */
     static WinBioCloseSession(SessionHandle) {
         result := DllCall("winbio.dll\WinBioCloseSession", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1912,7 +1948,7 @@ class BiometricFramework {
      * <li>WINBIO_FP_TOO_SHORT</li>
      * <li>WINBIO_FP_MERGE_FAILURE</li>
      * </ul>
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -1991,6 +2027,9 @@ class BiometricFramework {
      */
     static WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDetail) {
         result := DllCall("winbio.dll\WinBioVerify", "uint", SessionHandle, "ptr", Identity, "char", SubFactor, "uint*", UnitId, "char*", Match, "uint*", RejectDetail, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2037,7 +2076,7 @@ class BiometricFramework {
      * @param {Integer} SubFactor A <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that specifies the sub-factor associated with the biometric sample. See the Remarks section for more details.
      * @param {Pointer<PWINBIO_VERIFY_CALLBACK>} VerifyCallback Address of a callback function that will be called by the <b>WinBioVerifyWithCallback</b> function when verification succeeds or fails. You must create the callback.
      * @param {Pointer<Void>} VerifyCallbackContext An optional application-defined structure that is returned in the <i>VerifyCallbackContext</i> parameter of the callback function. This structure can contain any data that the custom callback function is designed to handle.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2083,6 +2122,9 @@ class BiometricFramework {
      */
     static WinBioVerifyWithCallback(SessionHandle, Identity, SubFactor, VerifyCallback, VerifyCallbackContext) {
         result := DllCall("winbio.dll\WinBioVerifyWithCallback", "uint", SessionHandle, "ptr", Identity, "char", SubFactor, "ptr", VerifyCallback, "ptr", VerifyCallbackContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2134,7 +2176,7 @@ class BiometricFramework {
      * <li>WINBIO_FP_TOO_SHORT</li>
      * <li>WINBIO_FP_MERGE_FAILURE</li>
      * </ul>
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2202,6 +2244,9 @@ class BiometricFramework {
      */
     static WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) {
         result := DllCall("winbio.dll\WinBioIdentify", "uint", SessionHandle, "uint*", UnitId, "ptr", Identity, "char*", SubFactor, "uint*", RejectDetail, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2226,7 +2271,7 @@ class BiometricFramework {
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.
      * @param {Pointer<PWINBIO_IDENTIFY_CALLBACK>} IdentifyCallback Address of a callback function that will be called by the <b>WinBioIdentifyWithCallback</b> function when identification succeeds or fails. You must create the callback.
      * @param {Pointer<Void>} IdentifyCallbackContext Pointer to  an application-defined data structure that is passed to the callback function in its <i>IdentifyCallbackContext</i> parameter. This structure can contain any data that the custom callback function is designed to handle.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2261,6 +2306,9 @@ class BiometricFramework {
      */
     static WinBioIdentifyWithCallback(SessionHandle, IdentifyCallback, IdentifyCallbackContext) {
         result := DllCall("winbio.dll\WinBioIdentifyWithCallback", "uint", SessionHandle, "ptr", IdentifyCallback, "ptr", IdentifyCallbackContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2277,7 +2325,7 @@ class BiometricFramework {
      * 
      * If you call <b>WinBioWait</b> from an asynchronous session that generates window messages, there is no guarantee of the order in which the  window message and the wake-from-wait message will arrive. We recommend that you not write any code that depends on the order of these events.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2301,6 +2349,9 @@ class BiometricFramework {
      */
     static WinBioWait(SessionHandle) {
         result := DllCall("winbio.dll\WinBioWait", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2328,7 +2379,7 @@ class BiometricFramework {
      * </ul>
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session. Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2352,6 +2403,9 @@ class BiometricFramework {
      */
     static WinBioCancel(SessionHandle) {
         result := DllCall("winbio.dll\WinBioCancel", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2375,7 +2429,7 @@ class BiometricFramework {
      * <b>Windows 7:  </b>You can perform this operation asynchronously by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolocatesensorwithcallback">WinBioLocateSensorWithCallback</a> function. The function verifies the input arguments and returns immediately. If the input arguments are not valid, the function returns an error code. Otherwise, the framework starts the operation on another thread. When the asynchronous operation completes or encounters an error, the framework sends the results to  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nc-winbio-pwinbio_locate_sensor_callback">PWINBIO_LOCATE_SENSOR_CALLBACK</a> function implemented by your application.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Pointer<UInt32>} UnitId A pointer to a <b>ULONG</b> value that specifies the biometric unit.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2421,6 +2475,9 @@ class BiometricFramework {
      */
     static WinBioLocateSensor(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, "uint*", UnitId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2445,7 +2502,7 @@ class BiometricFramework {
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.
      * @param {Pointer<PWINBIO_LOCATE_SENSOR_CALLBACK>} LocateCallback Address of a callback function that will be called by the <b>WinBioLocateSensorWithCallback</b> function when sensor location succeeds or fails. You must create the callback.
      * @param {Pointer<Void>} LocateCallbackContext Address of an application-defined data structure that is passed to the callback function in its <i>LocateCallbackContext</i> parameter. This structure can contain any data that the custom callback function is designed to handle.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2480,6 +2537,9 @@ class BiometricFramework {
      */
     static WinBioLocateSensorWithCallback(SessionHandle, LocateCallback, LocateCallbackContext) {
         result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", "uint", SessionHandle, "ptr", LocateCallback, "ptr", LocateCallbackContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2502,7 +2562,7 @@ class BiometricFramework {
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} SubFactor 
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value cannot be zero. You can find a  unit ID by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenumbiometricunits">WinBioEnumBiometricUnits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolocatesensor">WinBioLocateSensor</a> functions.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2570,6 +2630,9 @@ class BiometricFramework {
      */
     static WinBioEnrollBegin(SessionHandle, SubFactor, UnitId) {
         result := DllCall("winbio.dll\WinBioEnrollBegin", "uint", SessionHandle, "char", SubFactor, "uint", UnitId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2595,7 +2658,7 @@ class BiometricFramework {
      * 
      * For enrollment in facial recognition, use <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a> with the <i>PoolType</i> parameter set to <b>WINBIO_POOL_SYSTEM</b> to get the handle.
      * @param {Integer} SelectorValue A value that identifies that individual that you want to select for enrollment.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2641,6 +2704,9 @@ class BiometricFramework {
      */
     static WinBioEnrollSelect(SessionHandle, SelectorValue) {
         result := DllCall("winbio.dll\WinBioEnrollSelect", "uint", SessionHandle, "uint", SelectorValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2675,7 +2741,7 @@ class BiometricFramework {
      * <li>WINBIO_FP_TOO_SHORT</li>
      * <li>WINBIO_FP_MERGE_FAILURE</li>
      * </ul>
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2754,6 +2820,9 @@ class BiometricFramework {
      */
     static WinBioEnrollCapture(SessionHandle, RejectDetail) {
         result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, "uint*", RejectDetail, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2764,7 +2833,7 @@ class BiometricFramework {
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.
      * @param {Pointer<PWINBIO_ENROLL_CAPTURE_CALLBACK>} EnrollCallback Address of a callback function that will be called by the <b>WinBioEnrollCaptureWithCallback</b> function when the capture operation succeeds or fails. You must create the callback.
      * @param {Pointer<Void>} EnrollCallbackContext Pointer to an optional application-defined structure that is passed to the <i>EnrollCallbackContext</i> parameter of the callback function. This structure can contain any data that the custom callback function is designed to handle.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2810,6 +2879,9 @@ class BiometricFramework {
      */
     static WinBioEnrollCaptureWithCallback(SessionHandle, EnrollCallback, EnrollCallbackContext) {
         result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", "uint", SessionHandle, "ptr", EnrollCallback, "ptr", EnrollCallbackContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2844,7 +2916,7 @@ class BiometricFramework {
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that receives the identifier (GUID or SID) of the template.
      * @param {Pointer<Byte>} IsNewTemplate Pointer to a Boolean value that specifies whether the template being added to the database is new.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2912,6 +2984,9 @@ class BiometricFramework {
      */
     static WinBioEnrollCommit(SessionHandle, Identity, IsNewTemplate) {
         result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, "ptr", Identity, "char*", IsNewTemplate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2930,7 +3005,7 @@ class BiometricFramework {
      * </ul>
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -2976,6 +3051,9 @@ class BiometricFramework {
      */
     static WinBioEnrollDiscard(SessionHandle) {
         result := DllCall("winbio.dll\WinBioEnrollDiscard", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3000,7 +3078,7 @@ class BiometricFramework {
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the GUID or SID of the template from which the sub-factors are to be retrieved.
      * @param {Pointer<Byte>} SubFactorArray Address of a variable that receives a pointer to an array of sub-factors. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
      * @param {Pointer<UIntPtr>} SubFactorCount Pointer to a value that specifies the number of elements in the array pointed to by the <i>SubFactorArray</i> parameter. If the function does not succeed, this value is set to zero.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3068,6 +3146,9 @@ class BiometricFramework {
      */
     static WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, SubFactorCount) {
         result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "ptr", SubFactorArray, "ptr*", SubFactorCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3075,20 +3156,26 @@ class BiometricFramework {
      * 
      * @param {Integer} SessionHandle 
      * @param {Integer} UnitId 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static WinBioImproveBegin(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioImproveBegin", "uint", SessionHandle, "uint", UnitId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Integer} SessionHandle 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static WinBioImproveEnd(SessionHandle) {
         result := DllCall("winbio.dll\WinBioImproveEnd", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3132,7 +3219,7 @@ class BiometricFramework {
      * The sensor detected a finger swipe that was not requested by the application, or the requesting application does not have window focus. The Windows Biometric Framework attempts to identify the fingerprint and passes the result of that process to your callback function.
      * @param {Pointer<PWINBIO_EVENT_CALLBACK>} EventCallback Address of a callback function that receives the event notifications sent by the Windows Biometric Framework. You must define this function.
      * @param {Pointer<Void>} EventCallbackContext An optional application-defined value that is returned in the <i>pvContext</i> parameter of the callback function. This value can contain any data that the custom callback function is designed to handle.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3200,6 +3287,9 @@ class BiometricFramework {
      */
     static WinBioRegisterEventMonitor(SessionHandle, EventMask, EventCallback, EventCallbackContext) {
         result := DllCall("winbio.dll\WinBioRegisterEventMonitor", "uint", SessionHandle, "uint", EventMask, "ptr", EventCallback, "ptr", EventCallbackContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3210,7 +3300,7 @@ class BiometricFramework {
      * 
      * If an application registers a <b>WinBio</b> event monitor and leaves that monitor active during a sleep/wake cycle, systems that implement biometric pre-boot authentication (PBA)/single sign-on features may not always work. The problem is that the PBA biometric call is intercepted by the event monitor before the system's biometric credential provider has a chance to perform its first <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioidentify">WinBioIdentify</a> operation. Apps that use the <b>WinBio</b> event monitoring feature should unregister their monitors before the system sleeps, and re-register them after system wakeup. For more information on handling events during power state changes, see  <a href="https://docs.microsoft.com/windows/desktop/Power/about-power-management">About Power Management</a>.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies the open biometric session. Open the session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3234,6 +3324,9 @@ class BiometricFramework {
      */
     static WinBioUnregisterEventMonitor(SessionHandle) {
         result := DllCall("winbio.dll\WinBioUnregisterEventMonitor", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3247,7 +3340,7 @@ class BiometricFramework {
      * To stop receiving notifications, call either <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiocancel">WinBioCancel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioclosesession">WinBioCloseSession</a> with the original asynchronous handle value.
      * @param {Integer} SessionHandle An asynchronous handle for the biometric session that you obtained by  calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a> function with the <i>PoolType</i> parameter set to <b>WINBIO_POOL_SYSTEM</b>.
      * @param {Integer} UnitId The identifier of the biometric unit for which you want to turn on the  face-recognition or iris-monitoring mechanism.
-     * @returns {Integer} If the function parameters are acceptable, it returns <b>S_OK</b>. If the function parameters are not acceptable, it returns an <b>HRESULT</b> value that indicates the error.  
+     * @returns {HRESULT} If the function parameters are acceptable, it returns <b>S_OK</b>. If the function parameters are not acceptable, it returns an <b>HRESULT</b> value that indicates the error.  
      * Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -3297,6 +3390,9 @@ class BiometricFramework {
      */
     static WinBioMonitorPresence(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioMonitorPresence", "uint", SessionHandle, "uint", UnitId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3363,7 +3459,7 @@ class BiometricFramework {
      * <li><b>WINBIO_FP_TOO_SHORT</b></li>
      * <li><b>WINBIO_FP_MERGE_FAILURE</b></li>
      * </ul>
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3442,6 +3538,9 @@ class BiometricFramework {
      */
     static WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, SampleSize, RejectDetail) {
         result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, "uint*", UnitId, "ptr", Sample, "ptr*", SampleSize, "uint*", RejectDetail, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3497,7 +3596,7 @@ class BiometricFramework {
      * Return the sample after it is ready to be used for the purpose specified by the <mark>Purpose</mark> parameter.
      * @param {Pointer<PWINBIO_CAPTURE_CALLBACK>} CaptureCallback Address of a callback function that will be called by the <b>WinBioCaptureSampleWithCallback</b> function when the capture operation succeeds or fails. You must create the callback.
      * @param {Pointer<Void>} CaptureCallbackContext Address of an application-defined data structure that is passed to the callback function in its <i>CaptureCallbackContext</i> parameter. This structure can contain any data that the custom callback function is designed to handle.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3565,6 +3664,9 @@ class BiometricFramework {
      */
     static WinBioCaptureSampleWithCallback(SessionHandle, Purpose, Flags, CaptureCallback, CaptureCallbackContext) {
         result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", "uint", SessionHandle, "char", Purpose, "char", Flags, "ptr", CaptureCallback, "ptr", CaptureCallbackContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3584,7 +3686,7 @@ class BiometricFramework {
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit where the template is located.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the GUID or SID of the template to be deleted. If the <b>Type</b> member of the <b>WINBIO_IDENTITY</b> structure is <b>WINBIO_ID_TYPE_WILDCARD</b>, templates matching the <i>SubFactor</i> parameter will be deleted for all identities. Only administrators can perform wildcard identity deletion.
      * @param {Integer} SubFactor A <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that provides additional information about the template to be deleted. If you specify WINBIO_SUBTYPE_ANY, all templates for the biometric unit specified by the <i>UnitId</i> parameter are deleted.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3641,6 +3743,9 @@ class BiometricFramework {
      */
     static WinBioDeleteTemplate(SessionHandle, UnitId, Identity, SubFactor) {
         result := DllCall("winbio.dll\WinBioDeleteTemplate", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "char", SubFactor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3662,7 +3767,7 @@ class BiometricFramework {
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that specifies the biometric unit to be locked.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3719,6 +3824,9 @@ class BiometricFramework {
      */
     static WinBioLockUnit(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioLockUnit", "uint", SessionHandle, "uint", UnitId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3738,7 +3846,7 @@ class BiometricFramework {
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that specifies the biometric unit to unlock.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3784,6 +3892,9 @@ class BiometricFramework {
      */
     static WinBioUnlockUnit(SessionHandle, UnitId) {
         result := DllCall("winbio.dll\WinBioUnlockUnit", "uint", SessionHandle, "uint", UnitId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3813,7 +3924,7 @@ class BiometricFramework {
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UIntPtr>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UInt32>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3881,6 +3992,9 @@ class BiometricFramework {
      */
     static WinBioControlUnit(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
         result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, "ptr*", ReceiveDataSize, "uint*", OperationStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3912,7 +4026,7 @@ class BiometricFramework {
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UIntPtr>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UInt32>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -3991,6 +4105,9 @@ class BiometricFramework {
      */
     static WinBioControlUnitPrivileged(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
         result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, "ptr*", ReceiveDataSize, "uint*", OperationStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4095,7 +4212,7 @@ class BiometricFramework {
      * @param {Integer} SubFactor Reserved. This must be <b>WINBIO_SUBTYPE_NO_INFORMATION</b>.
      * @param {Pointer<Void>} PropertyBuffer Address of a pointer to a buffer that receives the property value. For information about the contents of this buffer for different properties, see the descriptions of the property values for the <i>PropertyId</i> parameter.
      * @param {Pointer<UIntPtr>} PropertyBufferSize Pointer to a variable that receives the size, in bytes, of the buffer pointed to by the <i>PropertyBuffer</i> parameter.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4196,6 +4313,9 @@ class BiometricFramework {
      */
     static WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
         result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr*", PropertyBufferSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4219,7 +4339,7 @@ class BiometricFramework {
      * @param {Integer} SubFactor Reserved. This must be <b>WINBIO_SUBTYPE_NO_INFORMATION</b>.
      * @param {Pointer} PropertyBuffer A pointer to a structure that specifies the new value for the property. This value cannot be NULL. For setting the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, the structure must be a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-anti-spoof-policy">WINBIO_ANTI_SPOOF_POLICY</a> structure.
      * @param {Pointer} PropertyBufferSize The size, in bytes, of the structure to which the <i>PropertyBuffer</i> parameter points. This value cannot be 0.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4320,6 +4440,9 @@ class BiometricFramework {
      */
     static WinBioSetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
         result := DllCall("winbio.dll\WinBioSetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr", PropertyBufferSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4381,7 +4504,7 @@ class BiometricFramework {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Address Address of the memory block to delete.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4405,6 +4528,9 @@ class BiometricFramework {
      */
     static WinBioFree(Address) {
         result := DllCall("winbio.dll\WinBioFree", "ptr", Address, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4458,7 +4584,7 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4515,6 +4641,9 @@ class BiometricFramework {
      */
     static WinBioSetCredential(Type, Credential, CredentialSize, Format) {
         result := DllCall("winbio.dll\WinBioSetCredential", "int", Type, "ptr", Credential, "ptr", CredentialSize, "int", Format, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4524,7 +4653,7 @@ class BiometricFramework {
      * Users who do not have elevated privileges can delete only their own credentials. Elevated users can remove credentials for any user account. Deleting a credential does not affect any biometric enrollments for that user. Deleting a biometric credential does not prevent the user from logging on by using a password. Only medium and higher  integrity processes can delete credentials. If a lower integrity process attempts to delete credentials, the function returns E_ACCESSDENIED.
      * @param {Pointer} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the logon credential will be removed.
      * @param {Integer} Type 
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4559,28 +4688,37 @@ class BiometricFramework {
      */
     static WinBioRemoveCredential(Identity, Type) {
         result := DllCall("winbio.dll\WinBioRemoveCredential", "ptr", Identity, "int", Type, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Removes all credentials from the store. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbioremoveallcredentials
      * @since windows6.1
      */
     static WinBioRemoveAllCredentials() {
         result := DllCall("winbio.dll\WinBioRemoveAllCredentials", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Removes all user credentials for the current domain from the store. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbioremovealldomaincredentials
      * @since windows6.1
      */
     static WinBioRemoveAllDomainCredentials() {
         result := DllCall("winbio.dll\WinBioRemoveAllDomainCredentials", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4595,7 +4733,7 @@ class BiometricFramework {
      * @param {Pointer} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the credential is being queried.
      * @param {Integer} Type 
      * @param {Pointer<Int32>} CredentialState 
-     * @returns {Integer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4641,6 +4779,9 @@ class BiometricFramework {
      */
     static WinBioGetCredentialState(Identity, Type, CredentialState) {
         result := DllCall("winbio.dll\WinBioGetCredentialState", "ptr", Identity, "int", Type, "int*", CredentialState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4657,7 +4798,7 @@ class BiometricFramework {
      * 
      * Calling this function when the target user is the same as the current user returns <b>S_FALSE</b> and the fast user switch attempt is ignored.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies the biometric session that has recently performed a successful identification operation. Open the session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4747,6 +4888,9 @@ class BiometricFramework {
      */
     static WinBioLogonIdentifiedUser(SessionHandle) {
         result := DllCall("winbio.dll\WinBioLogonIdentifiedUser", "uint", SessionHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4780,7 +4924,7 @@ class BiometricFramework {
      * These enrollments represent system pool enrollments only, such as enrollments that you can use to authenticate a user for sign-in, unlock, and so on.          This value does not include private pool enrollments.
      * 
      * If you specify the wildcard identity type for the  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that you use for the <i>AccountOwner</i> parameter, this set of flags represents the combined set of enrollments for all users with accounts on the computer.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4815,6 +4959,9 @@ class BiometricFramework {
      */
     static WinBioGetEnrolledFactors(AccountOwner, EnrolledFactors) {
         result := DllCall("winbio.dll\WinBioGetEnrolledFactors", "ptr", AccountOwner, "uint*", EnrolledFactors, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4822,39 +4969,36 @@ class BiometricFramework {
      * Retrieves a value that specifies whether the Windows Biometric Framework is currently enabled.
      * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether the Windows Biometric Framework is currently enabled.
      * @param {Pointer<UInt32>} Source 
-     * @returns {Pointer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetenabledsetting
      * @since windows6.1
      */
     static WinBioGetEnabledSetting(Value, Source) {
-        result := DllCall("winbio.dll\WinBioGetEnabledSetting", "char*", Value, "uint*", Source)
-        return result
+        DllCall("winbio.dll\WinBioGetEnabledSetting", "char*", Value, "uint*", Source)
     }
 
     /**
      * Retrieves a value that indicates whether users can log on by using biometric information.
      * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether biometric logons are enabled.
      * @param {Pointer<UInt32>} Source 
-     * @returns {Pointer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetlogonsetting
      * @since windows6.1
      */
     static WinBioGetLogonSetting(Value, Source) {
-        result := DllCall("winbio.dll\WinBioGetLogonSetting", "char*", Value, "uint*", Source)
-        return result
+        DllCall("winbio.dll\WinBioGetLogonSetting", "char*", Value, "uint*", Source)
     }
 
     /**
      * Retrieves a value that specifies whether users can log on to a domain by using biometric information.
      * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether biometric domain logons are enabled.
      * @param {Pointer<UInt32>} Source 
-     * @returns {Pointer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetdomainlogonsetting
      * @since windows6.1
      */
     static WinBioGetDomainLogonSetting(Value, Source) {
-        result := DllCall("winbio.dll\WinBioGetDomainLogonSetting", "char*", Value, "uint*", Source)
-        return result
+        DllCall("winbio.dll\WinBioGetDomainLogonSetting", "char*", Value, "uint*", Source)
     }
 
     /**
@@ -4885,7 +5029,7 @@ class BiometricFramework {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenrollcapturewithcallback">WinBioEnrollCaptureWithCallback</a>
      * </li>
      * </ul>
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4909,6 +5053,9 @@ class BiometricFramework {
      */
     static WinBioAcquireFocus() {
         result := DllCall("winbio.dll\WinBioAcquireFocus", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4939,7 +5086,7 @@ class BiometricFramework {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenrollcapturewithcallback">WinBioEnrollCaptureWithCallback</a>
      * </li>
      * </ul>
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -4963,6 +5110,9 @@ class BiometricFramework {
      */
     static WinBioReleaseFocus() {
         result := DllCall("winbio.dll\WinBioReleaseFocus", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -8459,7 +8459,7 @@ class WNet {
      * @param {Integer} err The error that occurred. This is a network-specific error code.
      * @param {Pointer<Byte>} lpError String that describes the network-specific error.
      * @param {Pointer<Byte>} lpProviders String that names the network provider that raised the error.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrora
      * @since windows5.1.2600
      */
@@ -8467,8 +8467,7 @@ class WNet {
         lpError := lpError is String? StrPtr(lpError) : lpError
         lpProviders := lpProviders is String? StrPtr(lpProviders) : lpProviders
 
-        result := DllCall("MPR.dll\WNetSetLastErrorA", "uint", err, "ptr", lpError, "ptr", lpProviders)
-        return result
+        DllCall("MPR.dll\WNetSetLastErrorA", "uint", err, "ptr", lpError, "ptr", lpProviders)
     }
 
     /**
@@ -8502,15 +8501,14 @@ class WNet {
      * @param {Integer} err The error that occurred. This is a network-specific error code.
      * @param {Pointer<Char>} lpError String that describes the network-specific error.
      * @param {Pointer<Char>} lpProviders String that names the network provider that raised the error.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrorw
      */
     static WNetSetLastErrorW(err, lpError, lpProviders) {
         lpError := lpError is String? StrPtr(lpError) : lpError
         lpProviders := lpProviders is String? StrPtr(lpProviders) : lpProviders
 
-        result := DllCall("MPR.dll\WNetSetLastErrorW", "uint", err, "ptr", lpError, "ptr", lpProviders)
-        return result
+        DllCall("MPR.dll\WNetSetLastErrorW", "uint", err, "ptr", lpError, "ptr", lpProviders)
     }
 
 ;@endregion Methods

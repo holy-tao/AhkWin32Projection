@@ -367,12 +367,12 @@ class Wmi {
      *       handle is passed in and a populated handle is returned. The initialized handle must be passed to 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_application_close">MI_Application_Close</a> before the application 
      *   shuts down. If an application passes this handle, pass it by value rather than as a pointer.
-     * @returns {Pointer} This function returns MI_Result MI_MAIN_CALL.
+     * @returns {Integer} This function returns MI_Result MI_MAIN_CALL.
      * @see https://learn.microsoft.com/windows/win32/api/mi/nf-mi-mi_application_initializev1
      * @since windows8.0
      */
     static MI_Application_InitializeV1(flags, applicationID, extendedError, application) {
-        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, "ushort*", applicationID, "ptr", extendedError, "ptr", application, "CDecl ptr")
+        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, "ushort*", applicationID, "ptr", extendedError, "ptr", application, "CDecl int")
         return result
     }
 

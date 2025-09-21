@@ -44,7 +44,7 @@ class MINIDUMP_VM_POST_READ_CALLBACK extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 24, "int")

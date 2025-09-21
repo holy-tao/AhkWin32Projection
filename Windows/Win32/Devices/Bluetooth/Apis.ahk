@@ -5783,7 +5783,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns the following values:
+     * @returns {HRESULT} This function returns the following values:
      * 
      * <table>
      * <tr>
@@ -5892,6 +5892,9 @@ class Bluetooth {
      */
     static BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, ServicesBufferActual, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", "ptr", hDevice, "ushort", ServicesBufferCount, "ptr", ServicesBuffer, "ushort*", ServicesBufferActual, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5981,7 +5984,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns the following values:
+     * @returns {HRESULT} This function returns the following values:
      * 
      * <table>
      * <tr>
@@ -6090,6 +6093,9 @@ class Bluetooth {
      */
     static BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServicesBufferCount, IncludedServicesBuffer, IncludedServicesBufferActual, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", "ptr", hDevice, "ptr", ParentService, "ushort", IncludedServicesBufferCount, "ptr", IncludedServicesBuffer, "ushort*", IncludedServicesBufferActual, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6188,7 +6194,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns the following values:
+     * @returns {HRESULT} This function returns the following values:
      * 
      * <table>
      * <tr>
@@ -6285,6 +6291,9 @@ class Bluetooth {
      */
     static BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCount, CharacteristicsBuffer, CharacteristicsBufferActual, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", "ptr", hDevice, "ptr", Service, "ushort", CharacteristicsBufferCount, "ptr", CharacteristicsBuffer, "ushort*", CharacteristicsBufferActual, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6385,7 +6394,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns the following values:
+     * @returns {HRESULT} This function returns the following values:
      * 
      * <table>
      * <tr>
@@ -6482,6 +6491,9 @@ class Bluetooth {
      */
     static BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCount, DescriptorsBuffer, DescriptorsBufferActual, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", "ptr", hDevice, "ptr", Characteristic, "ushort", DescriptorsBufferCount, "ptr", DescriptorsBuffer, "ushort*", DescriptorsBufferActual, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6619,7 +6631,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The <b>BluetoothGATTGetCharacteristicValue</b> function returns the following values:
+     * @returns {HRESULT} The <b>BluetoothGATTGetCharacteristicValue</b> function returns the following values:
      * 
      * <table>
      * <tr>
@@ -6943,6 +6955,9 @@ class Bluetooth {
      */
     static BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, CharacteristicValueDataSize, CharacteristicValue, CharacteristicValueSizeRequired, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", "ptr", hDevice, "ptr", Characteristic, "uint", CharacteristicValueDataSize, "ptr", CharacteristicValue, "ushort*", CharacteristicValueSizeRequired, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7071,7 +7086,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The <b>BluetoothGATTGetDescriptorValue</b> function returns the following values:
+     * @returns {HRESULT} The <b>BluetoothGATTGetDescriptorValue</b> function returns the following values:
      * 
      * <table>
      * <tr>
@@ -7396,6 +7411,9 @@ class Bluetooth {
      */
     static BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataSize, DescriptorValue, DescriptorValueSizeRequired, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", "ptr", hDevice, "ptr", Descriptor, "uint", DescriptorValueDataSize, "ptr", DescriptorValue, "ushort*", DescriptorValueSizeRequired, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7435,7 +7453,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The <b>BluetoothGATTBeginReliableWrite</b> function returns the following values:
+     * @returns {HRESULT} The <b>BluetoothGATTBeginReliableWrite</b> function returns the following values:
      * 
      * <table>
      * <tr>
@@ -7481,6 +7499,9 @@ class Bluetooth {
      */
     static BluetoothGATTBeginReliableWrite(hDevice, ReliableWriteContext, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", "ptr", hDevice, "uint*", ReliableWriteContext, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7576,7 +7597,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The <b>BluetoothGATTSetCharacteristicValue</b> function returns the following values:
+     * @returns {HRESULT} The <b>BluetoothGATTSetCharacteristicValue</b> function returns the following values:
      * 
      * <table>
      * <tr>
@@ -7865,6 +7886,9 @@ class Bluetooth {
      */
     static BluetoothGATTSetCharacteristicValue(hDevice, Characteristic, CharacteristicValue, ReliableWriteContext, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTSetCharacteristicValue", "ptr", hDevice, "ptr", Characteristic, "ptr", CharacteristicValue, "uint", ReliableWriteContext, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7890,7 +7914,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The <b>BluetoothGATTEndReliableWrite</b> function returns the following values:
+     * @returns {HRESULT} The <b>BluetoothGATTEndReliableWrite</b> function returns the following values:
      * 
      * <table>
      * <tr>
@@ -8168,6 +8192,9 @@ class Bluetooth {
      */
     static BluetoothGATTEndReliableWrite(hDevice, ReliableWriteContext, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTEndReliableWrite", "ptr", hDevice, "uint", ReliableWriteContext, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8193,7 +8220,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The <b>BluetoothGATTAbortReliableWrite</b> function returns the following values:
+     * @returns {HRESULT} The <b>BluetoothGATTAbortReliableWrite</b> function returns the following values:
      * 
      * <table>
      * <tr>
@@ -8471,6 +8498,9 @@ class Bluetooth {
      */
     static BluetoothGATTAbortReliableWrite(hDevice, ReliableWriteContext, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTAbortReliableWrite", "ptr", hDevice, "uint", ReliableWriteContext, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8540,7 +8570,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The BluetoothGATTSetDescriptorValue function returns the following values:
+     * @returns {HRESULT} The BluetoothGATTSetDescriptorValue function returns the following values:
      * 
      * <table>
      * <tr>
@@ -8818,6 +8848,9 @@ class Bluetooth {
      */
     static BluetoothGATTSetDescriptorValue(hDevice, Descriptor, DescriptorValue, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTSetDescriptorValue", "ptr", hDevice, "ptr", Descriptor, "ptr", DescriptorValue, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8847,7 +8880,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} <b>BluetoothGATTRegisterEvent</b> returns the following values:
+     * @returns {HRESULT} <b>BluetoothGATTRegisterEvent</b> returns the following values:
      * 
      * <table>
      * <tr>
@@ -8893,6 +8926,9 @@ class Bluetooth {
      */
     static BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callback, CallbackContext, pEventHandle, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", "ptr", hService, "int", EventType, "ptr", EventParameterIn, "ptr", Callback, "ptr", CallbackContext, "ptr*", pEventHandle, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8917,7 +8953,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} <b>BluetoothGATTUnregisterEvent</b> returns the following values:
+     * @returns {HRESULT} <b>BluetoothGATTUnregisterEvent</b> returns the following values:
      * 
      * <table>
      * <tr>
@@ -8963,6 +8999,9 @@ class Bluetooth {
      */
     static BluetoothGATTUnregisterEvent(EventHandle, Flags) {
         result := DllCall("BluetoothApis.dll\BluetoothGATTUnregisterEvent", "ptr", EventHandle, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

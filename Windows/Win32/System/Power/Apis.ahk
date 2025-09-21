@@ -1066,13 +1066,13 @@ class Power {
      * 
      * If the OEM preferred computer role is not supported on the platform specified by the caller, the function returns the closest supported value.  For example, calling the <b>PowerDeterminePlatformRoleEx</b> function with a <i>Version</i> of <b>POWER_PLATFORM_ROLE_V1</b> on a tablet device returns <b>PlatformRoleMobile</b>.
      * @param {Integer} Version 
-     * @returns {Pointer} The return value is one of the values from the 
+     * @returns {Integer} The return value is one of the values from the 
      *       specified version of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerdetermineplatformroleex
      * @since windows8.0
      */
     static PowerDeterminePlatformRoleEx(Version) {
-        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRoleEx", "uint", Version)
+        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRoleEx", "uint", Version, "int")
         return result
     }
 
@@ -1274,12 +1274,15 @@ class Power {
      * @param {Pointer<EFFECTIVE_POWER_MODE_CALLBACK>} Callback A pointer to the callback to call when the effective power mode changes. This will also be called once upon registration to supply the current mode. If multiple callbacks are registered using this API, those callbacks can be called concurrently.
      * @param {Pointer<Void>} Context Caller-specified opaque context.
      * @param {Pointer<Void>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
-     * @returns {Integer} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {HRESULT} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
      * @since windows10.0.17763
      */
     static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context, RegistrationHandle) {
         result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, "ptr", Context, "ptr", RegistrationHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1288,12 +1291,15 @@ class Power {
      * @remarks
      * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power setting is changing, you may receive multiple callbacks; the last callback is the most recent update.
      * @param {Pointer<Void>} RegistrationHandle The handle corresponding to a single power mode registration. This handle should have been saved by the caller after the call to <a href="../powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications.md">PowerRegisterForEffectivePowerModeNotifications</a> and passed in here.
-     * @returns {Integer} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {HRESULT} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerunregisterfromeffectivepowermodenotifications
      * @since windows10.0.17763
      */
     static PowerUnregisterFromEffectivePowerModeNotifications(RegistrationHandle) {
         result := DllCall("POWRPROF.dll\PowerUnregisterFromEffectivePowerModeNotifications", "ptr", RegistrationHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3300,13 +3306,13 @@ class Power {
      * 
      * <div class="alert"><b>Note</b>  This API has a newer version. To query additional power platform roles defined after Windows 7 and Windows Server 2008 R2, use <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-powerdetermineplatformroleex">PowerDeterminePlatformRoleEx</a>.</div>
      * <div> </div>
-     * @returns {Pointer} The return value is one of the values from the 
+     * @returns {Integer} The return value is one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerdetermineplatformrole
      * @since windows6.0.6000
      */
     static PowerDeterminePlatformRole() {
-        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRole")
+        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRole", "int")
         return result
     }
 

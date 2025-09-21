@@ -141,7 +141,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrStatus {
         get => NumGet(this, 120, "int")

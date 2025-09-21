@@ -35,7 +35,7 @@ class ADSPROPINITPARAMS extends Win32Struct
 
     /**
      * Contains an <b>HRESULT</b> value that specifies the result of the bind/get operation. If this value does not equal <b>S_OK</b>, then the remaining structure members are not initialized and should be ignored.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 8, "int")

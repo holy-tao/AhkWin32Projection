@@ -8929,14 +8929,11 @@ class IpHelper {
      * @param {Pointer<Void>} NotificationHandle Type: \_In\_ **HIFTIMESTAMPCHANGE**
      * 
      * The handle that was returned by [**RegisterInterfaceTimestampConfigChange**](/windows/win32/api/iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange). This identifies the registration to be canceled.
-     * @returns {Pointer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
-     * 
-     * A **DWORD** return code indicating success or failure.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-unregisterinterfacetimestampconfigchange
      */
     static UnregisterInterfaceTimestampConfigChange(NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\UnregisterInterfaceTimestampConfigChange", "ptr", NotificationHandle)
-        return result
+        DllCall("IPHLPAPI.dll\UnregisterInterfaceTimestampConfigChange", "ptr", NotificationHandle)
     }
 
     /**
@@ -8979,12 +8976,11 @@ class IpHelper {
     /**
      * This function is reserved for system use, and you should not call it from your code. (CancelIfTimestampConfigChange)
      * @param {Pointer<Void>} NotificationHandle Reserved.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-canceliftimestampconfigchange
      */
     static CancelIfTimestampConfigChange(NotificationHandle) {
-        result := DllCall("IPHLPAPI.DLL\CancelIfTimestampConfigChange", "ptr", NotificationHandle)
-        return result
+        DllCall("IPHLPAPI.DLL\CancelIfTimestampConfigChange", "ptr", NotificationHandle)
     }
 
     /**
@@ -11220,13 +11216,12 @@ class IpHelper {
      *     fields in the <b>MIB_IPINTERFACE_ROW</b> entry it wishes to modify, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-setipinterfaceentry">SetIpInterfaceEntry</a> function.
      * @param {Pointer<MIB_IPINTERFACE_ROW>} Row A pointer to a 
      * <b>MIB_IPINTERFACE_ROW</b> structure to initialize. On successful return, the fields in this parameter are initialized with default information for an interface on the local computer.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-initializeipinterfaceentry
      * @since windows6.0.6000
      */
     static InitializeIpInterfaceEntry(Row) {
-        result := DllCall("IPHLPAPI.dll\InitializeIpInterfaceEntry", "ptr", Row)
-        return result
+        DllCall("IPHLPAPI.dll\InitializeIpInterfaceEntry", "ptr", Row)
     }
 
     /**
@@ -12094,13 +12089,12 @@ class IpHelper {
      *     members in the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> entry it wishes to modify, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createunicastipaddressentry">CreateUnicastIpAddressEntry</a>  to add the new unicast IP address to the local computer.
      * @param {Pointer<MIB_UNICASTIPADDRESS_ROW>} Row On entry, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> structure entry for a unicast IP address entry. On return, the  <b>MIB_UNICASTIPADDRESS_ROW</b> structure pointed to by this parameter is initialized with default values for a unicast IP address.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-initializeunicastipaddressentry
      * @since windows6.0.6000
      */
     static InitializeUnicastIpAddressEntry(Row) {
-        result := DllCall("IPHLPAPI.dll\InitializeUnicastIpAddressEntry", "ptr", Row)
-        return result
+        DllCall("IPHLPAPI.dll\InitializeUnicastIpAddressEntry", "ptr", Row)
     }
 
     /**
@@ -13727,13 +13721,12 @@ class IpHelper {
      *     members in the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> entry it wishes to modify, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createipforwardentry2">CreateIpForwardEntry2</a>  to add the new IP route entry to the local computer.
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Row On entry, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure entry for an IP route entry. On return, the  <b>MIB_IPFORWARD_ROW2</b> structure pointed to by this parameter is initialized with default values for an IP route entry.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-initializeipforwardentry
      * @since windows6.0.6000
      */
     static InitializeIpForwardEntry(Row) {
-        result := DllCall("IPHLPAPI.dll\InitializeIpForwardEntry", "ptr", Row)
-        return result
+        DllCall("IPHLPAPI.dll\InitializeIpForwardEntry", "ptr", Row)
     }
 
     /**
@@ -15354,13 +15347,12 @@ class IpHelper {
      * 
      * The <b>FreeMibTable</b> function is used to free the internal buffers used by various functions to retrieve tables of interfaces, addresses, and routes. When these tables are no longer needed, then <b>FreeMibTable</b> should be called to release the memory used by these tables.
      * @param {Pointer<Void>} Memory A pointer to the buffer to free.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-freemibtable
      * @since windows6.0.6000
      */
     static FreeMibTable(Memory) {
-        result := DllCall("IPHLPAPI.dll\FreeMibTable", "ptr", Memory)
-        return result
+        DllCall("IPHLPAPI.dll\FreeMibTable", "ptr", Memory)
     }
 
     /**
@@ -16024,11 +16016,10 @@ class IpHelper {
      * 
      * @param {Pointer<UInt32>} CompartmentScope 
      * @param {Pointer<UInt32>} CompartmentId 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static GetCurrentThreadCompartmentScope(CompartmentScope, CompartmentId) {
-        result := DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentScope", "uint*", CompartmentScope, "uint*", CompartmentId)
-        return result
+        DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentScope", "uint*", CompartmentScope, "uint*", CompartmentId)
     }
 
     /**
@@ -16229,11 +16220,10 @@ class IpHelper {
     /**
      * 
      * @param {Pointer<DNS_SETTINGS>} Settings 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static FreeDnsSettings(Settings) {
-        result := DllCall("IPHLPAPI.dll\FreeDnsSettings", "ptr", Settings)
-        return result
+        DllCall("IPHLPAPI.dll\FreeDnsSettings", "ptr", Settings)
     }
 
     /**
@@ -16271,12 +16261,11 @@ class IpHelper {
     /**
      * Frees the settings object returned by [GetInterfaceDnsSettings](/windows/win32/api/netioapi/nf-netioapi-getinterfacednssettings).
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-freeinterfacednssettings
      */
     static FreeInterfaceDnsSettings(Settings) {
-        result := DllCall("IPHLPAPI.dll\FreeInterfaceDnsSettings", "ptr", Settings)
-        return result
+        DllCall("IPHLPAPI.dll\FreeInterfaceDnsSettings", "ptr", Settings)
     }
 
     /**

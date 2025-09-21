@@ -981,7 +981,7 @@ class Metadata {
      * @param {Pointer<Void>} ppv Type: <b>LPVOID*</b>
      * 
      * The dispenser class. The class implements <b>IMetaDataDispenser</b> or <b>IMetaDataDispenserEx.</b>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/rometadata/nf-rometadata-metadatagetdispenser
@@ -989,6 +989,9 @@ class Metadata {
      */
     static MetaDataGetDispenser(rclsid, riid, ppv) {
         result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1140,7 +1143,7 @@ class Metadata {
      * If the name input string is resolved successfully as a typename, this parameter is set to the  token of the typename.
      * 
      * On failure, this parameter is set to <b>mdTypeDefNil</b>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1204,6 +1207,9 @@ class Metadata {
      */
     static RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr", metaDataImport, "uint*", typeDefToken, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1335,7 +1341,7 @@ class Metadata {
      * @param {Pointer<Void>} typeNameParts Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * The first element of the array is the specified type, and the remaining array elements are the type parameters (if any) in prewalk tree order.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1383,6 +1389,9 @@ class Metadata {
      */
     static RoParseTypeName(typeName, partsCount, typeNameParts) {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, "uint*", partsCount, "ptr", typeNameParts, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1418,7 +1427,7 @@ class Metadata {
      * @param {Pointer<Void>} subNamespaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * Optional output parameter that contains a callee-allocated array of names of direct children of the given namespace. This list is a hint of other subnamespaces and is not necessarily complete.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1477,6 +1486,9 @@ class Metadata {
      */
     static RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packageGraphDirs, metaDataFilePathsCount, metaDataFilePaths, subNamespacesCount, subNamespaces) {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, "uint*", metaDataFilePathsCount, "ptr", metaDataFilePaths, "uint*", subNamespacesCount, "ptr", subNamespaces, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1496,7 +1508,7 @@ class Metadata {
      * @param {Pointer<Int32>} present Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1543,6 +1555,9 @@ class Metadata {
         name := name is String? StrPtr(name) : name
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "int*", present, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1559,7 +1574,7 @@ class Metadata {
      * @param {Pointer<Int32>} present Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
      * 
@@ -1606,26 +1621,35 @@ class Metadata {
         name := name is String? StrPtr(name) : name
 
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "int*", present, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IPropertySet>} ppPropertySet 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RoCreateNonAgilePropertySet(ppPropertySet) {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr", ppPropertySet, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IPropertySetSerializer>} ppPropertySetSerializer 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RoCreatePropertySetSerializer(ppPropertySetSerializer) {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr", ppPropertySetSerializer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1663,7 +1687,7 @@ class Metadata {
      * @param {Pointer<Void>} pExtra Type: <b>ROPARAMIIDHANDLE*</b>
      * 
      * Handle to the IID that corresponds with <i>nameElements</i>.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * <table>
      * <tr>
@@ -1712,6 +1736,9 @@ class Metadata {
      */
     static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid, pExtra) {
         result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, "ptr", nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1720,15 +1747,12 @@ class Metadata {
      * @param {Pointer<Void>} extra Type: <b>ROPARAMIIDHANDLE</b>
      * 
      * A handle to the IID.
-     * @returns {Pointer} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-rofreeparameterizedtypeextra
      * @since windows8.0
      */
     static RoFreeParameterizedTypeExtra(extra) {
-        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoFreeParameterizedTypeExtra", "ptr", extra)
-        return result
+        DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoFreeParameterizedTypeExtra", "ptr", extra)
     }
 
     /**

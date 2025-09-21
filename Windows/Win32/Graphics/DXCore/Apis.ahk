@@ -36,7 +36,7 @@ class DXCore {
      * For the duration of time that a reference exists on an [IDXCoreAdapterFactory](../dxcore_interface/nn-dxcore_interface-idxcoreadapterfactory.md) interface, an [IDXCoreAdapterList](../dxcore_interface/nn-dxcore_interface-idxcoreadapterlist.md) interface, or an [IDXCoreAdapter](../dxcore_interface/nn-dxcore_interface-idxcoreadapter.md) interface, additional calls to **DXCoreCreateAdapterFactory**, [IDXCoreAdapterList::GetFactory](../dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getfactory.md), or [IDXCoreAdapter::GetFactory](../dxcore_interface/nf-dxcore_interface-idxcoreadapter-getfactory.md) will return pointers to the same object, increasing the reference count of the **IDXCoreAdapterFactory** interface.
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvFactory 
-     * @returns {Integer} Type: **[HRESULT](../../com/structure-of-com-error-codes.md)**
+     * @returns {HRESULT} Type: **[HRESULT](../../com/structure-of-com-error-codes.md)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](../../com/structure-of-com-error-codes.md) [error code](../../com/com-error-codes-10.md).
      * 
@@ -48,6 +48,9 @@ class DXCore {
      */
     static DXCoreCreateAdapterFactory(riid, ppvFactory) {
         result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, "ptr", ppvFactory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

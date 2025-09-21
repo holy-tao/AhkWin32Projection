@@ -3715,15 +3715,14 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a> enumeration. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), this parameter can be a combination of <b>ACCESS_MODE</b> values.
      * @param {Integer} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildexplicitaccesswithnamea
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
         pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
 
-        result := DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
-        return result
+        DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
     /**
@@ -3793,15 +3792,14 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a> enumeration. For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), this parameter can be a combination of <b>ACCESS_MODE</b> values.
      * @param {Integer} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildexplicitaccesswithnamew
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
         pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
 
-        result := DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
-        return result
+        DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
     /**
@@ -3812,13 +3810,12 @@ class Authorization {
      * @param {Integer} AccessPermissions 
      * @param {Integer} AccessMode 
      * @param {Integer} Inheritance 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, pTrustee, AccessPermissions, AccessMode, Inheritance) {
         pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
 
-        result := DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
-        return result
+        DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
     /**
@@ -3829,13 +3826,12 @@ class Authorization {
      * @param {Integer} AccessPermissions 
      * @param {Integer} AccessMode 
      * @param {Integer} Inheritance 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, pTrustee, AccessPermissions, AccessMode, Inheritance) {
         pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
 
-        result := DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
-        return result
+        DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
 
     /**
@@ -3897,15 +3893,14 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithnamea
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameA(pTrustee, pName) {
         pName := pName is String? StrPtr(pName) : pName
 
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithNameA", "ptr", pTrustee, "ptr", pName)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithNameA", "ptr", pTrustee, "ptr", pName)
     }
 
     /**
@@ -3967,37 +3962,34 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithnamew
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameW(pTrustee, pName) {
         pName := pName is String? StrPtr(pName) : pName
 
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithNameW", "ptr", pTrustee, "ptr", pName)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithNameW", "ptr", pTrustee, "ptr", pName)
     }
 
     /**
      * 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
      * @param {Pointer<TRUSTEE_A>} pImpersonateTrustee 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateTrusteeA(pTrustee, pImpersonateTrustee) {
-        result := DllCall("ADVAPI32.dll\BuildImpersonateTrusteeA", "ptr", pTrustee, "ptr", pImpersonateTrustee)
-        return result
+        DllCall("ADVAPI32.dll\BuildImpersonateTrusteeA", "ptr", pTrustee, "ptr", pImpersonateTrustee)
     }
 
     /**
      * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Pointer<TRUSTEE_W>} pImpersonateTrustee 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateTrusteeW(pTrustee, pImpersonateTrustee) {
-        result := DllCall("ADVAPI32.dll\BuildImpersonateTrusteeW", "ptr", pTrustee, "ptr", pImpersonateTrustee)
-        return result
+        DllCall("ADVAPI32.dll\BuildImpersonateTrusteeW", "ptr", pTrustee, "ptr", pImpersonateTrustee)
     }
 
     /**
@@ -4060,13 +4052,12 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsida
      * @since windows5.1.2600
      */
     static BuildTrusteeWithSidA(pTrustee, pSid) {
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithSidA", "ptr", pTrustee, "ptr", pSid)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithSidA", "ptr", pTrustee, "ptr", pSid)
     }
 
     /**
@@ -4129,13 +4120,12 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsidw
      * @since windows5.1.2600
      */
     static BuildTrusteeWithSidW(pTrustee, pSid) {
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithSidW", "ptr", pTrustee, "ptr", pSid)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithSidW", "ptr", pTrustee, "ptr", pSid)
     }
 
     /**
@@ -4163,13 +4153,12 @@ class Authorization {
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Void>} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsida
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndSidA(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, pSid) {
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidA", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", pSid)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidA", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", pSid)
     }
 
     /**
@@ -4197,13 +4186,12 @@ class Authorization {
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Void>} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsidw
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndSidW(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, pSid) {
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidW", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", pSid)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndSidW", "ptr", pTrustee, "ptr", pObjSid, "ptr", pObjectGuid, "ptr", pInheritedObjectGuid, "ptr", pSid)
     }
 
     /**
@@ -4231,7 +4219,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
      * @param {Pointer<Byte>} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
      * @param {Pointer<Byte>} Name A pointer to a string that specifies the name used to identify the trustee.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandnamea
      * @since windows5.1.2600
      */
@@ -4240,8 +4228,7 @@ class Authorization {
         InheritedObjectTypeName := InheritedObjectTypeName is String? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
         Name := Name is String? StrPtr(Name) : Name
 
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameA", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameA", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
 
     /**
@@ -4269,7 +4256,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
      * @param {Pointer<Char>} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
      * @param {Pointer<Char>} Name A pointer to a string that specifies the name used to identify the trustee.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandnamew
      * @since windows5.1.2600
      */
@@ -4278,8 +4265,7 @@ class Authorization {
         InheritedObjectTypeName := InheritedObjectTypeName is String? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
         Name := Name is String? StrPtr(Name) : Name
 
-        result := DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameW", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
-        return result
+        DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameW", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
 
     /**
@@ -4337,12 +4323,12 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
+     * @returns {Integer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteetypea
      * @since windows5.1.2600
      */
     static GetTrusteeTypeA(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeTypeA", "ptr", pTrustee)
+        result := DllCall("ADVAPI32.dll\GetTrusteeTypeA", "ptr", pTrustee, "int")
         return result
     }
 
@@ -4353,12 +4339,12 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
+     * @returns {Integer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteetypew
      * @since windows5.1.2600
      */
     static GetTrusteeTypeW(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeTypeW", "ptr", pTrustee)
+        result := DllCall("ADVAPI32.dll\GetTrusteeTypeW", "ptr", pTrustee, "int")
         return result
     }
 
@@ -4369,13 +4355,13 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeForm as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer} The return value is one of the constants from the 
+     * @returns {Integer} The return value is one of the constants from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteeforma
      * @since windows5.1.2600
      */
     static GetTrusteeFormA(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeFormA", "ptr", pTrustee)
+        result := DllCall("ADVAPI32.dll\GetTrusteeFormA", "ptr", pTrustee, "int")
         return result
     }
 
@@ -4386,33 +4372,33 @@ class Authorization {
      * > The aclapi.h header defines GetTrusteeForm as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer} The return value is one of the constants from the 
+     * @returns {Integer} The return value is one of the constants from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteeformw
      * @since windows5.1.2600
      */
     static GetTrusteeFormW(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeFormW", "ptr", pTrustee)
+        result := DllCall("ADVAPI32.dll\GetTrusteeFormW", "ptr", pTrustee, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static GetMultipleTrusteeOperationA(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetMultipleTrusteeOperationA", "ptr", pTrustee)
+        result := DllCall("ADVAPI32.dll\GetMultipleTrusteeOperationA", "ptr", pTrustee, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static GetMultipleTrusteeOperationW(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetMultipleTrusteeOperationW", "ptr", pTrustee)
+        result := DllCall("ADVAPI32.dll\GetMultipleTrusteeOperationW", "ptr", pTrustee, "int")
         return result
     }
 

@@ -147,12 +147,15 @@ class Dwm {
      * @param {Pointer<DWM_BLURBEHIND>} pBlurBehind `[in]`
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_blurbehind">DWM_BLURBEHIND</a> structure that provides blur-behind data.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmenableblurbehindwindow
      * @since windows6.0.6000
      */
     static DwmEnableBlurBehindWindow(hWnd, pBlurBehind) {
         result := DllCall("dwmapi.dll\DwmEnableBlurBehindWindow", "ptr", hWnd, "ptr", pBlurBehind, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -165,12 +168,15 @@ class Dwm {
      * 
      * <div class="alert"><b>Note</b>  As of Windows 8, calling this function with <b>DWM_EC_DISABLECOMPOSITION</b> has no effect. However, the function will still return a success code.</div>
      * <div> </div>
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmenablecomposition
      * @since windows6.0.6000
      */
     static DwmEnableComposition(uCompositionAction) {
         result := DllCall("dwmapi.dll\DwmEnableComposition", "uint", uCompositionAction, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -179,12 +185,15 @@ class Dwm {
      * @remarks
      * DWM will be scheduled by the MMCSS as long as any process that called <b>DwmEnableMMCSS</b> to enable MMCSS is active and has not previously called <b>DwmEnableMMCSS</b> to disable MMCSS.
      * @param {Integer} fEnableMMCSS <b>TRUE</b> to instruct DWM to participate in MMCSS scheduling; <b>FALSE</b> to opt out or end participation in MMCSS scheduling.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmenablemmcss
      * @since windows6.0.6000
      */
     static DwmEnableMMCSS(fEnableMMCSS) {
         result := DllCall("dwmapi.dll\DwmEnableMMCSS", "int", fEnableMMCSS, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -196,12 +205,15 @@ class Dwm {
      * Use negative margin values to create the "sheet of glass" effect where the client area is rendered as a solid surface with no window border.
      * @param {Pointer<Void>} hWnd The handle to the window in which the frame will be extended into the client area.
      * @param {Pointer<MARGINS>} pMarInset A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a> structure that describes the margins to use when extending the frame into the client area.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea
      * @since windows6.0.6000
      */
     static DwmExtendFrameIntoClientArea(hWnd, pMarInset) {
         result := DllCall("dwmapi.dll\DwmExtendFrameIntoClientArea", "ptr", hWnd, "ptr", pMarInset, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -211,12 +223,15 @@ class Dwm {
      * The value pointed to by <i>pcrColorization</i> is in an 0xAARRGGBB format. Many Microsoft Win32 APIs, such as <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use a 0x00BBGGRR format. Be careful to assure that the intended colors are used.
      * @param {Pointer<UInt32>} pcrColorization A pointer to a value that, when this function returns successfully, receives the current color used for glass composition. The color format of the value is 0xAARRGGBB.
      * @param {Pointer<Int32>} pfOpaqueBlend A pointer to a value that, when this function returns successfully, indicates whether the color is an opaque blend. <b>TRUE</b> if the color is an opaque blend; otherwise, <b>FALSE</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetcolorizationcolor
      * @since windows6.0.6000
      */
     static DwmGetColorizationColor(pcrColorization, pfOpaqueBlend) {
         result := DllCall("dwmapi.dll\DwmGetColorizationColor", "uint*", pcrColorization, "int*", pfOpaqueBlend, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -228,12 +243,15 @@ class Dwm {
      * 
      * Starting with Windows 8.1, this parameter must be set to <b>NULL</b>. If this parameter is not set to <b>NULL</b>, <b>DwmGetCompositionTimingInfo</b> returns E_INVALIDARG.
      * @param {Pointer<DWM_TIMING_INFO>} pTimingInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_timing_info">DWM_TIMING_INFO</a> structure that, when this function returns successfully, receives the current composition timing information for the window. The <b>cbSize</b> member of this structure must be set before this function is called.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetcompositiontiminginfo
      * @since windows6.0.6000
      */
     static DwmGetCompositionTimingInfo(hwnd, pTimingInfo) {
         result := DllCall("dwmapi.dll\DwmGetCompositionTimingInfo", "ptr", hwnd, "ptr", pTimingInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -243,7 +261,7 @@ class Dwm {
      * @param {Integer} dwAttribute A flag describing which value to retrieve, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to retrieve, and the *pvAttribute* parameter points to an object into which the attribute value is retrieved.
      * @param {Pointer} pvAttribute A pointer to a value which, when this function returns successfully, receives the current value of the attribute. The type of the retrieved value depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being received via the *pvAttribute* parameter. The type of the retrieved value, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
-     * @returns {Integer} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
+     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) [error code](/windows/desktop/com/com-error-codes-10).
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetwindowattribute
@@ -251,6 +269,9 @@ class Dwm {
      */
     static DwmGetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
         result := DllCall("dwmapi.dll\DwmGetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -263,12 +284,15 @@ class Dwm {
      * <div class="alert"><b>Note</b>  As of Windows 8, DWM composition is always enabled. If an app declares Windows 8 compatibility in their manifest, this function will receive a value of <b>TRUE</b> through <i>pfEnabled</i>. If no such manifest entry is found, Windows 8 compatibility is not assumed and this function receives a value of <b>FALSE</b> through <i>pfEnabled</i>. This is done so that older programs that interpret a value of <b>TRUE</b> to imply that high contrast mode is off can continue to make the correct decisions about rendering their images. (Note that this is a bad practice—you should use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <b>SPI_GETHIGHCONTRAST</b> flag to determine the state of high contrast mode.)</div>
      * <div> </div>
      * For more information, see <a href="https://docs.microsoft.com/windows/win32/controls/supporting-high-contrast-themes">Supporting High Contrast Themes</a>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmiscompositionenabled
      * @since windows6.0.6000
      */
     static DwmIsCompositionEnabled(pfEnabled) {
         result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "int*", pfEnabled, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -277,12 +301,15 @@ class Dwm {
      * @param {Pointer<Void>} hwnd The handle to the window for which the new duration is applied to the previous frame.
      * @param {Integer} cRefreshes The number of refreshes to apply to the previous frame.
      * @param {Integer} fRelative <b>TRUE</b> if the value given in <i>cRefreshes</i> is relative to the current value (added to or subtracted from it); <b>FALSE</b> if the value replaces the current value.
-     * @returns {Integer} This function always returns S_OK, even when DWM is not running.
+     * @returns {HRESULT} This function always returns S_OK, even when DWM is not running.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmmodifypreviousdxframeduration
      * @since windows6.0.6000
      */
     static DwmModifyPreviousDxFrameDuration(hwnd, cRefreshes, fRelative) {
         result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int", fRelative, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -290,12 +317,15 @@ class Dwm {
      * Retrieves the source size of the Desktop Window Manager (DWM) thumbnail.
      * @param {Pointer} hThumbnail A handle to the thumbnail to retrieve the source window size from.
      * @param {Pointer<SIZE>} pSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that, when this function returns successfully, receives the size of the source thumbnail.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmquerythumbnailsourcesize
      * @since windows6.0.6000
      */
     static DwmQueryThumbnailSourceSize(hThumbnail, pSize) {
         result := DllCall("dwmapi.dll\DwmQueryThumbnailSourceSize", "ptr", hThumbnail, "ptr", pSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -310,12 +340,15 @@ class Dwm {
      * @param {Pointer<Void>} hwndDestination The handle to the window that will use the DWM thumbnail. Setting the destination window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
      * @param {Pointer<Void>} hwndSource The handle to the window to use as the thumbnail source. Setting the source window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
      * @param {Pointer<IntPtr>} phThumbnailId A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmregisterthumbnail
      * @since windows6.0.6000
      */
     static DwmRegisterThumbnail(hwndDestination, hwndSource, phThumbnailId) {
         result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, "ptr*", phThumbnailId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -325,12 +358,15 @@ class Dwm {
      * The DWM will attempt to display the presented frame for at least the number of monitor refreshes specified. It might be impossible to display the frame for the precise number of refreshes due to the current composition rate. If the frame is presented late to the DWM or the DWM is late in composing, a frame could be displayed for fewer than the number of refreshes requested or even skipped completely.
      * @param {Pointer<Void>} hwnd The handle to the window that displays the presented frame.
      * @param {Integer} cRefreshes The number of refreshes through which to display the presented frame.
-     * @returns {Integer} This function always returns S_OK, even when the frame duration is not changed or DWM is not running.
+     * @returns {HRESULT} This function always returns S_OK, even when the frame duration is not changed or DWM is not running.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetdxframeduration
      * @since windows6.0.6000
      */
     static DwmSetDxFrameDuration(hwnd, cRefreshes) {
         result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -338,12 +374,15 @@ class Dwm {
      * Sets the present parameters for frame composition. DwmSetPresentParameters is no longer supported. Starting with Windows 8.1, calls to DwmSetPresentParameters always return E_NOTIMPL.
      * @param {Pointer<Void>} hwnd The handle to the window where the present parameters are applied.
      * @param {Pointer<DWM_PRESENT_PARAMETERS>} pPresentParams A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_present_parameters">DWM_PRESENT_PARAMETERS</a> structure that contains DWM video frame parameters for frame composition.
-     * @returns {Integer} This function always returns S_OK.
+     * @returns {HRESULT} This function always returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetpresentparameters
      * @since windows6.0.6000
      */
     static DwmSetPresentParameters(hwnd, pPresentParams) {
         result := DllCall("dwmapi.dll\DwmSetPresentParameters", "ptr", hwnd, "ptr", pPresentParams, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -355,7 +394,7 @@ class Dwm {
      * @param {Integer} dwAttribute A flag describing which value to set, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to set, and the *pvAttribute* parameter points to an object containing the attribute value.
      * @param {Pointer} pvAttribute A pointer to an object containing the attribute value to set. The type of the value set depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being set via the *pvAttribute* parameter. The type of the value set, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
-     * @returns {Integer} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
+     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) [error code](/windows/desktop/com/com-error-codes-10).
      * 
@@ -365,6 +404,9 @@ class Dwm {
      */
     static DwmSetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
         result := DllCall("dwmapi.dll\DwmSetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -373,12 +415,15 @@ class Dwm {
      * @remarks
      * Unregistering DWM thumbnail relationships must be done within the process that registered the relationships.
      * @param {Pointer} hThumbnailId The handle to the thumbnail relationship to be removed. Null or non-existent handles will result in a return value of E_INVALIDARG.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmunregisterthumbnail
      * @since windows6.0.6000
      */
     static DwmUnregisterThumbnail(hThumbnailId) {
         result := DllCall("dwmapi.dll\DwmUnregisterThumbnail", "ptr", hThumbnailId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -388,12 +433,15 @@ class Dwm {
      * Thumbnail relationships created by the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmregisterthumbnail">DwmRegisterThumbnail</a> function will not be rendered to the destination window until this function is called. Subsequent calls will update the thumbnail according to the provided properties.
      * @param {Pointer} hThumbnailId The handle to the DWM thumbnail to be updated. Null or invalid thumbnails, as well as thumbnails owned by other processes will result in a return value of E_INVALIDARG.
      * @param {Pointer<DWM_THUMBNAIL_PROPERTIES>} ptnProperties A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_thumbnail_properties">DWM_THUMBNAIL_PROPERTIES</a> structure that contains the new thumbnail properties.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmupdatethumbnailproperties
      * @since windows6.0.6000
      */
     static DwmUpdateThumbnailProperties(hThumbnailId, ptnProperties) {
         result := DllCall("dwmapi.dll\DwmUpdateThumbnailProperties", "ptr", hThumbnailId, "ptr", ptnProperties, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -408,12 +456,15 @@ class Dwm {
      * @param {Pointer<Void>} hwnd A handle to the window or tab. This window must belong to the calling process.
      * @param {Pointer<Void>} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Integer} dwSITFlags 
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmseticonicthumbnail
      * @since windows6.1
      */
     static DwmSetIconicThumbnail(hwnd, hbmp, dwSITFlags) {
         result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", "ptr", hwnd, "ptr", hbmp, "uint", dwSITFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -429,12 +480,15 @@ class Dwm {
      * @param {Pointer<Void>} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Pointer<POINT>} pptClient The offset of a tab window's <i>client region</i> (the content area inside the client window frame) from the host window's frame. This offset enables the tab window's contents to be drawn correctly in a live preview  when it is drawn without its frame.
      * @param {Integer} dwSITFlags The display options for the live preview. This parameter can be 0 or the following value.
-     * @returns {Integer} Returns <b>S_OK</b> if the function succeeds, or an error value otherwise. Note that because this bitmap is not cached, if the window is not being previewed when an application calls this function, the function returns a success code but the bitmap is discarded and not used.
+     * @returns {HRESULT} Returns <b>S_OK</b> if the function succeeds, or an error value otherwise. Note that because this bitmap is not cached, if the window is not being previewed when an application calls this function, the function returns a success code but the bitmap is discarded and not used.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmseticoniclivepreviewbitmap
      * @since windows6.1
      */
     static DwmSetIconicLivePreviewBitmap(hwnd, hbmp, pptClient, dwSITFlags) {
         result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", "ptr", hwnd, "ptr", hbmp, "ptr", pptClient, "uint", dwSITFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -443,36 +497,45 @@ class Dwm {
      * @remarks
      * Calling this function causes the Desktop Window Manager (DWM) to invalidate its current bitmaps for the window and request new bitmaps from the window when they are next needed. <b>DwmInvalidateIconicBitmaps</b> should not be called frequently. Doing so can lead to poor performance as new bitmaps are created and retrieved.
      * @param {Pointer<Void>} hwnd A handle to the window or tab whose bitmaps are being invalidated through this call. This window must belong to the calling process.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwminvalidateiconicbitmaps
      * @since windows6.1
      */
     static DwmInvalidateIconicBitmaps(hwnd) {
         result := DllCall("dwmapi.dll\DwmInvalidateIconicBitmaps", "ptr", hwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * This function is not implemented. (DwmAttachMilContent)
      * @param {Pointer<Void>} hwnd 
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmattachmilcontent
      * @since windows6.0.6000
      */
     static DwmAttachMilContent(hwnd) {
         result := DllCall("dwmapi.dll\DwmAttachMilContent", "ptr", hwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * This function is not implemented. (DwmDetachMilContent)
      * @param {Pointer<Void>} hwnd 
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmdetachmilcontent
      * @since windows6.0.6000
      */
     static DwmDetachMilContent(hwnd) {
         result := DllCall("dwmapi.dll\DwmDetachMilContent", "ptr", hwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -480,12 +543,15 @@ class Dwm {
      * Issues a flush call that blocks the caller until the next present, when all of the Microsoft DirectX surface updates that are currently outstanding have been made. This compensates for very complex scenes or calling processes with very low priority.
      * @remarks
      * <b>DwmFlush</b> waits for any queued DirectX changes that were queued by the calling application to be drawn to the screen before returning. It does not flush the entire session rendering batch.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmflush
      * @since windows6.0.6000
      */
     static DwmFlush() {
         result := DllCall("dwmapi.dll\DwmFlush", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -493,12 +559,15 @@ class Dwm {
      * This function is not implemented. (DwmGetGraphicsStreamTransformHint)
      * @param {Integer} uIndex 
      * @param {Pointer<MilMatrix3x2D>} pTransform 
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetgraphicsstreamtransformhint
      * @since windows6.0.6000
      */
     static DwmGetGraphicsStreamTransformHint(uIndex, pTransform) {
         result := DllCall("dwmapi.dll\DwmGetGraphicsStreamTransformHint", "uint", uIndex, "ptr", pTransform, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -506,12 +575,15 @@ class Dwm {
      * This function is not implemented. (DwmGetGraphicsStreamClient)
      * @param {Integer} uIndex 
      * @param {Pointer<Guid>} pClientUuid 
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetgraphicsstreamclient
      * @since windows6.0.6000
      */
     static DwmGetGraphicsStreamClient(uIndex, pClientUuid) {
         result := DllCall("dwmapi.dll\DwmGetGraphicsStreamClient", "uint", uIndex, "ptr", pClientUuid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -520,12 +592,15 @@ class Dwm {
      * @param {Pointer<Int32>} pfIsRemoting A pointer to a <b>BOOL</b> value that indicates whether the transport supports remoting. <b>TRUE</b> if the transport supports remoting; otherwise, <b>FALSE</b>.
      * @param {Pointer<Int32>} pfIsConnected A pointer to a <b>BOOL</b> value that indicates whether the transport is connected. <b>TRUE</b> if the transport is connected; otherwise, <b>FALSE</b>.
      * @param {Pointer<UInt32>} pDwGeneration A pointer to a <b>DWORD</b> that receives a generation value for the transport.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgettransportattributes
      * @since windows6.0.6000
      */
     static DwmGetTransportAttributes(pfIsRemoting, pfIsConnected, pDwGeneration) {
         result := DllCall("dwmapi.dll\DwmGetTransportAttributes", "int*", pfIsRemoting, "int*", pfIsConnected, "uint*", pDwGeneration, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -533,12 +608,15 @@ class Dwm {
      * Coordinates the animations of tool windows with the Desktop Window Manager (DWM).
      * @param {Pointer<Void>} hwnd Handle to the window.
      * @param {Integer} target 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmtransitionownedwindow
      * @since windows8.0
      */
     static DwmTransitionOwnedWindow(hwnd, target) {
         result := DllCall("dwmapi.dll\DwmTransitionOwnedWindow", "ptr", hwnd, "int", target, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -548,12 +626,15 @@ class Dwm {
      * @param {Integer} cContacts The number of contact points.
      * @param {Pointer<UInt32>} pdwPointerID The pointer ID.
      * @param {Pointer<POINT>} pPoints The points.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmrendergesture
      * @since windows8.0
      */
     static DwmRenderGesture(gt, cContacts, pdwPointerID, pPoints) {
         result := DllCall("dwmapi.dll\DwmRenderGesture", "int", gt, "uint", cContacts, "uint*", pdwPointerID, "ptr", pPoints, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -562,12 +643,15 @@ class Dwm {
      * @param {Integer} dwPointerID The pointer ID.
      * @param {Integer} fEnable Indicates whether the contact is enabled.
      * @param {Pointer} ptTether The tether.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmtethercontact
      * @since windows8.0
      */
     static DwmTetherContact(dwPointerID, fEnable, ptTether) {
         result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "int", fEnable, "ptr", ptTether, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -577,12 +661,15 @@ class Dwm {
      * It is safe to call this function on the UI thread.
      * @param {Integer} dwPointerID The pointer ID of the contact. Each touch or pen contact is given a unique ID when it is detected.
      * @param {Integer} eShowContact 
-     * @returns {Integer} If <i>dwPointerID</i> does not match that of a contact currently present on the screen, this function returns E_INVALIDARG; otherwise, it returns S_OK.
+     * @returns {HRESULT} If <i>dwPointerID</i> does not match that of a contact currently present on the screen, this function returns E_INVALIDARG; otherwise, it returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmshowcontact
      * @since windows8.0
      */
     static DwmShowContact(dwPointerID, eShowContact) {
         result := DllCall("dwmapi.dll\DwmShowContact", "uint", dwPointerID, "uint", eShowContact, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -590,12 +677,15 @@ class Dwm {
      * This function was part of an experimental feature that was never implemented in Windows. It has no effect and should not be used.
      * @param {Pointer<Void>} appWindow This parameter is not used.
      * @param {Pointer<Int32>} value 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetunmettabrequirements
      * @since windows10.0.17134
      */
     static DwmGetUnmetTabRequirements(appWindow, value) {
         result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, "int*", value, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

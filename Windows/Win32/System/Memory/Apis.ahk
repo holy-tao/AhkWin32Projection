@@ -2369,14 +2369,14 @@ class Memory {
      * 
      * On output, the variable receives the number of page addresses that are returned in the array.
      * @param {Pointer<UInt32>} lpdwGranularity A pointer to a variable that receives the page size, in bytes.
-     * @returns {Pointer} If the function succeeds, the return value is 0 (zero).
+     * @returns {Integer} If the function succeeds, the return value is 0 (zero).
      * 
      * If the function fails, the return value is a nonzero value.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getwritewatch
      * @since windows5.1.2600
      */
     static GetWriteWatch(dwFlags, lpBaseAddress, dwRegionSize, lpAddresses, lpdwCount, lpdwGranularity) {
-        result := DllCall("KERNEL32.dll\GetWriteWatch", "uint", dwFlags, "ptr", lpBaseAddress, "ptr", dwRegionSize, "ptr", lpAddresses, "ptr*", lpdwCount, "uint*", lpdwGranularity)
+        result := DllCall("KERNEL32.dll\GetWriteWatch", "uint", dwFlags, "ptr", lpBaseAddress, "ptr", dwRegionSize, "ptr", lpAddresses, "ptr*", lpdwCount, "uint*", lpdwGranularity, "uint")
         return result
     }
 
@@ -2404,14 +2404,14 @@ class Memory {
      *       must be in a memory region that is allocated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a> function with <b>MEM_WRITE_WATCH</b>.
      * @param {Pointer} dwRegionSize The size of the memory region for which to reset the write-tracking information, in bytes.
-     * @returns {Pointer} If the function succeeds, the return value is 0 (zero).
+     * @returns {Integer} If the function succeeds, the return value is 0 (zero).
      * 
      * If the function fails, the return value is a nonzero value.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-resetwritewatch
      * @since windows5.1.2600
      */
     static ResetWriteWatch(lpBaseAddress, dwRegionSize) {
-        result := DllCall("KERNEL32.dll\ResetWriteWatch", "ptr", lpBaseAddress, "ptr", dwRegionSize)
+        result := DllCall("KERNEL32.dll\ResetWriteWatch", "ptr", lpBaseAddress, "ptr", dwRegionSize, "uint")
         return result
     }
 
@@ -4885,7 +4885,7 @@ class Memory {
      * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function.
-     * @returns {Pointer} If the function succeeds, the return value specifies the allocation values and the lock count for the memory object.
+     * @returns {Integer} If the function succeeds, the return value specifies the allocation values and the lock count for the memory object.
      * 
      * If the function fails, the return value is <b>GMEM_INVALID_HANDLE</b>, indicating that the global handle is not valid. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4895,7 +4895,7 @@ class Memory {
     static GlobalFlags(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalFlags", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalFlags", "ptr", hMem, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -5174,7 +5174,7 @@ class Memory {
      * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a> function.
-     * @returns {Pointer} If the function succeeds, the return value specifies the allocation values and the lock count for the memory object.
+     * @returns {Integer} If the function succeeds, the return value specifies the allocation values and the lock count for the memory object.
      * 
      * If the function fails, the return value is <b>LMEM_INVALID_HANDLE</b>, indicating that the local handle is not valid. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5184,7 +5184,7 @@ class Memory {
     static LocalFlags(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalFlags", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\LocalFlags", "ptr", hMem, "uint")
         if(A_LastError)
             throw OSError()
 

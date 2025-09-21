@@ -633,7 +633,7 @@ class DataExchange {
      * @param {Integer} afCmd Type: <b>DWORD</b>
      * 
      * A set of <b>APPCMD_</b>, <b>CBF_</b>, and <b>MF_</b> flags. The <b>APPCMD_</b> flags provide special instructions to <b>DdeInitialize</b>. The <b>CBF_</b> flags specify filters that prevent specific types of transactions from reaching the callback function. The <b>MF_</b> flags specify the types of DDE activity that a DDE monitoring application monitors. Using these flags enhances the performance of a DDE application by eliminating unnecessary calls to the callback function.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is <b>DMLERR_NO_ERROR</b>. 
      * 
@@ -644,7 +644,7 @@ class DataExchange {
     static DdeInitializeA(pidInst, pfnCallback, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("USER32.dll\DdeInitializeA", "uint*", pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes)
+        result := DllCall("USER32.dll\DdeInitializeA", "uint*", pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -683,7 +683,7 @@ class DataExchange {
      * @param {Integer} afCmd Type: <b>DWORD</b>
      * 
      * A set of <b>APPCMD_</b>, <b>CBF_</b>, and <b>MF_</b> flags. The <b>APPCMD_</b> flags provide special instructions to <b>DdeInitialize</b>. The <b>CBF_</b> flags specify filters that prevent specific types of transactions from reaching the callback function. The <b>MF_</b> flags specify the types of DDE activity that a DDE monitoring application monitors. Using these flags enhances the performance of a DDE application by eliminating unnecessary calls to the callback function.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is <b>DMLERR_NO_ERROR</b>. 
      * 
@@ -694,7 +694,7 @@ class DataExchange {
     static DdeInitializeW(pidInst, pfnCallback, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("USER32.dll\DdeInitializeW", "uint*", pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes)
+        result := DllCall("USER32.dll\DdeInitializeW", "uint*", pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -899,7 +899,7 @@ class DataExchange {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convinfo">CONVINFO</a> structure that receives information about the transaction and conversation. The 
      * 					<i>cb</i> member of the <b>CONVINFO</b> structure must specify the length of the buffer allocated for the structure.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the number of bytes copied into the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convinfo">CONVINFO</a> structure.
      * 
@@ -910,7 +910,7 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryConvInfo(hConv, idTransaction, pConvInfo) {
-        result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", hConv, "uint", idTransaction, "ptr", pConvInfo)
+        result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", hConv, "uint", idTransaction, "ptr", pConvInfo, "uint")
         return result
     }
 
@@ -1359,7 +1359,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the last error code, which can be one of the following values.
      * 
@@ -1599,7 +1599,7 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeGetLastError(idInst) {
-        result := DllCall("USER32.dll\DdeGetLastError", "uint", idInst)
+        result := DllCall("USER32.dll\DdeGetLastError", "uint", idInst, "uint")
         return result
     }
 
@@ -1871,7 +1871,7 @@ class DataExchange {
      * @param {Pointer<Void>} hsz2 Type: <b>HSZ</b>
      * 
      * A handle to the second string.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value can be one of the following values.
      * 
@@ -1918,7 +1918,7 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCmpStringHandles(hsz1, hsz2) {
-        result := DllCall("USER32.dll\DdeCmpStringHandles", "ptr", hsz1, "ptr", hsz2)
+        result := DllCall("USER32.dll\DdeCmpStringHandles", "ptr", hsz1, "ptr", hsz2, "int")
         return result
     }
 
@@ -2194,7 +2194,7 @@ class DataExchange {
      * @param {Pointer<Byte>} lpszFormat Type: <b>LPCTSTR</b>
      * 
      * The name of the new format.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value identifies the registered clipboard format.
      * 
@@ -2207,7 +2207,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterClipboardFormatA", "ptr", lpszFormat)
+        result := DllCall("USER32.dll\RegisterClipboardFormatA", "ptr", lpszFormat, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2226,7 +2226,7 @@ class DataExchange {
      * @param {Pointer<Char>} lpszFormat Type: <b>LPCTSTR</b>
      * 
      * The name of the new format.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value identifies the registered clipboard format.
      * 
@@ -2239,7 +2239,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterClipboardFormatW", "ptr", lpszFormat)
+        result := DllCall("USER32.dll\RegisterClipboardFormatW", "ptr", lpszFormat, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2248,7 +2248,7 @@ class DataExchange {
 
     /**
      * Retrieves the number of different data formats currently on the clipboard.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of different data formats currently on the clipboard.
      * 
@@ -2259,7 +2259,7 @@ class DataExchange {
     static CountClipboardFormats() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CountClipboardFormats")
+        result := DllCall("USER32.dll\CountClipboardFormats", "int")
         if(A_LastError)
             throw OSError()
 
@@ -2284,7 +2284,7 @@ class DataExchange {
      * 					<i>format</i> is zero, the function retrieves the first available clipboard format. For subsequent calls during an enumeration, set 
      * 					<i>format</i> to the result of the previous 
      * 					<b>EnumClipboardFormats</b> call.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the clipboard format that follows the specified format, namely the next available clipboard format.
      * 
@@ -2298,7 +2298,7 @@ class DataExchange {
     static EnumClipboardFormats(format) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumClipboardFormats", "uint", format)
+        result := DllCall("USER32.dll\EnumClipboardFormats", "uint", format, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2320,7 +2320,7 @@ class DataExchange {
      * 
      * The maximum length, in 
      * 					characters, of the string to be copied to the buffer. If the name exceeds this limit, it is truncated.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in 
      * 						characters, of the string copied to the buffer.
@@ -2334,7 +2334,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClipboardFormatNameA", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount)
+        result := DllCall("USER32.dll\GetClipboardFormatNameA", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2356,7 +2356,7 @@ class DataExchange {
      * 
      * The maximum length, in 
      * 					characters, of the string to be copied to the buffer. If the name exceeds this limit, it is truncated.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in 
      * 						characters, of the string copied to the buffer.
@@ -2370,7 +2370,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClipboardFormatNameW", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount)
+        result := DllCall("USER32.dll\GetClipboardFormatNameW", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2433,7 +2433,7 @@ class DataExchange {
      * 
      * The number of entries in the 
      *      <i>paFormatPriorityList</i> array. This value must not be greater than the number of entries in the list.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the first clipboard format in the list for which data is available. If the clipboard is empty, the return value is NULL. If the clipboard contains data, but not in any of the specified formats, the return value is –1. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpriorityclipboardformat
@@ -2442,7 +2442,7 @@ class DataExchange {
     static GetPriorityClipboardFormat(paFormatPriorityList, cFormats) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPriorityClipboardFormat", "uint*", paFormatPriorityList, "int", cFormats)
+        result := DllCall("USER32.dll\GetPriorityClipboardFormat", "uint*", paFormatPriorityList, "int", cFormats, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2876,7 +2876,7 @@ class DataExchange {
      * 
      * The size, in 
      * 					characters, of the buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the length of the string copied to the buffer, in 
      * 						characters, not including the terminating null character.
@@ -2890,7 +2890,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalGetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
+        result := DllCall("KERNEL32.dll\GlobalGetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2921,7 +2921,7 @@ class DataExchange {
      * 
      * The size, in 
      * 					characters, of the buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the length of the string copied to the buffer, in 
      * 						characters, not including the terminating null character.
@@ -2935,7 +2935,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalGetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
+        result := DllCall("KERNEL32.dll\GlobalGetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -3130,7 +3130,7 @@ class DataExchange {
      * 
      * The size, in 
      * 					characters, of the buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the length of the string copied to the buffer, in 
      * 						characters, not including the terminating null character.
@@ -3144,7 +3144,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
+        result := DllCall("KERNEL32.dll\GetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -3175,7 +3175,7 @@ class DataExchange {
      * 
      * The size, in 
      * 					characters, of the buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the length of the string copied to the buffer, in 
      * 						characters, not including the terminating null character.
@@ -3189,7 +3189,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize)
+        result := DllCall("KERNEL32.dll\GetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, "uint")
         if(A_LastError)
             throw OSError()
 

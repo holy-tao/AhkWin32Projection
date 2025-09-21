@@ -374,21 +374,20 @@ class AllJoyn {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_unity_deferred_callbacks_process() {
-        result := DllCall("MSAJApi.dll\alljoyn_unity_deferred_callbacks_process")
+        result := DllCall("MSAJApi.dll\alljoyn_unity_deferred_callbacks_process", "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} mainthread_only 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_unity_set_deferred_callback_mainthread_only(mainthread_only) {
-        result := DllCall("MSAJApi.dll\alljoyn_unity_set_deferred_callback_mainthread_only", "int", mainthread_only)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_unity_set_deferred_callback_mainthread_only", "int", mainthread_only)
     }
 
     /**
@@ -425,11 +424,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} arg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_msgarg_destroy(arg) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_destroy", "ptr", arg)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_msgarg_destroy", "ptr", arg)
     }
 
     /**
@@ -457,12 +455,12 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set(arg, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set", "ptr", arg, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set", "ptr", arg, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -470,12 +468,12 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get(arg, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get", "ptr", arg, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get", "ptr", arg, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -493,11 +491,10 @@ class AllJoyn {
      * 
      * @param {Pointer} destination 
      * @param {Pointer} source 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_msgarg_clone(destination, source) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_clone", "ptr", destination, "ptr", source)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_msgarg_clone", "ptr", destination, "ptr", source)
     }
 
     /**
@@ -516,12 +513,12 @@ class AllJoyn {
      * @param {Pointer} args 
      * @param {Pointer<UIntPtr>} numArgs 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_array_set(args, numArgs, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set", "ptr", args, "ptr*", numArgs, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set", "ptr", args, "ptr*", numArgs, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -530,12 +527,12 @@ class AllJoyn {
      * @param {Pointer} args 
      * @param {Pointer} numArgs 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_array_get(args, numArgs, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_get", "ptr", args, "ptr", numArgs, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_get", "ptr", args, "ptr", numArgs, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -616,43 +613,41 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} elemSig 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_getdictelement(arg, elemSig) {
         elemSig := elemSig is String? StrPtr(elemSig) : elemSig
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_getdictelement", "ptr", arg, "ptr", elemSig, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_getdictelement", "ptr", arg, "ptr", elemSig, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} arg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_gettype(arg) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_gettype", "ptr", arg)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_gettype", "ptr", arg, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} arg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_msgarg_clear(arg) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_clear", "ptr", arg)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_msgarg_clear", "ptr", arg)
     }
 
     /**
      * 
      * @param {Pointer} arg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_msgarg_stabilize(arg) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_stabilize", "ptr", arg)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_msgarg_stabilize", "ptr", arg)
     }
 
     /**
@@ -661,12 +656,12 @@ class AllJoyn {
      * @param {Pointer} argOffset 
      * @param {Pointer<UIntPtr>} numArgs 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_array_set_offset(args, argOffset, numArgs, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set_offset", "ptr", args, "ptr", argOffset, "ptr*", numArgs, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set_offset", "ptr", args, "ptr", argOffset, "ptr*", numArgs, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -674,12 +669,12 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_and_stabilize(arg, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_and_stabilize", "ptr", arg, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_and_stabilize", "ptr", arg, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -687,10 +682,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} y 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint8(arg, y) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8", "ptr", arg, "char", y)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8", "ptr", arg, "char", y, "int")
         return result
     }
 
@@ -698,10 +693,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} b 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_bool(arg, b) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool", "ptr", arg, "int", b)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool", "ptr", arg, "int", b, "int")
         return result
     }
 
@@ -709,10 +704,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} n 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_int16(arg, n) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16", "ptr", arg, "short", n)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16", "ptr", arg, "short", n, "int")
         return result
     }
 
@@ -720,10 +715,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} q 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint16(arg, q) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16", "ptr", arg, "ushort", q)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16", "ptr", arg, "ushort", q, "int")
         return result
     }
 
@@ -731,10 +726,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} i 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_int32(arg, i) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32", "ptr", arg, "int", i)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32", "ptr", arg, "int", i, "int")
         return result
     }
 
@@ -742,10 +737,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} u 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint32(arg, u) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32", "ptr", arg, "uint", u)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32", "ptr", arg, "uint", u, "int")
         return result
     }
 
@@ -753,10 +748,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} x 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_int64(arg, x) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64", "ptr", arg, "int64", x)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64", "ptr", arg, "int64", x, "int")
         return result
     }
 
@@ -764,10 +759,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Integer} t 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint64(arg, t) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64", "ptr", arg, "uint", t)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64", "ptr", arg, "uint", t, "int")
         return result
     }
 
@@ -775,10 +770,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Float} d 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_double(arg, d) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double", "ptr", arg, "double", d)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double", "ptr", arg, "double", d, "int")
         return result
     }
 
@@ -786,12 +781,12 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} s 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_string(arg, s) {
         s := s is String? StrPtr(s) : s
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_string", "ptr", arg, "ptr", s)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_string", "ptr", arg, "ptr", s, "int")
         return result
     }
 
@@ -799,12 +794,12 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} o 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_objectpath(arg, o) {
         o := o is String? StrPtr(o) : o
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_objectpath", "ptr", arg, "ptr", o)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_objectpath", "ptr", arg, "ptr", o, "int")
         return result
     }
 
@@ -812,12 +807,12 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} g 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_signature(arg, g) {
         g := g is String? StrPtr(g) : g
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_signature", "ptr", arg, "ptr", g)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_signature", "ptr", arg, "ptr", g, "int")
         return result
     }
 
@@ -825,10 +820,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} y 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint8(arg, y) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint8", "ptr", arg, "char*", y)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint8", "ptr", arg, "char*", y, "int")
         return result
     }
 
@@ -836,10 +831,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Int32>} b 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_bool(arg, b) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_bool", "ptr", arg, "int*", b)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_bool", "ptr", arg, "int*", b, "int")
         return result
     }
 
@@ -847,10 +842,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Int16>} n 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_int16(arg, n) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int16", "ptr", arg, "short*", n)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int16", "ptr", arg, "short*", n, "int")
         return result
     }
 
@@ -858,10 +853,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<UInt16>} q 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint16(arg, q) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint16", "ptr", arg, "ushort*", q)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint16", "ptr", arg, "ushort*", q, "int")
         return result
     }
 
@@ -869,10 +864,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Int32>} i 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_int32(arg, i) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int32", "ptr", arg, "int*", i)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int32", "ptr", arg, "int*", i, "int")
         return result
     }
 
@@ -880,10 +875,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<UInt32>} u 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint32(arg, u) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint32", "ptr", arg, "uint*", u)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint32", "ptr", arg, "uint*", u, "int")
         return result
     }
 
@@ -891,10 +886,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Int64>} x 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_int64(arg, x) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int64", "ptr", arg, "int64*", x)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int64", "ptr", arg, "int64*", x, "int")
         return result
     }
 
@@ -902,10 +897,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<UInt64>} t 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint64(arg, t) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint64", "ptr", arg, "uint*", t)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint64", "ptr", arg, "uint*", t, "int")
         return result
     }
 
@@ -913,10 +908,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<Double>} d 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_double(arg, d) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_double", "ptr", arg, "double*", d)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_double", "ptr", arg, "double*", d, "int")
         return result
     }
 
@@ -924,10 +919,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<SByte>} s 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_string(arg, s) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_string", "ptr", arg, "ptr", s)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_string", "ptr", arg, "ptr", s, "int")
         return result
     }
 
@@ -935,10 +930,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<SByte>} o 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_objectpath(arg, o) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_objectpath", "ptr", arg, "ptr", o)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_objectpath", "ptr", arg, "ptr", o, "int")
         return result
     }
 
@@ -946,10 +941,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer<SByte>} g 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_signature(arg, g) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_signature", "ptr", arg, "ptr", g)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_signature", "ptr", arg, "ptr", g, "int")
         return result
     }
 
@@ -957,10 +952,10 @@ class AllJoyn {
      * 
      * @param {Pointer} arg 
      * @param {Pointer} v 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_variant(arg, v) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_variant", "ptr", arg, "ptr", v)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_variant", "ptr", arg, "ptr", v, "int")
         return result
     }
 
@@ -969,10 +964,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<Byte>} ay 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint8_array(arg, length, ay) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8_array", "ptr", arg, "ptr", length, "char*", ay)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8_array", "ptr", arg, "ptr", length, "char*", ay, "int")
         return result
     }
 
@@ -981,10 +976,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<Int32>} ab 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_bool_array(arg, length, ab) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool_array", "ptr", arg, "ptr", length, "int*", ab)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool_array", "ptr", arg, "ptr", length, "int*", ab, "int")
         return result
     }
 
@@ -993,10 +988,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<Int16>} an 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_int16_array(arg, length, an) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16_array", "ptr", arg, "ptr", length, "short*", an)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16_array", "ptr", arg, "ptr", length, "short*", an, "int")
         return result
     }
 
@@ -1005,10 +1000,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<UInt16>} aq 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint16_array(arg, length, aq) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16_array", "ptr", arg, "ptr", length, "ushort*", aq)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16_array", "ptr", arg, "ptr", length, "ushort*", aq, "int")
         return result
     }
 
@@ -1017,10 +1012,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<Int32>} ai 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_int32_array(arg, length, ai) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32_array", "ptr", arg, "ptr", length, "int*", ai)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32_array", "ptr", arg, "ptr", length, "int*", ai, "int")
         return result
     }
 
@@ -1029,10 +1024,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<UInt32>} au 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint32_array(arg, length, au) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32_array", "ptr", arg, "ptr", length, "uint*", au)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32_array", "ptr", arg, "ptr", length, "uint*", au, "int")
         return result
     }
 
@@ -1041,10 +1036,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<Int64>} ax 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_int64_array(arg, length, ax) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64_array", "ptr", arg, "ptr", length, "int64*", ax)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64_array", "ptr", arg, "ptr", length, "int64*", ax, "int")
         return result
     }
 
@@ -1053,10 +1048,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<UInt64>} at 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_uint64_array(arg, length, at) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64_array", "ptr", arg, "ptr", length, "uint*", at)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64_array", "ptr", arg, "ptr", length, "uint*", at, "int")
         return result
     }
 
@@ -1065,10 +1060,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<Double>} ad 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_double_array(arg, length, ad) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double_array", "ptr", arg, "ptr", length, "double*", ad)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double_array", "ptr", arg, "ptr", length, "double*", ad, "int")
         return result
     }
 
@@ -1077,10 +1072,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<SByte>} as_R 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_string_array(arg, length, as_R) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_string_array", "ptr", arg, "ptr", length, "ptr", as_R)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_string_array", "ptr", arg, "ptr", length, "ptr", as_R, "int")
         return result
     }
 
@@ -1089,10 +1084,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<SByte>} ao 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_objectpath_array(arg, length, ao) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_objectpath_array", "ptr", arg, "ptr", length, "ptr", ao)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_objectpath_array", "ptr", arg, "ptr", length, "ptr", ao, "int")
         return result
     }
 
@@ -1101,10 +1096,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} length 
      * @param {Pointer<SByte>} ag 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_set_signature_array(arg, length, ag) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_signature_array", "ptr", arg, "ptr", length, "ptr", ag)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_signature_array", "ptr", arg, "ptr", length, "ptr", ag, "int")
         return result
     }
 
@@ -1113,10 +1108,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<Byte>} ay 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint8_array(arg, length, ay) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint8_array", "ptr", arg, "ptr*", length, "char*", ay)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint8_array", "ptr", arg, "ptr*", length, "char*", ay, "int")
         return result
     }
 
@@ -1125,10 +1120,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<Int32>} ab 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_bool_array(arg, length, ab) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_bool_array", "ptr", arg, "ptr*", length, "int*", ab)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_bool_array", "ptr", arg, "ptr*", length, "int*", ab, "int")
         return result
     }
 
@@ -1137,10 +1132,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<Int16>} an 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_int16_array(arg, length, an) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int16_array", "ptr", arg, "ptr*", length, "short*", an)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int16_array", "ptr", arg, "ptr*", length, "short*", an, "int")
         return result
     }
 
@@ -1149,10 +1144,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<UInt16>} aq 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint16_array(arg, length, aq) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint16_array", "ptr", arg, "ptr*", length, "ushort*", aq)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint16_array", "ptr", arg, "ptr*", length, "ushort*", aq, "int")
         return result
     }
 
@@ -1161,10 +1156,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<Int32>} ai 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_int32_array(arg, length, ai) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int32_array", "ptr", arg, "ptr*", length, "int*", ai)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int32_array", "ptr", arg, "ptr*", length, "int*", ai, "int")
         return result
     }
 
@@ -1173,10 +1168,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<UInt32>} au 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint32_array(arg, length, au) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint32_array", "ptr", arg, "ptr*", length, "uint*", au)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint32_array", "ptr", arg, "ptr*", length, "uint*", au, "int")
         return result
     }
 
@@ -1185,10 +1180,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<Int64>} ax 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_int64_array(arg, length, ax) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int64_array", "ptr", arg, "ptr*", length, "int64*", ax)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_int64_array", "ptr", arg, "ptr*", length, "int64*", ax, "int")
         return result
     }
 
@@ -1197,10 +1192,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<UInt64>} at 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_uint64_array(arg, length, at) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint64_array", "ptr", arg, "ptr*", length, "uint*", at)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_uint64_array", "ptr", arg, "ptr*", length, "uint*", at, "int")
         return result
     }
 
@@ -1209,10 +1204,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<Double>} ad 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_double_array(arg, length, ad) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_double_array", "ptr", arg, "ptr*", length, "double*", ad)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_double_array", "ptr", arg, "ptr*", length, "double*", ad, "int")
         return result
     }
 
@@ -1222,12 +1217,12 @@ class AllJoyn {
      * @param {Pointer<Byte>} signature 
      * @param {Pointer<UIntPtr>} length 
      * @param {Pointer<IntPtr>} av 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_get_variant_array(arg, signature, length, av) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_variant_array", "ptr", arg, "ptr", signature, "ptr*", length, "ptr*", av)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_variant_array", "ptr", arg, "ptr", signature, "ptr*", length, "ptr*", av, "int")
         return result
     }
 
@@ -1246,11 +1241,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} index 
      * @param {Pointer<IntPtr>} element 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_msgarg_get_array_element(arg, index, element) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_array_element", "ptr", arg, "ptr", index, "ptr*", element)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_msgarg_get_array_element", "ptr", arg, "ptr", index, "ptr*", element)
     }
 
     /**
@@ -1289,10 +1283,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} key 
      * @param {Pointer} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_setdictentry(arg, key, value) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_setdictentry", "ptr", arg, "ptr", key, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_setdictentry", "ptr", arg, "ptr", key, "ptr", value, "int")
         return result
     }
 
@@ -1301,10 +1295,10 @@ class AllJoyn {
      * @param {Pointer} arg 
      * @param {Pointer} struct_members 
      * @param {Pointer} num_members 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_msgarg_setstruct(arg, struct_members, num_members) {
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_setstruct", "ptr", arg, "ptr", struct_members, "ptr", num_members)
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_setstruct", "ptr", arg, "ptr", struct_members, "ptr", num_members, "int")
         return result
     }
 
@@ -1366,23 +1360,22 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} data 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutdata_destroy(data) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_destroy", "ptr", data)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutdata_destroy", "ptr", data)
     }
 
     /**
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} aboutDataXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_createfromxml(data, aboutDataXml) {
         aboutDataXml := aboutDataXml is String? StrPtr(aboutDataXml) : aboutDataXml
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_createfromxml", "ptr", data, "ptr", aboutDataXml)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_createfromxml", "ptr", data, "ptr", aboutDataXml, "int")
         return result
     }
 
@@ -1404,12 +1397,12 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer} arg 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_createfrommsgarg(data, arg, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_createfrommsgarg", "ptr", data, "ptr", arg, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_createfrommsgarg", "ptr", data, "ptr", arg, "ptr", language, "int")
         return result
     }
 
@@ -1418,10 +1411,10 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<Byte>} appId 
      * @param {Pointer} num 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setappid(data, appId, num) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappid", "ptr", data, "char*", appId, "ptr", num)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappid", "ptr", data, "char*", appId, "ptr", num, "int")
         return result
     }
 
@@ -1429,12 +1422,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} appId 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setappid_fromstring(data, appId) {
         appId := appId is String? StrPtr(appId) : appId
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappid_fromstring", "ptr", data, "ptr", appId)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappid_fromstring", "ptr", data, "ptr", appId, "int")
         return result
     }
 
@@ -1443,10 +1436,10 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<Byte>} appId 
      * @param {Pointer<UIntPtr>} num 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getappid(data, appId, num) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getappid", "ptr", data, "ptr", appId, "ptr*", num)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getappid", "ptr", data, "ptr", appId, "ptr*", num, "int")
         return result
     }
 
@@ -1454,12 +1447,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} defaultLanguage 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setdefaultlanguage(data, defaultLanguage) {
         defaultLanguage := defaultLanguage is String? StrPtr(defaultLanguage) : defaultLanguage
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdefaultlanguage", "ptr", data, "ptr", defaultLanguage)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdefaultlanguage", "ptr", data, "ptr", defaultLanguage, "int")
         return result
     }
 
@@ -1467,10 +1460,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} defaultLanguage 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getdefaultlanguage(data, defaultLanguage) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdefaultlanguage", "ptr", data, "ptr", defaultLanguage)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdefaultlanguage", "ptr", data, "ptr", defaultLanguage, "int")
         return result
     }
 
@@ -1479,13 +1472,13 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<Byte>} deviceName 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setdevicename(data, deviceName, language) {
         deviceName := deviceName is String? StrPtr(deviceName) : deviceName
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdevicename", "ptr", data, "ptr", deviceName, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdevicename", "ptr", data, "ptr", deviceName, "ptr", language, "int")
         return result
     }
 
@@ -1494,12 +1487,12 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<SByte>} deviceName 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getdevicename(data, deviceName, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdevicename", "ptr", data, "ptr", deviceName, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdevicename", "ptr", data, "ptr", deviceName, "ptr", language, "int")
         return result
     }
 
@@ -1507,12 +1500,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} deviceId 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setdeviceid(data, deviceId) {
         deviceId := deviceId is String? StrPtr(deviceId) : deviceId
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdeviceid", "ptr", data, "ptr", deviceId)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdeviceid", "ptr", data, "ptr", deviceId, "int")
         return result
     }
 
@@ -1520,10 +1513,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} deviceId 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getdeviceid(data, deviceId) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdeviceid", "ptr", data, "ptr", deviceId)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdeviceid", "ptr", data, "ptr", deviceId, "int")
         return result
     }
 
@@ -1532,13 +1525,13 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<Byte>} appName 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setappname(data, appName, language) {
         appName := appName is String? StrPtr(appName) : appName
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappname", "ptr", data, "ptr", appName, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappname", "ptr", data, "ptr", appName, "ptr", language, "int")
         return result
     }
 
@@ -1547,12 +1540,12 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<SByte>} appName 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getappname(data, appName, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getappname", "ptr", data, "ptr", appName, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getappname", "ptr", data, "ptr", appName, "ptr", language, "int")
         return result
     }
 
@@ -1561,13 +1554,13 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<Byte>} manufacturer 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setmanufacturer(data, manufacturer, language) {
         manufacturer := manufacturer is String? StrPtr(manufacturer) : manufacturer
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setmanufacturer", "ptr", data, "ptr", manufacturer, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setmanufacturer", "ptr", data, "ptr", manufacturer, "ptr", language, "int")
         return result
     }
 
@@ -1576,12 +1569,12 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<SByte>} manufacturer 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getmanufacturer(data, manufacturer, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getmanufacturer", "ptr", data, "ptr", manufacturer, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getmanufacturer", "ptr", data, "ptr", manufacturer, "ptr", language, "int")
         return result
     }
 
@@ -1589,12 +1582,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} modelNumber 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setmodelnumber(data, modelNumber) {
         modelNumber := modelNumber is String? StrPtr(modelNumber) : modelNumber
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setmodelnumber", "ptr", data, "ptr", modelNumber)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setmodelnumber", "ptr", data, "ptr", modelNumber, "int")
         return result
     }
 
@@ -1602,10 +1595,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} modelNumber 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getmodelnumber(data, modelNumber) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getmodelnumber", "ptr", data, "ptr", modelNumber)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getmodelnumber", "ptr", data, "ptr", modelNumber, "int")
         return result
     }
 
@@ -1613,12 +1606,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setsupportedlanguage(data, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setsupportedlanguage", "ptr", data, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setsupportedlanguage", "ptr", data, "ptr", language, "int")
         return result
     }
 
@@ -1639,13 +1632,13 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<Byte>} description 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setdescription(data, description, language) {
         description := description is String? StrPtr(description) : description
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdescription", "ptr", data, "ptr", description, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdescription", "ptr", data, "ptr", description, "ptr", language, "int")
         return result
     }
 
@@ -1654,12 +1647,12 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer<SByte>} description 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getdescription(data, description, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdescription", "ptr", data, "ptr", description, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdescription", "ptr", data, "ptr", description, "ptr", language, "int")
         return result
     }
 
@@ -1667,12 +1660,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} dateOfManufacture 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setdateofmanufacture(data, dateOfManufacture) {
         dateOfManufacture := dateOfManufacture is String? StrPtr(dateOfManufacture) : dateOfManufacture
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdateofmanufacture", "ptr", data, "ptr", dateOfManufacture)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setdateofmanufacture", "ptr", data, "ptr", dateOfManufacture, "int")
         return result
     }
 
@@ -1680,10 +1673,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} dateOfManufacture 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getdateofmanufacture(data, dateOfManufacture) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdateofmanufacture", "ptr", data, "ptr", dateOfManufacture)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getdateofmanufacture", "ptr", data, "ptr", dateOfManufacture, "int")
         return result
     }
 
@@ -1691,12 +1684,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} softwareVersion 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setsoftwareversion(data, softwareVersion) {
         softwareVersion := softwareVersion is String? StrPtr(softwareVersion) : softwareVersion
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setsoftwareversion", "ptr", data, "ptr", softwareVersion)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setsoftwareversion", "ptr", data, "ptr", softwareVersion, "int")
         return result
     }
 
@@ -1704,10 +1697,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} softwareVersion 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getsoftwareversion(data, softwareVersion) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getsoftwareversion", "ptr", data, "ptr", softwareVersion)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getsoftwareversion", "ptr", data, "ptr", softwareVersion, "int")
         return result
     }
 
@@ -1715,10 +1708,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} ajSoftwareVersion 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getajsoftwareversion(data, ajSoftwareVersion) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getajsoftwareversion", "ptr", data, "ptr", ajSoftwareVersion)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getajsoftwareversion", "ptr", data, "ptr", ajSoftwareVersion, "int")
         return result
     }
 
@@ -1726,12 +1719,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} hardwareVersion 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_sethardwareversion(data, hardwareVersion) {
         hardwareVersion := hardwareVersion is String? StrPtr(hardwareVersion) : hardwareVersion
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_sethardwareversion", "ptr", data, "ptr", hardwareVersion)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_sethardwareversion", "ptr", data, "ptr", hardwareVersion, "int")
         return result
     }
 
@@ -1739,10 +1732,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} hardwareVersion 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_gethardwareversion(data, hardwareVersion) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_gethardwareversion", "ptr", data, "ptr", hardwareVersion)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_gethardwareversion", "ptr", data, "ptr", hardwareVersion, "int")
         return result
     }
 
@@ -1750,12 +1743,12 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<Byte>} supportUrl 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setsupporturl(data, supportUrl) {
         supportUrl := supportUrl is String? StrPtr(supportUrl) : supportUrl
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setsupporturl", "ptr", data, "ptr", supportUrl)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setsupporturl", "ptr", data, "ptr", supportUrl, "int")
         return result
     }
 
@@ -1763,10 +1756,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer<SByte>} supportUrl 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getsupporturl(data, supportUrl) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getsupporturl", "ptr", data, "ptr", supportUrl)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getsupporturl", "ptr", data, "ptr", supportUrl, "int")
         return result
     }
 
@@ -1776,13 +1769,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} name 
      * @param {Pointer} value 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_setfield(data, name, value, language) {
         name := name is String? StrPtr(name) : name
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setfield", "ptr", data, "ptr", name, "ptr", value, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setfield", "ptr", data, "ptr", name, "ptr", value, "ptr", language, "int")
         return result
     }
 
@@ -1792,13 +1785,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} name 
      * @param {Pointer<IntPtr>} value 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getfield(data, name, value, language) {
         name := name is String? StrPtr(name) : name
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getfield", "ptr", data, "ptr", name, "ptr*", value, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getfield", "ptr", data, "ptr", name, "ptr*", value, "ptr", language, "int")
         return result
     }
 
@@ -1819,12 +1812,12 @@ class AllJoyn {
      * @param {Pointer} data 
      * @param {Pointer} msgArg 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getaboutdata(data, msgArg, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getaboutdata", "ptr", data, "ptr", msgArg, "ptr", language)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getaboutdata", "ptr", data, "ptr", msgArg, "ptr", language, "int")
         return result
     }
 
@@ -1832,10 +1825,10 @@ class AllJoyn {
      * 
      * @param {Pointer} data 
      * @param {Pointer} msgArg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutdata_getannouncedaboutdata(data, msgArg) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getannouncedaboutdata", "ptr", data, "ptr", msgArg)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getannouncedaboutdata", "ptr", data, "ptr", msgArg, "int")
         return result
     }
 
@@ -1903,11 +1896,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} icon 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_abouticon_destroy(icon) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_destroy", "ptr", icon)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_abouticon_destroy", "ptr", icon)
     }
 
     /**
@@ -1915,11 +1907,10 @@ class AllJoyn {
      * @param {Pointer} icon 
      * @param {Pointer<Byte>} data 
      * @param {Pointer<UIntPtr>} size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_abouticon_getcontent(icon, data, size) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_getcontent", "ptr", icon, "ptr", data, "ptr*", size)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_abouticon_getcontent", "ptr", icon, "ptr", data, "ptr*", size)
     }
 
     /**
@@ -1929,12 +1920,12 @@ class AllJoyn {
      * @param {Pointer<Byte>} data 
      * @param {Pointer} csize 
      * @param {Integer} ownsData 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_abouticon_setcontent(icon, type, data, csize, ownsData) {
         type := type is String? StrPtr(type) : type
 
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_setcontent", "ptr", icon, "ptr", type, "char*", data, "ptr", csize, "char", ownsData)
+        result := DllCall("MSAJApi.dll\alljoyn_abouticon_setcontent", "ptr", icon, "ptr", type, "char*", data, "ptr", csize, "char", ownsData, "int")
         return result
     }
 
@@ -1943,11 +1934,10 @@ class AllJoyn {
      * @param {Pointer} icon 
      * @param {Pointer<SByte>} type 
      * @param {Pointer<SByte>} url 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_abouticon_geturl(icon, type, url) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_geturl", "ptr", icon, "ptr", type, "ptr", url)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_abouticon_geturl", "ptr", icon, "ptr", type, "ptr", url)
     }
 
     /**
@@ -1955,34 +1945,33 @@ class AllJoyn {
      * @param {Pointer} icon 
      * @param {Pointer<Byte>} type 
      * @param {Pointer<Byte>} url 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_abouticon_seturl(icon, type, url) {
         type := type is String? StrPtr(type) : type
         url := url is String? StrPtr(url) : url
 
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_seturl", "ptr", icon, "ptr", type, "ptr", url)
+        result := DllCall("MSAJApi.dll\alljoyn_abouticon_seturl", "ptr", icon, "ptr", type, "ptr", url, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} icon 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_abouticon_clear(icon) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_clear", "ptr", icon)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_abouticon_clear", "ptr", icon)
     }
 
     /**
      * 
      * @param {Pointer} icon 
      * @param {Pointer} arg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_abouticon_setcontent_frommsgarg(icon, arg) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticon_setcontent_frommsgarg", "ptr", icon, "ptr", arg)
+        result := DllCall("MSAJApi.dll\alljoyn_abouticon_setcontent_frommsgarg", "ptr", icon, "ptr", arg, "int")
         return result
     }
 
@@ -1999,10 +1988,10 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<Int32>} state 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getapplicationstate(configurator, state) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getapplicationstate", "ptr", configurator, "int*", state)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getapplicationstate", "ptr", configurator, "int*", state, "int")
         return result
     }
 
@@ -2010,10 +1999,10 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Integer} state 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_setapplicationstate(configurator, state) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setapplicationstate", "ptr", configurator, "int", state)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setapplicationstate", "ptr", configurator, "int", state, "int")
         return result
     }
 
@@ -2021,52 +2010,50 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} publicKey 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getpublickey(configurator, publicKey) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getpublickey", "ptr", configurator, "ptr", publicKey)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getpublickey", "ptr", configurator, "ptr", publicKey, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} publicKey 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_publickey_destroy(publicKey) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_publickey_destroy", "char*", publicKey)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_publickey_destroy", "char*", publicKey)
     }
 
     /**
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} manifestTemplateXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getmanifesttemplate(configurator, manifestTemplateXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getmanifesttemplate", "ptr", configurator, "ptr", manifestTemplateXml)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getmanifesttemplate", "ptr", configurator, "ptr", manifestTemplateXml, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} manifestTemplateXml 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_manifesttemplate_destroy(manifestTemplateXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_manifesttemplate_destroy", "char*", manifestTemplateXml)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_manifesttemplate_destroy", "char*", manifestTemplateXml)
     }
 
     /**
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} manifestTemplateXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_setmanifesttemplatefromxml(configurator, manifestTemplateXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setmanifesttemplatefromxml", "ptr", configurator, "char*", manifestTemplateXml)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setmanifesttemplatefromxml", "ptr", configurator, "char*", manifestTemplateXml, "int")
         return result
     }
 
@@ -2074,10 +2061,10 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<UInt16>} claimCapabilities 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getclaimcapabilities(configurator, claimCapabilities) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getclaimcapabilities", "ptr", configurator, "ushort*", claimCapabilities)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getclaimcapabilities", "ptr", configurator, "ushort*", claimCapabilities, "int")
         return result
     }
 
@@ -2085,10 +2072,10 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Integer} claimCapabilities 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_setclaimcapabilities(configurator, claimCapabilities) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilities", "ptr", configurator, "ushort", claimCapabilities)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilities", "ptr", configurator, "ushort", claimCapabilities, "int")
         return result
     }
 
@@ -2096,10 +2083,10 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<UInt16>} additionalInfo 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getclaimcapabilitiesadditionalinfo(configurator, additionalInfo) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getclaimcapabilitiesadditionalinfo", "ptr", configurator, "ushort*", additionalInfo)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getclaimcapabilitiesadditionalinfo", "ptr", configurator, "ushort*", additionalInfo, "int")
         return result
     }
 
@@ -2107,20 +2094,20 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Integer} additionalInfo 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_setclaimcapabilitiesadditionalinfo(configurator, additionalInfo) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilitiesadditionalinfo", "ptr", configurator, "ushort", additionalInfo)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilitiesadditionalinfo", "ptr", configurator, "ushort", additionalInfo, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} configurator 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_reset(configurator) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_reset", "ptr", configurator)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_reset", "ptr", configurator, "int")
         return result
     }
 
@@ -2134,10 +2121,10 @@ class AllJoyn {
      * @param {Pointer<SByte>} groupAuthority 
      * @param {Pointer<SByte>} manifestsXmls 
      * @param {Pointer} manifestsCount 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_claim(configurator, caKey, identityCertificateChain, groupId, groupSize, groupAuthority, manifestsXmls, manifestsCount) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_claim", "ptr", configurator, "char*", caKey, "char*", identityCertificateChain, "char*", groupId, "ptr", groupSize, "char*", groupAuthority, "ptr", manifestsXmls, "ptr", manifestsCount)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_claim", "ptr", configurator, "char*", caKey, "char*", identityCertificateChain, "char*", groupId, "ptr", groupSize, "char*", groupAuthority, "ptr", manifestsXmls, "ptr", manifestsCount, "int")
         return result
     }
 
@@ -2147,10 +2134,10 @@ class AllJoyn {
      * @param {Pointer<SByte>} identityCertificateChain 
      * @param {Pointer<SByte>} manifestsXmls 
      * @param {Pointer} manifestsCount 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_updateidentity(configurator, identityCertificateChain, manifestsXmls, manifestsCount) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_updateidentity", "ptr", configurator, "char*", identityCertificateChain, "ptr", manifestsXmls, "ptr", manifestsCount)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_updateidentity", "ptr", configurator, "char*", identityCertificateChain, "ptr", manifestsXmls, "ptr", manifestsCount, "int")
         return result
     }
 
@@ -2158,42 +2145,40 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} identityCertificateChain 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getidentity(configurator, identityCertificateChain) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getidentity", "ptr", configurator, "ptr", identityCertificateChain)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getidentity", "ptr", configurator, "ptr", identityCertificateChain, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} certificateChain 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_certificatechain_destroy(certificateChain) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_certificatechain_destroy", "char*", certificateChain)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_certificatechain_destroy", "char*", certificateChain)
     }
 
     /**
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<alljoyn_manifestarray>} manifestArray 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getmanifests(configurator, manifestArray) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getmanifests", "ptr", configurator, "ptr", manifestArray)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getmanifests", "ptr", configurator, "ptr", manifestArray, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<alljoyn_manifestarray>} manifestArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_manifestarray_cleanup(manifestArray) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_manifestarray_cleanup", "ptr", manifestArray)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_manifestarray_cleanup", "ptr", manifestArray)
     }
 
     /**
@@ -2202,10 +2187,10 @@ class AllJoyn {
      * @param {Pointer<SByte>} manifestsXmls 
      * @param {Pointer} manifestsCount 
      * @param {Integer} append 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_installmanifests(configurator, manifestsXmls, manifestsCount, append) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_installmanifests", "ptr", configurator, "ptr", manifestsXmls, "ptr", manifestsCount, "int", append)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_installmanifests", "ptr", configurator, "ptr", manifestsXmls, "ptr", manifestsCount, "int", append, "int")
         return result
     }
 
@@ -2213,31 +2198,30 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<alljoyn_certificateid>} certificateId 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getidentitycertificateid(configurator, certificateId) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getidentitycertificateid", "ptr", configurator, "ptr", certificateId)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getidentitycertificateid", "ptr", configurator, "ptr", certificateId, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<alljoyn_certificateid>} certificateId 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_certificateid_cleanup(certificateId) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_certificateid_cleanup", "ptr", certificateId)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_certificateid_cleanup", "ptr", certificateId)
     }
 
     /**
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_updatepolicy(configurator, policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_updatepolicy", "ptr", configurator, "char*", policyXml)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_updatepolicy", "ptr", configurator, "char*", policyXml, "int")
         return result
     }
 
@@ -2245,10 +2229,10 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getpolicy(configurator, policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getpolicy", "ptr", configurator, "ptr", policyXml)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getpolicy", "ptr", configurator, "ptr", policyXml, "int")
         return result
     }
 
@@ -2256,30 +2240,29 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getdefaultpolicy(configurator, policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getdefaultpolicy", "ptr", configurator, "ptr", policyXml)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getdefaultpolicy", "ptr", configurator, "ptr", policyXml, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_policy_destroy(policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_policy_destroy", "char*", policyXml)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_policy_destroy", "char*", policyXml)
     }
 
     /**
      * 
      * @param {Pointer} configurator 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_resetpolicy(configurator) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_resetpolicy", "ptr", configurator)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_resetpolicy", "ptr", configurator, "int")
         return result
     }
 
@@ -2287,31 +2270,30 @@ class AllJoyn {
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<alljoyn_certificateidarray>} certificateIds 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_getmembershipsummaries(configurator, certificateIds) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getmembershipsummaries", "ptr", configurator, "ptr", certificateIds)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_getmembershipsummaries", "ptr", configurator, "ptr", certificateIds, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<alljoyn_certificateidarray>} certificateIdArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurator_certificateidarray_cleanup(certificateIdArray) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_certificateidarray_cleanup", "ptr", certificateIdArray)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_certificateidarray_cleanup", "ptr", certificateIdArray)
     }
 
     /**
      * 
      * @param {Pointer} configurator 
      * @param {Pointer<SByte>} membershipCertificateChain 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_installmembership(configurator, membershipCertificateChain) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_installmembership", "ptr", configurator, "char*", membershipCertificateChain)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_installmembership", "ptr", configurator, "char*", membershipCertificateChain, "int")
         return result
     }
 
@@ -2323,30 +2305,30 @@ class AllJoyn {
      * @param {Pointer<SByte>} issuerPublicKey 
      * @param {Pointer<Byte>} issuerAki 
      * @param {Pointer} issuerAkiLen 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_removemembership(configurator, serial, serialLen, issuerPublicKey, issuerAki, issuerAkiLen) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_removemembership", "ptr", configurator, "char*", serial, "ptr", serialLen, "char*", issuerPublicKey, "char*", issuerAki, "ptr", issuerAkiLen)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_removemembership", "ptr", configurator, "char*", serial, "ptr", serialLen, "char*", issuerPublicKey, "char*", issuerAki, "ptr", issuerAkiLen, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} configurator 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_startmanagement(configurator) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_startmanagement", "ptr", configurator)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_startmanagement", "ptr", configurator, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} configurator 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_permissionconfigurator_endmanagement(configurator) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_endmanagement", "ptr", configurator)
+        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_endmanagement", "ptr", configurator, "int")
         return result
     }
 
@@ -2364,11 +2346,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_applicationstatelistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_applicationstatelistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_applicationstatelistener_destroy", "ptr", listener)
     }
 
     /**
@@ -2396,11 +2377,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_keystorelistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_keystorelistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_keystorelistener_destroy", "ptr", listener)
     }
 
     /**
@@ -2409,13 +2389,13 @@ class AllJoyn {
      * @param {Pointer} keyStore 
      * @param {Pointer<Byte>} source 
      * @param {Pointer<Byte>} password 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_keystorelistener_putkeys(listener, keyStore, source, password) {
         source := source is String? StrPtr(source) : source
         password := password is String? StrPtr(password) : password
 
-        result := DllCall("MSAJApi.dll\alljoyn_keystorelistener_putkeys", "ptr", listener, "ptr", keyStore, "ptr", source, "ptr", password)
+        result := DllCall("MSAJApi.dll\alljoyn_keystorelistener_putkeys", "ptr", listener, "ptr", keyStore, "ptr", source, "ptr", password, "int")
         return result
     }
 
@@ -2425,12 +2405,12 @@ class AllJoyn {
      * @param {Pointer} keyStore 
      * @param {Pointer<Byte>} sink 
      * @param {Pointer<UIntPtr>} sink_sz 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_keystorelistener_getkeys(listener, keyStore, sink, sink_sz) {
         sink := sink is String? StrPtr(sink) : sink
 
-        result := DllCall("MSAJApi.dll\alljoyn_keystorelistener_getkeys", "ptr", listener, "ptr", keyStore, "ptr", sink, "ptr*", sink_sz)
+        result := DllCall("MSAJApi.dll\alljoyn_keystorelistener_getkeys", "ptr", listener, "ptr", keyStore, "ptr", sink, "ptr*", sink_sz, "int")
         return result
     }
 
@@ -2450,11 +2430,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} opts 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionopts_destroy(opts) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionopts_destroy", "ptr", opts)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionopts_destroy", "ptr", opts)
     }
 
     /**
@@ -2471,11 +2450,10 @@ class AllJoyn {
      * 
      * @param {Pointer} opts 
      * @param {Integer} traffic 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionopts_set_traffic(opts, traffic) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionopts_set_traffic", "ptr", opts, "char", traffic)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionopts_set_traffic", "ptr", opts, "char", traffic)
     }
 
     /**
@@ -2492,11 +2470,10 @@ class AllJoyn {
      * 
      * @param {Pointer} opts 
      * @param {Integer} isMultipoint 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionopts_set_multipoint(opts, isMultipoint) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionopts_set_multipoint", "ptr", opts, "int", isMultipoint)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionopts_set_multipoint", "ptr", opts, "int", isMultipoint)
     }
 
     /**
@@ -2513,11 +2490,10 @@ class AllJoyn {
      * 
      * @param {Pointer} opts 
      * @param {Integer} proximity 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionopts_set_proximity(opts, proximity) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionopts_set_proximity", "ptr", opts, "char", proximity)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionopts_set_proximity", "ptr", opts, "char", proximity)
     }
 
     /**
@@ -2534,11 +2510,10 @@ class AllJoyn {
      * 
      * @param {Pointer} opts 
      * @param {Integer} transports 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionopts_set_transports(opts, transports) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionopts_set_transports", "ptr", opts, "ushort", transports)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionopts_set_transports", "ptr", opts, "ushort", transports)
     }
 
     /**
@@ -2576,11 +2551,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} msg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_message_destroy(msg) {
-        result := DllCall("MSAJApi.dll\alljoyn_message_destroy", "ptr", msg)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_message_destroy", "ptr", msg)
     }
 
     /**
@@ -2667,10 +2641,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} msg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_message_gettype(msg) {
-        result := DllCall("MSAJApi.dll\alljoyn_message_gettype", "ptr", msg)
+        result := DllCall("MSAJApi.dll\alljoyn_message_gettype", "ptr", msg, "int")
         return result
     }
 
@@ -2679,11 +2653,10 @@ class AllJoyn {
      * @param {Pointer} msg 
      * @param {Pointer<UIntPtr>} numArgs 
      * @param {Pointer<IntPtr>} args 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_message_getargs(msg, numArgs, args) {
-        result := DllCall("MSAJApi.dll\alljoyn_message_getargs", "ptr", msg, "ptr*", numArgs, "ptr*", args)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_message_getargs", "ptr", msg, "ptr*", numArgs, "ptr*", args)
     }
 
     /**
@@ -2701,12 +2674,12 @@ class AllJoyn {
      * 
      * @param {Pointer} msg 
      * @param {Pointer<Byte>} signature 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_message_parseargs(msg, signature) {
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_message_parseargs", "ptr", msg, "ptr", signature, "CDecl ptr")
+        result := DllCall("MSAJApi.dll\alljoyn_message_parseargs", "ptr", msg, "ptr", signature, "CDecl int")
         return result
     }
 
@@ -2887,11 +2860,10 @@ class AllJoyn {
     /**
      * 
      * @param {Integer} endian 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_message_setendianess(endian) {
-        result := DllCall("MSAJApi.dll\alljoyn_message_setendianess", "char", endian)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_message_setendianess", "char", endian)
     }
 
     /**
@@ -2900,10 +2872,10 @@ class AllJoyn {
      * @param {Pointer<Void>} authContext 
      * @param {Integer} accept 
      * @param {Pointer} credentials 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_authlistener_requestcredentialsresponse(listener, authContext, accept, credentials) {
-        result := DllCall("MSAJApi.dll\alljoyn_authlistener_requestcredentialsresponse", "ptr", listener, "ptr", authContext, "int", accept, "ptr", credentials)
+        result := DllCall("MSAJApi.dll\alljoyn_authlistener_requestcredentialsresponse", "ptr", listener, "ptr", authContext, "int", accept, "ptr", credentials, "int")
         return result
     }
 
@@ -2912,10 +2884,10 @@ class AllJoyn {
      * @param {Pointer} listener 
      * @param {Pointer<Void>} authContext 
      * @param {Integer} accept 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_authlistener_verifycredentialsresponse(listener, authContext, accept) {
-        result := DllCall("MSAJApi.dll\alljoyn_authlistener_verifycredentialsresponse", "ptr", listener, "ptr", authContext, "int", accept)
+        result := DllCall("MSAJApi.dll\alljoyn_authlistener_verifycredentialsresponse", "ptr", listener, "ptr", authContext, "int", accept, "int")
         return result
     }
 
@@ -2944,21 +2916,19 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_authlistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_authlistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_authlistener_destroy", "ptr", listener)
     }
 
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_authlistenerasync_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_authlistenerasync_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_authlistenerasync_destroy", "ptr", listener)
     }
 
     /**
@@ -2966,10 +2936,10 @@ class AllJoyn {
      * @param {Pointer} listener 
      * @param {Pointer<Byte>} sharedSecret 
      * @param {Pointer} sharedSecretSize 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_authlistener_setsharedsecret(listener, sharedSecret, sharedSecretSize) {
-        result := DllCall("MSAJApi.dll\alljoyn_authlistener_setsharedsecret", "ptr", listener, "char*", sharedSecret, "ptr", sharedSecretSize)
+        result := DllCall("MSAJApi.dll\alljoyn_authlistener_setsharedsecret", "ptr", listener, "char*", sharedSecret, "ptr", sharedSecretSize, "int")
         return result
     }
 
@@ -2985,11 +2955,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} cred 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_destroy(cred) {
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_destroy", "ptr", cred)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_destroy", "ptr", cred)
     }
 
     /**
@@ -3007,76 +2976,70 @@ class AllJoyn {
      * 
      * @param {Pointer} cred 
      * @param {Pointer<Byte>} pwd 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_setpassword(cred, pwd) {
         pwd := pwd is String? StrPtr(pwd) : pwd
 
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_setpassword", "ptr", cred, "ptr", pwd)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_setpassword", "ptr", cred, "ptr", pwd)
     }
 
     /**
      * 
      * @param {Pointer} cred 
      * @param {Pointer<Byte>} userName 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_setusername(cred, userName) {
         userName := userName is String? StrPtr(userName) : userName
 
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_setusername", "ptr", cred, "ptr", userName)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_setusername", "ptr", cred, "ptr", userName)
     }
 
     /**
      * 
      * @param {Pointer} cred 
      * @param {Pointer<Byte>} certChain 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_setcertchain(cred, certChain) {
         certChain := certChain is String? StrPtr(certChain) : certChain
 
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_setcertchain", "ptr", cred, "ptr", certChain)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_setcertchain", "ptr", cred, "ptr", certChain)
     }
 
     /**
      * 
      * @param {Pointer} cred 
      * @param {Pointer<Byte>} pk 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_setprivatekey(cred, pk) {
         pk := pk is String? StrPtr(pk) : pk
 
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_setprivatekey", "ptr", cred, "ptr", pk)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_setprivatekey", "ptr", cred, "ptr", pk)
     }
 
     /**
      * 
      * @param {Pointer} cred 
      * @param {Pointer<Byte>} logonEntry 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_setlogonentry(cred, logonEntry) {
         logonEntry := logonEntry is String? StrPtr(logonEntry) : logonEntry
 
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_setlogonentry", "ptr", cred, "ptr", logonEntry)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_setlogonentry", "ptr", cred, "ptr", logonEntry)
     }
 
     /**
      * 
      * @param {Pointer} cred 
      * @param {Integer} expiration 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_setexpiration(cred, expiration) {
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_setexpiration", "ptr", cred, "uint", expiration)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_setexpiration", "ptr", cred, "uint", expiration)
     }
 
     /**
@@ -3142,11 +3105,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} cred 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_credentials_clear(cred) {
-        result := DllCall("MSAJApi.dll\alljoyn_credentials_clear", "ptr", cred)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_credentials_clear", "ptr", cred)
     }
 
     /**
@@ -3163,11 +3125,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_buslistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_buslistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_buslistener_destroy", "ptr", listener)
     }
 
     /**
@@ -3188,14 +3149,13 @@ class AllJoyn {
      * @param {Pointer<UIntPtr>} name_size 
      * @param {Pointer<Byte>} value 
      * @param {Pointer<UIntPtr>} value_size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_interfacedescription_member_getannotationatindex(member, index, name, name_size, value, value_size) {
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getannotationatindex", "ptr", member, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getannotationatindex", "ptr", member, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
     }
 
     /**
@@ -3236,15 +3196,14 @@ class AllJoyn {
      * @param {Pointer<UIntPtr>} name_size 
      * @param {Pointer<Byte>} value 
      * @param {Pointer<UIntPtr>} value_size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_interfacedescription_member_getargannotationatindex(member, argName, index, name, name_size, value, value_size) {
         argName := argName is String? StrPtr(argName) : argName
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getargannotationatindex", "ptr", member, "ptr", argName, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getargannotationatindex", "ptr", member, "ptr", argName, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
     }
 
     /**
@@ -3283,14 +3242,13 @@ class AllJoyn {
      * @param {Pointer<UIntPtr>} name_size 
      * @param {Pointer<Byte>} value 
      * @param {Pointer<UIntPtr>} value_size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_interfacedescription_property_getannotationatindex(property, index, name, name_size, value, value_size) {
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_property_getannotationatindex", "ptr", property, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_property_getannotationatindex", "ptr", property, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
     }
 
     /**
@@ -3312,11 +3270,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} iface 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_interfacedescription_activate(iface) {
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_activate", "ptr", iface)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_activate", "ptr", iface)
     }
 
     /**
@@ -3324,13 +3281,13 @@ class AllJoyn {
      * @param {Pointer} iface 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addannotation(iface, name, value) {
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addannotation", "ptr", iface, "ptr", name, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addannotation", "ptr", iface, "ptr", name, "ptr", value, "int")
         return result
     }
 
@@ -3368,14 +3325,13 @@ class AllJoyn {
      * @param {Pointer<UIntPtr>} name_size 
      * @param {Pointer<Byte>} value 
      * @param {Pointer<UIntPtr>} value_size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_interfacedescription_getannotationatindex(iface, index, name, name_size, value, value_size) {
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getannotationatindex", "ptr", iface, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_getannotationatindex", "ptr", iface, "ptr", index, "ptr", name, "ptr*", name_size, "ptr", value, "ptr*", value_size)
     }
 
     /**
@@ -3401,7 +3357,7 @@ class AllJoyn {
      * @param {Pointer<Byte>} outSig 
      * @param {Pointer<Byte>} argNames 
      * @param {Integer} annotation 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addmember(iface, type, name, inputSig, outSig, argNames, annotation) {
         name := name is String? StrPtr(name) : name
@@ -3409,7 +3365,7 @@ class AllJoyn {
         outSig := outSig is String? StrPtr(outSig) : outSig
         argNames := argNames is String? StrPtr(argNames) : argNames
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmember", "ptr", iface, "int", type, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, "char", annotation)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmember", "ptr", iface, "int", type, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, "char", annotation, "int")
         return result
     }
 
@@ -3419,14 +3375,14 @@ class AllJoyn {
      * @param {Pointer<Byte>} member 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addmemberannotation(iface, member, name, value) {
         member := member is String? StrPtr(member) : member
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmemberannotation", "ptr", iface, "ptr", member, "ptr", name, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmemberannotation", "ptr", iface, "ptr", member, "ptr", name, "ptr", value, "int")
         return result
     }
 
@@ -3486,7 +3442,7 @@ class AllJoyn {
      * @param {Pointer<Byte>} argNames 
      * @param {Integer} annotation 
      * @param {Pointer<Byte>} accessPerms 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addmethod(iface, name, inputSig, outSig, argNames, annotation, accessPerms) {
         name := name is String? StrPtr(name) : name
@@ -3495,7 +3451,7 @@ class AllJoyn {
         argNames := argNames is String? StrPtr(argNames) : argNames
         accessPerms := accessPerms is String? StrPtr(accessPerms) : accessPerms
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmethod", "ptr", iface, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, "char", annotation, "ptr", accessPerms)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmethod", "ptr", iface, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, "char", annotation, "ptr", accessPerms, "int")
         return result
     }
 
@@ -3521,7 +3477,7 @@ class AllJoyn {
      * @param {Pointer<Byte>} argNames 
      * @param {Integer} annotation 
      * @param {Pointer<Byte>} accessPerms 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addsignal(iface, name, sig, argNames, annotation, accessPerms) {
         name := name is String? StrPtr(name) : name
@@ -3529,7 +3485,7 @@ class AllJoyn {
         argNames := argNames is String? StrPtr(argNames) : argNames
         accessPerms := accessPerms is String? StrPtr(accessPerms) : accessPerms
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addsignal", "ptr", iface, "ptr", name, "ptr", sig, "ptr", argNames, "char", annotation, "ptr", accessPerms)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addsignal", "ptr", iface, "ptr", name, "ptr", sig, "ptr", argNames, "char", annotation, "ptr", accessPerms, "int")
         return result
     }
 
@@ -3579,13 +3535,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} signature 
      * @param {Integer} access 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addproperty(iface, name, signature, access) {
         name := name is String? StrPtr(name) : name
         signature := signature is String? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addproperty", "ptr", iface, "ptr", name, "ptr", signature, "char", access)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addproperty", "ptr", iface, "ptr", name, "ptr", signature, "char", access, "int")
         return result
     }
 
@@ -3595,14 +3551,14 @@ class AllJoyn {
      * @param {Pointer<Byte>} property 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addpropertyannotation(iface, property, name, value) {
         property := property is String? StrPtr(property) : property
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addpropertyannotation", "ptr", iface, "ptr", property, "ptr", name, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addpropertyannotation", "ptr", iface, "ptr", property, "ptr", name, "ptr", value, "int")
         return result
     }
 
@@ -3685,10 +3641,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} iface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_getsecuritypolicy(iface) {
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getsecuritypolicy", "ptr", iface)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getsecuritypolicy", "ptr", iface, "int")
         return result
     }
 
@@ -3696,14 +3652,13 @@ class AllJoyn {
      * 
      * @param {Pointer} iface 
      * @param {Pointer<Byte>} language 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @deprecated
      */
     static alljoyn_interfacedescription_setdescriptionlanguage(iface, language) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptionlanguage", "ptr", iface, "ptr", language)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptionlanguage", "ptr", iface, "ptr", language)
     }
 
     /**
@@ -3737,14 +3692,13 @@ class AllJoyn {
      * 
      * @param {Pointer} iface 
      * @param {Pointer<Byte>} description 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @deprecated
      */
     static alljoyn_interfacedescription_setdescription(iface, description) {
         description := description is String? StrPtr(description) : description
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescription", "ptr", iface, "ptr", description)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescription", "ptr", iface, "ptr", description)
     }
 
     /**
@@ -3752,13 +3706,13 @@ class AllJoyn {
      * @param {Pointer} iface 
      * @param {Pointer<Byte>} description 
      * @param {Pointer<Byte>} languageTag 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_setdescriptionforlanguage(iface, description, languageTag) {
         description := description is String? StrPtr(description) : description
         languageTag := languageTag is String? StrPtr(languageTag) : languageTag
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptionforlanguage", "ptr", iface, "ptr", description, "ptr", languageTag)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptionforlanguage", "ptr", iface, "ptr", description, "ptr", languageTag, "int")
         return result
     }
 
@@ -3783,14 +3737,14 @@ class AllJoyn {
      * @param {Pointer} iface 
      * @param {Pointer<Byte>} member 
      * @param {Pointer<Byte>} description 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      * @deprecated
      */
     static alljoyn_interfacedescription_setmemberdescription(iface, member, description) {
         member := member is String? StrPtr(member) : member
         description := description is String? StrPtr(description) : description
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setmemberdescription", "ptr", iface, "ptr", member, "ptr", description)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setmemberdescription", "ptr", iface, "ptr", member, "ptr", description, "int")
         return result
     }
 
@@ -3800,14 +3754,14 @@ class AllJoyn {
      * @param {Pointer<Byte>} member 
      * @param {Pointer<Byte>} description 
      * @param {Pointer<Byte>} languageTag 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_setmemberdescriptionforlanguage(iface, member, description, languageTag) {
         member := member is String? StrPtr(member) : member
         description := description is String? StrPtr(description) : description
         languageTag := languageTag is String? StrPtr(languageTag) : languageTag
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setmemberdescriptionforlanguage", "ptr", iface, "ptr", member, "ptr", description, "ptr", languageTag)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setmemberdescriptionforlanguage", "ptr", iface, "ptr", member, "ptr", description, "ptr", languageTag, "int")
         return result
     }
 
@@ -3835,7 +3789,7 @@ class AllJoyn {
      * @param {Pointer<Byte>} member 
      * @param {Pointer<Byte>} argName 
      * @param {Pointer<Byte>} description 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      * @deprecated
      */
     static alljoyn_interfacedescription_setargdescription(iface, member, argName, description) {
@@ -3843,7 +3797,7 @@ class AllJoyn {
         argName := argName is String? StrPtr(argName) : argName
         description := description is String? StrPtr(description) : description
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setargdescription", "ptr", iface, "ptr", member, "ptr", argName, "ptr", description)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setargdescription", "ptr", iface, "ptr", member, "ptr", argName, "ptr", description, "int")
         return result
     }
 
@@ -3854,7 +3808,7 @@ class AllJoyn {
      * @param {Pointer<Byte>} arg 
      * @param {Pointer<Byte>} description 
      * @param {Pointer<Byte>} languageTag 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_setargdescriptionforlanguage(iface, member, arg, description, languageTag) {
         member := member is String? StrPtr(member) : member
@@ -3862,7 +3816,7 @@ class AllJoyn {
         description := description is String? StrPtr(description) : description
         languageTag := languageTag is String? StrPtr(languageTag) : languageTag
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setargdescriptionforlanguage", "ptr", iface, "ptr", member, "ptr", arg, "ptr", description, "ptr", languageTag)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setargdescriptionforlanguage", "ptr", iface, "ptr", member, "ptr", arg, "ptr", description, "ptr", languageTag, "int")
         return result
     }
 
@@ -3891,14 +3845,14 @@ class AllJoyn {
      * @param {Pointer} iface 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} description 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      * @deprecated
      */
     static alljoyn_interfacedescription_setpropertydescription(iface, name, description) {
         name := name is String? StrPtr(name) : name
         description := description is String? StrPtr(description) : description
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setpropertydescription", "ptr", iface, "ptr", name, "ptr", description)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setpropertydescription", "ptr", iface, "ptr", name, "ptr", description, "int")
         return result
     }
 
@@ -3908,14 +3862,14 @@ class AllJoyn {
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} description 
      * @param {Pointer<Byte>} languageTag 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_setpropertydescriptionforlanguage(iface, name, description, languageTag) {
         name := name is String? StrPtr(name) : name
         description := description is String? StrPtr(description) : description
         languageTag := languageTag is String? StrPtr(languageTag) : languageTag
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setpropertydescriptionforlanguage", "ptr", iface, "ptr", name, "ptr", description, "ptr", languageTag)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setpropertydescriptionforlanguage", "ptr", iface, "ptr", name, "ptr", description, "ptr", languageTag, "int")
         return result
     }
 
@@ -3941,12 +3895,11 @@ class AllJoyn {
      * 
      * @param {Pointer} iface 
      * @param {Pointer<alljoyn_interfacedescription_translation_callback_ptr>} translationCallback 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @deprecated
      */
     static alljoyn_interfacedescription_setdescriptiontranslationcallback(iface, translationCallback) {
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptiontranslationcallback", "ptr", iface, "ptr", translationCallback)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptiontranslationcallback", "ptr", iface, "ptr", translationCallback)
     }
 
     /**
@@ -3977,7 +3930,7 @@ class AllJoyn {
      * @param {Pointer<Byte>} argName 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_interfacedescription_addargannotation(iface, member, argName, name, value) {
         member := member is String? StrPtr(member) : member
@@ -3985,7 +3938,7 @@ class AllJoyn {
         name := name is String? StrPtr(name) : name
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addargannotation", "ptr", iface, "ptr", member, "ptr", argName, "ptr", name, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addargannotation", "ptr", iface, "ptr", member, "ptr", argName, "ptr", name, "ptr", value, "int")
         return result
     }
 
@@ -4060,11 +4013,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busobject_destroy(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_destroy", "ptr", bus)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busobject_destroy", "ptr", bus)
     }
 
     /**
@@ -4084,14 +4036,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} propName 
      * @param {Pointer} val 
      * @param {Integer} id 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busobject_emitpropertychanged(bus, ifcName, propName, val, id) {
         ifcName := ifcName is String? StrPtr(ifcName) : ifcName
         propName := propName is String? StrPtr(propName) : propName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertychanged", "ptr", bus, "ptr", ifcName, "ptr", propName, "ptr", val, "uint", id)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertychanged", "ptr", bus, "ptr", ifcName, "ptr", propName, "ptr", val, "uint", id)
     }
 
     /**
@@ -4101,13 +4052,12 @@ class AllJoyn {
      * @param {Pointer<SByte>} propNames 
      * @param {Pointer} numProps 
      * @param {Integer} id 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busobject_emitpropertieschanged(bus, ifcName, propNames, numProps, id) {
         ifcName := ifcName is String? StrPtr(ifcName) : ifcName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertieschanged", "ptr", bus, "ptr", ifcName, "ptr", propNames, "ptr", numProps, "uint", id)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertieschanged", "ptr", bus, "ptr", ifcName, "ptr", propNames, "ptr", numProps, "uint", id)
     }
 
     /**
@@ -4128,10 +4078,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} iface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_addinterface(bus, iface) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_addinterface", "ptr", bus, "ptr", iface)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_addinterface", "ptr", bus, "ptr", iface, "int")
         return result
     }
 
@@ -4141,10 +4091,10 @@ class AllJoyn {
      * @param {Pointer} member 
      * @param {Pointer<alljoyn_messagereceiver_methodhandler_ptr>} handler 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_addmethodhandler(bus, member, handler, context) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandler", "ptr", bus, "ptr", member, "ptr", handler, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandler", "ptr", bus, "ptr", member, "ptr", handler, "ptr", context, "int")
         return result
     }
 
@@ -4153,10 +4103,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<alljoyn_busobject_methodentry>} entries 
      * @param {Pointer} numEntries 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_addmethodhandlers(bus, entries, numEntries) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandlers", "ptr", bus, "ptr", entries, "ptr", numEntries)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandlers", "ptr", bus, "ptr", entries, "ptr", numEntries, "int")
         return result
     }
 
@@ -4166,10 +4116,10 @@ class AllJoyn {
      * @param {Pointer} msg 
      * @param {Pointer} args 
      * @param {Pointer} numArgs 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_methodreply_args(bus, msg, args, numArgs) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_args", "ptr", bus, "ptr", msg, "ptr", args, "ptr", numArgs)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_args", "ptr", bus, "ptr", msg, "ptr", args, "ptr", numArgs, "int")
         return result
     }
 
@@ -4179,13 +4129,13 @@ class AllJoyn {
      * @param {Pointer} msg 
      * @param {Pointer<Byte>} error 
      * @param {Pointer<Byte>} errorMessage 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_methodreply_err(bus, msg, error, errorMessage) {
         error := error is String? StrPtr(error) : error
         errorMessage := errorMessage is String? StrPtr(errorMessage) : errorMessage
 
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_err", "ptr", bus, "ptr", msg, "ptr", error, "ptr", errorMessage)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_err", "ptr", bus, "ptr", msg, "ptr", error, "ptr", errorMessage, "int")
         return result
     }
 
@@ -4194,10 +4144,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer} msg 
      * @param {Integer} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_methodreply_status(bus, msg, status) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_status", "ptr", bus, "ptr", msg, "int", status)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_status", "ptr", bus, "ptr", msg, "int", status, "int")
         return result
     }
 
@@ -4222,12 +4172,12 @@ class AllJoyn {
      * @param {Integer} timeToLive 
      * @param {Integer} flags 
      * @param {Pointer} msg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_signal(bus, destination, sessionId, signal, args, numArgs, timeToLive, flags, msg) {
         destination := destination is String? StrPtr(destination) : destination
 
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_signal", "ptr", bus, "ptr", destination, "uint", sessionId, "ptr", signal, "ptr", args, "ptr", numArgs, "ushort", timeToLive, "char", flags, "ptr", msg)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_signal", "ptr", bus, "ptr", destination, "uint", sessionId, "ptr", signal, "ptr", args, "ptr", numArgs, "ushort", timeToLive, "char", flags, "ptr", msg, "int")
         return result
     }
 
@@ -4235,10 +4185,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Integer} serialNumber 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_cancelsessionlessmessage_serial(bus, serialNumber) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_cancelsessionlessmessage_serial", "ptr", bus, "uint", serialNumber)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_cancelsessionlessmessage_serial", "ptr", bus, "uint", serialNumber, "int")
         return result
     }
 
@@ -4246,10 +4196,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} msg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_cancelsessionlessmessage(bus, msg) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_cancelsessionlessmessage", "ptr", bus, "ptr", msg)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_cancelsessionlessmessage", "ptr", bus, "ptr", msg, "int")
         return result
     }
 
@@ -4280,10 +4230,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer} iface 
      * @param {Integer} isAnnounced 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_setannounceflag(bus, iface, isAnnounced) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_setannounceflag", "ptr", bus, "ptr", iface, "int", isAnnounced)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_setannounceflag", "ptr", bus, "ptr", iface, "int", isAnnounced, "int")
         return result
     }
 
@@ -4291,10 +4241,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} iface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busobject_addinterface_announced(bus, iface) {
-        result := DllCall("MSAJApi.dll\alljoyn_busobject_addinterface_announced", "ptr", bus, "ptr", iface)
+        result := DllCall("MSAJApi.dll\alljoyn_busobject_addinterface_announced", "ptr", bus, "ptr", iface, "int")
         return result
     }
 
@@ -4333,21 +4283,20 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} proxyObj 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_proxybusobject_destroy(proxyObj) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_destroy", "ptr", proxyObj)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_proxybusobject_destroy", "ptr", proxyObj)
     }
 
     /**
      * 
      * @param {Pointer} proxyObj 
      * @param {Pointer} iface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_addinterface(proxyObj, iface) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_addinterface", "ptr", proxyObj, "ptr", iface)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_addinterface", "ptr", proxyObj, "ptr", iface, "int")
         return result
     }
 
@@ -4355,12 +4304,12 @@ class AllJoyn {
      * 
      * @param {Pointer} proxyObj 
      * @param {Pointer<Byte>} name 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_addinterface_by_name(proxyObj, name) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_addinterface_by_name", "ptr", proxyObj, "ptr", name)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_addinterface_by_name", "ptr", proxyObj, "ptr", name, "int")
         return result
     }
 
@@ -4393,10 +4342,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxyObj 
      * @param {Pointer} child 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_addchild(proxyObj, child) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_addchild", "ptr", proxyObj, "ptr", child)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_addchild", "ptr", proxyObj, "ptr", child, "int")
         return result
     }
 
@@ -4404,22 +4353,22 @@ class AllJoyn {
      * 
      * @param {Pointer} proxyObj 
      * @param {Pointer<Byte>} path 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_removechild(proxyObj, path) {
         path := path is String? StrPtr(path) : path
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_removechild", "ptr", proxyObj, "ptr", path)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_removechild", "ptr", proxyObj, "ptr", path, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} proxyObj 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_introspectremoteobject(proxyObj) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobject", "ptr", proxyObj)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobject", "ptr", proxyObj, "int")
         return result
     }
 
@@ -4428,10 +4377,10 @@ class AllJoyn {
      * @param {Pointer} proxyObj 
      * @param {Pointer<alljoyn_proxybusobject_listener_introspectcb_ptr>} callback 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_introspectremoteobjectasync(proxyObj, callback, context) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobjectasync", "ptr", proxyObj, "ptr", callback, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobjectasync", "ptr", proxyObj, "ptr", callback, "ptr", context, "int")
         return result
     }
 
@@ -4441,13 +4390,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} iface 
      * @param {Pointer<Byte>} property 
      * @param {Pointer} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_getproperty(proxyObj, iface, property, value) {
         iface := iface is String? StrPtr(iface) : iface
         property := property is String? StrPtr(property) : property
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getproperty", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getproperty", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", value, "int")
         return result
     }
 
@@ -4459,13 +4408,13 @@ class AllJoyn {
      * @param {Pointer<alljoyn_proxybusobject_listener_getpropertycb_ptr>} callback 
      * @param {Integer} timeout 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_getpropertyasync(proxyObj, iface, property, callback, timeout, context) {
         iface := iface is String? StrPtr(iface) : iface
         property := property is String? StrPtr(property) : property
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getpropertyasync", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", callback, "uint", timeout, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getpropertyasync", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", callback, "uint", timeout, "ptr", context, "int")
         return result
     }
 
@@ -4474,12 +4423,12 @@ class AllJoyn {
      * @param {Pointer} proxyObj 
      * @param {Pointer<Byte>} iface 
      * @param {Pointer} values 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_getallproperties(proxyObj, iface, values) {
         iface := iface is String? StrPtr(iface) : iface
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallproperties", "ptr", proxyObj, "ptr", iface, "ptr", values)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallproperties", "ptr", proxyObj, "ptr", iface, "ptr", values, "int")
         return result
     }
 
@@ -4490,12 +4439,12 @@ class AllJoyn {
      * @param {Pointer<alljoyn_proxybusobject_listener_getallpropertiescb_ptr>} callback 
      * @param {Integer} timeout 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_getallpropertiesasync(proxyObj, iface, callback, timeout, context) {
         iface := iface is String? StrPtr(iface) : iface
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallpropertiesasync", "ptr", proxyObj, "ptr", iface, "ptr", callback, "uint", timeout, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallpropertiesasync", "ptr", proxyObj, "ptr", iface, "ptr", callback, "uint", timeout, "ptr", context, "int")
         return result
     }
 
@@ -4505,13 +4454,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} iface 
      * @param {Pointer<Byte>} property 
      * @param {Pointer} value 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_setproperty(proxyObj, iface, property, value) {
         iface := iface is String? StrPtr(iface) : iface
         property := property is String? StrPtr(property) : property
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setproperty", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", value)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setproperty", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", value, "int")
         return result
     }
 
@@ -4523,12 +4472,12 @@ class AllJoyn {
      * @param {Pointer} numProperties 
      * @param {Pointer<alljoyn_proxybusobject_listener_propertieschanged_ptr>} callback 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_registerpropertieschangedlistener(proxyObj, iface, properties, numProperties, callback, context) {
         iface := iface is String? StrPtr(iface) : iface
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_registerpropertieschangedlistener", "ptr", proxyObj, "ptr", iface, "ptr", properties, "ptr", numProperties, "ptr", callback, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_registerpropertieschangedlistener", "ptr", proxyObj, "ptr", iface, "ptr", properties, "ptr", numProperties, "ptr", callback, "ptr", context, "int")
         return result
     }
 
@@ -4537,12 +4486,12 @@ class AllJoyn {
      * @param {Pointer} proxyObj 
      * @param {Pointer<Byte>} iface 
      * @param {Pointer<alljoyn_proxybusobject_listener_propertieschanged_ptr>} callback 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_unregisterpropertieschangedlistener(proxyObj, iface, callback) {
         iface := iface is String? StrPtr(iface) : iface
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_unregisterpropertieschangedlistener", "ptr", proxyObj, "ptr", iface, "ptr", callback)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_unregisterpropertieschangedlistener", "ptr", proxyObj, "ptr", iface, "ptr", callback, "int")
         return result
     }
 
@@ -4555,13 +4504,13 @@ class AllJoyn {
      * @param {Pointer<alljoyn_proxybusobject_listener_setpropertycb_ptr>} callback 
      * @param {Integer} timeout 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_setpropertyasync(proxyObj, iface, property, value, callback, timeout, context) {
         iface := iface is String? StrPtr(iface) : iface
         property := property is String? StrPtr(property) : property
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setpropertyasync", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", value, "ptr", callback, "uint", timeout, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setpropertyasync", "ptr", proxyObj, "ptr", iface, "ptr", property, "ptr", value, "ptr", callback, "uint", timeout, "ptr", context, "int")
         return result
     }
 
@@ -4575,13 +4524,13 @@ class AllJoyn {
      * @param {Pointer} replyMsg 
      * @param {Integer} timeout 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_methodcall(proxyObj, ifaceName, methodName, args, numArgs, replyMsg, timeout, flags) {
         ifaceName := ifaceName is String? StrPtr(ifaceName) : ifaceName
         methodName := methodName is String? StrPtr(methodName) : methodName
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall", "ptr", proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", args, "ptr", numArgs, "ptr", replyMsg, "uint", timeout, "char", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall", "ptr", proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", args, "ptr", numArgs, "ptr", replyMsg, "uint", timeout, "char", flags, "int")
         return result
     }
 
@@ -4594,10 +4543,10 @@ class AllJoyn {
      * @param {Pointer} replyMsg 
      * @param {Integer} timeout 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_methodcall_member(proxyObj, method, args, numArgs, replyMsg, timeout, flags) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member", "ptr", proxyObj, "ptr", method, "ptr", args, "ptr", numArgs, "ptr", replyMsg, "uint", timeout, "char", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member", "ptr", proxyObj, "ptr", method, "ptr", args, "ptr", numArgs, "ptr", replyMsg, "uint", timeout, "char", flags, "int")
         return result
     }
 
@@ -4609,13 +4558,13 @@ class AllJoyn {
      * @param {Pointer} args 
      * @param {Pointer} numArgs 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_methodcall_noreply(proxyObj, ifaceName, methodName, args, numArgs, flags) {
         ifaceName := ifaceName is String? StrPtr(ifaceName) : ifaceName
         methodName := methodName is String? StrPtr(methodName) : methodName
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_noreply", "ptr", proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", args, "ptr", numArgs, "char", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_noreply", "ptr", proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", args, "ptr", numArgs, "char", flags, "int")
         return result
     }
 
@@ -4626,10 +4575,10 @@ class AllJoyn {
      * @param {Pointer} args 
      * @param {Pointer} numArgs 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_methodcall_member_noreply(proxyObj, method, args, numArgs, flags) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member_noreply", "ptr", proxyObj, "ptr", method, "ptr", args, "ptr", numArgs, "char", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member_noreply", "ptr", proxyObj, "ptr", method, "ptr", args, "ptr", numArgs, "char", flags, "int")
         return result
     }
 
@@ -4644,13 +4593,13 @@ class AllJoyn {
      * @param {Pointer<Void>} context 
      * @param {Integer} timeout 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_methodcallasync(proxyObj, ifaceName, methodName, replyFunc, args, numArgs, context, timeout, flags) {
         ifaceName := ifaceName is String? StrPtr(ifaceName) : ifaceName
         methodName := methodName is String? StrPtr(methodName) : methodName
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync", "ptr", proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", replyFunc, "ptr", args, "ptr", numArgs, "ptr", context, "uint", timeout, "char", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync", "ptr", proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", replyFunc, "ptr", args, "ptr", numArgs, "ptr", context, "uint", timeout, "char", flags, "int")
         return result
     }
 
@@ -4664,10 +4613,10 @@ class AllJoyn {
      * @param {Pointer<Void>} context 
      * @param {Integer} timeout 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_methodcallasync_member(proxyObj, method, replyFunc, args, numArgs, context, timeout, flags) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync_member", "ptr", proxyObj, "ptr", method, "ptr", replyFunc, "ptr", args, "ptr", numArgs, "ptr", context, "uint", timeout, "char", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync_member", "ptr", proxyObj, "ptr", method, "ptr", replyFunc, "ptr", args, "ptr", numArgs, "ptr", context, "uint", timeout, "char", flags, "int")
         return result
     }
 
@@ -4676,13 +4625,13 @@ class AllJoyn {
      * @param {Pointer} proxyObj 
      * @param {Pointer<Byte>} xml 
      * @param {Pointer<Byte>} identifier 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_parsexml(proxyObj, xml, identifier) {
         xml := xml is String? StrPtr(xml) : xml
         identifier := identifier is String? StrPtr(identifier) : identifier
 
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_parsexml", "ptr", proxyObj, "ptr", xml, "ptr", identifier)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_parsexml", "ptr", proxyObj, "ptr", xml, "ptr", identifier, "int")
         return result
     }
 
@@ -4690,10 +4639,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxyObj 
      * @param {Integer} forceAuth 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_secureconnection(proxyObj, forceAuth) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnection", "ptr", proxyObj, "int", forceAuth)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnection", "ptr", proxyObj, "int", forceAuth, "int")
         return result
     }
 
@@ -4701,10 +4650,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxyObj 
      * @param {Integer} forceAuth 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_proxybusobject_secureconnectionasync(proxyObj, forceAuth) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnectionasync", "ptr", proxyObj, "int", forceAuth)
+        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnectionasync", "ptr", proxyObj, "int", forceAuth, "int")
         return result
     }
 
@@ -4819,11 +4768,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} proxyObj 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_proxybusobject_enablepropertycaching(proxyObj) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_enablepropertycaching", "ptr", proxyObj)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_proxybusobject_enablepropertycaching", "ptr", proxyObj)
     }
 
     /**
@@ -4840,11 +4788,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_permissionconfigurationlistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurationlistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_permissionconfigurationlistener_destroy", "ptr", listener)
     }
 
     /**
@@ -4861,11 +4808,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionlistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionlistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionlistener_destroy", "ptr", listener)
     }
 
     /**
@@ -4882,11 +4828,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_sessionportlistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_sessionportlistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_sessionportlistener_destroy", "ptr", listener)
     }
 
     /**
@@ -4903,11 +4848,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutlistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutlistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutlistener_destroy", "ptr", listener)
     }
 
     /**
@@ -4940,40 +4884,39 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_destroy(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_destroy", "ptr", bus)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_destroy", "ptr", bus)
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_start(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_start", "ptr", bus)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_start", "ptr", bus, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_stop(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_stop", "ptr", bus)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_stop", "ptr", bus, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_join(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_join", "ptr", bus)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_join", "ptr", bus, "int")
         return result
     }
 
@@ -5000,11 +4943,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_enableconcurrentcallbacks(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_enableconcurrentcallbacks", "ptr", bus)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_enableconcurrentcallbacks", "ptr", bus)
     }
 
     /**
@@ -5012,12 +4954,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<IntPtr>} iface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_createinterface(bus, name, iface) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_createinterface", "ptr", bus, "ptr", name, "ptr*", iface)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_createinterface", "ptr", bus, "ptr", name, "ptr*", iface, "int")
         return result
     }
 
@@ -5027,12 +4969,12 @@ class AllJoyn {
      * @param {Pointer<Byte>} name 
      * @param {Pointer<IntPtr>} iface 
      * @param {Integer} secPolicy 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_createinterface_secure(bus, name, iface, secPolicy) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_createinterface_secure", "ptr", bus, "ptr", name, "ptr*", iface, "int", secPolicy)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_createinterface_secure", "ptr", bus, "ptr", name, "ptr*", iface, "int", secPolicy, "int")
         return result
     }
 
@@ -5040,12 +4982,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} connectSpec 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_connect(bus, connectSpec) {
         connectSpec := connectSpec is String? StrPtr(connectSpec) : connectSpec
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_connect", "ptr", bus, "ptr", connectSpec)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_connect", "ptr", bus, "ptr", connectSpec, "int")
         return result
     }
 
@@ -5053,34 +4995,32 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_registerbuslistener(bus, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerbuslistener", "ptr", bus, "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_registerbuslistener", "ptr", bus, "ptr", listener)
     }
 
     /**
      * 
      * @param {Pointer} bus 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_unregisterbuslistener(bus, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterbuslistener", "ptr", bus, "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterbuslistener", "ptr", bus, "ptr", listener)
     }
 
     /**
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} namePrefix 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_findadvertisedname(bus, namePrefix) {
         namePrefix := namePrefix is String? StrPtr(namePrefix) : namePrefix
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_findadvertisedname", "ptr", bus, "ptr", namePrefix)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_findadvertisedname", "ptr", bus, "ptr", namePrefix, "int")
         return result
     }
 
@@ -5089,12 +5029,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} namePrefix 
      * @param {Integer} transports 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_findadvertisednamebytransport(bus, namePrefix, transports) {
         namePrefix := namePrefix is String? StrPtr(namePrefix) : namePrefix
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_findadvertisednamebytransport", "ptr", bus, "ptr", namePrefix, "ushort", transports)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_findadvertisednamebytransport", "ptr", bus, "ptr", namePrefix, "ushort", transports, "int")
         return result
     }
 
@@ -5102,12 +5042,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} namePrefix 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_cancelfindadvertisedname(bus, namePrefix) {
         namePrefix := namePrefix is String? StrPtr(namePrefix) : namePrefix
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelfindadvertisedname", "ptr", bus, "ptr", namePrefix)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelfindadvertisedname", "ptr", bus, "ptr", namePrefix, "int")
         return result
     }
 
@@ -5116,12 +5056,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} namePrefix 
      * @param {Integer} transports 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_cancelfindadvertisednamebytransport(bus, namePrefix, transports) {
         namePrefix := namePrefix is String? StrPtr(namePrefix) : namePrefix
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelfindadvertisednamebytransport", "ptr", bus, "ptr", namePrefix, "ushort", transports)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelfindadvertisednamebytransport", "ptr", bus, "ptr", namePrefix, "ushort", transports, "int")
         return result
     }
 
@@ -5130,12 +5070,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Integer} transports 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_advertisename(bus, name, transports) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_advertisename", "ptr", bus, "ptr", name, "ushort", transports)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_advertisename", "ptr", bus, "ptr", name, "ushort", transports, "int")
         return result
     }
 
@@ -5144,12 +5084,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Integer} transports 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_canceladvertisename(bus, name, transports) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_canceladvertisename", "ptr", bus, "ptr", name, "ushort", transports)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_canceladvertisename", "ptr", bus, "ptr", name, "ushort", transports, "int")
         return result
     }
 
@@ -5174,12 +5114,12 @@ class AllJoyn {
      * @param {Pointer} listener 
      * @param {Pointer<UInt32>} sessionId 
      * @param {Pointer} opts 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_joinsession(bus, sessionHost, sessionPort, listener, sessionId, opts) {
         sessionHost := sessionHost is String? StrPtr(sessionHost) : sessionHost
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsession", "ptr", bus, "ptr", sessionHost, "ushort", sessionPort, "ptr", listener, "uint*", sessionId, "ptr", opts)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsession", "ptr", bus, "ptr", sessionHost, "ushort", sessionPort, "ptr", listener, "uint*", sessionId, "ptr", opts, "int")
         return result
     }
 
@@ -5192,12 +5132,12 @@ class AllJoyn {
      * @param {Pointer} opts 
      * @param {Pointer<alljoyn_busattachment_joinsessioncb_ptr>} callback 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_joinsessionasync(bus, sessionHost, sessionPort, listener, opts, callback, context) {
         sessionHost := sessionHost is String? StrPtr(sessionHost) : sessionHost
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsessionasync", "ptr", bus, "ptr", sessionHost, "ushort", sessionPort, "ptr", listener, "ptr", opts, "ptr", callback, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsessionasync", "ptr", bus, "ptr", sessionHost, "ushort", sessionPort, "ptr", listener, "ptr", opts, "ptr", callback, "ptr", context, "int")
         return result
     }
 
@@ -5205,10 +5145,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} obj 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_registerbusobject(bus, obj) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerbusobject", "ptr", bus, "ptr", obj)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerbusobject", "ptr", bus, "ptr", obj, "int")
         return result
     }
 
@@ -5216,10 +5156,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} obj 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_registerbusobject_secure(bus, obj) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerbusobject_secure", "ptr", bus, "ptr", obj)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerbusobject_secure", "ptr", bus, "ptr", obj, "int")
         return result
     }
 
@@ -5227,11 +5167,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} object 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_unregisterbusobject(bus, object) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterbusobject", "ptr", bus, "ptr", object)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterbusobject", "ptr", bus, "ptr", object)
     }
 
     /**
@@ -5239,12 +5178,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} requestedName 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_requestname(bus, requestedName, flags) {
         requestedName := requestedName is String? StrPtr(requestedName) : requestedName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_requestname", "ptr", bus, "ptr", requestedName, "uint", flags)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_requestname", "ptr", bus, "ptr", requestedName, "uint", flags, "int")
         return result
     }
 
@@ -5252,12 +5191,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_releasename(bus, name) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_releasename", "ptr", bus, "ptr", name)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_releasename", "ptr", bus, "ptr", name, "int")
         return result
     }
 
@@ -5267,10 +5206,10 @@ class AllJoyn {
      * @param {Pointer<UInt16>} sessionPort 
      * @param {Pointer} opts 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_bindsessionport(bus, sessionPort, opts, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_bindsessionport", "ptr", bus, "ushort*", sessionPort, "ptr", opts, "ptr", listener)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_bindsessionport", "ptr", bus, "ushort*", sessionPort, "ptr", opts, "ptr", listener, "int")
         return result
     }
 
@@ -5278,10 +5217,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Integer} sessionPort 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_unbindsessionport(bus, sessionPort) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unbindsessionport", "ptr", bus, "ushort", sessionPort)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unbindsessionport", "ptr", bus, "ushort", sessionPort, "int")
         return result
     }
 
@@ -5292,13 +5231,13 @@ class AllJoyn {
      * @param {Pointer} listener 
      * @param {Pointer<Byte>} keyStoreFileName 
      * @param {Integer} isShared 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_enablepeersecurity(bus, authMechanisms, listener, keyStoreFileName, isShared) {
         authMechanisms := authMechanisms is String? StrPtr(authMechanisms) : authMechanisms
         keyStoreFileName := keyStoreFileName is String? StrPtr(keyStoreFileName) : keyStoreFileName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecurity", "ptr", bus, "ptr", authMechanisms, "ptr", listener, "ptr", keyStoreFileName, "int", isShared)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecurity", "ptr", bus, "ptr", authMechanisms, "ptr", listener, "ptr", keyStoreFileName, "int", isShared, "int")
         return result
     }
 
@@ -5310,13 +5249,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} keyStoreFileName 
      * @param {Integer} isShared 
      * @param {Pointer} permissionConfigurationListener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_enablepeersecuritywithpermissionconfigurationlistener(bus, authMechanisms, authListener, keyStoreFileName, isShared, permissionConfigurationListener) {
         authMechanisms := authMechanisms is String? StrPtr(authMechanisms) : authMechanisms
         keyStoreFileName := keyStoreFileName is String? StrPtr(keyStoreFileName) : keyStoreFileName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecuritywithpermissionconfigurationlistener", "ptr", bus, "ptr", authMechanisms, "ptr", authListener, "ptr", keyStoreFileName, "int", isShared, "ptr", permissionConfigurationListener)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecuritywithpermissionconfigurationlistener", "ptr", bus, "ptr", authMechanisms, "ptr", authListener, "ptr", keyStoreFileName, "int", isShared, "ptr", permissionConfigurationListener, "int")
         return result
     }
 
@@ -5334,12 +5273,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} xml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_createinterfacesfromxml(bus, xml) {
         xml := xml is String? StrPtr(xml) : xml
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_createinterfacesfromxml", "ptr", bus, "ptr", xml)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_createinterfacesfromxml", "ptr", bus, "ptr", xml, "int")
         return result
     }
 
@@ -5359,10 +5298,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} iface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_deleteinterface(bus, iface) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_deleteinterface", "ptr", bus, "ptr", iface)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_deleteinterface", "ptr", bus, "ptr", iface, "int")
         return result
     }
 
@@ -5400,12 +5339,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} unused 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_disconnect(bus, unused) {
         unused := unused is String? StrPtr(unused) : unused
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_disconnect", "ptr", bus, "ptr", unused)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_disconnect", "ptr", bus, "ptr", unused, "int")
         return result
     }
 
@@ -5465,12 +5404,12 @@ class AllJoyn {
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {Pointer} member 
      * @param {Pointer<Byte>} srcPath 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_registersignalhandler(bus, signal_handler, member, srcPath) {
         srcPath := srcPath is String? StrPtr(srcPath) : srcPath
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandler", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", srcPath)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandler", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", srcPath, "int")
         return result
     }
 
@@ -5480,12 +5419,12 @@ class AllJoyn {
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {Pointer} member 
      * @param {Pointer<Byte>} matchRule 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_registersignalhandlerwithrule(bus, signal_handler, member, matchRule) {
         matchRule := matchRule is String? StrPtr(matchRule) : matchRule
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandlerwithrule", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", matchRule)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandlerwithrule", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", matchRule, "int")
         return result
     }
 
@@ -5495,12 +5434,12 @@ class AllJoyn {
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {Pointer} member 
      * @param {Pointer<Byte>} srcPath 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_unregistersignalhandler(bus, signal_handler, member, srcPath) {
         srcPath := srcPath is String? StrPtr(srcPath) : srcPath
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandler", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", srcPath)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandler", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", srcPath, "int")
         return result
     }
 
@@ -5510,22 +5449,22 @@ class AllJoyn {
      * @param {Pointer<alljoyn_messagereceiver_signalhandler_ptr>} signal_handler 
      * @param {Pointer} member 
      * @param {Pointer<Byte>} matchRule 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_unregistersignalhandlerwithrule(bus, signal_handler, member, matchRule) {
         matchRule := matchRule is String? StrPtr(matchRule) : matchRule
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandlerwithrule", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", matchRule)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandlerwithrule", "ptr", bus, "ptr", signal_handler, "ptr", member, "ptr", matchRule, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_unregisterallhandlers(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterallhandlers", "ptr", bus)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterallhandlers", "ptr", bus, "int")
         return result
     }
 
@@ -5533,43 +5472,42 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_registerkeystorelistener(bus, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerkeystorelistener", "ptr", bus, "ptr", listener)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerkeystorelistener", "ptr", bus, "ptr", listener, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_reloadkeystore(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_reloadkeystore", "ptr", bus)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_reloadkeystore", "ptr", bus, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_clearkeystore(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_clearkeystore", "ptr", bus)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_clearkeystore", "ptr", bus)
     }
 
     /**
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} guid 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_clearkeys(bus, guid) {
         guid := guid is String? StrPtr(guid) : guid
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_clearkeys", "ptr", bus, "ptr", guid)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_clearkeys", "ptr", bus, "ptr", guid, "int")
         return result
     }
 
@@ -5578,12 +5516,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} guid 
      * @param {Integer} timeout 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_setkeyexpiration(bus, guid, timeout) {
         guid := guid is String? StrPtr(guid) : guid
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setkeyexpiration", "ptr", bus, "ptr", guid, "uint", timeout)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setkeyexpiration", "ptr", bus, "ptr", guid, "uint", timeout, "int")
         return result
     }
 
@@ -5592,12 +5530,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} guid 
      * @param {Pointer<UInt32>} timeout 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_getkeyexpiration(bus, guid, timeout) {
         guid := guid is String? StrPtr(guid) : guid
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_getkeyexpiration", "ptr", bus, "ptr", guid, "uint*", timeout)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_getkeyexpiration", "ptr", bus, "ptr", guid, "uint*", timeout, "int")
         return result
     }
 
@@ -5607,14 +5545,14 @@ class AllJoyn {
      * @param {Pointer<Byte>} authMechanism 
      * @param {Pointer<Byte>} userName 
      * @param {Pointer<Byte>} password 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_addlogonentry(bus, authMechanism, userName, password) {
         authMechanism := authMechanism is String? StrPtr(authMechanism) : authMechanism
         userName := userName is String? StrPtr(userName) : userName
         password := password is String? StrPtr(password) : password
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_addlogonentry", "ptr", bus, "ptr", authMechanism, "ptr", userName, "ptr", password)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_addlogonentry", "ptr", bus, "ptr", authMechanism, "ptr", userName, "ptr", password, "int")
         return result
     }
 
@@ -5622,12 +5560,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} rule 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_addmatch(bus, rule) {
         rule := rule is String? StrPtr(rule) : rule
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_addmatch", "ptr", bus, "ptr", rule)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_addmatch", "ptr", bus, "ptr", rule, "int")
         return result
     }
 
@@ -5635,12 +5573,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} rule 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_removematch(bus, rule) {
         rule := rule is String? StrPtr(rule) : rule
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_removematch", "ptr", bus, "ptr", rule)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_removematch", "ptr", bus, "ptr", rule, "int")
         return result
     }
 
@@ -5649,10 +5587,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Integer} sessionId 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_setsessionlistener(bus, sessionId, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setsessionlistener", "ptr", bus, "uint", sessionId, "ptr", listener)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setsessionlistener", "ptr", bus, "uint", sessionId, "ptr", listener, "int")
         return result
     }
 
@@ -5660,10 +5598,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Integer} sessionId 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_leavesession(bus, sessionId) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_leavesession", "ptr", bus, "uint", sessionId)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_leavesession", "ptr", bus, "uint", sessionId, "int")
         return result
     }
 
@@ -5672,12 +5610,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Integer} forceAuth 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_secureconnection(bus, name, forceAuth) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnection", "ptr", bus, "ptr", name, "int", forceAuth)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnection", "ptr", bus, "ptr", name, "int", forceAuth, "int")
         return result
     }
 
@@ -5686,12 +5624,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Integer} forceAuth 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_secureconnectionasync(bus, name, forceAuth) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnectionasync", "ptr", bus, "ptr", name, "int", forceAuth)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnectionasync", "ptr", bus, "ptr", name, "int", forceAuth, "int")
         return result
     }
 
@@ -5700,12 +5638,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Integer} sessionId 
      * @param {Pointer<Byte>} memberName 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_removesessionmember(bus, sessionId, memberName) {
         memberName := memberName is String? StrPtr(memberName) : memberName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_removesessionmember", "ptr", bus, "uint", sessionId, "ptr", memberName)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_removesessionmember", "ptr", bus, "uint", sessionId, "ptr", memberName, "int")
         return result
     }
 
@@ -5714,10 +5652,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Integer} sessionid 
      * @param {Pointer<UInt32>} linkTimeout 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_setlinktimeout(bus, sessionid, linkTimeout) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeout", "ptr", bus, "uint", sessionid, "uint*", linkTimeout)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeout", "ptr", bus, "uint", sessionid, "uint*", linkTimeout, "int")
         return result
     }
 
@@ -5728,10 +5666,10 @@ class AllJoyn {
      * @param {Integer} linkTimeout 
      * @param {Pointer<alljoyn_busattachment_setlinktimeoutcb_ptr>} callback 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_setlinktimeoutasync(bus, sessionid, linkTimeout, callback, context) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeoutasync", "ptr", bus, "uint", sessionid, "uint", linkTimeout, "ptr", callback, "ptr", context)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeoutasync", "ptr", bus, "uint", sessionid, "uint", linkTimeout, "ptr", callback, "ptr", context, "int")
         return result
     }
 
@@ -5740,12 +5678,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Int32>} hasOwner 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_namehasowner(bus, name, hasOwner) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_namehasowner", "ptr", bus, "ptr", name, "int*", hasOwner)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_namehasowner", "ptr", bus, "ptr", name, "int*", hasOwner, "int")
         return result
     }
 
@@ -5755,13 +5693,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Byte>} guid 
      * @param {Pointer<UIntPtr>} guidSz 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_getpeerguid(bus, name, guid, guidSz) {
         name := name is String? StrPtr(name) : name
         guid := guid is String? StrPtr(guid) : guid
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_getpeerguid", "ptr", bus, "ptr", name, "ptr", guid, "ptr*", guidSz)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_getpeerguid", "ptr", bus, "ptr", name, "ptr", guid, "ptr*", guidSz, "int")
         return result
     }
 
@@ -5770,12 +5708,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} module 
      * @param {Integer} level 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_setdaemondebug(bus, module, level) {
         module := module is String? StrPtr(module) : module
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setdaemondebug", "ptr", bus, "ptr", module, "uint", level)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_setdaemondebug", "ptr", bus, "ptr", module, "uint", level, "int")
         return result
     }
 
@@ -5793,12 +5731,12 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} name 
      * @param {Integer} timeout 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_ping(bus, name, timeout) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_ping", "ptr", bus, "ptr", name, "uint", timeout)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_ping", "ptr", bus, "ptr", name, "uint", timeout, "int")
         return result
     }
 
@@ -5806,32 +5744,29 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} aboutListener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_registeraboutlistener(bus, aboutListener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registeraboutlistener", "ptr", bus, "ptr", aboutListener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_registeraboutlistener", "ptr", bus, "ptr", aboutListener)
     }
 
     /**
      * 
      * @param {Pointer} bus 
      * @param {Pointer} aboutListener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_unregisteraboutlistener(bus, aboutListener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisteraboutlistener", "ptr", bus, "ptr", aboutListener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_unregisteraboutlistener", "ptr", bus, "ptr", aboutListener)
     }
 
     /**
      * 
      * @param {Pointer} bus 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_busattachment_unregisterallaboutlisteners(bus) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterallaboutlisteners", "ptr", bus)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterallaboutlisteners", "ptr", bus)
     }
 
     /**
@@ -5839,10 +5774,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<SByte>} implementsInterfaces 
      * @param {Pointer} numberInterfaces 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_whoimplements_interfaces(bus, implementsInterfaces, numberInterfaces) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_whoimplements_interfaces", "ptr", bus, "ptr", implementsInterfaces, "ptr", numberInterfaces)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_whoimplements_interfaces", "ptr", bus, "ptr", implementsInterfaces, "ptr", numberInterfaces, "int")
         return result
     }
 
@@ -5850,12 +5785,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} implementsInterface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_whoimplements_interface(bus, implementsInterface) {
         implementsInterface := implementsInterface is String? StrPtr(implementsInterface) : implementsInterface
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_whoimplements_interface", "ptr", bus, "ptr", implementsInterface)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_whoimplements_interface", "ptr", bus, "ptr", implementsInterface, "int")
         return result
     }
 
@@ -5864,10 +5799,10 @@ class AllJoyn {
      * @param {Pointer} bus 
      * @param {Pointer<SByte>} implementsInterfaces 
      * @param {Pointer} numberInterfaces 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_cancelwhoimplements_interfaces(bus, implementsInterfaces, numberInterfaces) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelwhoimplements_interfaces", "ptr", bus, "ptr", implementsInterfaces, "ptr", numberInterfaces)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelwhoimplements_interfaces", "ptr", bus, "ptr", implementsInterfaces, "ptr", numberInterfaces, "int")
         return result
     }
 
@@ -5875,12 +5810,12 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer<Byte>} implementsInterface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_cancelwhoimplements_interface(bus, implementsInterface) {
         implementsInterface := implementsInterface is String? StrPtr(implementsInterface) : implementsInterface
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelwhoimplements_interface", "ptr", bus, "ptr", implementsInterface)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelwhoimplements_interface", "ptr", bus, "ptr", implementsInterface, "int")
         return result
     }
 
@@ -5898,10 +5833,10 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_registerapplicationstatelistener(bus, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerapplicationstatelistener", "ptr", bus, "ptr", listener)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_registerapplicationstatelistener", "ptr", bus, "ptr", listener, "int")
         return result
     }
 
@@ -5909,22 +5844,22 @@ class AllJoyn {
      * 
      * @param {Pointer} bus 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_unregisterapplicationstatelistener(bus, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterapplicationstatelistener", "ptr", bus, "ptr", listener)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregisterapplicationstatelistener", "ptr", bus, "ptr", listener, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Byte>} applicationName 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_busattachment_deletedefaultkeystore(applicationName) {
         applicationName := applicationName is String? StrPtr(applicationName) : applicationName
 
-        result := DllCall("MSAJApi.dll\alljoyn_busattachment_deletedefaultkeystore", "ptr", applicationName)
+        result := DllCall("MSAJApi.dll\alljoyn_busattachment_deletedefaultkeystore", "ptr", applicationName, "int")
         return result
     }
 
@@ -5942,11 +5877,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} icon 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_abouticonobj_destroy(icon) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticonobj_destroy", "ptr", icon)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_abouticonobj_destroy", "ptr", icon)
     }
 
     /**
@@ -5966,21 +5900,20 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_abouticonproxy_destroy(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_destroy", "ptr", proxy)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_abouticonproxy_destroy", "ptr", proxy)
     }
 
     /**
      * 
      * @param {Pointer} proxy 
      * @param {Pointer} icon 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_abouticonproxy_geticon(proxy, icon) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_geticon", "ptr", proxy, "ptr", icon)
+        result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_geticon", "ptr", proxy, "ptr", icon, "int")
         return result
     }
 
@@ -5988,10 +5921,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<UInt16>} version 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_abouticonproxy_getversion(proxy, version) {
-        result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_getversion", "ptr", proxy, "ushort*", version)
+        result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_getversion", "ptr", proxy, "ushort*", version, "int")
         return result
     }
 
@@ -6009,11 +5942,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutdatalistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutdatalistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutdatalistener_destroy", "ptr", listener)
     }
 
     /**
@@ -6030,11 +5962,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} obj 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutobj_destroy(obj) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_destroy", "ptr", obj)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutobj_destroy", "ptr", obj)
     }
 
     /**
@@ -6042,10 +5973,10 @@ class AllJoyn {
      * @param {Pointer} obj 
      * @param {Integer} sessionPort 
      * @param {Pointer} aboutData 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutobj_announce(obj, sessionPort, aboutData) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce", "ptr", obj, "ushort", sessionPort, "ptr", aboutData)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce", "ptr", obj, "ushort", sessionPort, "ptr", aboutData, "int")
         return result
     }
 
@@ -6054,20 +5985,20 @@ class AllJoyn {
      * @param {Pointer} obj 
      * @param {Integer} sessionPort 
      * @param {Pointer} aboutListener 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutobj_announce_using_datalistener(obj, sessionPort, aboutListener) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce_using_datalistener", "ptr", obj, "ushort", sessionPort, "ptr", aboutListener)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce_using_datalistener", "ptr", obj, "ushort", sessionPort, "ptr", aboutListener, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} obj 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutobj_unannounce(obj) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_unannounce", "ptr", obj)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutobj_unannounce", "ptr", obj, "int")
         return result
     }
 
@@ -6094,21 +6025,20 @@ class AllJoyn {
      * 
      * @param {Pointer} description 
      * @param {Pointer} arg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutobjectdescription_createfrommsgarg(description, arg) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_createfrommsgarg", "ptr", description, "ptr", arg)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_createfrommsgarg", "ptr", description, "ptr", arg, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} description 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutobjectdescription_destroy(description) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_destroy", "ptr", description)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_destroy", "ptr", description)
     }
 
     /**
@@ -6156,11 +6086,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} description 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutobjectdescription_clear(description) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_clear", "ptr", description)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_clear", "ptr", description)
     }
 
     /**
@@ -6208,10 +6137,10 @@ class AllJoyn {
      * 
      * @param {Pointer} description 
      * @param {Pointer} msgArg 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutobjectdescription_getmsgarg(description, msgArg) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getmsgarg", "ptr", description, "ptr", msgArg)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getmsgarg", "ptr", description, "ptr", msgArg, "int")
         return result
     }
 
@@ -6232,21 +6161,20 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_aboutproxy_destroy(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_destroy", "ptr", proxy)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_aboutproxy_destroy", "ptr", proxy)
     }
 
     /**
      * 
      * @param {Pointer} proxy 
      * @param {Pointer} objectDesc 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutproxy_getobjectdescription(proxy, objectDesc) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_getobjectdescription", "ptr", proxy, "ptr", objectDesc)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_getobjectdescription", "ptr", proxy, "ptr", objectDesc, "int")
         return result
     }
 
@@ -6255,12 +6183,12 @@ class AllJoyn {
      * @param {Pointer} proxy 
      * @param {Pointer<Byte>} language 
      * @param {Pointer} data 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutproxy_getaboutdata(proxy, language, data) {
         language := language is String? StrPtr(language) : language
 
-        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_getaboutdata", "ptr", proxy, "ptr", language, "ptr", data)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_getaboutdata", "ptr", proxy, "ptr", language, "ptr", data, "int")
         return result
     }
 
@@ -6268,10 +6196,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<UInt16>} version 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_aboutproxy_getversion(proxy, version) {
-        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_getversion", "ptr", proxy, "ushort*", version)
+        result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_getversion", "ptr", proxy, "ushort*", version, "int")
         return result
     }
 
@@ -6289,11 +6217,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_pinglistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_pinglistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_pinglistener_destroy", "ptr", listener)
     }
 
     /**
@@ -6309,31 +6236,28 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} autopinger 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_autopinger_destroy(autopinger) {
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_destroy", "ptr", autopinger)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_autopinger_destroy", "ptr", autopinger)
     }
 
     /**
      * 
      * @param {Pointer} autopinger 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_autopinger_pause(autopinger) {
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_pause", "ptr", autopinger)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_autopinger_pause", "ptr", autopinger)
     }
 
     /**
      * 
      * @param {Pointer} autopinger 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_autopinger_resume(autopinger) {
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_resume", "ptr", autopinger)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_autopinger_resume", "ptr", autopinger)
     }
 
     /**
@@ -6342,26 +6266,24 @@ class AllJoyn {
      * @param {Pointer<Byte>} group 
      * @param {Pointer} listener 
      * @param {Integer} pinginterval 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_autopinger_addpinggroup(autopinger, group, listener, pinginterval) {
         group := group is String? StrPtr(group) : group
 
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_addpinggroup", "ptr", autopinger, "ptr", group, "ptr", listener, "uint", pinginterval)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_autopinger_addpinggroup", "ptr", autopinger, "ptr", group, "ptr", listener, "uint", pinginterval)
     }
 
     /**
      * 
      * @param {Pointer} autopinger 
      * @param {Pointer<Byte>} group 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_autopinger_removepinggroup(autopinger, group) {
         group := group is String? StrPtr(group) : group
 
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_removepinggroup", "ptr", autopinger, "ptr", group)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_autopinger_removepinggroup", "ptr", autopinger, "ptr", group)
     }
 
     /**
@@ -6369,12 +6291,12 @@ class AllJoyn {
      * @param {Pointer} autopinger 
      * @param {Pointer<Byte>} group 
      * @param {Integer} pinginterval 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_autopinger_setpinginterval(autopinger, group, pinginterval) {
         group := group is String? StrPtr(group) : group
 
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_setpinginterval", "ptr", autopinger, "ptr", group, "uint", pinginterval)
+        result := DllCall("MSAJApi.dll\alljoyn_autopinger_setpinginterval", "ptr", autopinger, "ptr", group, "uint", pinginterval, "int")
         return result
     }
 
@@ -6383,13 +6305,13 @@ class AllJoyn {
      * @param {Pointer} autopinger 
      * @param {Pointer<Byte>} group 
      * @param {Pointer<Byte>} destination 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_autopinger_adddestination(autopinger, group, destination) {
         group := group is String? StrPtr(group) : group
         destination := destination is String? StrPtr(destination) : destination
 
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_adddestination", "ptr", autopinger, "ptr", group, "ptr", destination)
+        result := DllCall("MSAJApi.dll\alljoyn_autopinger_adddestination", "ptr", autopinger, "ptr", group, "ptr", destination, "int")
         return result
     }
 
@@ -6399,13 +6321,13 @@ class AllJoyn {
      * @param {Pointer<Byte>} group 
      * @param {Pointer<Byte>} destination 
      * @param {Integer} removeall 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_autopinger_removedestination(autopinger, group, destination, removeall) {
         group := group is String? StrPtr(group) : group
         destination := destination is String? StrPtr(destination) : destination
 
-        result := DllCall("MSAJApi.dll\alljoyn_autopinger_removedestination", "ptr", autopinger, "ptr", group, "ptr", destination, "int", removeall)
+        result := DllCall("MSAJApi.dll\alljoyn_autopinger_removedestination", "ptr", autopinger, "ptr", group, "ptr", destination, "int", removeall, "int")
         return result
     }
 
@@ -6438,47 +6360,47 @@ class AllJoyn {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_init() {
-        result := DllCall("MSAJApi.dll\alljoyn_init")
+        result := DllCall("MSAJApi.dll\alljoyn_init", "int")
         return result
     }
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_shutdown() {
-        result := DllCall("MSAJApi.dll\alljoyn_shutdown")
+        result := DllCall("MSAJApi.dll\alljoyn_shutdown", "int")
         return result
     }
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_routerinit() {
-        result := DllCall("MSAJApi.dll\alljoyn_routerinit")
+        result := DllCall("MSAJApi.dll\alljoyn_routerinit", "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} configXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_routerinitwithconfig(configXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_routerinitwithconfig", "char*", configXml)
+        result := DllCall("MSAJApi.dll\alljoyn_routerinitwithconfig", "char*", configXml, "int")
         return result
     }
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_routershutdown() {
-        result := DllCall("MSAJApi.dll\alljoyn_routershutdown")
+        result := DllCall("MSAJApi.dll\alljoyn_routershutdown", "int")
         return result
     }
 
@@ -6505,21 +6427,19 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} ref 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_proxybusobject_ref_incref(ref) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_ref_incref", "ptr", ref)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_proxybusobject_ref_incref", "ptr", ref)
     }
 
     /**
      * 
      * @param {Pointer} ref 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_proxybusobject_ref_decref(ref) {
-        result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_ref_decref", "ptr", ref)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_proxybusobject_ref_decref", "ptr", ref)
     }
 
     /**
@@ -6536,11 +6456,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_observerlistener_destroy(listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_observerlistener_destroy", "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_observerlistener_destroy", "ptr", listener)
     }
 
     /**
@@ -6558,11 +6477,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} observer 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_observer_destroy(observer) {
-        result := DllCall("MSAJApi.dll\alljoyn_observer_destroy", "ptr", observer)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_observer_destroy", "ptr", observer)
     }
 
     /**
@@ -6570,32 +6488,29 @@ class AllJoyn {
      * @param {Pointer} observer 
      * @param {Pointer} listener 
      * @param {Integer} triggerOnExisting 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_observer_registerlistener(observer, listener, triggerOnExisting) {
-        result := DllCall("MSAJApi.dll\alljoyn_observer_registerlistener", "ptr", observer, "ptr", listener, "int", triggerOnExisting)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_observer_registerlistener", "ptr", observer, "ptr", listener, "int", triggerOnExisting)
     }
 
     /**
      * 
      * @param {Pointer} observer 
      * @param {Pointer} listener 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_observer_unregisterlistener(observer, listener) {
-        result := DllCall("MSAJApi.dll\alljoyn_observer_unregisterlistener", "ptr", observer, "ptr", listener)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_observer_unregisterlistener", "ptr", observer, "ptr", listener)
     }
 
     /**
      * 
      * @param {Pointer} observer 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_observer_unregisteralllisteners(observer) {
-        result := DllCall("MSAJApi.dll\alljoyn_observer_unregisteralllisteners", "ptr", observer)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_observer_unregisteralllisteners", "ptr", observer)
     }
 
     /**
@@ -6638,13 +6553,13 @@ class AllJoyn {
      * 
      * @param {Pointer<Byte>} authMechanism 
      * @param {Pointer<Byte>} password 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_passwordmanager_setcredentials(authMechanism, password) {
         authMechanism := authMechanism is String? StrPtr(authMechanism) : authMechanism
         password := password is String? StrPtr(password) : password
 
-        result := DllCall("MSAJApi.dll\alljoyn_passwordmanager_setcredentials", "ptr", authMechanism, "ptr", password)
+        result := DllCall("MSAJApi.dll\alljoyn_passwordmanager_setcredentials", "ptr", authMechanism, "ptr", password, "int")
         return result
     }
 
@@ -6672,11 +6587,10 @@ class AllJoyn {
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_securityapplicationproxy_destroy(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_destroy", "ptr", proxy)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_destroy", "ptr", proxy)
     }
 
     /**
@@ -6689,10 +6603,10 @@ class AllJoyn {
      * @param {Pointer<SByte>} groupAuthority 
      * @param {Pointer<SByte>} manifestsXmls 
      * @param {Pointer} manifestsCount 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_claim(proxy, caKey, identityCertificateChain, groupId, groupSize, groupAuthority, manifestsXmls, manifestsCount) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_claim", "ptr", proxy, "char*", caKey, "char*", identityCertificateChain, "char*", groupId, "ptr", groupSize, "char*", groupAuthority, "ptr", manifestsXmls, "ptr", manifestsCount)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_claim", "ptr", proxy, "char*", caKey, "char*", identityCertificateChain, "char*", groupId, "ptr", groupSize, "char*", groupAuthority, "ptr", manifestsXmls, "ptr", manifestsCount, "int")
         return result
     }
 
@@ -6700,31 +6614,30 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<SByte>} manifestTemplateXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getmanifesttemplate(proxy, manifestTemplateXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getmanifesttemplate", "ptr", proxy, "ptr", manifestTemplateXml)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getmanifesttemplate", "ptr", proxy, "ptr", manifestTemplateXml, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} manifestTemplateXml 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_securityapplicationproxy_manifesttemplate_destroy(manifestTemplateXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_manifesttemplate_destroy", "char*", manifestTemplateXml)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_manifesttemplate_destroy", "char*", manifestTemplateXml)
     }
 
     /**
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<Int32>} applicationState 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getapplicationstate(proxy, applicationState) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getapplicationstate", "ptr", proxy, "int*", applicationState)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getapplicationstate", "ptr", proxy, "int*", applicationState, "int")
         return result
     }
 
@@ -6732,10 +6645,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<UInt16>} capabilities 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getclaimcapabilities(proxy, capabilities) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getclaimcapabilities", "ptr", proxy, "ushort*", capabilities)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getclaimcapabilities", "ptr", proxy, "ushort*", capabilities, "int")
         return result
     }
 
@@ -6743,10 +6656,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<UInt16>} additionalInfo 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getclaimcapabilitiesadditionalinfo(proxy, additionalInfo) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getclaimcapabilitiesadditionalinfo", "ptr", proxy, "ushort*", additionalInfo)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getclaimcapabilitiesadditionalinfo", "ptr", proxy, "ushort*", additionalInfo, "int")
         return result
     }
 
@@ -6754,10 +6667,10 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getpolicy(proxy, policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getpolicy", "ptr", proxy, "ptr", policyXml)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getpolicy", "ptr", proxy, "ptr", policyXml, "int")
         return result
     }
 
@@ -6765,31 +6678,30 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_getdefaultpolicy(proxy, policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getdefaultpolicy", "ptr", proxy, "ptr", policyXml)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_getdefaultpolicy", "ptr", proxy, "ptr", policyXml, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_securityapplicationproxy_policy_destroy(policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_policy_destroy", "char*", policyXml)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_policy_destroy", "char*", policyXml)
     }
 
     /**
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<SByte>} policyXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_updatepolicy(proxy, policyXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_updatepolicy", "ptr", proxy, "char*", policyXml)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_updatepolicy", "ptr", proxy, "char*", policyXml, "int")
         return result
     }
 
@@ -6799,10 +6711,10 @@ class AllJoyn {
      * @param {Pointer<SByte>} identityCertificateChain 
      * @param {Pointer<SByte>} manifestsXmls 
      * @param {Pointer} manifestsCount 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_updateidentity(proxy, identityCertificateChain, manifestsXmls, manifestsCount) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_updateidentity", "ptr", proxy, "char*", identityCertificateChain, "ptr", manifestsXmls, "ptr", manifestsCount)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_updateidentity", "ptr", proxy, "char*", identityCertificateChain, "ptr", manifestsXmls, "ptr", manifestsCount, "int")
         return result
     }
 
@@ -6810,50 +6722,50 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<SByte>} membershipCertificateChain 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_installmembership(proxy, membershipCertificateChain) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_installmembership", "ptr", proxy, "char*", membershipCertificateChain)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_installmembership", "ptr", proxy, "char*", membershipCertificateChain, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_reset(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_reset", "ptr", proxy)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_reset", "ptr", proxy, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_resetpolicy(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_resetpolicy", "ptr", proxy)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_resetpolicy", "ptr", proxy, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_startmanagement(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_startmanagement", "ptr", proxy)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_startmanagement", "ptr", proxy, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} proxy 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_endmanagement(proxy) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_endmanagement", "ptr", proxy)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_endmanagement", "ptr", proxy, "int")
         return result
     }
 
@@ -6861,21 +6773,20 @@ class AllJoyn {
      * 
      * @param {Pointer} proxy 
      * @param {Pointer<SByte>} eccPublicKey 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_geteccpublickey(proxy, eccPublicKey) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_geteccpublickey", "ptr", proxy, "ptr", eccPublicKey)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_geteccpublickey", "ptr", proxy, "ptr", eccPublicKey, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} eccPublicKey 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_securityapplicationproxy_eccpublickey_destroy(eccPublicKey) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_eccpublickey_destroy", "char*", eccPublicKey)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_eccpublickey_destroy", "char*", eccPublicKey)
     }
 
     /**
@@ -6884,21 +6795,20 @@ class AllJoyn {
      * @param {Pointer<SByte>} identityCertificatePem 
      * @param {Pointer<SByte>} signingPrivateKeyPem 
      * @param {Pointer<SByte>} signedManifestXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_signmanifest(unsignedManifestXml, identityCertificatePem, signingPrivateKeyPem, signedManifestXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_signmanifest", "char*", unsignedManifestXml, "char*", identityCertificatePem, "char*", signingPrivateKeyPem, "ptr", signedManifestXml)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_signmanifest", "char*", unsignedManifestXml, "char*", identityCertificatePem, "char*", signingPrivateKeyPem, "ptr", signedManifestXml, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SByte>} signedManifestXml 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_securityapplicationproxy_manifest_destroy(signedManifestXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_manifest_destroy", "char*", signedManifestXml)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_manifest_destroy", "char*", signedManifestXml)
     }
 
     /**
@@ -6907,21 +6817,20 @@ class AllJoyn {
      * @param {Pointer<SByte>} identityCertificatePem 
      * @param {Pointer<Byte>} digest 
      * @param {Pointer<UIntPtr>} digestSize 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_computemanifestdigest(unsignedManifestXml, identityCertificatePem, digest, digestSize) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_computemanifestdigest", "char*", unsignedManifestXml, "char*", identityCertificatePem, "ptr", digest, "ptr*", digestSize)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_computemanifestdigest", "char*", unsignedManifestXml, "char*", identityCertificatePem, "ptr", digest, "ptr*", digestSize, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Byte>} digest 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static alljoyn_securityapplicationproxy_digest_destroy(digest) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_digest_destroy", "char*", digest)
-        return result
+        DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_digest_destroy", "char*", digest)
     }
 
     /**
@@ -6931,10 +6840,10 @@ class AllJoyn {
      * @param {Pointer<Byte>} signature 
      * @param {Pointer} signatureSize 
      * @param {Pointer<SByte>} signedManifestXml 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static alljoyn_securityapplicationproxy_setmanifestsignature(unsignedManifestXml, identityCertificatePem, signature, signatureSize, signedManifestXml) {
-        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_setmanifestsignature", "char*", unsignedManifestXml, "char*", identityCertificatePem, "char*", signature, "ptr", signatureSize, "ptr", signedManifestXml)
+        result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_setmanifestsignature", "char*", unsignedManifestXml, "char*", identityCertificatePem, "char*", signature, "ptr", signatureSize, "ptr", signedManifestXml, "int")
         return result
     }
 

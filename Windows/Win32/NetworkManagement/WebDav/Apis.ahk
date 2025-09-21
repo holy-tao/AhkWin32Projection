@@ -431,13 +431,12 @@ class WebDav {
      * @remarks
      * To register the callback function, use the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davregisterauthcallback">DavRegisterAuthCallback</a> function.
      * @param {Integer} hCallback The opaque handle that was returned by the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davregisterauthcallback">DavRegisterAuthCallback</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davunregisterauthcallback
      * @since windows6.0.6000
      */
     static DavUnregisterAuthCallback(hCallback) {
-        result := DllCall("davclnt.dll\DavUnregisterAuthCallback", "uint", hCallback)
-        return result
+        DllCall("davclnt.dll\DavUnregisterAuthCallback", "uint", hCallback)
     }
 
 ;@endregion Methods

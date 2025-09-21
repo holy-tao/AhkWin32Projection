@@ -54,9 +54,8 @@ class TextFileServer {
     __New(port := 27015){
         ; Start up WSA
         winSockData := WSADATA()
-        rc := WinSock.WSAStartup(0x0202, winSockData)
-        if(rc != 0){
-            throw OSError(WinSock.WSAGetLastError(), , "WinSock.WSAStartup()")
+        if(errNo := WinSock.WSAStartup(0x0202, winSockData)){
+            throw OSError(errNo, , "WinSock.WSAStartup()")
         }
 
         ; Create a Socket for the server

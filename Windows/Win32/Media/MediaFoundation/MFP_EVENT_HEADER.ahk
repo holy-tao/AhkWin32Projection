@@ -24,7 +24,7 @@ class MFP_EVENT_HEADER extends Win32Struct
 
     /**
      * Error or success code for the operation that caused the event.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrEvent {
         get => NumGet(this, 4, "int")

@@ -20,7 +20,7 @@ class SecPkgContext_CertificateValidationResult extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrVerifyChainStatus {
         get => NumGet(this, 4, "int")

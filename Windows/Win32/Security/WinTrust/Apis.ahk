@@ -1253,13 +1253,12 @@ class WinTrust {
     /**
      * Retrieves policy flags for a policy provider.
      * @param {Pointer<UInt32>} pdwPolicyFlags 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustgetregpolicyflags
      * @since windows5.1.2600
      */
     static WintrustGetRegPolicyFlags(pdwPolicyFlags) {
-        result := DllCall("WINTRUST.dll\WintrustGetRegPolicyFlags", "uint*", pdwPolicyFlags)
-        return result
+        DllCall("WINTRUST.dll\WintrustGetRegPolicyFlags", "uint*", pdwPolicyFlags)
     }
 
     /**
@@ -1498,14 +1497,14 @@ class WinTrust {
      * @param {Integer} idxSigner The index of the signer. The index is zero based.
      * @param {Integer} fCounterSigner If <b>TRUE</b>, the countersigner, as specified by <i>idxCounterSigner</i>, is retrieved by this function; the signer that contains the countersigner is identified by  <i>idxSigner</i>. If <b>FALSE</b>, the signer, as specified by <i>idxSigner</i>, is retrieved by this function.
      * @param {Integer} idxCounterSigner The index of the countersigner. The index is zero based. The countersigner applies to the signer identified by <i>idxSigner</i>.
-     * @returns {Pointer} If the function succeeds, the function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_sgnr">CRYPT_PROVIDER_SGNR</a> structure for the requested signer or countersigner.
+     * @returns {Pointer<CRYPT_PROVIDER_SGNR>} If the function succeeds, the function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_sgnr">CRYPT_PROVIDER_SGNR</a> structure for the requested signer or countersigner.
      * 
      * If the function fails, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain
      * @since windows5.1.2600
      */
     static WTHelperGetProvSignerFromChain(pProvData, idxSigner, fCounterSigner, idxCounterSigner) {
-        result := DllCall("WINTRUST.dll\WTHelperGetProvSignerFromChain", "ptr", pProvData, "uint", idxSigner, "int", fCounterSigner, "uint", idxCounterSigner)
+        result := DllCall("WINTRUST.dll\WTHelperGetProvSignerFromChain", "ptr", pProvData, "uint", idxSigner, "int", fCounterSigner, "uint", idxCounterSigner, "ptr")
         return result
     }
 
@@ -1513,28 +1512,28 @@ class WinTrust {
      * Retrieves a trust provider certificate from the certificate chain.
      * @param {Pointer<CRYPT_PROVIDER_SGNR>} pSgnr A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_sgnr">CRYPT_PROVIDER_SGNR</a> structure that represents the signers. This pointer is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain">WTHelperGetProvSignerFromChain</a> function.
      * @param {Integer} idxCert The index of the certificate. The index is zero based.
-     * @returns {Pointer} If the function succeeds, the function returns a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_cert">CRYPT_PROVIDER_CERT</a> structure that represents the trust provider certificate.
+     * @returns {Pointer<CRYPT_PROVIDER_CERT>} If the function succeeds, the function returns a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_cert">CRYPT_PROVIDER_CERT</a> structure that represents the trust provider certificate.
      * 
      * If the function fails, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpergetprovcertfromchain
      * @since windows5.1.2600
      */
     static WTHelperGetProvCertFromChain(pSgnr, idxCert) {
-        result := DllCall("WINTRUST.dll\WTHelperGetProvCertFromChain", "ptr", pSgnr, "uint", idxCert)
+        result := DllCall("WINTRUST.dll\WTHelperGetProvCertFromChain", "ptr", pSgnr, "uint", idxCert, "ptr")
         return result
     }
 
     /**
      * Retrieves trust provider information from a specified handle.
      * @param {Pointer<Void>} hStateData A handle previously set by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrustex">WinVerifyTrustEx</a> function as the <b>hWVTStateData</b>	 member of the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
-     * @returns {Pointer} If the function succeeds, the function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure. The returned pointer can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain">WTHelperGetProvSignerFromChain</a>   function.
+     * @returns {Pointer<CRYPT_PROVIDER_DATA>} If the function succeeds, the function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure. The returned pointer can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain">WTHelperGetProvSignerFromChain</a>   function.
      * 
      * If the function fails, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelperprovdatafromstatedata
      * @since windows5.1.2600
      */
     static WTHelperProvDataFromStateData(hStateData) {
-        result := DllCall("WINTRUST.dll\WTHelperProvDataFromStateData", "ptr", hStateData)
+        result := DllCall("WINTRUST.dll\WTHelperProvDataFromStateData", "ptr", hStateData, "ptr")
         return result
     }
 
@@ -1542,14 +1541,14 @@ class WinTrust {
      * Receives a CRYPT_PROVIDER_PRIVDATA structure from the chain by using the provider ID.
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure that contains the provider's private information.
      * @param {Pointer<Guid>} pgProviderID A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the provider.
-     * @returns {Pointer} If the function succeeds, the function returns a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_privdata">CRYPT_PROVIDER_PRIVDATA</a> structure that represents the trust provider's private information.
+     * @returns {Pointer<CRYPT_PROVIDER_PRIVDATA>} If the function succeeds, the function returns a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_privdata">CRYPT_PROVIDER_PRIVDATA</a> structure that represents the trust provider's private information.
      * 
      * If the function fails, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpergetprovprivatedatafromchain
      * @since windows5.1.2600
      */
     static WTHelperGetProvPrivateDataFromChain(pProvData, pgProviderID) {
-        result := DllCall("WINTRUST.dll\WTHelperGetProvPrivateDataFromChain", "ptr", pProvData, "ptr", pgProviderID)
+        result := DllCall("WINTRUST.dll\WTHelperGetProvPrivateDataFromChain", "ptr", pProvData, "ptr", pgProviderID, "ptr")
         return result
     }
 
@@ -1571,7 +1570,7 @@ class WinTrust {
     /**
      * Checks whether a signature is valid.
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure that contains the signer and countersigner information.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of possible error values, see <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpercertcheckvalidsignature
@@ -1579,6 +1578,9 @@ class WinTrust {
      */
     static WTHelperCertCheckValidSignature(pProvData) {
         result := DllCall("WINTRUST.dll\WTHelperCertCheckValidSignature", "ptr", pProvData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1631,13 +1633,12 @@ class WinTrust {
      * @remarks
      * This setting applies to each instance of Wintrust.dll.
      * @param {Integer} fIncludePEPageHashes Determines whether page hashes are included when creating SIP indirect data for PE files. If this parameter is nonzero, page hashes are included. If this parameter is zero, page hashes are not included. The value is zero by default.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustsetdefaultincludepepagehashes
      * @since windows6.0.6000
      */
     static WintrustSetDefaultIncludePEPageHashes(fIncludePEPageHashes) {
-        result := DllCall("WINTRUST.dll\WintrustSetDefaultIncludePEPageHashes", "int", fIncludePEPageHashes)
-        return result
+        DllCall("WINTRUST.dll\WintrustSetDefaultIncludePEPageHashes", "int", fIncludePEPageHashes)
     }
 
 ;@endregion Methods

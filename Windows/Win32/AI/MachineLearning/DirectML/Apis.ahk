@@ -58,7 +58,7 @@ class DirectML {
      * @param {Pointer<Void>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
-     * @returns {Integer} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
+     * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [HRESULT](/windows/desktop/winprog/windows-data-types) error code.
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice
@@ -66,6 +66,9 @@ class DirectML {
      */
     static DMLCreateDevice(d3d12Device, flags, riid, ppv) {
         result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -96,7 +99,7 @@ class DirectML {
      * @param {Pointer<Void>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
-     * @returns {Integer} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
+     * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [HRESULT](/windows/desktop/winprog/windows-data-types) error code.
      * 
@@ -105,6 +108,9 @@ class DirectML {
      */
     static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid, ppv) {
         result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

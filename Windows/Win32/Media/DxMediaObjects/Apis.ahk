@@ -105,7 +105,7 @@ class DxMediaObjects {
      * @param {Pointer<DMO_PARTIAL_MEDIATYPE>} pInTypes Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dmoreg/ns-dmoreg-dmo_partial_mediatype">DMO_PARTIAL_MEDIATYPE</a> structures that specify the input media types. The size of the array is specified in the cInTypes parameter
      * @param {Integer} cOutTypes Number of output media types to register.
      * @param {Pointer<DMO_PARTIAL_MEDIATYPE>} pOutTypes Pointer to an array of DMO_PARTIAL_MEDIATYPE structures that specify the output media types. The size of the array is specified in the cOutTypes parameter. Can be zero.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -152,6 +152,9 @@ class DxMediaObjects {
         szName := szName is String? StrPtr(szName) : szName
 
         result := DllCall("msdmo.dll\DMORegister", "ptr", szName, "ptr", clsidDMO, "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -159,7 +162,7 @@ class DxMediaObjects {
      * The DMOUnregister function unregisters a DMO.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
      * @param {Pointer<Guid>} guidCategory GUID that specifies the category from which to remove the DMO. Use GUID_NULL to unregister the DMO from every category. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dmo-guids">DMO GUIDs</a> for a list of category GUIDs.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -183,6 +186,9 @@ class DxMediaObjects {
      */
     static DMOUnregister(clsidDMO, guidCategory) {
         result := DllCall("msdmo.dll\DMOUnregister", "ptr", clsidDMO, "ptr", guidCategory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -197,7 +203,7 @@ class DxMediaObjects {
      * @param {Integer} cOutTypes Number of output media types to use in the search criteria. Use zero to match any output type.
      * @param {Pointer<DMO_PARTIAL_MEDIATYPE>} pOutTypes Pointer to an array of DMO_PARTIAL_MEDIATYPE structures that contain the output media types. Specify the size of the array in the cOutTypes parameter.
      * @param {Pointer<IEnumDMO>} ppEnum Address of a variable to receive the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nn-mediaobj-ienumdmo">IEnumDMO</a> interface of the enumerator.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -242,6 +248,9 @@ class DxMediaObjects {
      */
     static DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes, ppEnum) {
         result := DllCall("msdmo.dll\DMOEnum", "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "ptr", ppEnum, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -258,7 +267,7 @@ class DxMediaObjects {
      * @param {Integer} ulOutputTypesRequested Size of the array passed in the <i>pOutputTypes</i> parameter.
      * @param {Pointer<UInt32>} pulOutputTypesSupplied Pointer to a variable that receives the number of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dmoreg/ns-dmoreg-dmo_partial_mediatype">DMO_PARTIAL_MEDIATYPE</a> structures in <i>pOutputTypes</i> that the function fills in.
      * @param {Pointer<DMO_PARTIAL_MEDIATYPE>} pOutputTypes Pointer to a caller-allocated array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dmoreg/ns-dmoreg-dmo_partial_mediatype">DMO_PARTIAL_MEDIATYPE</a> structures. The size of the array is given in the <i>ulOutputTypesRequested</i> parameter. The function fills the array with the DMO output types registered for the DMO.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -303,6 +312,9 @@ class DxMediaObjects {
      */
     static DMOGetTypes(clsidDMO, ulInputTypesRequested, pulInputTypesSupplied, pInputTypes, ulOutputTypesRequested, pulOutputTypesSupplied, pOutputTypes) {
         result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, "uint*", pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, "uint*", pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -312,7 +324,7 @@ class DxMediaObjects {
      * If the method returns S_FALSE, <i>szName</i> is set to '\0'.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
      * @param {Pointer<Char>} szName Array of 80 Unicode characters that receives the name of the DMO. The caller must allocate the array. The name is a NULL-terminated string.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -359,6 +371,9 @@ class DxMediaObjects {
         szName := szName is String? StrPtr(szName) : szName
 
         result := DllCall("msdmo.dll\DMOGetName", "ptr", clsidDMO, "ptr", szName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -372,7 +387,7 @@ class DxMediaObjects {
      * This function also sets the <b>cbFormat</b> and <b>pbFormat</b> members of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure.
      * @param {Pointer<DMO_MEDIA_TYPE>} pmt Pointer to an uninitialized <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure allocated by the caller.
      * @param {Integer} cbFormat Number of bytes to allocate for the format block. Can be zero.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * 
      * 
@@ -419,6 +434,9 @@ class DxMediaObjects {
      */
     static MoInitMediaType(pmt, cbFormat) {
         result := DllCall("msdmo.dll\MoInitMediaType", "ptr", pmt, "uint", cbFormat, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -427,7 +445,7 @@ class DxMediaObjects {
      * @remarks
      * Call this function to free a format block that was allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-moinitmediatype">MoInitMediaType</a> function. This function frees the <b>pbFormat</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure and sets <b>pbFormat</b> to <b>NULL</b>. The function does not reset the <b>cbFormat</b> member to zero, however, so if you re-use the <b>DMO_MEDIA_TYPE</b> structure, you should set <b>cbFormat</b> to zero.
      * @param {Pointer<DMO_MEDIA_TYPE>} pmt Pointer to an initialized <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -461,6 +479,9 @@ class DxMediaObjects {
      */
     static MoFreeMediaType(pmt) {
         result := DllCall("msdmo.dll\MoFreeMediaType", "ptr", pmt, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -470,7 +491,7 @@ class DxMediaObjects {
      * This function copies all the members of <i>pmtSrc</i> to <i>pmtDest</i> and copies the format block. The caller must free the target media type by calling the <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-mofreemediatype">MoFreeMediaType</a> function.
      * @param {Pointer<DMO_MEDIA_TYPE>} pmtDest Pointer to the target <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure. The caller must allocate, but not initialize, this structure.
      * @param {Pointer<DMO_MEDIA_TYPE>} pmtSrc Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * 
      * 
@@ -517,6 +538,9 @@ class DxMediaObjects {
      */
     static MoCopyMediaType(pmtDest, pmtSrc) {
         result := DllCall("msdmo.dll\MoCopyMediaType", "ptr", pmtDest, "ptr", pmtSrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -528,7 +552,7 @@ class DxMediaObjects {
      * Internally, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-moinitmediatype">MoInitMediaType</a> to allocate the format block.
      * @param {Pointer<DMO_MEDIA_TYPE>} ppmt Receives a pointer to an allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure.
      * @param {Integer} cbFormat Number of bytes to allocate for the format block. Can be zero.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -573,6 +597,9 @@ class DxMediaObjects {
      */
     static MoCreateMediaType(ppmt, cbFormat) {
         result := DllCall("msdmo.dll\MoCreateMediaType", "ptr", ppmt, "uint", cbFormat, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -583,7 +610,7 @@ class DxMediaObjects {
      * 
      * Internally, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-mofreemediatype">MoFreeMediaType</a> to free the format block.
      * @param {Pointer<DMO_MEDIA_TYPE>} pmt Pointer to an initialized <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -617,6 +644,9 @@ class DxMediaObjects {
      */
     static MoDeleteMediaType(pmt) {
         result := DllCall("msdmo.dll\MoDeleteMediaType", "ptr", pmt, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -626,7 +656,7 @@ class DxMediaObjects {
      * This method is equivalent to calling <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-mocreatemediatype">MoCreateMediaType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-mocopymediatype">MoCopyMediaType</a>. The caller must delete the returned media type structure by calling the <a href="https://docs.microsoft.com/windows/desktop/api/dmort/nf-dmort-modeletemediatype">MoDeleteMediaType</a> function.
      * @param {Pointer<DMO_MEDIA_TYPE>} ppmtDest Address of a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mediaobj/ns-mediaobj-dmo_media_type">DMO_MEDIA_TYPE</a> structure that receives the duplicated structure.
      * @param {Pointer<DMO_MEDIA_TYPE>} pmtSrc Pointer to the media type structure to duplicate.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -671,6 +701,9 @@ class DxMediaObjects {
      */
     static MoDuplicateMediaType(ppmtDest, pmtSrc) {
         result := DllCall("msdmo.dll\MoDuplicateMediaType", "ptr", ppmtDest, "ptr", pmtSrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -124,7 +124,7 @@ class DDHAL_SYNCSURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 88, "int")

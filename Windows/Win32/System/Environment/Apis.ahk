@@ -1657,12 +1657,15 @@ class Environment {
      * @param {Pointer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
      * @param {Integer} BufferSize The size of the buffer to which the <i>Report</i> parameter points.  If <i>Report</i> is NULL, <i>BufferSize</i> must be zero.  If <i>Report</i> is not NULL, and if the size of the report is larger than this value, an error is returned.
      * @param {Pointer<UInt32>} OutputSize A pointer to a variable that receives the size of the report.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetattestationreport
      * @since windows10.0.16299
      */
     static EnclaveGetAttestationReport(EnclaveData, Report, BufferSize, OutputSize) {
         result := DllCall("vertdll.dll\EnclaveGetAttestationReport", "char*", EnclaveData, "ptr", Report, "uint", BufferSize, "uint*", OutputSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1675,12 +1678,15 @@ class Environment {
      * @param {Integer} EnclaveType The type of the enclave for which the report was generated. Must be <b>ENCLAVE_TYPE_VBS</b>.
      * @param {Pointer} Report A pointer to a buffer that stores the report.  This report may be stored either within the address range of the enclave or within the address space of the host process.
      * @param {Integer} ReportSize The size of the report, in bytes.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveverifyattestationreport
      * @since windows10.0.16299
      */
     static EnclaveVerifyAttestationReport(EnclaveType, Report, ReportSize) {
         result := DllCall("vertdll.dll\EnclaveVerifyAttestationReport", "uint", EnclaveType, "ptr", Report, "uint", ReportSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1726,12 +1732,15 @@ class Environment {
      * @param {Pointer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
      * @param {Integer} BufferSize A pointer to a variable that holds the size of the buffer to which the <i>ProtectedBlob</i> parameter points.  If <i>ProtectedBlob</i> is NULL, this value must be zero.  If <i>ProtectedBlob</i> is not NULL, and if the size of the encrypted data is larger than this value, an error occurs.
      * @param {Pointer<UInt32>} ProtectedBlobSize A pointer to a variable that receives the actual size of the encrypted blob.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavesealdata
      * @since windows10.0.16299
      */
     static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize, ProtectedBlobSize) {
         result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, "uint*", ProtectedBlobSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1766,12 +1775,15 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveunsealdata
      * @since windows10.0.16299
      */
     static EnclaveUnsealData(ProtectedBlob, ProtectedBlobSize, DecryptedData, BufferSize, DecryptedDataSize, SealingIdentity, UnsealingFlags) {
         result := DllCall("vertdll.dll\EnclaveUnsealData", "ptr", ProtectedBlob, "uint", ProtectedBlobSize, "ptr", DecryptedData, "uint", BufferSize, "uint*", DecryptedDataSize, "ptr", SealingIdentity, "uint*", UnsealingFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1781,12 +1793,15 @@ class Environment {
      * <b>EnclaveGetEnclaveInformation</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Integer} InformationSize The size of the <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ns-ntenclv-enclave_information">ENCLAVE_INFORMATION</a> structure that the <i>EnclaveInformation</i> parameter points to, in bytes.
      * @param {Pointer} EnclaveInformation Information about the currently executing enclave.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetenclaveinformation
      * @since windows10.0.16299
      */
     static EnclaveGetEnclaveInformation(InformationSize, EnclaveInformation) {
         result := DllCall("vertdll.dll\EnclaveGetEnclaveInformation", "uint", InformationSize, "ptr", EnclaveInformation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

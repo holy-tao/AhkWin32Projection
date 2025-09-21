@@ -6460,12 +6460,11 @@ class Services {
      * @remarks
      * **UnsubscribeServiceChangeNotifications** does not return until outstanding in-process callbacks are complete. So, you cannot call **UnsubscribeServiceChangeNotifications** within the callback without causing a deadlock.
      * @param {Pointer} pSubscription A pointer to the subscription to be unsubscribed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Services/unsubscribeservicechangenotifications
      */
     static UnsubscribeServiceChangeNotifications(pSubscription) {
-        result := DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
-        return result
+        DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
     }
 
     /**

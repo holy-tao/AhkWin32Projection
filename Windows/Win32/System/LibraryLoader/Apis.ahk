@@ -217,13 +217,12 @@ class LibraryLoader {
      * 
      * Do not call this function with a handle returned by either the <b>GetModuleHandleEx</b> function (with the GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT flag) or the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function, as they do not maintain a reference count for the module.
      * @param {Integer} dwExitCode The exit code for the calling thread.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread
      * @since windows5.1.2600
      */
     static FreeLibraryAndExitThread(hLibModule, dwExitCode) {
-        result := DllCall("KERNEL32.dll\FreeLibraryAndExitThread", "ptr", hLibModule, "uint", dwExitCode)
-        return result
+        DllCall("KERNEL32.dll\FreeLibraryAndExitThread", "ptr", hLibModule, "uint", dwExitCode)
     }
 
     /**

@@ -9229,13 +9229,12 @@ class Rras {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> function. 
      * <b>RasFreeEapUserIdentity</b> frees the memory occupied by this structure.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasfreeeapuseridentityw
      * @since windows5.0
      */
     static RasFreeEapUserIdentityW(pRasEapUserIdentity) {
-        result := DllCall("RASAPI32.dll\RasFreeEapUserIdentityW", "ptr", pRasEapUserIdentity)
-        return result
+        DllCall("RASAPI32.dll\RasFreeEapUserIdentityW", "ptr", pRasEapUserIdentity)
     }
 
     /**
@@ -9253,13 +9252,12 @@ class Rras {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> function. 
      * <b>RasFreeEapUserIdentity</b> frees the memory occupied by this structure.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasfreeeapuseridentitya
      * @since windows5.0
      */
     static RasFreeEapUserIdentityA(pRasEapUserIdentity) {
-        result := DllCall("RASAPI32.dll\RasFreeEapUserIdentityA", "ptr", pRasEapUserIdentity)
-        return result
+        DllCall("RASAPI32.dll\RasFreeEapUserIdentityA", "ptr", pRasEapUserIdentity)
     }
 
     /**
@@ -11700,13 +11698,12 @@ class Rras {
      * The MprAdminServerDisconnect function disconnects the connection made by a previous call to MprAdminServerConnect.
      * @param {Pointer} hMprServer Handle to the router from which to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserverdisconnect
      * @since windowsserver2000
      */
     static MprAdminServerDisconnect(hMprServer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerDisconnect", "ptr", hMprServer)
-        return result
+        DllCall("MPRAPI.dll\MprAdminServerDisconnect", "ptr", hMprServer)
     }
 
     /**
@@ -15126,13 +15123,12 @@ class Rras {
      * The MprAdminMIBServerDisconnect function disconnects the connection made by a previous call to MprAdminMIBServerConnect.
      * @param {Pointer} hMibServer Handle to the router from which to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibserverdisconnect
      * @since windowsserver2000
      */
     static MprAdminMIBServerDisconnect(hMibServer) {
-        result := DllCall("MPRAPI.dll\MprAdminMIBServerDisconnect", "ptr", hMibServer)
-        return result
+        DllCall("MPRAPI.dll\MprAdminMIBServerDisconnect", "ptr", hMibServer)
     }
 
     /**
@@ -15739,13 +15735,12 @@ class Rras {
      * The MprConfigServerDisconnect function disconnects a connection made by a previous call to MprConfigServerConnect.
      * @param {Pointer<Void>} hMprConfig Handle to a router configuration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverdisconnect
      * @since windowsserver2000
      */
     static MprConfigServerDisconnect(hMprConfig) {
-        result := DllCall("MPRAPI.dll\MprConfigServerDisconnect", "ptr", hMprConfig)
-        return result
+        DllCall("MPRAPI.dll\MprConfigServerDisconnect", "ptr", hMprConfig)
     }
 
     /**

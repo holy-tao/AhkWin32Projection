@@ -42,7 +42,7 @@ class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA extends Win32Struct
 
     /**
      * The result of the protection system function.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 12, "int")

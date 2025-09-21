@@ -12,7 +12,7 @@ class CONFIG_CI_PROV_INFO_RESULT extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 0, "int")

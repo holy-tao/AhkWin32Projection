@@ -33,7 +33,7 @@ class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK extends Win32Struct
 
     /**
      * The resulting error code from the failed memory read operation.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     FailureStatus {
         get => NumGet(this, 12, "int")

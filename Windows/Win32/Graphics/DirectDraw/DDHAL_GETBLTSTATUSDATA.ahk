@@ -36,7 +36,7 @@ class DDHAL_GETBLTSTATUSDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 20, "int")

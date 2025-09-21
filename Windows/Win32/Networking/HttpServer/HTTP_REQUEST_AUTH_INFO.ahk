@@ -44,7 +44,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">SECURITY_STATUS</a> value that indicates the security failure status when the <b>AuthStatus</b> member   is <b>HttpAuthStatusFailure</b>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     SecStatus {
         get => NumGet(this, 4, "int")

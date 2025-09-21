@@ -13,7 +13,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     DeviceRemovedReason {
         get => NumGet(this, 0, "int")

@@ -343,7 +343,7 @@ class Console {
      * A code page maps 256 character codes to individual characters. Different code pages include different special characters, typically customized for a language or a group of languages. To retrieve more information about a code page, including it's name, see the [**GetCPInfoEx**](/windows/win32/api/winnls/nf-winnls-getcpinfoexa) function.
      * 
      * To set a console's input code page, use the [**SetConsoleCP**](setconsolecp.md) function. To set and query a console's output code page, use the [**SetConsoleOutputCP**](setconsoleoutputcp.md) and [**GetConsoleOutputCP**](getconsoleoutputcp.md) functions.
-     * @returns {Pointer} This function has no parameters.
+     * @returns {Integer} This function has no parameters.
      * 
      * 
      * The return value is a code that identifies the code page. For a list of identifiers, see [Code Page Identifiers](/windows/win32/intl/code-page-identifiers).
@@ -354,7 +354,7 @@ class Console {
     static GetConsoleCP() {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleCP")
+        result := DllCall("KERNEL32.dll\GetConsoleCP", "uint")
         if(A_LastError)
             throw OSError()
 
@@ -367,7 +367,7 @@ class Console {
      * A code page maps 256 character codes to individual characters. Different code pages include different special characters, typically customized for a language or a group of languages. To retrieve more information about a code page, including it's name, see the [**GetCPInfoEx**](/windows/win32/api/winnls/nf-winnls-getcpinfoexa) function.
      * 
      * To set a console's output code page, use the [**SetConsoleOutputCP**](setconsoleoutputcp.md) function. To set and query a console's input code page, use the [**SetConsoleCP**](setconsolecp.md) and [**GetConsoleCP**](getconsolecp.md) functions.
-     * @returns {Pointer} This function has no parameters.
+     * @returns {Integer} This function has no parameters.
      * 
      * 
      * The return value is a code that identifies the code page. For a list of identifiers, see [Code Page Identifiers](/windows/win32/intl/code-page-identifiers).
@@ -378,7 +378,7 @@ class Console {
     static GetConsoleOutputCP() {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleOutputCP")
+        result := DllCall("KERNEL32.dll\GetConsoleOutputCP", "uint")
         if(A_LastError)
             throw OSError()
 
@@ -795,13 +795,16 @@ class Console {
      * | **0** | Perform a standard pseudoconsole creation. |
      * | **PSEUDOCONSOLE_INHERIT_CURSOR** (DWORD)1 | The created pseudoconsole session will attempt to inherit the cursor position of the parent console. |
      * @param {Pointer<IntPtr>} phPC Pointer to a location that will receive a handle to the new pseudoconsole device.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
     static CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC) {
         result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr*", phPC, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -811,13 +814,16 @@ class Console {
      * This function can resize the internal buffers in the pseudoconsole session to match the window/buffer size being used for display on the terminal end. This ensures that attached Command-Line Interface (CUI) applications using the [Console Functions](console-functions.md) to communicate will have the correct dimensions returned in their calls.
      * @param {Pointer} hPC A handle to an active pseudoconsole as opened by [CreatePseudoConsole](createpseudoconsole.md).
      * @param {Pointer} size The dimensions of the window/buffer in count of characters that will be used for the internal buffer of this pseudoconsole.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/console/resizepseudoconsole
      */
     static ResizePseudoConsole(hPC, size) {
         result := DllCall("KERNEL32.dll\ResizePseudoConsole", "ptr", hPC, "ptr", size, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -828,12 +834,11 @@ class Console {
      * 
      * A final painted frame may arrive on the `hOutput` handle originally provided to [CreatePseudoConsole](createpseudoconsole.md) when this API is called. It is expected that the caller will drain this information from the communication channel buffer and either present it or discard it. Failure to drain the buffer may cause the Close call to wait indefinitely until it is drained or the communication channels are broken another way.
      * @param {Pointer} hPC A handle to an active pseudoconsole as opened by [CreatePseudoConsole](createpseudoconsole.md).
-     * @returns {Pointer} *none*
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/console/closepseudoconsole
      */
     static ClosePseudoConsole(hPC) {
-        result := DllCall("KERNEL32.dll\ClosePseudoConsole", "ptr", hPC)
-        return result
+        DllCall("KERNEL32.dll\ClosePseudoConsole", "ptr", hPC)
     }
 
     /**
@@ -1288,7 +1293,7 @@ class Console {
     static GetLargestConsoleWindowSize(hConsoleOutput) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLargestConsoleWindowSize", "ptr", hConsoleOutput)
+        result := DllCall("KERNEL32.dll\GetLargestConsoleWindowSize", "ptr", hConsoleOutput, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2009,7 +2014,7 @@ class Console {
     static GetConsoleFontSize(hConsoleOutput, nFont) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleFontSize", "ptr", hConsoleOutput, "uint", nFont)
+        result := DllCall("KERNEL32.dll\GetConsoleFontSize", "ptr", hConsoleOutput, "uint", nFont, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2526,25 +2531,23 @@ class Console {
     /**
      * 
      * @param {Pointer<Byte>} ExeName 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ExpungeConsoleCommandHistoryA(ExeName) {
         ExeName := ExeName is String? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryA", "ptr", ExeName)
-        return result
+        DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryA", "ptr", ExeName)
     }
 
     /**
      * 
      * @param {Pointer<Char>} ExeName 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ExpungeConsoleCommandHistoryW(ExeName) {
         ExeName := ExeName is String? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryW", "ptr", ExeName)
-        return result
+        DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryW", "ptr", ExeName)
     }
 
     /**

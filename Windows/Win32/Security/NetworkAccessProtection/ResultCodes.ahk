@@ -24,7 +24,7 @@ class ResultCodes extends Win32Struct
 
     /**
      * A pointer to either a list of application defined 4-octet HRESULTs that specify whether the client machine is compliant, or a list of <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-error-constants">NAP error constants</a> that specify the cause of <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoH</a> construction or processing errors. The values must be in the byte ordering of the host system.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<HRESULT>}
      */
     results {
         get => NumGet(this, 8, "ptr")

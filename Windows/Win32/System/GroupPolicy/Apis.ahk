@@ -998,7 +998,7 @@ class GroupPolicy {
      * @param {Pointer} pAsyncHandle Asynchronous completion handle. This handle is passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nc-userenv-pfnprocessgrouppolicyex">ProcessGroupPolicyEx</a> callback function.
      * @param {Integer} dwStatus Specifies the completion status of asynchronous processing of policy.
-     * @param {Integer} RsopStatus Specifies an <b>HRESULT</b> return code that indicates the status of RSoP logging.
+     * @param {HRESULT} RsopStatus Specifies an <b>HRESULT</b> return code that indicates the status of RSoP logging.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-processgrouppolicycompletedex
@@ -1044,7 +1044,7 @@ class GroupPolicy {
      * @param {Pointer<Int32>} pbAccessStatus Pointer to a variable that receives the results of the access check.
      * 
      * If the function succeeds, and the requested set of access rights are granted, this parameter is set to <b>TRUE</b>. Otherwise, this parameter is set to <b>FALSE</b>. If the function fails, the status is not modified.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopaccesscheckbytype
      * @since windows6.0.6000
      */
@@ -1054,6 +1054,9 @@ class GroupPolicy {
         result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, "uint*", pdwPrivilegeSetLength, "uint*", pdwGrantedAccessMask, "int*", pbAccessStatus, "int")
         if(A_LastError)
             throw OSError()
+
+        if(result != 0)
+            throw OSError(result)
 
         return result
     }
@@ -1075,7 +1078,7 @@ class GroupPolicy {
      * @param {Pointer<Int32>} pbAccessStatus Pointer to a variable that receives the results of the access check.
      * 
      * If the function succeeds, and the requested set of access rights are granted, this parameter is set to <b>TRUE</b>. Otherwise, this parameter is set to <b>FALSE</b>. If the function fails, the status is not modified.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopfileaccesscheck
      * @since windows6.0.6000
      */
@@ -1083,6 +1086,9 @@ class GroupPolicy {
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
 
         result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "uint*", pdwGrantedAccessMask, "int*", pbAccessStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1100,12 +1106,15 @@ class GroupPolicy {
      * @param {Integer} nInfo Specifies the number of elements in the <i>pStatus</i> array.
      * @param {Pointer<POLICYSETTINGSTATUSINFO>} pStatus Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-policysettingstatusinfo">POLICYSETTINGSTATUSINFO</a> structures.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopsetpolicysettingstatus
      * @since windows6.0.6000
      */
     static RsopSetPolicySettingStatus(dwFlags, pServices, pSettingInstance, nInfo, pStatus) {
         result := DllCall("USERENV.dll\RsopSetPolicySettingStatus", "uint", dwFlags, "ptr", pServices, "ptr", pSettingInstance, "uint", nInfo, "ptr", pStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1120,12 +1129,15 @@ class GroupPolicy {
      * @param {Pointer<IWbemServices>} pServices Specifies a WMI services pointer to the RSoP namespace to which the policy data is to be written. This parameter is required.
      * @param {Pointer<IWbemClassObject>} pSettingInstance Pointer to an instance of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysetting">RSOP_PolicySetting</a> containing the policy setting. This parameter is required and can also point to the instance's children.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopresetpolicysettingstatus
      * @since windows6.0.6000
      */
     static RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
         result := DllCall("USERENV.dll\RsopResetPolicySettingStatus", "uint", dwFlags, "ptr", pServices, "ptr", pSettingInstance, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1247,13 +1259,12 @@ class GroupPolicy {
      * @param {Pointer<Char>} ProductCode 
      * @param {Pointer<Char>} DisplayName 
      * @param {Pointer<Char>} SupportUrl 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static GetLocalManagedApplicationData(ProductCode, DisplayName, SupportUrl) {
         ProductCode := ProductCode is String? StrPtr(ProductCode) : ProductCode
 
-        result := DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, "ptr", DisplayName, "ptr", SupportUrl)
-        return result
+        DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, "ptr", DisplayName, "ptr", SupportUrl)
     }
 
     /**
@@ -1282,7 +1293,7 @@ class GroupPolicy {
      * @param {Integer} fHighPriority A value that specifies the link priority. If this parameter is <b>TRUE</b>, the system 
      *       creates the link as the highest priority. If this parameter is <b>FALSE</b>, the system 
      *       creates the link as the lowest priority.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns 
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns 
      *        one of the COM error codes defined in the header file WinError.h. Be aware that you should test explicitly for 
      *        the return value <b>S_OK</b>. Do not use the <b>SUCCEEDED</b> or 
      *        <b>FAILED</b> macro on the returned <b>HRESULT</b> to determine success or failure of the 
@@ -1295,6 +1306,9 @@ class GroupPolicy {
         lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\CreateGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int", fHighPriority, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1302,7 +1316,7 @@ class GroupPolicy {
      * The DeleteGPOLink function deletes the link between the specified GPO and the specified site, domain, or organizational unit.
      * @param {Pointer<Char>} lpGPO A value that specifies the path to the GPO, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
      * @param {Pointer<Char>} lpContainer Specifies the Active Directory path to the site, domain, or organizational unit.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the  header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the  header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deletegpolink
      * @since windows6.0.6000
      */
@@ -1311,13 +1325,16 @@ class GroupPolicy {
         lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\DeleteGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The DeleteAllGPOLinks function deletes all GPO links for the specified site, domain, or organizational unit.
      * @param {Pointer<Char>} lpContainer A value that specifies the path to the site, domain, or organizational unit, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deleteallgpolinks
      * @since windows6.0.6000
      */
@@ -1325,6 +1342,9 @@ class GroupPolicy {
         lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\DeleteAllGPOLinks", "ptr", lpContainer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1333,12 +1353,15 @@ class GroupPolicy {
      * @param {Pointer<GPOBROWSEINFO>} lpBrowseInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/gpedit/ns-gpedit-gpobrowseinfo">GPOBROWSEINFO</a> structure that contains information used to initialize the dialog box. When 
      * the <b>BrowseForGPO</b> function returns, this structure contains information about the user's actions.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. If the user cancels or closes the dialog box, the return value is <b>HRESULT_FROM_WIN32</b>(<b>ERROR_CANCELLED</b>). Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. If the user cancels or closes the dialog box, the return value is <b>HRESULT_FROM_WIN32</b>(<b>ERROR_CANCELLED</b>). Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-browseforgpo
      * @since windows6.0.6000
      */
     static BrowseForGPO(lpBrowseInfo) {
         result := DllCall("GPEDIT.dll\BrowseForGPO", "ptr", lpBrowseInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1347,7 +1370,7 @@ class GroupPolicy {
      * @param {Pointer<Char>} lpNameSpace Pointer to a string specifying the namespace to contain the RSoP data. The namespace must exist prior to calling 
      * <b>ImportRSoPData</b>.
      * @param {Pointer<Char>} lpFileName Pointer to a string specifying the name of the file that contains the RSoP data.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-importrsopdata
      * @since windows6.0.6000
      */
@@ -1356,6 +1379,9 @@ class GroupPolicy {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GPEDIT.dll\ImportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1366,7 +1392,7 @@ class GroupPolicy {
      * <b>ExportRSoPData</b> function twice: one time to process the user data and a second time to process the computer data.
      * @param {Pointer<Char>} lpNameSpace A pointer to a string that specifies the namespace which contains the RSoP data.
      * @param {Pointer<Char>} lpFileName A pointer to a string that specifies the name of the file to receive the RSoP data.
-     * @returns {Integer} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
+     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-exportrsopdata
      * @since windows6.0.6000
      */
@@ -1375,6 +1401,9 @@ class GroupPolicy {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GPEDIT.dll\ExportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -1724,7 +1724,7 @@ class WindowsMediaFormat {
      * The WMIsContentProtected function checks a file for DRM-protected content. This function is a shortcut so that your application can quickly identify protected files.
      * @param {Pointer<Char>} pwszFileName Pointer to a wide-character <b>null</b>-terminated string containing the name of the file to check for DRM-protected content.
      * @param {Pointer<Int32>} pfIsProtected Pointer to a Boolean value that is set to True on function return if the file contains DRM-protected content.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -1772,6 +1772,9 @@ class WindowsMediaFormat {
         pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, "int*", pfIsProtected, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1779,7 +1782,7 @@ class WindowsMediaFormat {
      * The WMCreateWriter function creates a writer object.
      * @param {Pointer<IUnknown>} pUnkCert Pointer to an <b>IUnknown</b> interface. This value is not used and should be set to <b>NULL</b>.
      * @param {Pointer<IWMWriter>} ppWriter Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriter">IWMWriter</a> interface of the newly created writer object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -1814,6 +1817,9 @@ class WindowsMediaFormat {
      */
     static WMCreateWriter(pUnkCert, ppWriter) {
         result := DllCall("WMVCore.dll\WMCreateWriter", "ptr", pUnkCert, "ptr", ppWriter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1826,7 +1832,7 @@ class WindowsMediaFormat {
      * @param {Pointer<IUnknown>} pUnkCert This value must be set to <b>NULL</b>.
      * @param {Integer} dwRights <b>DWORD</b> indicating the desired operation. Set to one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_rights">WMT_RIGHTS</a> enumeration type, indicating the operation that is performed on this file. If multiple operations are being performed, <i>dwRights</i> must consist of multiple values from <b>WMT_RIGHTS</b> combined by using the bitwise <b>OR</b> operator.
      * @param {Pointer<IWMReader>} ppReader Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmreader">IWMReader</a> interface of the newly created reader object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -1861,6 +1867,9 @@ class WindowsMediaFormat {
      */
     static WMCreateReader(pUnkCert, dwRights, ppReader) {
         result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, "uint", dwRights, "ptr", ppReader, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1869,7 +1878,7 @@ class WindowsMediaFormat {
      * @param {Pointer<IUnknown>} pUnkCert Pointer to an <b>IUnknown</b> interface. This value must be set to <b>NULL</b>.
      * @param {Integer} dwRights <b>DWORD</b> specifying the desired operation. When playing back non-DRM content, or for an application that does not have DRM rights, this value can be set to zero. Otherwise, this value must be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_rights">WMT_RIGHTS</a> enumeration type, indicating the operation that is performed on this file. If multiple operations are being performed, <b>dwRights</b> must consist of multiple values from <b>WMT_RIGHTS</b> combined by using the bitwise <b>OR</b> operator.
      * @param {Pointer<IWMSyncReader>} ppSyncReader Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmsyncreader">IWMSyncReader</a> interface of the newly created synchronous reader object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -1904,13 +1913,16 @@ class WindowsMediaFormat {
      */
     static WMCreateSyncReader(pUnkCert, dwRights, ppSyncReader) {
         result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, "uint", dwRights, "ptr", ppSyncReader, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The WMCreateEditor function creates a metadata editor object.
      * @param {Pointer<IWMMetadataEditor>} ppEditor Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmmetadataeditor">IWMMetadataEditor</a> interface of the newly created metadata editor object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -1945,13 +1957,16 @@ class WindowsMediaFormat {
      */
     static WMCreateEditor(ppEditor) {
         result := DllCall("WMVCore.dll\WMCreateEditor", "ptr", ppEditor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The WMCreateIndexer function creates an indexer object.
      * @param {Pointer<IWMIndexer>} ppIndexer Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmindexer">IWMIndexer</a> interface of the newly created indexer object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -1986,6 +2001,9 @@ class WindowsMediaFormat {
      */
     static WMCreateIndexer(ppIndexer) {
         result := DllCall("WMVCore.dll\WMCreateIndexer", "ptr", ppIndexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1995,7 +2013,7 @@ class WindowsMediaFormat {
      * Use <b>IWMLicenseBackup::QueryInterface</b> to obtain a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbackuprestoreprops">IWMBackupRestoreProps</a> interface.
      * @param {Pointer<IUnknown>} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface containing the <b>OnStatus</b> callback method to be used by the new backup restorer object.
      * @param {Pointer<IWMLicenseBackup>} ppBackup Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmlicensebackup">IWMLicenseBackup</a> interface of the newly created backup restorer object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -2030,6 +2048,9 @@ class WindowsMediaFormat {
      */
     static WMCreateBackupRestorer(pCallback, ppBackup) {
         result := DllCall("WMVCore.dll\WMCreateBackupRestorer", "ptr", pCallback, "ptr", ppBackup, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2038,7 +2059,7 @@ class WindowsMediaFormat {
      * @remarks
      * When a profile manager object is created, it parses all of the system profiles. Creating and releasing a profile manager every time you need to use it will adversely affect performance. You should create a profile manager once in your application and release it only when you no longer need to use it.
      * @param {Pointer<IWMProfileManager>} ppProfileManager Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmprofilemanager">IWMProfileManager</a> interface of the newly created profile manager object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -2073,13 +2094,16 @@ class WindowsMediaFormat {
      */
     static WMCreateProfileManager(ppProfileManager) {
         result := DllCall("WMVCore.dll\WMCreateProfileManager", "ptr", ppProfileManager, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The WMCreateWriterFileSink function creates a writer file sink object.
      * @param {Pointer<IWMWriterFileSink>} ppSink Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink">IWMWriterFileSink</a> interface of the newly created writer file sink object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -2114,13 +2138,16 @@ class WindowsMediaFormat {
      */
     static WMCreateWriterFileSink(ppSink) {
         result := DllCall("WMVCore.dll\WMCreateWriterFileSink", "ptr", ppSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The WMCreateWriterNetworkSink function creates a writer network sink object.
      * @param {Pointer<IWMWriterNetworkSink>} ppSink Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriternetworksink">IWMWriterNetworkSink</a> interface of the newly created writer network sink object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -2155,13 +2182,16 @@ class WindowsMediaFormat {
      */
     static WMCreateWriterNetworkSink(ppSink) {
         result := DllCall("WMVCore.dll\WMCreateWriterNetworkSink", "ptr", ppSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The WMCreateWriterPushSink function creates a writer push sink object. Push sinks are used to deliver streaming content to other media servers for distribution.
      * @param {Pointer<IWMWriterPushSink>} ppSink Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriterpushsink">IWMWriterPushSink</a> interface of the newly created writer push sink object.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -2196,6 +2226,9 @@ class WindowsMediaFormat {
      */
     static WMCreateWriterPushSink(ppSink) {
         result := DllCall("WMVCore.dll\WMCreateWriterPushSink", "ptr", ppSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -636,7 +636,7 @@ class UI {
      * @param {Pointer<CERT_SELECTUI_INPUT>} pcsi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cert_selectui_input">CERT_SELECTUI_INPUT</a> structure that contains the certificate store and certificate context chain information.
      * @param {Pointer<Void>} ppOutBuffer The address of a pointer to a buffer that receives the serialized certificates BLOB.
      * @param {Pointer<UInt32>} pulOutBufferSize A pointer to a <b>ULONG</b> to receive the size, in bytes, of the BLOB received in the buffer pointed to by the <i>ppOutBuffer</i> parameter.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>. 
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>. 
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. 	If both <b>hStore</b> and <b>prgpChain</b> parameters are not <b>NULL</b>, return <b>E_INVALIDARG</b>. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-certselectiongetserializedblob
@@ -644,6 +644,9 @@ class UI {
      */
     static CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
         result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, "ptr", ppOutBuffer, "uint*", pulOutBufferSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

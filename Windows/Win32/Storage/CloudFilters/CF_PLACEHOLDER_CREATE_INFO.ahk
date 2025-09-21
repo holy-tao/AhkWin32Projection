@@ -67,7 +67,7 @@ class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct
 
     /**
      * The result of placeholder creation. On successful creation, the value is **STATUS_OK**.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Result {
         get => NumGet(this, 72, "int")

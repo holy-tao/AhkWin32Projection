@@ -1177,12 +1177,15 @@ class Rpc {
      * @param {Pointer<IUnknown>} This_R 
      * @param {Pointer<Guid>} riid IID of the interface to be queried.
      * @param {Pointer<Void>} ppvObject Address to a pointer whose interface is queried or null when an interface is not supported.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/unknwnbase/nf-unknwnbase-iunknown_queryinterface_proxy
      * @since windows5.0
      */
     static IUnknown_QueryInterface_Proxy(This_R, riid, ppvObject) {
         result := DllCall("RPCRT4.dll\IUnknown_QueryInterface_Proxy", "ptr", This_R, "ptr", riid, "ptr", ppvObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6318,11 +6321,10 @@ class Rpc {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RpcServerYield() {
-        result := DllCall("RPCRT4.dll\RpcServerYield")
-        return result
+        DllCall("RPCRT4.dll\RpcServerYield")
     }
 
     /**
@@ -6749,13 +6751,12 @@ class Rpc {
      * <div class="alert"><b>Note</b>  After it is called, the 
      * <b>RpcSsDontSerializeContext</b> function is not revertible for the life of the process.</div>
      * <div> </div>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcdce/nf-rpcdce-rpcssdontserializecontext
      * @since windows5.0
      */
     static RpcSsDontSerializeContext() {
-        result := DllCall("RPCRT4.dll\RpcSsDontSerializeContext")
-        return result
+        DllCall("RPCRT4.dll\RpcSsDontSerializeContext")
     }
 
     /**
@@ -9833,17 +9834,12 @@ class Rpc {
      * <b>RpcRaiseException</b> raises an exception. The exception handler can then handle the exception. For more information about handling exceptions, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/making-rpc-function-calls">Making RPC Function Calls</a>.
      * @param {Integer} exception Exception code for the exception.
-     * @returns {Pointer} This function does not return a value.
-     * 
-     * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcdce/nf-rpcdce-rpcraiseexception
      * @since windows5.0
      */
     static RpcRaiseException(exception) {
-        result := DllCall("RPCRT4.dll\RpcRaiseException", "int", exception)
-        return result
+        DllCall("RPCRT4.dll\RpcRaiseException", "int", exception)
     }
 
     /**
@@ -10474,7 +10470,7 @@ class Rpc {
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid2</i> parameter.
      * @param {Pointer<Guid>} Uuid2 Pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid1</i> parameter.
      * @param {Pointer<Int32>} Status Returns any errors that may occur, and will typically be set by the function to RPC_S_OK upon return.
-     * @returns {Pointer} <table>
+     * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -10522,7 +10518,7 @@ class Rpc {
      * @since windows5.0
      */
     static UuidCompare(Uuid1, Uuid2, Status) {
-        result := DllCall("RPCRT4.dll\UuidCompare", "ptr", Uuid1, "ptr", Uuid2, "int*", Status)
+        result := DllCall("RPCRT4.dll\UuidCompare", "ptr", Uuid1, "ptr", Uuid2, "int*", Status, "int")
         return result
     }
 
@@ -10549,7 +10545,7 @@ class Rpc {
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid2</i> parameter.
      * @param {Pointer<Guid>} Uuid2 Pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid1</i> parameter.
      * @param {Pointer<Int32>} Status Returns RPC_S_OK.
-     * @returns {Pointer} <table>
+     * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -10586,7 +10582,7 @@ class Rpc {
      * @since windows5.0
      */
     static UuidEqual(Uuid1, Uuid2, Status) {
-        result := DllCall("RPCRT4.dll\UuidEqual", "ptr", Uuid1, "ptr", Uuid2, "int*", Status)
+        result := DllCall("RPCRT4.dll\UuidEqual", "ptr", Uuid1, "ptr", Uuid2, "int*", Status, "int")
         return result
     }
 
@@ -10637,14 +10633,14 @@ class Rpc {
      * <div> </div>
      * @param {Pointer<Guid>} Uuid <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> to test for nil value.
      * @param {Pointer<Int32>} Status Returns RPC_S_OK.
-     * @returns {Pointer} <div class="alert"><b>Note</b>  For a list of valid error codes, see 
+     * @returns {Integer} <div class="alert"><b>Note</b>  For a list of valid error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
      * <div> </div>
      * @see https://learn.microsoft.com/windows/win32/api/rpcdce/nf-rpcdce-uuidisnil
      * @since windows5.0
      */
     static UuidIsNil(Uuid, Status) {
-        result := DllCall("RPCRT4.dll\UuidIsNil", "ptr", Uuid, "int*", Status)
+        result := DllCall("RPCRT4.dll\UuidIsNil", "ptr", Uuid, "int*", Status, "int")
         return result
     }
 
@@ -11877,7 +11873,7 @@ class Rpc {
      * 
      * <a id="STATUS_ACCESS_VIOLATION"></a>
      * <a id="status_access_violation"></a>
-     * @returns {Pointer} A value that specifies whether the exception was fatal or non-fatal.
+     * @returns {Integer} A value that specifies whether the exception was fatal or non-fatal.
      * 
      * <table>
      * <tr>
@@ -11911,7 +11907,7 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcExceptionFilter(ExceptionCode) {
-        result := DllCall("RPCRT4.dll\RpcExceptionFilter", "uint", ExceptionCode)
+        result := DllCall("RPCRT4.dll\RpcExceptionFilter", "uint", ExceptionCode, "int")
         return result
     }
 
@@ -12379,37 +12375,34 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Mutex 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcRequestMutex(Mutex) {
-        result := DllCall("RPCRT4.dll\I_RpcRequestMutex", "ptr", Mutex)
-        return result
+        DllCall("RPCRT4.dll\I_RpcRequestMutex", "ptr", Mutex)
     }
 
     /**
      * 
      * @param {Pointer<Void>} Mutex 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcClearMutex(Mutex) {
-        result := DllCall("RPCRT4.dll\I_RpcClearMutex", "ptr", Mutex)
-        return result
+        DllCall("RPCRT4.dll\I_RpcClearMutex", "ptr", Mutex)
     }
 
     /**
      * 
      * @param {Pointer<Void>} Mutex 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcDeleteMutex(Mutex) {
-        result := DllCall("RPCRT4.dll\I_RpcDeleteMutex", "ptr", Mutex)
-        return result
+        DllCall("RPCRT4.dll\I_RpcDeleteMutex", "ptr", Mutex)
     }
 
     /**
      * 
      * @param {Integer} Size 
-     * @returns {Pointer} 
+     * @returns {Pointer<Void>} 
      */
     static I_RpcAllocate(Size) {
         result := DllCall("RPCRT4.dll\I_RpcAllocate", "uint", Size)
@@ -12419,21 +12412,19 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Object 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcFree(Object) {
-        result := DllCall("RPCRT4.dll\I_RpcFree", "ptr", Object)
-        return result
+        DllCall("RPCRT4.dll\I_RpcFree", "ptr", Object)
     }
 
     /**
      * 
      * @param {Integer} Milliseconds 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcPauseExecution(Milliseconds) {
-        result := DllCall("RPCRT4.dll\I_RpcPauseExecution", "uint", Milliseconds)
-        return result
+        DllCall("RPCRT4.dll\I_RpcPauseExecution", "uint", Milliseconds)
     }
 
     /**
@@ -12838,11 +12829,10 @@ class Rpc {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcSsDontSerializeContext() {
-        result := DllCall("RPCRT4.dll\I_RpcSsDontSerializeContext")
-        return result
+        DllCall("RPCRT4.dll\I_RpcSsDontSerializeContext")
     }
 
     /**
@@ -12902,11 +12892,10 @@ class Rpc {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcSessionStrictContextHandle() {
-        result := DllCall("RPCRT4.dll\I_RpcSessionStrictContextHandle")
-        return result
+        DllCall("RPCRT4.dll\I_RpcSessionStrictContextHandle")
     }
 
     /**
@@ -12943,11 +12932,10 @@ class Rpc {
      * @param {Integer} RpcStatus 
      * @param {Pointer<RDR_CALLOUT_STATE>} CallOutState 
      * @param {Pointer<UInt16>} DllName 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcRecordCalloutFailure(RpcStatus, CallOutState, DllName) {
-        result := DllCall("RPCRT4.dll\I_RpcRecordCalloutFailure", "int", RpcStatus, "ptr", CallOutState, "ushort*", DllName)
-        return result
+        DllCall("RPCRT4.dll\I_RpcRecordCalloutFailure", "int", RpcStatus, "ptr", CallOutState, "ushort*", DllName)
     }
 
     /**
@@ -20533,17 +20521,12 @@ class Rpc {
      * <li>If the calling component attempts multiple retries of an operation that returns extended error information. When an RPC call starts, the RPC Runtime clears any extended error information on the thread. However, if the calling component calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcerroraddrecord">RpcErrorAddRecord</a> in a loop with many iterations, it may want to clear the error information, as the extended error information accumulates over time and can exhaust available memory.</li>
      * </ul>
-     * @returns {Pointer} This function has no return values.
-     * 
-     * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcasync/nf-rpcasync-rpcerrorclearinformation
      * @since windows5.1.2600
      */
     static RpcErrorClearInformation() {
-        result := DllCall("RPCRT4.dll\RpcErrorClearInformation")
-        return result
+        DllCall("RPCRT4.dll\RpcErrorClearInformation")
     }
 
     /**
@@ -21095,7 +21078,7 @@ class Rpc {
      * - STATUS_STACK_BUFFER_OVERRUN
      * - STATUS_GUARD_PAGE_VIOLATION
      * - STATUS_REG_NAT_CONSUMPTION
-     * @returns {Pointer} A value that specifies whether the exception was fatal or non-fatal.
+     * @returns {Integer} A value that specifies whether the exception was fatal or non-fatal.
      * 
      * | Return code | Description
      * |-------------|------------|
@@ -21104,7 +21087,7 @@ class Rpc {
      * @see https://learn.microsoft.com/windows/win32/api/rpcasync/nf-rpcasync-i_rpcexceptionfilter
      */
     static I_RpcExceptionFilter(ExceptionCode) {
-        result := DllCall("RPCRT4.dll\I_RpcExceptionFilter", "uint", ExceptionCode)
+        result := DllCall("RPCRT4.dll\I_RpcExceptionFilter", "uint", ExceptionCode, "int")
         return result
     }
 
@@ -21146,11 +21129,10 @@ class Rpc {
      * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @param {Integer} Status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcNsRaiseException(Message, Status) {
-        result := DllCall("RPCNS4.dll\I_RpcNsRaiseException", "ptr", Message, "int", Status)
-        return result
+        DllCall("RPCNS4.dll\I_RpcNsRaiseException", "ptr", Message, "int", Status)
     }
 
     /**
@@ -21177,11 +21159,10 @@ class Rpc {
      * 
      * @param {Pointer} CContext 
      * @param {Pointer<Void>} pBuff 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NDRCContextMarshall(CContext, pBuff) {
-        result := DllCall("RPCRT4.dll\NDRCContextMarshall", "ptr", CContext, "ptr", pBuff)
-        return result
+        DllCall("RPCRT4.dll\NDRCContextMarshall", "ptr", CContext, "ptr", pBuff)
     }
 
     /**
@@ -21190,11 +21171,10 @@ class Rpc {
      * @param {Pointer<Void>} hBinding 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} DataRepresentation 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NDRCContextUnmarshall(pCContext, hBinding, pBuff, DataRepresentation) {
-        result := DllCall("RPCRT4.dll\NDRCContextUnmarshall", "ptr*", pCContext, "ptr", hBinding, "ptr", pBuff, "uint", DataRepresentation)
-        return result
+        DllCall("RPCRT4.dll\NDRCContextUnmarshall", "ptr*", pCContext, "ptr", hBinding, "ptr", pBuff, "uint", DataRepresentation)
     }
 
     /**
@@ -21202,11 +21182,10 @@ class Rpc {
      * @param {Pointer<NDR_SCONTEXT>} CContext 
      * @param {Pointer<Void>} pBuff 
      * @param {Pointer<NDR_RUNDOWN>} userRunDownIn 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NDRSContextMarshall(CContext, pBuff, userRunDownIn) {
-        result := DllCall("RPCRT4.dll\NDRSContextMarshall", "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn)
-        return result
+        DllCall("RPCRT4.dll\NDRSContextMarshall", "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn)
     }
 
     /**
@@ -21226,11 +21205,10 @@ class Rpc {
      * @param {Pointer<NDR_SCONTEXT>} CContext 
      * @param {Pointer<Void>} pBuff 
      * @param {Pointer<NDR_RUNDOWN>} userRunDownIn 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NDRSContextMarshallEx(BindingHandle, CContext, pBuff, userRunDownIn) {
-        result := DllCall("RPCRT4.dll\NDRSContextMarshallEx", "ptr", BindingHandle, "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn)
-        return result
+        DllCall("RPCRT4.dll\NDRSContextMarshallEx", "ptr", BindingHandle, "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn)
     }
 
     /**
@@ -21241,11 +21219,10 @@ class Rpc {
      * @param {Pointer<NDR_RUNDOWN>} userRunDownIn 
      * @param {Pointer<Void>} CtxGuard 
      * @param {Integer} Flags 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NDRSContextMarshall2(BindingHandle, CContext, pBuff, userRunDownIn, CtxGuard, Flags) {
-        result := DllCall("RPCRT4.dll\NDRSContextMarshall2", "ptr", BindingHandle, "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn, "ptr", CtxGuard, "uint", Flags)
-        return result
+        DllCall("RPCRT4.dll\NDRSContextMarshall2", "ptr", BindingHandle, "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn, "ptr", CtxGuard, "uint", Flags)
     }
 
     /**
@@ -21288,17 +21265,12 @@ class Rpc {
      * <b>RpcSsDestroyClientContext</b> function can throw an RPC_X_SS_CONTEXT_MISMATCH exception if the context handle passed to it is invalid. Applications should never pass an invalid context handle to this function. If an exception is thrown, it indicates an error in the calling code, and should therefore be investigated and fixed.
      * @param {Pointer<Void>} ContextHandle Context handle to be destroyed. The handle is set to <b>NULL</b> before 
      * <b>RpcSsDestroyClientContext</b> returns.
-     * @returns {Pointer} <b>RpcSsDestroyClientContext</b> has no return value.
-     * 
-     * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcssdestroyclientcontext
      * @since windows5.0
      */
     static RpcSsDestroyClientContext(ContextHandle) {
-        result := DllCall("RPCRT4.dll\RpcSsDestroyClientContext", "ptr", ContextHandle)
-        return result
+        DllCall("RPCRT4.dll\RpcSsDestroyClientContext", "ptr", ContextHandle)
     }
 
     /**
@@ -21306,28 +21278,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
      * @param {Pointer<Byte>} pMemory Pointer to the simple type to be marshalled.
      * @param {Integer} FormatChar Simple type format character.
-     * @returns {Pointer} If an error occurs, the function throws one of the following exception codes. 
-     * 
-     * <table>
-     * <tr>
-     * <th>Error</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>STATUS_ACCESS_VIOLATION</td>
-     * <td>An access violation occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>RPC_S_INTERNAL_ERROR</td>
-     * <td>An error occurred in RPC.</td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrsimpletypemarshall
      * @since windows5.0
      */
     static NdrSimpleTypeMarshall(pStubMsg, pMemory, FormatChar) {
-        result := DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", "ptr", pStubMsg, "char*", pMemory, "char", FormatChar)
-        return result
+        DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", "ptr", pStubMsg, "char*", pMemory, "char", FormatChar)
     }
 
     /**
@@ -21688,11 +21644,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer} ContextHandle 
      * @param {Integer} fCheck 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrClientContextMarshall(pStubMsg, ContextHandle, fCheck) {
-        result := DllCall("RPCRT4.dll\NdrClientContextMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "int", fCheck)
-        return result
+        DllCall("RPCRT4.dll\NdrClientContextMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "int", fCheck)
     }
 
     /**
@@ -21700,11 +21655,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
      * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerContextMarshall(pStubMsg, ContextHandle, RundownRoutine) {
-        result := DllCall("RPCRT4.dll\NdrServerContextMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "ptr", RundownRoutine)
-        return result
+        DllCall("RPCRT4.dll\NdrServerContextMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "ptr", RundownRoutine)
     }
 
     /**
@@ -21713,11 +21667,10 @@ class Rpc {
      * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
      * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrServerContextNewMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "ptr", RundownRoutine, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrServerContextNewMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "ptr", RundownRoutine, "char*", pFormat)
     }
 
     /**
@@ -21725,28 +21678,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
      * @param {Pointer<Byte>} pMemory Pointer to memory to unmarshall.
      * @param {Integer} FormatChar Format string of the simple type.
-     * @returns {Pointer} If an error occurs, the function throws one of the following exception codes. 
-     * 
-     * <table>
-     * <tr>
-     * <th>Error</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>STATUS_ACCESS_VIOLATION</td>
-     * <td>An access violation occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>RPC_S_INTERNAL_ERROR</td>
-     * <td>An error occurred in RPC.</td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrsimpletypeunmarshall
      * @since windows5.0
      */
     static NdrSimpleTypeUnmarshall(pStubMsg, pMemory, FormatChar) {
-        result := DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", "ptr", pStubMsg, "char*", pMemory, "char", FormatChar)
-        return result
+        DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", "ptr", pStubMsg, "char*", pMemory, "char", FormatChar)
     }
 
     /**
@@ -21768,31 +21705,28 @@ class Rpc {
      * @param {Pointer<Void>} pMemory 
      * @param {Integer} CacheSize 
      * @param {Integer} flags 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrCorrelationInitialize(pStubMsg, pMemory, CacheSize, flags) {
-        result := DllCall("RPCRT4.dll\NdrCorrelationInitialize", "ptr", pStubMsg, "ptr", pMemory, "uint", CacheSize, "uint", flags)
-        return result
+        DllCall("RPCRT4.dll\NdrCorrelationInitialize", "ptr", pStubMsg, "ptr", pMemory, "uint", CacheSize, "uint", flags)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrCorrelationPass(pStubMsg) {
-        result := DllCall("RPCRT4.dll\NdrCorrelationPass", "ptr", pStubMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrCorrelationPass", "ptr", pStubMsg)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrCorrelationFree(pStubMsg) {
-        result := DllCall("RPCRT4.dll\NdrCorrelationFree", "ptr", pStubMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrCorrelationFree", "ptr", pStubMsg)
     }
 
     /**
@@ -22271,11 +22205,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<IntPtr>} pContextHandle 
      * @param {Pointer<Void>} BindHandle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrClientContextUnmarshall(pStubMsg, pContextHandle, BindHandle) {
-        result := DllCall("RPCRT4.dll\NdrClientContextUnmarshall", "ptr", pStubMsg, "ptr*", pContextHandle, "ptr", BindHandle)
-        return result
+        DllCall("RPCRT4.dll\NdrClientContextUnmarshall", "ptr", pStubMsg, "ptr*", pContextHandle, "ptr", BindHandle)
     }
 
     /**
@@ -22322,28 +22255,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. This structure is for internal use only and should not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the data being sized.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} This function has no return values. If an error occurs, the function throws one of the following exception codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Error</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>STATUS_ACCESS_VIOLATION</td>
-     * <td>An access violation occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>RPC_S_INTERNAL_ERROR</td>
-     * <td>An error occurred in RPC.</td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrpointerbuffersize
      * @since windows5.0
      */
     static NdrPointerBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrPointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrPointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22351,13 +22268,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the simple structure to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrsimplestructbuffersize
      * @since windows5.0
      */
     static NdrSimpleStructBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrSimpleStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22365,11 +22281,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantStructBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22377,11 +22292,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingStructBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantVaryingStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22389,13 +22303,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the complex structure to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrcomplexstructbuffersize
      * @since windows5.0
      */
     static NdrComplexStructBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrComplexStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22403,11 +22316,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrFixedArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrFixedArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22415,12 +22327,11 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the conformant array to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrconformantarraybuffersize
      */
     static NdrConformantArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22428,11 +22339,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantVaryingArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22440,11 +22350,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrVaryingArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22452,13 +22361,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the  complex array to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrcomplexarraybuffersize
      * @since windows5.0
      */
     static NdrComplexArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrComplexArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22466,28 +22374,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. Structure is for internal use only; do not modify.
      * @param {Pointer<Byte>} pMemory Pointer to the null-terminated conformant string to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} This function has no return values. If an error occurs, the function throws one of the following exception codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Error</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>STATUS_ACCESS_VIOLATION</td>
-     * <td>An access violation occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>RPC_S_INTERNAL_ERROR</td>
-     * <td>An error occurred in RPC.</td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrconformantstringbuffersize
      * @since windows5.0
      */
     static NdrConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStringBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantStringBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22495,11 +22387,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonConformantStringBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrNonConformantStringBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22507,11 +22398,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrEncapsulatedUnionBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22519,11 +22409,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22531,11 +22420,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrByteCountPointerBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrByteCountPointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrByteCountPointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22543,11 +22431,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrXmitOrRepAsBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrXmitOrRepAsBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22555,13 +22442,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. Structure is for internal use only; do not modify.
      * @param {Pointer<Byte>} pMemory Pointer to the user marshal object to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrusermarshalbuffersize
      * @since windows5.0
      */
     static NdrUserMarshalBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrUserMarshalBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22569,28 +22455,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. This structure is for internal use only and should not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the interface pointer to be calculated.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} This function has no return values. If an error occurs, the function throws  one of the following exception codes. In addition, the function can throw exception codes from <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetmarshalsizemax">CoGetMarshalSizeMax</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Error</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>STATUS_ACCESS_VIOLATION</td>
-     * <td>An access violation occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>RPC_S_INTERNAL_ERROR</td>
-     * <td>An error occurred in RPC.</td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrinterfacepointerbuffersize
      * @since windows5.0
      */
     static NdrInterfacePointerBufferSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrInterfacePointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22598,13 +22468,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that contains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the context handle, in bytes. Structure is for internal use only; do not modify.
      * @param {Pointer<Byte>} pMemory Pointer to a string buffer that contains an RPC context handle.
      * @param {Pointer<Byte>} pFormat Pointer to a <b>FORMAT_STRING</b> structure that contains the format of the context handle specified in <i>pMemory</i>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrcontexthandlesize
      * @since windows5.1.2600
      */
     static NdrContextHandleSize(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrContextHandleSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrContextHandleSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22799,13 +22668,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub.  This structure is for internal use only and should not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to memory to be freed.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrpointerfree
      * @since windows5.0
      */
     static NdrPointerFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrPointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrPointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22813,11 +22681,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrSimpleStructFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrSimpleStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22825,11 +22692,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantStructFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22837,11 +22703,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingStructFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantVaryingStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22849,11 +22714,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrComplexStructFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrComplexStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22861,11 +22725,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrFixedArrayFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrFixedArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22873,11 +22736,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantArrayFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22885,11 +22747,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingArrayFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConformantVaryingArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22897,11 +22758,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrVaryingArrayFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrVaryingArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22909,11 +22769,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrComplexArrayFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrComplexArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22921,11 +22780,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrEncapsulatedUnionFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22933,11 +22791,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22945,11 +22802,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrByteCountPointerFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrByteCountPointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrByteCountPointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22957,11 +22813,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrXmitOrRepAsFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrXmitOrRepAsFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22971,13 +22826,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
      * @param {Pointer<Byte>} pMemory Pointer to be freed.
      * @param {Pointer<Byte>} pFormat Pointer's format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrusermarshalfree
      * @since windows5.0
      */
     static NdrUserMarshalFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrUserMarshalFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22985,13 +22839,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. This structure is for internal use only and should not be modified.
      * @param {Pointer<Byte>} pMemory Pointer to the interface pointer to be released.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrinterfacepointerfree
      * @since windows5.0
      */
     static NdrInterfacePointerFree(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrInterfacePointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
     }
 
     /**
@@ -22999,11 +22852,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Byte>} pFormat 
      * @param {Integer} NumberParams 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrConvert2(pStubMsg, pFormat, NumberParams) {
-        result := DllCall("RPCRT4.dll\NdrConvert2", "ptr", pStubMsg, "char*", pFormat, "int", NumberParams)
-        return result
+        DllCall("RPCRT4.dll\NdrConvert2", "ptr", pStubMsg, "char*", pFormat, "int", NumberParams)
     }
 
     /**
@@ -23012,32 +22864,12 @@ class Rpc {
      * The <b>NdrConvert</b> function is used by all <a href="https://docs.microsoft.com/windows/desktop/Midl/-oi">/Oi</a>, <b>/Oic</b>, and <a href="https://docs.microsoft.com/windows/desktop/Midl/-os">/Os</a> mode  stubs.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>pRpcMsg</b> member points to a structure whose <b>Buffer</b> member contains the data to convert. This structure is for internal use only and should not be modified.
      * @param {Pointer<Byte>} pFormat Pointer to type format  of the data to convert.
-     * @returns {Pointer} This function has no return values. If an error occurs, the function throws one of the following exception codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Error</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>RPC_BAD_STUB_DATA or RPC_X_INVALID_BOUND</td>
-     * <td>The network  buffer is incorrect.</td>
-     * </tr>
-     * <tr>
-     * <td>STATUS_ACCESS_VIOLATION</td>
-     * <td>An access violation occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>RPC_S_INTERNAL_ERROR</td>
-     * <td>An error occurred in RPC.</td>
-     * </tr>
-     * </table>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrconvert
      * @since windows5.0
      */
     static NdrConvert(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConvert", "ptr", pStubMsg, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrConvert", "ptr", pStubMsg, "char*", pFormat)
     }
 
     /**
@@ -23058,11 +22890,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
      * @param {Integer} ProcNum 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrClientInitializeNew(pRpcMsg, pStubMsg, pStubDescriptor, ProcNum) {
-        result := DllCall("RPCRT4.dll\NdrClientInitializeNew", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "uint", ProcNum)
-        return result
+        DllCall("RPCRT4.dll\NdrClientInitializeNew", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "uint", ProcNum)
     }
 
     /**
@@ -23083,11 +22914,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
      * @param {Integer} RequestedBufferSize 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerInitializePartial(pRpcMsg, pStubMsg, pStubDescriptor, RequestedBufferSize) {
-        result := DllCall("RPCRT4.dll\NdrServerInitializePartial", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "uint", RequestedBufferSize)
-        return result
+        DllCall("RPCRT4.dll\NdrServerInitializePartial", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "uint", RequestedBufferSize)
     }
 
     /**
@@ -23096,11 +22926,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
      * @param {Integer} ProcNum 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrClientInitialize(pRpcMsg, pStubMsg, pStubDescriptor, ProcNum) {
-        result := DllCall("RPCRT4.dll\NdrClientInitialize", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "uint", ProcNum)
-        return result
+        DllCall("RPCRT4.dll\NdrClientInitialize", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "uint", ProcNum)
     }
 
     /**
@@ -23131,11 +22960,10 @@ class Rpc {
      * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerInitializeMarshall(pRpcMsg, pStubMsg) {
-        result := DllCall("RPCRT4.dll\NdrServerInitializeMarshall", "ptr", pRpcMsg, "ptr", pStubMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrServerInitializeMarshall", "ptr", pRpcMsg, "ptr", pStubMsg)
     }
 
     /**
@@ -23188,21 +23016,23 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrFreeBuffer(pStubMsg) {
-        result := DllCall("RPCRT4.dll\NdrFreeBuffer", "ptr", pStubMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrFreeBuffer", "ptr", pStubMsg)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<RPC_VERSION>} pVersion 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static NdrGetDcomProtocolVersion(pStubMsg, pVersion) {
         result := DllCall("RPCRT4.dll\NdrGetDcomProtocolVersion", "ptr", pStubMsg, "ptr", pVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -23254,13 +23084,12 @@ class Rpc {
     /**
      * NdrAsyncServerCall is not intended to be directly called by applications.
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg Reserved.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrasyncservercall
      * @since windows5.0
      */
     static NdrAsyncServerCall(pRpcMsg) {
-        result := DllCall("RPCRT4.dll\NdrAsyncServerCall", "ptr", pRpcMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrAsyncServerCall", "ptr", pRpcMsg)
     }
 
     /**
@@ -23321,13 +23150,12 @@ class Rpc {
     /**
      * NdrServerCall2 is not intended to be directly called by applications.
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg Reserved.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrservercall2
      * @since windows5.0
      */
     static NdrServerCall2(pRpcMsg) {
-        result := DllCall("RPCRT4.dll\NdrServerCall2", "ptr", pRpcMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrServerCall2", "ptr", pRpcMsg)
     }
 
     /**
@@ -23375,7 +23203,7 @@ class Rpc {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-rpcsmallocate">RpcSmAllocate</a>, which returns the error code.</div>
      * <div> </div>
      * @param {Pointer} Size Size of memory to allocate, in bytes.
-     * @returns {Pointer} <table>
+     * @returns {Pointer<Void>} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -23416,15 +23244,12 @@ class Rpc {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-rpcssenableallocate">RpcSsEnableAllocate</a> and 
      * <b>RpcSsDisableAllocate</b> must be used together as matching pairs.
-     * @returns {Pointer} <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcssdisableallocate
      * @since windows5.0
      */
     static RpcSsDisableAllocate() {
-        result := DllCall("RPCRT4.dll\RpcSsDisableAllocate")
-        return result
+        DllCall("RPCRT4.dll\RpcSsDisableAllocate")
     }
 
     /**
@@ -23443,34 +23268,12 @@ class Rpc {
      * <b>RpcSsEnableAllocate</b> function raises exceptions, while the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-rpcsmenableallocate">RpcSmEnableAllocate</a> function returns the error code.</div>
      * <div> </div>
-     * @returns {Pointer} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RPC_S_OUT_OF_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The system is out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcssenableallocate
      * @since windows5.0
      */
     static RpcSsEnableAllocate() {
-        result := DllCall("RPCRT4.dll\RpcSsEnableAllocate")
-        return result
+        DllCall("RPCRT4.dll\RpcSsEnableAllocate")
     }
 
     /**
@@ -23490,13 +23293,12 @@ class Rpc {
      * @param {Pointer<Void>} NodeToFree Pointer to memory allocated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-rpcssallocate">RpcSsAllocate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-rpcsmallocate">RpcSmAllocate</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcssfree
      * @since windows5.0
      */
     static RpcSsFree(NodeToFree) {
-        result := DllCall("RPCRT4.dll\RpcSsFree", "ptr", NodeToFree)
-        return result
+        DllCall("RPCRT4.dll\RpcSsFree", "ptr", NodeToFree)
     }
 
     /**
@@ -23570,34 +23372,12 @@ class Rpc {
      * <div> </div>
      * @param {Pointer<RPC_CLIENT_ALLOC>} ClientAlloc Memory-allocation function.
      * @param {Pointer<RPC_CLIENT_FREE>} ClientFree Memory-releasing function used with the memory-allocation function specified by <i>pfnAllocate</i>.
-     * @returns {Pointer} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RPC_S_OUT_OF_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The system is out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcsssetclientallocfree
      * @since windows5.0
      */
     static RpcSsSetClientAllocFree(ClientAlloc, ClientFree) {
-        result := DllCall("RPCRT4.dll\RpcSsSetClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree)
-        return result
+        DllCall("RPCRT4.dll\RpcSsSetClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree)
     }
 
     /**
@@ -23629,13 +23409,12 @@ class Rpc {
      * <div> </div>
      * @param {Pointer<Void>} Id Thread handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-rpcssgetthreadhandle">RpcSsGetThreadHandle</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcsssetthreadhandle
      * @since windows5.0
      */
     static RpcSsSetThreadHandle(Id) {
-        result := DllCall("RPCRT4.dll\RpcSsSetThreadHandle", "ptr", Id)
-        return result
+        DllCall("RPCRT4.dll\RpcSsSetThreadHandle", "ptr", Id)
     }
 
     /**
@@ -23650,45 +23429,12 @@ class Rpc {
      * @param {Pointer<RPC_CLIENT_FREE>} ClientFree New function to release memory.
      * @param {Pointer<RPC_CLIENT_ALLOC>} OldClientAlloc Returns the previous memory-allocation function.
      * @param {Pointer<RPC_CLIENT_FREE>} OldClientFree Returns the previous memory-freeing function.
-     * @returns {Pointer} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RPC_S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The call succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RPC_S_OUT_OF_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The system is out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
-     * <div> </div>
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcssswapclientallocfree
      * @since windows5.0
      */
     static RpcSsSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClientFree) {
-        result := DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, "ptr", OldClientAlloc, "ptr", OldClientFree)
-        return result
+        DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, "ptr", OldClientAlloc, "ptr", OldClientFree)
     }
 
     /**
@@ -23722,7 +23468,7 @@ class Rpc {
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/memory-management">Memory Management</a>.
      * @param {Pointer} Size Size of memory to allocate, in bytes.
      * @param {Pointer<Int32>} pStatus Pointer to the returned status.
-     * @returns {Pointer} <table>
+     * @returns {Pointer<Void>} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -24218,37 +23964,34 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSsEnableAllocate(pMessage) {
-        result := DllCall("RPCRT4.dll\NdrRpcSsEnableAllocate", "ptr", pMessage)
-        return result
+        DllCall("RPCRT4.dll\NdrRpcSsEnableAllocate", "ptr", pMessage)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSsDisableAllocate(pMessage) {
-        result := DllCall("RPCRT4.dll\NdrRpcSsDisableAllocate", "ptr", pMessage)
-        return result
+        DllCall("RPCRT4.dll\NdrRpcSsDisableAllocate", "ptr", pMessage)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSmSetClientToOsf(pMessage) {
-        result := DllCall("RPCRT4.dll\NdrRpcSmSetClientToOsf", "ptr", pMessage)
-        return result
+        DllCall("RPCRT4.dll\NdrRpcSmSetClientToOsf", "ptr", pMessage)
     }
 
     /**
      * 
      * @param {Pointer} Size 
-     * @returns {Pointer} 
+     * @returns {Pointer<Void>} 
      */
     static NdrRpcSmClientAllocate(Size) {
         result := DllCall("RPCRT4.dll\NdrRpcSmClientAllocate", "ptr", Size)
@@ -24258,17 +24001,16 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} NodeToFree 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSmClientFree(NodeToFree) {
-        result := DllCall("RPCRT4.dll\NdrRpcSmClientFree", "ptr", NodeToFree)
-        return result
+        DllCall("RPCRT4.dll\NdrRpcSmClientFree", "ptr", NodeToFree)
     }
 
     /**
      * 
      * @param {Pointer} Size 
-     * @returns {Pointer} 
+     * @returns {Pointer<Void>} 
      */
     static NdrRpcSsDefaultAllocate(Size) {
         result := DllCall("RPCRT4.dll\NdrRpcSsDefaultAllocate", "ptr", Size)
@@ -24278,11 +24020,10 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} NodeToFree 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSsDefaultFree(NodeToFree) {
-        result := DllCall("RPCRT4.dll\NdrRpcSsDefaultFree", "ptr", NodeToFree)
-        return result
+        DllCall("RPCRT4.dll\NdrRpcSsDefaultFree", "ptr", NodeToFree)
     }
 
     /**
@@ -24299,18 +24040,17 @@ class Rpc {
     /**
      * 
      * @param {Pointer<FULL_PTR_XLAT_TABLES>} pXlatTables 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrFullPointerXlatFree(pXlatTables) {
-        result := DllCall("RPCRT4.dll\NdrFullPointerXlatFree", "ptr", pXlatTables)
-        return result
+        DllCall("RPCRT4.dll\NdrFullPointerXlatFree", "ptr", pXlatTables)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer} Len 
-     * @returns {Pointer} 
+     * @returns {Pointer<Void>} 
      */
     static NdrAllocate(pStubMsg, Len) {
         result := DllCall("RPCRT4.dll\NdrAllocate", "ptr", pStubMsg, "ptr", Len)
@@ -24322,13 +24062,12 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The structure is for internal use only and should not be modified.
      * @param {Pointer<Byte>} pFormat Pointer to the format string description.
      * @param {Pointer<Void>} ArgAddr Pointer to the out parameter to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrclearoutparameters
      * @since windows5.0
      */
     static NdrClearOutParameters(pStubMsg, pFormat, ArgAddr) {
-        result := DllCall("RPCRT4.dll\NdrClearOutParameters", "ptr", pStubMsg, "char*", pFormat, "ptr", ArgAddr)
-        return result
+        DllCall("RPCRT4.dll\NdrClearOutParameters", "ptr", pStubMsg, "char*", pFormat, "ptr", ArgAddr)
     }
 
     /**
@@ -24336,7 +24075,7 @@ class Rpc {
      * @remarks
      * To return a pointer other than a void, use a type cast on the return value. The memory pointed to by the return value is guaranteed to be suitably aligned for the storage of any type of object. If the <i>Size</i> parameter is zero, <b>NdrOleAllocate</b> allocates a zero-length item in the heap and returns a valid pointer to that item. Always check the return value from <b>NdrOleAllocate</b>, even if the amount of memory requested is small.
      * @param {Pointer} Size Memory to allocate, in bytes.
-     * @returns {Pointer} Returns a void pointer to the allocated space upon success. Returns null upon failure due to insufficient memory.
+     * @returns {Pointer<Void>} Returns a void pointer to the allocated space upon success. Returns null upon failure due to insufficient memory.
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndroleallocate
      * @since windows5.0
      */
@@ -24348,13 +24087,12 @@ class Rpc {
     /**
      * The NdrOleFree function is a wrapper for the CoTaskMemFree function.
      * @param {Pointer<Void>} NodeToFree Pointer to the memory to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrolefree
      * @since windows5.0
      */
     static NdrOleFree(NodeToFree) {
-        result := DllCall("RPCRT4.dll\NdrOleFree", "ptr", NodeToFree)
-        return result
+        DllCall("RPCRT4.dll\NdrOleFree", "ptr", NodeToFree)
     }
 
     /**
@@ -24470,23 +24208,21 @@ class Rpc {
     /**
      * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static Ndr64AsyncServerCall64(pRpcMsg) {
-        result := DllCall("RPCRT4.dll\Ndr64AsyncServerCall64", "ptr", pRpcMsg)
-        return result
+        DllCall("RPCRT4.dll\Ndr64AsyncServerCall64", "ptr", pRpcMsg)
     }
 
     /**
      * Ndr64AsyncServerCallAll is not intended to be directly called by applications.
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg Reserved.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndr64asyncservercallall
      * @since windows5.1.2600
      */
     static Ndr64AsyncServerCallAll(pRpcMsg) {
-        result := DllCall("RPCRT4.dll\Ndr64AsyncServerCallAll", "ptr", pRpcMsg)
-        return result
+        DllCall("RPCRT4.dll\Ndr64AsyncServerCallAll", "ptr", pRpcMsg)
     }
 
     /**
@@ -24520,56 +24256,51 @@ class Rpc {
     /**
      * NdrServerCallAll is not intended to be directly called by applications.
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg Reserved.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrservercallall
      * @since windows5.1.2600
      */
     static NdrServerCallAll(pRpcMsg) {
-        result := DllCall("RPCRT4.dll\NdrServerCallAll", "ptr", pRpcMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrServerCallAll", "ptr", pRpcMsg)
     }
 
     /**
      * 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerCallNdr64(pRpcMsg) {
-        result := DllCall("RPCRT4.dll\NdrServerCallNdr64", "ptr", pRpcMsg)
-        return result
+        DllCall("RPCRT4.dll\NdrServerCallNdr64", "ptr", pRpcMsg)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} pMemory 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreClientMarshall(pStubMsg, pMemory) {
-        result := DllCall("RPCRT4.dll\NdrPartialIgnoreClientMarshall", "ptr", pStubMsg, "ptr", pMemory)
-        return result
+        DllCall("RPCRT4.dll\NdrPartialIgnoreClientMarshall", "ptr", pStubMsg, "ptr", pMemory)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} ppMemory 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreServerUnmarshall(pStubMsg, ppMemory) {
-        result := DllCall("RPCRT4.dll\NdrPartialIgnoreServerUnmarshall", "ptr", pStubMsg, "ptr", ppMemory)
-        return result
+        DllCall("RPCRT4.dll\NdrPartialIgnoreServerUnmarshall", "ptr", pStubMsg, "ptr", ppMemory)
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} pMemory 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreClientBufferSize(pStubMsg, pMemory) {
-        result := DllCall("RPCRT4.dll\NdrPartialIgnoreClientBufferSize", "ptr", pStubMsg, "ptr", pMemory)
-        return result
+        DllCall("RPCRT4.dll\NdrPartialIgnoreClientBufferSize", "ptr", pStubMsg, "ptr", pMemory)
     }
 
     /**
@@ -24577,24 +24308,22 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<Void>} ppMemory 
      * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreServerInitialize(pStubMsg, ppMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat)
-        return result
+        DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat)
     }
 
     /**
      * RpcUserFree may be altered or unavailable.
      * @param {Pointer<Void>} AsyncHandle Reserved.
      * @param {Pointer<Void>} pBuffer Reserved.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-rpcuserfree
      * @since windows5.1.2600
      */
     static RpcUserFree(AsyncHandle, pBuffer) {
-        result := DllCall("RPCRT4.dll\RpcUserFree", "ptr", AsyncHandle, "ptr", pBuffer)
-        return result
+        DllCall("RPCRT4.dll\RpcUserFree", "ptr", AsyncHandle, "ptr", pBuffer)
     }
 
     /**
@@ -25219,11 +24948,10 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<Void>} pObject 
      * @param {Integer} Size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeDecode(Handle, pObject, Size) {
-        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", "ptr", Handle, "ptr", pObject, "short", Size)
-        return result
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", "ptr", Handle, "ptr", pObject, "short", Size)
     }
 
     /**
@@ -25232,11 +24960,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Void>} pObject 
      * @param {Integer} Size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeEncode(Handle, pStubDesc, pObject, Size) {
-        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", "ptr", Handle, "ptr", pStubDesc, "ptr", pObject, "short", Size)
-        return result
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", "ptr", Handle, "ptr", pStubDesc, "ptr", pObject, "short", Size)
     }
 
     /**
@@ -25258,11 +24985,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Byte>} pFormatString 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode(Handle, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeEncode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeEncode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
     }
 
     /**
@@ -25271,11 +24997,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Byte>} pFormatString 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode(Handle, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeDecode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeDecode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
     }
 
     /**
@@ -25299,11 +25024,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Byte>} pFormatString 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeEncode2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeEncode2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
     }
 
     /**
@@ -25313,11 +25037,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Byte>} pFormatString 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeDecode2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeDecode2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
     }
 
     /**
@@ -25327,11 +25050,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Byte>} pFormatString 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeFree2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeFree2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeFree2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
     }
 
     /**
@@ -25339,11 +25061,10 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
      * @param {Pointer<Byte>} pFormatString 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesProcEncodeDecode(Handle, pStubDesc, pFormatString) {
-        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "CDecl ptr")
-        return result
+        DllCall("RPCRT4.dll\NdrMesProcEncodeDecode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "CDecl ")
     }
 
     /**
@@ -25383,11 +25104,10 @@ class Rpc {
      * @param {Pointer<UInt32>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -25398,11 +25118,10 @@ class Rpc {
      * @param {Pointer<UInt32>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -25413,11 +25132,10 @@ class Rpc {
      * @param {Pointer<UInt32>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeFree3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
-        return result
+        DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -25439,11 +25157,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Pointer<Void>} pObject 
      * @param {Integer} Size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeDecodeAll(Handle, pProxyInfo, pObject, Size) {
-        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr", pObject, "short", Size)
-        return result
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr", pObject, "short", Size)
     }
 
     /**
@@ -25452,11 +25169,10 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Pointer<Void>} pObject 
      * @param {Integer} Size 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeEncodeAll(Handle, pProxyInfo, pObject, Size) {
-        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr", pObject, "short", Size)
-        return result
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr", pObject, "short", Size)
     }
 
     /**

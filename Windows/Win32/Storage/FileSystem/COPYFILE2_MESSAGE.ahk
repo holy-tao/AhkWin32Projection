@@ -293,7 +293,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrFailure {
         get => NumGet(this, 16, "int")

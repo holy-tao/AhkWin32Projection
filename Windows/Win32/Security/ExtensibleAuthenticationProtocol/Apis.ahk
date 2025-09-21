@@ -1530,25 +1530,23 @@ class ExtensibleAuthenticationProtocol {
     /**
      * Frees memory returned by the configuration APIs.
      * @param {Pointer<Byte>} pData A pointer to the memory to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory
      * @since windows6.0.6000
      */
     static EapHostPeerFreeMemory(pData) {
-        result := DllCall("eappcfg.dll\EapHostPeerFreeMemory", "char*", pData)
-        return result
+        DllCall("eappcfg.dll\EapHostPeerFreeMemory", "char*", pData)
     }
 
     /**
      * Frees memory allocated to an EAP_ERROR structure.
      * @param {Pointer<EAP_ERROR>} pEapError A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that  contains the error data to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory
      * @since windows6.0.6000
      */
     static EapHostPeerFreeErrorMemory(pEapError) {
-        result := DllCall("eappcfg.dll\EapHostPeerFreeErrorMemory", "ptr", pEapError)
-        return result
+        DllCall("eappcfg.dll\EapHostPeerFreeErrorMemory", "ptr", pEapError)
     }
 
     /**
@@ -1579,13 +1577,12 @@ class ExtensibleAuthenticationProtocol {
      * safe.
      * 
      * <b>EapHostPeerUninitialize</b> calls <b>CoUninitialize</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeeruninitialize
      * @since windows6.0.6000
      */
     static EapHostPeerUninitialize() {
-        result := DllCall("eappprxy.dll\EapHostPeerUninitialize")
-        return result
+        DllCall("eappprxy.dll\EapHostPeerUninitialize")
     }
 
     /**
@@ -1890,13 +1887,12 @@ class ExtensibleAuthenticationProtocol {
      * 
      * <b>EapHostPeerFreeEapError</b> is not thread safe. Any given <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> must be freed on one thread only. Do not call  <b>EapHostPeerFreeEapError</b> twice on the same <b>EAP_ERROR</b> structure.
      * @param {Pointer<EAP_ERROR>} pEapError A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that  contains the error data to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror
      * @since windows6.0.6000
      */
     static EapHostPeerFreeEapError(pEapError) {
-        result := DllCall("eappprxy.dll\EapHostPeerFreeEapError", "ptr", pEapError)
-        return result
+        DllCall("eappprxy.dll\EapHostPeerFreeEapError", "ptr", pEapError)
     }
 
     /**
@@ -1943,13 +1939,12 @@ class ExtensibleAuthenticationProtocol {
      * 
      * This call is performed by a peer-based EAPHost using a function pointer to this API. This API must be implemented on the EAP method loaded by EAPHost, and must strictly conform to the syntax and parameter types specified in the documentation.
      * @param {Pointer<Byte>} pData A pointer to a buffer returned by any EapHost peer run-time API.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerfreeruntimememory
      * @since windows6.0.6000
      */
     static EapHostPeerFreeRuntimeMemory(pData) {
-        result := DllCall("eappprxy.dll\EapHostPeerFreeRuntimeMemory", "char*", pData)
-        return result
+        DllCall("eappprxy.dll\EapHostPeerFreeRuntimeMemory", "char*", pData)
     }
 
 ;@endregion Methods

@@ -3641,7 +3641,7 @@ class OpenGL {
      *  
      * 
      * <i></i>
-     * @returns {Pointer} If the function succeeds, the return value is a pixel format index (one-based) that is the closest match to the given pixel format descriptor.
+     * @returns {Integer} If the function succeeds, the return value is a pixel format index (one-based) that is the closest match to the given pixel format descriptor.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-choosepixelformat
@@ -3650,7 +3650,7 @@ class OpenGL {
     static ChoosePixelFormat(hdc, ppfd) {
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\ChoosePixelFormat", "ptr", hdc, "ptr", ppfd)
+        result := DllCall("GDI32.dll\ChoosePixelFormat", "ptr", hdc, "ptr", ppfd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3663,7 +3663,7 @@ class OpenGL {
      * @param {Integer} iPixelFormat Index that specifies the pixel format. The pixel formats that a device context supports are identified by positive one-based integer indexes.
      * @param {Integer} nBytes The size, in bytes, of the structure pointed to by <i>ppfd</i>. The <b>DescribePixelFormat</b> function stores no more than <i>nBytes</i> bytes of data to that structure. Set this value to <b>sizeof</b>(<b>PIXELFORMATDESCRIPTOR</b>).
      * @param {Pointer} ppfd Pointer to a <b>PIXELFORMATDESCRIPTOR</b> structure whose members the function sets with pixel format data. The function stores the number of bytes copied to the structure in the structure's <b>nSize</b> member. If, upon entry, <i>ppfd</i> is <b>NULL</b>, the function writes no data to the structure. This is useful when you only want to obtain the maximum pixel format index of a device context.
-     * @returns {Pointer} If the function succeeds, the return value is the maximum pixel format index of the device context. In addition, the function sets the members of the <b>PIXELFORMATDESCRIPTOR</b> structure pointed to by <i>ppfd</i> according to the specified pixel format.
+     * @returns {Integer} If the function succeeds, the return value is the maximum pixel format index of the device context. In addition, the function sets the members of the <b>PIXELFORMATDESCRIPTOR</b> structure pointed to by <i>ppfd</i> according to the specified pixel format.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-describepixelformat
@@ -3672,7 +3672,7 @@ class OpenGL {
     static DescribePixelFormat(hdc, iPixelFormat, nBytes, ppfd) {
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\DescribePixelFormat", "ptr", hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd)
+        result := DllCall("GDI32.dll\DescribePixelFormat", "ptr", hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3682,7 +3682,7 @@ class OpenGL {
     /**
      * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
      * @param {Pointer<Void>} hdc Specifies the device context of the currently selected pixel format index returned by the function.
-     * @returns {Pointer} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
+     * @returns {Integer} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpixelformat
@@ -3691,7 +3691,7 @@ class OpenGL {
     static GetPixelFormat(hdc) {
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\GetPixelFormat", "ptr", hdc)
+        result := DllCall("GDI32.dll\GetPixelFormat", "ptr", hdc, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3734,7 +3734,7 @@ class OpenGL {
      * @param {Pointer<Void>} hemf Identifies the enhanced metafile.
      * @param {Integer} cbBuffer Specifies the size, in bytes, of the buffer into which the pixel format information is copied.
      * @param {Pointer} ppfd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure that contains the logical pixel format specification. The metafile uses this structure to record the logical pixel format specification.
-     * @returns {Pointer} If the function succeeds and finds a pixel format, the return value is the size of the metafile's pixel format.
+     * @returns {Integer} If the function succeeds and finds a pixel format, the return value is the size of the metafile's pixel format.
      * 
      * If no pixel format is present, the return value is zero.
      * 
@@ -3745,7 +3745,7 @@ class OpenGL {
     static GetEnhMetaFilePixelFormat(hemf, cbBuffer, ppfd) {
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\GetEnhMetaFilePixelFormat", "ptr", hemf, "uint", cbBuffer, "ptr", ppfd)
+        result := DllCall("GDI32.dll\GetEnhMetaFilePixelFormat", "ptr", hemf, "uint", cbBuffer, "ptr", ppfd, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4257,7 +4257,7 @@ class OpenGL {
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Pointer<UInt32>} param4 
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window. If the function fails or no pixel format is selected, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglsetlayerpaletteentries
@@ -4266,7 +4266,7 @@ class OpenGL {
     static wglSetLayerPaletteEntries(param0, param1, param2, param3, param4) {
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "uint*", param4)
+        result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "uint*", param4, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4284,7 +4284,7 @@ class OpenGL {
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Pointer<UInt32>} param4 
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window.
      * 
@@ -4295,7 +4295,7 @@ class OpenGL {
     static wglGetLayerPaletteEntries(param0, param1, param2, param3, param4) {
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "uint*", param4)
+        result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "uint*", param4, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4389,12 +4389,11 @@ class OpenGL {
      * | <span id="GL_MULT"></span><span id="gl_mult"></span><dl> <dt>**GL\_MULT**</dt> </dl>       | Multiplies each R, G, B, and A in the accumulation buffer by *value* and returns the scaled component to its corresponding accumulation buffer location.<br/>                                                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_RETURN"></span><span id="gl_return"></span><dl> <dt>**GL\_RETURN**</dt> </dl> | Transfers accumulation buffer values to the color buffer or buffers currently selected for writing. Each R, G, B, and A component is multiplied by *value*, then multiplied by 2*n*  1, clamped to the range \[0, 2*n*  1 \], and stored in the corresponding display buffer cell. The only fragment operations that are applied to this transfer are pixel ownership, scissor, dithering, and color writemasks.<br/>                                                                        |
      * @param {Float} value A floating-point value used in the accumulation buffer operation. The *op* parameter determines how *value* is used.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glaccum
      */
     static glAccum(op, value) {
-        result := DllCall("OPENGL32.dll\glAccum", "uint", op, "float", value)
-        return result
+        DllCall("OPENGL32.dll\glAccum", "uint", op, "float", value)
     }
 
     /**
@@ -4430,12 +4429,11 @@ class OpenGL {
      * | <span id="GL_GEQUAL"></span><span id="gl_gequal"></span><dl> <dt>**GL\_GEQUAL**</dt> </dl>       | Passes if the incoming alpha value is greater than or equal to the reference value.<br/> |
      * | <span id="GL_ALWAYS"></span><span id="gl_always"></span><dl> <dt>**GL\_ALWAYS**</dt> </dl>       | Always passes. This is the default.<br/>                                                 |
      * @param {Float} ref The reference value to which incoming alpha values are compared. This value is clamped to the range 0 through 1, where 0 represents the lowest possible alpha value and 1 the highest possible value. The default reference is 0.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glalphafunc
      */
     static glAlphaFunc(func, ref) {
-        result := DllCall("OPENGL32.dll\glAlphaFunc", "uint", func, "float", ref)
-        return result
+        DllCall("OPENGL32.dll\glAlphaFunc", "uint", func, "float", ref)
     }
 
     /**
@@ -4484,12 +4482,11 @@ class OpenGL {
      * > [!Note]  
      * > The **glArrayElement** function is only available in OpenGL version 1.1 or later.
      * @param {Integer} i 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glarrayelement
      */
     static glArrayElement(i) {
-        result := DllCall("OPENGL32.dll\glArrayElement", "int", i)
-        return result
+        DllCall("OPENGL32.dll\glArrayElement", "int", i)
     }
 
     /**
@@ -4567,12 +4564,11 @@ class OpenGL {
      * | <span id="GL_QUADS"></span><span id="gl_quads"></span><dl> <dt>**GL\_QUADS**</dt> </dl>                             | Treats each group of four vertices as an independent quadrilateral. Vertices *4n - 3*, *4n - 2*, *4n - 1*, and *4n* define quadrilateral *n*. *N/4* quadrilaterals are drawn.<br/>                                                                                                                                                                                                                  |
      * | <span id="GL_QUAD_STRIP"></span><span id="gl_quad_strip"></span><dl> <dt>**GL\_QUAD\_STRIP**</dt> </dl>             | Draws a connected group of quadrilaterals. One quadrilateral is defined for each pair of vertices presented after the first pair. Vertices *2n - 1*, *2n*, *2n + 2*, and *2n + 1* define quadrilateral *n*. *N/2 - 1* quadrilaterals are drawn. Note that the order in which vertices are used to construct a quadrilateral from strip data is different from that used with independent data.<br/> |
      * | <span id="GL_POLYGON"></span><span id="gl_polygon"></span><dl> <dt>**GL\_POLYGON**</dt> </dl>                       | Draws a single, convex polygon. Vertices *1* through *N* define this polygon.<br/>                                                                                                                                                                                                                                                                                                                  |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glbegin
      */
     static glBegin(mode) {
-        result := DllCall("OPENGL32.dll\glBegin", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glBegin", "uint", mode)
     }
 
     /**
@@ -4602,12 +4598,11 @@ class OpenGL {
      * **glGet** with argument GL\_TEXTURE\_2D\_BINDING
      * @param {Integer} target The target to which the texture is bound. Must have the value GL\_TEXTURE\_1D or GL\_TEXTURE\_2D.
      * @param {Integer} texture The name of a texture; the texture name cannot currently be in use.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glbindtexture
      */
     static glBindTexture(target, texture) {
-        result := DllCall("OPENGL32.dll\glBindTexture", "uint", target, "uint", texture)
-        return result
+        DllCall("OPENGL32.dll\glBindTexture", "uint", target, "uint", texture)
     }
 
     /**
@@ -4653,12 +4648,11 @@ class OpenGL {
      * @param {Float} xmove The *x* offset to be added to the current raster position after the bitmap is drawn.
      * @param {Float} ymove The *y* offset to be added to the current raster position after the bitmap is drawn.
      * @param {Pointer<Byte>} bitmap The address of the bitmap image.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glbitmap
      */
     static glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap) {
-        result := DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, "char*", bitmap)
-        return result
+        DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, "char*", bitmap)
     }
 
     /**
@@ -4727,12 +4721,11 @@ class OpenGL {
      * *A*<sub>d</sub> = *A*?
      * @param {Integer} sfactor Specifies how the red, green, blue, and alpha source-blending factors are computed. Nine symbolic constants are accepted: GL\_ZERO, GL\_ONE, GL\_DST\_COLOR, GL\_ONE\_MINUS\_DST\_COLOR, GL\_SRC\_ALPHA, GL\_ONE\_MINUS\_SRC\_ALPHA, GL\_DST\_ALPHA, GL\_ONE\_MINUS\_DST\_ALPHA, and GL\_SRC\_ALPHA\_SATURATE.
      * @param {Integer} dfactor Specifies how the red, green, blue, and alpha destination-blending factors are computed. Eight symbolic constants are accepted: GL\_ZERO, GL\_ONE, GL\_SRC\_COLOR, GL\_ONE\_MINUS\_SRC\_COLOR, GL\_SRC\_ALPHA, GL\_ONE\_MINUS\_SRC\_ALPHA, GL\_DST\_ALPHA, and GL\_ONE\_MINUS\_DST\_ALPHA.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glblendfunc
      */
     static glBlendFunc(sfactor, dfactor) {
-        result := DllCall("OPENGL32.dll\glBlendFunc", "uint", sfactor, "uint", dfactor)
-        return result
+        DllCall("OPENGL32.dll\glBlendFunc", "uint", sfactor, "uint", dfactor)
     }
 
     /**
@@ -4752,12 +4745,11 @@ class OpenGL {
      * 
      * [**glIsList**](glislist.md)
      * @param {Integer} list The integer name of the display list to be executed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcalllist
      */
     static glCallList(list) {
-        result := DllCall("OPENGL32.dll\glCallList", "uint", list)
-        return result
+        DllCall("OPENGL32.dll\glCallList", "uint", list)
     }
 
     /**
@@ -4802,12 +4794,11 @@ class OpenGL {
      * | <span id="GL_3_BYTES"></span><span id="gl_3_bytes"></span><dl> <dt>**GL\_3\_BYTES**</dt> </dl>                      | The *lists* parameter is treated as an array of unsigned bytes. Each triplet of bytes specifies a single display list name. The value of the triplet is computed as 65536 times the unsigned value of the first byte, plus 256 times the unsigned value of the second byte, plus the unsigned value of the third byte.<br/>                                                                  |
      * | <span id="GL_4_BYTES"></span><span id="gl_4_bytes"></span><dl> <dt>**GL\_4\_BYTES**</dt> </dl>                      | The *lists* parameter is treated as an array of unsigned bytes. Each quadruplet of bytes specifies a single display list name. The value of the quadruplet is computed as 16777216 times the unsigned value of the first byte, plus 65536 times the unsigned value of the second byte, plus 256 times the unsigned value of the third byte, plus the unsigned value of the fourth byte.<br/> |
      * @param {Pointer<Void>} lists The address of an array of name offsets in the display list. The pointer type is void because the offsets can be bytes, shorts, ints, or floats, depending on the value of *type*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcalllists
      */
     static glCallLists(n, type, lists) {
-        result := DllCall("OPENGL32.dll\glCallLists", "int", n, "uint", type, "ptr", lists)
-        return result
+        DllCall("OPENGL32.dll\glCallLists", "int", n, "uint", type, "ptr", lists)
     }
 
     /**
@@ -4844,12 +4835,11 @@ class OpenGL {
      * | <span id="GL_DEPTH_BUFFER_BIT"></span><span id="gl_depth_buffer_bit"></span><dl> <dt>**GL\_DEPTH\_BUFFER\_BIT**</dt> </dl>       | The depth buffer.<br/>                                |
      * | <span id="GL_ACCUM_BUFFER_BIT"></span><span id="gl_accum_buffer_bit"></span><dl> <dt>**GL\_ACCUM\_BUFFER\_BIT**</dt> </dl>       | The accumulation buffer.<br/>                         |
      * | <span id="GL_STENCIL_BUFFER_BIT"></span><span id="gl_stencil_buffer_bit"></span><dl> <dt>**GL\_STENCIL\_BUFFER\_BIT**</dt> </dl> | The stencil buffer.<br/>                              |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclear
      */
     static glClear(mask) {
-        result := DllCall("OPENGL32.dll\glClear", "uint", mask)
-        return result
+        DllCall("OPENGL32.dll\glClear", "uint", mask)
     }
 
     /**
@@ -4866,12 +4856,11 @@ class OpenGL {
      * @param {Float} green The green value used when the accumulation buffer is cleared. The default value is zero.
      * @param {Float} blue The blue value used when the accumulation buffer is cleared. The default value is zero.
      * @param {Float} alpha The alpha value used when the accumulation buffer is cleared. The default value is zero.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearaccum
      */
     static glClearAccum(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glClearAccum", "float", red, "float", green, "float", blue, "float", alpha)
-        return result
+        DllCall("OPENGL32.dll\glClearAccum", "float", red, "float", green, "float", blue, "float", alpha)
     }
 
     /**
@@ -4888,12 +4877,11 @@ class OpenGL {
      * @param {Float} green The green value that [**glClear**](glclear.md) uses to clear the color buffers. The default value is zero.
      * @param {Float} blue The blue value that [**glClear**](glclear.md) uses to clear the color buffers. The default value is zero.
      * @param {Float} alpha The alpha value that [**glClear**](glclear.md) uses to clear the color buffers. The default value is zero.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearcolor
      */
     static glClearColor(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glClearColor", "float", red, "float", green, "float", blue, "float", alpha)
-        return result
+        DllCall("OPENGL32.dll\glClearColor", "float", red, "float", green, "float", blue, "float", alpha)
     }
 
     /**
@@ -4905,12 +4893,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_DEPTH\_CLEAR\_VALUE
      * @param {Float} depth The depth value used when the depth buffer is cleared.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcleardepth
      */
     static glClearDepth(depth) {
-        result := DllCall("OPENGL32.dll\glClearDepth", "double", depth)
-        return result
+        DllCall("OPENGL32.dll\glClearDepth", "double", depth)
     }
 
     /**
@@ -4924,12 +4911,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_INDEX\_BITS
      * @param {Float} c The index used when the color-index buffers are cleared. The default value is zero.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearindex
      */
     static glClearIndex(c) {
-        result := DllCall("OPENGL32.dll\glClearIndex", "float", c)
-        return result
+        DllCall("OPENGL32.dll\glClearIndex", "float", c)
     }
 
     /**
@@ -4943,12 +4929,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_STENCIL\_BITS
      * @param {Integer} s The index used when the stencil buffer is cleared. The default value is zero.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearstencil
      */
     static glClearStencil(s) {
-        result := DllCall("OPENGL32.dll\glClearStencil", "int", s)
-        return result
+        DllCall("OPENGL32.dll\glClearStencil", "int", s)
     }
 
     /**
@@ -4971,12 +4956,11 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_CLIP\_PLANE *i*
      * @param {Integer} plane The clipping plane that is being positioned. Symbolic names of the form GL\_CLIP\_PLANE*i*, where *i* is an integer between 0 and GL\_MAX\_CLIP\_PLANES - 1, are accepted.
      * @param {Pointer<Double>} equation The address of an array of four double-precision floating-point values. These values are interpreted as a plane equation.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclipplane
      */
     static glClipPlane(plane, equation) {
-        result := DllCall("OPENGL32.dll\glClipPlane", "uint", plane, "double*", equation)
-        return result
+        DllCall("OPENGL32.dll\glClipPlane", "uint", plane, "double*", equation)
     }
 
     /**
@@ -4992,12 +4976,11 @@ class OpenGL {
      * @param {Integer} red The new red value for the current color.
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3b
      */
     static glColor3b(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3b", "char", red, "char", green, "char", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3b", "char", red, "char", green, "char", blue)
     }
 
     /**
@@ -5011,12 +4994,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<SByte>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3bv
      */
     static glColor3bv(v) {
-        result := DllCall("OPENGL32.dll\glColor3bv", "char*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3bv", "char*", v)
     }
 
     /**
@@ -5032,12 +5014,11 @@ class OpenGL {
      * @param {Float} red The new red value for the current color.
      * @param {Float} green The new green value for the current color.
      * @param {Float} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3d
      */
     static glColor3d(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3d", "double", red, "double", green, "double", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3d", "double", red, "double", green, "double", blue)
     }
 
     /**
@@ -5051,12 +5032,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Double>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3dv
      */
     static glColor3dv(v) {
-        result := DllCall("OPENGL32.dll\glColor3dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3dv", "double*", v)
     }
 
     /**
@@ -5072,12 +5052,11 @@ class OpenGL {
      * @param {Float} red The new red value for the current color.
      * @param {Float} green The new green value for the current color.
      * @param {Float} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3f
      */
     static glColor3f(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3f", "float", red, "float", green, "float", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3f", "float", red, "float", green, "float", blue)
     }
 
     /**
@@ -5091,12 +5070,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Single>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3fv
      */
     static glColor3fv(v) {
-        result := DllCall("OPENGL32.dll\glColor3fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3fv", "float*", v)
     }
 
     /**
@@ -5112,12 +5090,11 @@ class OpenGL {
      * @param {Integer} red The new red value for the current color.
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3i
      */
     static glColor3i(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3i", "int", red, "int", green, "int", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3i", "int", red, "int", green, "int", blue)
     }
 
     /**
@@ -5131,12 +5108,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Int32>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3iv
      */
     static glColor3iv(v) {
-        result := DllCall("OPENGL32.dll\glColor3iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3iv", "int*", v)
     }
 
     /**
@@ -5152,12 +5128,11 @@ class OpenGL {
      * @param {Integer} red The new red value for the current color.
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3s
      */
     static glColor3s(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3s", "short", red, "short", green, "short", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3s", "short", red, "short", green, "short", blue)
     }
 
     /**
@@ -5171,12 +5146,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Int16>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3sv
      */
     static glColor3sv(v) {
-        result := DllCall("OPENGL32.dll\glColor3sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3sv", "short*", v)
     }
 
     /**
@@ -5192,12 +5166,11 @@ class OpenGL {
      * @param {Integer} red The new red value for the current color.
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ub
      */
     static glColor3ub(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3ub", "char", red, "char", green, "char", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3ub", "char", red, "char", green, "char", blue)
     }
 
     /**
@@ -5211,12 +5184,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Byte>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ubv
      */
     static glColor3ubv(v) {
-        result := DllCall("OPENGL32.dll\glColor3ubv", "char*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3ubv", "char*", v)
     }
 
     /**
@@ -5232,12 +5204,11 @@ class OpenGL {
      * @param {Integer} red The new red value for the current color.
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ui
      */
     static glColor3ui(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3ui", "uint", red, "uint", green, "uint", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3ui", "uint", red, "uint", green, "uint", blue)
     }
 
     /**
@@ -5251,12 +5222,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<UInt32>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3uiv
      */
     static glColor3uiv(v) {
-        result := DllCall("OPENGL32.dll\glColor3uiv", "uint*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3uiv", "uint*", v)
     }
 
     /**
@@ -5272,12 +5242,11 @@ class OpenGL {
      * @param {Integer} red The new red value for the current color.
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3us
      */
     static glColor3us(red, green, blue) {
-        result := DllCall("OPENGL32.dll\glColor3us", "ushort", red, "ushort", green, "ushort", blue)
-        return result
+        DllCall("OPENGL32.dll\glColor3us", "ushort", red, "ushort", green, "ushort", blue)
     }
 
     /**
@@ -5291,12 +5260,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<UInt16>} v A pointer to an array that contains red, green, and blue values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3usv
      */
     static glColor3usv(v) {
-        result := DllCall("OPENGL32.dll\glColor3usv", "ushort*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor3usv", "ushort*", v)
     }
 
     /**
@@ -5313,12 +5281,11 @@ class OpenGL {
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
      * @param {Integer} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4b
      */
     static glColor4b(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4b", "char", red, "char", green, "char", blue, "char", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4b", "char", red, "char", green, "char", blue, "char", alpha)
     }
 
     /**
@@ -5332,12 +5299,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<SByte>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4bv
      */
     static glColor4bv(v) {
-        result := DllCall("OPENGL32.dll\glColor4bv", "char*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4bv", "char*", v)
     }
 
     /**
@@ -5354,12 +5320,11 @@ class OpenGL {
      * @param {Float} green The new green value for the current color.
      * @param {Float} blue The new blue value for the current color.
      * @param {Float} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4d
      */
     static glColor4d(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4d", "double", red, "double", green, "double", blue, "double", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4d", "double", red, "double", green, "double", blue, "double", alpha)
     }
 
     /**
@@ -5373,12 +5338,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Double>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4dv
      */
     static glColor4dv(v) {
-        result := DllCall("OPENGL32.dll\glColor4dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4dv", "double*", v)
     }
 
     /**
@@ -5395,12 +5359,11 @@ class OpenGL {
      * @param {Float} green The new green value for the current color.
      * @param {Float} blue The new blue value for the current color.
      * @param {Float} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4f
      */
     static glColor4f(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4f", "float", red, "float", green, "float", blue, "float", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4f", "float", red, "float", green, "float", blue, "float", alpha)
     }
 
     /**
@@ -5414,12 +5377,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Single>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4fv
      */
     static glColor4fv(v) {
-        result := DllCall("OPENGL32.dll\glColor4fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4fv", "float*", v)
     }
 
     /**
@@ -5436,12 +5398,11 @@ class OpenGL {
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
      * @param {Integer} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4i
      */
     static glColor4i(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4i", "int", red, "int", green, "int", blue, "int", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4i", "int", red, "int", green, "int", blue, "int", alpha)
     }
 
     /**
@@ -5455,12 +5416,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Int32>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4iv
      */
     static glColor4iv(v) {
-        result := DllCall("OPENGL32.dll\glColor4iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4iv", "int*", v)
     }
 
     /**
@@ -5477,12 +5437,11 @@ class OpenGL {
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
      * @param {Integer} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4s
      */
     static glColor4s(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4s", "short", red, "short", green, "short", blue, "short", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4s", "short", red, "short", green, "short", blue, "short", alpha)
     }
 
     /**
@@ -5496,12 +5455,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Int16>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4sv
      */
     static glColor4sv(v) {
-        result := DllCall("OPENGL32.dll\glColor4sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4sv", "short*", v)
     }
 
     /**
@@ -5518,12 +5476,11 @@ class OpenGL {
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
      * @param {Integer} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ub
      */
     static glColor4ub(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4ub", "char", red, "char", green, "char", blue, "char", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4ub", "char", red, "char", green, "char", blue, "char", alpha)
     }
 
     /**
@@ -5537,12 +5494,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<Byte>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ubv
      */
     static glColor4ubv(v) {
-        result := DllCall("OPENGL32.dll\glColor4ubv", "char*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4ubv", "char*", v)
     }
 
     /**
@@ -5559,12 +5515,11 @@ class OpenGL {
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
      * @param {Integer} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ui
      */
     static glColor4ui(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4ui", "uint", red, "uint", green, "uint", blue, "uint", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4ui", "uint", red, "uint", green, "uint", blue, "uint", alpha)
     }
 
     /**
@@ -5578,12 +5533,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<UInt32>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4uiv
      */
     static glColor4uiv(v) {
-        result := DllCall("OPENGL32.dll\glColor4uiv", "uint*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4uiv", "uint*", v)
     }
 
     /**
@@ -5600,12 +5554,11 @@ class OpenGL {
      * @param {Integer} green The new green value for the current color.
      * @param {Integer} blue The new blue value for the current color.
      * @param {Integer} alpha The new alpha value for the current color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4us
      */
     static glColor4us(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColor4us", "ushort", red, "ushort", green, "ushort", blue, "ushort", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColor4us", "ushort", red, "ushort", green, "ushort", blue, "ushort", alpha)
     }
 
     /**
@@ -5619,12 +5572,11 @@ class OpenGL {
      * 
      * Neither floating-point nor signed integer values are clamped to the range \[0,1\] before the current color is updated. However, color components are clamped to this range before they are interpolated or written into a color buffer.
      * @param {Pointer<UInt16>} v A pointer to an array that contains red, green, blue, and alpha values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4usv
      */
     static glColor4usv(v) {
-        result := DllCall("OPENGL32.dll\glColor4usv", "ushort*", v)
-        return result
+        DllCall("OPENGL32.dll\glColor4usv", "ushort*", v)
     }
 
     /**
@@ -5643,12 +5595,11 @@ class OpenGL {
      * @param {Integer} green Specify whether green can or cannot be written into the framebuffer. The default value is GL\_TRUE, indicating that the color component can be written.
      * @param {Integer} blue Specify whether blue can or cannot be written into the framebuffer. The default value is GL\_TRUE, indicating that the color component can be written.
      * @param {Integer} alpha Specify whether alpha can or cannot be written into the framebuffer. The default value is GL\_TRUE, indicating that the color component can be written.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormask
      */
     static glColorMask(red, green, blue, alpha) {
-        result := DllCall("OPENGL32.dll\glColorMask", "char", red, "char", green, "char", blue, "char", alpha)
-        return result
+        DllCall("OPENGL32.dll\glColorMask", "char", red, "char", green, "char", blue, "char", alpha)
     }
 
     /**
@@ -5667,12 +5618,11 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_COLOR\_MATERIAL
      * @param {Integer} face Specifies whether front, back, or both front and back material parameters should track the current color. Accepted values are GL\_FRONT, GL\_BACK, and GL\_FRONT\_AND\_BACK. The default value is GL\_FRONT\_AND\_BACK.
      * @param {Integer} mode Specifies which of several material parameters track the current color. Accepted values are GL\_EMISSION, GL\_AMBIENT, GL\_DIFFUSE, GL\_SPECULAR, and GL\_AMBIENT\_AND\_DIFFUSE. The default value is GL\_AMBIENT\_AND\_DIFFUSE.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormaterial
      */
     static glColorMaterial(face, mode) {
-        result := DllCall("OPENGL32.dll\glColorMaterial", "uint", face, "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glColorMaterial", "uint", face, "uint", mode)
     }
 
     /**
@@ -5703,12 +5653,11 @@ class OpenGL {
      * @param {Integer} type The data type of each color component in a color array. Acceptable data types are specified with the following constants: GL\_BYTE, GL\_UNSIGNED\_BYTE, GL\_SHORT, GL\_UNSIGNED\_SHORT, GL\_INT, GL\_UNSIGNED\_INT, GL\_FLOAT, or GL\_DOUBLE.
      * @param {Integer} stride The byte offset between consecutive colors. When *stride* is zero, the colors are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first component of the first color element in a color array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolorpointer
      */
     static glColorPointer(size, type, stride, pointer) {
-        result := DllCall("OPENGL32.dll\glColorPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glColorPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
     }
 
     /**
@@ -5759,12 +5708,11 @@ class OpenGL {
      * | <span id="GL_COLOR"></span><span id="gl_color"></span><dl><dt><strong>GL_COLOR</strong></dt></dl> | The <strong>glCopyPixels</strong> function reads indexes or RGBA colors from the buffer currently specified as the read source buffer (see <a href="glreadbuffer.md"><strong>glReadBuffer</strong></a>). <br /> If OpenGL is in color-index mode:<br /><ol><li>Each index that is read from this buffer is converted to a fixed-point format with an unspecified number of bits to the right of the binary point.</li><li>Each index is shifted left by GL_INDEX_SHIFT bits, and added to GL_INDEX_OFFSET.If GL_INDEX_SHIFT is negative, the shift is to the right. In either case, zero bits fill otherwise unspecified bit locations in the result.<br /></li><li>If GL_MAP_COLOR is true, the index is replaced with the value that it references in lookup table GL_PIXEL_MAP_I_TO_I.</li><li>Whether the lookup replacement of the index is done or not, the integer part of the index is then <strong>AND</strong>ed with 2<em><sup>b</sup></em> 1, where <em>b</em> is the number of bits in a color-index buffer.</li></ol>If OpenGL is in RGBA mode:<br /><ol><li>The red, green, blue, and alpha components of each pixel that is read are converted to an internal floating-point format with unspecified precision.</li><li>The conversion maps the largest representable component value to 1.0, and component value zero to 0.0.</li><li>The resulting floating-point color values are then multiplied by GL_c_SCALE and added to GL_c_BIAS, where <em>c</em> is RED, GREEN, BLUE, and ALPHA for the respective color components.</li><li>The results are clamped to the range [0,1].</li><li>If GL_MAP_COLOR is true, each color component is scaled by the size of lookup table GL_PIXEL_MAP_c_TO_c, and then replaced by the value that it references in that table; <em>c</em> is R, G, B, or A, respectively. The resulting indexes or RGBA colors are then converted to fragments by attaching the current raster position <em>z</em>-coordinate and texture coordinates to each pixel, and then assigning window coordinates (<em>x</em><sub>r</sub> + i, <em>y</em><sub>r</sub> + <em>j</em>), where (<em>x</em><sub>r</sub> , <em>y</em><sub>r</sub> ) is the current raster position, and the pixel was the pixel in the <em>i</em> position in the <em>j</em> row. These pixel fragments are then treated just like the fragments generated by rasterizing points, lines, or polygons. Texture mapping, fog, and all the fragment operations are applied before the fragments are written to the framebuffer.<br /></li></ol> | 
      * | <span id="GL_DEPTH"></span><span id="gl_depth"></span><dl><dt><strong>GL_DEPTH</strong></dt></dl> | Depth values are read from the depth buffer and converted directly to an internal floating-point format with unspecified precision. The resulting floating-point depth value is then multiplied by GL_DEPTH_SCALE and added to GL_DEPTH_BIAS. The result is clamped to the range [0,1]. <br /> The resulting depth components are then converted to fragments by attaching the current raster position color or color index and texture coordinates to each pixel, then assigning window coordinates (<em>x</em><sub>r</sub> + i, <em>y</em><sub>r</sub> + <em>j</em>), where (<em>x</em><sub>r</sub> , <em>y</em><sub>r</sub> ) is the current raster position, and the pixel was the pixel in the <em>i</em> position in the <em>j</em> row. These pixel fragments are then treated just like the fragments generated by rasterizing points, lines, or polygons. Texture mapping, fog, and all the fragment operations are applied before the fragments are written to the framebuffer.<br /> | 
      * | <span id="GL_STENCIL"></span><span id="gl_stencil"></span><dl><dt><strong>GL_STENCIL</strong></dt></dl> | Stencil indexes are read from the stencil buffer and converted to an internal fixed-point format with an unspecified number of bits to the right of the binary point. Each fixed-point index is then shifted left by GL_INDEX_SHIFT bits, and added to GL_INDEX_OFFSET. If GL_INDEX_SHIFT is negative, the shift is to the right. In either case, zero bits fill otherwise unspecified bit locations in the result. If GL_MAP_STENCIL is true, the index is replaced with the value that it references in lookup table GL_PIXEL_MAP_S_TO_S. Whether the lookup replacement of the index is done or not, the integer part of the index is then <strong>AND</strong>ed with 2<sup>b</sup> - 1, where <em>b</em> is the number of bits in the stencil buffer. The resulting stencil indexes are then written to the stencil buffer such that the index read from the <em>i</em> location of the <em>j</em> row is written to location (<em>x</em><sub>r</sub> + <em>i</em>, <em>y</em><sub>r</sub> + <em>j</em>), where (<em>x</em><sub>r</sub> , <em>y</em><sub>r</sub> ) is the current raster position. Only the pixel-ownership test, the scissor test, and the stencil writemask affect these writes.<br /> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopypixels
      */
     static glCopyPixels(x, y, width, height, type) {
-        result := DllCall("OPENGL32.dll\glCopyPixels", "int", x, "int", y, "int", width, "int", height, "uint", type)
-        return result
+        DllCall("OPENGL32.dll\glCopyPixels", "int", x, "int", y, "int", width, "int", height, "uint", type)
     }
 
     /**
@@ -5838,12 +5786,11 @@ class OpenGL {
      * @param {Integer} y The window y-plane coordinate of the lower-left corner of the row of pixels to be copied.
      * @param {Integer} width The width of the texture image. Must be zero or 2n + 2(*border*) for some integer *n*. The height of the texture image is 1.
      * @param {Integer} border The width of the border. Must be either zero or 1.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopyteximage1d
      */
     static glCopyTexImage1D(target, level, internalFormat, x, y, width, border) {
-        result := DllCall("OPENGL32.dll\glCopyTexImage1D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", border)
-        return result
+        DllCall("OPENGL32.dll\glCopyTexImage1D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", border)
     }
 
     /**
@@ -5918,12 +5865,11 @@ class OpenGL {
      * @param {Integer} width The width of the texture image. Must be 2n + 2 \* *border* for some integer *n*.
      * @param {Integer} height The height of the texture image. Must be 2n + 2 \* *border* for some integer *n*.
      * @param {Integer} border The width of the border. Must be either zero or 1.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopyteximage2d
      */
     static glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border) {
-        result := DllCall("OPENGL32.dll\glCopyTexImage2D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", height, "int", border)
-        return result
+        DllCall("OPENGL32.dll\glCopyTexImage2D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", height, "int", border)
     }
 
     /**
@@ -5957,12 +5903,11 @@ class OpenGL {
      * @param {Integer} x The window x-plane coordinate of the lower-left corner of the row of pixels to be copied.
      * @param {Integer} y The window y-plane coordinate of the lower-left corner of the row of pixels to be copied.
      * @param {Integer} width The width of the sub-image of the texture image. Specifying a texture sub-image with zero width has no effect.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopytexsubimage1d
      */
     static glCopyTexSubImage1D(target, level, xoffset, x, y, width) {
-        result := DllCall("OPENGL32.dll\glCopyTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", x, "int", y, "int", width)
-        return result
+        DllCall("OPENGL32.dll\glCopyTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", x, "int", y, "int", width)
     }
 
     /**
@@ -5998,12 +5943,11 @@ class OpenGL {
      * @param {Integer} y The window y-plane coordinates of the lower-left corner of the row of pixels to be copied.
      * @param {Integer} width The width of the sub-image of the texture image. Specifying a texture sub-image with zero width has no effect.
      * @param {Integer} height The height of the sub-image of the texture image. Specifying a texture sub-image with zero width has no effect.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopytexsubimage2d
      */
     static glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height) {
-        result := DllCall("OPENGL32.dll\glCopyTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", x, "int", y, "int", width, "int", height)
-        return result
+        DllCall("OPENGL32.dll\glCopyTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", x, "int", y, "int", width, "int", height)
     }
 
     /**
@@ -6021,12 +5965,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_CULL\_FACE
      * @param {Integer} mode Specifies whether front-facing or back-facing facets are candidates for culling. The symbolic constants GL\_FRONT, GL\_BACK, and GL\_FRONT\_AND\_BACK are accepted. The default value is GL\_BACK.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcullface
      */
     static glCullFace(mode) {
-        result := DllCall("OPENGL32.dll\glCullFace", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glCullFace", "uint", mode)
     }
 
     /**
@@ -6037,12 +5980,11 @@ class OpenGL {
      * All storage locations allocated to the specified display lists are freed, and the names are available for reuse at a later time. Names within the range that do not have an associated display list are ignored. If *range* is zero, nothing happens.
      * @param {Integer} list The integer name of the first display list to delete.
      * @param {Integer} range The number of display lists to delete.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldeletelists
      */
     static glDeleteLists(list, range) {
-        result := DllCall("OPENGL32.dll\glDeleteLists", "uint", list, "int", range)
-        return result
+        DllCall("OPENGL32.dll\glDeleteLists", "uint", list, "int", range)
     }
 
     /**
@@ -6064,12 +6006,11 @@ class OpenGL {
      * -   [**glIsTexture**](glistexture.md)
      * @param {Integer} n The number of textures to be deleted.
      * @param {Pointer<UInt32>} textures An array of textures to be deleted.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldeletetextures
      */
     static glDeleteTextures(n, textures) {
-        result := DllCall("OPENGL32.dll\glDeleteTextures", "int", n, "uint*", textures)
-        return result
+        DllCall("OPENGL32.dll\glDeleteTextures", "int", n, "uint*", textures)
     }
 
     /**
@@ -6098,12 +6039,11 @@ class OpenGL {
      * | <span id="GL_NOTEQUAL"></span><span id="gl_notequal"></span><dl> <dt>**GL\_NOTEQUAL**</dt> </dl> | Passes if the incoming z value is not equal to the stored z value.<br/>                             |
      * | <span id="GL_GEQUAL"></span><span id="gl_gequal"></span><dl> <dt>**GL\_GEQUAL**</dt> </dl>       | Passes if the incoming z value is greater than or equal to the stored z value.<br/>                 |
      * | <span id="GL_ALWAYS"></span><span id="gl_always"></span><dl> <dt>**GL\_ALWAYS**</dt> </dl>       | Always passes.<br/>                                                                                 |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthfunc
      */
     static glDepthFunc(func) {
-        result := DllCall("OPENGL32.dll\glDepthFunc", "uint", func)
-        return result
+        DllCall("OPENGL32.dll\glDepthFunc", "uint", func)
     }
 
     /**
@@ -6113,12 +6053,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_DEPTH\_WRITEMASK
      * @param {Integer} flag Specifies whether the depth buffer is enabled for writing. If *flag* is zero, depth-buffer writing is disabled. Otherwise, it is enabled. Initially, depth-buffer writing is enabled.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthmask
      */
     static glDepthMask(flag) {
-        result := DllCall("OPENGL32.dll\glDepthMask", "char", flag)
-        return result
+        DllCall("OPENGL32.dll\glDepthMask", "char", flag)
     }
 
     /**
@@ -6135,12 +6074,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_DEPTH\_RANGE
      * @param {Float} zNear The mapping of the near clipping plane to window coordinates. The default value is zero.
      * @param {Float} zFar The mapping of the far clipping plane to window coordinates. The default value is 1.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthrange
      */
     static glDepthRange(zNear, zFar) {
-        result := DllCall("OPENGL32.dll\glDepthRange", "double", zNear, "double", zFar)
-        return result
+        DllCall("OPENGL32.dll\glDepthRange", "double", zNear, "double", zFar)
     }
 
     /**
@@ -6206,12 +6144,11 @@ class OpenGL {
      * @param {Integer} cap A symbolic constant indicating an OpenGL capability.
      * 
      * For discussion of the values *cap* can take, see the following Remarks section.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldisable
      */
     static glDisable(cap) {
-        result := DllCall("OPENGL32.dll\glDisable", "uint", cap)
-        return result
+        DllCall("OPENGL32.dll\glDisable", "uint", cap)
     }
 
     /**
@@ -6235,12 +6172,11 @@ class OpenGL {
      * | <span id="GL_NORMAL_ARRAY"></span><span id="gl_normal_array"></span><dl> <dt>**GL\_NORMAL\_ARRAY**</dt> </dl>                       | If enabled, use normal arrays with calls to [**glArrayElement**](glarrayelement.md), [**glDrawElements**](gldrawelements.md), or [**glDrawArrays**](gldrawarrays.md).<br/> See also [**glNormalPointer**](glnormalpointer.md).<br/>                 |
      * | <span id="GL_TEXTURE_COORD_ARRAY"></span><span id="gl_texture_coord_array"></span><dl> <dt>**GL\_TEXTURE\_COORD\_ARRAY**</dt> </dl> | If enabled, use texture coordinate arrays with calls to [**glArrayElement**](glarrayelement.md), [**glDrawElements**](gldrawelements.md), or [**glDrawArrays**](gldrawarrays.md).<br/> See also [**glTexCoordPointer**](gltexcoordpointer.md).<br/> |
      * | <span id="GL_VERTEX_ARRAY"></span><span id="gl_vertex_array"></span><dl> <dt>**GL\_VERTEX\_ARRAY**</dt> </dl>                       | If enabled, use vertex arrays with calls to [**glArrayElement**](glarrayelement.md), [**glDrawElements**](gldrawelements.md), or [**glDrawArrays**](gldrawarrays.md).<br/> See also [**glVertexPointer**](glvertexpointer.md).<br/>                 |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldisableclientstate
      */
     static glDisableClientState(array) {
-        result := DllCall("OPENGL32.dll\glDisableClientState", "uint", array)
-        return result
+        DllCall("OPENGL32.dll\glDisableClientState", "uint", array)
     }
 
     /**
@@ -6260,12 +6196,11 @@ class OpenGL {
      * @param {Integer} mode The kind of primitives to render. The following constants specify acceptable types of primitives: GL\_POINTS, GL\_LINE\_STRIP, GL\_LINE\_LOOP, GL\_LINES, GL\_TRIANGLE\_STRIP, GL\_TRIANGLE\_FAN, GL\_TRIANGLES, GL\_QUAD\_STRIP, GL\_QUADS, and GL\_POLYGON.
      * @param {Integer} first The starting index in the enabled arrays.
      * @param {Integer} count The number of indexes to render.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawarrays
      */
     static glDrawArrays(mode, first, count) {
-        result := DllCall("OPENGL32.dll\glDrawArrays", "uint", mode, "int", first, "int", count)
-        return result
+        DllCall("OPENGL32.dll\glDrawArrays", "uint", mode, "int", first, "int", count)
     }
 
     /**
@@ -6307,12 +6242,11 @@ class OpenGL {
      *  
      * 
      * The default value is GL\_FRONT for single-buffered contexts, and GL\_BACK for double-buffered contexts.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawbuffer
      */
     static glDrawBuffer(mode) {
-        result := DllCall("OPENGL32.dll\glDrawBuffer", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glDrawBuffer", "uint", mode)
     }
 
     /**
@@ -6332,12 +6266,11 @@ class OpenGL {
      * @param {Integer} count The number of elements to be rendered.
      * @param {Integer} type The type of the values in indices. Must be one of GL\_UNSIGNED\_BYTE, GL\_UNSIGNED\_SHORT, or GL\_UNSIGNED\_INT.
      * @param {Pointer<Void>} indices A pointer to the location where the indices are stored.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawelements
      */
     static glDrawElements(mode, count, type, indices) {
-        result := DllCall("OPENGL32.dll\glDrawElements", "uint", mode, "int", count, "uint", type, "ptr", indices)
-        return result
+        DllCall("OPENGL32.dll\glDrawElements", "uint", mode, "int", count, "uint", type, "ptr", indices)
     }
 
     /**
@@ -6401,12 +6334,11 @@ class OpenGL {
      * | <span id="GL_INT"></span><span id="gl_int"></span><dl> <dt>**GL\_INT**</dt> </dl>                                   | 32-bit integer<br/>                         |
      * | <span id="GL_FLOAT"></span><span id="gl_float"></span><dl> <dt>**GL\_FLOAT**</dt> </dl>                             | Single-precision floating-point<br/>        |
      * @param {Pointer<Void>} pixels A pointer to the pixel data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawpixels
      */
     static glDrawPixels(width, height, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glDrawPixels", "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glDrawPixels", "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -6426,12 +6358,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_EDGE\_FLAG
      * @param {Integer} flag Specifies the current edge flag value, either **TRUE** or **FALSE**.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflag
      */
     static glEdgeFlag(flag) {
-        result := DllCall("OPENGL32.dll\glEdgeFlag", "char", flag)
-        return result
+        DllCall("OPENGL32.dll\glEdgeFlag", "char", flag)
     }
 
     /**
@@ -6460,12 +6391,11 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_EDGE\_FLAG\_ARRAY
      * @param {Integer} stride The byte offset between consecutive edge flags. When *stride* is zero, the edge flags are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first edge flag in the array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflagpointer
      */
     static glEdgeFlagPointer(stride, pointer) {
-        result := DllCall("OPENGL32.dll\glEdgeFlagPointer", "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glEdgeFlagPointer", "int", stride, "ptr", pointer)
     }
 
     /**
@@ -6485,12 +6415,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_EDGE\_FLAG
      * @param {Pointer<Byte>} flag Specifies a pointer to an array that contains a single Boolean element, which replaces the current edge flag value.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflagv
      */
     static glEdgeFlagv(flag) {
-        result := DllCall("OPENGL32.dll\glEdgeFlagv", "char*", flag)
-        return result
+        DllCall("OPENGL32.dll\glEdgeFlagv", "char*", flag)
     }
 
     /**
@@ -6556,12 +6485,11 @@ class OpenGL {
      * @param {Integer} cap A symbolic constant indicating an OpenGL capability.
      * 
      * For discussion of the values *cap* can take, see the following Remarks section.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glenable
      */
     static glEnable(cap) {
-        result := DllCall("OPENGL32.dll\glEnable", "uint", cap)
-        return result
+        DllCall("OPENGL32.dll\glEnable", "uint", cap)
     }
 
     /**
@@ -6585,12 +6513,11 @@ class OpenGL {
      * | <span id="GL_NORMAL_ARRAY"></span><span id="gl_normal_array"></span><dl> <dt>**GL\_NORMAL\_ARRAY**</dt> </dl>                       | If enabled, use normal arrays with calls to [**glArrayElement**](glarrayelement.md), [**glDrawElements**](gldrawelements.md), or [**glDrawArrays**](gldrawarrays.md).<br/> See also [**glNormalPointer**](glnormalpointer.md).<br/>                 |
      * | <span id="GL_TEXTURE_COORD_ARRAY"></span><span id="gl_texture_coord_array"></span><dl> <dt>**GL\_TEXTURE\_COORD\_ARRAY**</dt> </dl> | If enabled, use texture coordinate arrays with calls to [**glArrayElement**](glarrayelement.md), [**glDrawElements**](gldrawelements.md), or [**glDrawArrays**](gldrawarrays.md).<br/> See also [**glTexCoordPointer**](gltexcoordpointer.md).<br/> |
      * | <span id="GL_VERTEX_ARRAY"></span><span id="gl_vertex_array"></span><dl> <dt>**GL\_VERTEX\_ARRAY**</dt> </dl>                       | If enabled, use vertex arrays with calls to [**glArrayElement**](glarrayelement.md), [**glDrawElements**](gldrawelements.md), or [**glDrawArrays**](gldrawarrays.md).<br/> See also [**glVertexPointer**](glvertexpointer.md).<br/>                 |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glenableclientstate
      */
     static glEnableClientState(array) {
-        result := DllCall("OPENGL32.dll\glEnableClientState", "uint", array)
-        return result
+        DllCall("OPENGL32.dll\glEnableClientState", "uint", array)
     }
 
     /**
@@ -6628,15 +6555,11 @@ class OpenGL {
      *      
      * 
      * -   Modes that require a certain multiple of vertices are GL\_LINES (2), GL\_TRIANGLES (3), GL\_QUADS (4), and GL\_QUAD\_STRIP (2).
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glend
      */
     static glEnd() {
-        result := DllCall("OPENGL32.dll\glEnd")
-        return result
+        DllCall("OPENGL32.dll\glEnd")
     }
 
     /**
@@ -6657,15 +6580,11 @@ class OpenGL {
      * The following function retrieves information related to [**glNewList**](glnewlist.md):
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MATRIX\_MODE
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glendlist
      */
     static glEndList() {
-        result := DllCall("OPENGL32.dll\glEndList")
-        return result
+        DllCall("OPENGL32.dll\glEndList")
     }
 
     /**
@@ -6717,12 +6636,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Float} u A value that is the domain coordinate *u* to the basis function defined in a previous [**glMap1**](glmap1.md) function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1d
      */
     static glEvalCoord1d(u) {
-        result := DllCall("OPENGL32.dll\glEvalCoord1d", "double", u)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord1d", "double", u)
     }
 
     /**
@@ -6774,12 +6692,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Pointer<Double>} u A pointer to an array containing the domain coordinate *u*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1dv
      */
     static glEvalCoord1dv(u) {
-        result := DllCall("OPENGL32.dll\glEvalCoord1dv", "double*", u)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord1dv", "double*", u)
     }
 
     /**
@@ -6831,12 +6748,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Float} u A value that is the domain coordinate *u* to the basis function defined in a previous [**glMap1**](glmap1.md) function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1f
      */
     static glEvalCoord1f(u) {
-        result := DllCall("OPENGL32.dll\glEvalCoord1f", "float", u)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord1f", "float", u)
     }
 
     /**
@@ -6888,12 +6804,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Pointer<Single>} u A pointer to an array containing the domain coordinate *u*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1fv
      */
     static glEvalCoord1fv(u) {
-        result := DllCall("OPENGL32.dll\glEvalCoord1fv", "float*", u)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord1fv", "float*", u)
     }
 
     /**
@@ -6954,12 +6869,11 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Float} u A value that is the domain coordinate *u* to the basis function defined in a previous [**glMap2**](glmap2.md) function.
      * @param {Float} v A value that is the domain coordinate *v* to the basis function defined in a previous [**glMap2**](glmap2.md) function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2d
      */
     static glEvalCoord2d(u, v) {
-        result := DllCall("OPENGL32.dll\glEvalCoord2d", "double", u, "double", v)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord2d", "double", u, "double", v)
     }
 
     /**
@@ -7019,12 +6933,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Pointer<Double>} u A pointer to an array containing the domain coordinate *u*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2dv
      */
     static glEvalCoord2dv(u) {
-        result := DllCall("OPENGL32.dll\glEvalCoord2dv", "double*", u)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord2dv", "double*", u)
     }
 
     /**
@@ -7085,12 +6998,11 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Float} u A value that is the domain coordinate *u* to the basis function defined in a previous [**glMap2**](glmap2.md) function.
      * @param {Float} v A value that is the domain coordinate *v* to the basis function defined in a previous [**glMap2**](glmap2.md) function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2f
      */
     static glEvalCoord2f(u, v) {
-        result := DllCall("OPENGL32.dll\glEvalCoord2f", "float", u, "float", v)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord2f", "float", u, "float", v)
     }
 
     /**
@@ -7150,12 +7062,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_AUTO\_NORMAL
      * @param {Pointer<Single>} u A pointer to an array containing the domain coordinate *u*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2fv
      */
     static glEvalCoord2fv(u) {
-        result := DllCall("OPENGL32.dll\glEvalCoord2fv", "float*", u)
-        return result
+        DllCall("OPENGL32.dll\glEvalCoord2fv", "float*", u)
     }
 
     /**
@@ -7185,12 +7096,11 @@ class OpenGL {
      * @param {Integer} mode A value that specifies whether to compute a one-dimensional mesh of points or lines. The following symbolic constants are accepted: GL\_POINT and GL\_LINE.
      * @param {Integer} i1 The first integer value for grid domain variable i.
      * @param {Integer} i2 The last integer value for grid domain variable i.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh1
      */
     static glEvalMesh1(mode, i1, i2) {
-        result := DllCall("OPENGL32.dll\glEvalMesh1", "uint", mode, "int", i1, "int", i2)
-        return result
+        DllCall("OPENGL32.dll\glEvalMesh1", "uint", mode, "int", i1, "int", i2)
     }
 
     /**
@@ -7296,12 +7206,11 @@ class OpenGL {
      * @param {Integer} i2 The last integer value for grid domain variable i.
      * @param {Integer} j1 The first integer value for grid domain variable j.
      * @param {Integer} j2 The last integer value for grid domain variable j.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh2
      */
     static glEvalMesh2(mode, i1, i2, j1, j2) {
-        result := DllCall("OPENGL32.dll\glEvalMesh2", "uint", mode, "int", i1, "int", i2, "int", j1, "int", j2)
-        return result
+        DllCall("OPENGL32.dll\glEvalMesh2", "uint", mode, "int", i1, "int", i2, "int", j1, "int", j2)
     }
 
     /**
@@ -7339,12 +7248,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_MAP2\_GRID\_SEGMENTS
      * @param {Integer} i The integer value for grid domain variable *i*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalpoint1
      */
     static glEvalPoint1(i) {
-        result := DllCall("OPENGL32.dll\glEvalPoint1", "int", i)
-        return result
+        DllCall("OPENGL32.dll\glEvalPoint1", "int", i)
     }
 
     /**
@@ -7383,12 +7291,11 @@ class OpenGL {
      * **glGet** with argument GL\_MAP2\_GRID\_SEGMENTS
      * @param {Integer} i The integer value for grid domain variable *i*.
      * @param {Integer} j The integer value for grid domain variable *j* .
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalpoint2
      */
     static glEvalPoint2(i, j) {
-        result := DllCall("OPENGL32.dll\glEvalPoint2", "int", i, "int", j)
-        return result
+        DllCall("OPENGL32.dll\glEvalPoint2", "int", i, "int", j)
     }
 
     /**
@@ -7478,12 +7385,11 @@ class OpenGL {
      * @param {Integer} size The maximum number of values that can be written into *buffer*.
      * @param {Integer} type A symbolic constant that describes the information that will be returned for each vertex. The following symbolic constants are accepted: GL\_2D, GL\_3D, GL\_3D\_COLOR, GL\_3D\_COLOR\_TEXTURE, and GL\_4D\_COLOR\_TEXTURE.
      * @param {Pointer<Single>} buffer Returns the feedback data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfeedbackbuffer
      */
     static glFeedbackBuffer(size, type, buffer) {
-        result := DllCall("OPENGL32.dll\glFeedbackBuffer", "int", size, "uint", type, "float*", buffer)
-        return result
+        DllCall("OPENGL32.dll\glFeedbackBuffer", "int", size, "uint", type, "float*", buffer)
     }
 
     /**
@@ -7492,15 +7398,11 @@ class OpenGL {
      * The **glFinish** function does not return until the effects of all previously called OpenGL functions are complete. Such effects include all changes to the OpenGL state, all changes to the connection state, and all changes to the framebuffer contents.
      * 
      * The **glFinish** function requires a round trip to the server.
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfinish
      */
     static glFinish() {
-        result := DllCall("OPENGL32.dll\glFinish")
-        return result
+        DllCall("OPENGL32.dll\glFinish")
     }
 
     /**
@@ -7511,15 +7413,11 @@ class OpenGL {
      * Because any OpenGL program might be executed over a network, or on an accelerator that buffers commands, be sure to call **glFlush** in any programs requiring that all of their previously issued commands have been completed. For example, call **glFlush** before waiting for user input that depends on the generated image.
      * 
      * The **glFlush** function can return at any time. It does not wait until the execution of all previously issued OpenGL functions is complete.
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glflush
      */
     static glFlush() {
-        result := DllCall("OPENGL32.dll\glFlush")
-        return result
+        DllCall("OPENGL32.dll\glFlush")
     }
 
     /**
@@ -7578,12 +7476,11 @@ class OpenGL {
      * | <span id="GL_FOG_END"></span><span id="gl_fog_end"></span><dl> <dt>**GL\_FOG\_END**</dt> </dl>             | The *params* parameter is a single floating-point value that specifies *end*, the far distance used in the linear fog equation. The default far distance is 1.0.<br/>                                                                                                                                                                                      |
      * | <span id="GL_FOG_INDEX"></span><span id="gl_fog_index"></span><dl> <dt>**GL\_FOG\_INDEX**</dt> </dl>       | The *params* parameter is a single floating-point value that specifies *i*<sub>f</sub> , the fog color index. The default fog index is 0.0.<br/>                                                                                                                                                                                                           |
      * @param {Float} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogf
      */
     static glFogf(pname, param1) {
-        result := DllCall("OPENGL32.dll\glFogf", "uint", pname, "float", param1)
-        return result
+        DllCall("OPENGL32.dll\glFogf", "uint", pname, "float", param1)
     }
 
     /**
@@ -7643,12 +7540,11 @@ class OpenGL {
      * | <span id="GL_FOG_INDEX"></span><span id="gl_fog_index"></span><dl> <dt>**GL\_FOG\_INDEX**</dt> </dl>       | The *params* parameter is a floating-point value that specifies *i*<sub>f</sub> , the fog color index. The default fog index is 0.0.<br/>                                                                                                                                                                                                                                                                                     |
      * | <span id="GL_FOG_COLOR"></span><span id="gl_fog_color"></span><dl> <dt>**GL\_FOG\_COLOR**</dt> </dl>       | The *params* parameter contains four floating-point values that specify *C*<sub>f</sub> , the fog color. Integer values are mapped linearly such that the most positive representable value maps to 1.0, and the most negative representable value maps to -1.0. Floating-point values are mapped directly. After conversion, all color components are clamped to the range \[0,1\]. The default fog color is (0,0,0,0).<br/> |
      * @param {Pointer<Single>} params Specifies the value or values to be assigned to *pname*. GL\_FOG\_COLOR requires an array of four values. All other parameters accept an array containing only a single value.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogfv
      */
     static glFogfv(pname, params) {
-        result := DllCall("OPENGL32.dll\glFogfv", "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glFogfv", "uint", pname, "float*", params)
     }
 
     /**
@@ -7707,12 +7603,11 @@ class OpenGL {
      * | <span id="GL_FOG_END"></span><span id="gl_fog_end"></span><dl> <dt>**GL\_FOG\_END**</dt> </dl>             | The *params* parameter is a single integer value that specifies *end*, the far distance used in the linear fog equation. The default far distance is 1.0.<br/>                                                                                                                                                                                      |
      * | <span id="GL_FOG_INDEX"></span><span id="gl_fog_index"></span><dl> <dt>**GL\_FOG\_INDEX**</dt> </dl>       | The *params* parameter is a single integer value that specifies *i*<sub>f</sub> , the fog color index. The default fog index is 0.0.<br/>                                                                                                                                                                                                           |
      * @param {Integer} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogi
      */
     static glFogi(pname, param1) {
-        result := DllCall("OPENGL32.dll\glFogi", "uint", pname, "int", param1)
-        return result
+        DllCall("OPENGL32.dll\glFogi", "uint", pname, "int", param1)
     }
 
     /**
@@ -7772,12 +7667,11 @@ class OpenGL {
      * | <span id="GL_FOG_INDEX"></span><span id="gl_fog_index"></span><dl> <dt>**GL\_FOG\_INDEX**</dt> </dl>       | The *params* parameter is a single integer value that specifies *i*<sub>f</sub> , the fog color index. The default fog index is 0.0.<br/>                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_FOG_COLOR"></span><span id="gl_fog_color"></span><dl> <dt>**GL\_FOG\_COLOR**</dt> </dl>       | The *params* parameter contains four integer or floating-point values that specify *C*<sub>f</sub> , the fog color. Integer values are mapped linearly such that the most positive representable value maps to 1.0, and the most negative representable value maps to -1.0. Floating-point values are mapped directly. After conversion, all color components are clamped to the range \[0,1\]. The default fog color is (0,0,0,0).<br/> |
      * @param {Pointer<Int32>} params Specifies the value or values to be assigned to *pname*. GL\_FOG\_COLOR requires an array of four values. All other parameters accept an array containing only a single value.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogiv
      */
     static glFogiv(pname, params) {
-        result := DllCall("OPENGL32.dll\glFogiv", "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glFogiv", "uint", pname, "int*", params)
     }
 
     /**
@@ -7791,12 +7685,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_FRONT\_FACE
      * @param {Integer} mode The orientation of front-facing polygons. GL\_CW and GL\_CCW are accepted. The default value is GL\_CCW.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrontface
      */
     static glFrontFace(mode) {
-        result := DllCall("OPENGL32.dll\glFrontFace", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glFrontFace", "uint", mode)
     }
 
     /**
@@ -7831,12 +7724,11 @@ class OpenGL {
      * @param {Float} top The coordinate for the bottom-horizontal clipping plane.
      * @param {Float} zNear The distances to the near-depth clipping plane. Must be positive.
      * @param {Float} zFar The distances to the far-depth clipping planes. Must be positive.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrustum
      */
     static glFrustum(left, right, bottom, top, zNear, zFar) {
-        result := DllCall("OPENGL32.dll\glFrustum", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
-        return result
+        DllCall("OPENGL32.dll\glFrustum", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
     }
 
     /**
@@ -7873,12 +7765,11 @@ class OpenGL {
      * -   [**glIsTexture**](glistexture.md)
      * @param {Integer} n The number of texture names to be generated.
      * @param {Pointer<UInt32>} textures A pointer to the first element of an array in which the generated texture names are stored.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgentextures
      */
     static glGenTextures(n, textures) {
-        result := DllCall("OPENGL32.dll\glGenTextures", "int", n, "uint*", textures)
-        return result
+        DllCall("OPENGL32.dll\glGenTextures", "int", n, "uint*", textures)
     }
 
     /**
@@ -8124,12 +8015,11 @@ class OpenGL {
      * | <span id="GL_ZOOM_X"></span><span id="gl_zoom_x"></span><dl> <dt>**GL\_ZOOM\_X**</dt> </dl>                                                                         | The *params* parameter returns one value: the *x* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * | <span id="GL_ZOOM_Y"></span><span id="gl_zoom_y"></span><dl> <dt>**GL\_ZOOM\_Y**</dt> </dl>                                                                         | The *params* parameter returns one value: the *y* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * @param {Pointer<Byte>} params Returns the value or values of the specified parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetbooleanv
      */
     static glGetBooleanv(pname, params) {
-        result := DllCall("OPENGL32.dll\glGetBooleanv", "uint", pname, "char*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetBooleanv", "uint", pname, "char*", params)
     }
 
     /**
@@ -8142,12 +8032,11 @@ class OpenGL {
      * If an error is generated, no change is made to the contents of *equation*.
      * @param {Integer} plane A clipping plane. The number of clipping planes depends on the implementation, but at least six clipping planes are supported. They are identified by symbolic names of the form GL\_CLIP\_PLANE *i* where 0 = *i* < GL\_MAX\_CLIP\_PLANES.
      * @param {Pointer<Double>} equation Returns four double-precision values that are the coefficients of the plane equation of *plane* in eye coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetclipplane
      */
     static glGetClipPlane(plane, equation) {
-        result := DllCall("OPENGL32.dll\glGetClipPlane", "uint", plane, "double*", equation)
-        return result
+        DllCall("OPENGL32.dll\glGetClipPlane", "uint", plane, "double*", equation)
     }
 
     /**
@@ -8393,12 +8282,11 @@ class OpenGL {
      * | <span id="GL_ZOOM_X"></span><span id="gl_zoom_x"></span><dl> <dt>**GL\_ZOOM\_X**</dt> </dl>                                                                         | The *params* parameter returns one value: the *x* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * | <span id="GL_ZOOM_Y"></span><span id="gl_zoom_y"></span><dl> <dt>**GL\_ZOOM\_Y**</dt> </dl>                                                                         | The *params* parameter returns one value: the *y* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * @param {Pointer<Double>} params Returns the value or values of the specified parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetdoublev
      */
     static glGetDoublev(pname, params) {
-        result := DllCall("OPENGL32.dll\glGetDoublev", "uint", pname, "double*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetDoublev", "uint", pname, "double*", params)
     }
 
     /**
@@ -8683,12 +8571,11 @@ class OpenGL {
      * | <span id="GL_ZOOM_X"></span><span id="gl_zoom_x"></span><dl> <dt>**GL\_ZOOM\_X**</dt> </dl>                                                                         | The *params* parameter returns one value: the *x* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * | <span id="GL_ZOOM_Y"></span><span id="gl_zoom_y"></span><dl> <dt>**GL\_ZOOM\_Y**</dt> </dl>                                                                         | The *params* parameter returns one value: the *y* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * @param {Pointer<Single>} params Returns the value or values of the specified parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetfloatv
      */
     static glGetFloatv(pname, params) {
-        result := DllCall("OPENGL32.dll\glGetFloatv", "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetFloatv", "uint", pname, "float*", params)
     }
 
     /**
@@ -8934,12 +8821,11 @@ class OpenGL {
      * | <span id="GL_ZOOM_X"></span><span id="gl_zoom_x"></span><dl> <dt>**GL\_ZOOM\_X**</dt> </dl>                                                                         | The *params* parameter returns one value: the *x* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * | <span id="GL_ZOOM_Y"></span><span id="gl_zoom_y"></span><dl> <dt>**GL\_ZOOM\_Y**</dt> </dl>                                                                         | The *params* parameter returns one value: the *y* pixel zoom factor. See [**glPixelZoom**](glpixelzoom.md).<br/>                                                                                                                                                                                                                                                                                                                    |
      * @param {Pointer<Int32>} params Returns the value or values of the specified parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetintegerv
      */
     static glGetIntegerv(pname, params) {
-        result := DllCall("OPENGL32.dll\glGetIntegerv", "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetIntegerv", "uint", pname, "int*", params)
     }
 
     /**
@@ -8968,12 +8854,11 @@ class OpenGL {
      * | <span id="GL_LINEAR_ATTENUATION"></span><span id="gl_linear_attenuation"></span><dl> <dt>**GL\_LINEAR\_ATTENUATION**</dt> </dl>          | The *params* parameter returns a single integer or floating-point value representing the linear attenuation of the light. An integer value, when requested, is computed by rounding the internal floating-point representation to the nearest integer.<br/>                                                                                                                                                                                                                                                                                                                                                                                           |
      * | <span id="GL_QUADRATIC_ATTENUATION"></span><span id="gl_quadratic_attenuation"></span><dl> <dt>**GL\_QUADRATIC\_ATTENUATION**</dt> </dl> | The *params* parameter returns a single integer or floating-point value representing the quadratic attenuation of the light. An integer value, when requested, is computed by rounding the internal floating-point representation to the nearest integer.<br/>                                                                                                                                                                                                                                                                                                                                                                                        |
      * @param {Pointer<Single>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetlightfv
      */
     static glGetLightfv(light, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetLightfv", "uint", light, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetLightfv", "uint", light, "uint", pname, "float*", params)
     }
 
     /**
@@ -9002,12 +8887,11 @@ class OpenGL {
      * | <span id="GL_LINEAR_ATTENUATION"></span><span id="gl_linear_attenuation"></span><dl> <dt>**GL\_LINEAR\_ATTENUATION**</dt> </dl>          | The *params* parameter returns a single integer or floating-point value representing the linear attenuation of the light. An integer value, when requested, is computed by rounding the internal floating-point representation to the nearest integer.<br/>                                                                                                                                                                                                                                                                                                                                                                                           |
      * | <span id="GL_QUADRATIC_ATTENUATION"></span><span id="gl_quadratic_attenuation"></span><dl> <dt>**GL\_QUADRATIC\_ATTENUATION**</dt> </dl> | The *params* parameter returns a single integer or floating-point value representing the quadratic attenuation of the light. An integer value, when requested, is computed by rounding the internal floating-point representation to the nearest integer.<br/>                                                                                                                                                                                                                                                                                                                                                                                        |
      * @param {Pointer<Int32>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetlightiv
      */
     static glGetLightiv(light, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetLightiv", "uint", light, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetLightiv", "uint", light, "uint", pname, "int*", params)
     }
 
     /**
@@ -9029,12 +8913,11 @@ class OpenGL {
      * | <span id="GL_ORDER"></span><span id="gl_order"></span><dl> <dt>**GL\_ORDER**</dt> </dl>    | The *v* parameter returns the order of the evaluator function. One-dimensional evaluators return a single value, *order*. Two-dimensional evaluators return two values, *uorder* and *vorder*.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
      * | <span id="GL_DOMAIN"></span><span id="gl_domain"></span><dl> <dt>**GL\_DOMAIN**</dt> </dl> | The *v* parameter returns the linear *u* and *v* mapping parameters. One-dimensional evaluators return two values, *u* 1 and *u* 2, as specified by [**glMap1**](glmap1.md). Two-dimensional evaluators return four values (*u1*, *u2*, *v1*, and *v2*) as specified by [**glMap2**](glmap2.md). Integer values, when requested, are computed by rounding the internal floating-point values to the nearest integer values.<br/>                                                                                                                                                                                                                                                  |
      * @param {Pointer<Double>} v Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapdv
      */
     static glGetMapdv(target, query, v) {
-        result := DllCall("OPENGL32.dll\glGetMapdv", "uint", target, "uint", query, "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glGetMapdv", "uint", target, "uint", query, "double*", v)
     }
 
     /**
@@ -9056,12 +8939,11 @@ class OpenGL {
      * | <span id="GL_ORDER"></span><span id="gl_order"></span><dl> <dt>**GL\_ORDER**</dt> </dl>    | The *v* parameter returns the order of the evaluator function. One-dimensional evaluators return a single value, *order*. Two-dimensional evaluators return two values, *uorder* and *vorder*.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
      * | <span id="GL_DOMAIN"></span><span id="gl_domain"></span><dl> <dt>**GL\_DOMAIN**</dt> </dl> | The *v* parameter returns the linear *u* and *v* mapping parameters. One-dimensional evaluators return two values, *u* 1 and *u* 2, as specified by [**glMap1**](glmap1.md). Two-dimensional evaluators return four values (*u1*, *u2*, *v1*, and *v2*) as specified by [**glMap2**](glmap2.md). Integer values, when requested, are computed by rounding the internal floating-point values to the nearest integer values.<br/>                                                                                                                                                                                                                                                  |
      * @param {Pointer<Single>} v Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapfv
      */
     static glGetMapfv(target, query, v) {
-        result := DllCall("OPENGL32.dll\glGetMapfv", "uint", target, "uint", query, "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glGetMapfv", "uint", target, "uint", query, "float*", v)
     }
 
     /**
@@ -9083,12 +8965,11 @@ class OpenGL {
      * | <span id="GL_ORDER"></span><span id="gl_order"></span><dl> <dt>**GL\_ORDER**</dt> </dl>    | The *v* parameter returns the order of the evaluator function. One-dimensional evaluators return a single value, *order*. Two-dimensional evaluators return two values, *uorder* and *vorder*.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
      * | <span id="GL_DOMAIN"></span><span id="gl_domain"></span><dl> <dt>**GL\_DOMAIN**</dt> </dl> | The *v* parameter returns the linear *u* and *v* mapping parameters. One-dimensional evaluators return two values, *u* 1 and *u* 2, as specified by [**glMap1**](glmap1.md). Two-dimensional evaluators return four values (*u1*, *u2*, *v1*, and *v2*) as specified by [**glMap2**](glmap2.md). Integer values, when requested, are computed by rounding the internal floating-point values to the nearest integer values.<br/>                                                                                                                                                                                                                                                  |
      * @param {Pointer<Int32>} v Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapiv
      */
     static glGetMapiv(target, query, v) {
-        result := DllCall("OPENGL32.dll\glGetMapiv", "uint", target, "uint", query, "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glGetMapiv", "uint", target, "uint", query, "int*", v)
     }
 
     /**
@@ -9111,12 +8992,11 @@ class OpenGL {
      * | <span id="GL_SHININESS"></span><span id="gl_shininess"></span><dl> <dt>**GL\_SHININESS**</dt> </dl>              | The *params* parameter returns one integer or floating-point value representing the specular exponent of the material. Integer values, when requested, are computed by rounding the internal floating-point value to the nearest integer value.<br/>                                                                                                                                                                                                                                   |
      * | <span id="GL_COLOR_INDEXES"></span><span id="gl_color_indexes"></span><dl> <dt>**GL\_COLOR\_INDEXES**</dt> </dl> | The *params* parameter returns three integer or floating-point values representing the ambient, diffuse, and specular indexes of the material. Use these indexes only for color-index lighting. (The other parameters are all used only for RGBA lighting.) Integer values, when requested, are computed by rounding the internal floating-point values to the nearest integer values.<br/>                                                                                            |
      * @param {Pointer<Single>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmaterialfv
      */
     static glGetMaterialfv(face, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetMaterialfv", "uint", face, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetMaterialfv", "uint", face, "uint", pname, "float*", params)
     }
 
     /**
@@ -9139,12 +9019,11 @@ class OpenGL {
      * | <span id="GL_SHININESS"></span><span id="gl_shininess"></span><dl> <dt>**GL\_SHININESS**</dt> </dl>              | The *params* parameter returns one integer or floating-point value representing the specular exponent of the material. Integer values, when requested, are computed by rounding the internal floating-point value to the nearest integer value.<br/>                                                                                                                                                                                                                                   |
      * | <span id="GL_COLOR_INDEXES"></span><span id="gl_color_indexes"></span><dl> <dt>**GL\_COLOR\_INDEXES**</dt> </dl> | The *params* parameter returns three integer or floating-point values representing the ambient, diffuse, and specular indexes of the material. Use these indexes only for color-index lighting. (The other parameters are all used only for RGBA lighting.) Integer values, when requested, are computed by rounding the internal floating-point values to the nearest integer values.<br/>                                                                                            |
      * @param {Pointer<Int32>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmaterialiv
      */
     static glGetMaterialiv(face, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetMaterialiv", "uint", face, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetMaterialiv", "uint", face, "uint", pname, "int*", params)
     }
 
     /**
@@ -9183,12 +9062,11 @@ class OpenGL {
      * **glGet** with argument GL\_MAX\_PIXEL\_MAP\_TABLE
      * @param {Integer} map The name of the pixel map to return. Accepted values are GL\_PIXEL\_MAP\_I\_TO\_I, GL\_PIXEL\_MAP\_S\_TO\_S, GL\_PIXEL\_MAP\_I\_TO\_R, GL\_PIXEL\_MAP\_I\_TO\_G, GL\_PIXEL\_MAP\_I\_TO\_B, GL\_PIXEL\_MAP\_I\_TO\_A, GL\_PIXEL\_MAP\_R\_TO\_R, GL\_PIXEL\_MAP\_G\_TO\_G, GL\_PIXEL\_MAP\_B\_TO\_B, and GL\_PIXEL\_MAP\_A\_TO\_A.
      * @param {Pointer<Single>} values Returns the pixel map contents.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapfv
      */
     static glGetPixelMapfv(map, values) {
-        result := DllCall("OPENGL32.dll\glGetPixelMapfv", "uint", map, "float*", values)
-        return result
+        DllCall("OPENGL32.dll\glGetPixelMapfv", "uint", map, "float*", values)
     }
 
     /**
@@ -9227,12 +9105,11 @@ class OpenGL {
      * **glGet** with argument GL\_MAX\_PIXEL\_MAP\_TABLE
      * @param {Integer} map The name of the pixel map to return. Accepted values are GL\_PIXEL\_MAP\_I\_TO\_I, GL\_PIXEL\_MAP\_S\_TO\_S, GL\_PIXEL\_MAP\_I\_TO\_R, GL\_PIXEL\_MAP\_I\_TO\_G, GL\_PIXEL\_MAP\_I\_TO\_B, GL\_PIXEL\_MAP\_I\_TO\_A, GL\_PIXEL\_MAP\_R\_TO\_R, GL\_PIXEL\_MAP\_G\_TO\_G, GL\_PIXEL\_MAP\_B\_TO\_B, and GL\_PIXEL\_MAP\_A\_TO\_A.
      * @param {Pointer<UInt32>} values Returns the pixel map contents.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapuiv
      */
     static glGetPixelMapuiv(map, values) {
-        result := DllCall("OPENGL32.dll\glGetPixelMapuiv", "uint", map, "uint*", values)
-        return result
+        DllCall("OPENGL32.dll\glGetPixelMapuiv", "uint", map, "uint*", values)
     }
 
     /**
@@ -9271,12 +9148,11 @@ class OpenGL {
      * **glGet** with argument GL\_MAX\_PIXEL\_MAP\_TABLE
      * @param {Integer} map The name of the pixel map to return. Accepted values are GL\_PIXEL\_MAP\_I\_TO\_I, GL\_PIXEL\_MAP\_S\_TO\_S, GL\_PIXEL\_MAP\_I\_TO\_R, GL\_PIXEL\_MAP\_I\_TO\_G, GL\_PIXEL\_MAP\_I\_TO\_B, GL\_PIXEL\_MAP\_I\_TO\_A, GL\_PIXEL\_MAP\_R\_TO\_R, GL\_PIXEL\_MAP\_G\_TO\_G, GL\_PIXEL\_MAP\_B\_TO\_B, and GL\_PIXEL\_MAP\_A\_TO\_A.
      * @param {Pointer<UInt16>} values Returns the pixel map contents.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapusv
      */
     static glGetPixelMapusv(map, values) {
-        result := DllCall("OPENGL32.dll\glGetPixelMapusv", "uint", map, "ushort*", values)
-        return result
+        DllCall("OPENGL32.dll\glGetPixelMapusv", "uint", map, "ushort*", values)
     }
 
     /**
@@ -9285,12 +9161,11 @@ class OpenGL {
      * The **glGetPointerv** function returns array pointer information. The *pname* parameter is a symbolic constant specifying the kind of array pointer to return, and *params* is a pointer to a location to place the returned data.
      * @param {Integer} pname The type of array pointer to return from the following symbolic constants: GL\_COLOR\_ARRAY\_POINTER, GL\_EDGE\_FLAG\_ARRAY\_POINTER, GL\_FEEDBACK\_BUFFER\_POINTER, GL\_INDEX\_ARRAY\_POINTER, GL\_NORMAL\_ARRAY\_POINTER, GL\_TEXTURE\_COORD\_ARRAY\_POINTER, GL\_SELECTION\_BUFFER\_POINTER, and GL\_VERTEX\_ARRAY\_POINTER.
      * @param {Pointer<Void>} params Returns the value of the array pointer specified by *pname*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpointerv
      */
     static glGetPointerv(pname, params) {
-        result := DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, "ptr", params)
-        return result
+        DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, "ptr", params)
     }
 
     /**
@@ -9300,12 +9175,11 @@ class OpenGL {
      * 
      * If an error is generated, no change is made to the contents of *mask*.
      * @param {Pointer<Byte>} mask Returns the stipple pattern.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpolygonstipple
      */
     static glGetPolygonStipple(mask) {
-        result := DllCall("OPENGL32.dll\glGetPolygonStipple", "char*", mask)
-        return result
+        DllCall("OPENGL32.dll\glGetPolygonStipple", "char*", mask)
     }
 
     /**
@@ -9364,12 +9238,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_ENV_MODE"></span><span id="gl_texture_env_mode"></span><dl> <dt>**GL\_TEXTURE\_ENV\_MODE**</dt> </dl>    | The *params* parameter returns the single-valued texture environment mode, a symbolic constant.<br/>                                                                                                                                                                                                                                           |
      * | <span id="GL_TEXTURE_ENV_COLOR"></span><span id="gl_texture_env_color"></span><dl> <dt>**GL\_TEXTURE\_ENV\_COLOR**</dt> </dl> | The *params* parameter returns four integer or floating-point values that are the texture environment color. Integer values, when requested, are linearly mapped from the internal floating-point representation such that 1.0 maps to the most positive representable integer, and -1.0 maps to the most negative representable integer.<br/> |
      * @param {Pointer<Single>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexenvfv
      */
     static glGetTexEnvfv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexEnvfv", "uint", target, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexEnvfv", "uint", target, "uint", pname, "float*", params)
     }
 
     /**
@@ -9390,12 +9263,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_ENV_MODE"></span><span id="gl_texture_env_mode"></span><dl> <dt>**GL\_TEXTURE\_ENV\_MODE**</dt> </dl>    | The *params* parameter returns the single-valued texture environment mode, a symbolic constant.<br/>                                                                                                                                                                                                                                           |
      * | <span id="GL_TEXTURE_ENV_COLOR"></span><span id="gl_texture_env_color"></span><dl> <dt>**GL\_TEXTURE\_ENV\_COLOR**</dt> </dl> | The *params* parameter returns four integer or floating-point values that are the texture environment color. Integer values, when requested, are linearly mapped from the internal floating-point representation such that 1.0 maps to the most positive representable integer, and -1.0 maps to the most negative representable integer.<br/> |
      * @param {Pointer<Int32>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexenviv
      */
     static glGetTexEnviv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexEnviv", "uint", target, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexEnviv", "uint", target, "uint", pname, "int*", params)
     }
 
     /**
@@ -9415,12 +9287,11 @@ class OpenGL {
      * | <span id="GL_OBJECT_PLANE"></span><span id="gl_object_plane"></span><dl> <dt>**GL\_OBJECT\_PLANE**</dt> </dl>              | The *params* parameter returns the four plane equation coefficients that specify object linear-coordinate generation. Integer values, when requested, are mapped directly from the internal floating-point representation.<br/>                                                                                                                                                                                                                                    |
      * | <span id="GL_EYE_PLANE"></span><span id="gl_eye_plane"></span><dl> <dt>**GL\_EYE\_PLANE**</dt> </dl>                       | The *params* parameter returns the four plane equation coefficients that specify eye linear-coordinate generation. Integer values, when requested, are mapped directly from the internal floating-point representation. The returned values are those maintained in eye coordinates. They are not equal to the values specified using [**glTexGen**](gltexgen-functions.md), unless the modelview matrix was identified at the time **glTexGen** was called.<br/> |
      * @param {Pointer<Double>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgendv
      */
     static glGetTexGendv(coord, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexGendv", "uint", coord, "uint", pname, "double*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexGendv", "uint", coord, "uint", pname, "double*", params)
     }
 
     /**
@@ -9440,12 +9311,11 @@ class OpenGL {
      * | <span id="GL_OBJECT_PLANE"></span><span id="gl_object_plane"></span><dl> <dt>**GL\_OBJECT\_PLANE**</dt> </dl>              | The *params* parameter returns the four plane equation coefficients that specify object linear-coordinate generation. Integer values, when requested, are mapped directly from the internal floating-point representation.<br/>                                                                                                                                                                                                                                    |
      * | <span id="GL_EYE_PLANE"></span><span id="gl_eye_plane"></span><dl> <dt>**GL\_EYE\_PLANE**</dt> </dl>                       | The *params* parameter returns the four plane equation coefficients that specify eye linear-coordinate generation. Integer values, when requested, are mapped directly from the internal floating-point representation. The returned values are those maintained in eye coordinates. They are not equal to the values specified using [**glTexGen**](gltexgen-functions.md), unless the modelview matrix was identified at the time **glTexGen** was called.<br/> |
      * @param {Pointer<Single>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgenfv
      */
     static glGetTexGenfv(coord, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexGenfv", "uint", coord, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexGenfv", "uint", coord, "uint", pname, "float*", params)
     }
 
     /**
@@ -9465,12 +9335,11 @@ class OpenGL {
      * | <span id="GL_OBJECT_PLANE"></span><span id="gl_object_plane"></span><dl> <dt>**GL\_OBJECT\_PLANE**</dt> </dl>              | The *params* parameter returns the four plane equation coefficients that specify object linear-coordinate generation. Integer values, when requested, are mapped directly from the internal floating-point representation.<br/>                                                                                                                                                                                                                                    |
      * | <span id="GL_EYE_PLANE"></span><span id="gl_eye_plane"></span><dl> <dt>**GL\_EYE\_PLANE**</dt> </dl>                       | The *params* parameter returns the four plane equation coefficients that specify eye linear-coordinate generation. Integer values, when requested, are mapped directly from the internal floating-point representation. The returned values are those maintained in eye coordinates. They are not equal to the values specified using [**glTexGen**](gltexgen-functions.md), unless the modelview matrix was identified at the time **glTexGen** was called.<br/> |
      * @param {Pointer<Int32>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgeniv
      */
     static glGetTexGeniv(coord, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexGeniv", "uint", coord, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexGeniv", "uint", coord, "uint", pname, "int*", params)
     }
 
     /**
@@ -9506,12 +9375,11 @@ class OpenGL {
      * @param {Integer} format A pixel format for the returned data. The supported formats are GL\_RED, GL\_GREEN, GL\_BLUE, GL\_ALPHA, GL\_RGB, GL\_RGBA, GL\_LUMINANCE, GL\_BGR\_EXT, GL\_BGRA\_EXT, and GL\_LUMINANCE\_ALPHA.
      * @param {Integer} type A pixel type for the returned data. The supported types are GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, and GL\_FLOAT.
      * @param {Pointer<Void>} pixels Returns the texture image. Should be a pointer to an array of the type specified by *type*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetteximage
      */
     static glGetTexImage(target, level, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glGetTexImage", "uint", target, "int", level, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glGetTexImage", "uint", target, "int", level, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -9540,12 +9408,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_INTENSITY_SIZE"></span><span id="gl_texture_intensity_size"></span><dl> <dt>**GL\_TEXTURE\_INTENSITY\_SIZE**</dt> </dl>    | The internal storage resolution of the intensity component of a texel. The resolution chosen by the OpenGL will be a close match for the resolution requested by the user with the component argument of [**glTexImage1D**](glteximage1d.md) or [**glTexImage2D**](glteximage2d.md).<br/> |
      * | <span id="GL_TEXTURE_COMPONENTS"></span><span id="gl_texture_components"></span><dl> <dt>**GL\_TEXTURE\_COMPONENTS**</dt> </dl>                 | The *params* parameter returns a single value: the number of components in the texture image.<br/>                                                                                                                                                                                          |
      * @param {Pointer<Single>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexlevelparameterfv
      */
     static glGetTexLevelParameterfv(target, level, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexLevelParameterfv", "uint", target, "int", level, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexLevelParameterfv", "uint", target, "int", level, "uint", pname, "float*", params)
     }
 
     /**
@@ -9574,12 +9441,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_INTENSITY_SIZE"></span><span id="gl_texture_intensity_size"></span><dl> <dt>**GL\_TEXTURE\_INTENSITY\_SIZE**</dt> </dl>    | The internal storage resolution of the intensity component of a texel. The resolution chosen by the OpenGL will be a close match for the resolution requested by the user with the component argument of [**glTexImage1D**](glteximage1d.md) or [**glTexImage2D**](glteximage2d.md).<br/> |
      * | <span id="GL_TEXTURE_COMPONENTS"></span><span id="gl_texture_components"></span><dl> <dt>**GL\_TEXTURE\_COMPONENTS**</dt> </dl>                 | The *params* parameter returns a single value: the number of components in the texture image.<br/>                                                                                                                                                                                          |
      * @param {Pointer<Int32>} params Returns the requested data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexlevelparameteriv
      */
     static glGetTexLevelParameteriv(target, level, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexLevelParameteriv", "uint", target, "int", level, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexLevelParameteriv", "uint", target, "int", level, "uint", pname, "int*", params)
     }
 
     /**
@@ -9603,12 +9469,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_PRIORITY"></span><span id="gl_texture_priority"></span><dl> <dt>**GL\_TEXTURE\_PRIORITY**</dt> </dl>              | Returns the residence priority of the target texture (or the named texture bound to it). The initial value is 1. See [**glPrioritizeTextures**](glprioritizetextures.md).<br/>                                                                                                                                                                                                        |
      * | <span id="GL_TEXTURE_RESIDENT"></span><span id="gl_texture_resident"></span><dl> <dt>**GL\_TEXTURE\_RESIDENT**</dt> </dl>              | Returns the residence status of the target texture. If the value returned in params is GL\_TRUE, the texture is resident in texture memory. See [**glAreTexturesResident**](glaretexturesresident.md).<br/>                                                                                                                                                                           |
      * @param {Pointer<Single>} params Returns the texture parameters.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexparameterfv
      */
     static glGetTexParameterfv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexParameterfv", "uint", target, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexParameterfv", "uint", target, "uint", pname, "float*", params)
     }
 
     /**
@@ -9632,12 +9497,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_PRIORITY"></span><span id="gl_texture_priority"></span><dl> <dt>**GL\_TEXTURE\_PRIORITY**</dt> </dl>              | Returns the residence priority of the target texture (or the named texture bound to it). The initial value is 1. See [**glPrioritizeTextures**](glprioritizetextures.md).<br/>                                                                                                                                                                                                        |
      * | <span id="GL_TEXTURE_RESIDENT"></span><span id="gl_texture_resident"></span><dl> <dt>**GL\_TEXTURE\_RESIDENT**</dt> </dl>              | Returns the residence status of the target texture. If the value returned in params is GL\_TRUE, the texture is resident in texture memory. See [**glAreTexturesResident**](glaretexturesresident.md).<br/>                                                                                                                                                                           |
      * @param {Pointer<Int32>} params Returns the texture parameters.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexparameteriv
      */
     static glGetTexParameteriv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glGetTexParameteriv", "uint", target, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glGetTexParameteriv", "uint", target, "uint", pname, "int*", params)
     }
 
     /**
@@ -9668,12 +9532,11 @@ class OpenGL {
      * | <span id="GL_FASTEST"></span><span id="gl_fastest"></span><dl> <dt>**GL\_FASTEST**</dt> </dl>        | The most efficient option should be chosen.<br/>                    |
      * | <span id="GL_NICEST"></span><span id="gl_nicest"></span><dl> <dt>**GL\_NICEST**</dt> </dl>           | The most correct, or highest quality, option should be chosen.<br/> |
      * | <span id="GL_DONT_CARE"></span><span id="gl_dont_care"></span><dl> <dt>**GL\_DONT\_CARE**</dt> </dl> | The client doesn't have a preference.<br/>                          |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glhint
      */
     static glHint(target, mode) {
-        result := DllCall("OPENGL32.dll\glHint", "uint", target, "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glHint", "uint", target, "uint", mode)
     }
 
     /**
@@ -9687,12 +9550,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_INDEX\_WRITEMASK
      * @param {Integer} mask A bit mask to enable and disable the writing of individual bits in the color-index buffers. Initially, the mask is all ones.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexmask
      */
     static glIndexMask(mask) {
-        result := DllCall("OPENGL32.dll\glIndexMask", "uint", mask)
-        return result
+        DllCall("OPENGL32.dll\glIndexMask", "uint", mask)
     }
 
     /**
@@ -9724,12 +9586,11 @@ class OpenGL {
      * @param {Integer} type The data type of each color index in the array using the following symbolic constants: GL\_SHORT, GL\_INT, GL\_FLOAT, GL\_DOUBLE.
      * @param {Integer} stride The byte offset between consecutive color indexes. When *stride* is zero, the color indexes are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first color index in the array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexpointer
      */
     static glIndexPointer(type, stride, pointer) {
-        result := DllCall("OPENGL32.dll\glIndexPointer", "uint", type, "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glIndexPointer", "uint", type, "int", stride, "ptr", pointer)
     }
 
     /**
@@ -9747,12 +9608,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Float} c The new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexd
      */
     static glIndexd(c) {
-        result := DllCall("OPENGL32.dll\glIndexd", "double", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexd", "double", c)
     }
 
     /**
@@ -9770,12 +9630,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Pointer<Double>} c A pointer to a one-element array that contains the new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexdv
      */
     static glIndexdv(c) {
-        result := DllCall("OPENGL32.dll\glIndexdv", "double*", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexdv", "double*", c)
     }
 
     /**
@@ -9793,12 +9652,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Float} c The new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexf
      */
     static glIndexf(c) {
-        result := DllCall("OPENGL32.dll\glIndexf", "float", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexf", "float", c)
     }
 
     /**
@@ -9816,12 +9674,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Pointer<Single>} c A pointer to a one-element array that contains the new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexfv
      */
     static glIndexfv(c) {
-        result := DllCall("OPENGL32.dll\glIndexfv", "float*", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexfv", "float*", c)
     }
 
     /**
@@ -9839,12 +9696,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Integer} c The new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexi
      */
     static glIndexi(c) {
-        result := DllCall("OPENGL32.dll\glIndexi", "int", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexi", "int", c)
     }
 
     /**
@@ -9862,12 +9718,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Pointer<Int32>} c A pointer to a one-element array that contains the new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexiv
      */
     static glIndexiv(c) {
-        result := DllCall("OPENGL32.dll\glIndexiv", "int*", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexiv", "int*", c)
     }
 
     /**
@@ -9885,12 +9740,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Integer} c The new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexs
      */
     static glIndexs(c) {
-        result := DllCall("OPENGL32.dll\glIndexs", "short", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexs", "short", c)
     }
 
     /**
@@ -9908,32 +9762,29 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_INDEX
      * @param {Pointer<Int16>} c A pointer to a one-element array that contains the new value for the current color index.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexsv
      */
     static glIndexsv(c) {
-        result := DllCall("OPENGL32.dll\glIndexsv", "short*", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexsv", "short*", c)
     }
 
     /**
      * 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static glIndexub(c) {
-        result := DllCall("OPENGL32.dll\glIndexub", "char", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexub", "char", c)
     }
 
     /**
      * 
      * @param {Pointer<Byte>} c 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static glIndexubv(c) {
-        result := DllCall("OPENGL32.dll\glIndexubv", "char*", c)
-        return result
+        DllCall("OPENGL32.dll\glIndexubv", "char*", c)
     }
 
     /**
@@ -9948,15 +9799,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_NAME\_STACK\_DEPTH
      * 
      * **glGet** with argument GL\_MAX\_NAME\_STACK\_DEPTH
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glinitnames
      */
     static glInitNames() {
-        result := DllCall("OPENGL32.dll\glInitNames")
-        return result
+        DllCall("OPENGL32.dll\glInitNames")
     }
 
     /**
@@ -9989,12 +9836,11 @@ class OpenGL {
      * @param {Integer} format The type of array to enable. The parameter can assume one of the following symbolic values: GL\_V2F, GL\_V3F, GL\_C4UB\_V2F, GL\_C4UB\_V3F, GL\_C3F\_V3F, GL\_N3F\_V3F, GL\_C4F\_N3F\_V3F, GL\_T2F\_V3F, GL\_T4F\_V4F, GL\_T2F\_C4UB\_V3F, GL\_T2F\_C3F\_V3F, GL\_T2F\_N3F\_V3F, GL\_T2F\_C4F\_N3F\_V3F, or GL\_T4F\_C4F\_N3F\_V4F.
      * @param {Integer} stride The offset in bytes between each aggregate array element.
      * @param {Pointer<Void>} pointer A pointer to the first element of an aggregate array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glinterleavedarrays
      */
     static glInterleavedArrays(format, stride, pointer) {
-        result := DllCall("OPENGL32.dll\glInterleavedArrays", "uint", format, "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glInterleavedArrays", "uint", format, "int", stride, "ptr", pointer)
     }
 
     /**
@@ -10132,12 +9978,11 @@ class OpenGL {
      * | <span id="GL_LIGHT_MODEL_LOCAL_VIEWER"></span><span id="gl_light_model_local_viewer"></span><dl> <dt>**GL\_LIGHT\_MODEL\_LOCAL\_VIEWER**</dt> </dl> | The *param* parameter is a single floating-point value that specifies how specular reflection angles are computed. If *param* is 0 (or 0.0), specular reflection angles take the view direction to be parallel to and in the direction of the -*z* axis, regardless of the location of the vertex in eye coordinates. Otherwise, specular reflections are computed from the origin of the eye coordinate system. The default is 0. <br/>                                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_LIGHT_MODEL_TWO_SIDE"></span><span id="gl_light_model_two_side"></span><dl> <dt>**GL\_LIGHT\_MODEL\_TWO\_SIDE**</dt> </dl>             | The *param* parameter is a single floating-point value that specifies whether one-sided or two-sided lighting calculations are done for polygons. It has no effect on the lighting calculations for points, lines, or bitmaps. If *param* is 0 (or 0.0), one-sided lighting is specified, and only the front material parameters are used in the lighting equation. Otherwise, two-sided lighting is specified. <br/> In this case, vertices of back-facing polygons are lighted using the back material parameters, and have their normals reversed before the lighting equation is evaluated. Vertices of front-facing polygons are always lighted using the front material parameters, with no change to their normals. The default is 0.<br/> |
      * @param {Float} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodelf
      */
     static glLightModelf(pname, param1) {
-        result := DllCall("OPENGL32.dll\glLightModelf", "uint", pname, "float", param1)
-        return result
+        DllCall("OPENGL32.dll\glLightModelf", "uint", pname, "float", param1)
     }
 
     /**
@@ -10174,12 +10019,11 @@ class OpenGL {
      * | <span id="GL_LIGHT_MODEL_LOCAL_VIEWER"></span><span id="gl_light_model_local_viewer"></span><dl> <dt>**GL\_LIGHT\_MODEL\_LOCAL\_VIEWER**</dt> </dl> | The *params* parameter is a single floating-point value that specifies how specular reflection angles are computed. If *param* is 0 (or 0.0), specular reflection angles take the view direction to be parallel to and in the direction of the -*z* axis, regardless of the location of the vertex in eye coordinates. Otherwise, specular reflections are computed from the origin of the eye coordinate system. The default is 0. <br/>                                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_LIGHT_MODEL_TWO_SIDE"></span><span id="gl_light_model_two_side"></span><dl> <dt>**GL\_LIGHT\_MODEL\_TWO\_SIDE**</dt> </dl>             | The *params* parameter is a single floating-point value that specifies whether one-sided or two-sided lighting calculations are done for polygons. It has no effect on the lighting calculations for points, lines, or bitmaps. If *param* is 0 (or 0.0), one-sided lighting is specified, and only the front material parameters are used in the lighting equation. Otherwise, two-sided lighting is specified. <br/> In this case, vertices of back-facing polygons are lighted using the back material parameters, and have their normals reversed before the lighting equation is evaluated. Vertices of front-facing polygons are always lighted using the front material parameters, with no change to their normals. The default is 0.<br/> |
      * @param {Pointer<Single>} params A pointer to the value or values to which *params* will be set.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodelfv
      */
     static glLightModelfv(pname, params) {
-        result := DllCall("OPENGL32.dll\glLightModelfv", "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glLightModelfv", "uint", pname, "float*", params)
     }
 
     /**
@@ -10215,12 +10059,11 @@ class OpenGL {
      * | <span id="GL_LIGHT_MODEL_LOCAL_VIEWER"></span><span id="gl_light_model_local_viewer"></span><dl> <dt>**GL\_LIGHT\_MODEL\_LOCAL\_VIEWER**</dt> </dl> | The *param* parameter is a single integer value that specifies how specular reflection angles are computed. If *param* is 0 (or 0.0), specular reflection angles take the view direction to be parallel to and in the direction of the -*z* axis, regardless of the location of the vertex in eye coordinates. Otherwise, specular reflections are computed from the origin of the eye coordinate system. The default is 0. <br/>                                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_LIGHT_MODEL_TWO_SIDE"></span><span id="gl_light_model_two_side"></span><dl> <dt>**GL\_LIGHT\_MODEL\_TWO\_SIDE**</dt> </dl>             | The *param* parameter is a single integer value that specifies whether one-sided or two-sided lighting calculations are done for polygons. It has no effect on the lighting calculations for points, lines, or bitmaps. If *param* is 0 (or 0.0), one-sided lighting is specified, and only the front material parameters are used in the lighting equation. Otherwise, two-sided lighting is specified. <br/> In this case, vertices of back-facing polygons are lighted using the back material parameters, and have their normals reversed before the lighting equation is evaluated. Vertices of front-facing polygons are always lighted using the front material parameters, with no change to their normals. The default is 0.<br/> |
      * @param {Integer} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodeli
      */
     static glLightModeli(pname, param1) {
-        result := DllCall("OPENGL32.dll\glLightModeli", "uint", pname, "int", param1)
-        return result
+        DllCall("OPENGL32.dll\glLightModeli", "uint", pname, "int", param1)
     }
 
     /**
@@ -10257,12 +10100,11 @@ class OpenGL {
      * | <span id="GL_LIGHT_MODEL_LOCAL_VIEWER"></span><span id="gl_light_model_local_viewer"></span><dl> <dt>**GL\_LIGHT\_MODEL\_LOCAL\_VIEWER**</dt> </dl> | The *params* parameter is a single integer value that specifies how specular reflection angles are computed. If *param* is 0 (or 0.0), specular reflection angles take the view direction to be parallel to and in the direction of the -*z* axis, regardless of the location of the vertex in eye coordinates. Otherwise, specular reflections are computed from the origin of the eye coordinate system. The default is 0. <br/>                                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_LIGHT_MODEL_TWO_SIDE"></span><span id="gl_light_model_two_side"></span><dl> <dt>**GL\_LIGHT\_MODEL\_TWO\_SIDE**</dt> </dl>             | The *params* parameter is a single integer value that specifies whether one-sided or two-sided lighting calculations are done for polygons. It has no effect on the lighting calculations for points, lines, or bitmaps. If *param* is 0 (or 0.0), one-sided lighting is specified, and only the front material parameters are used in the lighting equation. Otherwise, two-sided lighting is specified. <br/> In this case, vertices of back-facing polygons are lighted using the back material parameters, and have their normals reversed before the lighting equation is evaluated. Vertices of front-facing polygons are always lighted using the front material parameters, with no change to their normals. The default is 0.<br/> |
      * @param {Pointer<Int32>} params A pointer to the value or values to which *params* will be set.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodeliv
      */
     static glLightModeliv(pname, params) {
-        result := DllCall("OPENGL32.dll\glLightModeliv", "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glLightModeliv", "uint", pname, "int*", params)
     }
 
     /**
@@ -10292,12 +10134,11 @@ class OpenGL {
      * | <span id="GL_SPOT_CUTOFF"></span><span id="gl_spot_cutoff"></span><dl> <dt>**GL\_SPOT\_CUTOFF**</dt> </dl>                                                                                                                                                                                   | The *param* parameter is a single floating-point value that specifies the maximum spread angle of a light source. Floating-point values are mapped directly. Only values in the range \[0, 90\], and the special value 180, are accepted. <br/> If the angle between the direction of the light and the direction from the light to the vertex being lighted is greater than the spot cutoff angle, then the light is completely masked. Otherwise, its intensity is controlled by the spot exponent and the attenuation factors. The default spot cutoff is 180, resulting in uniform light distribution.<br/>       |
      * | <span id="GL_CONSTANT_ATTENUATION__GL_LINEAR_ATTENUATION__GL_QUADRATIC_ATTENUATION"></span><span id="gl_constant_attenuation__gl_linear_attenuation__gl_quadratic_attenuation"></span><dl> <dt>**GL\_CONSTANT\_ATTENUATION, GL\_LINEAR\_ATTENUATION, GL\_QUADRATIC\_ATTENUATION**</dt> </dl> | The *param* parameter is a single floating-point value that specifies one of the three light attenuation factors. Floating-point values are mapped directly. Only nonnegative values are accepted. <br/> If the light is positional, rather than directional, its intensity is attenuated by the reciprocal of the sum of: the constant factor, the linear factor multiplied by the distance between the light and the vertex being lighted, and the quadratic factor multiplied by the square of the same distance. The default attenuation factors are (1,0,0), resulting in no attenuation.<br/>                   |
      * @param {Float} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightf
      */
     static glLightf(light, pname, param2) {
-        result := DllCall("OPENGL32.dll\glLightf", "uint", light, "uint", pname, "float", param2)
-        return result
+        DllCall("OPENGL32.dll\glLightf", "uint", light, "uint", pname, "float", param2)
     }
 
     /**
@@ -10332,12 +10173,11 @@ class OpenGL {
      * | <span id="GL_SPOT_CUTOFF"></span><span id="gl_spot_cutoff"></span><dl> <dt>**GL\_SPOT\_CUTOFF**</dt> </dl>                                                                                                                                                                                   | The *params* parameter is a single floating-point value that specifies the maximum spread angle of a light source. Integer and floating-point values are mapped directly. Only values in the range \[0, 90\], and the special value 180, are accepted. <br/> If the angle between the direction of the light and the direction from the light to the vertex being lighted is greater than the spot cutoff angle, then the light is completely masked. Otherwise, its intensity is controlled by the spot exponent and the attenuation factors. The default spot cutoff is 180, resulting in uniform light distribution.<br/>                                                                                                                                                                                                                                                                                                                               |
      * | <span id="GL_CONSTANT_ATTENUATION__GL_LINEAR_ATTENUATION__GL_QUADRATIC_ATTENUATION"></span><span id="gl_constant_attenuation__gl_linear_attenuation__gl_quadratic_attenuation"></span><dl> <dt>**GL\_CONSTANT\_ATTENUATION, GL\_LINEAR\_ATTENUATION, GL\_QUADRATIC\_ATTENUATION**</dt> </dl> | The *params* parameter is a single floating-point value that specifies one of the three light attenuation factors. Integer and floating-point values are mapped directly. Only nonnegative values are accepted. <br/> If the light is positional, rather than directional, its intensity is attenuated by the reciprocal of the sum of: the constant factor, the linear factor multiplied by the distance between the light and the vertex being lighted, and the quadratic factor multiplied by the square of the same distance. The default attenuation factors are (1,0,0), resulting in no attenuation.<br/>                                                                                                                                                                                                                                                                                                                                           |
      * @param {Pointer<Single>} params Specifies the value that parameter *pname* of light source *light* will be set to.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightfv
      */
     static glLightfv(light, pname, params) {
-        result := DllCall("OPENGL32.dll\glLightfv", "uint", light, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glLightfv", "uint", light, "uint", pname, "float*", params)
     }
 
     /**
@@ -10367,12 +10207,11 @@ class OpenGL {
      * | <span id="GL_SPOT_CUTOFF"></span><span id="gl_spot_cutoff"></span><dl> <dt>**GL\_SPOT\_CUTOFF**</dt> </dl>                                                                                                                                                                                   | The *param* parameter is a single integer value that specifies the maximum spread angle of a light source. Integer and floating-point values are mapped directly. Only values in the range \[0, 90\], and the special value 180, are accepted. <br/> If the angle between the direction of the light and the direction from the light to the vertex being lighted is greater than the spot cutoff angle, then the light is completely masked. Otherwise, its intensity is controlled by the spot exponent and the attenuation factors. The default spot cutoff is 180, resulting in uniform light distribution.<br/>       |
      * | <span id="GL_CONSTANT_ATTENUATION__GL_LINEAR_ATTENUATION__GL_QUADRATIC_ATTENUATION"></span><span id="gl_constant_attenuation__gl_linear_attenuation__gl_quadratic_attenuation"></span><dl> <dt>**GL\_CONSTANT\_ATTENUATION, GL\_LINEAR\_ATTENUATION, GL\_QUADRATIC\_ATTENUATION**</dt> </dl> | The *param* parameter is a single integer value that specifies one of the three light attenuation factors. Integer and floating-point values are mapped directly. Only nonnegative values are accepted. <br/> If the light is positional, rather than directional, its intensity is attenuated by the reciprocal of the sum of: the constant factor, the linear factor multiplied by the distance between the light and the vertex being lighted, and the quadratic factor multiplied by the square of the same distance. The default attenuation factors are (1,0,0), resulting in no attenuation.<br/>                   |
      * @param {Integer} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllighti
      */
     static glLighti(light, pname, param2) {
-        result := DllCall("OPENGL32.dll\glLighti", "uint", light, "uint", pname, "int", param2)
-        return result
+        DllCall("OPENGL32.dll\glLighti", "uint", light, "uint", pname, "int", param2)
     }
 
     /**
@@ -10407,12 +10246,11 @@ class OpenGL {
      * | <span id="GL_SPOT_CUTOFF"></span><span id="gl_spot_cutoff"></span><dl> <dt>**GL\_SPOT\_CUTOFF**</dt> </dl>                                                                                                                                                                                   | The *params* parameter is a single integer value that specifies the maximum spread angle of a light source. Integer and floating-point values are mapped directly. Only values in the range \[0, 90\], and the special value 180, are accepted. <br/> If the angle between the direction of the light and the direction from the light to the vertex being lighted is greater than the spot cutoff angle, then the light is completely masked. Otherwise, its intensity is controlled by the spot exponent and the attenuation factors. The default spot cutoff is 180, resulting in uniform light distribution.<br/>                                                                                                                                                                                                                                                                                                                                                |
      * | <span id="GL_CONSTANT_ATTENUATION__GL_LINEAR_ATTENUATION__GL_QUADRATIC_ATTENUATION"></span><span id="gl_constant_attenuation__gl_linear_attenuation__gl_quadratic_attenuation"></span><dl> <dt>**GL\_CONSTANT\_ATTENUATION, GL\_LINEAR\_ATTENUATION, GL\_QUADRATIC\_ATTENUATION**</dt> </dl> | The *params* parameter is a single integer value that specifies one of the three light attenuation factors. Integer and floating-point values are mapped directly. Only nonnegative values are accepted. <br/> If the light is positional, rather than directional, its intensity is attenuated by the reciprocal of the sum of: the constant factor, the linear factor multiplied by the distance between the light and the vertex being lighted, and the quadratic factor multiplied by the square of the same distance. The default attenuation factors are (1,0,0), resulting in no attenuation.<br/>                                                                                                                                                                                                                                                                                                                                                            |
      * @param {Pointer<Int32>} params Specifies the value that parameter *pname* of light source *light* will be set to.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightiv
      */
     static glLightiv(light, pname, params) {
-        result := DllCall("OPENGL32.dll\glLightiv", "uint", light, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glLightiv", "uint", light, "uint", pname, "int*", params)
     }
 
     /**
@@ -10435,12 +10273,11 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_LINE\_STIPPLE
      * @param {Integer} factor A multiplier for each bit in the line stipple pattern. If *factor* is 3, for example, each bit in the pattern will be used three times before the next bit in the pattern is used. The *factor* parameter is clamped to the range \[1, 256\] and defaults to one.
      * @param {Integer} pattern A 16-bit integer whose bit pattern determines which fragments of a line will be drawn when the line is rasterized. Bit zero is used first, and the default pattern is all ones.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllinestipple
      */
     static glLineStipple(factor, pattern) {
-        result := DllCall("OPENGL32.dll\glLineStipple", "int", factor, "ushort", pattern)
-        return result
+        DllCall("OPENGL32.dll\glLineStipple", "int", factor, "ushort", pattern)
     }
 
     /**
@@ -10468,12 +10305,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_LINE\_SMOOTH
      * @param {Float} width The width of rasterized lines. The default is 1.0.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllinewidth
      */
     static glLineWidth(width) {
-        result := DllCall("OPENGL32.dll\glLineWidth", "float", width)
-        return result
+        DllCall("OPENGL32.dll\glLineWidth", "float", width)
     }
 
     /**
@@ -10485,12 +10321,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_LIST\_BASE
      * @param {Integer} base An integer offset that will be added to [**glCallLists**](glcalllists.md) offsets to generate display list names. Initial value is zero.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllistbase
      */
     static glListBase(base) {
-        result := DllCall("OPENGL32.dll\glListBase", "uint", base)
-        return result
+        DllCall("OPENGL32.dll\glListBase", "uint", base)
     }
 
     /**
@@ -10511,15 +10346,11 @@ class OpenGL {
      * **glGet** with argument GL\_PROJECTION\_MATRIX
      * 
      * **glGet** with argument GL\_TEXTURE\_MATRIX
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadidentity
      */
     static glLoadIdentity() {
-        result := DllCall("OPENGL32.dll\glLoadIdentity")
-        return result
+        DllCall("OPENGL32.dll\glLoadIdentity")
     }
 
     /**
@@ -10541,12 +10372,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_TEXTURE\_MATRIX
      * @param {Pointer<Double>} m A pointer to a 4x4 matrix stored in column-major order as 16 consecutive values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadmatrixd
      */
     static glLoadMatrixd(m) {
-        result := DllCall("OPENGL32.dll\glLoadMatrixd", "double*", m)
-        return result
+        DllCall("OPENGL32.dll\glLoadMatrixd", "double*", m)
     }
 
     /**
@@ -10568,12 +10398,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_TEXTURE\_MATRIX
      * @param {Pointer<Single>} m A pointer to a 4x4 matrix stored in column-major order as 16 consecutive values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadmatrixf
      */
     static glLoadMatrixf(m) {
-        result := DllCall("OPENGL32.dll\glLoadMatrixf", "float*", m)
-        return result
+        DllCall("OPENGL32.dll\glLoadMatrixf", "float*", m)
     }
 
     /**
@@ -10589,12 +10418,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_MAX\_NAME\_STACK\_DEPTH
      * @param {Integer} name A name that will replace the top value on the name stack.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadname
      */
     static glLoadName(name) {
-        result := DllCall("OPENGL32.dll\glLoadName", "uint", name)
-        return result
+        DllCall("OPENGL32.dll\glLoadName", "uint", name)
     }
 
     /**
@@ -10637,12 +10465,11 @@ class OpenGL {
      * | <span id="GL_AND_INVERTED"></span><span id="gl_and_inverted"></span><dl> <dt>**GL\_AND\_INVERTED**</dt> </dl>    | !s & d<br/>    |
      * | <span id="GL_OR_REVERSE"></span><span id="gl_or_reverse"></span><dl> <dt>**GL\_OR\_REVERSE**</dt> </dl>          | s \| !d<br/>   |
      * | <span id="GL_OR_INVERTED"></span><span id="gl_or_inverted"></span><dl> <dt>**GL\_OR\_INVERTED**</dt> </dl>       | !s \| d<br/>   |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllogicop
      */
     static glLogicOp(opcode) {
-        result := DllCall("OPENGL32.dll\glLogicOp", "uint", opcode)
-        return result
+        DllCall("OPENGL32.dll\glLogicOp", "uint", opcode)
     }
 
     /**
@@ -10715,12 +10542,11 @@ class OpenGL {
      * @param {Integer} stride The number of floats or doubles between the beginning of one control point and the beginning of the next one in the data structure referenced in *points*. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} order The number of control points. Must be positive.
      * @param {Pointer<Double>} points A pointer to the array of control points.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1d
      */
     static glMap1d(target, u1, u2, stride, order, points) {
-        result := DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, "double*", points)
-        return result
+        DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, "double*", points)
     }
 
     /**
@@ -10793,12 +10619,11 @@ class OpenGL {
      * @param {Integer} stride The number of floats or doubles between the beginning of one control point and the beginning of the next one in the data structure referenced in *points*. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} order The number of control points. Must be positive.
      * @param {Pointer<Single>} points A pointer to the array of control points.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1f
      */
     static glMap1f(target, u1, u2, stride, order, points) {
-        result := DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, "float*", points)
-        return result
+        DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, "float*", points)
     }
 
     /**
@@ -10887,12 +10712,11 @@ class OpenGL {
      * @param {Integer} vstride The number of floats or doubles between the beginning of control point **R** *ij* and the beginning of control point **R** <sub>i(j\ +1\ )</sub>, where *i* and *j* are the *u* and *v* control point indexes, respectively. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} vorder The dimension of the control point array in the *v*-axis. Must be positive.
      * @param {Pointer<Double>} points A pointer to the array of control points.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2d
      */
     static glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
-        result := DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, "double*", points)
-        return result
+        DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, "double*", points)
     }
 
     /**
@@ -10981,12 +10805,11 @@ class OpenGL {
      * @param {Integer} vstride The number of floats or doubles between the beginning of control point **R** *ij* and the beginning of control point **R** <sub>i(j\ +1\ )</sub>, where *i* and *j* are the *u* and *v* control point indexes, respectively. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} vorder The dimension of the control point array in the *v*-axis. Must be positive.
      * @param {Pointer<Single>} points A pointer to the array of control points.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2f
      */
     static glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
-        result := DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, "float*", points)
-        return result
+        DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, "float*", points)
     }
 
     /**
@@ -11020,12 +10843,11 @@ class OpenGL {
      * @param {Integer} un The number of partitions in the grid range interval \[u1, u2\]. This value must be positive.
      * @param {Float} u1 A value used as the mapping for integer grid domain value i = 0.
      * @param {Float} u2 A value used as the mapping for integer grid domain value i = un.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid1d
      */
     static glMapGrid1d(un, u1, u2) {
-        result := DllCall("OPENGL32.dll\glMapGrid1d", "int", un, "double", u1, "double", u2)
-        return result
+        DllCall("OPENGL32.dll\glMapGrid1d", "int", un, "double", u1, "double", u2)
     }
 
     /**
@@ -11059,12 +10881,11 @@ class OpenGL {
      * @param {Integer} un The number of partitions in the grid range interval \[u1, u2\]. This value must be positive.
      * @param {Float} u1 A value used as the mapping for integer grid domain value i = 0.
      * @param {Float} u2 A value used as the mapping for integer grid domain value i = un.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid1f
      */
     static glMapGrid1f(un, u1, u2) {
-        result := DllCall("OPENGL32.dll\glMapGrid1f", "int", un, "float", u1, "float", u2)
-        return result
+        DllCall("OPENGL32.dll\glMapGrid1f", "int", un, "float", u1, "float", u2)
     }
 
     /**
@@ -11101,12 +10922,11 @@ class OpenGL {
      * @param {Integer} vn The number of partitions in the grid range interval \[v1, v2\].
      * @param {Float} v1 A value used as the mapping for integer grid domain value j = 0.
      * @param {Float} v2 A value used as the mapping for integer grid domain value j = vn.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid2d
      */
     static glMapGrid2d(un, u1, u2, vn, v1, v2) {
-        result := DllCall("OPENGL32.dll\glMapGrid2d", "int", un, "double", u1, "double", u2, "int", vn, "double", v1, "double", v2)
-        return result
+        DllCall("OPENGL32.dll\glMapGrid2d", "int", un, "double", u1, "double", u2, "int", vn, "double", v1, "double", v2)
     }
 
     /**
@@ -11143,12 +10963,11 @@ class OpenGL {
      * @param {Integer} vn The number of partitions in the grid range interval \[v1, v2\].
      * @param {Float} v1 A value used as the mapping for integer grid domain value j = 0.
      * @param {Float} v2 A value used as the mapping for integer grid domain value j = vn.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid2f
      */
     static glMapGrid2f(un, u1, u2, vn, v1, v2) {
-        result := DllCall("OPENGL32.dll\glMapGrid2f", "int", un, "float", u1, "float", u2, "int", vn, "float", v1, "float", v2)
-        return result
+        DllCall("OPENGL32.dll\glMapGrid2f", "int", un, "float", u1, "float", u2, "int", vn, "float", v1, "float", v2)
     }
 
     /**
@@ -11174,12 +10993,11 @@ class OpenGL {
      * |------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | <span id="GL_SHININESS"></span><span id="gl_shininess"></span><dl> <dt>**GL\_SHININESS**</dt> </dl> | The *param* parameter is a single floating-point value that specifies the RGBA specular exponent of the material. Integer values are mapped directly. Only values in the range \[0, 128\] are accepted. The default specular exponent for both front-facing and back-facing materials is 0. <br/> |
      * @param {Float} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialf
      */
     static glMaterialf(face, pname, param2) {
-        result := DllCall("OPENGL32.dll\glMaterialf", "uint", face, "uint", pname, "float", param2)
-        return result
+        DllCall("OPENGL32.dll\glMaterialf", "uint", face, "uint", pname, "float", param2)
     }
 
     /**
@@ -11211,12 +11029,11 @@ class OpenGL {
      * | <span id="GL_AMBIENT_AND_DIFFUSE"></span><span id="gl_ambient_and_diffuse"></span><dl> <dt>**GL\_AMBIENT\_AND\_DIFFUSE**</dt> </dl> | Equivalent to calling [**glMaterial**](glmaterial-functions.md) twice with the same parameter values, once with GL\_AMBIENT and once with GL\_DIFFUSE. <br/>                                                                                                                                                                                                                                                                                                                                   |
      * | <span id="GL_COLOR_INDEXES"></span><span id="gl_color_indexes"></span><dl> <dt>**GL\_COLOR\_INDEXES**</dt> </dl>                    | The params parameter contains three floating-point values specifying the color indexes for ambient, diffuse, and specular lighting. These three values, and GL\_SHININESS, are the only material values used by the color-index mode lighting equation. Refer to [**glLightModel**](gllightmodel-functions.md) for a discussion of color-index lighting.<br/>                                                                                                                                  |
      * @param {Pointer<Single>} params The value to which parameter GL\_SHININESS will be set.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialfv
      */
     static glMaterialfv(face, pname, params) {
-        result := DllCall("OPENGL32.dll\glMaterialfv", "uint", face, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glMaterialfv", "uint", face, "uint", pname, "float*", params)
     }
 
     /**
@@ -11242,12 +11059,11 @@ class OpenGL {
      * |------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | <span id="GL_SHININESS"></span><span id="gl_shininess"></span><dl> <dt>**GL\_SHININESS**</dt> </dl> | The *param* parameter is a single integer that specifies the RGBA specular exponent of the material. Integer values are mapped directly. Only values in the range \[0, 128\] are accepted. The default specular exponent for both front-facing and back-facing materials is 0. <br/> |
      * @param {Integer} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmateriali
      */
     static glMateriali(face, pname, param2) {
-        result := DllCall("OPENGL32.dll\glMateriali", "uint", face, "uint", pname, "int", param2)
-        return result
+        DllCall("OPENGL32.dll\glMateriali", "uint", face, "uint", pname, "int", param2)
     }
 
     /**
@@ -11279,12 +11095,11 @@ class OpenGL {
      * | <span id="GL_AMBIENT_AND_DIFFUSE"></span><span id="gl_ambient_and_diffuse"></span><dl> <dt>**GL\_AMBIENT\_AND\_DIFFUSE**</dt> </dl> | Equivalent to calling [**glMaterial**](glmaterial-functions.md) twice with the same parameter values, once with GL\_AMBIENT and once with GL\_DIFFUSE. <br/>                                                                                                                                                                                                                                                                                                                            |
      * | <span id="GL_COLOR_INDEXES"></span><span id="gl_color_indexes"></span><dl> <dt>**GL\_COLOR\_INDEXES**</dt> </dl>                    | The params parameter contains three integer values specifying the color indexes for ambient, diffuse, and specular lighting. These three values, and GL\_SHININESS, are the only material values used by the color-index mode lighting equation. Refer to [**glLightModel**](gllightmodel-functions.md) for a discussion of color-index lighting.<br/>                                                                                                                                  |
      * @param {Pointer<Int32>} params The value to which parameter GL\_SHININESS will be set.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialiv
      */
     static glMaterialiv(face, pname, params) {
-        result := DllCall("OPENGL32.dll\glMaterialiv", "uint", face, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glMaterialiv", "uint", face, "uint", pname, "int*", params)
     }
 
     /**
@@ -11304,12 +11119,11 @@ class OpenGL {
      * | <span id="GL_MODELVIEW"></span><span id="gl_modelview"></span><dl> <dt>**GL\_MODELVIEW**</dt> </dl>    | Applies subsequent matrix operations to the modelview matrix stack.<br/>  |
      * | <span id="GL_PROJECTION"></span><span id="gl_projection"></span><dl> <dt>**GL\_PROJECTION**</dt> </dl> | Applies subsequent matrix operations to the projection matrix stack.<br/> |
      * | <span id="GL_TEXTURE"></span><span id="gl_texture"></span><dl> <dt>**GL\_TEXTURE**</dt> </dl>          | Applies subsequent matrix operations to the texture matrix stack.<br/>    |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmatrixmode
      */
     static glMatrixMode(mode) {
-        result := DllCall("OPENGL32.dll\glMatrixMode", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glMatrixMode", "uint", mode)
     }
 
     /**
@@ -11333,12 +11147,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_TEXTURE\_MATRIX
      * @param {Pointer<Double>} m A pointer to a 4x4 matrix stored in column-major order as 16 consecutive values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmultmatrixd
      */
     static glMultMatrixd(m) {
-        result := DllCall("OPENGL32.dll\glMultMatrixd", "double*", m)
-        return result
+        DllCall("OPENGL32.dll\glMultMatrixd", "double*", m)
     }
 
     /**
@@ -11362,12 +11175,11 @@ class OpenGL {
      * 
      * **glGet** with argument GL\_TEXTURE\_MATRIX
      * @param {Pointer<Single>} m A pointer to a 4x4 matrix stored in column-major order as 16 consecutive values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmultmatrixf
      */
     static glMultMatrixf(m) {
-        result := DllCall("OPENGL32.dll\glMultMatrixf", "float*", m)
-        return result
+        DllCall("OPENGL32.dll\glMultMatrixf", "float*", m)
     }
 
     /**
@@ -11397,12 +11209,11 @@ class OpenGL {
      * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
      * | <span id="GL_COMPILE"></span><span id="gl_compile"></span><dl> <dt>**GL\_COMPILE**</dt> </dl>                                       | Commands are merely compiled.<br/>                                     |
      * | <span id="GL_COMPILE_AND_EXECUTE"></span><span id="gl_compile_and_execute"></span><dl> <dt>**GL\_COMPILE\_AND\_EXECUTE**</dt> </dl> | Commands are executed as they are compiled into the display list.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnewlist
      */
     static glNewList(list, mode) {
-        result := DllCall("OPENGL32.dll\glNewList", "uint", list, "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glNewList", "uint", list, "uint", mode)
     }
 
     /**
@@ -11420,12 +11231,11 @@ class OpenGL {
      * @param {Integer} nx Specifies the x-coordinate for the new current normal vector.
      * @param {Integer} ny Specifies the y-coordinate for the new current normal vector.
      * @param {Integer} nz Specifies the z-coordinate for the new current normal vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3b
      */
     static glNormal3b(nx, ny, nz) {
-        result := DllCall("OPENGL32.dll\glNormal3b", "char", nx, "char", ny, "char", nz)
-        return result
+        DllCall("OPENGL32.dll\glNormal3b", "char", nx, "char", ny, "char", nz)
     }
 
     /**
@@ -11441,12 +11251,11 @@ class OpenGL {
      * 
      * [**glIsEnable**](glisenabled.md) with argument GL\_NORMALIZE
      * @param {Pointer<SByte>} v A pointer to an array of three elements: the x, y, and z coordinates of the new current normal.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3bv
      */
     static glNormal3bv(v) {
-        result := DllCall("OPENGL32.dll\glNormal3bv", "char*", v)
-        return result
+        DllCall("OPENGL32.dll\glNormal3bv", "char*", v)
     }
 
     /**
@@ -11464,12 +11273,11 @@ class OpenGL {
      * @param {Float} nx Specifies the x-coordinate for the new current normal vector.
      * @param {Float} ny Specifies the y-coordinate for the new current normal vector.
      * @param {Float} nz Specifies the z-coordinate for the new current normal vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3d
      */
     static glNormal3d(nx, ny, nz) {
-        result := DllCall("OPENGL32.dll\glNormal3d", "double", nx, "double", ny, "double", nz)
-        return result
+        DllCall("OPENGL32.dll\glNormal3d", "double", nx, "double", ny, "double", nz)
     }
 
     /**
@@ -11485,12 +11293,11 @@ class OpenGL {
      * 
      * [**glIsEnable**](glisenabled.md) with argument GL\_NORMALIZE
      * @param {Pointer<Double>} v A pointer to an array of three elements: the x, y, and z coordinates of the new current normal.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3dv
      */
     static glNormal3dv(v) {
-        result := DllCall("OPENGL32.dll\glNormal3dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glNormal3dv", "double*", v)
     }
 
     /**
@@ -11508,12 +11315,11 @@ class OpenGL {
      * @param {Float} nx Specifies the x-coordinate for the new current normal vector.
      * @param {Float} ny Specifies the y-coordinate for the new current normal vector.
      * @param {Float} nz Specifies the z-coordinate for the new current normal vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3f
      */
     static glNormal3f(nx, ny, nz) {
-        result := DllCall("OPENGL32.dll\glNormal3f", "float", nx, "float", ny, "float", nz)
-        return result
+        DllCall("OPENGL32.dll\glNormal3f", "float", nx, "float", ny, "float", nz)
     }
 
     /**
@@ -11529,12 +11335,11 @@ class OpenGL {
      * 
      * [**glIsEnable**](glisenabled.md) with argument GL\_NORMALIZE
      * @param {Pointer<Single>} v A pointer to an array of three elements: the x, y, and z coordinates of the new current normal.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3fv
      */
     static glNormal3fv(v) {
-        result := DllCall("OPENGL32.dll\glNormal3fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glNormal3fv", "float*", v)
     }
 
     /**
@@ -11552,12 +11357,11 @@ class OpenGL {
      * @param {Integer} nx Specifies the x-coordinate for the new current normal vector.
      * @param {Integer} ny Specifies the y-coordinate for the new current normal vector.
      * @param {Integer} nz Specifies the z-coordinate for the new current normal vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3i
      */
     static glNormal3i(nx, ny, nz) {
-        result := DllCall("OPENGL32.dll\glNormal3i", "int", nx, "int", ny, "int", nz)
-        return result
+        DllCall("OPENGL32.dll\glNormal3i", "int", nx, "int", ny, "int", nz)
     }
 
     /**
@@ -11573,12 +11377,11 @@ class OpenGL {
      * 
      * [**glIsEnable**](glisenabled.md) with argument GL\_NORMALIZE
      * @param {Pointer<Int32>} v A pointer to an array of three elements: the x, y, and z coordinates of the new current normal.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3iv
      */
     static glNormal3iv(v) {
-        result := DllCall("OPENGL32.dll\glNormal3iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glNormal3iv", "int*", v)
     }
 
     /**
@@ -11596,12 +11399,11 @@ class OpenGL {
      * @param {Integer} nx Specifies the x-coordinate of the new current normal vector.
      * @param {Integer} ny Specifies the y-coordinate of the new current normal vector.
      * @param {Integer} nz Specifies the z-coordinate of the new current normal vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3s
      */
     static glNormal3s(nx, ny, nz) {
-        result := DllCall("OPENGL32.dll\glNormal3s", "short", nx, "short", ny, "short", nz)
-        return result
+        DllCall("OPENGL32.dll\glNormal3s", "short", nx, "short", ny, "short", nz)
     }
 
     /**
@@ -11617,12 +11419,11 @@ class OpenGL {
      * 
      * [**glIsEnable**](glisenabled.md) with argument GL\_NORMALIZE
      * @param {Pointer<Int16>} v A pointer to an array of three elements: the x, y, and z coordinates of the new current normal.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3sv
      */
     static glNormal3sv(v) {
-        result := DllCall("OPENGL32.dll\glNormal3sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glNormal3sv", "short*", v)
     }
 
     /**
@@ -11652,12 +11453,11 @@ class OpenGL {
      * @param {Integer} type The data type of each coordinate in the array using the following symbolic constants: GL\_BYTE, GL\_SHORT, GL\_INT, GL\_FLOAT, and GL\_DOUBLE.
      * @param {Integer} stride The byte offset between consecutive normals. When *stride* is zero, the normals are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first normal in the array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormalpointer
      */
     static glNormalPointer(type, stride, pointer) {
-        result := DllCall("OPENGL32.dll\glNormalPointer", "uint", type, "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glNormalPointer", "uint", type, "int", stride, "ptr", pointer)
     }
 
     /**
@@ -11690,12 +11490,11 @@ class OpenGL {
      * @param {Float} top The coordinates for the top horizontal clipping plans.
      * @param {Float} zNear The distances to the nearer depth clipping plane. This distance is negative if the plane is to be behind the viewer.
      * @param {Float} zFar The distances to the farther depth clipping plane. This distance is negative if the plane is to be behind the viewer.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glortho
      */
     static glOrtho(left, right, bottom, top, zNear, zFar) {
-        result := DllCall("OPENGL32.dll\glOrtho", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
-        return result
+        DllCall("OPENGL32.dll\glOrtho", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
     }
 
     /**
@@ -11717,12 +11516,11 @@ class OpenGL {
      * | Value                                                                                                                                                                                   | Meaning                                                                                                                    |
      * |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
      * | <span id="GL_PASS_THROUGH_TOKEN"></span><span id="gl_pass_through_token"></span><dl> <dt>**GL\_PASS\_THROUGH\_TOKEN**</dt> </dl> | The order of **glPassThrough** commands with respect to the specification of graphics primitives is maintained.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpassthrough
      */
     static glPassThrough(token) {
-        result := DllCall("OPENGL32.dll\glPassThrough", "float", token)
-        return result
+        DllCall("OPENGL32.dll\glPassThrough", "float", token)
     }
 
     /**
@@ -11798,12 +11596,11 @@ class OpenGL {
      * | <span id="GL_PIXEL_MAP_A_TO_A"></span><span id="gl_pixel_map_a_to_a"></span><dl> <dt>**GL\_PIXEL\_MAP\_A\_TO\_A**</dt> </dl> | Maps alpha components to alpha components.<br/> |
      * @param {Integer} mapsize The size of the map being defined.
      * @param {Pointer<Single>} values An array of *mapsize* values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapfv
      */
     static glPixelMapfv(map, mapsize, values) {
-        result := DllCall("OPENGL32.dll\glPixelMapfv", "uint", map, "int", mapsize, "float*", values)
-        return result
+        DllCall("OPENGL32.dll\glPixelMapfv", "uint", map, "int", mapsize, "float*", values)
     }
 
     /**
@@ -11879,12 +11676,11 @@ class OpenGL {
      * | <span id="GL_PIXEL_MAP_A_TO_A"></span><span id="gl_pixel_map_a_to_a"></span><dl> <dt>**GL\_PIXEL\_MAP\_A\_TO\_A**</dt> </dl> | Maps alpha components to alpha components.<br/> |
      * @param {Integer} mapsize The size of the map being defined.
      * @param {Pointer<UInt32>} values An array of *mapsize* values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapuiv
      */
     static glPixelMapuiv(map, mapsize, values) {
-        result := DllCall("OPENGL32.dll\glPixelMapuiv", "uint", map, "int", mapsize, "uint*", values)
-        return result
+        DllCall("OPENGL32.dll\glPixelMapuiv", "uint", map, "int", mapsize, "uint*", values)
     }
 
     /**
@@ -11960,12 +11756,11 @@ class OpenGL {
      * | <span id="GL_PIXEL_MAP_A_TO_A"></span><span id="gl_pixel_map_a_to_a"></span><dl> <dt>**GL\_PIXEL\_MAP\_A\_TO\_A**</dt> </dl> | Maps alpha components to alpha components.<br/> |
      * @param {Integer} mapsize The size of the map being defined.
      * @param {Pointer<UInt16>} values An array of *mapsize* values.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapusv
      */
     static glPixelMapusv(map, mapsize, values) {
-        result := DllCall("OPENGL32.dll\glPixelMapusv", "uint", map, "int", mapsize, "ushort*", values)
-        return result
+        DllCall("OPENGL32.dll\glPixelMapusv", "uint", map, "int", mapsize, "ushort*", values)
     }
 
     /**
@@ -12055,12 +11850,11 @@ class OpenGL {
      * | GL\_UNPACK\_SKIP\_PIXELS and <br/> GL\_UNPACK\_SKIP\_ROWS | These values are provided as a convenience to the programmer; they provide no functionality that cannot be duplicated simply by incrementing the pointer passed to [**glDrawPixels**](gldrawpixels.md), [**glTexImage1D**](glteximage1d.md), [**glTexImage2D**](glteximage2d.md), [**glBitmap**](glbitmap.md), or [**glPolygonStipple**](glpolygonstipple.md). Setting GL\_UNPACK\_SKIP\_PIXELS to *i* is equivalent to incrementing the pointer by *i n* components or indexes, where *n* is the number of components or indexes in each pixel. Setting GL\_UNPACK\_SKIP\_ROWS to *j* is equivalent to incrementing the pointer by *j k* components or indexes, where *k* is the number of components or indexes per row, as computed above in the GL\_UNPACK\_ROW\_LENGTH section.                                                                                                                                                                                                                                    |
      * | GL\_UNPACK\_ALIGNMENT                                           | Specifies the alignment requirements for the start of each pixel row in memory. The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes), 4 (word alignment), and 8 (rows start on double-word boundaries).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
      * @param {Float} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelstoref
      */
     static glPixelStoref(pname, param1) {
-        result := DllCall("OPENGL32.dll\glPixelStoref", "uint", pname, "float", param1)
-        return result
+        DllCall("OPENGL32.dll\glPixelStoref", "uint", pname, "float", param1)
     }
 
     /**
@@ -12150,12 +11944,11 @@ class OpenGL {
      * | GL\_UNPACK\_SKIP\_PIXELS and <br/> GL\_UNPACK\_SKIP\_ROWS | These values are provided as a convenience to the programmer; they provide no functionality that cannot be duplicated simply by incrementing the pointer passed to [**glDrawPixels**](gldrawpixels.md), [**glTexImage1D**](glteximage1d.md), [**glTexImage2D**](glteximage2d.md), [**glBitmap**](glbitmap.md), or [**glPolygonStipple**](glpolygonstipple.md). Setting GL\_UNPACK\_SKIP\_PIXELS to *i* is equivalent to incrementing the pointer by *i n* components or indexes, where *n* is the number of components or indexes in each pixel. Setting GL\_UNPACK\_SKIP\_ROWS to *j* is equivalent to incrementing the pointer by *j k* components or indexes, where *k* is the number of components or indexes per row, as computed above in the GL\_UNPACK\_ROW\_LENGTH section.                                                                                                                                                                                                                                    |
      * | GL\_UNPACK\_ALIGNMENT                                           | Specifies the alignment requirements for the start of each pixel row in memory. The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes), 4 (word alignment), and 8 (rows start on double-word boundaries).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
      * @param {Integer} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelstorei
      */
     static glPixelStorei(pname, param1) {
-        result := DllCall("OPENGL32.dll\glPixelStorei", "uint", pname, "int", param1)
-        return result
+        DllCall("OPENGL32.dll\glPixelStorei", "uint", pname, "int", param1)
     }
 
     /**
@@ -12236,12 +12029,11 @@ class OpenGL {
      * | GL\_ALPHA\_BIAS   | float   | 0.0            | (8,8)        |
      * | GL\_DEPTH\_BIAS   | float   | 0.0            | (8,8)        |
      * @param {Float} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixeltransferf
      */
     static glPixelTransferf(pname, param1) {
-        result := DllCall("OPENGL32.dll\glPixelTransferf", "uint", pname, "float", param1)
-        return result
+        DllCall("OPENGL32.dll\glPixelTransferf", "uint", pname, "float", param1)
     }
 
     /**
@@ -12322,12 +12114,11 @@ class OpenGL {
      * | GL\_ALPHA\_BIAS   | float   | 0.0            | (8,8)        |
      * | GL\_DEPTH\_BIAS   | float   | 0.0            | (8,8)        |
      * @param {Integer} param1 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixeltransferi
      */
     static glPixelTransferi(pname, param1) {
-        result := DllCall("OPENGL32.dll\glPixelTransferi", "uint", pname, "int", param1)
-        return result
+        DllCall("OPENGL32.dll\glPixelTransferi", "uint", pname, "int", param1)
     }
 
     /**
@@ -12348,12 +12139,11 @@ class OpenGL {
      * **glGet** with argument GL\_ZOOM\_Y
      * @param {Float} xfactor The *x* zoom factor for pixel write operations.
      * @param {Float} yfactor The *y* zoom factor for pixel write operations.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelzoom
      */
     static glPixelZoom(xfactor, yfactor) {
-        result := DllCall("OPENGL32.dll\glPixelZoom", "float", xfactor, "float", yfactor)
-        return result
+        DllCall("OPENGL32.dll\glPixelZoom", "float", xfactor, "float", yfactor)
     }
 
     /**
@@ -12389,12 +12179,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_POINT\_SMOOTH
      * @param {Float} size The diameter of rasterized points. The default is 1.0.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpointsize
      */
     static glPointSize(size) {
-        result := DllCall("OPENGL32.dll\glPointSize", "float", size)
-        return result
+        DllCall("OPENGL32.dll\glPointSize", "float", size)
     }
 
     /**
@@ -12421,12 +12210,11 @@ class OpenGL {
      * | <span id="GL_POINT"></span><span id="gl_point"></span><dl> <dt>**GL\_POINT**</dt> </dl> | Polygon vertices that are marked as the start of a boundary edge are drawn as points. Point attributes such as GL\_POINT\_SIZE and GL\_POINT\_SMOOTH control the rasterization of the points. Polygon rasterization attributes other than GL\_POLYGON\_MODE have no effect.<br/>                                                                                                                                                    |
      * | <span id="GL_LINE"></span><span id="gl_line"></span><dl> <dt>**GL\_LINE**</dt> </dl>    | Boundary edges of the polygon are drawn as line segments. They are treated as connected line segments for line stippling; the line stipple counter and pattern are not reset between segments (see [**glLineStipple**](gllinestipple.md)). Line attributes such as GL\_LINE\_WIDTH and GL\_LINE\_SMOOTH control the rasterization of the lines. Polygon rasterization attributes other than GL\_POLYGON\_MODE have no effect.<br/> |
      * | <span id="GL_FILL"></span><span id="gl_fill"></span><dl> <dt>**GL\_FILL**</dt> </dl>    | The interior of the polygon is filled. Polygon attributes such as GL\_POLYGON\_STIPPLE and GL\_POLYGON\_SMOOTH control the rasterization of the polygon.<br/>                                                                                                                                                                                                                                                                       |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonmode
      */
     static glPolygonMode(face, mode) {
-        result := DllCall("OPENGL32.dll\glPolygonMode", "uint", face, "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glPolygonMode", "uint", face, "uint", mode)
     }
 
     /**
@@ -12450,12 +12238,11 @@ class OpenGL {
      * > The **glPolygonOffset** function is only available in OpenGl version 1.1 or greater.
      * @param {Float} factor Specifies a scale factor that is used to create a variable depth offset for each polygon. The initial value is zero.
      * @param {Float} units Specifies a value that is multiplied by an implementation-specific value to create a constant depth offset. The initial value is 0.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonoffset
      */
     static glPolygonOffset(factor, units) {
-        result := DllCall("OPENGL32.dll\glPolygonOffset", "float", factor, "float", units)
-        return result
+        DllCall("OPENGL32.dll\glPolygonOffset", "float", factor, "float", units)
     }
 
     /**
@@ -12473,12 +12260,11 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_POLYGON\_STIPPLE
      * @param {Pointer<Byte>} mask A pointer to a 32x32 stipple pattern that will be unpacked from memory in the same way that [**glDrawPixels**](gldrawpixels.md) unpacks pixels.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonstipple
      */
     static glPolygonStipple(mask) {
-        result := DllCall("OPENGL32.dll\glPolygonStipple", "char*", mask)
-        return result
+        DllCall("OPENGL32.dll\glPolygonStipple", "char*", mask)
     }
 
     /**
@@ -12501,15 +12287,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_ATTRIB\_STACK\_DEPTH
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MAX\_ATTRIB\_STACK\_DEPTH
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopattrib
      */
     static glPopAttrib() {
-        result := DllCall("OPENGL32.dll\glPopAttrib")
-        return result
+        DllCall("OPENGL32.dll\glPopAttrib")
     }
 
     /**
@@ -12535,15 +12317,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CLIENT\_ATTRIB\_STACK\_DEPTH
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MAX\_CLIENT\_ATTRIB\_STACK\_DEPTH
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopclientattrib
      */
     static glPopClientAttrib() {
-        result := DllCall("OPENGL32.dll\glPopClientAttrib")
-        return result
+        DllCall("OPENGL32.dll\glPopClientAttrib")
     }
 
     /**
@@ -12574,15 +12352,11 @@ class OpenGL {
      * **glGet** with argument GL\_MAX\_PROJECTION\_STACK\_DEPTH
      * 
      * **glGet** with argument GL\_MAX\_TEXTURE\_STACK\_DEPTH
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopmatrix
      */
     static glPopMatrix() {
-        result := DllCall("OPENGL32.dll\glPopMatrix")
-        return result
+        DllCall("OPENGL32.dll\glPopMatrix")
     }
 
     /**
@@ -12597,15 +12371,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_NAME\_STACK\_DEPTH
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MAX\_NAME\_STACK\_DEPTH
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopname
      */
     static glPopName() {
-        result := DllCall("OPENGL32.dll\glPopName")
-        return result
+        DllCall("OPENGL32.dll\glPopName")
     }
 
     /**
@@ -12632,12 +12402,11 @@ class OpenGL {
      * @param {Integer} n The number of textures to be prioritized.
      * @param {Pointer<UInt32>} textures A pointer to the first element of an array containing the names of the textures to be prioritized.
      * @param {Pointer<Single>} priorities A pointer to the first element of an array containing the texture priorities. A priority given in an element of the *priorities* parameter applies to the texture named by the corresponding element of the *textures* parameter.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glprioritizetextures
      */
     static glPrioritizeTextures(n, textures, priorities) {
-        result := DllCall("OPENGL32.dll\glPrioritizeTextures", "int", n, "uint*", textures, "float*", priorities)
-        return result
+        DllCall("OPENGL32.dll\glPrioritizeTextures", "int", n, "uint*", textures, "float*", priorities)
     }
 
     /**
@@ -12991,12 +12760,11 @@ class OpenGL {
      * Depth range (near and far)
      * 
      * Viewport origin and extent
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushattrib
      */
     static glPushAttrib(mask) {
-        result := DllCall("OPENGL32.dll\glPushAttrib", "uint", mask)
-        return result
+        DllCall("OPENGL32.dll\glPushAttrib", "uint", mask)
     }
 
     /**
@@ -13031,12 +12799,11 @@ class OpenGL {
      * | <span id="GL_CLIENT_PIXEL_STORE_BIT"></span><span id="gl_client_pixel_store_bit"></span><dl> <dt>**GL\_CLIENT\_PIXEL\_STORE\_BIT**</dt> </dl>                                             | Pixel storage mode attributes.<br/>         |
      * | <span id="GL_CLIENT_VERTEX_ARRAY_BIT"></span><span id="gl_client_vertex_array_bit"></span><dl> <dt>**GL\_CLIENT\_VERTEX\_ARRAY\_BIT**</dt> </dl>                                          | Vertex array attributes.<br/>               |
      * | <span id="GL_CLIENT_ALL_ATTRIB_BITs"></span><span id="gl_client_all_attrib_bits"></span><span id="GL_CLIENT_ALL_ATTRIB_BITS"></span><dl> <dt>**GL\_CLIENT\_ALL\_ATTRIB\_BITs**</dt> </dl> | all stackable client-state attributes.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushclientattrib
      */
     static glPushClientAttrib(mask) {
-        result := DllCall("OPENGL32.dll\glPushClientAttrib", "uint", mask)
-        return result
+        DllCall("OPENGL32.dll\glPushClientAttrib", "uint", mask)
     }
 
     /**
@@ -13067,15 +12834,11 @@ class OpenGL {
      * **glGet** with argument GL\_MAX\_PROJECTION\_STACK\_DEPTH
      * 
      * **glGet** with argument GL\_MAX\_TEXTURE\_STACK\_DEPTH
-     * @returns {Pointer} This function has no parameters.
-     * 
-     * 
-     * This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushmatrix
      */
     static glPushMatrix() {
-        result := DllCall("OPENGL32.dll\glPushMatrix")
-        return result
+        DllCall("OPENGL32.dll\glPushMatrix")
     }
 
     /**
@@ -13091,12 +12854,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MAX\_NAME\_STACK\_DEPTH
      * @param {Integer} name A name that will be pushed onto the name stack.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushname
      */
     static glPushName(name) {
-        result := DllCall("OPENGL32.dll\glPushName", "uint", name)
-        return result
+        DllCall("OPENGL32.dll\glPushName", "uint", name)
     }
 
     /**
@@ -13137,12 +12899,11 @@ class OpenGL {
      * </dl>
      * @param {Float} x Specifies the x-coordinate for the current raster position.
      * @param {Float} y Specifies the y-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2d
      */
     static glRasterPos2d(x, y) {
-        result := DllCall("OPENGL32.dll\glRasterPos2d", "double", x, "double", y)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2d", "double", x, "double", y)
     }
 
     /**
@@ -13182,12 +12943,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Double>} v A pointer to an array of two elements, specifying x and y coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2dv
      */
     static glRasterPos2dv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos2dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2dv", "double*", v)
     }
 
     /**
@@ -13228,12 +12988,11 @@ class OpenGL {
      * </dl>
      * @param {Float} x Specifies the x-coordinate for the current raster position.
      * @param {Float} y Specifies the y-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2f
      */
     static glRasterPos2f(x, y) {
-        result := DllCall("OPENGL32.dll\glRasterPos2f", "float", x, "float", y)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2f", "float", x, "float", y)
     }
 
     /**
@@ -13273,12 +13032,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Single>} v A pointer to an array of two elements, specifying x and y coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2fv
      */
     static glRasterPos2fv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos2fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2fv", "float*", v)
     }
 
     /**
@@ -13319,12 +13077,11 @@ class OpenGL {
      * </dl>
      * @param {Integer} x Specifies the x-coordinate for the current raster position.
      * @param {Integer} y Specifies the y-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2i
      */
     static glRasterPos2i(x, y) {
-        result := DllCall("OPENGL32.dll\glRasterPos2i", "int", x, "int", y)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2i", "int", x, "int", y)
     }
 
     /**
@@ -13364,12 +13121,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Int32>} v A pointer to an array of two elements, specifying x and y coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2iv
      */
     static glRasterPos2iv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos2iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2iv", "int*", v)
     }
 
     /**
@@ -13410,12 +13166,11 @@ class OpenGL {
      * </dl>
      * @param {Integer} x Specifies the x-coordinate for the current raster position.
      * @param {Integer} y Specifies the y-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2s
      */
     static glRasterPos2s(x, y) {
-        result := DllCall("OPENGL32.dll\glRasterPos2s", "short", x, "short", y)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2s", "short", x, "short", y)
     }
 
     /**
@@ -13455,12 +13210,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Int16>} v A pointer to an array of two elements, specifying x and y coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2sv
      */
     static glRasterPos2sv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos2sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos2sv", "short*", v)
     }
 
     /**
@@ -13502,12 +13256,11 @@ class OpenGL {
      * @param {Float} x Specifies the x-coordinate for the current raster position.
      * @param {Float} y Specifies the y-coordinate for the current raster position.
      * @param {Float} z Specifies the z-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3d
      */
     static glRasterPos3d(x, y, z) {
-        result := DllCall("OPENGL32.dll\glRasterPos3d", "double", x, "double", y, "double", z)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3d", "double", x, "double", y, "double", z)
     }
 
     /**
@@ -13547,12 +13300,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Double>} v A pointer to an array of three elements, specifying x, y, and z coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3dv
      */
     static glRasterPos3dv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos3dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3dv", "double*", v)
     }
 
     /**
@@ -13594,12 +13346,11 @@ class OpenGL {
      * @param {Float} x Specifies the x-coordinate for the current raster position.
      * @param {Float} y Specifies the y-coordinate for the current raster position.
      * @param {Float} z Specifies the z-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3f
      */
     static glRasterPos3f(x, y, z) {
-        result := DllCall("OPENGL32.dll\glRasterPos3f", "float", x, "float", y, "float", z)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3f", "float", x, "float", y, "float", z)
     }
 
     /**
@@ -13639,12 +13390,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Single>} v A pointer to an array of three elements, specifying x, y, and z coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3fv
      */
     static glRasterPos3fv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos3fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3fv", "float*", v)
     }
 
     /**
@@ -13686,12 +13436,11 @@ class OpenGL {
      * @param {Integer} x Specifies the x-coordinate for the current raster position.
      * @param {Integer} y Specifies the y-coordinate for the current raster position.
      * @param {Integer} z Specifies the z-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3i
      */
     static glRasterPos3i(x, y, z) {
-        result := DllCall("OPENGL32.dll\glRasterPos3i", "int", x, "int", y, "int", z)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3i", "int", x, "int", y, "int", z)
     }
 
     /**
@@ -13731,12 +13480,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Int32>} v A pointer to an array of three elements, specifying x, y, and z coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3iv
      */
     static glRasterPos3iv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos3iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3iv", "int*", v)
     }
 
     /**
@@ -13778,12 +13526,11 @@ class OpenGL {
      * @param {Integer} x Specifies the x-coordinate for the current raster position.
      * @param {Integer} y Specifies the y-coordinate for the current raster position.
      * @param {Integer} z Specifies the z-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3s
      */
     static glRasterPos3s(x, y, z) {
-        result := DllCall("OPENGL32.dll\glRasterPos3s", "short", x, "short", y, "short", z)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3s", "short", x, "short", y, "short", z)
     }
 
     /**
@@ -13823,12 +13570,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Int16>} v A pointer to an array of three elements, specifying x, y, and z coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3sv
      */
     static glRasterPos3sv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos3sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos3sv", "short*", v)
     }
 
     /**
@@ -13871,12 +13617,11 @@ class OpenGL {
      * @param {Float} y Specifies the y-coordinate for the current raster position.
      * @param {Float} z Specifies the z-coordinate for the current raster position.
      * @param {Float} w The w-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4d
      */
     static glRasterPos4d(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glRasterPos4d", "double", x, "double", y, "double", z, "double", w)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4d", "double", x, "double", y, "double", z, "double", w)
     }
 
     /**
@@ -13916,12 +13661,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Double>} v A pointer to an array of four elements, specifying x, y, z, and w coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4dv
      */
     static glRasterPos4dv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos4dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4dv", "double*", v)
     }
 
     /**
@@ -13964,12 +13708,11 @@ class OpenGL {
      * @param {Float} y Specifies the y-coordinate for the current raster position.
      * @param {Float} z Specifies the z-coordinate for the current raster position.
      * @param {Float} w The w-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4f
      */
     static glRasterPos4f(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glRasterPos4f", "float", x, "float", y, "float", z, "float", w)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4f", "float", x, "float", y, "float", z, "float", w)
     }
 
     /**
@@ -14009,12 +13752,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Single>} v A pointer to an array of four elements, specifying x, y, z, and w coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4fv
      */
     static glRasterPos4fv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos4fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4fv", "float*", v)
     }
 
     /**
@@ -14057,12 +13799,11 @@ class OpenGL {
      * @param {Integer} y Specifies the y-coordinate for the current raster position.
      * @param {Integer} z Specifies the z-coordinate for the current raster position.
      * @param {Integer} w The w-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4i
      */
     static glRasterPos4i(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glRasterPos4i", "int", x, "int", y, "int", z, "int", w)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4i", "int", x, "int", y, "int", z, "int", w)
     }
 
     /**
@@ -14102,12 +13843,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Int32>} v A pointer to an array of four elements, specifying x, y, z, and w coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4iv
      */
     static glRasterPos4iv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos4iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4iv", "int*", v)
     }
 
     /**
@@ -14150,12 +13890,11 @@ class OpenGL {
      * @param {Integer} y Specifies the y-coordinate for the current raster position.
      * @param {Integer} z Specifies the z-coordinate for the current raster position.
      * @param {Integer} w The w-coordinate for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4s
      */
     static glRasterPos4s(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glRasterPos4s", "short", x, "short", y, "short", z, "short", w)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4s", "short", x, "short", y, "short", z, "short", w)
     }
 
     /**
@@ -14195,12 +13934,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_RASTER\_TEXTURE\_COORDS  
      * </dl>
      * @param {Pointer<Int16>} v A pointer to an array of four elements, specifying x, y, z, and w coordinates for the current raster position.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4sv
      */
     static glRasterPos4sv(v) {
-        result := DllCall("OPENGL32.dll\glRasterPos4sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glRasterPos4sv", "short*", v)
     }
 
     /**
@@ -14216,12 +13954,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_READ\_BUFFER
      * @param {Integer} mode A color buffer. Accepted values are GL\_FRONT\_LEFT, GL\_FRONT\_RIGHT, GL\_BACK\_LEFT, GL\_BACK\_RIGHT, GL\_FRONT, GL\_BACK, GL\_LEFT, GL\_RIGHT, and GL\_AUX *i*, where *i* is between 0 and GL\_AUX\_BUFFERS 1.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadbuffer
      */
     static glReadBuffer(mode) {
-        result := DllCall("OPENGL32.dll\glReadBuffer", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glReadBuffer", "uint", mode)
     }
 
     /**
@@ -14275,12 +14012,11 @@ class OpenGL {
      * | GL\_INT             | 2   1      | \[(2  1)*c*1\]/2     |
      * | GL\_FLOAT           | none       | *c*                  |
      * @param {Pointer<Void>} pixels Returns the pixel data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadpixels
      */
     static glReadPixels(x, y, width, height, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glReadPixels", "int", x, "int", y, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glReadPixels", "int", x, "int", y, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -14307,12 +14043,11 @@ class OpenGL {
      * @param {Float} y1 The *y* coordinate of the vertex of a rectangle.
      * @param {Float} x2 The *x* coordinate of the opposite vertex of the rectangle.
      * @param {Float} y2 The *y* coordinate of the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectd
      */
     static glRectd(x1, y1, x2, y2) {
-        result := DllCall("OPENGL32.dll\glRectd", "double", x1, "double", y1, "double", x2, "double", y2)
-        return result
+        DllCall("OPENGL32.dll\glRectd", "double", x1, "double", y1, "double", x2, "double", y2)
     }
 
     /**
@@ -14337,12 +14072,11 @@ class OpenGL {
      * Notice that if the second vertex is above and to the right of the first vertex, the rectangle is constructed with a counterclockwise winding.
      * @param {Pointer<Double>} v1 A pointer to one vertex of a rectangle.
      * @param {Pointer<Double>} v2 a pointer to the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectdv
      */
     static glRectdv(v1, v2) {
-        result := DllCall("OPENGL32.dll\glRectdv", "double*", v1, "double*", v2)
-        return result
+        DllCall("OPENGL32.dll\glRectdv", "double*", v1, "double*", v2)
     }
 
     /**
@@ -14369,12 +14103,11 @@ class OpenGL {
      * @param {Float} y1 The *y* coordinate of the vertex of a rectangle.
      * @param {Float} x2 The *x* coordinate of the opposite vertex of the rectangle.
      * @param {Float} y2 The *y* coordinate of the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectf
      */
     static glRectf(x1, y1, x2, y2) {
-        result := DllCall("OPENGL32.dll\glRectf", "float", x1, "float", y1, "float", x2, "float", y2)
-        return result
+        DllCall("OPENGL32.dll\glRectf", "float", x1, "float", y1, "float", x2, "float", y2)
     }
 
     /**
@@ -14399,12 +14132,11 @@ class OpenGL {
      * Notice that if the second vertex is above and to the right of the first vertex, the rectangle is constructed with a counterclockwise winding.
      * @param {Pointer<Single>} v1 A pointer to one vertex of a rectangle.
      * @param {Pointer<Single>} v2 a pointer to the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectfv
      */
     static glRectfv(v1, v2) {
-        result := DllCall("OPENGL32.dll\glRectfv", "float*", v1, "float*", v2)
-        return result
+        DllCall("OPENGL32.dll\glRectfv", "float*", v1, "float*", v2)
     }
 
     /**
@@ -14431,12 +14163,11 @@ class OpenGL {
      * @param {Integer} y1 The *y* coordinate of the vertex of a rectangle.
      * @param {Integer} x2 The *x* coordinate of the opposite vertex of the rectangle.
      * @param {Integer} y2 The *y* coordinate of the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrecti
      */
     static glRecti(x1, y1, x2, y2) {
-        result := DllCall("OPENGL32.dll\glRecti", "int", x1, "int", y1, "int", x2, "int", y2)
-        return result
+        DllCall("OPENGL32.dll\glRecti", "int", x1, "int", y1, "int", x2, "int", y2)
     }
 
     /**
@@ -14461,12 +14192,11 @@ class OpenGL {
      * Notice that if the second vertex is above and to the right of the first vertex, the rectangle is constructed with a counterclockwise winding.
      * @param {Pointer<Int32>} v1 A pointer to one vertex of a rectangle.
      * @param {Pointer<Int32>} v2 a pointer to the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectiv
      */
     static glRectiv(v1, v2) {
-        result := DllCall("OPENGL32.dll\glRectiv", "int*", v1, "int*", v2)
-        return result
+        DllCall("OPENGL32.dll\glRectiv", "int*", v1, "int*", v2)
     }
 
     /**
@@ -14493,12 +14223,11 @@ class OpenGL {
      * @param {Integer} y1 The *y* coordinate of the vertex of a rectangle.
      * @param {Integer} x2 The *x* coordinate of the opposite vertex of the rectangle.
      * @param {Integer} y2 The *y* coordinate of the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrects
      */
     static glRects(x1, y1, x2, y2) {
-        result := DllCall("OPENGL32.dll\glRects", "short", x1, "short", y1, "short", x2, "short", y2)
-        return result
+        DllCall("OPENGL32.dll\glRects", "short", x1, "short", y1, "short", x2, "short", y2)
     }
 
     /**
@@ -14523,12 +14252,11 @@ class OpenGL {
      * Notice that if the second vertex is above and to the right of the first vertex, the rectangle is constructed with a counterclockwise winding.
      * @param {Pointer<Int16>} v1 A pointer to one vertex of a rectangle.
      * @param {Pointer<Int16>} v2 a pointer to the opposite vertex of the rectangle.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectsv
      */
     static glRectsv(v1, v2) {
-        result := DllCall("OPENGL32.dll\glRectsv", "short*", v1, "short*", v2)
-        return result
+        DllCall("OPENGL32.dll\glRectsv", "short*", v1, "short*", v2)
     }
 
     /**
@@ -14598,12 +14326,11 @@ class OpenGL {
      * @param {Float} x The *x* coordinate of a vector.
      * @param {Float} y The *y* coordinate of a vector.
      * @param {Float} z The *z* coordinate of a vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrotated
      */
     static glRotated(angle, x, y, z) {
-        result := DllCall("OPENGL32.dll\glRotated", "double", angle, "double", x, "double", y, "double", z)
-        return result
+        DllCall("OPENGL32.dll\glRotated", "double", angle, "double", x, "double", y, "double", z)
     }
 
     /**
@@ -14630,12 +14357,11 @@ class OpenGL {
      * @param {Float} x The *x* coordinate of a vector.
      * @param {Float} y The *y* coordinate of a vector.
      * @param {Float} z The *z* coordinate of a vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrotatef
      */
     static glRotatef(angle, x, y, z) {
-        result := DllCall("OPENGL32.dll\glRotatef", "float", angle, "float", x, "float", y, "float", z)
-        return result
+        DllCall("OPENGL32.dll\glRotatef", "float", angle, "float", x, "float", y, "float", z)
     }
 
     /**
@@ -14663,12 +14389,11 @@ class OpenGL {
      * @param {Float} x Scale factors along the *x* axis.
      * @param {Float} y Scale factors along the *y* axis.
      * @param {Float} z Scale factors along the *z* axis.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glscaled
      */
     static glScaled(x, y, z) {
-        result := DllCall("OPENGL32.dll\glScaled", "double", x, "double", y, "double", z)
-        return result
+        DllCall("OPENGL32.dll\glScaled", "double", x, "double", y, "double", z)
     }
 
     /**
@@ -14696,12 +14421,11 @@ class OpenGL {
      * @param {Float} x Scale factors along the *x* axis.
      * @param {Float} y Scale factors along the *y* axis.
      * @param {Float} z Scale factors along the *z* axis.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glscalef
      */
     static glScalef(x, y, z) {
-        result := DllCall("OPENGL32.dll\glScalef", "float", x, "float", y, "float", z)
-        return result
+        DllCall("OPENGL32.dll\glScalef", "float", x, "float", y, "float", z)
     }
 
     /**
@@ -14722,12 +14446,11 @@ class OpenGL {
      * @param {Integer} y The y (horizontal axis) coordinate for the lower-left corner of the scissor box. Together, x and y specify the lower-left corner of the scissor box. Initially (0,0).
      * @param {Integer} width The width of the scissor box.
      * @param {Integer} height The height of the scissor box. When an OpenGL context is *first* attached to a window, *width* and *height* are set to the dimensions of that window.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glscissor
      */
     static glScissor(x, y, width, height) {
-        result := DllCall("OPENGL32.dll\glScissor", "int", x, "int", y, "int", width, "int", height)
-        return result
+        DllCall("OPENGL32.dll\glScissor", "int", x, "int", y, "int", width, "int", height)
     }
 
     /**
@@ -14754,12 +14477,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_NAME\_STACK\_DEPTH
      * @param {Integer} size The size of *buffer*.
      * @param {Pointer<UInt32>} buffer Returns the selection data.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glselectbuffer
      */
     static glSelectBuffer(size, buffer) {
-        result := DllCall("OPENGL32.dll\glSelectBuffer", "int", size, "uint*", buffer)
-        return result
+        DllCall("OPENGL32.dll\glSelectBuffer", "int", size, "uint*", buffer)
     }
 
     /**
@@ -14790,12 +14512,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_SHADE\_MODEL
      * @param {Integer} mode A symbolic value representing a shading technique. Accepted values are GL\_FLAT and GL\_SMOOTH. The default is GL\_SMOOTH.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glshademodel
      */
     static glShadeModel(mode) {
-        result := DllCall("OPENGL32.dll\glShadeModel", "uint", mode)
-        return result
+        DllCall("OPENGL32.dll\glShadeModel", "uint", mode)
     }
 
     /**
@@ -14838,12 +14559,11 @@ class OpenGL {
      * | <span id="GL_ALWAYS"></span><span id="gl_always"></span><dl> <dt>**GL\_ALWAYS**</dt> </dl>       | Always passes.<br/>                                        |
      * @param {Integer} ref The reference value for the stencil test. The *ref* parameter is clamped to the range \[0, 2*n* 1\], where *n* is the number of bitplanes in the stencil buffer.
      * @param {Integer} mask A mask that is **AND**ed with both the reference value and the stored stencil value when the test is done.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilfunc
      */
     static glStencilFunc(func, ref, mask) {
-        result := DllCall("OPENGL32.dll\glStencilFunc", "uint", func, "int", ref, "uint", mask)
-        return result
+        DllCall("OPENGL32.dll\glStencilFunc", "uint", func, "int", ref, "uint", mask)
     }
 
     /**
@@ -14857,12 +14577,11 @@ class OpenGL {
      * 
      * glGet with argument GL\_STENCIL\_BITS
      * @param {Integer} mask A bit mask to enable and disable writing of individual bits in the stencil planes. Initially, the mask is all ones.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilmask
      */
     static glStencilMask(mask) {
-        result := DllCall("OPENGL32.dll\glStencilMask", "uint", mask)
-        return result
+        DllCall("OPENGL32.dll\glStencilMask", "uint", mask)
     }
 
     /**
@@ -14905,12 +14624,11 @@ class OpenGL {
      * | <span id="GL_INVERT"></span><span id="gl_invert"></span><dl> <dt>**GL\_INVERT**</dt> </dl>    | Bitwise inverts the current stencil buffer value.<br/>                                                |
      * @param {Integer} zfail Stencil action when the stencil test passes, but the depth test fails. Accepts the same symbolic constants as *fail.*
      * @param {Integer} zpass Stencil action when both the stencil test and the depth test pass, or when the stencil test passes and either there is no depth buffer or depth testing is not enabled. Accepts the same symbolic constants as *fail*.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilop
      */
     static glStencilOp(fail, zfail, zpass) {
-        result := DllCall("OPENGL32.dll\glStencilOp", "uint", fail, "uint", zfail, "uint", zpass)
-        return result
+        DllCall("OPENGL32.dll\glStencilOp", "uint", fail, "uint", zfail, "uint", zpass)
     }
 
     /**
@@ -14920,12 +14638,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s The s texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1d
      */
     static glTexCoord1d(s) {
-        result := DllCall("OPENGL32.dll\glTexCoord1d", "double", s)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1d", "double", s)
     }
 
     /**
@@ -14935,12 +14652,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Double>} v A pointer to an array of texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1dv
      */
     static glTexCoord1dv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord1dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1dv", "double*", v)
     }
 
     /**
@@ -14950,12 +14666,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s The s texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1f
      */
     static glTexCoord1f(s) {
-        result := DllCall("OPENGL32.dll\glTexCoord1f", "float", s)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1f", "float", s)
     }
 
     /**
@@ -14965,12 +14680,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Single>} v A pointer to an array of texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1fv
      */
     static glTexCoord1fv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord1fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1fv", "float*", v)
     }
 
     /**
@@ -14980,12 +14694,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Integer} s The s texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1i
      */
     static glTexCoord1i(s) {
-        result := DllCall("OPENGL32.dll\glTexCoord1i", "int", s)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1i", "int", s)
     }
 
     /**
@@ -14995,12 +14708,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int32>} v A pointer to an array of texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1iv
      */
     static glTexCoord1iv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord1iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1iv", "int*", v)
     }
 
     /**
@@ -15010,12 +14722,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Integer} s The s texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1s
      */
     static glTexCoord1s(s) {
-        result := DllCall("OPENGL32.dll\glTexCoord1s", "short", s)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1s", "short", s)
     }
 
     /**
@@ -15025,12 +14736,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int16>} v A pointer to an array of texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1sv
      */
     static glTexCoord1sv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord1sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord1sv", "short*", v)
     }
 
     /**
@@ -15041,12 +14751,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s The s texture coordinate.
      * @param {Float} t The t texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2d
      */
     static glTexCoord2d(s, t) {
-        result := DllCall("OPENGL32.dll\glTexCoord2d", "double", s, "double", t)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2d", "double", s, "double", t)
     }
 
     /**
@@ -15056,23 +14765,21 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Double>} v A pointer to an array of two elements, which in turn specifies the s and t texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2dv
      */
     static glTexCoord2dv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord2dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2dv", "double*", v)
     }
 
     /**
      * 
      * @param {Float} s 
      * @param {Float} t 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static glTexCoord2f(s, t) {
-        result := DllCall("OPENGL32.dll\glTexCoord2f", "float", s, "float", t)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2f", "float", s, "float", t)
     }
 
     /**
@@ -15082,12 +14789,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Single>} v A pointer to an array of two elements, which in turn specifies the s and t texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2fv
      */
     static glTexCoord2fv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord2fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2fv", "float*", v)
     }
 
     /**
@@ -15098,12 +14804,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Integer} s The s texture coordinate.
      * @param {Integer} t The t texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2i
      */
     static glTexCoord2i(s, t) {
-        result := DllCall("OPENGL32.dll\glTexCoord2i", "int", s, "int", t)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2i", "int", s, "int", t)
     }
 
     /**
@@ -15113,12 +14818,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int32>} v A pointer to an array of two elements, which in turn specifies the s and t texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2iv
      */
     static glTexCoord2iv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord2iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2iv", "int*", v)
     }
 
     /**
@@ -15129,12 +14833,11 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Integer} s The s texture coordinate.
      * @param {Integer} t The t texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2s
      */
     static glTexCoord2s(s, t) {
-        result := DllCall("OPENGL32.dll\glTexCoord2s", "short", s, "short", t)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2s", "short", s, "short", t)
     }
 
     /**
@@ -15144,12 +14847,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int16>} v A pointer to an array of two elements, which in turn specifies the s and t texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2sv
      */
     static glTexCoord2sv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord2sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord2sv", "short*", v)
     }
 
     /**
@@ -15161,12 +14863,11 @@ class OpenGL {
      * @param {Float} s The s texture coordinate.
      * @param {Float} t The t texture coordinate.
      * @param {Float} r The r texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3d
      */
     static glTexCoord3d(s, t, r) {
-        result := DllCall("OPENGL32.dll\glTexCoord3d", "double", s, "double", t, "double", r)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3d", "double", s, "double", t, "double", r)
     }
 
     /**
@@ -15176,12 +14877,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Double>} v A pointer to an array of three elements, which in turn specifies the s, t, and r texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3dv
      */
     static glTexCoord3dv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord3dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3dv", "double*", v)
     }
 
     /**
@@ -15189,11 +14889,10 @@ class OpenGL {
      * @param {Float} s 
      * @param {Float} t 
      * @param {Float} r 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static glTexCoord3f(s, t, r) {
-        result := DllCall("OPENGL32.dll\glTexCoord3f", "float", s, "float", t, "float", r)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3f", "float", s, "float", t, "float", r)
     }
 
     /**
@@ -15203,12 +14902,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Single>} v A pointer to an array of three elements, which in turn specifies the s, t, and r texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3fv
      */
     static glTexCoord3fv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord3fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3fv", "float*", v)
     }
 
     /**
@@ -15220,12 +14918,11 @@ class OpenGL {
      * @param {Integer} s The s texture coordinate.
      * @param {Integer} t The t texture coordinate.
      * @param {Integer} r The r texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3i
      */
     static glTexCoord3i(s, t, r) {
-        result := DllCall("OPENGL32.dll\glTexCoord3i", "int", s, "int", t, "int", r)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3i", "int", s, "int", t, "int", r)
     }
 
     /**
@@ -15235,12 +14932,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int32>} v A pointer to an array of three elements, which in turn specifies the s, t, and r texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3iv
      */
     static glTexCoord3iv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord3iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3iv", "int*", v)
     }
 
     /**
@@ -15252,12 +14948,11 @@ class OpenGL {
      * @param {Integer} s The s texture coordinate.
      * @param {Integer} t The t texture coordinate.
      * @param {Integer} r The r texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3s
      */
     static glTexCoord3s(s, t, r) {
-        result := DllCall("OPENGL32.dll\glTexCoord3s", "short", s, "short", t, "short", r)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3s", "short", s, "short", t, "short", r)
     }
 
     /**
@@ -15267,12 +14962,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int16>} v A pointer to an array of three elements, which in turn specifies the s, t, and r texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3sv
      */
     static glTexCoord3sv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord3sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord3sv", "short*", v)
     }
 
     /**
@@ -15285,12 +14979,11 @@ class OpenGL {
      * @param {Float} t The t texture coordinate.
      * @param {Float} r The r texture coordinate.
      * @param {Float} q The q texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4d
      */
     static glTexCoord4d(s, t, r, q) {
-        result := DllCall("OPENGL32.dll\glTexCoord4d", "double", s, "double", t, "double", r, "double", q)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4d", "double", s, "double", t, "double", r, "double", q)
     }
 
     /**
@@ -15300,12 +14993,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Double>} v A pointer to an array of four elements, which in turn specifies the s, t, r, and q texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4dv
      */
     static glTexCoord4dv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord4dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4dv", "double*", v)
     }
 
     /**
@@ -15318,12 +15010,11 @@ class OpenGL {
      * @param {Float} t The t texture coordinate.
      * @param {Float} r The r texture coordinate.
      * @param {Float} q The q texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4f
      */
     static glTexCoord4f(s, t, r, q) {
-        result := DllCall("OPENGL32.dll\glTexCoord4f", "float", s, "float", t, "float", r, "float", q)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4f", "float", s, "float", t, "float", r, "float", q)
     }
 
     /**
@@ -15333,12 +15024,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Single>} v A pointer to an array of four elements, which in turn specifies the s, t, r, and q texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4fv
      */
     static glTexCoord4fv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord4fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4fv", "float*", v)
     }
 
     /**
@@ -15351,12 +15041,11 @@ class OpenGL {
      * @param {Integer} t The t texture coordinate.
      * @param {Integer} r The r texture coordinate.
      * @param {Integer} q The q texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4i
      */
     static glTexCoord4i(s, t, r, q) {
-        result := DllCall("OPENGL32.dll\glTexCoord4i", "int", s, "int", t, "int", r, "int", q)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4i", "int", s, "int", t, "int", r, "int", q)
     }
 
     /**
@@ -15366,12 +15055,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int32>} v A pointer to an array of four elements, which in turn specifies the s, t, r, and q texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4iv
      */
     static glTexCoord4iv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord4iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4iv", "int*", v)
     }
 
     /**
@@ -15384,12 +15072,11 @@ class OpenGL {
      * @param {Integer} t The t texture coordinate.
      * @param {Integer} r The r texture coordinate.
      * @param {Integer} q The q texture coordinate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4s
      */
     static glTexCoord4s(s, t, r, q) {
-        result := DllCall("OPENGL32.dll\glTexCoord4s", "short", s, "short", t, "short", r, "short", q)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4s", "short", s, "short", t, "short", r, "short", q)
     }
 
     /**
@@ -15399,12 +15086,11 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Pointer<Int16>} v A pointer to an array of four elements, which in turn specifies the s, t, r, and q texture coordinates.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4sv
      */
     static glTexCoord4sv(v) {
-        result := DllCall("OPENGL32.dll\glTexCoord4sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glTexCoord4sv", "short*", v)
     }
 
     /**
@@ -15437,12 +15123,11 @@ class OpenGL {
      * @param {Integer} type The data type of each texture coordinate in the array using the following symbolic constants: **GL\_SHORT**, **GL\_INT**, **GL\_FLOAT**, and **GL\_DOUBLE**.
      * @param {Integer} stride The byte offset between consecutive array elements. When *stride* is zero, the array elements are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first coordinate of the first element in the array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoordpointer
      */
     static glTexCoordPointer(size, type, stride, pointer) {
-        result := DllCall("OPENGL32.dll\glTexCoordPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glTexCoordPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
     }
 
     /**
@@ -15537,12 +15222,11 @@ class OpenGL {
      * @param {Integer} target A texture environment. Must be GL\_TEXTURE\_ENV.
      * @param {Integer} pname The symbolic name of a single-valued texture environment parameter. Must be GL\_TEXTURE\_ENV\_MODE.
      * @param {Float} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvf
      */
     static glTexEnvf(target, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexEnvf", "uint", target, "uint", pname, "float", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexEnvf", "uint", target, "uint", pname, "float", param2)
     }
 
     /**
@@ -15641,12 +15325,11 @@ class OpenGL {
      * @param {Integer} target A texture environment. Must be GL\_TEXTURE\_ENV.
      * @param {Integer} pname The symbolic name of a single-valued texture environment parameter. Accepted values are GL\_TEXTURE\_ENV\_MODE and GL\_TEXTURE\_ENV\_COLOR.
      * @param {Pointer<Single>} params A pointer to an array of parameters: either a single symbolic constant or an RGBA color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvfv
      */
     static glTexEnvfv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexEnvfv", "uint", target, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexEnvfv", "uint", target, "uint", pname, "float*", params)
     }
 
     /**
@@ -15741,12 +15424,11 @@ class OpenGL {
      * @param {Integer} target A texture environment. Must be GL\_TEXTURE\_ENV.
      * @param {Integer} pname The symbolic name of a single-valued texture environment parameter. Must be GL\_TEXTURE\_ENV\_MODE.
      * @param {Integer} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvi
      */
     static glTexEnvi(target, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexEnvi", "uint", target, "uint", pname, "int", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexEnvi", "uint", target, "uint", pname, "int", param2)
     }
 
     /**
@@ -15845,12 +15527,11 @@ class OpenGL {
      * @param {Integer} target A texture environment. Must be GL\_TEXTURE\_ENV.
      * @param {Integer} pname The symbolic name of a single-valued texture environment parameter. Accepted values are GL\_TEXTURE\_ENV\_MODE and GL\_TEXTURE\_ENV\_COLOR.
      * @param {Pointer<Int32>} params A pointer to an array of parameters: either a single symbolic constant or an RGBA color.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenviv
      */
     static glTexEnviv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexEnviv", "uint", target, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexEnviv", "uint", target, "uint", pname, "int*", params)
     }
 
     /**
@@ -15903,12 +15584,11 @@ class OpenGL {
      * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Float} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgend
      */
     static glTexGend(coord, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexGend", "uint", coord, "uint", pname, "double", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexGend", "uint", coord, "uint", pname, "double", param2)
     }
 
     /**
@@ -15961,12 +15641,11 @@ class OpenGL {
      * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Pointer<Double>} params An array that contains the coefficients for the corresponding texture generation function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgendv
      */
     static glTexGendv(coord, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexGendv", "uint", coord, "uint", pname, "double*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexGendv", "uint", coord, "uint", pname, "double*", params)
     }
 
     /**
@@ -16019,12 +15698,11 @@ class OpenGL {
      * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Float} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenf
      */
     static glTexGenf(coord, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexGenf", "uint", coord, "uint", pname, "float", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexGenf", "uint", coord, "uint", pname, "float", param2)
     }
 
     /**
@@ -16081,12 +15759,11 @@ class OpenGL {
      * ``` syntax
      * GLfloat zPlane[] = { 0.0f, 0.0f, 1.0f, 0.0f };
      * ```
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenfv
      */
     static glTexGenfv(coord, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexGenfv", "uint", coord, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexGenfv", "uint", coord, "uint", pname, "float*", params)
     }
 
     /**
@@ -16139,12 +15816,11 @@ class OpenGL {
      * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Integer} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeni
      */
     static glTexGeni(coord, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexGeni", "uint", coord, "uint", pname, "int", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexGeni", "uint", coord, "uint", pname, "int", param2)
     }
 
     /**
@@ -16197,12 +15873,11 @@ class OpenGL {
      * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Pointer<Int32>} params An array that contains the coefficients for the corresponding texture generation function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeniv
      */
     static glTexGeniv(coord, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexGeniv", "uint", coord, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexGeniv", "uint", coord, "uint", pname, "int*", params)
     }
 
     /**
@@ -16251,12 +15926,11 @@ class OpenGL {
      * | <span id="GL_LUMINANCE_ALPHA"></span><span id="gl_luminance_alpha"></span><dl> <dt>**GL\_LUMINANCE\_ALPHA**</dt> </dl> | Each element is a luminance/alpha pair. It is converted to floating point, and then assembled into an RGBA element by replicating the luminance value three times for red, green, and blue. Each component is then multiplied by the signed scale factor GL\_c\_SCALE, added to the signed bias GL\_c\_BIAS, and clamped to the range \[0,1\] (see **glPixelTransfer**).<br/>                                                                                                                                                                         |
      * @param {Integer} type The data type of the pixel data. The following symbolic values are accepted: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, and GL\_FLOAT.
      * @param {Pointer<Void>} pixels A pointer to the image data in memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glteximage1d
      */
     static glTexImage1D(target, level, internalformat, width, border, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glTexImage1D", "uint", target, "int", level, "int", internalformat, "int", width, "int", border, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glTexImage1D", "uint", target, "int", level, "int", internalformat, "int", width, "int", border, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -16306,12 +15980,11 @@ class OpenGL {
      * | <span id="GL_LUMINANCE_ALPHA"></span><span id="gl_luminance_alpha"></span><dl> <dt>**GL\_LUMINANCE\_ALPHA**</dt> </dl> | Each element is a luminance/alpha pair. It is converted to floating point, and then assembled into an RGBA element by replicating the luminance value three times for red, green, and blue. Each component is then multiplied by the signed scale factor GL\_c\_SCALE, added to the signed bias GL\_c\_BIAS, and clamped to the range \[0,1\] (see [**glPixelTransfer**](glpixeltransfer.md)).<br/>                                                                                                                                                 |
      * @param {Integer} type The data type of the pixel data. The following symbolic values are accepted: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, and GL\_FLOAT.
      * @param {Pointer<Void>} pixels A pointer to the image data in memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glteximage2d
      */
     static glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glTexImage2D", "uint", target, "int", level, "int", internalformat, "int", width, "int", height, "int", border, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glTexImage2D", "uint", target, "int", level, "int", internalformat, "int", width, "int", height, "int", border, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -16336,12 +16009,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_WRAP_S"></span><span id="gl_texture_wrap_s"></span><dl> <dt>**GL\_TEXTURE\_WRAP\_S**</dt> </dl>             | Sets the wrap parameter for texture coordinate s to either GL\_CLAMP or GL\_REPEAT. GL\_CLAMP causes s coordinates to be clamped to the range \[0,1\] and is useful for preventing wrapping artifacts when mapping a single image onto an object. GL\_REPEAT causes the integer part of the s coordinate to be ignored; OpenGL uses only the fractional part, thereby creating a repeating pattern. Border texture elements are accessed only if wrapping is set to GL\_CLAMP. Initially, GL\_TEXTURE\_WRAP\_S is set to GL\_REPEAT.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
      * | <span id="GL_TEXTURE_WRAP_T"></span><span id="gl_texture_wrap_t"></span><dl> <dt>**GL\_TEXTURE\_WRAP\_T**</dt> </dl>             | Sets the wrap parameter for texture coordinate t to either GL\_CLAMP or GL\_REPEAT. See the discussion under GL\_TEXTURE\_WRAP\_S. Initially, GL\_TEXTURE\_WRAP\_T is set to GL\_REPEAT<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
      * @param {Float} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameterf
      */
     static glTexParameterf(target, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexParameterf", "uint", target, "uint", pname, "float", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexParameterf", "uint", target, "uint", pname, "float", param2)
     }
 
     /**
@@ -16394,12 +16066,11 @@ class OpenGL {
      * |---------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | <span id="GL_NEAREST_"></span><span id="gl_nearest_"></span><dl> <dt>**GL\_NEAREST** </dt> </dl> | Returns the value of the texture element that is nearest (in Manhattan distance) to the center of the pixel being textured. <br/>                                                                                                                                                                                                                                                                                                                                                                            |
      * | <span id="GL_LINEAR"></span><span id="gl_linear"></span><dl> <dt>**GL\_LINEAR**</dt> </dl>       | Returns the weighted average of the four texture elements that are closest to the center of the pixel being textured. These can include border texture elements, depending on the values of GL\_TEXTURE\_WRAP\_S, GL\_TEXTURE\_WRAP\_T, and on the exact mapping. GL\_NEAREST is generally faster than GL\_LINEAR, but it can produce textured images with sharper edges because the transition between texture elements is not as smooth. The default value of GL\_TEXTURE\_MAG\_FILTER is GL\_LINEAR.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameterfv
      */
     static glTexParameterfv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexParameterfv", "uint", target, "uint", pname, "float*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexParameterfv", "uint", target, "uint", pname, "float*", params)
     }
 
     /**
@@ -16426,12 +16097,11 @@ class OpenGL {
      * | <span id="GL_TEXTURE_WRAP_S"></span><span id="gl_texture_wrap_s"></span><dl> <dt>**GL\_TEXTURE\_WRAP\_S**</dt> </dl>             | Sets the wrap parameter for texture coordinate s to either GL\_CLAMP or GL\_REPEAT. GL\_CLAMP causes s coordinates to be clamped to the range \[0,1\] and is useful for preventing wrapping artifacts when mapping a single image onto an object. GL\_REPEAT causes the integer part of the s coordinate to be ignored; OpenGL uses only the fractional part, thereby creating a repeating pattern. Border texture elements are accessed only if wrapping is set to GL\_CLAMP. Initially, GL\_TEXTURE\_WRAP\_S is set to GL\_REPEAT.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
      * | <span id="GL_TEXTURE_WRAP_T"></span><span id="gl_texture_wrap_t"></span><dl> <dt>**GL\_TEXTURE\_WRAP\_T**</dt> </dl>             | Sets the wrap parameter for texture coordinate t to either GL\_CLAMP or GL\_REPEAT. See the discussion under GL\_TEXTURE\_WRAP\_S. Initially, GL\_TEXTURE\_WRAP\_T is set to GL\_REPEAT<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
      * @param {Integer} param2 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameteri
      */
     static glTexParameteri(target, pname, param2) {
-        result := DllCall("OPENGL32.dll\glTexParameteri", "uint", target, "uint", pname, "int", param2)
-        return result
+        DllCall("OPENGL32.dll\glTexParameteri", "uint", target, "uint", pname, "int", param2)
     }
 
     /**
@@ -16484,12 +16154,11 @@ class OpenGL {
      * |---------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | <span id="GL_NEAREST_"></span><span id="gl_nearest_"></span><dl> <dt>**GL\_NEAREST** </dt> </dl> | Returns the value of the texture element that is nearest (in Manhattan distance) to the center of the pixel being textured. <br/>                                                                                                                                                                                                                                                                                                                                                                            |
      * | <span id="GL_LINEAR"></span><span id="gl_linear"></span><dl> <dt>**GL\_LINEAR**</dt> </dl>       | Returns the weighted average of the four texture elements that are closest to the center of the pixel being textured. These can include border texture elements, depending on the values of GL\_TEXTURE\_WRAP\_S, GL\_TEXTURE\_WRAP\_T, and on the exact mapping. GL\_NEAREST is generally faster than GL\_LINEAR, but it can produce textured images with sharper edges because the transition between texture elements is not as smooth. The default value of GL\_TEXTURE\_MAG\_FILTER is GL\_LINEAR.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameteriv
      */
     static glTexParameteriv(target, pname, params) {
-        result := DllCall("OPENGL32.dll\glTexParameteriv", "uint", target, "uint", pname, "int*", params)
-        return result
+        DllCall("OPENGL32.dll\glTexParameteriv", "uint", target, "uint", pname, "int*", params)
     }
 
     /**
@@ -16531,12 +16200,11 @@ class OpenGL {
      * | <span id="GL_LUMINANCE_ALPHA"></span><span id="gl_luminance_alpha"></span><dl> <dt>**GL\_LUMINANCE\_ALPHA**</dt> </dl> | Each element is a luminance/alpha pair. It is converted to floating point format, and then assembled into an RGBA element by replicating the luminance value three times for red, green, and blue. Each component is then multiplied by the signed scale factor GL\_c\_SCALE, added to the signed bias GL\_c\_BIAS, and clamped to the range \[0,1\] (see **glPixelTransfer**).<br/>                                                                                                                                                                         |
      * @param {Integer} type The data type of the pixel data. The following symbolic values are accepted: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, and GL\_FLOAT.
      * @param {Pointer<Void>} pixels A pointer to the image data in memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexsubimage1d
      */
     static glTexSubImage1D(target, level, xoffset, width, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", width, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", width, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -16580,12 +16248,11 @@ class OpenGL {
      * | <span id="GL_LUMINANCE_ALPHA"></span><span id="gl_luminance_alpha"></span><dl> <dt>**GL\_LUMINANCE\_ALPHA**</dt> </dl> | Each element is a luminance/alpha pair. It is converted to floating point format, and then assembled into an RGBA element by replicating the luminance value three times for red, green, and blue. Each component is then multiplied by the signed scale factor GL\_c\_SCALE, added to the signed bias GL\_c\_BIAS, and clamped to the range \[0,1\] (see **glPixelTransfer**).<br/>                                                                                                                                                                         |
      * @param {Integer} type The data type of the pixel data. The following symbolic values are accepted: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, and GL\_FLOAT.
      * @param {Pointer<Void>} pixels A pointer to the image data in memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexsubimage2d
      */
     static glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels) {
-        result := DllCall("OPENGL32.dll\glTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
-        return result
+        DllCall("OPENGL32.dll\glTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
     }
 
     /**
@@ -16611,12 +16278,11 @@ class OpenGL {
      * @param {Float} x The *x* coordinate of a translation vector.
      * @param {Float} y The *y* coordinate of a translation vector.
      * @param {Float} z The *z* coordinate of a translation vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltranslated
      */
     static glTranslated(x, y, z) {
-        result := DllCall("OPENGL32.dll\glTranslated", "double", x, "double", y, "double", z)
-        return result
+        DllCall("OPENGL32.dll\glTranslated", "double", x, "double", y, "double", z)
     }
 
     /**
@@ -16642,12 +16308,11 @@ class OpenGL {
      * @param {Float} x The *x* coordinate of a translation vector.
      * @param {Float} y The *y* coordinate of a translation vector.
      * @param {Float} z The *z* coordinate of a translation vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltranslatef
      */
     static glTranslatef(x, y, z) {
-        result := DllCall("OPENGL32.dll\glTranslatef", "float", x, "float", y, "float", z)
-        return result
+        DllCall("OPENGL32.dll\glTranslatef", "float", x, "float", y, "float", z)
     }
 
     /**
@@ -16656,23 +16321,21 @@ class OpenGL {
      * The glVertex function commands are used within [**glBegin**](glbegin.md)/[**glEnd**](glend.md) pairs to specify point, line, and polygon vertices. The current color, normal, and texture coordinates are associated with the vertex when glVertex is called. When only *x* and *y* are specified, *z* defaults to 0.0 and *w* defaults to 1.0. When *x*, *y*, and *z* are specified, *w* defaults to 1.0. Invoking glVertex outside of a **glBegin*/*glEnd** pair results in undefined behavior.
      * @param {Float} x Specifies the x-coordinate of a vertex.
      * @param {Float} y Specifies the y-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2d
      */
     static glVertex2d(x, y) {
-        result := DllCall("OPENGL32.dll\glVertex2d", "double", x, "double", y)
-        return result
+        DllCall("OPENGL32.dll\glVertex2d", "double", x, "double", y)
     }
 
     /**
      * Specifies a vertex. | glVertex2dv function (Gl.h)
      * @param {Pointer<Double>} v A pointer to an array of two elements. The elements are the x and y coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2dv
      */
     static glVertex2dv(v) {
-        result := DllCall("OPENGL32.dll\glVertex2dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex2dv", "double*", v)
     }
 
     /**
@@ -16681,23 +16344,21 @@ class OpenGL {
      * The glVertex function commands are used within [**glBegin**](glbegin.md)/[**glEnd**](glend.md) pairs to specify point, line, and polygon vertices. The current color, normal, and texture coordinates are associated with the vertex when glVertex is called. When only *x* and *y* are specified, *z* defaults to 0.0 and *w* defaults to 1.0. When *x*, *y*, and *z* are specified, *w* defaults to 1.0. Invoking glVertex outside of a **glBegin*/*glEnd** pair results in undefined behavior.
      * @param {Float} x Specifies the x-coordinate of a vertex.
      * @param {Float} y Specifies the y-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2f
      */
     static glVertex2f(x, y) {
-        result := DllCall("OPENGL32.dll\glVertex2f", "float", x, "float", y)
-        return result
+        DllCall("OPENGL32.dll\glVertex2f", "float", x, "float", y)
     }
 
     /**
      * Specifies a vertex. | glVertex2fv function (Gl.h)
      * @param {Pointer<Single>} v A pointer to an array of two elements. The elements are the x and y coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2fv
      */
     static glVertex2fv(v) {
-        result := DllCall("OPENGL32.dll\glVertex2fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex2fv", "float*", v)
     }
 
     /**
@@ -16706,23 +16367,21 @@ class OpenGL {
      * The glVertex function commands are used within [**glBegin**](glbegin.md)/[**glEnd**](glend.md) pairs to specify point, line, and polygon vertices. The current color, normal, and texture coordinates are associated with the vertex when glVertex is called. When only *x* and *y* are specified, *z* defaults to 0.0 and *w* defaults to 1.0. When *x*, *y*, and *z* are specified, *w* defaults to 1.0. Invoking glVertex outside of a **glBegin*/*glEnd** pair results in undefined behavior.
      * @param {Integer} x Specifies the x-coordinate of a vertex.
      * @param {Integer} y Specifies the y-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2i
      */
     static glVertex2i(x, y) {
-        result := DllCall("OPENGL32.dll\glVertex2i", "int", x, "int", y)
-        return result
+        DllCall("OPENGL32.dll\glVertex2i", "int", x, "int", y)
     }
 
     /**
      * Specifies a vertex. | glVertex2iv function (Gl.h)
      * @param {Pointer<Int32>} v A pointer to an array of two elements. The elements are the x and y coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2iv
      */
     static glVertex2iv(v) {
-        result := DllCall("OPENGL32.dll\glVertex2iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex2iv", "int*", v)
     }
 
     /**
@@ -16731,23 +16390,21 @@ class OpenGL {
      * The glVertex function commands are used within [**glBegin**](glbegin.md)/[**glEnd**](glend.md) pairs to specify point, line, and polygon vertices. The current color, normal, and texture coordinates are associated with the vertex when glVertex is called. When only *x* and *y* are specified, *z* defaults to 0.0 and *w* defaults to 1.0. When *x*, *y*, and *z* are specified, *w* defaults to 1.0. Invoking glVertex outside of a **glBegin*/*glEnd** pair results in undefined behavior.
      * @param {Integer} x Specifies the x-coordinate of a vertex.
      * @param {Integer} y Specifies the y-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2s
      */
     static glVertex2s(x, y) {
-        result := DllCall("OPENGL32.dll\glVertex2s", "short", x, "short", y)
-        return result
+        DllCall("OPENGL32.dll\glVertex2s", "short", x, "short", y)
     }
 
     /**
      * Specifies a vertex. | glVertex2sv function (Gl.h)
      * @param {Pointer<Int16>} v A pointer to an array of two elements. The elements are the x and y coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2sv
      */
     static glVertex2sv(v) {
-        result := DllCall("OPENGL32.dll\glVertex2sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex2sv", "short*", v)
     }
 
     /**
@@ -16757,23 +16414,21 @@ class OpenGL {
      * @param {Float} x Specifies the x-coordinate of a vertex.
      * @param {Float} y Specifies the y-coordinate of a vertex.
      * @param {Float} z Specifies the z-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3d
      */
     static glVertex3d(x, y, z) {
-        result := DllCall("OPENGL32.dll\glVertex3d", "double", x, "double", y, "double", z)
-        return result
+        DllCall("OPENGL32.dll\glVertex3d", "double", x, "double", y, "double", z)
     }
 
     /**
      * Specifies a vertex. | glVertex3dv function (Gl.h)
      * @param {Pointer<Double>} v A pointer to an array of three elements. The elements are the x, y, and z coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3dv
      */
     static glVertex3dv(v) {
-        result := DllCall("OPENGL32.dll\glVertex3dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex3dv", "double*", v)
     }
 
     /**
@@ -16783,23 +16438,21 @@ class OpenGL {
      * @param {Float} x Specifies the x-coordinate of a vertex.
      * @param {Float} y Specifies the y-coordinate of a vertex.
      * @param {Float} z Specifies the z-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3f
      */
     static glVertex3f(x, y, z) {
-        result := DllCall("OPENGL32.dll\glVertex3f", "float", x, "float", y, "float", z)
-        return result
+        DllCall("OPENGL32.dll\glVertex3f", "float", x, "float", y, "float", z)
     }
 
     /**
      * Specifies a vertex. | glVertex3fv function (Gl.h)
      * @param {Pointer<Single>} v A pointer to an array of three elements. The elements are the x, y, and z coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3fv
      */
     static glVertex3fv(v) {
-        result := DllCall("OPENGL32.dll\glVertex3fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex3fv", "float*", v)
     }
 
     /**
@@ -16809,23 +16462,21 @@ class OpenGL {
      * @param {Integer} x Specifies the x-coordinate of a vertex.
      * @param {Integer} y Specifies the y-coordinate of a vertex.
      * @param {Integer} z Specifies the z-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3i
      */
     static glVertex3i(x, y, z) {
-        result := DllCall("OPENGL32.dll\glVertex3i", "int", x, "int", y, "int", z)
-        return result
+        DllCall("OPENGL32.dll\glVertex3i", "int", x, "int", y, "int", z)
     }
 
     /**
      * Specifies a vertex. | glVertex3iv function (Gl.h)
      * @param {Pointer<Int32>} v A pointer to an array of three elements. The elements are the x, y, and z coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3iv
      */
     static glVertex3iv(v) {
-        result := DllCall("OPENGL32.dll\glVertex3iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex3iv", "int*", v)
     }
 
     /**
@@ -16835,23 +16486,21 @@ class OpenGL {
      * @param {Integer} x Specifies the x-coordinate of a vertex.
      * @param {Integer} y Specifies the y-coordinate of a vertex.
      * @param {Integer} z Specifies the z-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3s
      */
     static glVertex3s(x, y, z) {
-        result := DllCall("OPENGL32.dll\glVertex3s", "short", x, "short", y, "short", z)
-        return result
+        DllCall("OPENGL32.dll\glVertex3s", "short", x, "short", y, "short", z)
     }
 
     /**
      * Specifies a vertex. | glVertex3sv function (Gl.h)
      * @param {Pointer<Int16>} v A pointer to an array of three elements. The elements are the x, y, and z coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3sv
      */
     static glVertex3sv(v) {
-        result := DllCall("OPENGL32.dll\glVertex3sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex3sv", "short*", v)
     }
 
     /**
@@ -16862,23 +16511,21 @@ class OpenGL {
      * @param {Float} y Specifies the y-coordinate of a vertex.
      * @param {Float} z Specifies the z-coordinate of a vertex.
      * @param {Float} w Specifies the w-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4d
      */
     static glVertex4d(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glVertex4d", "double", x, "double", y, "double", z, "double", w)
-        return result
+        DllCall("OPENGL32.dll\glVertex4d", "double", x, "double", y, "double", z, "double", w)
     }
 
     /**
      * Specifies a vertex. | glVertex4dv function (Gl.h)
      * @param {Pointer<Double>} v A pointer to an array of four elements. The elements are the x, y, z, and w coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4dv
      */
     static glVertex4dv(v) {
-        result := DllCall("OPENGL32.dll\glVertex4dv", "double*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex4dv", "double*", v)
     }
 
     /**
@@ -16889,23 +16536,21 @@ class OpenGL {
      * @param {Float} y Specifies the y-coordinate of a vertex.
      * @param {Float} z Specifies the z-coordinate of a vertex.
      * @param {Float} w Specifies the w-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4f
      */
     static glVertex4f(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glVertex4f", "float", x, "float", y, "float", z, "float", w)
-        return result
+        DllCall("OPENGL32.dll\glVertex4f", "float", x, "float", y, "float", z, "float", w)
     }
 
     /**
      * Specifies a vertex. | glVertex4fv function (Gl.h)
      * @param {Pointer<Single>} v A pointer to an array of four elements. The elements are the x, y, z, and w coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4fv
      */
     static glVertex4fv(v) {
-        result := DllCall("OPENGL32.dll\glVertex4fv", "float*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex4fv", "float*", v)
     }
 
     /**
@@ -16916,23 +16561,21 @@ class OpenGL {
      * @param {Integer} y Specifies the y-coordinate of a vertex.
      * @param {Integer} z Specifies the z-coordinate of a vertex.
      * @param {Integer} w Specifies the w-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4i
      */
     static glVertex4i(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glVertex4i", "int", x, "int", y, "int", z, "int", w)
-        return result
+        DllCall("OPENGL32.dll\glVertex4i", "int", x, "int", y, "int", z, "int", w)
     }
 
     /**
      * Specifies a vertex. | glVertex4iv function (Gl.h)
      * @param {Pointer<Int32>} v A pointer to an array of four elements. The elements are the x, y, z, and w coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4iv
      */
     static glVertex4iv(v) {
-        result := DllCall("OPENGL32.dll\glVertex4iv", "int*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex4iv", "int*", v)
     }
 
     /**
@@ -16943,23 +16586,21 @@ class OpenGL {
      * @param {Integer} y Specifies the y-coordinate of a vertex.
      * @param {Integer} z Specifies the z-coordinate of a vertex.
      * @param {Integer} w Specifies the w-coordinate of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4s
      */
     static glVertex4s(x, y, z, w) {
-        result := DllCall("OPENGL32.dll\glVertex4s", "short", x, "short", y, "short", z, "short", w)
-        return result
+        DllCall("OPENGL32.dll\glVertex4s", "short", x, "short", y, "short", z, "short", w)
     }
 
     /**
      * Specifies a vertex. | glVertex4sv function (Gl.h)
      * @param {Pointer<Int16>} v A pointer to an array of four elements. The elements are the x, y, z, and w coordinates of a vertex.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4sv
      */
     static glVertex4sv(v) {
-        result := DllCall("OPENGL32.dll\glVertex4sv", "short*", v)
-        return result
+        DllCall("OPENGL32.dll\glVertex4sv", "short*", v)
     }
 
     /**
@@ -16992,12 +16633,11 @@ class OpenGL {
      * @param {Integer} type The data type of each coordinate in the array using the following symbolic constants: GL\_SHORT, GL\_INT, GL\_FLOAT, and GL\_DOUBLE.
      * @param {Integer} stride The byte offset between consecutive vertices. When *stride* is zero, the vertices are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first coordinate of the first vertex in the array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertexpointer
      */
     static glVertexPointer(size, type, stride, pointer) {
-        result := DllCall("OPENGL32.dll\glVertexPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
-        return result
+        DllCall("OPENGL32.dll\glVertexPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
     }
 
     /**
@@ -17018,12 +16658,11 @@ class OpenGL {
      * @param {Integer} y The lower-left corner of the viewport rectangle, in pixels. The default is (0,0).
      * @param {Integer} width The width of the viewport. When an OpenGL context is first attached to a window, *width* and *height* are set to the dimensions of that window.
      * @param {Integer} height The height of the viewport. When an OpenGL context is first attached to a window, *width* and *height* are set to the dimensions of that window.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glviewport
      */
     static glViewport(x, y, width, height) {
-        result := DllCall("OPENGL32.dll\glViewport", "int", x, "int", y, "int", width, "int", height)
-        return result
+        DllCall("OPENGL32.dll\glViewport", "int", x, "int", y, "int", width, "int", height)
     }
 
     /**
@@ -17092,12 +16731,11 @@ class OpenGL {
      * @param {Float} right The coordinate for the right vertical clipping plane.
      * @param {Float} bottom The coordinate for the bottom horizontal clipping plane.
      * @param {Float} top The coordinate for the top horizontal clipping plane.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluortho2d
      */
     static gluOrtho2D(left, right, bottom, top) {
-        result := DllCall("GLU32.dll\gluOrtho2D", "double", left, "double", right, "double", bottom, "double", top)
-        return result
+        DllCall("GLU32.dll\gluOrtho2D", "double", left, "double", right, "double", bottom, "double", top)
     }
 
     /**
@@ -17110,12 +16748,11 @@ class OpenGL {
      * @param {Float} aspect The aspect ratio that determines the field of view in the x-direction. The aspect ratio is the ratio of *x* (width) to *y* (height).
      * @param {Float} zNear The distance from the viewer to the near clipping plane (always positive).
      * @param {Float} zFar The distance from the viewer to the far clipping plane (always positive).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluperspective
      */
     static gluPerspective(fovy, aspect, zNear, zFar) {
-        result := DllCall("GLU32.dll\gluPerspective", "double", fovy, "double", aspect, "double", zNear, "double", zFar)
-        return result
+        DllCall("GLU32.dll\gluPerspective", "double", fovy, "double", aspect, "double", zNear, "double", zFar)
     }
 
     /**
@@ -17140,12 +16777,11 @@ class OpenGL {
      * @param {Float} width The width of the picking region in window coordinates.
      * @param {Float} height The height of the picking region in window coordinates.
      * @param {Pointer<Int32>} viewport The current viewport (as from a [**glGetIntegerv**](glgetintegerv.md) call).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupickmatrix
      */
     static gluPickMatrix(x, y, width, height, viewport) {
-        result := DllCall("GLU32.dll\gluPickMatrix", "double", x, "double", y, "double", width, "double", height, "int*", viewport)
-        return result
+        DllCall("GLU32.dll\gluPickMatrix", "double", x, "double", y, "double", width, "double", height, "int*", viewport)
     }
 
     /**
@@ -17163,12 +16799,11 @@ class OpenGL {
      * @param {Float} upx The direction of the up vector.
      * @param {Float} upy The direction of the up vector.
      * @param {Float} upz The direction of the up vector.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glulookat
      */
     static gluLookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz) {
-        result := DllCall("GLU32.dll\gluLookAt", "double", eyex, "double", eyey, "double", eyez, "double", centerx, "double", centery, "double", centerz, "double", upx, "double", upy, "double", upz)
-        return result
+        DllCall("GLU32.dll\gluLookAt", "double", eyex, "double", eyey, "double", eyez, "double", centerx, "double", centery, "double", centerz, "double", upx, "double", upy, "double", upz)
     }
 
     /**
@@ -17184,13 +16819,13 @@ class OpenGL {
      * @param {Pointer<Double>} winx The computed x window coordinate.
      * @param {Pointer<Double>} winy The computed y window coordinate.
      * @param {Pointer<Double>} winz The computed z window coordinate.
-     * @returns {Pointer} If the function succeeds, the return value is GL\_TRUE.
+     * @returns {Integer} If the function succeeds, the return value is GL\_TRUE.
      * 
      * If the function fails, the return value is GL\_FALSE.
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluproject
      */
     static gluProject(objx, objy, objz, modelMatrix, projMatrix, viewport, winx, winy, winz) {
-        result := DllCall("GLU32.dll\gluProject", "double", objx, "double", objy, "double", objz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", winx, "double*", winy, "double*", winz)
+        result := DllCall("GLU32.dll\gluProject", "double", objx, "double", objy, "double", objz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", winx, "double*", winy, "double*", winz, "int")
         return result
     }
 
@@ -17207,13 +16842,13 @@ class OpenGL {
      * @param {Pointer<Double>} objx The computed x object coordinate.
      * @param {Pointer<Double>} objy The computed y object coordinate.
      * @param {Pointer<Double>} objz The computed z object coordinate.
-     * @returns {Pointer} If the function succeeds, the return value is GL\_TRUE.
+     * @returns {Integer} If the function succeeds, the return value is GL\_TRUE.
      * 
      * If the function fails, the return value is GL\_FALSE.
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluunproject
      */
     static gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, objx, objy, objz) {
-        result := DllCall("GLU32.dll\gluUnProject", "double", winx, "double", winy, "double", winz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", objx, "double*", objy, "double*", objz)
+        result := DllCall("GLU32.dll\gluUnProject", "double", winx, "double", winy, "double", winz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", objx, "double*", objy, "double*", objz, "int")
         return result
     }
 
@@ -17234,13 +16869,13 @@ class OpenGL {
      * @param {Integer} heightout The height of the destination image.
      * @param {Integer} typeout The data type for *dataout*. Must be one of the following: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, or GL\_FLOAT.
      * @param {Pointer<Void>} dataout A pointer to the destination image.
-     * @returns {Pointer} If the function succeeds, the return value is zero.
+     * @returns {Integer} If the function succeeds, the return value is zero.
      * 
      * If the function fails, the return value is a GLU error code (see [**gluErrorString**](gluerrorstring.md)).
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluscaleimage
      */
     static gluScaleImage(format, widthin, heightin, typein, datain, widthout, heightout, typeout, dataout) {
-        result := DllCall("GLU32.dll\gluScaleImage", "uint", format, "int", widthin, "int", heightin, "uint", typein, "ptr", datain, "int", widthout, "int", heightout, "uint", typeout, "ptr", dataout)
+        result := DllCall("GLU32.dll\gluScaleImage", "uint", format, "int", widthin, "int", heightin, "uint", typein, "ptr", datain, "int", widthout, "int", heightout, "uint", typeout, "ptr", dataout, "int")
         return result
     }
 
@@ -17258,11 +16893,11 @@ class OpenGL {
      * @param {Integer} format The format of the pixel data. The following values are valid: GL\_COLOR\_INDEX, GL\_RED, GL\_GREEN, GL\_BLUE, GL\_ALPHA, GL\_RGB, GL\_RGBA, GL\_BGR\_EXT, GL\_BGRA\_EXT, GL\_LUMINANCE, or GL\_LUMINANCE\_ALPHA.
      * @param {Integer} type The data type for *data*. The following values are valid: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, or GL\_FLOAT.
      * @param {Pointer<Void>} data A pointer to the image data in memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {Integer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild1dmipmaps
      */
     static gluBuild1DMipmaps(target, components, width, format, type, data) {
-        result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", components, "int", width, "uint", format, "uint", type, "ptr", data)
+        result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", components, "int", width, "uint", format, "uint", type, "ptr", data, "int")
         return result
     }
 
@@ -17281,11 +16916,11 @@ class OpenGL {
      * @param {Integer} format The format of the pixel data. Must be one of the following: GL\_COLOR\_INDEX, GL\_RED, GL\_GREEN, GL\_BLUE, GL\_ALPHA, GL\_RGB, GL\_RGBA, GL\_BGR\_EXT, GL\_BGRA\_EXT, GL\_LUMINANCE, or GL\_LUMINANCE\_ALPHA.
      * @param {Integer} type The data type for *data*. Must be one of the following: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, or GL\_FLOAT.
      * @param {Pointer<Void>} data A pointer to the image data in memory.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {Integer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild2dmipmaps
      */
     static gluBuild2DMipmaps(target, components, width, height, format, type, data) {
-        result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", components, "int", width, "int", height, "uint", format, "uint", type, "ptr", data)
+        result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", components, "int", width, "int", height, "uint", format, "uint", type, "ptr", data, "int")
         return result
     }
 
@@ -17296,11 +16931,11 @@ class OpenGL {
      * 
      * 
      * The **gluNewQuadric** function creates and returns a pointer to a new quadric object. Refer to this object when calling quadric rendering and control functions. A return value of zero means there is not enough memory to allocate to the object.
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunewquadric
      */
     static gluNewQuadric() {
-        result := DllCall("GLU32.dll\gluNewQuadric")
+        result := DllCall("GLU32.dll\gluNewQuadric", "ptr*")
         return result
     }
 
@@ -17309,12 +16944,11 @@ class OpenGL {
      * @remarks
      * The **gluDeleteQuadric** function destroys the quadric object and frees any memory that it used. After you have called **gluDeleteQuadric**, you cannot use *state* again.
      * @param {Pointer<IntPtr>} state The quadric object to be destroyed (created with [**gluNewQuadric**](glunewquadric.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletequadric
      */
     static gluDeleteQuadric(state) {
-        result := DllCall("GLU32.dll\gluDeleteQuadric", "ptr*", state)
-        return result
+        DllCall("GLU32.dll\gluDeleteQuadric", "ptr*", state)
     }
 
     /**
@@ -17331,12 +16965,11 @@ class OpenGL {
      * | <span id="GLU_NONE"></span><span id="glu_none"></span><dl> <dt>**GLU\_NONE**</dt> </dl>       | No normals are generated.<br/>                                                         |
      * | <span id="GLU_FLAT"></span><span id="glu_flat"></span><dl> <dt>**GLU\_FLAT**</dt> </dl>       | One normal is generated for every facet of a quadric.<br/>                             |
      * | <span id="GLU_SMOOTH"></span><span id="glu_smooth"></span><dl> <dt>**GLU\_SMOOTH**</dt> </dl> | One normal is generated for every vertex of a quadric. This is the default value.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricnormals
      */
     static gluQuadricNormals(quadObject, normals) {
-        result := DllCall("GLU32.dll\gluQuadricNormals", "ptr*", quadObject, "uint", normals)
-        return result
+        DllCall("GLU32.dll\gluQuadricNormals", "ptr*", quadObject, "uint", normals)
     }
 
     /**
@@ -17354,12 +16987,11 @@ class OpenGL {
      * |------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
      * | <span id="GL_TRUE"></span><span id="gl_true"></span><dl> <dt>**GL\_TRUE**</dt> </dl>    | Generate texture coordinates.<br/>                                   |
      * | <span id="GL_FALSE"></span><span id="gl_false"></span><dl> <dt>**GL\_FALSE**</dt> </dl> | Do not generate texture coordinates. This is the default value.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadrictexture
      */
     static gluQuadricTexture(quadObject, textureCoords) {
-        result := DllCall("GLU32.dll\gluQuadricTexture", "ptr*", quadObject, "char", textureCoords)
-        return result
+        DllCall("GLU32.dll\gluQuadricTexture", "ptr*", quadObject, "char", textureCoords)
     }
 
     /**
@@ -17375,12 +17007,11 @@ class OpenGL {
      * |---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
      * | <span id="GLU_OUTSIDE"></span><span id="glu_outside"></span><dl> <dt>**GLU\_OUTSIDE**</dt> </dl> | Draw quadrics with normals pointing outward. This is the default value.<br/> |
      * | <span id="GLU_INSIDE"></span><span id="glu_inside"></span><dl> <dt>**GLU\_INSIDE**</dt> </dl>    | Draw quadrics with normals pointing inward.<br/>                             |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricorientation
      */
     static gluQuadricOrientation(quadObject, orientation) {
-        result := DllCall("GLU32.dll\gluQuadricOrientation", "ptr*", quadObject, "uint", orientation)
-        return result
+        DllCall("GLU32.dll\gluQuadricOrientation", "ptr*", quadObject, "uint", orientation)
     }
 
     /**
@@ -17398,12 +17029,11 @@ class OpenGL {
      * | <span id="GLU_LINE"></span><span id="glu_line"></span><dl> <dt>**GLU\_LINE**</dt> </dl>                   | Quadrics are rendered as a set of lines.<br/>                                                                                                                                                                    |
      * | <span id="GLU_SILHOUETTE"></span><span id="glu_silhouette"></span><dl> <dt>**GLU\_SILHOUETTE**</dt> </dl> | Quadrics are rendered as a set of lines, except that edges separating coplanar faces will not be drawn.<br/>                                                                                                     |
      * | <span id="GLU_POINT"></span><span id="glu_point"></span><dl> <dt>**GLU\_POINT**</dt> </dl>                | Quadrics are rendered as a set of points.<br/>                                                                                                                                                                   |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricdrawstyle
      */
     static gluQuadricDrawStyle(quadObject, drawStyle) {
-        result := DllCall("GLU32.dll\gluQuadricDrawStyle", "ptr*", quadObject, "uint", drawStyle)
-        return result
+        DllCall("GLU32.dll\gluQuadricDrawStyle", "ptr*", quadObject, "uint", drawStyle)
     }
 
     /**
@@ -17422,12 +17052,11 @@ class OpenGL {
      * @param {Float} height The height of the cylinder.
      * @param {Integer} slices The number of subdivisions around the z-axis.
      * @param {Integer} stacks The number of subdivisions along the z-axis.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glucylinder
      */
     static gluCylinder(qobj, baseRadius, topRadius, height, slices, stacks) {
-        result := DllCall("GLU32.dll\gluCylinder", "ptr*", qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
-        return result
+        DllCall("GLU32.dll\gluCylinder", "ptr*", qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
     }
 
     /**
@@ -17443,12 +17072,11 @@ class OpenGL {
      * @param {Float} outerRadius The outer radius of the disk.
      * @param {Integer} slices The number of subdivisions around the z-axis.
      * @param {Integer} loops The number of concentric rings about the origin into which the disk is subdivided.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludisk
      */
     static gluDisk(qobj, innerRadius, outerRadius, slices, loops) {
-        result := DllCall("GLU32.dll\gluDisk", "ptr*", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
-        return result
+        DllCall("GLU32.dll\gluDisk", "ptr*", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
     }
 
     /**
@@ -17468,12 +17096,11 @@ class OpenGL {
      * @param {Integer} loops The number of concentric rings about the origin into which the partial disk is subdivided.
      * @param {Float} startAngle The starting angle, in degrees, of the disk portion.
      * @param {Float} sweepAngle The sweep angle, in degrees, of the disk portion.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupartialdisk
      */
     static gluPartialDisk(qobj, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle) {
-        result := DllCall("GLU32.dll\gluPartialDisk", "ptr*", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
-        return result
+        DllCall("GLU32.dll\gluPartialDisk", "ptr*", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
     }
 
     /**
@@ -17488,12 +17115,11 @@ class OpenGL {
      * @param {Float} radius The radius of the sphere.
      * @param {Integer} slices The number of subdivisions around the z-axis (similar to lines of longitude).
      * @param {Integer} stacks The number of subdivisions along the z-axis (similar to lines of latitude).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glusphere
      */
     static gluSphere(qobj, radius, slices, stacks) {
-        result := DllCall("GLU32.dll\gluSphere", "ptr*", qobj, "double", radius, "int", slices, "int", stacks)
-        return result
+        DllCall("GLU32.dll\gluSphere", "ptr*", qobj, "double", radius, "int", slices, "int", stacks)
     }
 
     /**
@@ -17509,12 +17135,11 @@ class OpenGL {
      * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | <span id="GLU_ERROR"></span><span id="glu_error"></span><dl> <dt>**GLU\_ERROR**</dt> </dl> | The **gluQuadricCallback** function is called when an error is encountered. Its single argument is of type **GLenum**, and it indicates the specific error that occurred. Character strings describing these errors can be retrieved with the [**gluErrorString**](gluerrorstring.md) call.<br/> |
      * @param {Pointer} fn The function to be called.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadric
      */
     static gluQuadricCallback(qobj, which, fn) {
-        result := DllCall("GLU32.dll\gluQuadricCallback", "ptr*", qobj, "uint", which, "ptr", fn)
-        return result
+        DllCall("GLU32.dll\gluQuadricCallback", "ptr*", qobj, "uint", which, "ptr", fn)
     }
 
     /**
@@ -17524,11 +17149,11 @@ class OpenGL {
      * 
      * 
      * The **gluNewTess** function creates and returns a pointer to a new tessellation object. Refer to this object when calling tessellation functions. A return value of zero means there is not enough memory to allocate to the object.
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunewtess
      */
     static gluNewTess() {
-        result := DllCall("GLU32.dll\gluNewTess")
+        result := DllCall("GLU32.dll\gluNewTess", "ptr*")
         return result
     }
 
@@ -17537,12 +17162,11 @@ class OpenGL {
      * @remarks
      * The **gluDeleteTess** function destroys the indicated tessellation object and frees any memory that it used.
      * @param {Pointer<IntPtr>} tess The tessellation object to destroy (created with [**gluNewTess**](glunewtess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletetess
      */
     static gluDeleteTess(tess) {
-        result := DllCall("GLU32.dll\gluDeleteTess", "ptr*", tess)
-        return result
+        DllCall("GLU32.dll\gluDeleteTess", "ptr*", tess)
     }
 
     /**
@@ -17560,12 +17184,11 @@ class OpenGL {
      * 
      * A pointer to a programmer-defined polygon data structure.
      * @param {Pointer<Void>} polygon_data 
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbeginpolygon
      */
     static gluTessBeginPolygon(tess, polygon_data) {
-        result := DllCall("GLU32.dll\gluTessBeginPolygon", "ptr*", tess, "ptr", polygon_data)
-        return result
+        DllCall("GLU32.dll\gluTessBeginPolygon", "ptr*", tess, "ptr", polygon_data)
     }
 
     /**
@@ -17573,12 +17196,11 @@ class OpenGL {
      * @remarks
      * The **gluTessBeginContour** and [**gluTessEndPolygon**](glutessendpolygon.md) functions delimit the definition of a polygon contour. Within each **gluTessBeginContour*/*gluTessEndPolygon** pair, there can be zero or more calls to [**gluTessVertex**](glutessvertex.md). The vertexes specify a closed contour (the last vertex of each contour is automatically linked to the first). You can call **gluTessBeginContour** only between [**gluTessBeginPolygon**](glutessbeginpolygon.md) and **gluTessEndPolygon**.
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbegincontour
      */
     static gluTessBeginContour(tess) {
-        result := DllCall("GLU32.dll\gluTessBeginContour", "ptr*", tess)
-        return result
+        DllCall("GLU32.dll\gluTessBeginContour", "ptr*", tess)
     }
 
     /**
@@ -17590,12 +17212,11 @@ class OpenGL {
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
      * @param {Pointer<Double>} coords The location of the vertex.
      * @param {Pointer<Void>} data An pointer passed back to the program with the vertex callback (as specified by [*gluTessCallback*](glutess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessvertex
      */
     static gluTessVertex(tess, coords, data) {
-        result := DllCall("GLU32.dll\gluTessVertex", "ptr*", tess, "double*", coords, "ptr", data)
-        return result
+        DllCall("GLU32.dll\gluTessVertex", "ptr*", tess, "double*", coords, "ptr", data)
     }
 
     /**
@@ -17603,12 +17224,11 @@ class OpenGL {
      * @remarks
      * The [**gluTessBeginContour**](glutessbegincontour.md) and **gluTessEndContour** functions delimit the definition of a polygon contour. Within each **gluTessBeginContour*/*gluTessEndContour** pair, there can be zero or more calls to [**gluTessVertex**](glutessvertex.md). The vertexes specify a closed contour (the last vertex of each contour is automatically linked to the first). You can call **gluTessBeginContour** only between [**gluTessBeginPolygon**](glutessbeginpolygon.md) and [**gluTessEndPolygon**](glutessendpolygon.md).
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessendcontour
      */
     static gluTessEndContour(tess) {
-        result := DllCall("GLU32.dll\gluTessEndContour", "ptr*", tess)
-        return result
+        DllCall("GLU32.dll\gluTessEndContour", "ptr*", tess)
     }
 
     /**
@@ -17620,12 +17240,11 @@ class OpenGL {
      * 
      * When you call **gluTessEndPolygon**, the polygon is tessellated, and the resulting triangles are described through callbacks. For descriptions of the callback functions, see [*gluTessCallback*](glutess.md).
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessendpolygon
      */
     static gluTessEndPolygon(tess) {
-        result := DllCall("GLU32.dll\gluTessEndPolygon", "ptr*", tess)
-        return result
+        DllCall("GLU32.dll\gluTessEndPolygon", "ptr*", tess)
     }
 
     /**
@@ -17643,12 +17262,11 @@ class OpenGL {
      * | <span id="GLU_TESS_BOUNDARY_ONLY"></span><span id="glu_tess_boundary_only"></span><dl> <dt>**GLU\_TESS\_BOUNDARY\_ONLY**</dt> </dl> | Specifies a Boolean value (set value to GL\_TRUE or GL\_FALSE). When you set value to GL\_TRUE, a set of closed contours separating the polygon interior and exterior is returned instead of a tessellation. Exterior contours are oriented counterclockwise with respect to the normal; interior contours are oriented clockwise. The GLU\_TESS\_BEGIN and GLU\_TESS\_BEGIN\_DATA callbacks use the type GL\_LINE\_LOOP for each contour.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
      * | <span id="GLU_TESS_TOLERANCE"></span><span id="glu_tess_tolerance"></span><dl> <dt>**GLU\_TESS\_TOLERANCE**</dt> </dl>              | Specifies a tolerance for merging features to reduce the size of the output. For example, two vertexes that are very close to each other might be replaced by a single vertex. The tolerance is multiplied by the largest coordinate magnitude of any input vertex; this specifies the maximum distance that any feature can move as the result of a single merge operation. If a single feature takes part in several merge operations, the total distance moved can be larger. <br/> Feature merging is completely optional; the tolerance is only a hint. The implementation is free to merge in some cases and not in others, or to never merge features at all. The default tolerance is zero.<br/> The current implementation merges vertexes only if they are exactly coincident, regardless of the current tolerance. A vertex is spliced into an edge only if the implementation is unable to distinguish which side of the edge the vertex lies on. Two edges are merged only when both endpoints are identical.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                 |
      * @param {Float} value The value of the indicated property.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessproperty
      */
     static gluTessProperty(tess, which, value) {
-        result := DllCall("GLU32.dll\gluTessProperty", "ptr*", tess, "uint", which, "double", value)
-        return result
+        DllCall("GLU32.dll\gluTessProperty", "ptr*", tess, "uint", which, "double", value)
     }
 
     /**
@@ -17666,12 +17284,11 @@ class OpenGL {
      * @param {Float} x The x-coordinate component of a normal.
      * @param {Float} y The y-coordinate component of a normal.
      * @param {Float} z The z-coordinate component of a normal.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessnormal
      */
     static gluTessNormal(tess, x, y, z) {
-        result := DllCall("GLU32.dll\gluTessNormal", "ptr*", tess, "double", x, "double", y, "double", z)
-        return result
+        DllCall("GLU32.dll\gluTessNormal", "ptr*", tess, "double", x, "double", y, "double", z)
     }
 
     /**
@@ -17707,12 +17324,11 @@ class OpenGL {
      * 
      * For more information on these callbacks, see the following Remarks section.
      * @param {Pointer} fn The function to be called.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutess
      */
     static gluTessCallback(tess, which, fn) {
-        result := DllCall("GLU32.dll\gluTessCallback", "ptr*", tess, "uint", which, "ptr", fn)
-        return result
+        DllCall("GLU32.dll\gluTessCallback", "ptr*", tess, "uint", which, "ptr", fn)
     }
 
     /**
@@ -17722,12 +17338,11 @@ class OpenGL {
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
      * @param {Integer} which The property whose value is to be retrieved. The following values are valid: GLU\_TESS\_WINDING\_RULE, GLU\_TESS\_BOUNDARY\_ONLY, and GLU\_TESS\_TOLERANCE.
      * @param {Pointer<Double>} value A pointer to the location where the value of the named property is written.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugettessproperty
      */
     static gluGetTessProperty(tess, which, value) {
-        result := DllCall("GLU32.dll\gluGetTessProperty", "ptr*", tess, "uint", which, "double*", value)
-        return result
+        DllCall("GLU32.dll\gluGetTessProperty", "ptr*", tess, "uint", which, "double*", value)
     }
 
     /**
@@ -17737,11 +17352,11 @@ class OpenGL {
      * 
      * 
      * The **gluNewNurbsRenderer** function creates and returns a pointer to a new NURBS object. Refer to this object when calling NURBS rendering and control functions. A return value of zero means there is not enough memory to allocate to the object.
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunewnurbsrenderer
      */
     static gluNewNurbsRenderer() {
-        result := DllCall("GLU32.dll\gluNewNurbsRenderer")
+        result := DllCall("GLU32.dll\gluNewNurbsRenderer", "ptr*")
         return result
     }
 
@@ -17750,12 +17365,11 @@ class OpenGL {
      * @remarks
      * The **gluDeleteNurbsRenderer** function destroys the NURBS object and frees any memory that it used. After you have called **gluDeleteNurbsRenderer**, you cannot use *nobj* again.
      * @param {Pointer<IntPtr>} nobj The NURBS object to be destroyed (created with **gluNewNurbsRenderer**).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletenurbsrenderer
      */
     static gluDeleteNurbsRenderer(nobj) {
-        result := DllCall("GLU32.dll\gluDeleteNurbsRenderer", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluDeleteNurbsRenderer", "ptr*", nobj)
     }
 
     /**
@@ -17774,12 +17388,11 @@ class OpenGL {
      * 
      * Use OpenGL evaluators to render the NURBS surface as a set of polygons. Preserve the evaluator state during rendering with [**glPushAttrib**](glpushattrib.md)(GL\_EVAL\_BIT) and [**glPopAttrib**](glpopattrib.md).
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubeginsurface
      */
     static gluBeginSurface(nobj) {
-        result := DllCall("GLU32.dll\gluBeginSurface", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluBeginSurface", "ptr*", nobj)
     }
 
     /**
@@ -17789,12 +17402,11 @@ class OpenGL {
      * 
      * OpenGL evaluators are used to render the NURBS curve as a series of line segments. Evaluator state is preserved during rendering with [**glPushAttrib**](glpushattrib.md) (GL\_EVAL\_BIT) and [**glPopAttrib**](glpopattrib.md). For information on exactly what state these calls preserve, see **glPushAttrib**.
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubegincurve
      */
     static gluBeginCurve(nobj) {
-        result := DllCall("GLU32.dll\gluBeginCurve", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluBeginCurve", "ptr*", nobj)
     }
 
     /**
@@ -17804,12 +17416,11 @@ class OpenGL {
      * 
      * OpenGL evaluators are used to render the NURBS curve as a series of line segments. Evaluator state is preserved during rendering with [**glPushAttrib**](glpushattrib.md) (GL\_EVAL\_BIT ) and [**glPopAttrib**](glpopattrib.md). For information on exactly what state these calls preserve, see **glPushAttrib**.
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendcurve
      */
     static gluEndCurve(nobj) {
-        result := DllCall("GLU32.dll\gluEndCurve", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluEndCurve", "ptr*", nobj)
     }
 
     /**
@@ -17828,12 +17439,11 @@ class OpenGL {
      * 
      * Use OpenGL evaluators to render the NURBS surface as a set of polygons. Preserve the evaluator state during rendering with [**glPushAttrib**](glpushattrib.md) (GL\_EVAL\_BIT) and [**glPopAttrib**](glpopattrib.md).
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendsurface
      */
     static gluEndSurface(nobj) {
-        result := DllCall("GLU32.dll\gluEndSurface", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluEndSurface", "ptr*", nobj)
     }
 
     /**
@@ -17853,12 +17463,11 @@ class OpenGL {
      * 
      * If no trimming information is given for a NURBS surface, the entire surface is drawn.
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubegintrim
      */
     static gluBeginTrim(nobj) {
-        result := DllCall("GLU32.dll\gluBeginTrim", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluBeginTrim", "ptr*", nobj)
     }
 
     /**
@@ -17878,12 +17487,11 @@ class OpenGL {
      * 
      * If no trimming information is given for a NURBS surface, the entire surface is drawn.
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendtrim
      */
     static gluEndTrim(nobj) {
-        result := DllCall("GLU32.dll\gluEndTrim", "ptr*", nobj)
-        return result
+        DllCall("GLU32.dll\gluEndTrim", "ptr*", nobj)
     }
 
     /**
@@ -17897,12 +17505,11 @@ class OpenGL {
      * @param {Pointer<Single>} array An array containing the curve points.
      * @param {Integer} stride The offset (a number of single-precision floating-point values) between points on the curve.
      * @param {Integer} type The type of curve. Must be either GLU\_MAP1\_TRIM\_2 or GLU\_MAP1\_TRIM\_3.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupwlcurve
      */
     static gluPwlCurve(nobj, count, array, stride, type) {
-        result := DllCall("GLU32.dll\gluPwlCurve", "ptr*", nobj, "int", count, "float*", array, "int", stride, "uint", type)
-        return result
+        DllCall("GLU32.dll\gluPwlCurve", "ptr*", nobj, "int", count, "float*", array, "int", stride, "uint", type)
     }
 
     /**
@@ -17918,12 +17525,11 @@ class OpenGL {
      * @param {Pointer<Single>} ctlarray A pointer to an array of control points. The coordinates must agree with *type*.
      * @param {Integer} order The order of the NURBS curve. The *order* parameter equals degree + 1; hence a cubic curve has an order of 4.
      * @param {Integer} type The type of the curve. If this curve is defined within a [**gluBeginCurve**](glubegincurve.md)/[**gluEndCurve**](gluendcurve.md) pair, then the type can be any of the valid one-dimensional evaluator types (such as GL\_MAP1\_VERTEX\_3 or GL\_MAP1\_COLOR\_4). Between a [**gluBeginTrim**](glubegintrim.md)/[**gluEndTrim**](gluendtrim.md) pair, the only valid types are GLU\_MAP1\_TRIM\_2 and GLU\_MAP1\_TRIM\_3.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbscurve
      */
     static gluNurbsCurve(nobj, nknots, knot, stride, ctlarray, order, type) {
-        result := DllCall("GLU32.dll\gluNurbsCurve", "ptr*", nobj, "int", nknots, "float*", knot, "int", stride, "float*", ctlarray, "int", order, "uint", type)
-        return result
+        DllCall("GLU32.dll\gluNurbsCurve", "ptr*", nobj, "int", nknots, "float*", knot, "int", stride, "float*", ctlarray, "int", order, "uint", type)
     }
 
     /**
@@ -17967,12 +17573,11 @@ class OpenGL {
      * @param {Integer} sorder The order of the NURBS surface in the parametric *u* direction. The order is one more than the degree, hence a surface that is cubic in *u* has a *u* order of 4.
      * @param {Integer} torder The order of the NURBS surface in the parametric *v* direction. The order is one more than the degree, hence a surface that is cubic in *v* has a *v* order of 4.
      * @param {Integer} type The type of the surface. The *type* parameter can be any of the valid two-dimensional evaluator types (such as GL\_MAP2\_VERTEX\_3 or GL\_MAP2\_COLOR\_4).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbssurface
      */
     static gluNurbsSurface(nobj, sknot_count, sknot, tknot_count, tknot, s_stride, t_stride, ctlarray, sorder, torder, type) {
-        result := DllCall("GLU32.dll\gluNurbsSurface", "ptr*", nobj, "int", sknot_count, "float*", sknot, "int", tknot_count, "float*", tknot, "int", s_stride, "int", t_stride, "float*", ctlarray, "int", sorder, "int", torder, "uint", type)
-        return result
+        DllCall("GLU32.dll\gluNurbsSurface", "ptr*", nobj, "int", sknot_count, "float*", sknot, "int", tknot_count, "float*", tknot, "int", s_stride, "int", t_stride, "float*", ctlarray, "int", sorder, "int", torder, "uint", type)
     }
 
     /**
@@ -17985,12 +17590,11 @@ class OpenGL {
      * @param {Pointer<Single>} modelMatrix A modelview matrix (as from a [**glGetFloatv**](glgetfloatv.md) call).
      * @param {Pointer<Single>} projMatrix A projection matrix (as from a **glGetFloatv** call).
      * @param {Pointer<Int32>} viewport A viewport (as from a [**glGetIntegerv**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) call).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluloadsamplingmatrices
      */
     static gluLoadSamplingMatrices(nobj, modelMatrix, projMatrix, viewport) {
-        result := DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr*", nobj, "float*", modelMatrix, "float*", projMatrix, "int*", viewport)
-        return result
+        DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr*", nobj, "float*", modelMatrix, "float*", projMatrix, "int*", viewport)
     }
 
     /**
@@ -18021,12 +17625,11 @@ class OpenGL {
      * | <span id="GLU_PATH_LENGTH"></span><span id="glu_path_length"></span><dl> <dt>**GLU\_PATH\_LENGTH**</dt> </dl>                | The default value. Specifies that surfaces rendered with the maximum length, in pixels, of the edges of the tessellation polygons are no greater than the value specified by GLU\_SAMPLING\_TOLERANCE.<br/> |
      * | <span id="GLU_PARAMETRIC_ERROR"></span><span id="glu_parametric_error"></span><dl> <dt>**GLU\_PARAMETRIC\_ERROR**</dt> </dl> | Specifies that in rendering the surface, the value of GLU\_PARAMETRIC\_TOLERANCE specifies the maximum distance, in pixels, between the tessellation polygons and the surfaces they approximate.<br/>       |
      * | <span id="GLU_DOMAIN_DISTANCE"></span><span id="glu_domain_distance"></span><dl> <dt>**GLU\_DOMAIN\_DISTANCE**</dt> </dl>    | Specifies, in parametric coordinates, how many sample points per unit length to take in the *u* and *v* dimensions.<br/>                                                                                    |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbsproperty
      */
     static gluNurbsProperty(nobj, property, value) {
-        result := DllCall("GLU32.dll\gluNurbsProperty", "ptr*", nobj, "uint", property, "float", value)
-        return result
+        DllCall("GLU32.dll\gluNurbsProperty", "ptr*", nobj, "uint", property, "float", value)
     }
 
     /**
@@ -18036,12 +17639,11 @@ class OpenGL {
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
      * @param {Integer} property The property whose value is to be retrieved. The following values are valid: GLU\_SAMPLING\_TOLERANCE, GLU\_DISPLAY\_MODE, GLU\_CULLING, GLU\_AUTO\_LOAD\_MATRIX, GLU\_PARAMETRIC\_TOLERANCE, GLU\_SAMPLING\_METHOD, GLU\_U\_STEP, and GLU\_V\_STEP.
      * @param {Pointer<Single>} value A pointer to the location into which the value of the named property is written.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetnurbsproperty
      */
     static gluGetNurbsProperty(nobj, property, value) {
-        result := DllCall("GLU32.dll\gluGetNurbsProperty", "ptr*", nobj, "uint", property, "float*", value)
-        return result
+        DllCall("GLU32.dll\gluGetNurbsProperty", "ptr*", nobj, "uint", property, "float*", value)
     }
 
     /**
@@ -18051,12 +17653,11 @@ class OpenGL {
      * @param {Pointer<IntPtr>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
      * @param {Integer} which The callback being defined. The only valid value is GLU\_ERROR. The meaning of GLU\_ERROR means that the error function is called when an error is encountered. Its single argument is of type **GLenum**, and it indicates the specific error that occurred. There are 37 errors unique to NURBS, named GLU\_NURBS\_ERROR1 through GLU\_NURBS\_ERROR37. Character strings describing these errors can be retrieved with [**gluErrorString**](gluerrorstring.md).
      * @param {Pointer} fn A pointer to the callback function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbs
      */
     static gluNurbsCallback(nobj, which, fn) {
-        result := DllCall("GLU32.dll\gluNurbsCallback", "ptr*", nobj, "uint", which, "ptr", fn)
-        return result
+        DllCall("GLU32.dll\gluNurbsCallback", "ptr*", nobj, "uint", which, "ptr", fn)
     }
 
     /**
@@ -18070,12 +17671,11 @@ class OpenGL {
      * 
      *     Once **gluEndPolygon** is called, the polygon is tessellated, and the resulting triangles are described through callbacks. For descriptions of the callback functions, see [*gluTessCallback*](glutess.md).
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubeginpolygon
      */
     static gluBeginPolygon(tess) {
-        result := DllCall("GLU32.dll\gluBeginPolygon", "ptr*", tess)
-        return result
+        DllCall("GLU32.dll\gluBeginPolygon", "ptr*", tess)
     }
 
     /**
@@ -18097,12 +17697,11 @@ class OpenGL {
      * | <span id="GLU_INTERIOR"></span><span id="glu_interior"></span><dl> <dt>**GLU\_INTERIOR**</dt> </dl>           | An interior contour defines an interior boundary of the polygon (such as a hole).<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
      * | <span id="GLU_UNKNOWN"></span><span id="glu_unknown"></span><dl> <dt>**GLU\_UNKNOWN**</dt> </dl>              | An unknown contour is analyzed by the library to determine whether it is interior or exterior.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
      * | <span id="GLU_CCW__GLU_CW"></span><span id="glu_ccw__glu_cw"></span><dl> <dt>**GLU\_CCW, GLU\_CW**</dt> </dl> | The first GLU\_CCW or GLU\_CW contour defined is considered to be exterior. All other contours are considered to be exterior if they are oriented in the same direction (clockwise or counterclockwise) as the first contour, and interior if they are not.<br/> If one contour is of type GLU\_CCW or GLU\_CW, then all contours must be of the same type (if they are not, then all GLU\_CCW and GLU\_CW contours will be changed to GLU\_UNKNOWN). Note that there is no real difference between the GLU\_CCW and GLU\_CW contour types.<br/> |
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunextcontour
      */
     static gluNextContour(tess, type) {
-        result := DllCall("GLU32.dll\gluNextContour", "ptr*", tess, "uint", type)
-        return result
+        DllCall("GLU32.dll\gluNextContour", "ptr*", tess, "uint", type)
     }
 
     /**
@@ -18116,12 +17715,11 @@ class OpenGL {
      * 
      *     Once **gluEndPolygon** is called, the polygon is tessellated, and the resulting triangles are described through callbacks. For descriptions of the callback functions, see [*gluTessCallback*](glutess.md).
      * @param {Pointer<IntPtr>} tess The tessellation object (created with [**gluNewTess**](glunewtess.md)).
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendpolygon
      */
     static gluEndPolygon(tess) {
-        result := DllCall("GLU32.dll\gluEndPolygon", "ptr*", tess)
-        return result
+        DllCall("GLU32.dll\gluEndPolygon", "ptr*", tess)
     }
 
 ;@endregion Methods

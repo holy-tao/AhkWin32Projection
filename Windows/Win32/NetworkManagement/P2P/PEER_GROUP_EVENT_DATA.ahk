@@ -88,7 +88,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrConnectionFailedReason {
         get => NumGet(this, 8, "int")

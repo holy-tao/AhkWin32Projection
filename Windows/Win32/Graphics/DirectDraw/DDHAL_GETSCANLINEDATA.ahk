@@ -28,7 +28,7 @@ class DDHAL_GETSCANLINEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 12, "int")

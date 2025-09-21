@@ -279,7 +279,7 @@ class Pnp {
      * typedef HSWDEVICE *PHSWDEVICE;
      * 
      * ```
-     * @returns {Integer} S_OK is returned if device enumeration was successfully initiated.  This does not mean that the device has been successfully enumerated.  Check the <i>CreateResult</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nc-swdevice-sw_device_create_callback">SW_DEVICE_CREATE_CALLBACK</a> callback function to determine if the device was successfully enumerated.
+     * @returns {HRESULT} S_OK is returned if device enumeration was successfully initiated.  This does not mean that the device has been successfully enumerated.  Check the <i>CreateResult</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nc-swdevice-sw_device_create_callback">SW_DEVICE_CREATE_CALLBACK</a> callback function to determine if the device was successfully enumerated.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicecreate
      * @since windows8.0
      */
@@ -288,6 +288,9 @@ class Pnp {
         pszParentDeviceInstance := pszParentDeviceInstance is String? StrPtr(pszParentDeviceInstance) : pszParentDeviceInstance
 
         result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, "ptr", pCreateInfo, "uint", cPropertyCount, "ptr", pProperties, "ptr", pCallback, "ptr", pContext, "ptr", phSwDevice, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -304,13 +307,12 @@ class Pnp {
      * 
      * PnP removal makes the device "Not present" and does not uninstall the device. PnP removal of a device is the same as unplugging a USB device and all of the persisted property state for the device will remain. If you wish to uninstall the device after calling <b>SwDeviceClose</b>, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/how-devices-and-driver-packages-are-uninstalled#uninstalling-the-device">Uninstalling the device</a>.
      * @param {Pointer<Void>} hSwDevice The <b>HSWDEVICE</b> handle to close.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceclose
      * @since windows8.0
      */
     static SwDeviceClose(hSwDevice) {
-        result := DllCall("CFGMGR32.dll\SwDeviceClose", "ptr", hSwDevice)
-        return result
+        DllCall("CFGMGR32.dll\SwDeviceClose", "ptr", hSwDevice)
     }
 
     /**
@@ -356,12 +358,15 @@ class Pnp {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} S_OK is returned if <b>SwDeviceSetLifetime</b> successfully updated the lifetime.
+     * @returns {HRESULT} S_OK is returned if <b>SwDeviceSetLifetime</b> successfully updated the lifetime.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicesetlifetime
      * @since windows8.1
      */
     static SwDeviceSetLifetime(hSwDevice, Lifetime) {
         result := DllCall("CFGMGR32.dll\SwDeviceSetLifetime", "ptr", hSwDevice, "int", Lifetime, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -396,12 +401,15 @@ class Pnp {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} S_OK is returned if <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdevicesetlifetime">SwDeviceSetLifetime</a> successfully retrieved the lifetime.
+     * @returns {HRESULT} S_OK is returned if <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdevicesetlifetime">SwDeviceSetLifetime</a> successfully retrieved the lifetime.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicegetlifetime
      * @since windows8.1
      */
     static SwDeviceGetLifetime(hSwDevice, pLifetime) {
         result := DllCall("CFGMGR32.dll\SwDeviceGetLifetime", "ptr", hSwDevice, "int*", pLifetime, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -418,12 +426,15 @@ class Pnp {
      * @param {Pointer<Void>} hSwDevice The <b>HSWDEVICE</b> handle to the software device to set properties for.
      * @param {Integer} cPropertyCount The number of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures in the <i>pProperties</i> array.
      * @param {Pointer<DEVPROPERTY>} pProperties An array of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures containing the properties to set.
-     * @returns {Integer} S_OK is returned if <b>SwDevicePropertySet</b> successfully set the properties; otherwise, an appropriate error value.
+     * @returns {HRESULT} S_OK is returned if <b>SwDevicePropertySet</b> successfully set the properties; otherwise, an appropriate error value.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicepropertyset
      * @since windows8.0
      */
     static SwDevicePropertySet(hSwDevice, cPropertyCount, pProperties) {
         result := DllCall("CFGMGR32.dll\SwDevicePropertySet", "ptr", hSwDevice, "uint", cPropertyCount, "ptr", pProperties, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -442,7 +453,7 @@ class Pnp {
      * Set these properties on the interface after it is created but before a notification that the interface has been created are sent.  For more info, see Remarks.  This pointer can be <b>NULL</b>.
      * @param {Integer} fEnabled A Boolean value that indicates whether to either enable or disable  the interface. <b>TRUE</b> to enable; <b>FALSE</b> to disable.
      * @param {Pointer<Char>} ppszDeviceInterfaceId A pointer to a variable that receives a pointer to the device interface ID for the interface. The caller must free this value with <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swmemfree">SwMemFree</a>.  This value can be <b>NULL</b> if the client app doesn't need to retrieve the name.
-     * @returns {Integer} S_OK is returned if <b>SwDeviceInterfaceRegister</b> successfully registered the interface; otherwise, an appropriate error value.
+     * @returns {HRESULT} S_OK is returned if <b>SwDeviceInterfaceRegister</b> successfully registered the interface; otherwise, an appropriate error value.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceinterfaceregister
      * @since windows8.0
      */
@@ -450,19 +461,21 @@ class Pnp {
         pszReferenceString := pszReferenceString is String? StrPtr(pszReferenceString) : pszReferenceString
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr", ppszDeviceInterfaceId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Frees memory that other Software Device API functions allocated.
      * @param {Pointer<Void>} pMem A pointer to the block of memory to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swmemfree
      * @since windows8.0
      */
     static SwMemFree(pMem) {
-        result := DllCall("CFGMGR32.dll\SwMemFree", "ptr", pMem)
-        return result
+        DllCall("CFGMGR32.dll\SwMemFree", "ptr", pMem)
     }
 
     /**
@@ -476,7 +489,7 @@ class Pnp {
      * @param {Pointer<Void>} hSwDevice The <b>HSWDEVICE</b> handle to the software device to register a device interface for.
      * @param {Pointer<Char>} pszDeviceInterfaceId A string that identifies the interface to enable or disable.
      * @param {Integer} fEnabled A Boolean value that indicates whether to either enable or disable  the interface. <b>TRUE</b> to enable; <b>FALSE</b> to disable.
-     * @returns {Integer} S_OK is returned if <b>SwDeviceInterfaceSetState</b> successfully enabled or disabled the interface; otherwise, an appropriate error value.
+     * @returns {HRESULT} S_OK is returned if <b>SwDeviceInterfaceSetState</b> successfully enabled or disabled the interface; otherwise, an appropriate error value.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceinterfacesetstate
      * @since windows8.0
      */
@@ -484,6 +497,9 @@ class Pnp {
         pszDeviceInterfaceId := pszDeviceInterfaceId is String? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -501,7 +517,7 @@ class Pnp {
      * @param {Pointer<Char>} pszDeviceInterfaceId A string that identifies the interface to set properties on.
      * @param {Integer} cPropertyCount The number of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures in the <i>pProperties</i> array.
      * @param {Pointer<DEVPROPERTY>} pProperties An array of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures containing the properties to set on the interface.
-     * @returns {Integer} S_OK is returned if <b>SwDeviceInterfacePropertySet</b> successfully set the properties on the interface; otherwise, an appropriate error value.
+     * @returns {HRESULT} S_OK is returned if <b>SwDeviceInterfacePropertySet</b> successfully set the properties on the interface; otherwise, an appropriate error value.
      * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceinterfacepropertyset
      * @since windows8.0
      */
@@ -509,6 +525,9 @@ class Pnp {
         pszDeviceInterfaceId := pszDeviceInterfaceId is String? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, "ptr", pProperties, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

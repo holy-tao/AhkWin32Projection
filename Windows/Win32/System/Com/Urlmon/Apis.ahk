@@ -1520,12 +1520,15 @@ class Urlmon {
      * @param {Pointer<IMoniker>} pMkCtx 
      * @param {Pointer<Char>} szURL 
      * @param {Pointer<IMoniker>} ppmk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateURLMoniker(pMkCtx, szURL, ppmk) {
         szURL := szURL is String? StrPtr(szURL) : szURL
 
         result := DllCall("urlmon.dll\CreateURLMoniker", "ptr", pMkCtx, "ptr", szURL, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1535,12 +1538,15 @@ class Urlmon {
      * @param {Pointer<Char>} szURL 
      * @param {Pointer<IMoniker>} ppmk 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateURLMonikerEx(pMkCtx, szURL, ppmk, dwFlags) {
         szURL := szURL is String? StrPtr(szURL) : szURL
 
         result := DllCall("urlmon.dll\CreateURLMonikerEx", "ptr", pMkCtx, "ptr", szURL, "ptr", ppmk, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1548,12 +1554,15 @@ class Urlmon {
      * 
      * @param {Pointer<Char>} szURL 
      * @param {Pointer<Guid>} pClsID 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetClassURL(szURL, pClsID) {
         szURL := szURL is String? StrPtr(szURL) : szURL
 
         result := DllCall("urlmon.dll\GetClassURL", "ptr", szURL, "ptr", pClsID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1567,7 +1576,7 @@ class Urlmon {
      * @param {Pointer<IBindStatusCallback>} pBSCb A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775060(v=vs.85)">IBindStatusCallback</a> interface used for receiving data availability and progress notification.
      * @param {Pointer<IEnumFORMATETC>} pEFetc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interface that can be used to enumerate formats for format negotiation during binding. This parameter can be <b>NULL</b>, in which case the caller is not interested in format negotiation during binding, and the default format of the object will be bound to.
      * @param {Pointer<IBindCtx>} ppBC Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>* pointer variable that receives the interface pointer to the new bind context.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -1613,6 +1622,9 @@ class Urlmon {
      */
     static CreateAsyncBindCtx(reserved, pBSCb, pEFetc, ppBC) {
         result := DllCall("urlmon.dll\CreateAsyncBindCtx", "uint", reserved, "ptr", pBSCb, "ptr", pEFetc, "ptr", ppBC, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1622,10 +1634,13 @@ class Urlmon {
      * @param {Pointer<IUri>} pUri 
      * @param {Pointer<IMoniker>} ppmk 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateURLMonikerEx2(pMkCtx, pUri, ppmk, dwFlags) {
         result := DllCall("urlmon.dll\CreateURLMonikerEx2", "ptr", pMkCtx, "ptr", pUri, "ptr", ppmk, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1637,10 +1652,13 @@ class Urlmon {
      * @param {Pointer<IEnumFORMATETC>} pEnum 
      * @param {Pointer<IBindCtx>} ppBC 
      * @param {Integer} reserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateAsyncBindCtxEx(pbc, dwOptions, pBSCb, pEnum, ppBC, reserved) {
         result := DllCall("urlmon.dll\CreateAsyncBindCtxEx", "ptr", pbc, "uint", dwOptions, "ptr", pBSCb, "ptr", pEnum, "ptr", ppBC, "uint", reserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1650,12 +1668,15 @@ class Urlmon {
      * @param {Pointer<Char>} szDisplayName 
      * @param {Pointer<UInt32>} pchEaten 
      * @param {Pointer<IMoniker>} ppmk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static MkParseDisplayNameEx(pbc, szDisplayName, pchEaten, ppmk) {
         szDisplayName := szDisplayName is String? StrPtr(szDisplayName) : szDisplayName
 
         result := DllCall("urlmon.dll\MkParseDisplayNameEx", "ptr", pbc, "ptr", szDisplayName, "uint*", pchEaten, "ptr", ppmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1665,10 +1686,13 @@ class Urlmon {
      * @param {Pointer<IBindStatusCallback>} pBSCb 
      * @param {Pointer<IBindStatusCallback>} ppBSCBPrev 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegisterBindStatusCallback(pBC, pBSCb, ppBSCBPrev, dwReserved) {
         result := DllCall("urlmon.dll\RegisterBindStatusCallback", "ptr", pBC, "ptr", pBSCb, "ptr", ppBSCBPrev, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1676,10 +1700,13 @@ class Urlmon {
      * 
      * @param {Pointer<IBindCtx>} pBC 
      * @param {Pointer<IBindStatusCallback>} pBSCb 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RevokeBindStatusCallback(pBC, pBSCb) {
         result := DllCall("urlmon.dll\RevokeBindStatusCallback", "ptr", pBC, "ptr", pBSCb, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1692,13 +1719,16 @@ class Urlmon {
      * @param {Pointer<Char>} szMime 
      * @param {Integer} dwReserved 
      * @param {Pointer<Guid>} pclsid 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetClassFileOrMime(pBC, szFilename, pBuffer, cbSize, szMime, dwReserved, pclsid) {
         szFilename := szFilename is String? StrPtr(szFilename) : szFilename
         szMime := szMime is String? StrPtr(szMime) : szMime
 
         result := DllCall("urlmon.dll\GetClassFileOrMime", "ptr", pBC, "ptr", szFilename, "ptr", pBuffer, "uint", cbSize, "ptr", szMime, "uint", dwReserved, "ptr", pclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1707,12 +1737,15 @@ class Urlmon {
      * @param {Pointer<IBindCtx>} pBC 
      * @param {Pointer<Char>} szURL 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static IsValidURL(pBC, szURL, dwReserved) {
         szURL := szURL is String? StrPtr(szURL) : szURL
 
         result := DllCall("urlmon.dll\IsValidURL", "ptr", pBC, "ptr", szURL, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1727,7 +1760,7 @@ class Urlmon {
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppv 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoGetClassObjectFromURL(rCLASSID, szCODE, dwFileVersionMS, dwFileVersionLS, szTYPE, pBindCtx, dwClsContext, riid, ppv) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
@@ -1736,16 +1769,22 @@ class Urlmon {
         szTYPE := szTYPE is String? StrPtr(szTYPE) : szTYPE
 
         result := DllCall("urlmon.dll\CoGetClassObjectFromURL", "ptr", rCLASSID, "ptr", szCODE, "uint", dwFileVersionMS, "uint", dwFileVersionLS, "ptr", szTYPE, "ptr", pBindCtx, "uint", dwClsContext, "ptr", pvReserved, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<UInt32>} pdwScope 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static IEInstallScope(pdwScope) {
         result := DllCall("urlmon.dll\IEInstallScope", "uint*", pdwScope, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1755,10 +1794,13 @@ class Urlmon {
      * @param {Pointer<uCLSSPEC>} pClassSpec 
      * @param {Pointer<QUERYCONTEXT>} pQuery 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FaultInIEFeature(hWnd, pClassSpec, pQuery, dwFlags) {
         result := DllCall("urlmon.dll\FaultInIEFeature", "ptr", hWnd, "ptr", pClassSpec, "ptr", pQuery, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1766,20 +1808,26 @@ class Urlmon {
      * 
      * @param {Pointer<uCLSSPEC>} pClassspec 
      * @param {Pointer<Byte>} ppszComponentID 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetComponentIDFromCLSSPEC(pClassspec, ppszComponentID) {
         result := DllCall("urlmon.dll\GetComponentIDFromCLSSPEC", "ptr", pClassspec, "ptr", ppszComponentID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IMoniker>} pmk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static IsAsyncMoniker(pmk) {
         result := DllCall("urlmon.dll\IsAsyncMoniker", "ptr", pmk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1788,10 +1836,13 @@ class Urlmon {
      * @param {Integer} ctypes 
      * @param {Pointer<Byte>} rgszTypes 
      * @param {Pointer<UInt16>} rgcfTypes 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegisterMediaTypes(ctypes, rgszTypes, rgcfTypes) {
         result := DllCall("urlmon.dll\RegisterMediaTypes", "uint", ctypes, "ptr", rgszTypes, "ushort*", rgcfTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1799,12 +1850,15 @@ class Urlmon {
      * 
      * @param {Pointer<Byte>} rgszTypes 
      * @param {Pointer<UInt16>} rgcfTypes 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FindMediaType(rgszTypes, rgcfTypes) {
         rgszTypes := rgszTypes is String? StrPtr(rgszTypes) : rgszTypes
 
         result := DllCall("urlmon.dll\FindMediaType", "ptr", rgszTypes, "ushort*", rgcfTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1815,7 +1869,7 @@ class Urlmon {
      * @param {Integer} cfmtetc Number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the static array specified by the <i>rgfmtetc</i> parameter. The <i>cfmtetc</i> parameter cannot be zero.
      * @param {Pointer<FORMATETC>} rgfmtetc Pointer to a static array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures.
      * @param {Pointer<IEnumFORMATETC>} ppenumfmtetc Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> pointer variable that receives the interface pointer to the enumerator object.
-     * @returns {Integer} This function returns S_OK on success. Other possible return values include the following.
+     * @returns {HRESULT} This function returns S_OK on success. Other possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -1839,6 +1893,9 @@ class Urlmon {
      */
     static CreateFormatEnumerator(cfmtetc, rgfmtetc, ppenumfmtetc) {
         result := DllCall("urlmon.dll\CreateFormatEnumerator", "uint", cfmtetc, "ptr", rgfmtetc, "ptr", ppenumfmtetc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1847,10 +1904,13 @@ class Urlmon {
      * @param {Pointer<IBindCtx>} pBC 
      * @param {Pointer<IEnumFORMATETC>} pEFetc 
      * @param {Integer} reserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegisterFormatEnumerator(pBC, pEFetc, reserved) {
         result := DllCall("urlmon.dll\RegisterFormatEnumerator", "ptr", pBC, "ptr", pEFetc, "uint", reserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1858,10 +1918,13 @@ class Urlmon {
      * 
      * @param {Pointer<IBindCtx>} pBC 
      * @param {Pointer<IEnumFORMATETC>} pEFetc 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RevokeFormatEnumerator(pBC, pEFetc) {
         result := DllCall("urlmon.dll\RevokeFormatEnumerator", "ptr", pBC, "ptr", pEFetc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1872,10 +1935,13 @@ class Urlmon {
      * @param {Pointer<Byte>} rgszTypes 
      * @param {Pointer<Guid>} rgclsID 
      * @param {Integer} reserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegisterMediaTypeClass(pBC, ctypes, rgszTypes, rgclsID, reserved) {
         result := DllCall("urlmon.dll\RegisterMediaTypeClass", "ptr", pBC, "uint", ctypes, "ptr", rgszTypes, "ptr", rgclsID, "uint", reserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1885,12 +1951,15 @@ class Urlmon {
      * @param {Pointer<Byte>} szType 
      * @param {Pointer<Guid>} pclsID 
      * @param {Integer} reserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FindMediaTypeClass(pBC, szType, pclsID, reserved) {
         szType := szType is String? StrPtr(szType) : szType
 
         result := DllCall("urlmon.dll\FindMediaTypeClass", "ptr", pBC, "ptr", szType, "ptr", pclsID, "uint", reserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1899,12 +1968,15 @@ class Urlmon {
      * @param {Integer} dwOption 
      * @param {Pointer} pBuffer 
      * @param {Integer} dwBufferLength 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UrlMkSetSessionOption(dwOption, pBuffer, dwBufferLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("urlmon.dll\UrlMkSetSessionOption", "uint", dwOption, "ptr", pBuffer, "uint", dwBufferLength, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1914,12 +1986,15 @@ class Urlmon {
      * @param {Pointer} pBuffer 
      * @param {Integer} dwBufferLength 
      * @param {Pointer<UInt32>} pdwBufferLengthOut 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UrlMkGetSessionOption(dwOption, pBuffer, dwBufferLength, pdwBufferLengthOut) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("urlmon.dll\UrlMkGetSessionOption", "uint", dwOption, "ptr", pBuffer, "uint", dwBufferLength, "uint*", pdwBufferLengthOut, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1932,7 +2007,7 @@ class Urlmon {
      * @param {Pointer<Char>} pwzMimeProposed 
      * @param {Integer} dwMimeFlags 
      * @param {Pointer<Char>} ppwzMimeOut 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FindMimeFromData(pBC, pwzUrl, pBuffer, cbSize, pwzMimeProposed, dwMimeFlags, ppwzMimeOut) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -1941,6 +2016,9 @@ class Urlmon {
         pwzMimeProposed := pwzMimeProposed is String? StrPtr(pwzMimeProposed) : pwzMimeProposed
 
         result := DllCall("urlmon.dll\FindMimeFromData", "ptr", pBC, "ptr", pwzUrl, "ptr", pBuffer, "uint", cbSize, "ptr", pwzMimeProposed, "uint", dwMimeFlags, "ptr", ppwzMimeOut, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1949,12 +2027,15 @@ class Urlmon {
      * @param {Integer} dwOption 
      * @param {Pointer<Byte>} pszUAOut 
      * @param {Pointer<UInt32>} cbSize 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ObtainUserAgentString(dwOption, pszUAOut, cbSize) {
         pszUAOut := pszUAOut is String? StrPtr(pszUAOut) : pszUAOut
 
         result := DllCall("urlmon.dll\ObtainUserAgentString", "uint", dwOption, "ptr", pszUAOut, "uint*", cbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1965,10 +2046,13 @@ class Urlmon {
      * @param {Pointer<Byte>} pbSecurityId2 
      * @param {Integer} dwLen2 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CompareSecurityIds(pbSecurityId1, dwLen1, pbSecurityId2, dwLen2, dwReserved) {
         result := DllCall("urlmon.dll\CompareSecurityIds", "char*", pbSecurityId1, "uint", dwLen1, "char*", pbSecurityId2, "uint", dwLen2, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1977,10 +2061,13 @@ class Urlmon {
      * @param {Pointer<Guid>} pclsid 
      * @param {Pointer<UInt32>} pdwCompatFlags 
      * @param {Pointer<UInt32>} pdwMiscStatusFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CompatFlagsFromClsid(pclsid, pdwCompatFlags, pdwMiscStatusFlags) {
         result := DllCall("urlmon.dll\CompatFlagsFromClsid", "ptr", pclsid, "uint*", pdwCompatFlags, "uint*", pdwMiscStatusFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1989,10 +2076,13 @@ class Urlmon {
      * @param {Pointer<Void>} hObject 
      * @param {Integer} ieObjectType 
      * @param {Integer} dwAccessMask 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static SetAccessForIEAppContainer(hObject, ieObjectType, dwAccessMask) {
         result := DllCall("urlmon.dll\SetAccessForIEAppContainer", "ptr", hObject, "int", ieObjectType, "uint", dwAccessMask, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2006,7 +2096,7 @@ class Urlmon {
      * @param {Pointer<IBindStatusCallback>} param5 
      * @param {Integer} grfHLNF 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkSimpleNavigateToString(szTarget, szLocation, szTargetFrameName, pUnk, pbc, param5, grfHLNF, dwReserved) {
         szTarget := szTarget is String? StrPtr(szTarget) : szTarget
@@ -2014,6 +2104,9 @@ class Urlmon {
         szTargetFrameName := szTargetFrameName is String? StrPtr(szTargetFrameName) : szTargetFrameName
 
         result := DllCall("urlmon.dll\HlinkSimpleNavigateToString", "ptr", szTarget, "ptr", szLocation, "ptr", szTargetFrameName, "ptr", pUnk, "ptr", pbc, "ptr", param5, "uint", grfHLNF, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2027,13 +2120,16 @@ class Urlmon {
      * @param {Pointer<IBindStatusCallback>} param5 
      * @param {Integer} grfHLNF 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkSimpleNavigateToMoniker(pmkTarget, szLocation, szTargetFrameName, pUnk, pbc, param5, grfHLNF, dwReserved) {
         szLocation := szLocation is String? StrPtr(szLocation) : szLocation
         szTargetFrameName := szTargetFrameName is String? StrPtr(szTargetFrameName) : szTargetFrameName
 
         result := DllCall("urlmon.dll\HlinkSimpleNavigateToMoniker", "ptr", pmkTarget, "ptr", szLocation, "ptr", szTargetFrameName, "ptr", pUnk, "ptr", pbc, "ptr", param5, "uint", grfHLNF, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2043,12 +2139,15 @@ class Urlmon {
      * @param {Pointer<Byte>} param1 
      * @param {Integer} param2 
      * @param {Pointer<IBindStatusCallback>} param3 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLOpenStreamA(param0, param1, param2, param3) {
         param1 := param1 is String? StrPtr(param1) : param1
 
         result := DllCall("urlmon.dll\URLOpenStreamA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2058,12 +2157,15 @@ class Urlmon {
      * @param {Pointer<Char>} param1 
      * @param {Integer} param2 
      * @param {Pointer<IBindStatusCallback>} param3 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLOpenStreamW(param0, param1, param2, param3) {
         param1 := param1 is String? StrPtr(param1) : param1
 
         result := DllCall("urlmon.dll\URLOpenStreamW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2073,12 +2175,15 @@ class Urlmon {
      * @param {Pointer<Byte>} param1 
      * @param {Integer} param2 
      * @param {Pointer<IBindStatusCallback>} param3 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLOpenPullStreamA(param0, param1, param2, param3) {
         param1 := param1 is String? StrPtr(param1) : param1
 
         result := DllCall("urlmon.dll\URLOpenPullStreamA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2088,12 +2193,15 @@ class Urlmon {
      * @param {Pointer<Char>} param1 
      * @param {Integer} param2 
      * @param {Pointer<IBindStatusCallback>} param3 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLOpenPullStreamW(param0, param1, param2, param3) {
         param1 := param1 is String? StrPtr(param1) : param1
 
         result := DllCall("urlmon.dll\URLOpenPullStreamW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2104,13 +2212,16 @@ class Urlmon {
      * @param {Pointer<Byte>} param2 
      * @param {Integer} param3 
      * @param {Pointer<IBindStatusCallback>} param4 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLDownloadToFileA(param0, param1, param2, param3, param4) {
         param1 := param1 is String? StrPtr(param1) : param1
         param2 := param2 is String? StrPtr(param2) : param2
 
         result := DllCall("urlmon.dll\URLDownloadToFileA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2121,13 +2232,16 @@ class Urlmon {
      * @param {Pointer<Char>} param2 
      * @param {Integer} param3 
      * @param {Pointer<IBindStatusCallback>} param4 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLDownloadToFileW(param0, param1, param2, param3, param4) {
         param1 := param1 is String? StrPtr(param1) : param1
         param2 := param2 is String? StrPtr(param2) : param2
 
         result := DllCall("urlmon.dll\URLDownloadToFileW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2139,13 +2253,16 @@ class Urlmon {
      * @param {Integer} cchFileName 
      * @param {Integer} param4 
      * @param {Pointer<IBindStatusCallback>} param5 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLDownloadToCacheFileA(param0, param1, param2, cchFileName, param4, param5) {
         param1 := param1 is String? StrPtr(param1) : param1
         param2 := param2 is String? StrPtr(param2) : param2
 
         result := DllCall("urlmon.dll\URLDownloadToCacheFileA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", cchFileName, "uint", param4, "ptr", param5, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2157,13 +2274,16 @@ class Urlmon {
      * @param {Integer} cchFileName 
      * @param {Integer} param4 
      * @param {Pointer<IBindStatusCallback>} param5 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLDownloadToCacheFileW(param0, param1, param2, cchFileName, param4, param5) {
         param1 := param1 is String? StrPtr(param1) : param1
         param2 := param2 is String? StrPtr(param2) : param2
 
         result := DllCall("urlmon.dll\URLDownloadToCacheFileW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", cchFileName, "uint", param4, "ptr", param5, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2174,12 +2294,15 @@ class Urlmon {
      * @param {Pointer<IStream>} param2 
      * @param {Integer} param3 
      * @param {Pointer<IBindStatusCallback>} param4 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLOpenBlockingStreamA(param0, param1, param2, param3, param4) {
         param1 := param1 is String? StrPtr(param1) : param1
 
         result := DllCall("urlmon.dll\URLOpenBlockingStreamA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2190,32 +2313,41 @@ class Urlmon {
      * @param {Pointer<IStream>} param2 
      * @param {Integer} param3 
      * @param {Pointer<IBindStatusCallback>} param4 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static URLOpenBlockingStreamW(param0, param1, param2, param3, param4) {
         param1 := param1 is String? StrPtr(param1) : param1
 
         result := DllCall("urlmon.dll\URLOpenBlockingStreamW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IUnknown>} pUnk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkGoBack(pUnk) {
         result := DllCall("urlmon.dll\HlinkGoBack", "ptr", pUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IUnknown>} pUnk 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkGoForward(pUnk) {
         result := DllCall("urlmon.dll\HlinkGoForward", "ptr", pUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2223,12 +2355,15 @@ class Urlmon {
      * 
      * @param {Pointer<IUnknown>} pUnk 
      * @param {Pointer<Char>} szTarget 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkNavigateString(pUnk, szTarget) {
         szTarget := szTarget is String? StrPtr(szTarget) : szTarget
 
         result := DllCall("urlmon.dll\HlinkNavigateString", "ptr", pUnk, "ptr", szTarget, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2236,10 +2371,13 @@ class Urlmon {
      * 
      * @param {Pointer<IUnknown>} pUnk 
      * @param {Pointer<IMoniker>} pmkTarget 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static HlinkNavigateMoniker(pUnk, pmkTarget) {
         result := DllCall("urlmon.dll\HlinkNavigateMoniker", "ptr", pUnk, "ptr", pmkTarget, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2252,13 +2390,16 @@ class Urlmon {
      * @param {Integer} cchResult 
      * @param {Pointer<UInt32>} pcchResult 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetParseUrl(pwzUrl, ParseAction, dwFlags, pszResult, cchResult, pcchResult, dwReserved) {
         pwzUrl := pwzUrl is String? StrPtr(pwzUrl) : pwzUrl
         pszResult := pszResult is String? StrPtr(pszResult) : pszResult
 
         result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", ParseAction, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, "uint*", pcchResult, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2270,7 +2411,7 @@ class Urlmon {
      * @param {Pointer<Char>} pwzResult 
      * @param {Integer} cchResult 
      * @param {Pointer<UInt32>} pcchResult 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetParseIUri(pIUri, ParseAction, dwFlags, pwzResult, cchResult, pcchResult) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -2278,6 +2419,9 @@ class Urlmon {
         pwzResult := pwzResult is String? StrPtr(pwzResult) : pwzResult
 
         result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", ParseAction, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, "uint*", pcchResult, "ptr", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2289,7 +2433,7 @@ class Urlmon {
      * @param {Pointer<Char>} pszResult 
      * @param {Integer} cchResult 
      * @param {Pointer<UInt32>} pcchResult 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetCombineUrl(pwzBaseUrl, pwzRelativeUrl, dwCombineFlags, pszResult, cchResult, pcchResult) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -2299,6 +2443,9 @@ class Urlmon {
         pszResult := pszResult is String? StrPtr(pszResult) : pszResult
 
         result := DllCall("urlmon.dll\CoInternetCombineUrl", "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pszResult, "uint", cchResult, "uint*", pcchResult, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2309,12 +2456,15 @@ class Urlmon {
      * @param {Integer} dwCombineFlags 
      * @param {Pointer<IUri>} ppCombinedUri 
      * @param {Pointer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetCombineUrlEx(pBaseUri, pwzRelativeUrl, dwCombineFlags, ppCombinedUri, dwReserved) {
         pwzRelativeUrl := pwzRelativeUrl is String? StrPtr(pwzRelativeUrl) : pwzRelativeUrl
 
         result := DllCall("urlmon.dll\CoInternetCombineUrlEx", "ptr", pBaseUri, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", ppCombinedUri, "ptr", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2325,10 +2475,13 @@ class Urlmon {
      * @param {Integer} dwCombineFlags 
      * @param {Pointer<IUri>} ppCombinedUri 
      * @param {Pointer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetCombineIUri(pBaseUri, pRelativeUri, dwCombineFlags, ppCombinedUri, dwReserved) {
         result := DllCall("urlmon.dll\CoInternetCombineIUri", "ptr", pBaseUri, "ptr", pRelativeUri, "uint", dwCombineFlags, "ptr", ppCombinedUri, "ptr", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2337,13 +2490,16 @@ class Urlmon {
      * @param {Pointer<Char>} pwzUrl1 
      * @param {Pointer<Char>} pwzUrl2 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetCompareUrl(pwzUrl1, pwzUrl2, dwFlags) {
         pwzUrl1 := pwzUrl1 is String? StrPtr(pwzUrl1) : pwzUrl1
         pwzUrl2 := pwzUrl2 is String? StrPtr(pwzUrl2) : pwzUrl2
 
         result := DllCall("urlmon.dll\CoInternetCompareUrl", "ptr", pwzUrl1, "ptr", pwzUrl2, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2352,12 +2508,15 @@ class Urlmon {
      * @param {Pointer<Char>} pwzUrl 
      * @param {Pointer<UInt32>} pdwFlags 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetGetProtocolFlags(pwzUrl, pdwFlags, dwReserved) {
         pwzUrl := pwzUrl is String? StrPtr(pwzUrl) : pwzUrl
 
         result := DllCall("urlmon.dll\CoInternetGetProtocolFlags", "ptr", pwzUrl, "uint*", pdwFlags, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2370,12 +2529,15 @@ class Urlmon {
      * @param {Integer} cbBuffer 
      * @param {Pointer<UInt32>} pcbBuffer 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetQueryInfo(pwzUrl, QueryOptions, dwQueryFlags, pvBuffer, cbBuffer, pcbBuffer, dwReserved) {
         pwzUrl := pwzUrl is String? StrPtr(pwzUrl) : pwzUrl
 
         result := DllCall("urlmon.dll\CoInternetQueryInfo", "ptr", pwzUrl, "int", QueryOptions, "uint", dwQueryFlags, "ptr", pvBuffer, "uint", cbBuffer, "uint*", pcbBuffer, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2384,10 +2546,13 @@ class Urlmon {
      * @param {Integer} dwSessionMode 
      * @param {Pointer<IInternetSession>} ppIInternetSession 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetGetSession(dwSessionMode, ppIInternetSession, dwReserved) {
         result := DllCall("urlmon.dll\CoInternetGetSession", "uint", dwSessionMode, "ptr", ppIInternetSession, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2396,7 +2561,7 @@ class Urlmon {
      * @param {Pointer<Char>} pwszUrl 
      * @param {Pointer<Char>} ppwszSecUrl 
      * @param {Integer} psuAction 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetGetSecurityUrl(pwszUrl, ppwszSecUrl, psuAction) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -2404,6 +2569,9 @@ class Urlmon {
         pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
 
         result := DllCall("urlmon.dll\CoInternetGetSecurityUrl", "ptr", pwszUrl, "ptr", ppwszSecUrl, "int", psuAction, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2412,12 +2580,15 @@ class Urlmon {
      * @param {Pointer<IUri>} pUri 
      * @param {Pointer<IUri>} ppSecUri 
      * @param {Integer} psuAction 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetGetSecurityUrlEx(pUri, ppSecUri, psuAction) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("urlmon.dll\CoInternetGetSecurityUrlEx", "ptr", pUri, "ptr", ppSecUri, "int", psuAction, "ptr", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2426,10 +2597,13 @@ class Urlmon {
      * @param {Integer} FeatureEntry 
      * @param {Integer} dwFlags 
      * @param {Integer} fEnable 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetSetFeatureEnabled(FeatureEntry, dwFlags, fEnable) {
         result := DllCall("urlmon.dll\CoInternetSetFeatureEnabled", "int", FeatureEntry, "uint", dwFlags, "int", fEnable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2437,10 +2611,13 @@ class Urlmon {
      * 
      * @param {Integer} FeatureEntry 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetIsFeatureEnabled(FeatureEntry, dwFlags) {
         result := DllCall("urlmon.dll\CoInternetIsFeatureEnabled", "int", FeatureEntry, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2450,12 +2627,15 @@ class Urlmon {
      * @param {Integer} dwFlags 
      * @param {Pointer<Char>} szURL 
      * @param {Pointer<IInternetSecurityManager>} pSecMgr 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetIsFeatureEnabledForUrl(FeatureEntry, dwFlags, szURL, pSecMgr) {
         szURL := szURL is String? StrPtr(szURL) : szURL
 
         result := DllCall("urlmon.dll\CoInternetIsFeatureEnabledForUrl", "int", FeatureEntry, "uint", dwFlags, "ptr", szURL, "ptr", pSecMgr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2465,10 +2645,13 @@ class Urlmon {
      * @param {Integer} dwFlags 
      * @param {Pointer<IUri>} pIUri 
      * @param {Pointer<IInternetSecurityManagerEx2>} pSecMgr 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetIsFeatureEnabledForIUri(FeatureEntry, dwFlags, pIUri, pSecMgr) {
         result := DllCall("urlmon.dll\CoInternetIsFeatureEnabledForIUri", "int", FeatureEntry, "uint", dwFlags, "ptr", pIUri, "ptr", pSecMgr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2478,13 +2661,16 @@ class Urlmon {
      * @param {Pointer<Char>} szToURL 
      * @param {Pointer<IInternetSecurityManager>} pSecMgr 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetIsFeatureZoneElevationEnabled(szFromURL, szToURL, pSecMgr, dwFlags) {
         szFromURL := szFromURL is String? StrPtr(szFromURL) : szFromURL
         szToURL := szToURL is String? StrPtr(szToURL) : szToURL
 
         result := DllCall("urlmon.dll\CoInternetIsFeatureZoneElevationEnabled", "ptr", szFromURL, "ptr", szToURL, "ptr", pSecMgr, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2492,10 +2678,13 @@ class Urlmon {
      * 
      * @param {Pointer<STGMEDIUM>} pcstgmedSrc 
      * @param {Pointer<STGMEDIUM>} pstgmedDest 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CopyStgMedium(pcstgmedSrc, pstgmedDest) {
         result := DllCall("urlmon.dll\CopyStgMedium", "ptr", pcstgmedSrc, "ptr", pstgmedDest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2503,21 +2692,23 @@ class Urlmon {
      * 
      * @param {Pointer<BINDINFO>} pcbiSrc 
      * @param {Pointer<BINDINFO>} pbiDest 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CopyBindInfo(pcbiSrc, pbiDest) {
         result := DllCall("urlmon.dll\CopyBindInfo", "ptr", pcbiSrc, "ptr", pbiDest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<BINDINFO>} pbindinfo 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ReleaseBindInfo(pbindinfo) {
-        result := DllCall("urlmon.dll\ReleaseBindInfo", "ptr", pbindinfo)
-        return result
+        DllCall("urlmon.dll\ReleaseBindInfo", "ptr", pbindinfo)
     }
 
     /**
@@ -2534,10 +2725,13 @@ class Urlmon {
      * @param {Pointer<IServiceProvider>} pSP 
      * @param {Pointer<IInternetSecurityManager>} ppSM 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetCreateSecurityManager(pSP, ppSM, dwReserved) {
         result := DllCall("urlmon.dll\CoInternetCreateSecurityManager", "ptr", pSP, "ptr", ppSM, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2546,10 +2740,13 @@ class Urlmon {
      * @param {Pointer<IServiceProvider>} pSP 
      * @param {Pointer<IInternetZoneManager>} ppZM 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CoInternetCreateZoneManager(pSP, ppZM, dwReserved) {
         result := DllCall("urlmon.dll\CoInternetCreateZoneManager", "ptr", pSP, "ptr", ppZM, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2557,12 +2754,15 @@ class Urlmon {
      * 
      * @param {Pointer<Char>} szDistUnit 
      * @param {Pointer<SOFTDISTINFO>} psdi 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetSoftwareUpdateInfo(szDistUnit, psdi) {
         szDistUnit := szDistUnit is String? StrPtr(szDistUnit) : szDistUnit
 
         result := DllCall("urlmon.dll\GetSoftwareUpdateInfo", "ptr", szDistUnit, "ptr", psdi, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2572,12 +2772,15 @@ class Urlmon {
      * @param {Integer} dwAdState 
      * @param {Integer} dwAdvertisedVersionMS 
      * @param {Integer} dwAdvertisedVersionLS 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static SetSoftwareUpdateAdvertisementState(szDistUnit, dwAdState, dwAdvertisedVersionMS, dwAdvertisedVersionLS) {
         szDistUnit := szDistUnit is String? StrPtr(szDistUnit) : szDistUnit
 
         result := DllCall("urlmon.dll\SetSoftwareUpdateAdvertisementState", "ptr", szDistUnit, "uint", dwAdState, "uint", dwAdvertisedVersionMS, "uint", dwAdvertisedVersionLS, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

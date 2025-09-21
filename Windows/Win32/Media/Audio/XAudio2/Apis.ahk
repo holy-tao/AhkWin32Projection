@@ -1147,11 +1147,14 @@ class XAudio2 {
      * @param {Pointer<IUnknown>} pEffect Receives a pointer to the created XAPO instance. If <b>CreateFX</b> fails, <i>pEffect </i> is untouched.
      * @param {Pointer} pInitDat 
      * @param {Integer} InitDataByteSize Size of <i>pInitData</i> in bytes. This is zero if <i>pInitData</i> is <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xapofx/nf-xapofx-createfx
      */
     static CreateFX(clsid, pEffect, pInitDat, InitDataByteSize) {
         result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr", pEffect, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1161,30 +1164,39 @@ class XAudio2 {
      * @param {Integer} Flags 
      * @param {Integer} XAudio2Processor 
      * @param {Integer} ntddiVersion 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static XAudio2CreateWithVersionInfo(ppXAudio2, Flags, XAudio2Processor, ntddiVersion) {
         result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr", ppXAudio2, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IUnknown>} ppApo 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateAudioVolumeMeter(ppApo) {
         result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr", ppApo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IUnknown>} ppApo 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CreateAudioReverb(ppApo) {
         result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr", ppApo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1205,7 +1217,7 @@ class XAudio2 {
      * Windows 10 (XAudio2.9);
      * @param {Pointer<HrtfApoInit>} init Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/ns-hrtfapoapi-hrtfapoinit">HrtfApoInit</a> struct. Specifies parameters for XAPO interface initialization.
      * @param {Pointer<IXAPO>} xApo The new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nn-xapo-ixapo">IXAPO</a> interface.
-     * @returns {Integer} This function can return the following values.
+     * @returns {HRESULT} This function can return the following values.
      * 
      * <table>
      * <tr>
@@ -1239,6 +1251,9 @@ class XAudio2 {
      */
     static CreateHrtfApo(init, xApo) {
         result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr", xApo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

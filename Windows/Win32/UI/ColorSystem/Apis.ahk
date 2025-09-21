@@ -487,7 +487,7 @@ class ColorSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} If this function succeeds, the return value is a nonzero value.
+     * @returns {Integer} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero.
      * 
@@ -496,7 +496,7 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMMode(hdc, mode) {
-        result := DllCall("GDI32.dll\SetICMMode", "ptr", hdc, "int", mode)
+        result := DllCall("GDI32.dll\SetICMMode", "ptr", hdc, "int", mode, "int")
         return result
     }
 
@@ -876,12 +876,12 @@ class ColorSystem {
      * @param {Pointer<Void>} hdc Specifies the device context.
      * @param {Pointer<ICMENUMPROCA>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
      * @param {Pointer} param2 
-     * @returns {Pointer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
+     * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumicmprofilesa
      * @since windows5.0
      */
     static EnumICMProfilesA(hdc, proc, param2) {
-        result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", hdc, "ptr", proc, "ptr", param2)
+        result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
         return result
     }
 
@@ -901,12 +901,12 @@ class ColorSystem {
      * @param {Pointer<Void>} hdc Specifies the device context.
      * @param {Pointer<ICMENUMPROCW>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
      * @param {Pointer} param2 
-     * @returns {Pointer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
+     * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumicmprofilesw
      * @since windows5.0
      */
     static EnumICMProfilesW(hdc, proc, param2) {
-        result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", hdc, "ptr", proc, "ptr", param2)
+        result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
         return result
     }
 
@@ -3371,13 +3371,16 @@ class ColorSystem {
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Integer} setAsDefault Whether or not to set the newly associated profile as the default.
      * @param {Integer} associateAsAdvancedColor Specifies to which association list the new profile is added.
-     * @returns {Integer} **S_OK** for success, or a failure **HRESULT** value
+     * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofileadddisplayassociation
      */
     static ColorProfileAddDisplayAssociation(scope, profileName, targetAdapterID, sourceID, setAsDefault, associateAsAdvancedColor) {
         profileName := profileName is String? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileAddDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", setAsDefault, "int", associateAsAdvancedColor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3390,13 +3393,16 @@ class ColorSystem {
      * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Integer} dissociateAdvancedColor Specifies to which association list the new profile is added.
-     * @returns {Integer} **S_OK** for success, or a failure **HRESULT** value
+     * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofileremovedisplayassociation
      */
     static ColorProfileRemoveDisplayAssociation(scope, profileName, targetAdapterID, sourceID, dissociateAdvancedColor) {
         profileName := profileName is String? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileRemoveDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", dissociateAdvancedColor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3410,13 +3416,16 @@ class ColorSystem {
      * @param {Integer} profileSubType The subtype of the color profile to set as default.
      * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
-     * @returns {Integer} **S_OK** for success, or a failure **HRESULT** value
+     * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilesetdisplaydefaultassociation
      */
     static ColorProfileSetDisplayDefaultAssociation(scope, profileName, profileType, profileSubType, targetAdapterID, sourceID) {
         profileName := profileName is String? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileSetDisplayDefaultAssociation", "int", scope, "ptr", profileName, "int", profileType, "int", profileSubType, "ptr", targetAdapterID, "uint", sourceID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3429,11 +3438,14 @@ class ColorSystem {
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Pointer<Char>} profileList Pointer to a buffer where the profile names are placed, must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
      * @param {Pointer<UInt32>} profileCount Receives the number of profiles names copied into profileList.
-     * @returns {Integer} **S_OK** for success, or a failure **HRESULT** value
+     * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaylist
      */
     static ColorProfileGetDisplayList(scope, targetAdapterID, sourceID, profileList, profileCount) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "ptr", profileList, "uint*", profileCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3447,11 +3459,14 @@ class ColorSystem {
      * @param {Integer} profileType The type of color profile to return (currently only CPT_ICC is supported).
      * @param {Integer} profileSubType The subtype of the color profile to return.
      * @param {Pointer<Char>} profileName Receives a pointer to the default color profile name, which must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaydefault
      */
     static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType, profileName) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr", profileName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3462,11 +3477,14 @@ class ColorSystem {
      * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Pointer<Int32>} scope Returns the scope of the currently selected color profile - either the current user or system.
-     * @returns {Integer} **S_OK** for success, or a failure **HRESULT** value
+     * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplayuserscope
      */
     static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID, scope) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", scope, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

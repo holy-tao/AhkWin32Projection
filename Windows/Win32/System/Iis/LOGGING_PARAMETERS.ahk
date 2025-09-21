@@ -140,7 +140,7 @@ class LOGGING_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrStatus {
         get => NumGet(this, 116, "int")

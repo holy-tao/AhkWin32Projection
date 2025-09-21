@@ -3517,7 +3517,7 @@ class ActiveDirectory {
      * @param {Pointer<Void>} ppObject Type: <b>VOID**</b>
      * 
      * Pointer to a pointer to the requested Interface.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard <b>HRESULT</b> return values, as well as the following.
      * 
@@ -3529,6 +3529,9 @@ class ActiveDirectory {
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
         result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, "ptr", ppObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3551,7 +3554,7 @@ class ActiveDirectory {
      * @param {Pointer<IEnumVARIANT>} ppEnumVariant Type: <b>IEnumVARIANT**</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface pointer that receives the enumerator object created for the specified container object.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard <b>HRESULT</b> return values, including <b>S_OK</b> for a successful operation. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsbuildenumerator
@@ -3559,6 +3562,9 @@ class ActiveDirectory {
      */
     static ADsBuildEnumerator(pADsContainer, ppEnumVariant) {
         result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr", ppEnumVariant, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3579,7 +3585,7 @@ class ActiveDirectory {
      * @param {Pointer<IEnumVARIANT>} pEnumVariant Type: <b>IEnumVARIANT*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on the enumerator object to be freed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports standard return values, as well as the following.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsfreeenumerator
@@ -3587,6 +3593,9 @@ class ActiveDirectory {
      */
     static ADsFreeEnumerator(pEnumVariant) {
         result := DllCall("ACTIVEDS.dll\ADsFreeEnumerator", "ptr", pEnumVariant, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3616,7 +3625,7 @@ class ActiveDirectory {
      * @param {Pointer<UInt32>} pcElementsFetched Type: <b>ULONG*</b>
      * 
      * Actual number of elements retrieved, which can be smaller than the number of elements requested.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard return values.
      * 
@@ -3626,6 +3635,9 @@ class ActiveDirectory {
      */
     static ADsEnumerateNext(pEnumVariant, cElements, pvar, pcElementsFetched) {
         result := DllCall("ACTIVEDS.dll\ADsEnumerateNext", "ptr", pEnumVariant, "uint", cElements, "ptr", pvar, "uint*", pcElementsFetched, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3642,7 +3654,7 @@ class ActiveDirectory {
      * @param {Pointer<VARIANT>} pVar Type: <b>VARIANT*</b>
      * 
      * Pointer to the resulting variant array.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard return values, as well as the following.
      * 
@@ -3652,6 +3664,9 @@ class ActiveDirectory {
      */
     static ADsBuildVarArrayStr(lppPathNames, dwPathNames, pVar) {
         result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayStr", "ptr", lppPathNames, "uint", dwPathNames, "ptr", pVar, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3680,7 +3695,7 @@ class ActiveDirectory {
      * @param {Pointer<VARIANT>} pVar Type: <b>VARIANT*</b>
      * 
      * Pointer to the resulting variant array of integers.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports standard return values.
      * 
@@ -3690,6 +3705,9 @@ class ActiveDirectory {
      */
     static ADsBuildVarArrayInt(lpdwObjectTypes, dwObjectTypes, pVar) {
         result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayInt", "uint*", lpdwObjectTypes, "uint", dwObjectTypes, "ptr", pVar, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3774,7 +3792,7 @@ class ActiveDirectory {
      * @param {Pointer<Void>} ppObject Type: <b>VOID**</b>
      * 
      * Pointer to a  pointer to the requested interface.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard <b>HRESULT</b> return values, including the following.
      * 
@@ -3788,6 +3806,9 @@ class ActiveDirectory {
         lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
 
         result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, "ptr", ppObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3858,7 +3879,7 @@ class ActiveDirectory {
      * @param {Integer} dwNameBufLen Type: <b>DWORD</b>
      * 
      * Size, in characters, of the <i>lpNameBuf</i> buffer. If the buffer is too small to receive the name of the provider, the string is truncated, but still null-terminated.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports standard return values, as well as the following.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsgetlasterror
@@ -3873,6 +3894,9 @@ class ActiveDirectory {
         result := DllCall("ACTIVEDS.dll\ADsGetLastError", "uint*", lpError, "ptr", lpErrorBuf, "uint", dwErrorBufLen, "ptr", lpNameBuf, "uint", dwNameBufLen, "int")
         if(A_LastError)
             throw OSError()
+
+        if(result != 0)
+            throw OSError(result)
 
         return result
     }
@@ -3938,7 +3962,7 @@ class ActiveDirectory {
      * @param {Pointer<Char>} pszProvider Type: <b>LPWSTR</b>
      * 
      * The null-terminated Unicode string that names the ADSI provider that raised the error.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adssetlasterror
      * @since windows6.0.6000
      */
@@ -3946,8 +3970,7 @@ class ActiveDirectory {
         pszError := pszError is String? StrPtr(pszError) : pszError
         pszProvider := pszProvider is String? StrPtr(pszProvider) : pszProvider
 
-        result := DllCall("ACTIVEDS.dll\ADsSetLastError", "uint", dwErr, "ptr", pszError, "ptr", pszProvider)
-        return result
+        DllCall("ACTIVEDS.dll\ADsSetLastError", "uint", dwErr, "ptr", pszError, "ptr", pszProvider)
     }
 
     /**
@@ -4109,7 +4132,7 @@ class ActiveDirectory {
      * @param {Pointer<Char>} ppszDestData Type: <b>LPWSTR*</b>
      * 
      * Pointer to a null-terminated Unicode string that receives the converted data.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard return values, as well as the following.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsencodebinarydata
@@ -4117,6 +4140,9 @@ class ActiveDirectory {
      */
     static ADsEncodeBinaryData(pbSrcData, dwSrcLen, ppszDestData) {
         result := DllCall("ACTIVEDS.dll\ADsEncodeBinaryData", "char*", pbSrcData, "uint", dwSrcLen, "ptr", ppszDestData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4125,12 +4151,15 @@ class ActiveDirectory {
      * @param {Pointer<Char>} szSrcData 
      * @param {Pointer<Byte>} ppbDestData 
      * @param {Pointer<UInt32>} pdwDestLen 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ADsDecodeBinaryData(szSrcData, ppbDestData, pdwDestLen) {
         szSrcData := szSrcData is String? StrPtr(szSrcData) : szSrcData
 
         result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, "ptr", ppbDestData, "uint*", pdwDestLen, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4140,10 +4169,13 @@ class ActiveDirectory {
      * @param {Integer} dwNumVariant 
      * @param {Pointer<ADSVALUE>} ppAdsValues 
      * @param {Pointer<UInt32>} pdwNumValues 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static PropVariantToAdsType(pVariant, dwNumVariant, ppAdsValues, pdwNumValues) {
         result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, "ptr", ppAdsValues, "uint*", pdwNumValues, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4152,10 +4184,13 @@ class ActiveDirectory {
      * @param {Pointer<ADSVALUE>} pAdsValues 
      * @param {Integer} dwNumValues 
      * @param {Pointer<VARIANT>} pVariant 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static AdsTypeToPropVariant(pAdsValues, dwNumValues, pVariant) {
         result := DllCall("ACTIVEDS.dll\AdsTypeToPropVariant", "ptr", pAdsValues, "uint", dwNumValues, "ptr", pVariant, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4163,11 +4198,10 @@ class ActiveDirectory {
      * 
      * @param {Pointer<ADSVALUE>} pAdsValues 
      * @param {Integer} dwNumValues 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static AdsFreeAdsValues(pAdsValues, dwNumValues) {
-        result := DllCall("ACTIVEDS.dll\AdsFreeAdsValues", "ptr", pAdsValues, "uint", dwNumValues)
-        return result
+        DllCall("ACTIVEDS.dll\AdsFreeAdsValues", "ptr", pAdsValues, "uint", dwNumValues)
     }
 
     /**
@@ -4192,7 +4226,7 @@ class ActiveDirectory {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Contains authentication flags for the conversion. This can be zero or a combination of one or more of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_authentication_enum">ADS_AUTHENTICATION_ENUM</a> enumeration values.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports  standard return values, as well as the following:
      * 
@@ -4206,6 +4240,9 @@ class ActiveDirectory {
         passWord := passWord is String? StrPtr(passWord) : passWord
 
         result := DllCall("ACTIVEDS.dll\BinarySDToSecurityDescriptor", "ptr", pSecurityDescriptor, "ptr", pVarsec, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4234,7 +4271,7 @@ class ActiveDirectory {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Contains authentication flags for the conversion. This can be zero or a combination of one or more of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_authentication_enum">ADS_AUTHENTICATION_ENUM</a> enumeration values.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard return values, as well as the following.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-securitydescriptortobinarysd
@@ -4246,6 +4283,9 @@ class ActiveDirectory {
         passWord := passWord is String? StrPtr(passWord) : passWord
 
         result := DllCall("ACTIVEDS.dll\SecurityDescriptorToBinarySD", "ptr", vVarSecDes, "ptr", ppSecurityDescriptor, "uint*", pdwSDLength, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4270,12 +4310,12 @@ class ActiveDirectory {
      * <div class="alert"><b>Important</b>  Beginning with Windows Server 2003, the ANSI version of this function (<b>DsBrowseForContainerA</b>) is not implemented and always returns -1.</div>
      * <div> </div>
      * @param {Pointer<DSBROWSEINFOW>} pInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure that contains data about  initializing the container browser dialog and receives data about the selected object.
-     * @returns {Pointer} The function returns one of the following values.
+     * @returns {Integer} The function returns one of the following values.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsbrowseforcontainerw
      * @since windows6.0.6000
      */
     static DsBrowseForContainerW(pInfo) {
-        result := DllCall("dsuiext.dll\DsBrowseForContainerW", "ptr", pInfo)
+        result := DllCall("dsuiext.dll\DsBrowseForContainerW", "ptr", pInfo, "int")
         return result
     }
 
@@ -4300,12 +4340,12 @@ class ActiveDirectory {
      * <div class="alert"><b>Important</b>  Beginning with Windows Server 2003, the ANSI version of this function (<b>DsBrowseForContainerA</b>) is not implemented and always returns -1.</div>
      * <div> </div>
      * @param {Pointer<DSBROWSEINFOA>} pInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure that contains data about  initializing the container browser dialog and receives data about the selected object.
-     * @returns {Pointer} The function returns one of the following values.
+     * @returns {Integer} The function returns one of the following values.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsbrowseforcontainera
      * @since windows6.0.6000
      */
     static DsBrowseForContainerA(pInfo) {
-        result := DllCall("dsuiext.dll\DsBrowseForContainerA", "ptr", pInfo)
+        result := DllCall("dsuiext.dll\DsBrowseForContainerA", "ptr", pInfo, "int")
         return result
     }
 
@@ -4333,7 +4373,7 @@ class ActiveDirectory {
      * @param {Pointer<Char>} pszObjectClass Pointer to a null-terminated Unicode string that contains the name of the object class to obtain the name of. Examples of the object class name are "user" and "container".
      * @param {Pointer<Char>} pszBuffer Pointer to a wide character buffer that receives the name string. This buffer must be at least <i>cchBuffer</i> wide characters in length.
      * @param {Integer} cchBuffer Contains the size of the <i>pszBuffer</i> buffer, in wide characters, including the terminating <b>NULL</b> character. If the name exceeds this number of characters, the name is truncated.
-     * @returns {Integer} Returns a standard  <b>HRESULT</b> value, including the following.
+     * @returns {HRESULT} Returns a standard  <b>HRESULT</b> value, including the following.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsgetfriendlyclassname
      * @since windows6.0.6000
      */
@@ -4342,6 +4382,9 @@ class ActiveDirectory {
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("dsuiext.dll\DsGetFriendlyClassName", "ptr", pszObjectClass, "ptr", pszBuffer, "uint", cchBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4354,7 +4397,7 @@ class ActiveDirectory {
      * @param {Pointer<IDataObject>} pAppThdDataObj A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object that represents the directory object that the property page applies to. This is the <b>IDataObject</b> passed to the property page <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellextinit-initialize">IShellExtInit::Initialize</a> method.
      * @param {Pointer<Char>} pwzADsObjName The Active Directory Domain Services object name obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> method for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cfstr-dsobjectnames-clipboard-format">CFSTR_DSOBJECTNAMES</a> clipboard format on the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> represented by <i>pAppThdDataObj</i>.
      * @param {Pointer<Void>} phNotifyObj Pointer to an <b>HWND</b> value that receives the handle of the notification object.
-     * @returns {Integer} Returns <b>S_OK</b> if successful, or an OLE-defined error value otherwise.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an OLE-defined error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropcreatenotifyobj
      * @since windows6.0.6000
      */
@@ -4362,6 +4405,9 @@ class ActiveDirectory {
         pwzADsObjName := pwzADsObjName is String? StrPtr(pwzADsObjName) : pwzADsObjName
 
         result := DllCall("dsprop.dll\ADsPropCreateNotifyObj", "ptr", pAppThdDataObj, "ptr", pwzADsObjName, "ptr", phNotifyObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6024,13 +6070,12 @@ class ActiveDirectory {
      * <li>Call <b>DsFreePasswordCredentials</b> to free the credential handle.</li>
      * </ol>
      * @param {Pointer<Void>} AuthIdentity Handle of the credential structure to be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials
      * @since windows6.0.6000
      */
     static DsFreePasswordCredentials(AuthIdentity) {
-        result := DllCall("NTDSAPI.dll\DsFreePasswordCredentials", "ptr", AuthIdentity)
-        return result
+        DllCall("NTDSAPI.dll\DsFreePasswordCredentials", "ptr", AuthIdentity)
     }
 
     /**
@@ -6155,13 +6200,12 @@ class ActiveDirectory {
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeNameResult as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DS_NAME_RESULTW>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreenameresultw
      * @since windows6.0.6000
      */
     static DsFreeNameResultW(pResult) {
-        result := DllCall("NTDSAPI.dll\DsFreeNameResultW", "ptr", pResult)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeNameResultW", "ptr", pResult)
     }
 
     /**
@@ -6170,13 +6214,12 @@ class ActiveDirectory {
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeNameResult as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DS_NAME_RESULTA>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreenameresulta
      * @since windows6.0.6000
      */
     static DsFreeNameResultA(pResult) {
-        result := DllCall("NTDSAPI.dll\DsFreeNameResultA", "ptr", pResult)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeNameResultA", "ptr", pResult)
     }
 
     /**
@@ -6286,13 +6329,12 @@ class ActiveDirectory {
      * > The ntdsapi.h header defines DsFreeSpnArray as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} cSpn Specifies the number of elements contained in <i>rpszSpn</i>.
      * @param {Pointer<Byte>} rpszSpn Pointer to an array returned from <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreespnarraya
      * @since windows6.0.6000
      */
     static DsFreeSpnArrayA(cSpn, rpszSpn) {
-        result := DllCall("NTDSAPI.dll\DsFreeSpnArrayA", "uint", cSpn, "ptr", rpszSpn)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeSpnArrayA", "uint", cSpn, "ptr", rpszSpn)
     }
 
     /**
@@ -6302,13 +6344,12 @@ class ActiveDirectory {
      * > The ntdsapi.h header defines DsFreeSpnArray as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} cSpn Specifies the number of elements contained in <i>rpszSpn</i>.
      * @param {Pointer<Char>} rpszSpn Pointer to an array returned from <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreespnarrayw
      * @since windows6.0.6000
      */
     static DsFreeSpnArrayW(cSpn, rpszSpn) {
-        result := DllCall("NTDSAPI.dll\DsFreeSpnArrayW", "uint", cSpn, "ptr", rpszSpn)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeSpnArrayW", "uint", cSpn, "ptr", rpszSpn)
     }
 
     /**
@@ -7479,13 +7520,12 @@ class ActiveDirectory {
     /**
      * Frees the memory allocated by the DsQuerySitesByCost function.
      * @param {Pointer<DS_SITE_COST_INFO>} rgSiteInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_site_cost_info">DS_SITE_COST_INFO</a> structures allocated by a call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsquerysitesbycosta">DsQuerySitesByCost</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsquerysitesfree
      * @since windows6.0.6000
      */
     static DsQuerySitesFree(rgSiteInfo) {
-        result := DllCall("NTDSAPI.dll\DsQuerySitesFree", "ptr", rgSiteInfo)
-        return result
+        DllCall("NTDSAPI.dll\DsQuerySitesFree", "ptr", rgSiteInfo)
     }
 
     /**
@@ -7516,13 +7556,12 @@ class ActiveDirectory {
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeSchemaGuidMap as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DS_SCHEMA_GUID_MAPA>} pGuidMap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structure to deallocate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa
      * @since windows6.0.6000
      */
     static DsFreeSchemaGuidMapA(pGuidMap) {
-        result := DllCall("NTDSAPI.dll\DsFreeSchemaGuidMapA", "ptr", pGuidMap)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeSchemaGuidMapA", "ptr", pGuidMap)
     }
 
     /**
@@ -7553,13 +7592,12 @@ class ActiveDirectory {
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeSchemaGuidMap as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DS_SCHEMA_GUID_MAPW>} pGuidMap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structure to deallocate.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapw
      * @since windows6.0.6000
      */
     static DsFreeSchemaGuidMapW(pGuidMap) {
-        result := DllCall("NTDSAPI.dll\DsFreeSchemaGuidMapW", "ptr", pGuidMap)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeSchemaGuidMapW", "ptr", pGuidMap)
     }
 
     /**
@@ -7622,13 +7660,12 @@ class ActiveDirectory {
      * @param {Integer} InfoLevel 
      * @param {Integer} cInfo Indicates the number of items in <i>pInfo</i>.
      * @param {Pointer<Void>} pInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_domain_controller_info_1a">DS_DOMAIN_CONTROLLER_INFO</a> structures to be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfoa
      * @since windows6.0.6000
      */
     static DsFreeDomainControllerInfoA(InfoLevel, cInfo, pInfo) {
-        result := DllCall("NTDSAPI.dll\DsFreeDomainControllerInfoA", "uint", InfoLevel, "uint", cInfo, "ptr", pInfo)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeDomainControllerInfoA", "uint", InfoLevel, "uint", cInfo, "ptr", pInfo)
     }
 
     /**
@@ -7639,13 +7676,12 @@ class ActiveDirectory {
      * @param {Integer} InfoLevel 
      * @param {Integer} cInfo Indicates the number of items in <i>pInfo</i>.
      * @param {Pointer<Void>} pInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_domain_controller_info_1a">DS_DOMAIN_CONTROLLER_INFO</a> structures to be freed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfow
      * @since windows6.0.6000
      */
     static DsFreeDomainControllerInfoW(InfoLevel, cInfo, pInfo) {
-        result := DllCall("NTDSAPI.dll\DsFreeDomainControllerInfoW", "uint", InfoLevel, "uint", cInfo, "ptr", pInfo)
-        return result
+        DllCall("NTDSAPI.dll\DsFreeDomainControllerInfoW", "uint", InfoLevel, "uint", cInfo, "ptr", pInfo)
     }
 
     /**
@@ -7769,13 +7805,12 @@ class ActiveDirectory {
      * Frees the replication state data structure allocated by the DsReplicaGetInfo or DsReplicaGetInfo2 functions.
      * @param {Integer} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data structure  contained in <i>pInfo</i>. This must be the same value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function when the structure was allocated.
      * @param {Pointer<Void>} pInfo Pointer to the replication data structure allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> functions.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo
      * @since windows6.0.6000
      */
     static DsReplicaFreeInfo(InfoType, pInfo) {
-        result := DllCall("NTDSAPI.dll\DsReplicaFreeInfo", "int", InfoType, "ptr", pInfo)
-        return result
+        DllCall("NTDSAPI.dll\DsReplicaFreeInfo", "int", InfoType, "ptr", pInfo)
     }
 
     /**
@@ -7977,13 +8012,12 @@ class ActiveDirectory {
     /**
      * Frees memory allocated by the DsRoleGetPrimaryDomainInformation function.
      * @param {Pointer<Void>} Buffer Pointer to the buffer to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dsrole/nf-dsrole-dsrolefreememory
      * @since windows6.0.6000
      */
     static DsRoleFreeMemory(Buffer) {
-        result := DllCall("NETAPI32.dll\DsRoleFreeMemory", "ptr", Buffer)
-        return result
+        DllCall("NETAPI32.dll\DsRoleFreeMemory", "ptr", Buffer)
     }
 
     /**
@@ -9200,13 +9234,12 @@ class ActiveDirectory {
      * @remarks
      * When this function is called, <i>GetDcContextHandle</i> is invalid and cannot be used.
      * @param {Pointer<Void>} GetDcContextHandle Contains the domain controller enumeration context handle provided by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> function.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcclosew
      * @since windows6.0.6000
      */
     static DsGetDcCloseW(GetDcContextHandle) {
-        result := DllCall("NETAPI32.dll\DsGetDcCloseW", "ptr", GetDcContextHandle)
-        return result
+        DllCall("NETAPI32.dll\DsGetDcCloseW", "ptr", GetDcContextHandle)
     }
 
 ;@endregion Methods

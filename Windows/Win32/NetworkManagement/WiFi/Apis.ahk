@@ -7165,13 +7165,12 @@ class WiFi {
      * 
      * There is a hotfix available for  Wireless LAN API for Windows XP with Service Pack 2 (SP2) that can help improve the performance of applications that call <b>WlanFreeMemory</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetavailablenetworklist">WlanGetAvailableNetworkList</a> many times.
      * @param {Pointer<Void>} pMemory Pointer to the memory to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanfreememory
      * @since windows6.0.6000
      */
     static WlanFreeMemory(pMemory) {
-        result := DllCall("wlanapi.dll\WlanFreeMemory", "ptr", pMemory)
-        return result
+        DllCall("wlanapi.dll\WlanFreeMemory", "ptr", pMemory)
     }
 
     /**

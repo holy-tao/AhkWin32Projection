@@ -60,7 +60,7 @@ class DDHAL_GETVPORTOUTPUTFORMATDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 44, "int")

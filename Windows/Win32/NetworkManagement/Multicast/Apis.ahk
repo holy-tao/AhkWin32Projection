@@ -57,13 +57,12 @@ class Multicast {
 
     /**
      * The McastApiCleanup function deallocates resources that are allocated with McastApiStartup. The McastApiCleanup function must only be called after a successful call to McastApiStartup.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastapicleanup
      * @since windows5.0
      */
     static McastApiCleanup() {
-        result := DllCall("dhcpcsvc.dll\McastApiCleanup")
-        return result
+        DllCall("dhcpcsvc.dll\McastApiCleanup")
     }
 
     /**

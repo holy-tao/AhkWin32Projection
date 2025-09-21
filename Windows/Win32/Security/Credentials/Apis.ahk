@@ -865,11 +865,14 @@ class Credentials {
      * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype.md">KeyCredentialManagerOperationType</a>.
      * @param {Pointer<Int32>} isReady If the operational prerequisite will succeed (True) or (False).
      * @param {Pointer<Int32>} keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
-     * @returns {Integer} Returns an HRESULT.
+     * @returns {HRESULT} Returns an HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
     static KeyCredentialManagerGetOperationErrorStates(keyCredentialManagerOperationType, isReady, keyCredentialManagerOperationErrorStates) {
         result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, "int*", isReady, "int*", keyCredentialManagerOperationErrorStates, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -877,34 +880,39 @@ class Credentials {
      * API to perform the requested WHFB operation.
      * @param {Pointer<Void>} hWndOwner Window handle of the calling app.
      * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="https://docs.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
-     * @returns {Integer} Returns an HRESULT
+     * @returns {HRESULT} Returns an HRESULT
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
      */
     static KeyCredentialManagerShowUIOperation(hWndOwner, keyCredentialManagerOperationType) {
         result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * API to get a unique identifier of the users enrollment.
      * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
-     * @returns {Integer} Returns an HRESULT.
+     * @returns {HRESULT} Returns an HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation(keyCredentialManagerInfo) {
         result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr", keyCredentialManagerInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * API to free the KeyCredentialManagerInfo pointer variable from the KeyCredentialManagerGetInformation call.
      * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer variable to <a href="../keycredmgr/ns-keycredmgr-keycredentialmanagerinfo.md">KeyCredentialManagerInfo</a> data structure returned by the <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation.md">KeyCredentialManagerGetInformation</a> API.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
      */
     static KeyCredentialManagerFreeInformation(keyCredentialManagerInfo) {
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", keyCredentialManagerInfo)
-        return result
+        DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", keyCredentialManagerInfo)
     }
 
     /**
@@ -3259,13 +3267,12 @@ class Credentials {
     /**
      * The CredFree function frees a buffer returned by any of the credentials management functions.
      * @param {Pointer<Void>} Buffer Pointer to the buffer to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfree
      * @since windows5.1.2600
      */
     static CredFree(Buffer) {
-        result := DllCall("ADVAPI32.dll\CredFree", "ptr", Buffer)
-        return result
+        DllCall("ADVAPI32.dll\CredFree", "ptr", Buffer)
     }
 
     /**
@@ -7094,13 +7101,12 @@ class Credentials {
 
     /**
      * Decrements the reference count for a handle acquired by a previous call to the SCardAccessStartedEvent function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreleasestartedevent
      * @since windows5.1.2600
      */
     static SCardReleaseStartedEvent() {
-        result := DllCall("WinSCard.dll\SCardReleaseStartedEvent")
-        return result
+        DllCall("WinSCard.dll\SCardReleaseStartedEvent")
     }
 
     /**

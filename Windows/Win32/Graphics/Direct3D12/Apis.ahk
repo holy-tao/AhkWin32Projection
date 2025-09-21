@@ -2415,13 +2415,16 @@ class Direct3D12 {
      * @param {Pointer<ID3DBlob>} ppErrorBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access serializer error messages, or <b>NULL</b> if there are no errors.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature
      */
     static D3D12SerializeRootSignature(pRootSignature, Version, ppBlob, ppErrorBlob) {
         result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version, "ptr", ppBlob, "ptr", ppErrorBlob, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2451,13 +2454,16 @@ class Direct3D12 {
      * @param {Pointer<Void>} ppRootSignatureDeserializer Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
      */
     static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
         result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr", ppRootSignatureDeserializer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2486,13 +2492,16 @@ class Direct3D12 {
      * @param {Pointer<ID3DBlob>} ppErrorBlob Type: <b>ID3DBlob**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access serializer error messages, or <b>NULL</b> if there are no errors.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature
      */
     static D3D12SerializeVersionedRootSignature(pRootSignature, ppBlob, ppErrorBlob) {
         result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", "ptr", pRootSignature, "ptr", ppBlob, "ptr", ppErrorBlob, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2523,13 +2532,16 @@ class Direct3D12 {
      * @param {Pointer<Void>} ppRootSignatureDeserializer Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
      */
     static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
         result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr", ppRootSignatureDeserializer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2593,7 +2605,7 @@ class Direct3D12 {
      * @param {Pointer<Void>} ppDevice Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. Pass **NULL** to test if device creation would succeed, but to not actually create the device. If **NULL** is passed and device creation would succeed, **S_FALSE** is returned.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method can return one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      *           
@@ -2605,6 +2617,9 @@ class Direct3D12 {
      */
     static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid, ppDevice) {
         result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr", ppDevice, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2623,13 +2638,16 @@ class Direct3D12 {
      *             See
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug">ID3D12Debug</a> and
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice">ID3D12DebugDevice</a>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getdebuginterface
      */
     static D3D12GetDebugInterface(riid, ppvDebug) {
         result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr", ppvDebug, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2663,13 +2681,16 @@ class Direct3D12 {
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values?view=vs-2015&preserve-view=true">SAL</a>: <c>__in_ecount(NumFeatures)</c>
      * 
      * The sizes of any configuration structs passed in pConfigurationStructs parameter.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code that can include E_NOINTERFACE if an unrecognized feature is specified or Developer Mode is not enabled, or E_INVALIDARG if the configuration of a feature is in correct, the experimental features specified are not compatible, or other errors.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12enableexperimentalfeatures
      */
     static D3D12EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
         result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, "ptr", pIIDs, "ptr", pConfigurationStructs, "uint*", pConfigurationStructSizes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2698,13 +2719,16 @@ class Direct3D12 {
      * @param {Pointer<Void>} ppvDebug Type: \_COM\_Outptr\_opt\_ **[void](/windows/win32/winprog/windows-data-types)\*\***
      * 
      * The `out` parameter that contains the requested interface on return (for example, the SDK configuration interface), as a pointer to pointer to void. See [ID3D12SDKConfiguration](nn-d3d12-id3d12sdkconfiguration.md).
-     * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
+     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, then it returns **S_OK**. Otherwise, it returns one of the [Direct3D 12 return codes](/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getinterface
      */
     static D3D12GetInterface(rclsid, riid, ppvDebug) {
         result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr", ppvDebug, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

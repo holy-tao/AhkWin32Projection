@@ -33743,7 +33743,7 @@ class Foundation {
      * If pbstr is NULL, there will be an access violation and the program will crash. It is your responsibility to protect this function against NULL pointers.
      * @param {Pointer<Char>} pbstr The previously allocated string.
      * @param {Pointer<Char>} psz The string to copy.
-     * @returns {Pointer} <table>
+     * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
      * <th>Description</th>
@@ -33777,7 +33777,7 @@ class Foundation {
     static SysReAllocString(pbstr, psz) {
         psz := psz is String? StrPtr(psz) : psz
 
-        result := DllCall("OLEAUT32.dll\SysReAllocString", "ptr", pbstr, "ptr", psz)
+        result := DllCall("OLEAUT32.dll\SysReAllocString", "ptr", pbstr, "ptr", psz, "int")
         return result
     }
 
@@ -33811,7 +33811,7 @@ class Foundation {
      * @param {Pointer<Char>} pbstr The previously allocated string.
      * @param {Pointer<Char>} psz The string from which to copy <i>len</i> characters, or NULL to keep the string uninitialized.
      * @param {Integer} len The number of characters to copy. A null character is placed afterward, allocating a total of <i>len</i> plus one characters.
-     * @returns {Pointer} <table>
+     * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
      * <th>Description</th>
@@ -33845,7 +33845,7 @@ class Foundation {
     static SysReAllocStringLen(pbstr, psz, len) {
         psz := psz is String? StrPtr(psz) : psz
 
-        result := DllCall("OLEAUT32.dll\SysReAllocStringLen", "ptr", pbstr, "ptr", psz, "uint", len)
+        result := DllCall("OLEAUT32.dll\SysReAllocStringLen", "ptr", pbstr, "ptr", psz, "uint", len, "int")
         return result
     }
 
@@ -33854,12 +33854,15 @@ class Foundation {
      * @remarks
      * Strings with the <b>BSTR</b> data type have not traditionally had a reference count. All existing usage of these strings will continue to work with no changes. The <b>SysAddRefString</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysreleasestring">SysReleaseString</a> functions add the ability to use reference counting to pin the string into memory before calling from an untrusted script into an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> method that may not expect the script to free that memory before the method returns, so that the script cannot force the code for that method into accessing memory that has been freed. After such a method safely returns, the pinning references should be released by calling <b>SysReleaseString</b>.
      * @param {Pointer<Char>} bstrString The string for which the pinning reference count should increase. While that count remains greater than 0, the memory for the string is prevented from being freed by calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysaddrefstring
      * @since windows5.1.2600
      */
     static SysAddRefString(bstrString) {
         result := DllCall("OLEAUT32.dll\SysAddRefString", "char*", bstrString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -33868,24 +33871,22 @@ class Foundation {
      * @remarks
      * A call to the <b>SysReleaseString</b> function should match every previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysaddrefstring">SysAddRefString</a> function.
      * @param {Pointer<Char>} bstrString The string for which the  pinning reference count should decrease.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreleasestring
      * @since windows5.1.2600
      */
     static SysReleaseString(bstrString) {
-        result := DllCall("OLEAUT32.dll\SysReleaseString", "char*", bstrString)
-        return result
+        DllCall("OLEAUT32.dll\SysReleaseString", "char*", bstrString)
     }
 
     /**
      * Deallocates a string allocated previously by SysAllocString, SysAllocStringByteLen, SysReAllocString, SysAllocStringLen, or SysReAllocStringLen.
      * @param {Pointer<Char>} bstrString The previously allocated string. If this parameter is <b>NULL</b>, the function simply returns.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring
      */
     static SysFreeString(bstrString) {
-        result := DllCall("OLEAUT32.dll\SysFreeString", "char*", bstrString)
-        return result
+        DllCall("OLEAUT32.dll\SysFreeString", "char*", bstrString)
     }
 
     /**
@@ -33893,11 +33894,11 @@ class Foundation {
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded Null characters. This function always returns the number of characters specified in the cch parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> function used to allocate the BSTR.
      * @param {Pointer<Char>} pbstr A previously allocated string.
-     * @returns {Pointer} The number of characters in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
+     * @returns {Integer} The number of characters in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringlen
      */
     static SysStringLen(pbstr) {
-        result := DllCall("OLEAUT32.dll\SysStringLen", "char*", pbstr)
+        result := DllCall("OLEAUT32.dll\SysStringLen", "char*", pbstr, "uint")
         return result
     }
 
@@ -33906,11 +33907,11 @@ class Foundation {
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded null characters. This function always returns the number of bytes specified in the len parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringbytelen">SysAllocStringByteLen</a> function used to allocate the BSTR.
      * @param {Pointer<Char>} bstr A previously allocated string.
-     * @returns {Pointer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
+     * @returns {Integer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringbytelen
      */
     static SysStringByteLen(bstr) {
-        result := DllCall("OLEAUT32.dll\SysStringByteLen", "char*", bstr)
+        result := DllCall("OLEAUT32.dll\SysStringByteLen", "char*", bstr, "uint")
         return result
     }
 
@@ -34421,18 +34422,17 @@ class Foundation {
      * 
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by your application and to ensure that your error code does not conflict with any system-defined error codes.
      * @param {Integer} dwErrCode The last-error code for the thread.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror
      * @since windows5.1.2600
      */
     static SetLastError(dwErrCode) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetLastError", "uint", dwErrCode)
+        DllCall("KERNEL32.dll\SetLastError", "uint", dwErrCode)
         if(A_LastError)
             throw OSError()
 
-        return result
     }
 
     /**
@@ -34450,18 +34450,17 @@ class Foundation {
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by the application and to ensure that your error code does not conflict with any system-defined error codes.
      * @param {Integer} dwErrCode The last-error code for the thread.
      * @param {Integer} dwType This parameter is ignored.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setlasterrorex
      * @since windows5.1.2600
      */
     static SetLastErrorEx(dwErrCode, dwType) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetLastErrorEx", "uint", dwErrCode, "uint", dwType)
+        DllCall("USER32.dll\SetLastErrorEx", "uint", dwErrCode, "uint", dwType)
         if(A_LastError)
             throw OSError()
 
-        return result
     }
 
     /**

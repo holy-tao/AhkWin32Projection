@@ -1189,11 +1189,10 @@ class AddressBook {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static MAPIDeinitIdle() {
-        result := DllCall("MAPI32.dll\MAPIDeinitIdle")
-        return result
+        DllCall("MAPI32.dll\MAPIDeinitIdle")
     }
 
     /**
@@ -1286,12 +1285,11 @@ class AddressBook {
      *   
      * After the idle routine is deregistered, the idle engine does not call it again. Any implementation that calls **DeregisterIdleRoutine** must deallocate any memory blocks to which it passed pointers for the idle engine to use in its original call to the **FtgRegisterIdleRoutine** function.
      * @param {Pointer<Void>} ftg > [in] Function tag that identifies the idle routine to be removed.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/deregisteridleroutine
      */
     static DeregisterIdleRoutine(ftg) {
-        result := DllCall("MAPI32.dll\DeregisterIdleRoutine", "ptr", ftg)
-        return result
+        DllCall("MAPI32.dll\DeregisterIdleRoutine", "ptr", ftg)
     }
 
     /**
@@ -1313,12 +1311,11 @@ class AddressBook {
      * When all foreground tasks for the platform become idle, the MAPI idle engine calls the highest priority idle routine that is ready to execute. There is no guarantee of calling order among idle routines of the same priority.
      * @param {Pointer<Void>} ftg > [in] Function tag that identifies the idle routine to be enabled or disabled.
      * @param {Integer} fEnable > [in] Contains TRUE if the idle engine should enable the idle routine, or FALSE if it should disable it.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/enableidleroutine
      */
     static EnableIdleRoutine(ftg, fEnable) {
-        result := DllCall("MAPI32.dll\EnableIdleRoutine", "ptr", ftg, "int", fEnable)
-        return result
+        DllCall("MAPI32.dll\EnableIdleRoutine", "ptr", ftg, "int", fEnable)
     }
 
     /**
@@ -1367,12 +1364,11 @@ class AddressBook {
      * - FIRCPRI: A change to the priority of the idle routine, that is, a change indicated by the value passed in the _priIdle_ parameter.
      * 
      * - FIRCPV: A change to the memory block of the idle routine, that is, a change indicated by the value passed in the _pvIdleParam_ parameter.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/changeidleroutine
      */
     static ChangeIdleRoutine(ftg, lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle, ircIdle) {
-        result := DllCall("MAPI32.dll\ChangeIdleRoutine", "ptr", ftg, "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ushort", ircIdle)
-        return result
+        DllCall("MAPI32.dll\ChangeIdleRoutine", "ptr", ftg, "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ushort", ircIdle)
     }
 
     /**
@@ -1424,7 +1420,7 @@ class AddressBook {
      * @param {Pointer<SByte>} lpszFileName > [in] The filename, including path and extension, of the file for which **OpenStreamOnFile** initializes the **IStream** object. If the SOF_UNIQUEFILENAME flag is set, _lpszFileName_ contains the path to the directory in which to create a temporary file. If  _lpszFileName_ is NULL, **OpenStreamOnFile** obtains an appropriate path from the system, and both the STGM_CREATE and STGM_DELETEONRELEASE flags must be set.
      * @param {Pointer<SByte>} lpszPrefix > [in] The prefix for the filename on which **OpenStreamOnFile** initializes the **IStream** object. If set, the prefix must contain not more than three characters. If  _lpszPrefix_ is NULL, a prefix of "SOF" is used.
      * @param {Pointer<IStream>} lppStream > [out] Pointer to a pointer to an object exposing the **IStream** interface.
-     * @returns {Integer} S_OK
+     * @returns {HRESULT} S_OK
      *   
      * > The call succeeded and has returned the expected value or values.
      * 
@@ -1439,6 +1435,9 @@ class AddressBook {
      */
     static OpenStreamOnFile(lpAllocateBuffer, lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix, lppStream) {
         result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, "char*", lpszFileName, "char*", lpszPrefix, "ptr", lppStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1605,13 +1604,16 @@ class AddressBook {
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew > [in] Pointer to an **SPropTagArray** structure that contains an array of property tags for the properties to be added or moved to the beginning of the table.
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the **MAPIAllocateBuffer** function. Used to allocate memory.
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the **MAPIFreeBuffer** function. Used to free memory.
-     * @returns {Integer} **S_OK**
+     * @returns {HRESULT} **S_OK**
      *   
      * > The call succeeded and the specified columns were moved or added.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumns
      */
     static HrAddColumns(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer) {
         result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1626,13 +1628,16 @@ class AddressBook {
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
      * @param {Pointer} lpfnFilterColumns > [in] Pointer to a callback function furnished by the caller. If the  _lpfnFilterColumns_ parameter is set to NULL, no callback is made.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and the specified columns were moved or added.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumnsex
      */
     static HrAddColumnsEx(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer, lpfnFilterColumns) {
         result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "ptr", lpfnFilterColumns, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1648,11 +1653,14 @@ class AddressBook {
      * @param {Pointer<LPNOTIFCALLBACK>} lpfnCallback > [in] Pointer to a callback function based on the [NOTIFCALLBACK](notifcallback.md) prototype that MAPI is to call when a notification event occurs for the newly created advise sink.
      * @param {Pointer<Void>} lpvContext > [in] Pointer to caller data passed to the callback function when MAPI calls it. The caller data can represent an address of significance to the client or provider. Typically, for C++ code, the  _lpvContext_ parameter represents a pointer to the address of an object.
      * @param {Pointer<IMAPIAdviseSink>} lppAdviseSink > [out] Pointer to a pointer to an advise sink object.
-     * @returns {Integer} None.
+     * @returns {HRESULT} None.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrallocadvisesink
      */
     static HrAllocAdviseSink(lpfnCallback, lpvContext, lppAdviseSink) {
         result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, "ptr", lpvContext, "ptr", lppAdviseSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1674,11 +1682,14 @@ class AddressBook {
      * For more information about notification and advise sinks, see [Event Notification in MAPI](event-notification-in-mapi.md) and [Implementing an Advise Sink Object](implementing-an-advise-sink-object.md).
      * @param {Pointer<IMAPIAdviseSink>} lpAdviseSink > [in] Pointer to the advise sink to be wrapped.
      * @param {Pointer<IMAPIAdviseSink>} lppAdviseSink > [out] Pointer to a pointer to a new advise sink that wraps the advise sink pointed to by the  _lpAdviseSink_ parameter.
-     * @returns {Integer} None.
+     * @returns {HRESULT} None.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrthisthreadadvisesink
      */
     static HrThisThreadAdviseSink(lpAdviseSink, lppAdviseSink) {
         result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr", lppAdviseSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1687,7 +1698,7 @@ class AddressBook {
      * @remarks
      * The **HrDispatchNotifications** function causes MAPI to dispatch all notifications that are currently queued in the MAPI notification engine without waiting for a message dispatch. This can have a beneficial effect on memory utilization. For more information, see [Forcing a Notification](forcing-a-notification.md).
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
-     * @returns {Integer} S_OK
+     * @returns {HRESULT} S_OK
      *   
      * > All queued notifications have been dispatched.
      *     
@@ -1702,6 +1713,9 @@ class AddressBook {
      */
     static HrDispatchNotifications(ulFlags) {
         result := DllCall("MAPI32.dll\HrDispatchNotifications", "uint", ulFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1723,11 +1737,14 @@ class AddressBook {
      * > The passed-in strings are in Unicode format. If the MAPI_UNICODE flag is not set, the strings are in ANSI format.
      * @param {Pointer<IMAPITable>} lppTable > [out] Pointer to a pointer to the display table, which exposes the [IMAPITable](imapitableiunknown.md) interface.
      * @param {Pointer<ITableData>} lppTblData > [in, out] Pointer to a pointer to a table data object exposing the [ITableData](itabledataiunknown.md) interface on the table returned in the _lppTable_ parameter. If no table data object is desired, _lppTblData_ should be set to NULL instead of a pointer value.
-     * @returns {Integer} None
+     * @returns {HRESULT} None
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/builddisplaytable
      */
     static BuildDisplayTable(lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
         result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr", lppTable, "ptr", lppTblData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1963,13 +1980,16 @@ class AddressBook {
      * @param {Pointer<IMAPIProp>} lpMapiProp 
      * @param {Integer} ulPropTag > [in] Property tag of the property to be retrieved.
      * @param {Pointer<SPropValue>} lppProp 
-     * @returns {Integer} MAPI_E_NOT_FOUND 
+     * @returns {HRESULT} MAPI_E_NOT_FOUND 
      *   
      * > The requested property is not available from the specified interface.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrgetoneprop
      */
     static HrGetOneProp(lpMapiProp, ulPropTag, lppProp) {
         result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, "ptr", lppProp, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1981,11 +2001,14 @@ class AddressBook {
      * You can retrieve a single property with the [HrGetOneProp](hrgetoneprop.md) function.
      * @param {Pointer<IMAPIProp>} lpMapiProp 
      * @param {Pointer<SPropValue>} lpProp 
-     * @returns {Integer} None.
+     * @returns {HRESULT} None.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrsetoneprop
      */
     static HrSetOneProp(lpMapiProp, lpProp) {
         result := DllCall("MAPI32.dll\HrSetOneProp", "ptr", lpMapiProp, "ptr", lpProp, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2027,23 +2050,21 @@ class AddressBook {
     /**
      * Describes FreePadrlist and provides syntax, parameters, and return value.
      * @param {Pointer<ADRLIST>} lpAdrlist 
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/freepadrlist
      */
     static FreePadrlist(lpAdrlist) {
-        result := DllCall("MAPI32.dll\FreePadrlist", "ptr", lpAdrlist)
-        return result
+        DllCall("MAPI32.dll\FreePadrlist", "ptr", lpAdrlist)
     }
 
     /**
      * Destroys an SRowSet structure and frees associated memory, including memory allocated for all member arrays and structures.
      * @param {Pointer<SRowSet>} lpRows 
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/freeprows
      */
     static FreeProws(lpRows) {
-        result := DllCall("MAPI32.dll\FreeProws", "ptr", lpRows)
-        return result
+        DllCall("MAPI32.dll\FreeProws", "ptr", lpRows)
     }
 
     /**
@@ -2060,7 +2081,7 @@ class AddressBook {
      * @param {Pointer<SSortOrderSet>} lpSortOrderSet 
      * @param {Integer} crowsMax > [in] Maximum number of rows to be retrieved. If the value of the  _crowsMax_ parameter is zero, no limit on the number of rows retrieved is set.
      * @param {Pointer<SRowSet>} lppRows 
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call retrieved the expected rows of a table. 
      *     
@@ -2071,6 +2092,9 @@ class AddressBook {
      */
     static HrQueryAllRows(lpTable, lpPropTags, lpRestriction, lpSortOrderSet, crowsMax, lppRows) {
         result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, "ptr", lppRows, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2199,7 +2223,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftaddft
      */
     static FtAddFt(ftAddend1, ftAddend2) {
-        result := DllCall("MAPI32.dll\FtAddFt", "ptr", ftAddend1, "ptr", ftAddend2)
+        result := DllCall("MAPI32.dll\FtAddFt", "ptr", ftAddend1, "ptr", ftAddend2, "ptr")
         return result
     }
 
@@ -2211,7 +2235,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftmuldwdw
      */
     static FtMulDwDw(ftMultiplicand, ftMultiplier) {
-        result := DllCall("MAPI32.dll\FtMulDwDw", "uint", ftMultiplicand, "uint", ftMultiplier)
+        result := DllCall("MAPI32.dll\FtMulDwDw", "uint", ftMultiplicand, "uint", ftMultiplier, "ptr")
         return result
     }
 
@@ -2223,7 +2247,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftmuldw
      */
     static FtMulDw(ftMultiplier, ftMultiplicand) {
-        result := DllCall("MAPI32.dll\FtMulDw", "uint", ftMultiplier, "ptr", ftMultiplicand)
+        result := DllCall("MAPI32.dll\FtMulDw", "uint", ftMultiplier, "ptr", ftMultiplicand, "ptr")
         return result
     }
 
@@ -2235,7 +2259,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftsubft
      */
     static FtSubFt(ftMinuend, ftSubtrahend) {
-        result := DllCall("MAPI32.dll\FtSubFt", "ptr", ftMinuend, "ptr", ftSubtrahend)
+        result := DllCall("MAPI32.dll\FtSubFt", "ptr", ftMinuend, "ptr", ftSubtrahend, "ptr")
         return result
     }
 
@@ -2246,7 +2270,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftnegft
      */
     static FtNegFt(ft) {
-        result := DllCall("MAPI32.dll\FtNegFt", "ptr", ft)
+        result := DllCall("MAPI32.dll\FtNegFt", "ptr", ft, "ptr")
         return result
     }
 
@@ -2284,11 +2308,14 @@ class AddressBook {
      * @param {Pointer} lpOrigEntry > [in] Pointer to an [ENTRYID](entryid.md) structure that contains the original entry identifier.
      * @param {Pointer<UInt32>} lpcbWrappedEntry > [out] Pointer to the size, in bytes, of the new entry identifier.
      * @param {Pointer} lppWrappedEntry > [out] Pointer to a pointer to an **ENTRYID** structure that contains the new entry identifier.
-     * @returns {Integer} None.
+     * @returns {HRESULT} None.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapstoreentryid
      */
     static WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lpcbWrappedEntry, lppWrappedEntry) {
         result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, "char*", lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, "uint*", lpcbWrappedEntry, "ptr", lppWrappedEntry, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2315,13 +2342,16 @@ class AddressBook {
      *     
      *   All other bits in the _ulFlags_ parameter are reserved for future use.
      * @param {Pointer<Int32>} lpfMessageUpdated > [out] Pointer to a variable indicating whether there is an updated message. TRUE if there is an updated message, FALSE otherwise.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/rtfsync
      */
     static RTFSync(lpMessage, ulFlags, lpfMessageUpdated) {
         result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, "int*", lpfMessageUpdated, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2346,13 +2376,16 @@ class AddressBook {
      *   
      * > Uncompressed RTF should be written to the stream pointed to by  _lpCompressedRTFStream_
      * @param {Pointer<IStream>} lpUncompressedRTFStream > [out] Pointer to the location where **WrapCompressedRTFStream** returns a stream for the uncompressed RTF.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapcompressedrtfstream
      */
     static WrapCompressedRTFStream(lpCompressedRTFStream, ulFlags, lpUncompressedRTFStream) {
         result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr", lpUncompressedRTFStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2380,13 +2413,16 @@ class AddressBook {
      *   
      * > Starts storage at position zero. This flag cannot be set if any other flag is set.
      * @param {Pointer<IStorage>} lppStorageOut > [out] Pointer to a pointer to the returned **IStorage** object.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hristoragefromstream
      */
     static HrIStorageFromStream(lpUnkIn, lpInterface, ulFlags, lppStorageOut) {
         result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr", lppStorageOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2413,15 +2449,11 @@ class AddressBook {
      * The **DeinitMapiUtil** function release functions initialized with [ScInitMapiUtil](scinitmapiutil.md) or [MAPIInitialize](mapiinitialize.md). 
      *   
      * When use of the functions called by **ScInitMapiUtil** is complete, **DeinitMapiUtil** must be explicitly called to release them. In contrast, [MAPIUninitialize](mapiuninitialize.md) implicitly calls **DeinitMapiUtil**.
-     * @returns {Pointer} None 
-     *   
-     * 
-     * None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/deinitmapiutil
      */
     static DeinitMapiUtil() {
-        result := DllCall("MAPI32.dll\DeinitMapiUtil")
-        return result
+        DllCall("MAPI32.dll\DeinitMapiUtil")
     }
 
 ;@endregion Methods

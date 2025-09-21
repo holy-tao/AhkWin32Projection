@@ -3506,13 +3506,13 @@ class Direct3D9 {
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The value of this parameter should be D3D_SDK_VERSION. See Remarks.
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a>*</b>
+     * @returns {Pointer<IDirect3D9>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a>*</b>
      * 
      * If successful, this function returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a> interface; otherwise, a <b>NULL</b> pointer is returned.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9
      */
     static Direct3DCreate9(SDKVersion) {
-        result := DllCall("d3d9.dll\Direct3DCreate9", "uint", SDKVersion)
+        result := DllCall("d3d9.dll\Direct3DCreate9", "uint", SDKVersion, "ptr")
         return result
     }
 
@@ -3524,23 +3524,23 @@ class Direct3D9 {
      * Each **D3DPERF_BeginEvent** call should have a matching **D3DPERF_EndEvent** call. Instantaneous events (which do not bracket other events) should be labeled by using **D3DPERF_SetMarker** rather than by **D3DPERF_BeginEvent** and **D3DPERF_EndEvent**.
      * @param {Integer} col Event color. This is the color to display the event in the event view.
      * @param {Pointer<Char>} wszName Event name.
-     * @returns {Pointer} The zero-based level of the hierarchy that this event is starting in. If an error occurs, the return value will be negative.
+     * @returns {Integer} The zero-based level of the hierarchy that this event is starting in. If an error occurs, the return value will be negative.
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_beginevent
      */
     static D3DPERF_BeginEvent(col, wszName) {
         wszName := wszName is String? StrPtr(wszName) : wszName
 
-        result := DllCall("d3d9.dll\D3DPERF_BeginEvent", "uint", col, "ptr", wszName)
+        result := DllCall("d3d9.dll\D3DPERF_BeginEvent", "uint", col, "ptr", wszName, "int")
         return result
     }
 
     /**
      * Marks the end of a user-defined event. PIX can use this event to trigger an action.
-     * @returns {Pointer} The level of the hierarchy in which the event is ending. If an error occurs, this value is negative.
+     * @returns {Integer} The level of the hierarchy in which the event is ending. If an error occurs, this value is negative.
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_endevent
      */
     static D3DPERF_EndEvent() {
-        result := DllCall("d3d9.dll\D3DPERF_EndEvent")
+        result := DllCall("d3d9.dll\D3DPERF_EndEvent", "int")
         return result
     }
 
@@ -3550,14 +3550,13 @@ class Direct3D9 {
      * Instantaneous user events do not bracket or group other events. For example, when the user fires a weapon in a game, a *Shot Fired* event could be created by a **D3DPERF_SetMarker** call. To group together multiple events under a single, user-defined name, use **D3DPERF_BeginEvent** and **D3DPERF_EndEvent** rather than **D3DPERF_SetMarker**.
      * @param {Integer} col Event color. This is the color to display the event in the event view.
      * @param {Pointer<Char>} wszName Event name.
-     * @returns {Pointer} This function doesn't return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setmarker
      */
     static D3DPERF_SetMarker(col, wszName) {
         wszName := wszName is String? StrPtr(wszName) : wszName
 
-        result := DllCall("d3d9.dll\D3DPERF_SetMarker", "uint", col, "ptr", wszName)
-        return result
+        DllCall("d3d9.dll\D3DPERF_SetMarker", "uint", col, "ptr", wszName)
     }
 
     /**
@@ -3566,14 +3565,13 @@ class Direct3D9 {
      * To make analysis easier, the target program can use color to mark each level of a target program.
      * @param {Integer} col Event color. This is the color to display the event in the event view.
      * @param {Pointer<Char>} wszName Event name.
-     * @returns {Pointer} This function doesn't return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setregion
      */
     static D3DPERF_SetRegion(col, wszName) {
         wszName := wszName is String? StrPtr(wszName) : wszName
 
-        result := DllCall("d3d9.dll\D3DPERF_SetRegion", "uint", col, "ptr", wszName)
-        return result
+        DllCall("d3d9.dll\D3DPERF_SetRegion", "uint", col, "ptr", wszName)
     }
 
     /**
@@ -3591,12 +3589,11 @@ class Direct3D9 {
     /**
      * Set profiler options specified by the target program.
      * @param {Integer} dwOptions User options recognizable by PIX. Set this to 1 to notify PIX that the target program does not give permission to be profiled.
-     * @returns {Pointer} This function doesn't return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setoptions
      */
     static D3DPERF_SetOptions(dwOptions) {
-        result := DllCall("d3d9.dll\D3DPERF_SetOptions", "uint", dwOptions)
-        return result
+        DllCall("d3d9.dll\D3DPERF_SetOptions", "uint", dwOptions)
     }
 
     /**
@@ -3635,7 +3632,7 @@ class Direct3D9 {
      * 
      * The value of this parameter should be <b>D3D_SDK_VERSION</b>. See Remarks.
      * @param {Pointer<IDirect3D9Ex>} param1 
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * <ul>
      * <li><b>D3DERR_NOTAVAILABLE</b> if Direct3DEx features are not supported (no WDDM driver is
@@ -3648,6 +3645,9 @@ class Direct3D9 {
      */
     static Direct3DCreate9Ex(SDKVersion, param1) {
         result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr", param1, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

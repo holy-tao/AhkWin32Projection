@@ -6974,7 +6974,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchBufferMax Type: <b>int</b>
      * 
      * The size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the number of characters specified. If this parameter is 0, then <i>lpBuffer</i> receives a read-only pointer to the string resource itself.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is one of the following:
      * 
@@ -6991,7 +6991,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadStringA", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax)
+        result := DllCall("USER32.dll\LoadStringA", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7017,7 +7017,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchBufferMax Type: <b>int</b>
      * 
      * The size of the buffer, in characters. The string is truncated and null-terminated if it is longer than the number of characters specified. If this parameter is 0, then <i>lpBuffer</i> receives a read-only pointer to the string resource itself.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is one of the following:
      * 
@@ -7034,7 +7034,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadStringW", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax)
+        result := DllCall("USER32.dll\LoadStringW", "ptr", hInstance, "uint", uID, "ptr", lpBuffer, "int", cchBufferMax, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7394,7 +7394,7 @@ class WindowsAndMessaging {
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
      * 					<i>lpFmt</i> parameter.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the buffer, not counting the terminating null character.
      * 
@@ -7408,7 +7408,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\wvsprintfA", "ptr", param0, "ptr", param1, "char*", arglist)
+        result := DllCall("USER32.dll\wvsprintfA", "ptr", param0, "ptr", param1, "char*", arglist, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7432,7 +7432,7 @@ class WindowsAndMessaging {
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
      * 					<i>lpFmt</i> parameter.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the buffer, not counting the terminating null character.
      * 
@@ -7446,7 +7446,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\wvsprintfW", "ptr", param0, "ptr", param1, "char*", arglist)
+        result := DllCall("USER32.dll\wvsprintfW", "ptr", param0, "ptr", param1, "char*", arglist, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7636,7 +7636,7 @@ class WindowsAndMessaging {
      * > The winuser.h header defines wsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Byte>} param0 
      * @param {Pointer<Byte>} param1 
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.
      * 
@@ -7650,7 +7650,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\wsprintfA", "ptr", param0, "ptr", param1, "CDecl ptr")
+        result := DllCall("USER32.dll\wsprintfA", "ptr", param0, "ptr", param1, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -7840,7 +7840,7 @@ class WindowsAndMessaging {
      * > The winuser.h header defines wsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Char>} param0 
      * @param {Pointer<Char>} param1 
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.
      * 
@@ -7854,7 +7854,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\wsprintfW", "ptr", param0, "ptr", param1, "CDecl ptr")
+        result := DllCall("USER32.dll\wsprintfW", "ptr", param0, "ptr", param1, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -7886,13 +7886,12 @@ class WindowsAndMessaging {
      * Disables the window ghosting feature for the calling GUI process. Window ghosting is a Windows Manager feature that lets the user minimize, move, or close the main window of an application that is not responding.
      * @remarks
      * After calling <b>DisableProcessWindowsGhosting</b>, the ghosting feature is disabled for the duration of the process.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-disableprocesswindowsghosting
      * @since windows5.1.2600
      */
     static DisableProcessWindowsGhosting() {
-        result := DllCall("USER32.dll\DisableProcessWindowsGhosting")
-        return result
+        DllCall("USER32.dll\DisableProcessWindowsGhosting")
     }
 
     /**
@@ -7906,7 +7905,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
      * 
      * The message to be registered.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the message is successfully registered, the return value is a message identifier in the range 0xC000 through 0xFFFF.
      * 
@@ -7919,7 +7918,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterWindowMessageA", "ptr", lpString)
+        result := DllCall("USER32.dll\RegisterWindowMessageA", "ptr", lpString, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7937,7 +7936,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
      * 
      * The message to be registered.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the message is successfully registered, the return value is a message identifier in the range 0xC000 through 0xFFFF.
      * 
@@ -7950,7 +7949,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterWindowMessageW", "ptr", lpString)
+        result := DllCall("USER32.dll\RegisterWindowMessageW", "ptr", lpString, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -9505,13 +9504,12 @@ class WindowsAndMessaging {
      * @param {Integer} nExitCode Type: <b>int</b>
      * 
      * The application exit code. This value is used as the <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-quit">WM_QUIT</a> message.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-postquitmessage
      * @since windows5.0
      */
     static PostQuitMessage(nExitCode) {
-        result := DllCall("USER32.dll\PostQuitMessage", "int", nExitCode)
-        return result
+        DllCall("USER32.dll\PostQuitMessage", "int", nExitCode)
     }
 
     /**
@@ -11854,7 +11852,7 @@ class WindowsAndMessaging {
      * @param {Integer} bSigned Type: <b>BOOL</b>
      * 
      * Indicates whether the function should examine the text for a minus sign at the beginning and return a signed integer value if it finds one (<b>TRUE</b> specifies this should be done, <b>FALSE</b> that it should not).
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the variable pointed to by <i>lpTranslated</i> is set to <b>TRUE</b>, and the return value is the translated value of the control text. 
      * 
@@ -11871,7 +11869,7 @@ class WindowsAndMessaging {
     static GetDlgItemInt(hDlg, nIDDlgItem, lpTranslated, bSigned) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, "int*", lpTranslated, "int", bSigned)
+        result := DllCall("USER32.dll\GetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, "int*", lpTranslated, "int", bSigned, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11962,7 +11960,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The maximum length, in characters, of the string to be copied to the buffer pointed to by <i>lpString</i>. If the length of the string, including the null character, exceeds the limit, the string is truncated.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
      * 
@@ -11975,7 +11973,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgItemTextA", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int", cchMax)
+        result := DllCall("USER32.dll\GetDlgItemTextA", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int", cchMax, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -12000,7 +11998,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The maximum length, in characters, of the string to be copied to the buffer pointed to by <i>lpString</i>. If the length of the string, including the null character, exceeds the limit, the string is truncated.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
      * 
@@ -12013,7 +12011,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgItemTextW", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int", cchMax)
+        result := DllCall("USER32.dll\GetDlgItemTextW", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpString, "int", cchMax, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -12174,7 +12172,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
      * 
      * A handle to the control.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the identifier of the control.
      * 
@@ -12185,7 +12183,7 @@ class WindowsAndMessaging {
     static GetDlgCtrlID(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgCtrlID", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetDlgCtrlID", "ptr", hWnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14057,7 +14055,7 @@ class WindowsAndMessaging {
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-accel">ACCEL</a> structures to copy to the buffer pointed to by the 
      *      <i>lpAccelDst</i> parameter.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If 
      *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
@@ -14065,7 +14063,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CopyAcceleratorTableA(hAccelSrc, lpAccelDst, cAccelEntries) {
-        result := DllCall("USER32.dll\CopyAcceleratorTableA", "ptr", hAccelSrc, "ptr", lpAccelDst, "int", cAccelEntries)
+        result := DllCall("USER32.dll\CopyAcceleratorTableA", "ptr", hAccelSrc, "ptr", lpAccelDst, "int", cAccelEntries, "int")
         return result
     }
 
@@ -14084,7 +14082,7 @@ class WindowsAndMessaging {
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-accel">ACCEL</a> structures to copy to the buffer pointed to by the 
      *      <i>lpAccelDst</i> parameter.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If 
      *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
@@ -14092,7 +14090,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CopyAcceleratorTableW(hAccelSrc, lpAccelDst, cAccelEntries) {
-        result := DllCall("USER32.dll\CopyAcceleratorTableW", "ptr", hAccelSrc, "ptr", lpAccelDst, "int", cAccelEntries)
+        result := DllCall("USER32.dll\CopyAcceleratorTableW", "ptr", hAccelSrc, "ptr", lpAccelDst, "int", cAccelEntries, "int")
         return result
     }
 
@@ -14131,7 +14129,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains message information retrieved from the calling thread's message queue using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14142,7 +14140,7 @@ class WindowsAndMessaging {
     static TranslateAcceleratorA(hWnd, hAccTable, lpMsg) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TranslateAcceleratorA", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg)
+        result := DllCall("USER32.dll\TranslateAcceleratorA", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14184,7 +14182,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains message information retrieved from the calling thread's message queue using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14195,7 +14193,7 @@ class WindowsAndMessaging {
     static TranslateAcceleratorW(hWnd, hAccTable, lpMsg) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TranslateAcceleratorW", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg)
+        result := DllCall("USER32.dll\TranslateAcceleratorW", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14354,7 +14352,7 @@ class WindowsAndMessaging {
      * 
      * This API is not DPI aware, and should not be used if the calling thread is per-monitor DPI aware. For the DPI-aware version of this API, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetricsfordpi">GetSystemMetricsForDPI</a>. For more information on DPI awareness, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">the Windows High DPI documentation.</a>
      * @param {Integer} nIndex Type: <b>int</b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the requested system metric or configuration setting.
      * 
@@ -14364,7 +14362,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetSystemMetrics(nIndex) {
-        result := DllCall("USER32.dll\GetSystemMetrics", "int", nIndex)
+        result := DllCall("USER32.dll\GetSystemMetrics", "int", nIndex, "int")
         return result
     }
 
@@ -14674,7 +14672,7 @@ class WindowsAndMessaging {
      * 
      * The maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the <i>nMaxCount</i> parameter, the extra characters are truncated. If <i>nMaxCount</i> is 0, the function returns the length of the menu string.
      * @param {Integer} flags Type: <b>UINT</b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
      * 
@@ -14687,7 +14685,7 @@ class WindowsAndMessaging {
     static GetMenuStringA(hMenu, uIDItem, lpString, cchMax, flags) {
         lpString := lpString is String? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetMenuStringA", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags)
+        result := DllCall("USER32.dll\GetMenuStringA", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
         return result
     }
 
@@ -14713,7 +14711,7 @@ class WindowsAndMessaging {
      * 
      * The maximum length, in characters, of the string to be copied. If the string is longer than the maximum specified in the <i>nMaxCount</i> parameter, the extra characters are truncated. If <i>nMaxCount</i> is 0, the function returns the length of the menu string.
      * @param {Integer} flags Type: <b>UINT</b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of characters copied to the buffer, not including the terminating null character.
      * 
@@ -14726,7 +14724,7 @@ class WindowsAndMessaging {
     static GetMenuStringW(hMenu, uIDItem, lpString, cchMax, flags) {
         lpString := lpString is String? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetMenuStringW", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags)
+        result := DllCall("USER32.dll\GetMenuStringW", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
         return result
     }
 
@@ -14766,7 +14764,7 @@ class WindowsAndMessaging {
      * 
      * The menu item for which the menu flags are to be retrieved, as determined by the <i>uFlags</i> parameter.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the specified item does not exist, the return value is -1.
      * 
@@ -14892,7 +14890,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuState(hMenu, uId, uFlags) {
-        result := DllCall("USER32.dll\GetMenuState", "ptr", hMenu, "uint", uId, "uint", uFlags)
+        result := DllCall("USER32.dll\GetMenuState", "ptr", hMenu, "uint", uId, "uint", uFlags, "uint")
         return result
     }
 
@@ -15153,14 +15151,14 @@ class WindowsAndMessaging {
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The zero-based relative position of the menu item whose identifier is to be retrieved.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * The return value is the identifier of the specified menu item. If the menu item identifier is <b>NULL</b> or if the specified item opens a submenu, the return value is -1.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenuitemid
      * @since windows5.0
      */
     static GetMenuItemID(hMenu, nPos) {
-        result := DllCall("USER32.dll\GetMenuItemID", "ptr", hMenu, "int", nPos)
+        result := DllCall("USER32.dll\GetMenuItemID", "ptr", hMenu, "int", nPos, "uint")
         return result
     }
 
@@ -15169,7 +15167,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be examined.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value specifies the number of items in the menu.
      * 
@@ -15180,7 +15178,7 @@ class WindowsAndMessaging {
     static GetMenuItemCount(hMenu) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuItemCount", "ptr", hMenu)
+        result := DllCall("USER32.dll\GetMenuItemCount", "ptr", hMenu, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17084,7 +17082,7 @@ class WindowsAndMessaging {
      * 
      * Indicates whether to retrieve the menu item's identifier or its position. If this parameter is <b>FALSE</b>, the identifier is returned. Otherwise, the position is returned.
      * @param {Integer} gmdiFlags Type: <b>UINT</b>
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the identifier or position of the menu item.
      * 
@@ -17095,7 +17093,7 @@ class WindowsAndMessaging {
     static GetMenuDefaultItem(hMenu, fByPos, gmdiFlags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetMenuDefaultItem", "ptr", hMenu, "uint", fByPos, "uint", gmdiFlags)
+        result := DllCall("USER32.dll\GetMenuDefaultItem", "ptr", hMenu, "uint", fByPos, "uint", gmdiFlags, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -17184,14 +17182,14 @@ class WindowsAndMessaging {
      * @param {Pointer} ptScreen Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * A structure that specifies the location to test. If <i>hMenu</i> specifies a menu bar, this parameter is in window coordinates. Otherwise, it is in client coordinates.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the zero-based position of the menu item at the specified location or -1 if no menu item is at the specified location.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-menuitemfrompoint
      * @since windows5.0
      */
     static MenuItemFromPoint(hWnd, hMenu, ptScreen) {
-        result := DllCall("USER32.dll\MenuItemFromPoint", "ptr", hWnd, "ptr", hMenu, "ptr", ptScreen)
+        result := DllCall("USER32.dll\MenuItemFromPoint", "ptr", hWnd, "ptr", hMenu, "ptr", ptScreen, "int")
         return result
     }
 
@@ -17272,13 +17270,12 @@ class WindowsAndMessaging {
      * A <b>TRUE</b> for this parameter indicates that the window
      * 				is being switched to using the Alt/Ctl+Tab key sequence.  This parameter
      * 				should be <b>FALSE</b> otherwise.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-switchtothiswindow
      * @since windows5.0
      */
     static SwitchToThisWindow(hwnd, fUnknown) {
-        result := DllCall("USER32.dll\SwitchToThisWindow", "ptr", hwnd, "int", fUnknown)
-        return result
+        DllCall("USER32.dll\SwitchToThisWindow", "ptr", hwnd, "int", fUnknown)
     }
 
     /**
@@ -17537,7 +17534,7 @@ class WindowsAndMessaging {
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the boundaries of the rectangle invalidated by scrolling. This parameter may be <b>NULL</b>.
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is SIMPLEREGION (rectangular invalidated region), COMPLEXREGION (nonrectangular invalidated region; overlapping rectangles), or NULLREGION (no invalidated region). 
      * 
@@ -17548,7 +17545,7 @@ class WindowsAndMessaging {
     static ScrollWindowEx(hWnd, dx, dy, prcScroll, prcClip, hrgnUpdate, prcUpdate, flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ScrollWindowEx", "ptr", hWnd, "int", dx, "int", dy, "ptr", prcScroll, "ptr", prcClip, "ptr", hrgnUpdate, "ptr", prcUpdate, "uint", flags)
+        result := DllCall("USER32.dll\ScrollWindowEx", "ptr", hWnd, "int", dx, "int", dy, "ptr", prcScroll, "ptr", prcClip, "ptr", hrgnUpdate, "ptr", prcUpdate, "uint", flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17568,7 +17565,7 @@ class WindowsAndMessaging {
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
      * 					<i>nBar</i> parameter.
      * @param {Integer} nBar Type: <b>int</b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the current position of the scroll box.
      * 
@@ -17579,7 +17576,7 @@ class WindowsAndMessaging {
     static GetScrollPos(hWnd, nBar) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetScrollPos", "ptr", hWnd, "int", nBar)
+        result := DllCall("USER32.dll\GetScrollPos", "ptr", hWnd, "int", nBar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17822,14 +17819,14 @@ class WindowsAndMessaging {
      * @param {Pointer} lParam Type: <b>LPARAM</b>
      * 
      * Application-defined data to be passed to the callback function.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsexa
      * @since windows5.0
      */
     static EnumPropsExA(hWnd, lpEnumFunc, lParam) {
-        result := DllCall("USER32.dll\EnumPropsExA", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam)
+        result := DllCall("USER32.dll\EnumPropsExA", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
 
@@ -17846,14 +17843,14 @@ class WindowsAndMessaging {
      * @param {Pointer} lParam Type: <b>LPARAM</b>
      * 
      * Application-defined data to be passed to the callback function.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsexw
      * @since windows5.0
      */
     static EnumPropsExW(hWnd, lpEnumFunc, lParam) {
-        result := DllCall("USER32.dll\EnumPropsExW", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam)
+        result := DllCall("USER32.dll\EnumPropsExW", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
 
@@ -17874,14 +17871,14 @@ class WindowsAndMessaging {
      * @param {Pointer<PROPENUMPROCA>} lpEnumFunc Type: <b>PROPENUMPROC</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumproca">PropEnumProc</a> function.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsa
      * @since windows5.0
      */
     static EnumPropsA(hWnd, lpEnumFunc) {
-        result := DllCall("USER32.dll\EnumPropsA", "ptr", hWnd, "ptr", lpEnumFunc)
+        result := DllCall("USER32.dll\EnumPropsA", "ptr", hWnd, "ptr", lpEnumFunc, "int")
         return result
     }
 
@@ -17902,14 +17899,14 @@ class WindowsAndMessaging {
      * @param {Pointer<PROPENUMPROCW>} lpEnumFunc Type: <b>PROPENUMPROC</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumproca">PropEnumProc</a> function.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the last value returned by the callback function. It is -1 if the function did not find a property for enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumpropsw
      * @since windows5.0
      */
     static EnumPropsW(hWnd, lpEnumFunc) {
-        result := DllCall("USER32.dll\EnumPropsW", "ptr", hWnd, "ptr", lpEnumFunc)
+        result := DllCall("USER32.dll\EnumPropsW", "ptr", hWnd, "ptr", lpEnumFunc, "int")
         return result
     }
 
@@ -17996,7 +17993,7 @@ class WindowsAndMessaging {
      * @param {Integer} nMaxCount Type: <b>int</b>
      * 
      * The maximum number of characters to copy to the buffer, including the null character. If the text exceeds this limit, it is truncated.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character. If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
@@ -18009,7 +18006,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextA", "ptr", hWnd, "ptr", lpString, "int", nMaxCount)
+        result := DllCall("USER32.dll\GetWindowTextA", "ptr", hWnd, "ptr", lpString, "int", nMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18031,7 +18028,7 @@ class WindowsAndMessaging {
      * @param {Integer} nMaxCount Type: <b>int</b>
      * 
      * The maximum number of characters to copy to the buffer, including the null character. If the text exceeds this limit, it is truncated.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character. If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
@@ -18044,7 +18041,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextW", "ptr", hWnd, "ptr", lpString, "int", nMaxCount)
+        result := DllCall("USER32.dll\GetWindowTextW", "ptr", hWnd, "ptr", lpString, "int", nMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18069,7 +18066,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).
      * 
@@ -18085,7 +18082,7 @@ class WindowsAndMessaging {
     static GetWindowTextLengthA(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextLengthA", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetWindowTextLengthA", "ptr", hWnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18110,7 +18107,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the text. Under certain conditions, this value might be greater than the length of the text (see Remarks).
      * 
@@ -18126,7 +18123,7 @@ class WindowsAndMessaging {
     static GetWindowTextLengthW(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindowTextLengthW", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetWindowTextLengthW", "ptr", hWnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19280,14 +19277,14 @@ class WindowsAndMessaging {
      * @param {Integer} bShow Type: <b>BOOL</b>
      * 
      * If <i>bShow</i> is <b>TRUE</b>, the display count is incremented by one. If <i>bShow</i> is <b>FALSE</b>, the display count is decremented by one.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value specifies the new display counter.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcursor
      * @since windows5.0
      */
     static ShowCursor(bShow) {
-        result := DllCall("USER32.dll\ShowCursor", "int", bShow)
+        result := DllCall("USER32.dll\ShowCursor", "int", bShow, "int")
         return result
     }
 
@@ -19519,7 +19516,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the time required to invert the caret's pixels. The user can set this value.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the blink time, in milliseconds.
      *           
@@ -19534,7 +19531,7 @@ class WindowsAndMessaging {
     static GetCaretBlinkTime() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetCaretBlinkTime")
+        result := DllCall("USER32.dll\GetCaretBlinkTime", "uint")
         if(A_LastError)
             throw OSError()
 
@@ -20994,7 +20991,7 @@ class WindowsAndMessaging {
      * @param {Integer} nMaxCount Type: <b>int</b>
      * 
      * The length of the *lpClassName* buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the class name string is truncated to `nMaxCount-1` characters.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of 
      * 						characters copied to the buffer, not including the terminating null character.
@@ -21008,7 +21005,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassNameA", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount)
+        result := DllCall("USER32.dll\GetClassNameA", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21029,7 +21026,7 @@ class WindowsAndMessaging {
      * @param {Integer} nMaxCount Type: <b>int</b>
      * 
      * The length of the *lpClassName* buffer, in characters. The buffer must be large enough to include the terminating null character; otherwise, the class name string is truncated to `nMaxCount-1` characters.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of 
      * 						characters copied to the buffer, not including the terminating null character.
@@ -21043,7 +21040,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetClassNameW", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount)
+        result := DllCall("USER32.dll\GetClassNameW", "ptr", hWnd, "ptr", lpClassName, "int", nMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22375,7 +22372,7 @@ class WindowsAndMessaging {
      * 
      * Specifies flags that control this function.  These flags are the LR_*
      * 				flags used by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> function.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the <i>phicon</i> parameter is <b>NULL</b> and this function succeeds, then the return
      * 				value is the number of icons in the file.  If the function fails then the
@@ -22391,7 +22388,7 @@ class WindowsAndMessaging {
     static PrivateExtractIconsA(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
         szFileName := szFileName is String? StrPtr(szFileName) : szFileName
 
-        result := DllCall("USER32.dll\PrivateExtractIconsA", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "uint*", piconid, "uint", nIcons, "uint", flags)
+        result := DllCall("USER32.dll\PrivateExtractIconsA", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "uint*", piconid, "uint", nIcons, "uint", flags, "uint")
         return result
     }
 
@@ -22452,7 +22449,7 @@ class WindowsAndMessaging {
      * 
      * Specifies flags that control this function.  These flags are the LR_*
      * 				flags used by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> function.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the <i>phicon</i> parameter is <b>NULL</b> and this function succeeds, then the return
      * 				value is the number of icons in the file.  If the function fails then the
@@ -22468,7 +22465,7 @@ class WindowsAndMessaging {
     static PrivateExtractIconsW(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
         szFileName := szFileName is String? StrPtr(szFileName) : szFileName
 
-        result := DllCall("USER32.dll\PrivateExtractIconsW", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "uint*", piconid, "uint", nIcons, "uint", flags)
+        result := DllCall("USER32.dll\PrivateExtractIconsW", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "uint*", piconid, "uint", nIcons, "uint", flags, "uint")
         return result
     }
 
@@ -22602,7 +22599,7 @@ class WindowsAndMessaging {
      * @param {Integer} fIcon Type: <b>BOOL</b>
      * 
      * Indicates whether an icon or a cursor is sought. If this parameter is <b>TRUE</b>, the function is searching for an icon; if the parameter is <b>FALSE</b>, the function is searching for a cursor.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is an integer resource identifier for the icon or cursor that best fits the current display device. 
      * 
@@ -22613,7 +22610,7 @@ class WindowsAndMessaging {
     static LookupIconIdFromDirectory(presbits, fIcon) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LookupIconIdFromDirectory", "char*", presbits, "int", fIcon)
+        result := DllCall("USER32.dll\LookupIconIdFromDirectory", "char*", presbits, "int", fIcon, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22641,7 +22638,7 @@ class WindowsAndMessaging {
      * 
      * The desired height, in pixels, of the icon. If this parameter is zero, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value.
      * @param {Integer} Flags Type: <b>UINT</b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is an integer resource identifier for the icon or cursor that best fits the current display device. 
      * 
@@ -22652,7 +22649,7 @@ class WindowsAndMessaging {
     static LookupIconIdFromDirectoryEx(presbits, fIcon, cxDesired, cyDesired, Flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LookupIconIdFromDirectoryEx", "char*", presbits, "int", fIcon, "int", cxDesired, "int", cyDesired, "uint", Flags)
+        result := DllCall("USER32.dll\LookupIconIdFromDirectoryEx", "char*", presbits, "int", fIcon, "int", cxDesired, "int", cyDesired, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -23738,7 +23735,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the height of one row of icons. 
      * 
@@ -23749,7 +23746,7 @@ class WindowsAndMessaging {
     static ArrangeIconicWindows(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ArrangeIconicWindows", "ptr", hWnd)
+        result := DllCall("USER32.dll\ArrangeIconicWindows", "ptr", hWnd, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -29713,11 +29710,10 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {Integer} dwLevel 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static SetDebugErrorLevel(dwLevel) {
-        result := DllCall("USER32.dll\SetDebugErrorLevel", "uint", dwLevel)
-        return result
+        DllCall("USER32.dll\SetDebugErrorLevel", "uint", dwLevel)
     }
 
     /**
@@ -29735,7 +29731,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchMaxCount Type: <b>int</b>
      * 
      * The maximum number of characters to be copied to the buffer, including the null character. If the text exceeds this limit, it is truncated.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character.
      * 
@@ -29748,7 +29744,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InternalGetWindowText", "ptr", hWnd, "ptr", pString, "int", cchMaxCount)
+        result := DllCall("USER32.dll\InternalGetWindowText", "ptr", hWnd, "ptr", pString, "int", cchMaxCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29893,7 +29889,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchFileNameMax Type: <b>UINT</b>
      * 
      * The maximum number of characters that can be copied into the <i>lpszFileName</i> buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * The return value is the total number of characters copied into the buffer.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowmodulefilenamea
@@ -29902,7 +29898,7 @@ class WindowsAndMessaging {
     static GetWindowModuleFileNameA(hwnd, pszFileName, cchFileNameMax) {
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("USER32.dll\GetWindowModuleFileNameA", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax)
+        result := DllCall("USER32.dll\GetWindowModuleFileNameA", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
         return result
     }
 
@@ -29920,7 +29916,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchFileNameMax Type: <b>UINT</b>
      * 
      * The maximum number of characters that can be copied into the <i>lpszFileName</i> buffer.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * The return value is the total number of characters copied into the buffer.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowmodulefilenamew
@@ -29929,7 +29925,7 @@ class WindowsAndMessaging {
     static GetWindowModuleFileNameW(hwnd, pszFileName, cchFileNameMax) {
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("USER32.dll\GetWindowModuleFileNameW", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax)
+        result := DllCall("USER32.dll\GetWindowModuleFileNameW", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
         return result
     }
 
@@ -30123,7 +30119,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchClassNameMax Type: <b>UINT</b>
      * 
      * The length, in characters, of the buffer pointed to by the <i>pszType</i> parameter.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the number of characters copied to the specified buffer. 
      * 
@@ -30133,7 +30129,7 @@ class WindowsAndMessaging {
     static RealGetWindowClassA(hwnd, ptszClassName, cchClassNameMax) {
         ptszClassName := ptszClassName is String? StrPtr(ptszClassName) : ptszClassName
 
-        result := DllCall("USER32.dll\RealGetWindowClassA", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax)
+        result := DllCall("USER32.dll\RealGetWindowClassA", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
         return result
     }
 
@@ -30148,7 +30144,7 @@ class WindowsAndMessaging {
      * @param {Integer} cchClassNameMax Type: <b>UINT</b>
      * 
      * The length, in characters, of the buffer pointed to by the <i>pszType</i> parameter.
-     * @returns {Pointer} Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * If the function succeeds, the return value is the number of characters copied to the specified buffer. 
      * 
@@ -30161,7 +30157,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RealGetWindowClassW", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax)
+        result := DllCall("USER32.dll\RealGetWindowClassW", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -30411,7 +30407,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} projectRoot The path of the root folder to use for the project for the files to be produced, in string form. This path is used to determine file paths relative to the package that contains them. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {Pointer<Char>} extensionDllPath The full path to an extension dynamic-link library (DLL) that is Microsoft-signed and implements the ext-ms-win-mrmcorer-environment-l1 API set. This path determines the file path from where the extension DLL for the modern resource technology (MRT) environment is loaded. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {Pointer<Void>} ppResourceIndexer The newly created resource indexer.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/resourceindexer/nf-resourceindexer-createresourceindexer
      * @since windows10.0.10240
      */
@@ -30420,19 +30416,21 @@ class WindowsAndMessaging {
         extensionDllPath := extensionDllPath is String? StrPtr(extensionDllPath) : extensionDllPath
 
         result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr", ppResourceIndexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Frees the computational resources associated with the specified resource indexer.
      * @param {Pointer<Void>} resourceIndexer The resource indexer for which you want to free the computational resources.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/resourceindexer/nf-resourceindexer-destroyresourceindexer
      * @since windows10.0.10240
      */
     static DestroyResourceIndexer(resourceIndexer) {
-        result := DllCall("MrmSupport.dll\DestroyResourceIndexer", "ptr", resourceIndexer)
-        return result
+        DllCall("MrmSupport.dll\DestroyResourceIndexer", "ptr", resourceIndexer)
     }
 
     /**
@@ -30442,7 +30440,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} ppResourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
      * @param {Pointer<UInt32>} pQualifierCount The number of indexed resource qualifiers that the list in the <i>ppQualifiers</i> parameter contains.
      * @param {Pointer<IndexedResourceQualifier>} ppQualifiers A list of indexed resource qualifiers that declare the context under which the resources are appropriate.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/resourceindexer/nf-resourceindexer-indexfilepath
      * @since windows10.0.10240
      */
@@ -30450,6 +30448,9 @@ class WindowsAndMessaging {
         filePath := filePath is String? StrPtr(filePath) : filePath
 
         result := DllCall("MrmSupport.dll\IndexFilePath", "ptr", resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, "uint*", pQualifierCount, "ptr", ppQualifiers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30458,15 +30459,14 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} resourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
      * @param {Integer} qualifierCount The number of indexed resource qualifiers that the list in the <i>ppQualifiers</i> parameter contains.
      * @param {Pointer<IndexedResourceQualifier>} qualifiers A list of indexed resource qualifiers that declare the context under which the resources are appropriate.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/resourceindexer/nf-resourceindexer-destroyindexedresults
      * @since windows10.0.10240
      */
     static DestroyIndexedResults(resourceUri, qualifierCount, qualifiers) {
         resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
 
-        result := DllCall("MrmSupport.dll\DestroyIndexedResults", "ptr", resourceUri, "uint", qualifierCount, "ptr", qualifiers)
-        return result
+        DllCall("MrmSupport.dll\DestroyIndexedResults", "ptr", resourceUri, "uint", qualifierCount, "ptr", qualifiers)
     }
 
     /**
@@ -30486,7 +30486,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)\***
      * 
      * A pointer to a resource indexer handle.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexer
@@ -30497,6 +30497,9 @@ class WindowsAndMessaging {
         defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexer", "ptr", packageFamilyName, "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30517,7 +30520,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)\***
      * 
      * A pointer to a resource indexer handle.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousschemafile
@@ -30528,6 +30531,9 @@ class WindowsAndMessaging {
         schemaFile := schemaFile is String? StrPtr(schemaFile) : schemaFile
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaFile", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", schemaFile, "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30548,7 +30554,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)\***
      * 
      * A pointer to a resource indexer handle.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousprifile
@@ -30559,6 +30565,9 @@ class WindowsAndMessaging {
         priFile := priFile is String? StrPtr(priFile) : priFile
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriFile", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", priFile, "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30584,7 +30593,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)\***
      * 
      * A pointer to a resource indexer handle.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousschemadata
@@ -30594,6 +30603,9 @@ class WindowsAndMessaging {
         defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaData", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", schemaXmlData, "uint", schemaXmlSize, "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30619,7 +30631,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)\***
      * 
      * A pointer to a resource indexer handle.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviouspridata-
@@ -30629,6 +30641,9 @@ class WindowsAndMessaging {
         defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriData", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", priData, "uint", priSize, "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30640,7 +30655,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} defaultQualifiers 
      * @param {Integer} flags 
      * @param {Pointer<Void>} indexer 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexerWithFlags(packageFamilyName, projectRoot, platformVersion, defaultQualifiers, flags, indexer) {
         packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
@@ -30648,6 +30663,9 @@ class WindowsAndMessaging {
         defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerWithFlags", "ptr", packageFamilyName, "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "int", flags, "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30669,7 +30687,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} qualifiers Type: **PCWSTR**
      * 
      * An optional list of resource qualifiers, for example L"language-en-US\_scale-100\_contrast-standard". An empty string or **nullptr** indicates a neutral resource. Resource qualifiers are *not* inferred from *resourceUri*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexstring
@@ -30680,6 +30698,9 @@ class WindowsAndMessaging {
         qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
 
         result := DllCall("MrmSupport.dll\MrmIndexString", "ptr", indexer, "ptr", resourceUri, "ptr", resourceString, "ptr", qualifiers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30704,7 +30725,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} qualifiers Type: **PCWSTR**
      * 
      * An optional list of resource qualifiers, for example L"language-en-US\_scale-100\_contrast-standard". An empty string or **nullptr** indicates a neutral resource. Resource qualifiers are *not* inferred from *resourceUri*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexembeddeddata
@@ -30714,6 +30735,9 @@ class WindowsAndMessaging {
         qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
 
         result := DllCall("MrmSupport.dll\MrmIndexEmbeddedData", "ptr", indexer, "ptr", resourceUri, "ptr", embeddedData, "uint", embeddedDataSize, "ptr", qualifiers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30735,7 +30759,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} qualifiers Type: **PCWSTR**
      * 
      * An optional list of resource qualifiers, for example L"language-en-US\_scale-100\_contrast-standard". An empty string or **nullptr** indicates a neutral resource. Resource qualifiers are *not* inferred from *resourceUri* nor from *containerPath*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexfile
@@ -30746,6 +30770,9 @@ class WindowsAndMessaging {
         qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
 
         result := DllCall("MrmSupport.dll\MrmIndexFile", "ptr", indexer, "ptr", resourceUri, "ptr", filePath, "ptr", qualifiers, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30761,7 +30788,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} filePath Type: **PCWSTR**
      * 
      * A relative path to a file containing a resource that you want to index. This path is relative to the project root of the UWP app for which you are generating PRI files. That project root is the value of *projectRoot* that you passed to [**MrmCreateResourceIndexer**](mrmcreateresourceindexer.md).
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexfileautoqualifiers
@@ -30770,6 +30797,9 @@ class WindowsAndMessaging {
         filePath := filePath is String? StrPtr(filePath) : filePath
 
         result := DllCall("MrmSupport.dll\MrmIndexFileAutoQualifiers", "ptr", indexer, "ptr", filePath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30785,7 +30815,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} containerPath Type: **PCWSTR**
      * 
      * A relative path to a .resw, .resjson, .priinfo, or .prifile containing string resources that you want to index. This path is relative to the project root of the UWP app for which you are generating PRI files. That project root is the value of *projectRoot* that you passed to [**MrmCreateResourceIndexer**](mrmcreateresourceindexer.md).
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexresourcecontainerautoqualifiers
@@ -30794,6 +30824,9 @@ class WindowsAndMessaging {
         containerPath := containerPath is String? StrPtr(containerPath) : containerPath
 
         result := DllCall("MrmSupport.dll\MrmIndexResourceContainerAutoQualifiers", "ptr", indexer, "ptr", containerPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30811,7 +30844,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} outputDirectory Type: **PCWSTR**
      * 
      * A path to a folder in which to save the PRI file.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefile
@@ -30820,6 +30853,9 @@ class WindowsAndMessaging {
         outputDirectory := outputDirectory is String? StrPtr(outputDirectory) : outputDirectory
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceFile", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr", outputDirectory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30830,12 +30866,15 @@ class WindowsAndMessaging {
      * @param {Integer} packagingOptions 
      * @param {Integer} checksum 
      * @param {Pointer<Char>} outputDirectory 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static MrmCreateResourceFileWithChecksum(indexer, packagingMode, packagingOptions, checksum, outputDirectory) {
         outputDirectory := outputDirectory is String? StrPtr(outputDirectory) : outputDirectory
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceFileWithChecksum", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "uint", checksum, "ptr", outputDirectory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30858,13 +30897,16 @@ class WindowsAndMessaging {
      * @param {Pointer<UInt32>} outputPriSize Type: **ULONG\***
      * 
      * The address of a ULONG. In *outputPriSize*, the function returns the size of the allocated memory pointed to by *outputPriData*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefileinmemory
      */
     static MrmCreateResourceFileInMemory(indexer, packagingMode, packagingOptions, outputPriData, outputPriSize) {
         result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr", outputPriData, "uint*", outputPriSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30879,13 +30921,16 @@ class WindowsAndMessaging {
      * @param {Pointer<UInt32>} numMsgs Type: **ULONG\***
      * 
      * The number of messages returned in *messages*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmpeekresourceindexermessages
      */
     static MrmPeekResourceIndexerMessages(handle, messages, numMsgs) {
         result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", handle, "ptr", messages, "uint*", numMsgs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30894,13 +30939,16 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} indexer Type: **[**MrmResourceIndexerHandle**](mrmresourceindexerhandle.md)**
      * 
      * A handle identifying the resource indexer to destroy.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdestroyindexerandmessages
      */
     static MrmDestroyIndexerAndMessages(indexer) {
         result := DllCall("MrmSupport.dll\MrmDestroyIndexerAndMessages", "ptr", indexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30909,13 +30957,16 @@ class WindowsAndMessaging {
      * @param {Pointer<Byte>} data Type: **BYTE\***
      * 
      * A pointer to memory allocated and returned by [**MrmCreateConfigInMemory**](mrmcreateconfiginmemory.md), [**MrmCreateResourceFileInMemory**](mrmcreateresourcefileinmemory.md), [**MrmDumpPriFileInMemory**](mrmdumpprifileinmemory.md), or [**MrmDumpPriDataInMemory**](mrmdumppridatainmemory.md).
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmfreememory
      */
     static MrmFreeMemory(data) {
         result := DllCall("MrmSupport.dll\MrmFreeMemory", "char*", data, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30935,7 +30986,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} outputXmlFile Type: **PCWSTR**
      * 
      * The path of an XML file to create.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifile
@@ -30946,6 +30997,9 @@ class WindowsAndMessaging {
         outputXmlFile := outputXmlFile is String? StrPtr(outputXmlFile) : outputXmlFile
 
         result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlFile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -30968,7 +31022,7 @@ class WindowsAndMessaging {
      * @param {Pointer<UInt32>} outputXmlSize Type: **ULONG\***
      * 
      * The address of a ULONG. In *outputXmlSize*, the function returns the size of the allocated memory pointed to by *outputXmlData*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifileinmemory
@@ -30978,6 +31032,9 @@ class WindowsAndMessaging {
         schemaPriFile := schemaPriFile is String? StrPtr(schemaPriFile) : schemaPriFile
 
         result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlData, "uint*", outputXmlSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31006,13 +31063,16 @@ class WindowsAndMessaging {
      * @param {Pointer<UInt32>} outputXmlSize Type: **ULONG\***
      * 
      * The address of a ULONG. In *outputXmlSize*, the function returns the size of the allocated memory pointed to by *outputXmlData*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumppridatainmemory
      */
     static MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, dumpType, outputXmlData, outputXmlSize) {
         result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, "ptr", outputXmlData, "uint*", outputXmlSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31027,7 +31087,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Char>} outputXmlFile Type: **PCWSTR**
      * 
      * The path of the configuration file to create.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateconfig
@@ -31037,6 +31097,9 @@ class WindowsAndMessaging {
         outputXmlFile := outputXmlFile is String? StrPtr(outputXmlFile) : outputXmlFile
 
         result := DllCall("MrmSupport.dll\MrmCreateConfig", "int", platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlFile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31054,7 +31117,7 @@ class WindowsAndMessaging {
      * @param {Pointer<UInt32>} outputXmlSize Type: **ULONG\***
      * 
      * The address of a ULONG. In *outputXmlSize*, the function returns the size of the allocated memory pointed to by *outputXmlData*.
-     * @returns {Integer} Type: **HRESULT**
+     * @returns {HRESULT} Type: **HRESULT**
      * 
      * S\_OK if the function succeeded, otherwise some other value. Use the SUCCEEDED() or FAILED() macros (defined in winerror.h) to determine success or failure.
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateconfiginmemory
@@ -31063,6 +31126,9 @@ class WindowsAndMessaging {
         defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlData, "uint*", outputXmlSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -31070,12 +31136,15 @@ class WindowsAndMessaging {
      * 
      * @param {Pointer<Char>} priFile 
      * @param {Pointer<UInt32>} checksum 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static MrmGetPriFileContentChecksum(priFile, checksum) {
         priFile := priFile is String? StrPtr(priFile) : priFile
 
         result := DllCall("MrmSupport.dll\MrmGetPriFileContentChecksum", "ptr", priFile, "uint*", checksum, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

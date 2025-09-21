@@ -428,7 +428,7 @@ class Vss {
     /**
      * The CreateVssExpressWriterInternal function (vswriter.h) creates an IVssExpressWriter interface object and returns a pointer to it.
      * @param {Pointer<IVssExpressWriter>} ppWriter Doubly indirect pointer to the newly created <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivssexpresswriter">IVssExpressWriter</a> object.
-     * @returns {Integer} The return values listed here are in addition to the normal COM HRESULT values that may be returned at any time from the function.
+     * @returns {HRESULT} The return values listed here are in addition to the normal COM HRESULT values that may be returned at any time from the function.
      * 
      * <table>
      * <tr>
@@ -475,6 +475,9 @@ class Vss {
      */
     static CreateVssExpressWriterInternal(ppWriter) {
         result := DllCall("VSSAPI.dll\CreateVssExpressWriterInternal", "ptr", ppWriter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

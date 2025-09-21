@@ -4413,14 +4413,14 @@ class Globalization {
     /**
      * Retrieves a character set identifier for the font that is currently selected into a specified device context.
      * @param {Pointer<Void>} hdc Handle to a device context. The function obtains a character set identifier for the font that is selected into this device context.
-     * @returns {Pointer} If successful, returns a value identifying the character set of the font that is currently selected into the specified device context. The following character set identifiers are defined:
+     * @returns {Integer} If successful, returns a value identifying the character set of the font that is currently selected into the specified device context. The following character set identifiers are defined:
      * 
      * If the function fails, it returns DEFAULT_CHARSET.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharset
      * @since windows5.0
      */
     static GetTextCharset(hdc) {
-        result := DllCall("GDI32.dll\GetTextCharset", "ptr", hdc)
+        result := DllCall("GDI32.dll\GetTextCharset", "ptr", hdc, "int")
         return result
     }
 
@@ -4435,14 +4435,14 @@ class Globalization {
      * 
      * The <i>lpSig</i> parameter specifies <b>NULL</b> if the application does not require the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> information. In this case, the application can also call the       <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextcharset">GetTextCharset</a> function, which is equivalent to calling       <b>GetTextCharsetInfo</b> with <i>lpSig</i> set to <b>NULL</b>.
      * @param {Integer} dwFlags Reserved; must be set to 0.
-     * @returns {Pointer} If successful, returns a value identifying the character set of the font currently selected into the specified device context. The following character set identifiers are defined:
+     * @returns {Integer} If successful, returns a value identifying the character set of the font currently selected into the specified device context. The following character set identifiers are defined:
      * 
      * If the function fails, the return value is DEFAULT_CHARSET.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharsetinfo
      * @since windows5.0
      */
     static GetTextCharsetInfo(hdc, lpSig, dwFlags) {
-        result := DllCall("GDI32.dll\GetTextCharsetInfo", "ptr", hdc, "ptr", lpSig, "uint", dwFlags)
+        result := DllCall("GDI32.dll\GetTextCharsetInfo", "ptr", hdc, "ptr", lpSig, "uint", dwFlags, "int")
         return result
     }
 
@@ -4512,7 +4512,7 @@ class Globalization {
      * The function uses the specified locale only for information not specified in the format picture string, for example, the day and month names for the locale. The application can set this parameter to <b>NULL</b> to format the string according to the date format for the specified locale.
      * @param {Pointer<Byte>} lpDateStr Pointer to a buffer in which this function retrieves the formatted date string.
      * @param {Integer} cchDate Size, in characters, of the <i>lpDateStr</i> buffer. The application can set this parameter to 0 to return the buffer size required to hold the formatted date string. In this case, the buffer indicated by <i>lpDateStr</i> is not used.
-     * @returns {Pointer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
+     * @returns {Integer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -4530,7 +4530,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDateFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate)
+        result := DllCall("KERNEL32.dll\GetDateFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4584,7 +4584,7 @@ class Globalization {
      * The function uses the specified locale only for information not specified in the format picture string, for example, the day and month names for the locale. The application can set this parameter to <b>NULL</b> to format the string according to the date format for the specified locale.
      * @param {Pointer<Char>} lpDateStr Pointer to a buffer in which this function retrieves the formatted date string.
      * @param {Integer} cchDate Size, in characters, of the <i>lpDateStr</i> buffer. The application can set this parameter to 0 to return the buffer size required to hold the formatted date string. In this case, the buffer indicated by <i>lpDateStr</i> is not used.
-     * @returns {Pointer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
+     * @returns {Integer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -4602,7 +4602,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDateFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate)
+        result := DllCall("KERNEL32.dll\GetDateFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4652,7 +4652,7 @@ class Globalization {
      * @param {Pointer<Byte>} lpFormat Pointer to a format picture to use to format the time string. If the application sets this parameter to <b>NULL</b>, the function formats the string according to the time format of the specified locale. If the application does not set the parameter to <b>NULL</b>, the function uses the locale only for information not specified in the format picture string, for example, the locale-specific time markers. For information about the format picture string, see the Remarks section.
      * @param {Pointer<Byte>} lpTimeStr Pointer to a buffer in which this function retrieves the formatted time string.
      * @param {Integer} cchTime Size, in TCHAR values, for the time string buffer indicated by <i>lpTimeStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the time string buffer, and does not use the <i>lpTimeStr</i> parameter.
-     * @returns {Pointer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
+     * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -4671,7 +4671,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTimeFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime)
+        result := DllCall("KERNEL32.dll\GetTimeFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4721,7 +4721,7 @@ class Globalization {
      * @param {Pointer<Char>} lpFormat Pointer to a format picture to use to format the time string. If the application sets this parameter to <b>NULL</b>, the function formats the string according to the time format of the specified locale. If the application does not set the parameter to <b>NULL</b>, the function uses the locale only for information not specified in the format picture string, for example, the locale-specific time markers. For information about the format picture string, see the Remarks section.
      * @param {Pointer<Char>} lpTimeStr Pointer to a buffer in which this function retrieves the formatted time string.
      * @param {Integer} cchTime Size, in TCHAR values, for the time string buffer indicated by <i>lpTimeStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the time string buffer, and does not use the <i>lpTimeStr</i> parameter.
-     * @returns {Pointer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
+     * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -4740,7 +4740,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTimeFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime)
+        result := DllCall("KERNEL32.dll\GetTimeFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4855,7 +4855,7 @@ class Globalization {
      * @param {Pointer<Char>} lpFormat Pointer to a format picture to use to format the time string. If the application sets this parameter to <b>NULL</b>, the function formats the string according to the time format of the specified locale. If the application does not set the parameter to <b>NULL</b>, the function uses the locale only for information not specified in the format picture string, for example, the locale-specific time markers. For information about the format picture string, see the Remarks section.
      * @param {Pointer<Char>} lpTimeStr Pointer to a buffer in which this function retrieves the formatted time string.
      * @param {Integer} cchTime Size, in characters, for the time string buffer indicated by <i>lpTimeStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the time string buffer, and does not use the <i>lpTimeStr</i> parameter.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -4875,7 +4875,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTimeFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime)
+        result := DllCall("KERNEL32.dll\GetTimeFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4940,7 +4940,7 @@ class Globalization {
      * @param {Pointer<Char>} lpDateStr Pointer to a buffer in which this function retrieves the formatted date string.
      * @param {Integer} cchDate Size, in characters, of the <i>lpDateStr</i> buffer. The application can set this parameter to 0 to return the buffer size required to hold the formatted date string. In this case, the buffer indicated by <i>lpDateStr</i> is not used.
      * @param {Pointer<Char>} lpCalendar Reserved; must set to <b>NULL</b>.
-     * @returns {Pointer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
+     * @returns {Integer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -4960,7 +4960,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDateFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "ptr", lpCalendar)
+        result := DllCall("KERNEL32.dll\GetDateFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "ptr", lpCalendar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5213,7 +5213,7 @@ class Globalization {
      * @param {Integer} cchDuration Size, in characters, of the buffer indicated by <i>lpDurationStr</i>.
      * 
      * Alternatively, the application can set this parameter to 0. In this case, the function retrieves <b>NULL</b> in <i>lpDurationStr</i> and returns the required size for the duration string buffer.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpDurationStr</i> if successful. If <i>lpDurationStr</i> is set to <b>NULL</b> and <i>cchDuration</i> is set to 0, the function returns the required size for the duration string buffer, including the terminating null character. For example, if 10 characters are written to the buffer, the function returns 11 to include the terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpDurationStr</i> if successful. If <i>lpDurationStr</i> is set to <b>NULL</b> and <i>cchDuration</i> is set to 0, the function returns the required size for the duration string buffer, including the terminating null character. For example, if 10 characters are written to the buffer, the function returns 11 to include the terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -5231,7 +5231,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDurationFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration)
+        result := DllCall("KERNEL32.dll\GetDurationFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5416,7 +5416,7 @@ class Globalization {
      * @param {Integer} cchDest Size, in characters, of the destination string indicated by <i>lpDestStr</i>. If space for a terminating null character is included in <i>cchSrc</i>, <i>cchDest</i> must also include space for a terminating null character.
      * 
      * The application can set <i>cchDest</i> to 0. In this case, the function does not use the <i>lpDestStr</i> parameter and returns the required buffer size for the mapped string. If the MAP_FOLDDIGITS flag is specified, the return value is the maximum size required, even if the actual number of characters needed is smaller than the maximum size. If the maximum size is not passed, the function fails with ERROR_INSUFFICIENT_BUFFER.
-     * @returns {Pointer} Returns the number of characters in the translated string, including a terminating null character, if successful. If the function succeeds and the value of <i>cchDest</i> is 0, the return value is the size of the buffer required to hold the translated string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters in the translated string, including a terminating null character, if successful. If the function succeeds and the value of <i>cchDest</i> is 0, the return value is the size of the buffer required to hold the translated string, including a terminating null character.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -5438,7 +5438,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FoldStringW", "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
+        result := DllCall("KERNEL32.dll\FoldStringW", "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5992,7 +5992,7 @@ class Globalization {
      * If this parameter is set to a positive integer, the function processes exactly the specified number of bytes. If the provided size does not include a terminating null character, the resulting Unicode string is not null-terminated, and the returned length does not include this character.
      * @param {Pointer<Char>} lpWideCharStr Pointer to a buffer that receives the converted string.
      * @param {Integer} cchWideChar Size, in characters, of the buffer indicated by <i>lpWideCharStr</i>. If this value is 0, the function returns the required buffer size, in characters, including any terminating null character, and makes no use of the <i>lpWideCharStr</i> buffer.
-     * @returns {Pointer} Returns the number of characters written to the buffer indicated by <i>lpWideCharStr</i> if successful. If the function succeeds and <i>cchWideChar</i> is 0, the return value is the required size, in characters, for the buffer indicated by <i>lpWideCharStr</i>. Also see <i>dwFlags</i> for info about how the MB_ERR_INVALID_CHARS flag affects the return value when invalid sequences are input.
+     * @returns {Integer} Returns the number of characters written to the buffer indicated by <i>lpWideCharStr</i> if successful. If the function succeeds and <i>cchWideChar</i> is 0, the return value is the required size, in characters, for the buffer indicated by <i>lpWideCharStr</i>. Also see <i>dwFlags</i> for info about how the MB_ERR_INVALID_CHARS flag affects the return value when invalid sequences are input.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -6011,7 +6011,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MultiByteToWideChar", "uint", CodePage, "uint", dwFlags, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpWideCharStr, "int", cchWideChar)
+        result := DllCall("KERNEL32.dll\MultiByteToWideChar", "uint", CodePage, "uint", dwFlags, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpWideCharStr, "int", cchWideChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6171,7 +6171,7 @@ class Globalization {
      * @param {Pointer<Int32>} lpUsedDefaultChar Pointer to a flag that indicates if the function has used a default character in the conversion. The flag is set to <b>TRUE</b> if one or more characters in the source string cannot be represented in the specified code page. Otherwise, the flag is set to <b>FALSE</b>. This parameter can be set to <b>NULL</b>.
      * 
      * For the CP_UTF7 and CP_UTF8 settings for <i>CodePage</i>, this parameter must be set to <b>NULL</b>. Otherwise, the function fails with ERROR_INVALID_PARAMETER.
-     * @returns {Pointer} If successful, returns the number of bytes written to the buffer pointed to by <i>lpMultiByteStr</i>. If the function succeeds and <i>cbMultiByte</i> is 0, the return value is the required size, in bytes, for the buffer indicated by <i>lpMultiByteStr</i>. Also see <i>dwFlags</i> for info about how the WC_ERR_INVALID_CHARS flag affects the return value when invalid sequences are input.
+     * @returns {Integer} If successful, returns the number of bytes written to the buffer pointed to by <i>lpMultiByteStr</i>. If the function succeeds and <i>cbMultiByte</i> is 0, the return value is the required size, in bytes, for the buffer indicated by <i>lpMultiByteStr</i>. Also see <i>dwFlags</i> for info about how the WC_ERR_INVALID_CHARS flag affects the return value when invalid sequences are input.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -6190,7 +6190,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WideCharToMultiByte", "uint", CodePage, "uint", dwFlags, "ptr", lpWideCharStr, "int", cchWideChar, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpDefaultChar, "int*", lpUsedDefaultChar)
+        result := DllCall("KERNEL32.dll\WideCharToMultiByte", "uint", CodePage, "uint", dwFlags, "ptr", lpWideCharStr, "int", cchWideChar, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpDefaultChar, "int*", lpUsedDefaultChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6217,12 +6217,12 @@ class Globalization {
      * Retrieves the current Windows ANSI code page identifier for the operating system.Caution  The ANSI API functions, for example, the ANSI version of TextOut, implicitly use GetACP to translate text to or from Unicode.
      * @remarks
      * The ANSI code pages can be different on different computers, or can be changed for a single computer, leading to data corruption. For the most consistent results, applications should use UTF-8 or UTF-16 when possible.
-     * @returns {Pointer} Returns the current Windows ANSI code page (ACP) identifier for the operating system. See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of identifiers for Windows ANSI code pages and other code pages.
+     * @returns {Integer} Returns the current Windows ANSI code page (ACP) identifier for the operating system. See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of identifiers for Windows ANSI code pages and other code pages.
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getacp
      * @since windows5.0
      */
     static GetACP() {
-        result := DllCall("KERNEL32.dll\GetACP")
+        result := DllCall("KERNEL32.dll\GetACP", "uint")
         return result
     }
 
@@ -6230,12 +6230,12 @@ class Globalization {
      * Returns the current original equipment manufacturer (OEM) code page identifier for the operating system.
      * @remarks
      * See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of OEM and other code pages.
-     * @returns {Pointer} Returns the current OEM code page identifier for the operating system.
+     * @returns {Integer} Returns the current OEM code page identifier for the operating system.
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getoemcp
      * @since windows5.0
      */
     static GetOEMCP() {
-        result := DllCall("KERNEL32.dll\GetOEMCP")
+        result := DllCall("KERNEL32.dll\GetOEMCP", "uint")
         return result
     }
 
@@ -6513,7 +6513,7 @@ class Globalization {
      * @param {Pointer<Char>} lpStringValue Pointer to the search string, for which the function searches in the source string.
      * @param {Integer} cchValue Size, in characters excluding the terminating null character, of the string indicated by <i>lpStringValue</i>. The application cannot specify 0 or any negative number other than -1 for this parameter. The application specifies -1 if the search string is null-terminated and the function should calculate the size automatically.
      * @param {Pointer<Int32>} pcchFound Pointer to a buffer containing the length of the string that the function finds. For details, see the <i>pcchFound</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-findnlsstringex">FindNLSStringEx</a>.
-     * @returns {Pointer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. In combination with the value in <i>pcchFound</i>, this index provides the exact location of the entire found string in the source string. A return value of 0 is an error-free index into the source string, and the matching string is in the source string at offset 0.
+     * @returns {Integer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. In combination with the value in <i>pcchFound</i>, this index provides the exact location of the entire found string in the source string. A return value of 0 is an error-free index into the source string, and the matching string is in the source string at offset 0.
      * 
      * The function returns -1 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -6531,7 +6531,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNLSString", "uint", Locale, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int*", pcchFound)
+        result := DllCall("KERNEL32.dll\FindNLSString", "uint", Locale, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int*", pcchFound, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6602,7 +6602,7 @@ class Globalization {
      * If the application is using the function to generate a sort key, it supplies a byte count for the size. This byte count must include space for the sort key 0x00 terminator.
      * 
      * The application can set <i>cchDest</i> to 0. In this case, the function does not use the <i>lpDestStr</i> parameter and returns the required buffer size for the mapped string or sort key.
-     * @returns {Pointer} If the function succeeds when used for string mapping, it returns the number of characters in the translated string (see *cchSrc* and *cchDest* for more details).
+     * @returns {Integer} If the function succeeds when used for string mapping, it returns the number of characters in the translated string (see *cchSrc* and *cchDest* for more details).
      * 
      * If the function succeeds when used for string mapping it returns the number of bytes in the sort key.
      * 
@@ -6630,7 +6630,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LCMapStringW", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
+        result := DllCall("KERNEL32.dll\LCMapStringW", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6701,7 +6701,7 @@ class Globalization {
      * If the application is using the function to generate a sort key, it supplies a byte count for the size. This byte count must include space for the sort key 0x00 terminator.
      * 
      * The application can set <i>cchDest</i> to 0. In this case, the function does not use the <i>lpDestStr</i> parameter and returns the required buffer size for the mapped string or sort key.
-     * @returns {Pointer} If the function succeeds when used for string mapping, it returns the number of characters in the translated string (see *cchSrc* and *cchDest* for more details).
+     * @returns {Integer} If the function succeeds when used for string mapping, it returns the number of characters in the translated string (see *cchSrc* and *cchDest* for more details).
      * 
      * If the function succeeds when used for string mapping it returns the number of bytes in the sort key.
      * 
@@ -6728,7 +6728,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LCMapStringA", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
+        result := DllCall("KERNEL32.dll\LCMapStringA", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6805,7 +6805,7 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<Char>} lpLCData Pointer to a buffer in which this function retrieves the requested locale information. This pointer is not used if <i>cchData</i> is set to 0. For more information, see the Remarks section.
      * @param {Integer} cchData Size, in TCHAR values, of the data buffer indicated by <i>lpLCData</i>. Alternatively, the application can set this parameter to 0. In this case, the function does not use the <i>lpLCData</i> parameter and returns the required buffer size, including the terminating null character.
-     * @returns {Pointer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -6822,7 +6822,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData)
+        result := DllCall("KERNEL32.dll\GetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6899,7 +6899,7 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<Byte>} lpLCData Pointer to a buffer in which this function retrieves the requested locale information. This pointer is not used if <i>cchData</i> is set to 0. For more information, see the Remarks section.
      * @param {Integer} cchData Size, in TCHAR values, of the data buffer indicated by <i>lpLCData</i>. Alternatively, the application can set this parameter to 0. In this case, the function does not use the <i>lpLCData</i> parameter and returns the required buffer size, including the terminating null character.
-     * @returns {Pointer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -6916,7 +6916,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData)
+        result := DllCall("KERNEL32.dll\GetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7109,7 +7109,7 @@ class Globalization {
      * @param {Pointer<Byte>} lpCalData Pointer to a buffer in which this function retrieves the requested data as a string. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, this parameter must retrieve <b>NULL</b>.
      * @param {Integer} cchData Size, in characters, of the <i>lpCalData</i> buffer. The application can set this parameter to 0 to return the required size for the calendar data buffer. In this case, the <i>lpCalData</i> parameter is not used. If CAL_RETURN_NUMBER is specified for <i>CalType</i>, the value of <i>cchData</i> must be 0.
      * @param {Pointer<UInt32>} lpValue Pointer to a variable that receives the requested data as a number. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, then <i>lpValue</i> must not be <b>NULL</b>. If CAL_RETURN_NUMBER is not specified in <i>CalType</i>, then <i>lpValue</i> must be <b>NULL</b>.
-     * @returns {Pointer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer, with <i>cchData</i> set to a nonzero value, if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the calendar information. If the function succeeds, <i>cchData</i> is set 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value retrieved in <i>lpValue</i>, that is, 2 for the Unicode version of the function or 4 for the ANSI version.
+     * @returns {Integer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer, with <i>cchData</i> set to a nonzero value, if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the calendar information. If the function succeeds, <i>cchData</i> is set 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value retrieved in <i>lpValue</i>, that is, 2 for the Unicode version of the function or 4 for the ANSI version.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7126,7 +7126,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, "uint*", lpValue)
+        result := DllCall("KERNEL32.dll\GetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, "uint*", lpValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7179,7 +7179,7 @@ class Globalization {
      * @param {Pointer<Char>} lpCalData Pointer to a buffer in which this function retrieves the requested data as a string. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, this parameter must retrieve <b>NULL</b>.
      * @param {Integer} cchData Size, in characters, of the <i>lpCalData</i> buffer. The application can set this parameter to 0 to return the required size for the calendar data buffer. In this case, the <i>lpCalData</i> parameter is not used. If CAL_RETURN_NUMBER is specified for <i>CalType</i>, the value of <i>cchData</i> must be 0.
      * @param {Pointer<UInt32>} lpValue Pointer to a variable that receives the requested data as a number. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, then <i>lpValue</i> must not be <b>NULL</b>. If CAL_RETURN_NUMBER is not specified in <i>CalType</i>, then <i>lpValue</i> must be <b>NULL</b>.
-     * @returns {Pointer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer, with <i>cchData</i> set to a nonzero value, if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the calendar information. If the function succeeds, <i>cchData</i> is set 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value retrieved in <i>lpValue</i>, that is, 2 for the Unicode version of the function or 4 for the ANSI version.
+     * @returns {Integer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer, with <i>cchData</i> set to a nonzero value, if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the calendar information. If the function succeeds, <i>cchData</i> is set 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value retrieved in <i>lpValue</i>, that is, 2 for the Unicode version of the function or 4 for the ANSI version.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7196,7 +7196,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, "uint*", lpValue)
+        result := DllCall("KERNEL32.dll\GetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, "uint*", lpValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7555,7 +7555,7 @@ class Globalization {
      * @param {Integer} dwFlags <b>Before Windows 7:</b> Reserved; should always be 0.
      * 
      * <b>Starting with Windows 7:</b> Can be set to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-allow-neutral-names">LOCALE_ALLOW_NEUTRAL_NAMES</a> to allow the return of a neutral name.
-     * @returns {Pointer} Returns the count of characters, including the terminating null character, in the locale name if successful. If the function succeeds and the value of <i>cchName</i> is 0, the return value is the required size, in characters (including nulls), for the locale name buffer.
+     * @returns {Integer} Returns the count of characters, including the terminating null character, in the locale name if successful. If the function succeeds and the value of <i>cchName</i> is 0, the return value is the required size, in characters (including nulls), for the locale name buffer.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7571,7 +7571,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LCIDToLocaleName", "uint", Locale, "ptr", lpName, "int", cchName, "uint", dwFlags)
+        result := DllCall("KERNEL32.dll\LCIDToLocaleName", "uint", Locale, "ptr", lpName, "int", cchName, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7621,7 +7621,7 @@ class Globalization {
      * @param {Integer} cchDuration Size, in characters, of the buffer indicated by <i>lpDurationStr</i>.
      * 
      * Alternatively, the application can set this parameter to 0. In this case, the function retrieves <b>NULL</b> in <i>lpDurationStr</i> and returns the required size for the duration string buffer.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpDurationStr</i> if successful. If <i>lpDurationStr</i> is set to <b>NULL</b> and <i>cchDuration</i> is set to 0, the function returns the required size for the duration string buffer, including the null terminating character. For example, if 10 characters are written to the buffer, the function returns 11 to include the terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpDurationStr</i> if successful. If <i>lpDurationStr</i> is set to <b>NULL</b> and <i>cchDuration</i> is set to 0, the function returns the required size for the duration string buffer, including the null terminating character. For example, if 10 characters are written to the buffer, the function returns 11 to include the terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7638,7 +7638,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDurationFormat", "uint", Locale, "uint", dwFlags, "ptr", lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration)
+        result := DllCall("KERNEL32.dll\GetDurationFormat", "uint", Locale, "uint", dwFlags, "ptr", lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7695,7 +7695,7 @@ class Globalization {
      * @param {Pointer<NUMBERFMTA>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-numberfmta">NUMBERFMT</a> structure that contains number formatting information, with all members set to appropriate values. If this parameter does is not set to <b>NULL</b>, the function uses the locale only for formatting information not specified in the structure, for example, the locale-specific string value for the negative sign.
      * @param {Pointer<Byte>} lpNumberStr Pointer to a buffer in which this function retrieves the formatted number string.
      * @param {Integer} cchNumber Size, in TCHAR values, for the number string buffer indicated by <i>lpNumberStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the number string buffer, and does not use the <i>lpNumberStr</i> parameter.
-     * @returns {Pointer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
+     * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7714,7 +7714,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber)
+        result := DllCall("KERNEL32.dll\GetNumberFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7771,7 +7771,7 @@ class Globalization {
      * @param {Pointer<NUMBERFMTW>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-numberfmta">NUMBERFMT</a> structure that contains number formatting information, with all members set to appropriate values. If this parameter does is not set to <b>NULL</b>, the function uses the locale only for formatting information not specified in the structure, for example, the locale-specific string value for the negative sign.
      * @param {Pointer<Char>} lpNumberStr Pointer to a buffer in which this function retrieves the formatted number string.
      * @param {Integer} cchNumber Size, in TCHAR values, for the number string buffer indicated by <i>lpNumberStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the number string buffer, and does not use the <i>lpNumberStr</i> parameter.
-     * @returns {Pointer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
+     * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7790,7 +7790,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber)
+        result := DllCall("KERNEL32.dll\GetNumberFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7841,7 +7841,7 @@ class Globalization {
      * @param {Pointer<CURRENCYFMTA>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-currencyfmta">CURRENCYFMT</a> structure that contains currency formatting information. All members of the structure must contain appropriate values. The application can set this parameter to <b>NULL</b> if function is to use the currency format of the specified locale. If this parameter is not set to <b>NULL</b>, the function uses the specified locale only for formatting information not specified in the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-currencyfmta">CURRENCYFMT</a> structure, for example, the string value for the negative sign used by the locale.
      * @param {Pointer<Byte>} lpCurrencyStr Pointer to a buffer in which this function retrieves the formatted currency string.
      * @param {Integer} cchCurrency Size, in characters, of the <i>lpCurrencyStr</i> buffer. The application sets this parameter to 0 if the function is to return the size of the buffer required to hold the formatted currency string. In this case, the <i>lpCurrencyStr</i> parameter is not used.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7859,7 +7859,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCurrencyFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency)
+        result := DllCall("KERNEL32.dll\GetCurrencyFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7910,7 +7910,7 @@ class Globalization {
      * @param {Pointer<CURRENCYFMTW>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-currencyfmta">CURRENCYFMT</a> structure that contains currency formatting information. All members of the structure must contain appropriate values. The application can set this parameter to <b>NULL</b> if function is to use the currency format of the specified locale. If this parameter is not set to <b>NULL</b>, the function uses the specified locale only for formatting information not specified in the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-currencyfmta">CURRENCYFMT</a> structure, for example, the string value for the negative sign used by the locale.
      * @param {Pointer<Char>} lpCurrencyStr Pointer to a buffer in which this function retrieves the formatted currency string.
      * @param {Integer} cchCurrency Size, in characters, of the <i>lpCurrencyStr</i> buffer. The application sets this parameter to 0 if the function is to return the size of the buffer required to hold the formatted currency string. In this case, the <i>lpCurrencyStr</i> parameter is not used.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -7928,7 +7928,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCurrencyFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency)
+        result := DllCall("KERNEL32.dll\GetCurrencyFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8690,7 +8690,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Note</b>   The application must set this parameter to 0 if <i>GeoType</i> has any value other than GEO_RFC1766 or GEO_LCID.</div>
      * <div> </div>
-     * @returns {Pointer} Returns the number of bytes (ANSI) or words (Unicode) of geographical location information retrieved in the output buffer. If <i>cchData</i> is set to 0, the function returns the required size for the buffer.
+     * @returns {Integer} Returns the number of bytes (ANSI) or words (Unicode) of geographical location information retrieved in the output buffer. If <i>cchData</i> is set to 0, the function returns the required size for the buffer.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -8706,7 +8706,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetGeoInfoA", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId)
+        result := DllCall("KERNEL32.dll\GetGeoInfoA", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8742,7 +8742,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Note</b>   The application must set this parameter to 0 if <i>GeoType</i> has any value other than GEO_RFC1766 or GEO_LCID.</div>
      * <div> </div>
-     * @returns {Pointer} Returns the number of bytes (ANSI) or words (Unicode) of geographical location information retrieved in the output buffer. If <i>cchData</i> is set to 0, the function returns the required size for the buffer.
+     * @returns {Integer} Returns the number of bytes (ANSI) or words (Unicode) of geographical location information retrieved in the output buffer. If <i>cchData</i> is set to 0, the function returns the required size for the buffer.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -8758,7 +8758,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetGeoInfoW", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId)
+        result := DllCall("KERNEL32.dll\GetGeoInfoW", "int", Location, "int", GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8800,7 +8800,7 @@ class Globalization {
      * </ul>
      * @param {Pointer<Char>} geoData A pointer to the buffer in which <b>GetGeoInfoEx</b> should write the  requested information.
      * @param {Integer} geoDataCount The size of the buffer to which the <i>GeoData</i> parameter points, in characters. Set this parameter to 0 to specify that the function should only return the size of the buffer required to store the requested information without writing the requested information to the buffer.
-     * @returns {Pointer} The number of bytes of geographical location information that the function wrote the output buffer. If <i>geoDataCount</i> is  0, the function returns the size of the buffer required to hold the information without writing the information to the buffer.
+     * @returns {Integer} The number of bytes of geographical location information that the function wrote the output buffer. If <i>geoDataCount</i> is  0, the function returns the size of the buffer required to hold the information without writing the information to the buffer.
      * 
      * 0 indicates that the function did not succeed. To get extended error information,  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -8852,7 +8852,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", location, "int", geoType, "ptr", geoData, "int", geoDataCount)
+        result := DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", location, "int", geoType, "ptr", geoData, "int", geoDataCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8953,7 +8953,7 @@ class Globalization {
      * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
      * @param {Pointer<Char>} geoName Pointer to a buffer in which this function should write the null-terminated two-letter ISO 3166-1 or numeric UN M.49 code for the default geographic location of the user.
      * @param {Integer} geoNameCount The size of the buffer that the <i>geoName</i> parameter specifies. If this value is zero, the function only returns the number of characters that function would copy to the output buffer, but does not write the name of the default geographic location of the user to the buffer.
-     * @returns {Pointer} The number of characters
+     * @returns {Integer} The number of characters
      *   the function  would copy to the output buffer, if the value of the <i>geoNameCount</i> parameter is zero. Otherwise, the  number of characters that the function copied to the buffer that the <i>geoName</i> parameter specifies.
      * 
      * Zero indicates that the function failed. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
@@ -9005,7 +9005,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetUserDefaultGeoName", "ptr", geoName, "int", geoNameCount)
+        result := DllCall("KERNEL32.dll\GetUserDefaultGeoName", "ptr", geoName, "int", geoNameCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10537,11 +10537,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} snapshot 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RestoreThreadPreferredUILanguages(snapshot) {
-        result := DllCall("KERNEL32.dll\RestoreThreadPreferredUILanguages", "ptr", snapshot)
-        return result
+        DllCall("KERNEL32.dll\RestoreThreadPreferredUILanguages", "ptr", snapshot)
     }
 
     /**
@@ -10712,7 +10711,7 @@ class Globalization {
      * @param {Integer} cchDest Size, in characters, of the destination string indicated by <i>lpDestStr</i>. If space for a terminating null character is included in <i>cchSrc</i>, <i>cchDest</i> must also include space for a terminating null character.
      * 
      * The application can set <i>cchDest</i> to 0. In this case, the function does not use the <i>lpDestStr</i> parameter and returns the required buffer size for the mapped string. If the MAP_FOLDDIGITS flag is specified, the return value is the maximum size required, even if the actual number of characters needed is smaller than the maximum size. If the maximum size is not passed, the function fails with ERROR_INSUFFICIENT_BUFFER.
-     * @returns {Pointer} Returns the number of characters in the translated string, including a terminating null character, if successful. If the function succeeds and the value of <i>cchDest</i> is 0, the return value is the size of the buffer required to hold the translated string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters in the translated string, including a terminating null character, if successful. If the function succeeds and the value of <i>cchDest</i> is 0, the return value is the size of the buffer required to hold the translated string, including a terminating null character.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -10734,7 +10733,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FoldStringA", "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest)
+        result := DllCall("KERNEL32.dll\FoldStringA", "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11419,7 +11418,7 @@ class Globalization {
      * @param {Integer} cchUnicodeChar Count of characters in the input Unicode string indicated by <i>lpUnicodeCharStr</i>.
      * @param {Pointer<Char>} lpASCIICharStr Pointer to a buffer that receives a Unicode string consisting only of characters in the ASCII character set. On return from this function, the buffer contains the ASCII string equivalent of the string provided in <i>lpUnicodeCharStr</i> under Punycode. Alternatively, the function can retrieve <b>NULL</b> for this parameter, if <i>cchASCIIChar</i> is set to 0. In this case, the function returns the size required for this buffer.
      * @param {Integer} cchASCIIChar Size of the buffer indicated by <i>lpASCIICharStr</i>. The application can set the parameter to 0 to retrieve <b>NULL</b> in <i>lpASCIICharStr</i>.
-     * @returns {Pointer} Returns the number of characters retrieved in <i>lpASCIICharStr</i> if successful. The retrieved string is null-terminated only if the input Unicode string is null-terminated.
+     * @returns {Integer} Returns the number of characters retrieved in <i>lpASCIICharStr</i> if successful. The retrieved string is null-terminated only if the input Unicode string is null-terminated.
      * 
      * If the function succeeds and the value of <i>cchASCIIChar</i> is 0, the function returns the required size, in characters including a terminating null character if it was part of the input buffer.
      * 
@@ -11441,7 +11440,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("NORMALIZ.dll\IdnToAscii", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpASCIICharStr, "int", cchASCIIChar)
+        result := DllCall("NORMALIZ.dll\IdnToAscii", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpASCIICharStr, "int", cchASCIIChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11457,7 +11456,7 @@ class Globalization {
      * @param {Integer} cchASCIIChar Count of characters in the input string indicated by <i>lpASCIICharStr</i>.
      * @param {Pointer<Char>} lpUnicodeCharStr Pointer to a buffer that receives a normal Unicode UTF-16 encoding equivalent to the Punycode value of the input string. Alternatively, the function can retrieve <b>NULL</b> for this parameter, if <i>cchUnicodeChar</i> set to 0. In this case, the function returns the size required for this buffer.
      * @param {Integer} cchUnicodeChar Size, in characters, of the buffer indicated by <i>lpUnicodeCharStr</i>. The application can set the size to 0 to retrieve <b>NULL</b> in <i>lpUnicodeCharStr</i> and have the function return the required buffer size.
-     * @returns {Pointer} Returns the number of characters retrieved in <i>lpUnicodeCharStr</i> if successful. The retrieved string is null-terminated only if the input string is null-terminated.
+     * @returns {Integer} Returns the number of characters retrieved in <i>lpUnicodeCharStr</i> if successful. The retrieved string is null-terminated only if the input string is null-terminated.
      * 
      * If the function succeeds and the value of <i>cchUnicodeChar</i> is 0, the function returns the required size, in characters including a terminating null character if it was part of the input buffer.
      * 
@@ -11479,7 +11478,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("NORMALIZ.dll\IdnToUnicode", "uint", dwFlags, "ptr", lpASCIICharStr, "int", cchASCIIChar, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar)
+        result := DllCall("NORMALIZ.dll\IdnToUnicode", "uint", dwFlags, "ptr", lpASCIICharStr, "int", cchASCIIChar, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11495,7 +11494,7 @@ class Globalization {
      * @param {Integer} cchUnicodeChar Count of Unicode characters in the input Unicode string indicated by <i>lpUnicodeCharStr</i>.
      * @param {Pointer<Char>} lpNameprepCharStr Pointer to a buffer that receives a version of the input Unicode string converted through NamePrep processing. Alternatively, the function can retrieve <b>NULL</b> for this parameter, if <i>cchNameprepChar</i> is set to 0. In this case, the function returns the size required for this buffer.
      * @param {Integer} cchNameprepChar Size, in characters, of the buffer indicated by <i>lpNameprepCharStr</i>. The application can set the size to 0 to retrieve <b>NULL</b> in <i>lpNameprepCharStr</i> and have the function return the required buffer size.
-     * @returns {Pointer} Returns the number of characters retrieved in <i>lpNameprepCharStr</i> if successful. The retrieved string is null-terminated only if the input Unicode string is null-terminated.
+     * @returns {Integer} Returns the number of characters retrieved in <i>lpNameprepCharStr</i> if successful. The retrieved string is null-terminated only if the input Unicode string is null-terminated.
      * 
      * If the function succeeds and the value of <i>cchNameprepChar</i> is 0, the function returns the required size, in characters including a terminating null character if it was part of the input buffer.
      * 
@@ -11517,7 +11516,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IdnToNameprepUnicode", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpNameprepCharStr, "int", cchNameprepChar)
+        result := DllCall("KERNEL32.dll\IdnToNameprepUnicode", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpNameprepCharStr, "int", cchNameprepChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11573,7 +11572,7 @@ class Globalization {
      * <div class="alert"><b>Note</b>  The function does not null-terminate the string if the input string length is explicitly specified without a terminating null character. To null-terminate the output string, the application should specify -1 or explicitly count the terminating null character for the input string.</div>
      * <div> </div>
      * @param {Integer} cwDstLength Length, in characters, of the buffer containing the destination string. Alternatively, the application can set this parameter to 0 to request the function to return the required size for the destination buffer.
-     * @returns {Pointer} Returns the length of the normalized string in the destination buffer. If <i>cwDstLength</i> is set to 0, the function returns the estimated buffer length required to do the actual conversion.
+     * @returns {Integer} Returns the length of the normalized string in the destination buffer. If <i>cwDstLength</i> is set to 0, the function returns the estimated buffer length required to do the actual conversion.
      * 
      * If the string in the input buffer is null-terminated or if <i>cwSrcLength</i> is -1, the string written to the destination buffer is null-terminated and the returned string length includes the terminating null character.
      * 
@@ -11594,7 +11593,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\NormalizeString", "int", NormForm, "ptr", lpSrcString, "int", cwSrcLength, "ptr", lpDstString, "int", cwDstLength)
+        result := DllCall("KERNEL32.dll\NormalizeString", "int", NormForm, "ptr", lpSrcString, "int", cwSrcLength, "ptr", lpDstString, "int", cwDstLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11855,7 +11854,7 @@ class Globalization {
      * @param {Integer} cchScripts Size, in characters, of the script buffer indicated by <i>lpScripts</i>.
      * 
      * Alternatively, the application can set this parameter to 0. In this case, the function retrieves <b>NULL</b> in <i>lpScripts</i> and returns the required size for the script buffer.
-     * @returns {Pointer} Returns the number of characters retrieved in the output buffer, including a terminating null character, if successful and <i>cchScripts</i> is set to a nonzero value. The function returns 1 to indicate that no script has been found, for example, when the input string only contains COMMON or INHERITED characters and GSS_ALLOW_INHERITED_COMMON is not set. Given that each found script adds five characters (four characters + delimiter), a simple mathematical operation provides the script count as (return_code - 1) / 5.
+     * @returns {Integer} Returns the number of characters retrieved in the output buffer, including a terminating null character, if successful and <i>cchScripts</i> is set to a nonzero value. The function returns 1 to indicate that no script has been found, for example, when the input string only contains COMMON or INHERITED characters and GSS_ALLOW_INHERITED_COMMON is not set. Given that each found script adds five characters (four characters + delimiter), a simple mathematical operation provides the script count as (return_code - 1) / 5.
      * 
      * If the function succeeds and the value of <i>cchScripts</i> is 0, the function returns the required size, in characters including a terminating null character, for the script buffer. The script count is as described above.
      * 
@@ -11876,7 +11875,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetStringScripts", "uint", dwFlags, "ptr", lpString, "int", cchString, "ptr", lpScripts, "int", cchScripts)
+        result := DllCall("KERNEL32.dll\GetStringScripts", "uint", dwFlags, "ptr", lpString, "int", cchString, "ptr", lpScripts, "int", cchScripts, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11945,7 +11944,7 @@ class Globalization {
      * Starting with Windows Vista, your applications should not use <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-ilanguage">LOCALE_ILANGUAGE</a> in the <i>LCType</i> parameter to avoid failure or retrieval of unexpected data. Instead, it is recommended for your applications to call <b>GetLocaleInfoEx</b>.
      * @param {Pointer<Char>} lpLCData Pointer to a buffer in which this function retrieves the requested locale information. This pointer is not used if <i>cchData</i> is set to 0.
      * @param {Integer} cchData Size, in characters, of the data buffer indicated by <i>lpLCData</i>. Alternatively, the application can set this parameter to 0. In this case, the function does not use the <i>lpLCData</i> parameter and returns the required buffer size, including the terminating null character.
-     * @returns {Pointer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer, that is, 2. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer, that is, 2. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -11963,7 +11962,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLocaleInfoEx", "ptr", lpLocaleName, "uint", LCType, "ptr", lpLCData, "int", cchData)
+        result := DllCall("KERNEL32.dll\GetLocaleInfoEx", "ptr", lpLocaleName, "uint", LCType, "ptr", lpLCData, "int", cchData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11999,7 +11998,7 @@ class Globalization {
      * @param {Pointer<Char>} lpCalData Pointer to a buffer in which this function retrieves the requested data as a string. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, this parameter must retrieve <b>NULL</b>.
      * @param {Integer} cchData Size, in characters, of the <i>lpCalData</i> buffer. The application can set this parameter to 0 to return the required size for the calendar data buffer. In this case, the <i>lpCalData</i> parameter is not used. If CAL_RETURN_NUMBER is specified for <i>CalType</i>, the value of <i>cchData</i> must be 0.
      * @param {Pointer<UInt32>} lpValue Pointer to a variable that receives the requested data as a number. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, then <i>lpValue</i> must not be <b>NULL</b>. If CAL_RETURN_NUMBER is not specified in <i>CalType</i>, then <i>lpValue</i> must be <b>NULL</b>.
-     * @returns {Pointer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the locale information. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value written to the <i>lpValue</i> parameter. This size is always 2.
+     * @returns {Integer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the locale information. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value written to the <i>lpValue</i> parameter. This size is always 2.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -12020,7 +12019,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCalendarInfoEx", "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lpCalData, "int", cchData, "uint*", lpValue)
+        result := DllCall("KERNEL32.dll\GetCalendarInfoEx", "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lpCalData, "int", cchData, "uint*", lpValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12058,7 +12057,7 @@ class Globalization {
      * @param {Pointer<NUMBERFMTW>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-numberfmta">NUMBERFMT</a> structure that contains number formatting information, with all members set to appropriate values. If the application does not set this parameter to <b>NULL</b>, the function uses the locale only for formatting information not specified in the structure, for example, the locale string value for the negative sign.
      * @param {Pointer<Char>} lpNumberStr Pointer to a buffer in which this function retrieves the formatted number string. Alternatively, this parameter contains <b>NULL</b> if <i>cchNumber</i> is set to 0. In this case, the function returns the required size for the number string buffer.
      * @param {Integer} cchNumber Size, in characters, for the number string buffer indicated by <i>lpNumberStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the number string buffer and does not use the <i>lpNumberStr</i> parameter.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -12078,7 +12077,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber)
+        result := DllCall("KERNEL32.dll\GetNumberFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpNumberStr, "int", cchNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12116,7 +12115,7 @@ class Globalization {
      * @param {Pointer<CURRENCYFMTW>} lpFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-currencyfmta">CURRENCYFMT</a> structure that contains currency formatting information. All members of the structure must contain appropriate values. The application can set this parameter to <b>NULL</b> if function is to use the currency format of the specified locale. If this parameter is not set to <b>NULL</b>, the function uses the specified locale only for formatting information not specified in the <b>CURRENCYFMT</b> structure, for example, the string value for the negative sign used by the locale.
      * @param {Pointer<Char>} lpCurrencyStr Pointer to a buffer in which this function retrieves the formatted currency string.
      * @param {Integer} cchCurrency Size, in characters, of the <i>lpCurrencyStr</i> buffer. The application can set this parameter to 0 to return the size of the buffer required to hold the formatted currency string. In this case, the buffer indicated by <i>lpCurrencyStr</i> is not used.
-     * @returns {Pointer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
+     * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -12135,7 +12134,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCurrencyFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency)
+        result := DllCall("KERNEL32.dll\GetCurrencyFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, "ptr", lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12148,7 +12147,7 @@ class Globalization {
      * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a buffer in which this function retrieves the locale name.
      * @param {Integer} cchLocaleName Size, in characters, of the buffer indicated by <i>lpLocaleName</i>. The maximum possible length of a locale name, including a terminating null character, is <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_MAX_LENGTH</a>. This is the recommended size to supply in this parameter.
-     * @returns {Pointer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.<div class="alert"><b>Note</b>  On single-user systems, the return value is the same as that returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getsystemdefaultlocalename">GetSystemDefaultLocaleName</a>.</div>
+     * @returns {Integer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.<div class="alert"><b>Note</b>  On single-user systems, the return value is the same as that returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getsystemdefaultlocalename">GetSystemDefaultLocaleName</a>.</div>
      * <div> </div>
      * 
      * 
@@ -12165,7 +12164,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetUserDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName)
+        result := DllCall("KERNEL32.dll\GetUserDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12178,7 +12177,7 @@ class Globalization {
      * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a buffer in which this function retrieves the locale name.
      * @param {Integer} cchLocaleName Size, in characters, of the output buffer indicated by <i>lpLocaleName</i>. The maximum possible character length of a locale name (including a terminating null character) is the value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_MAX_LENGTH</a>. This is the recommended size.
-     * @returns {Pointer} Returns a value greater than 0 that indicates the length of the locale name, including the terminating null character, if successful.
+     * @returns {Integer} Returns a value greater than 0 that indicates the length of the locale name, including the terminating null character, if successful.
      * 
      * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -12193,7 +12192,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName)
+        result := DllCall("KERNEL32.dll\GetSystemDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12517,7 +12516,7 @@ class Globalization {
      * </ul>
      * @param {Pointer<NLSVERSIONINFO>} lpVersionInformation Reserved; must be <b>NULL</b>.
      * @param {Pointer} sortHandle Reserved; must be 0.
-     * @returns {Pointer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. In combination with the value in <i>pcchFound</i>, this index provides the exact location of the entire found string in the source string. A return value of 0 is an error-free index into the source string, and the matching string is in the source string at offset 0.
+     * @returns {Integer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. In combination with the value in <i>pcchFound</i>, this index provides the exact location of the entire found string in the source string. A return value of 0 is an error-free index into the source string, and the matching string is in the source string at offset 0.
      * 
      * The function returns -1 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -12538,7 +12537,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNLSStringEx", "ptr", lpLocaleName, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int*", pcchFound, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", sortHandle)
+        result := DllCall("KERNEL32.dll\FindNLSStringEx", "ptr", lpLocaleName, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int*", pcchFound, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", sortHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12747,7 +12746,7 @@ class Globalization {
      * 
      * > [!NOTE]
      * > [CompareStringEx](../stringapiset/nf-stringapiset-comparestringex.md) and [LCMapStringEx](nf-winnls-lcmapstringex.md) can specify a sort handle (if the locale name is null).  This use is discouraged for most apps.
-     * @returns {Pointer} If the function succeeds when used for string mapping, it returns the number of characters in the translated string (see *cchSrc* and *cchDest* for more details).
+     * @returns {Integer} If the function succeeds when used for string mapping, it returns the number of characters in the translated string (see *cchSrc* and *cchDest* for more details).
      * 
      * If the function succeeds when used for string mapping it returns the number of bytes in the sort key.
      * 
@@ -12770,7 +12769,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LCMapStringEx", "ptr", lpLocaleName, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", sortHandle)
+        result := DllCall("KERNEL32.dll\LCMapStringEx", "ptr", lpLocaleName, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "ptr", lpVersionInformation, "ptr", lpReserved, "ptr", sortHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12998,7 +12997,7 @@ class Globalization {
      * <div class="alert"><b>Note</b>  If the function fails, the state of the output buffer is not guaranteed to be accurate. In this case, the application should check the return value and error status set by the function to determine the correct course of action.</div>
      * <div> </div>
      * @param {Integer} cchLocaleName Size, in characters, of the buffer indicated by <i>lpLocaleName</i>. The maximum possible length of a locale name, including a terminating null character, is the value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_MAX_LENGTH</a>. This is the recommended size to supply in this parameter.
-     * @returns {Pointer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.
+     * @returns {Integer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.
      * 
      * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * <ul>
@@ -13013,7 +13012,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ResolveLocaleName", "ptr", lpNameToResolve, "ptr", lpLocaleName, "int", cchLocaleName)
+        result := DllCall("KERNEL32.dll\ResolveLocaleName", "ptr", lpNameToResolve, "ptr", lpLocaleName, "int", cchLocaleName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13032,13 +13031,16 @@ class Globalization {
      * @param {Pointer<MAPPING_ENUM_OPTIONS>} pOptions Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_enum_options">MAPPING_ENUM_OPTIONS</a> structure containing criteria to use during enumeration of services. The application specifies <b>NULL</b> for this parameter to retrieve all installed services.
      * @param {Pointer<MAPPING_SERVICE_INFO>} prgServices Address of a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_service_info">MAPPING_SERVICE_INFO</a> structures containing service information matching the criteria supplied in the <i>pOptions</i> parameter.
      * @param {Pointer<UInt32>} pdwServicesCount Pointer to a DWORD variable in which this function retrieves the number of retrieved services.
-     * @returns {Integer} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.<div class="alert"><b>Note</b>  The application must test for any failure before proceeding with further operations.</div>
+     * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.<div class="alert"><b>Note</b>  The application must test for any failure before proceeding with further operations.</div>
      * <div> </div>
      * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappinggetservices
      * @since windows6.1
      */
     static MappingGetServices(pOptions, prgServices, pdwServicesCount) {
         result := DllCall("elscore.dll\MappingGetServices", "ptr", pOptions, "ptr", prgServices, "uint*", pdwServicesCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13049,12 +13051,15 @@ class Globalization {
      * <div> </div>
      * Since all services currently run in the application process, the ELS platform does not unload the service DLLs when the services are released. The operating system unloads the DLLs automatically when the application terminates.
      * @param {Pointer<MAPPING_SERVICE_INFO>} pServiceInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_service_info">MAPPING_SERVICE_INFO</a> structures containing service descriptions retrieved by a prior call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappinggetservices">MappingGetServices</a>. This parameter cannot be set to <b>NULL</b>.
-     * @returns {Integer} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingfreeservices
      * @since windows6.1
      */
     static MappingFreeServices(pServiceInfo) {
         result := DllCall("elscore.dll\MappingFreeServices", "ptr", pServiceInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13077,7 +13082,7 @@ class Globalization {
      * @param {Integer} dwIndex Index inside the specified text to be used by the service. This value should be between 0 and <i>dwLength</i>-1. If the application wants to process the entire text, it should set this parameter to 0.
      * @param {Pointer<MAPPING_OPTIONS>} pOptions Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_options">MAPPING_OPTIONS</a> structure containing options that affect the result and behavior of text recognition. The application does not have to specify values for all structure members. This parameter can be set to <b>NULL</b> to use the default mapping options.
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pbag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure in which the service stores its results. On input, the application passes a structure with only the size provided, and the other members set to 0. On output, the structure is filled with information produced by the service during text recognition. This parameter cannot be set to <b>NULL</b>.
-     * @returns {Integer} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingrecognizetext
      * @since windows6.1
      */
@@ -13085,6 +13090,9 @@ class Globalization {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
         result := DllCall("elscore.dll\MappingRecognizeText", "ptr", pServiceInfo, "ptr", pszText, "uint", dwLength, "uint", dwIndex, "ptr", pOptions, "ptr", pbag, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13106,7 +13114,7 @@ class Globalization {
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pBag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure containing the results of a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a>. This parameter cannot be set to <b>NULL</b>.
      * @param {Integer} dwRangeIndex A starting index inside the text recognition results for a recognized text range. This value should be between 0 and the range count.
      * @param {Pointer<Char>} pszActionId Pointer to the identifier of the action to perform. This parameter cannot be set to <b>NULL</b>.
-     * @returns {Integer} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingdoaction
      * @since windows6.1
      */
@@ -13114,6 +13122,9 @@ class Globalization {
         pszActionId := pszActionId is String? StrPtr(pszActionId) : pszActionId
 
         result := DllCall("elscore.dll\MappingDoAction", "ptr", pBag, "uint", dwRangeIndex, "ptr", pszActionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13127,12 +13138,15 @@ class Globalization {
      * <div class="alert"><b>Caution</b>  The application must call this function only once for each call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a> when the property bag is no longer needed. Not calling <b>MappingFreePropertyBag</b> after each call to <b>MappingRecognizeText</b> causes a resource leak. For more information about memory allocation for the property bag, see the remarks for the <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure.</div>
      * <div> </div>
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pBag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure containing the properties for which to free resources. This parameter cannot be set to <b>NULL</b>.
-     * @returns {Integer} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingfreepropertybag
      * @since windows6.1
      */
     static MappingFreePropertyBag(pBag) {
         result := DllCall("elscore.dll\MappingFreePropertyBag", "ptr", pBag, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13150,12 +13164,15 @@ class Globalization {
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
      * @param {Pointer<Void>} psc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application cant test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application cant test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptfreecache
      * @since windows5.0
      */
     static ScriptFreeCache(psc) {
         result := DllCall("USP10.dll\ScriptFreeCache", "ptr", psc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13268,7 +13285,7 @@ class Globalization {
      * 
      * <c>pItems[i+1].iCharPos - pItems[i].iCharPos;</c>
      * @param {Pointer<Int32>} pcItems Pointer to the number of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structures processed.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed.
      * 
      * The function returns E_INVALIDARG if <i>pwcInChars</i> is set to <b>NULL</b>, <i>cInChars</i> is 0, <i>pItems</i> is set to <b>NULL</b>, or <i>cMaxItems</i> &lt; 2.
      * 
@@ -13280,6 +13297,9 @@ class Globalization {
         pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
 
         result := DllCall("USP10.dll\ScriptItemize", "ptr", pwcInChars, "int", cInChars, "int", cMaxItems, "uint*", psControl, "ushort*", psState, "ptr", pItems, "int*", pcItems, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13328,12 +13348,15 @@ class Globalization {
      * @param {Pointer<Byte>} pbLevel Pointer to an array, of length indicated by <i>cRuns</i>, containing run embedding levels. Embedding levels for all runs on the line must be included, ordered logically. For more information, see the Remarks section.
      * @param {Pointer<Int32>} piVisualToLogical Pointer to an array, of length indicated by <i>cRuns</i>, in which this function retrieves the run embedding levels reordered to visual order. The first array element represents the run to display at the far left, and subsequent entries should be displayed progressing from left to right. The function sets this parameter to <b>NULL</b> if there is no output.
      * @param {Pointer<Int32>} piLogicalToVisual Pointer to an array, of length indicated by <i>cRuns</i>, in which this function retrieves the visual run positions. The first array element is the relative visual position where the first logical run should be displayed, the leftmost display position being 0. The function sets this parameter to <b>NULL</b> if there is no output.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptlayout
      * @since windows5.0
      */
     static ScriptLayout(cRuns, pbLevel, piVisualToLogical, piLogicalToVisual) {
         result := DllCall("USP10.dll\ScriptLayout", "int", cRuns, "char*", pbLevel, "int*", piVisualToLogical, "int*", piLogicalToVisual, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13364,7 +13387,7 @@ class Globalization {
      * @param {Pointer<UInt16>} pwLogClust Pointer to a buffer in which this function retrieves an array of logical cluster information. Each array element corresponds to a character in the array of Unicode characters; therefore this array has the number of elements indicated by cChars. The value of each element is the offset from the first glyph in the run to the first glyph in the cluster containing the corresponding character. Note that, when the <b>fRTL</b> member is set to <b>TRUE</b> in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure, the elements decrease as the array is read.
      * @param {Pointer<UInt16>} psva Pointer to a buffer in which this function retrieves an array of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> structures containing visual attribute information. Since each glyph has only one visual attribute, this array has the number of elements indicated by <i>cMaxGlyphs</i>.
      * @param {Pointer<Int32>} pcGlyphs Pointer to the location in which this function retrieves the number of glyphs indicated in <i>pwOutGlyphs</i>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, the content of all output parameters is undefined.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, the content of all output parameters is undefined.
      * 
      * Error returns include:
      * 
@@ -13380,6 +13403,9 @@ class Globalization {
         pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptShape", "ptr", hdc, "ptr", psc, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ptr", psa, "ushort*", pwOutGlyphs, "ushort*", pwLogClust, "ushort*", psva, "int*", pcGlyphs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13403,7 +13429,7 @@ class Globalization {
      * @param {Pointer<Int32>} piAdvance Pointer to an array in which this function retrieves advance width information.
      * @param {Pointer<GOFFSET>} pGoffset Optional. Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-goffset">GOFFSET</a> structures in which this function retrieves the x and y offsets of combining glyphs. This array must be of length indicated by <i>cGlyphs</i>.
      * @param {Pointer<ABC>} pABC Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abc">ABC</a> structure in which this function retrieves the <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">ABC width</a> for the entire <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">run</a>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * The function returns E_PENDING if the script cache specified by the <i>psc</i> parameter does not contain enough information to place the glyphs, and the <i>hdc</i> parameter is set to <b>NULL</b> so that the function cannot complete the placement process. The application should set up a correct device context for the run, and call this function again with the appropriate device context and with all other parameters the same.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptplace
@@ -13411,6 +13437,9 @@ class Globalization {
      */
     static ScriptPlace(hdc, psc, pwGlyphs, cGlyphs, psva, psa, piAdvance, pGoffset, pABC) {
         result := DllCall("USP10.dll\ScriptPlace", "ptr", hdc, "ptr", psc, "ushort*", pwGlyphs, "int", cGlyphs, "ushort*", psva, "ptr", psa, "int*", piAdvance, "ptr", pGoffset, "ptr", pABC, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13445,7 +13474,7 @@ class Globalization {
      * @param {Pointer<Int32>} piAdvance Pointer to an array of advance widths obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
      * @param {Pointer<Int32>} piJustify Pointer to an array of justified advance widths (cell widths). The application can set this parameter to <b>NULL</b>.
      * @param {Pointer<GOFFSET>} pGoffset Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-goffset">GOFFSET</a> structure containing the x and y offsets for the combining glyph.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scripttextout
      * @since windows5.0
      */
@@ -13455,6 +13484,9 @@ class Globalization {
         pwcReserved := pwcReserved is String? StrPtr(pwcReserved) : pwcReserved
 
         result := DllCall("USP10.dll\ScriptTextOut", "ptr", hdc, "ptr", psc, "int", x, "int", y, "uint", fuOptions, "ptr", lprc, "ptr", psa, "ptr", pwcReserved, "int", iReserved, "ushort*", pwGlyphs, "int", cGlyphs, "int*", piAdvance, "int*", piJustify, "ptr", pGoffset, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13483,12 +13515,15 @@ class Globalization {
      * @param {Integer} iDx Width, in pixels, of the desired change, either an increase of decrease.
      * @param {Integer} iMinKashida Minimum width of a kashida glyph to generate.
      * @param {Pointer<Int32>} piJustify Pointer to a buffer in which this function retrieves an array, of length indicated by <i>cGlyphs</i>, containing justified advance widths. The justified widths are sometimes called "cell widths" to distinguish them from unjustified advance widths.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptjustify
      * @since windows5.0
      */
     static ScriptJustify(psva, piAdvance, cGlyphs, iDx, iMinKashida, piJustify) {
         result := DllCall("USP10.dll\ScriptJustify", "ushort*", psva, "int*", piAdvance, "int", cGlyphs, "int", iDx, "int", iMinKashida, "int*", piJustify, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13513,7 +13548,7 @@ class Globalization {
      * @param {Integer} cChars Number of Unicode characters to process.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from an earlier call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a>.
      * @param {Pointer<Byte>} psla Pointer to a buffer in which this function retrieves the character attributes as a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> structure.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptbreak
      * @since windows5.0
      */
@@ -13521,6 +13556,9 @@ class Globalization {
         pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptBreak", "ptr", pwcChars, "int", cChars, "ptr", psa, "char*", psla, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13544,12 +13582,15 @@ class Globalization {
      * @param {Pointer<Int32>} piAdvance Pointer to an advance widths value.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure. The <b>fLogicalOrder</b> member specifies the end of the run from which to measure the offset. If the flag is set, the leading edge of the run is used. If the flag is not set, the left end of the run is used.
      * @param {Pointer<Int32>} piX Pointer to the buffer in which the function retrieves the x position of the caret.
-     * @returns {Integer} Returns 0 if successful. This function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. This function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptcptox
      * @since windows5.0
      */
     static ScriptCPtoX(iCP, fTrailing, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, piX) {
         result := DllCall("USP10.dll\ScriptCPtoX", "int", iCP, "int", fTrailing, "int", cChars, "int", cGlyphs, "ushort*", pwLogClust, "ushort*", psva, "int*", piAdvance, "ptr", psa, "int*", piX, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13595,12 +13636,15 @@ class Globalization {
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure. The <b>fLogicalOrder</b> member indicates <b>TRUE</b> to use the leading edge of the run, or <b>FALSE</b> to use the trailing edge.
      * @param {Pointer<Int32>} piCP Pointer to a buffer in which this function retrieves the character position corresponding to the x coordinate.
      * @param {Pointer<Int32>} piTrailing Pointer to a buffer in which this function retrieves the distance, in code points, from the leading edge of the logical character to the <i>iX</i> position. If this value is 0, the <i>iX</i> position is at the leading edge of the logical character. For more information, see the Remarks section.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptxtocp
      * @since windows5.0
      */
     static ScriptXtoCP(iX, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, piCP, piTrailing) {
         result := DllCall("USP10.dll\ScriptXtoCP", "int", iX, "int", cChars, "int", cGlyphs, "ushort*", pwLogClust, "ushort*", psva, "int*", piAdvance, "ptr", psa, "int*", piCP, "int*", piTrailing, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13620,12 +13664,15 @@ class Globalization {
      * @param {Pointer<UInt16>} pwLogClust Pointer to an array of logical clusters.
      * @param {Pointer<UInt16>} psva Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> structure defining visual attributes.
      * @param {Pointer<Int32>} piDx Pointer to an array of logical widths.
-     * @returns {Integer} Currently returns S_OK in all cases.
+     * @returns {HRESULT} Currently returns S_OK in all cases.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetlogicalwidths
      * @since windows5.0
      */
     static ScriptGetLogicalWidths(psa, cChars, cGlyphs, piGlyphWidth, pwLogClust, psva, piDx) {
         result := DllCall("USP10.dll\ScriptGetLogicalWidths", "ptr", psa, "int", cChars, "int", cGlyphs, "int*", piGlyphWidth, "ushort*", pwLogClust, "ushort*", psva, "int*", piDx, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13645,12 +13692,15 @@ class Globalization {
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure from <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a> and updated by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> and <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
      * @param {Pointer<ABC>} pABC Pointer to the overall <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">ABC width</a> of a run. On input, the parameter should contain the run ABC widths retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>. On output, the parameter indicates the ABC width updated to match the new widths.
      * @param {Pointer<Int32>} piJustify Pointer to an array in which the function retrieves the glyph advance widths. This array is suitable for passing to the <i>piJustify</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scripttextout">ScriptTextOut</a>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptapplylogicalwidth
      * @since windows5.0
      */
     static ScriptApplyLogicalWidth(piDx, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, pABC, piJustify) {
         result := DllCall("USP10.dll\ScriptApplyLogicalWidth", "int*", piDx, "int", cChars, "int", cGlyphs, "ushort*", pwLogClust, "ushort*", psva, "int*", piAdvance, "ptr", psa, "ptr", pABC, "int*", piJustify, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13692,7 +13742,7 @@ class Globalization {
      * </tr>
      * </table>
      * @param {Pointer<UInt16>} pwOutGlyphs Pointer to a buffer in which the function retrieves an array of glyph indexes. This buffer should be of the same length as the input buffer indicated by <i>pwcInChars</i>. Each code point maps to a single glyph.
-     * @returns {Integer} Returns S_OK if all Unicode code points are present in the font. The function returns one of the nonzero HRESULT values listed below if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if all Unicode code points are present in the font. The function returns one of the nonzero HRESULT values listed below if it does not succeed.
      *             
      * 
      * <table>
@@ -13716,6 +13766,9 @@ class Globalization {
         pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
 
         result := DllCall("USP10.dll\ScriptGetCMap", "ptr", hdc, "ptr", psc, "ptr", pwcInChars, "int", cChars, "uint", dwFlags, "ushort*", pwOutGlyphs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13730,7 +13783,7 @@ class Globalization {
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} wGlyph Glyph to analyze.
      * @param {Pointer<ABC>} pABC Pointer to the ABC width of the specified glyph.
-     * @returns {Integer} Returns S_OK if the ABC width of the glyph is retrieved. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if the ABC width of the glyph is retrieved. The function returns a nonzero HRESULT value if it does not succeed.
      * 
      * The function returns E_HANDLE if the font or operating system does not support glyph indexes.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetglyphabcwidth
@@ -13738,6 +13791,9 @@ class Globalization {
      */
     static ScriptGetGlyphABCWidth(hdc, psc, wGlyph, pABC) {
         result := DllCall("USP10.dll\ScriptGetGlyphABCWidth", "ptr", hdc, "ptr", psc, "ushort", wGlyph, "ptr", pABC, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13750,12 +13806,15 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<SCRIPT_PROPERTIES>} ppSp Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_properties">SCRIPT_PROPERTIES</a> structures indexed by script.
      * @param {Pointer<Int32>} piNumScripts Pointer to the number of scripts. The valid range for this value is 0 through <i>piNumScripts</i>-1.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetproperties
      * @since windows5.0
      */
     static ScriptGetProperties(ppSp, piNumScripts) {
         result := DllCall("USP10.dll\ScriptGetProperties", "ptr", ppSp, "int*", piNumScripts, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13769,12 +13828,15 @@ class Globalization {
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_FONTPROPERTIES>} sfp Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_fontproperties">SCRIPT_FONTPROPERTIES</a> structure in which this function retrieves the information from the font cache.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontproperties
      * @since windows5.0
      */
     static ScriptGetFontProperties(hdc, psc, sfp) {
         result := DllCall("USP10.dll\ScriptGetFontProperties", "ptr", hdc, "ptr", psc, "ptr", sfp, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13786,12 +13848,15 @@ class Globalization {
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<Int32>} tmHeight Pointer to a buffer in which the function retrieves the font height.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptcachegetheight
      * @since windows5.0
      */
     static ScriptCacheGetHeight(hdc, psc, tmHeight) {
         result := DllCall("USP10.dll\ScriptCacheGetHeight", "ptr", hdc, "ptr", psc, "int*", tmHeight, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13978,7 +14043,7 @@ class Globalization {
      * @param {Pointer<SCRIPT_TABDEF>} pTabdef Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_tabdef">SCRIPT_TABDEF</a> structure. This value is only required if <i>dwFlags</i> is set to SSA_TAB.
      * @param {Pointer<Byte>} pbInClass Pointer to a BYTE value that indicates <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> character classifications.
      * @param {Pointer<Void>} pssa Pointer to a buffer in which this function retrieves a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure. This structure is dynamically allocated on successful return from the function.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
      * 
      * Error returns include:
      *     <ul>
@@ -13993,6 +14058,9 @@ class Globalization {
      */
     static ScriptStringAnalyse(hdc, pString, cString, cGlyphs, iCharset, dwFlags, iReqWidth, psControl, psState, piDx, pTabdef, pbInClass, pssa) {
         result := DllCall("USP10.dll\ScriptStringAnalyse", "ptr", hdc, "ptr", pString, "int", cString, "int", cGlyphs, "int", iCharset, "uint", dwFlags, "int", iReqWidth, "uint*", psControl, "ushort*", psState, "int*", piDx, "ptr", pTabdef, "char*", pbInClass, "ptr", pssa, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14004,12 +14072,15 @@ class Globalization {
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
      * @param {Pointer<Void>} pssa Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringfree
      * @since windows5.0
      */
     static ScriptStringFree(pssa) {
         result := DllCall("USP10.dll\ScriptStringFree", "ptr", pssa, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14083,12 +14154,15 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Pointer<UInt32>} puOrder Pointer to a buffer in which this function retrieves an array of glyph positions, indexed by the original character position. The array should have room for at least the number of integers indicated by the <i>ssa</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_pcoutchars">ScriptString_pcOutChars</a>.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringgetorder
      * @since windows5.0
      */
     static ScriptStringGetOrder(ssa, puOrder) {
         result := DllCall("USP10.dll\ScriptStringGetOrder", "ptr", ssa, "uint*", puOrder, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14101,12 +14175,15 @@ class Globalization {
      * @param {Integer} icp Character position in the string.
      * @param {Integer} fTrailing <b>TRUE</b> to indicate the trailing edge of the character position (<i>icp</i>) that corresponds to the x coordinate. This parameter is set to <b>FALSE</b> to indicate the leading edge of the character position.
      * @param {Pointer<Int32>} pX Pointer to a buffer in which this function retrieves the x coordinate corresponding to the character position.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringcptox
      * @since windows5.0
      */
     static ScriptStringCPtoX(ssa, icp, fTrailing, pX) {
         result := DllCall("USP10.dll\ScriptStringCPtoX", "ptr", ssa, "int", icp, "int", fTrailing, "int*", pX, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14123,12 +14200,15 @@ class Globalization {
      * @param {Integer} iX The x coordinate.
      * @param {Pointer<Int32>} piCh Pointer to a variable in which this function retrieves the character position corresponding to the x coordinate.
      * @param {Pointer<Int32>} piTrailing Pointer to a variable in which this function retrieves a value indicating if the x coordinate is for the leading edge or the trailing edge of the character position. For more information, see the Remarks section.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringxtocp
      * @since windows5.0
      */
     static ScriptStringXtoCP(ssa, iX, piCh, piTrailing) {
         result := DllCall("USP10.dll\ScriptStringXtoCP", "ptr", ssa, "int", iX, "int*", piCh, "int*", piTrailing, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14143,12 +14223,15 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Pointer<Int32>} piDx Pointer to a buffer in which this function retrieves logical widths. The buffer should have room for at least the number of integers indicated by the <i>ssa</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_pcoutchars">ScriptString_pcOutChars</a>.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringgetlogicalwidths
      * @since windows5.0
      */
     static ScriptStringGetLogicalWidths(ssa, piDx) {
         result := DllCall("USP10.dll\ScriptStringGetLogicalWidths", "ptr", ssa, "int*", piDx, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14162,12 +14245,15 @@ class Globalization {
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for a string.
-     * @returns {Integer} Returns S_OK if no invalid sequences are found. The function returns S_FALSE if one or more invalid sequences are found. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if no invalid sequences are found. The function returns S_FALSE if one or more invalid sequences are found. The function returns a nonzero HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringvalidate
      * @since windows5.0
      */
     static ScriptStringValidate(ssa) {
         result := DllCall("USP10.dll\ScriptStringValidate", "ptr", ssa, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14188,12 +14274,15 @@ class Globalization {
      * @param {Integer} iMinSel Zero-based index specifying the starting position in the string. For no selection, the application should set <i>iMinSel</i> &gt;= <i>iMaxSel</i>.
      * @param {Integer} iMaxSel Zero-based index specifying the ending position in the string.
      * @param {Integer} fDisabled <b>TRUE</b> if the operating system applies disabled-text highlighting by setting the background color to COLOR_HIGHLIGHT behind all selected characters. The application can set this parameter to <b>FALSE</b> if the operating system applies enabled-text highlighting by setting the background color to COLOR_HIGHLIGHT and the text color to COLOR_HIGHLIGHTTEXT for each selected character.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero <b>HRESULT</b> value if it does not succeed. The application can't test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero <b>HRESULT</b> value if it does not succeed. The application can't test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringout
      * @since windows5.0
      */
     static ScriptStringOut(ssa, iX, iY, uOptions, prc, iMinSel, iMaxSel, fDisabled) {
         result := DllCall("USP10.dll\ScriptStringOut", "ptr", ssa, "int", iX, "int", iY, "uint", uOptions, "ptr", prc, "int", iMinSel, "int", iMaxSel, "int", fDisabled, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14207,7 +14296,7 @@ class Globalization {
      * @param {Pointer<Char>} pwcInChars Pointer to the string to test.
      * @param {Integer} cInChars Length of the input string, in characters.
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns S_OK if the string requires complex script processing. The function returns S_FALSE if the string can be handled by standard API function calls, that is, it contains only characters laid out side-by-side and left-to-right. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if the string requires complex script processing. The function returns S_FALSE if the string can be handled by standard API function calls, that is, it contains only characters laid out side-by-side and left-to-right. The function returns a nonzero HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptiscomplex
      * @since windows5.0
      */
@@ -14215,6 +14304,9 @@ class Globalization {
         pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
 
         result := DllCall("USP10.dll\ScriptIsComplex", "ptr", pwcInChars, "int", cInChars, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14252,7 +14344,7 @@ class Globalization {
      * <div> </div>
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> of the locale to query. Typically, the application should set this parameter to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>. Alternatively, the setting can indicate a specific locale combined with <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-nouseroverride">LOCALE_NOUSEROVERRIDE</a> to obtain the default settings.
      * @param {Pointer<SCRIPT_DIGITSUBSTITUTE>} psds Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a> structure. This structure can be passed later to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptapplydigitsubstitution">ScriptApplyDigitSubstitution</a>.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
      * 
      * Error returns include:    
      * <ul>
@@ -14264,6 +14356,9 @@ class Globalization {
      */
     static ScriptRecordDigitSubstitution(Locale, psds) {
         result := DllCall("USP10.dll\ScriptRecordDigitSubstitution", "uint", Locale, "ptr", psds, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14277,7 +14372,7 @@ class Globalization {
      * @param {Pointer<SCRIPT_DIGITSUBSTITUTE>} psds Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a> structure. The application sets this parameter to <b>NULL</b> if the function is to call <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptrecorddigitsubstitution">ScriptRecordDigitSubstitution</a> with LOCALE_USER_DEFAULT.
      * @param {Pointer<UInt32>} psc Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a> structure with the <b>fContextDigits</b> and <b>uDefaultLanguage</b> members updated.
      * @param {Pointer<UInt16>} pss Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> structure with the <b>fDigitSubstitute</b> member updated.
-     * @returns {Integer} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
+     * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
      * 
      * The function returns E_INVALIDARG if it does not recognize the <b>DigitSubstitute</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptapplydigitsubstitution
@@ -14285,6 +14380,9 @@ class Globalization {
      */
     static ScriptApplyDigitSubstitution(psds, psc, pss) {
         result := DllCall("USP10.dll\ScriptApplyDigitSubstitution", "ptr", psds, "uint*", psc, "ushort*", pss, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14343,7 +14441,7 @@ class Globalization {
      * @param {Pointer<UInt16>} pwOutGlyphs Pointer to a buffer in which this function retrieves an array of glyphs.
      * @param {Pointer<SCRIPT_GLYPHPROP>} pOutGlyphProps Pointer to a buffer in which this function retrieves an array of attributes for each of the retrieved glyphs. The length of the values equals the value of <i>pcGlyphs</i>. Since one glyph property is indicated per glyph, the value of this parameter indicates the number of elements specified by <i>cMaxGlyphs</i>.
      * @param {Pointer<Int32>} pcGlyphs Pointer to the location in which this function retrieves the number of glyphs indicated in <i>pwOutGlyphs</i>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, the content of all output array values is undefined.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, the content of all output array values is undefined.
      * 
      * Error returns include:
      * 
@@ -14359,6 +14457,9 @@ class Globalization {
         pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptShapeOpenType", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int*", rcRangeChars, "ptr", rpRangeProperties, "int", cRanges, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ushort*", pwLogClust, "ushort*", pCharProps, "ushort*", pwOutGlyphs, "ptr", pOutGlyphProps, "int*", pcGlyphs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14398,7 +14499,7 @@ class Globalization {
      * @param {Pointer<Int32>} piAdvance Pointer to an array, of length indicated by <i>cGlyphs</i>, in which this function retrieves <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">advance width</a> information.
      * @param {Pointer<GOFFSET>} pGoffset Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-goffset">GOFFSET</a> structures in which this structure retrieves the x and y offsets of combining glyphs. This array must be of length indicated by <i>cGlyphs</i>.
      * @param {Pointer<ABC>} pABC Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abc">ABC</a> structure in which this function retrieves the <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">ABC width</a> for the entire <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">run</a>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, the output values are undefined. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, the output values are undefined. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * The function returns E_OUTOFMEMORY if the output buffer length indicated by <i>cGlyphs</i> is too small. The application can try calling again with larger buffers.
      * 
@@ -14410,6 +14511,9 @@ class Globalization {
         pwcChars := pwcChars is String? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptPlaceOpenType", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int*", rcRangeChars, "ptr", rpRangeProperties, "int", cRanges, "ptr", pwcChars, "ushort*", pwLogClust, "ushort*", pCharProps, "int", cChars, "ushort*", pwGlyphs, "ptr", pGlyphProps, "int", cGlyphs, "int*", piAdvance, "ptr", pGoffset, "ptr", pABC, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14532,7 +14636,7 @@ class Globalization {
      * <div class="alert"><b>Note</b>  When all characters in an item are neutral, the value of this parameter is SCRIPT_TAG_UNKNOWN (0x00000000). This can happen, for example, if an item consists entirely of punctuation.</div>
      * <div> </div>
      * @param {Pointer<Int32>} pcItems Pointer to the number of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structures processed.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, no items are fully processed and no part of the output contains defined values. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. In all error cases, no items are fully processed and no part of the output contains defined values. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * The function returns E_OUTOFMEMORY if the size indicated by <i>cMaxItems</i> is too small. The application can try calling the function again with a larger buffer.
      * 
@@ -14552,6 +14656,9 @@ class Globalization {
         pwcInChars := pwcInChars is String? StrPtr(pwcInChars) : pwcInChars
 
         result := DllCall("USP10.dll\ScriptItemizeOpenType", "ptr", pwcInChars, "int", cInChars, "int", cMaxItems, "uint*", psControl, "ushort*", psState, "ptr", pItems, "uint*", pScriptTags, "int*", pcItems, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14580,7 +14687,7 @@ class Globalization {
      * @param {Integer} cMaxTags The length of the array specified by <i>pScriptTags</i>.
      * @param {Pointer<UInt32>} pScriptTags Pointer to a buffer in which this function retrieves an array of <a href="https://docs.microsoft.com/windows/desktop/Intl/opentype-tag">OPENTYPE_TAG</a> structures defining script tags from the device context or the scripting engine associated with the current run. If the value of the <b>eScript</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure provided in the <i>psa</i> parameter has a definite script tag associated with it and the tag is present in the font, <i>pScriptTags</i> contains only this tag.
      * @param {Pointer<Int32>} pcTags Pointer to the number of elements in the script tag array indicated by <i>pScriptTags</i>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of matching tags exceeds the value of <i>cMaxTags</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontscripttags
@@ -14588,6 +14695,9 @@ class Globalization {
      */
     static ScriptGetFontScriptTags(hdc, psc, psa, cMaxTags, pScriptTags, pcTags) {
         result := DllCall("USP10.dll\ScriptGetFontScriptTags", "ptr", hdc, "ptr", psc, "ptr", psa, "int", cMaxTags, "uint*", pScriptTags, "int*", pcTags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14607,7 +14717,7 @@ class Globalization {
      * @param {Integer} cMaxTags The length of the array specified by <i>pLangSysTags</i>.
      * @param {Pointer<UInt32>} pLangsysTags Pointer to a buffer in which this function retrieves an array of <a href="https://docs.microsoft.com/windows/desktop/Intl/opentype-tag">OPENTYPE_TAG</a> structures identifying the language tags matching input criteria.
      * @param {Pointer<Int32>} pcTags Pointer to the number of elements in the language tag array.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of matching tags exceeds <i>cMaxTags</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontlanguagetags
@@ -14615,6 +14725,9 @@ class Globalization {
      */
     static ScriptGetFontLanguageTags(hdc, psc, psa, tagScript, cMaxTags, pLangsysTags, pcTags) {
         result := DllCall("USP10.dll\ScriptGetFontLanguageTags", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "int", cMaxTags, "uint*", pLangsysTags, "int*", pcTags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14637,7 +14750,7 @@ class Globalization {
      * @param {Integer} cMaxTags The length of the array specified by <i>pFeatureTags</i>.
      * @param {Pointer<UInt32>} pFeatureTags Pointer to a buffer in which this function retrieves an array of <b>OPENTYPE_TAG</b> structures defining the typographic feature tags supported by the font in the device context or cache for the defined writing system.
      * @param {Pointer<Int32>} pcTags Pointer to the number of elements in the feature tag array.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of matching tags exceeds the value of <i>cMaxTags</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontfeaturetags
@@ -14645,6 +14758,9 @@ class Globalization {
      */
     static ScriptGetFontFeatureTags(hdc, psc, psa, tagScript, tagLangSys, cMaxTags, pFeatureTags, pcTags) {
         result := DllCall("USP10.dll\ScriptGetFontFeatureTags", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int", cMaxTags, "uint*", pFeatureTags, "int*", pcTags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14675,7 +14791,7 @@ class Globalization {
      * 
      * When the user chooses an alternate form from the user interface, the alternate glyph is applied to the corresponding character and the rendering is reformatted.
      * @param {Pointer<Int32>} pcAlternates Pointer to the number of elements in the array specified by <i>pAlternateGlyphs</i>.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of alternate glyphs exceeds the value of <i>cMaxAlternates</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontalternateglyphs
@@ -14683,6 +14799,9 @@ class Globalization {
      */
     static ScriptGetFontAlternateGlyphs(hdc, psc, psa, tagScript, tagLangSys, tagFeature, wGlyphId, cMaxAlternates, pAlternateGlyphs, pcAlternates) {
         result := DllCall("USP10.dll\ScriptGetFontAlternateGlyphs", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "ushort", wGlyphId, "int", cMaxAlternates, "ushort*", pAlternateGlyphs, "int*", pcAlternates, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14704,12 +14823,15 @@ class Globalization {
      * @param {Integer} lParameter Reference to the alternate glyph to substitute. This reference is an index to an array that contains all the alternate glyphs defined in the feature, as illustrated for <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-opentype_feature_record">OPENTYPE_FEATURE_RECORD</a>. The alternate glyph array is one of the items retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetfontalternateglyphs">ScriptGetFontAlternateGlyphs</a>.
      * @param {Integer} wGlyphId Identifier of the original glyph.
      * @param {Pointer<UInt16>} pwOutGlyphId Pointer to the location in which this function retrieves the identifier of the alternate glyph.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptsubstitutesingleglyph
      * @since windows6.0.6000
      */
     static ScriptSubstituteSingleGlyph(hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, pwOutGlyphId) {
         result := DllCall("USP10.dll\ScriptSubstituteSingleGlyph", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "ushort*", pwOutGlyphId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14739,12 +14861,15 @@ class Globalization {
      * @param {Pointer} GOffset The original glyph offset. Typically, this value is an output of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplaceopentype">ScriptPlaceOpenType</a> or <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
      * @param {Pointer<Int32>} piOutAdvance Pointer to the location in which this function retrieves the new advance width adjusted for the alternate glyph.
      * @param {Pointer<GOFFSET>} pOutGoffset Pointer to the location in which this function retrieves the new glyph offset adjusted for the alternate glyph.
-     * @returns {Integer} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
+     * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptpositionsingleglyph
      * @since windows6.0.6000
      */
     static ScriptPositionSingleGlyph(hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, iAdvance, GOffset, piOutAdvance, pOutGoffset) {
         result := DllCall("USP10.dll\ScriptPositionSingleGlyph", "ptr", hdc, "ptr", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "int", iAdvance, "ptr", GOffset, "int*", piOutAdvance, "ptr", pOutGoffset, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14806,47 +14931,43 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} versionArray 
      * @param {Pointer<Byte>} versionString 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_versionFromString(versionArray, versionString) {
         versionString := versionString is String? StrPtr(versionString) : versionString
 
-        result := DllCall("icuuc.dll\u_versionFromString", "char*", versionArray, "ptr", versionString, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_versionFromString", "char*", versionArray, "ptr", versionString, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} versionArray 
      * @param {Pointer<UInt16>} versionString 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_versionFromUString(versionArray, versionString) {
-        result := DllCall("icuuc.dll\u_versionFromUString", "char*", versionArray, "ushort*", versionString, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_versionFromUString", "char*", versionArray, "ushort*", versionString, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} versionArray 
      * @param {Pointer<Byte>} versionString 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_versionToString(versionArray, versionString) {
         versionString := versionString is String? StrPtr(versionString) : versionString
 
-        result := DllCall("icuuc.dll\u_versionToString", "char*", versionArray, "ptr", versionString, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_versionToString", "char*", versionArray, "ptr", versionString, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} versionArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_getVersion(versionArray) {
-        result := DllCall("icuuc.dll\u_getVersion", "char*", versionArray, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_getVersion", "char*", versionArray, "CDecl ")
     }
 
     /**
@@ -14862,11 +14983,10 @@ class Globalization {
     /**
      * 
      * @param {Integer} traceLevel 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrace_setLevel(traceLevel) {
-        result := DllCall("icuuc.dll\utrace_setLevel", "int", traceLevel, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\utrace_setLevel", "int", traceLevel, "CDecl ")
     }
 
     /**
@@ -14884,11 +15004,10 @@ class Globalization {
      * @param {Pointer<UTraceEntry>} e 
      * @param {Pointer<UTraceExit>} x 
      * @param {Pointer<UTraceData>} d 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrace_setFunctions(context, e, x, d) {
-        result := DllCall("icuuc.dll\utrace_setFunctions", "ptr", context, "ptr", e, "ptr", x, "ptr", d, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\utrace_setFunctions", "ptr", context, "ptr", e, "ptr", x, "ptr", d, "CDecl ")
     }
 
     /**
@@ -14897,11 +15016,10 @@ class Globalization {
      * @param {Pointer<UTraceEntry>} e 
      * @param {Pointer<UTraceExit>} x 
      * @param {Pointer<UTraceData>} d 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrace_getFunctions(context, e, x, d) {
-        result := DllCall("icuuc.dll\utrace_getFunctions", "ptr", context, "ptr", e, "ptr", x, "ptr", d, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\utrace_getFunctions", "ptr", context, "ptr", e, "ptr", x, "ptr", d, "CDecl ")
     }
 
     /**
@@ -15001,10 +15119,10 @@ class Globalization {
      * 
      * @param {Integer} codepoint 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uscript_getScript(codepoint, err) {
-        result := DllCall("icuuc.dll\uscript_getScript", "int", codepoint, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\uscript_getScript", "int", codepoint, "int*", err, "CDecl int")
         return result
     }
 
@@ -15048,10 +15166,10 @@ class Globalization {
     /**
      * 
      * @param {Integer} script 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uscript_getUsage(script) {
-        result := DllCall("icuuc.dll\uscript_getUsage", "int", script, "CDecl ptr")
+        result := DllCall("icuuc.dll\uscript_getUsage", "int", script, "CDecl int")
         return result
     }
 
@@ -15130,11 +15248,10 @@ class Globalization {
      * @param {Pointer<UCharIterator>} iter 
      * @param {Integer} state 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setState(iter, state, pErrorCode) {
-        result := DllCall("icuuc.dll\uiter_setState", "ptr", iter, "uint", state, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uiter_setState", "ptr", iter, "uint", state, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -15142,11 +15259,10 @@ class Globalization {
      * @param {Pointer<UCharIterator>} iter 
      * @param {Pointer<UInt16>} s 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setString(iter, s, length) {
-        result := DllCall("icuuc.dll\uiter_setString", "ptr", iter, "ushort*", s, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uiter_setString", "ptr", iter, "ushort*", s, "int", length, "CDecl ")
     }
 
     /**
@@ -15154,13 +15270,12 @@ class Globalization {
      * @param {Pointer<UCharIterator>} iter 
      * @param {Pointer<Byte>} s 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setUTF16BE(iter, s, length) {
         s := s is String? StrPtr(s) : s
 
-        result := DllCall("icuuc.dll\uiter_setUTF16BE", "ptr", iter, "ptr", s, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uiter_setUTF16BE", "ptr", iter, "ptr", s, "int", length, "CDecl ")
     }
 
     /**
@@ -15168,23 +15283,21 @@ class Globalization {
      * @param {Pointer<UCharIterator>} iter 
      * @param {Pointer<Byte>} s 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setUTF8(iter, s, length) {
         s := s is String? StrPtr(s) : s
 
-        result := DllCall("icuuc.dll\uiter_setUTF8", "ptr", iter, "ptr", s, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uiter_setUTF8", "ptr", iter, "ptr", s, "int", length, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} en 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uenum_close(en) {
-        result := DllCall("icuuc.dll\uenum_close", "ptr*", en, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uenum_close", "ptr*", en, "CDecl ")
     }
 
     /**
@@ -15226,11 +15339,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} en 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uenum_reset(en, status) {
-        result := DllCall("icuuc.dll\uenum_reset", "ptr*", en, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uenum_reset", "ptr*", en, "int*", status, "CDecl ")
     }
 
     /**
@@ -15238,10 +15350,10 @@ class Globalization {
      * @param {Pointer<UInt16>} strings 
      * @param {Integer} count 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uenum_openUCharStringsEnumeration(strings, count, ec) {
-        result := DllCall("icuuc.dll\uenum_openUCharStringsEnumeration", "ptr", strings, "int", count, "int*", ec, "CDecl ptr")
+        result := DllCall("icuuc.dll\uenum_openUCharStringsEnumeration", "ptr", strings, "int", count, "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -15250,10 +15362,10 @@ class Globalization {
      * @param {Pointer<SByte>} strings 
      * @param {Integer} count 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uenum_openCharStringsEnumeration(strings, count, ec) {
-        result := DllCall("icuuc.dll\uenum_openCharStringsEnumeration", "ptr", strings, "int", count, "int*", ec, "CDecl ptr")
+        result := DllCall("icuuc.dll\uenum_openCharStringsEnumeration", "ptr", strings, "int", count, "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -15270,13 +15382,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} localeID 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uloc_setDefault(localeID, status) {
         localeID := localeID is String? StrPtr(localeID) : localeID
 
-        result := DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, "int*", status, "CDecl ")
     }
 
     /**
@@ -15555,10 +15666,10 @@ class Globalization {
      * 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uloc_openAvailableByType(type, status) {
-        result := DllCall("icu.dll\uloc_openAvailableByType", "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icu.dll\uloc_openAvailableByType", "int", type, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -15616,12 +15727,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} localeID 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uloc_openKeywords(localeID, status) {
         localeID := localeID is String? StrPtr(localeID) : localeID
 
-        result := DllCall("icuuc.dll\uloc_openKeywords", "ptr", localeID, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_openKeywords", "ptr", localeID, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -15677,12 +15788,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} localeId 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uloc_getCharacterOrientation(localeId, status) {
         localeId := localeId is String? StrPtr(localeId) : localeId
 
-        result := DllCall("icuuc.dll\uloc_getCharacterOrientation", "ptr", localeId, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_getCharacterOrientation", "ptr", localeId, "int*", status, "CDecl int")
         return result
     }
 
@@ -15690,12 +15801,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} localeId 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uloc_getLineOrientation(localeId, status) {
         localeId := localeId is String? StrPtr(localeId) : localeId
 
-        result := DllCall("icuuc.dll\uloc_getLineOrientation", "ptr", localeId, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_getLineOrientation", "ptr", localeId, "int*", status, "CDecl int")
         return result
     }
 
@@ -15873,13 +15984,13 @@ class Globalization {
      * @param {Pointer<Byte>} packageName 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_open(packageName, locale, status) {
         packageName := packageName is String? StrPtr(packageName) : packageName
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ures_open", "ptr", packageName, "ptr", locale, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_open", "ptr", packageName, "ptr", locale, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -15888,13 +15999,13 @@ class Globalization {
      * @param {Pointer<Byte>} packageName 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_openDirect(packageName, locale, status) {
         packageName := packageName is String? StrPtr(packageName) : packageName
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ures_openDirect", "ptr", packageName, "ptr", locale, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_openDirect", "ptr", packageName, "ptr", locale, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -15903,34 +16014,32 @@ class Globalization {
      * @param {Pointer<UInt16>} packageName 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_openU(packageName, locale, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ures_openU", "ushort*", packageName, "ptr", locale, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_openU", "ushort*", packageName, "ptr", locale, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} resourceBundle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ures_close(resourceBundle) {
-        result := DllCall("icuuc.dll\ures_close", "ptr*", resourceBundle, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ures_close", "ptr*", resourceBundle, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} resB 
      * @param {Pointer<Byte>} versionInfo 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ures_getVersion(resB, versionInfo) {
-        result := DllCall("icuuc.dll\ures_getVersion", "ptr*", resB, "char*", versionInfo, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ures_getVersion", "ptr*", resB, "char*", versionInfo, "CDecl ")
     }
 
     /**
@@ -16032,10 +16141,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} resourceBundle 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ures_getType(resourceBundle) {
-        result := DllCall("icuuc.dll\ures_getType", "ptr*", resourceBundle, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getType", "ptr*", resourceBundle, "CDecl int")
         return result
     }
 
@@ -16052,11 +16161,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} resourceBundle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ures_resetIterator(resourceBundle) {
-        result := DllCall("icuuc.dll\ures_resetIterator", "ptr*", resourceBundle, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ures_resetIterator", "ptr*", resourceBundle, "CDecl ")
     }
 
     /**
@@ -16074,10 +16182,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} resourceBundle 
      * @param {Pointer<IntPtr>} fillIn 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_getNextResource(resourceBundle, fillIn, status) {
-        result := DllCall("icuuc.dll\ures_getNextResource", "ptr*", resourceBundle, "ptr*", fillIn, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getNextResource", "ptr*", resourceBundle, "ptr*", fillIn, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -16100,10 +16208,10 @@ class Globalization {
      * @param {Integer} indexR 
      * @param {Pointer<IntPtr>} fillIn 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_getByIndex(resourceBundle, indexR, fillIn, status) {
-        result := DllCall("icuuc.dll\ures_getByIndex", "ptr*", resourceBundle, "int", indexR, "ptr*", fillIn, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getByIndex", "ptr*", resourceBundle, "int", indexR, "ptr*", fillIn, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -16143,12 +16251,12 @@ class Globalization {
      * @param {Pointer<Byte>} key 
      * @param {Pointer<IntPtr>} fillIn 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_getByKey(resourceBundle, key, fillIn, status) {
         key := key is String? StrPtr(key) : key
 
-        result := DllCall("icuuc.dll\ures_getByKey", "ptr*", resourceBundle, "ptr", key, "ptr*", fillIn, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getByKey", "ptr*", resourceBundle, "ptr", key, "ptr*", fillIn, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -16189,12 +16297,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} packageName 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ures_openAvailableLocales(packageName, status) {
         packageName := packageName is String? StrPtr(packageName) : packageName
 
-        result := DllCall("icuuc.dll\ures_openAvailableLocales", "ptr", packageName, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_openAvailableLocales", "ptr", packageName, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -16203,23 +16311,22 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Integer} dialectHandling 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uldn_open(locale, dialectHandling, pErrorCode) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\uldn_open", "ptr", locale, "int", dialectHandling, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\uldn_open", "ptr", locale, "int", dialectHandling, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} ldn 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uldn_close(ldn) {
-        result := DllCall("icuuc.dll\uldn_close", "ptr*", ldn, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uldn_close", "ptr*", ldn, "CDecl ")
     }
 
     /**
@@ -16235,10 +16342,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} ldn 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uldn_getDialectHandling(ldn) {
-        result := DllCall("icuuc.dll\uldn_getDialectHandling", "ptr*", ldn, "CDecl ptr")
+        result := DllCall("icuuc.dll\uldn_getDialectHandling", "ptr*", ldn, "CDecl int")
         return result
     }
 
@@ -16376,12 +16483,12 @@ class Globalization {
      * @param {Pointer<Int32>} contexts 
      * @param {Integer} length 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uldn_openForContext(locale, contexts, length, pErrorCode) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\uldn_openForContext", "ptr", locale, "int*", contexts, "int", length, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\uldn_openForContext", "ptr", locale, "int*", contexts, "int", length, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -16390,10 +16497,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} ldn 
      * @param {Integer} type 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uldn_getContext(ldn, type, pErrorCode) {
-        result := DllCall("icuuc.dll\uldn_getContext", "ptr*", ldn, "int", type, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\uldn_getContext", "ptr*", ldn, "int", type, "int*", pErrorCode, "CDecl int")
         return result
     }
 
@@ -16499,10 +16606,10 @@ class Globalization {
      * 
      * @param {Pointer<UInt16>} currency 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static ucurr_getRoundingIncrement(currency, ec) {
-        result := DllCall("icuuc.dll\ucurr_getRoundingIncrement", "ushort*", currency, "int*", ec, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucurr_getRoundingIncrement", "ushort*", currency, "int*", ec, "CDecl double")
         return result
     }
 
@@ -16511,10 +16618,10 @@ class Globalization {
      * @param {Pointer<UInt16>} currency 
      * @param {Integer} usage 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static ucurr_getRoundingIncrementForUsage(currency, usage, ec) {
-        result := DllCall("icuuc.dll\ucurr_getRoundingIncrementForUsage", "ushort*", currency, "int", usage, "int*", ec, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucurr_getRoundingIncrementForUsage", "ushort*", currency, "int", usage, "int*", ec, "CDecl double")
         return result
     }
 
@@ -16522,10 +16629,10 @@ class Globalization {
      * 
      * @param {Integer} currType 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucurr_openISOCurrencies(currType, pErrorCode) {
-        result := DllCall("icuuc.dll\ucurr_openISOCurrencies", "uint", currType, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucurr_openISOCurrencies", "uint", currType, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -16579,13 +16686,13 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Integer} commonlyUsed 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucurr_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
         key := key is String? StrPtr(key) : key
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -16634,7 +16741,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Int32>} pActualLength 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<UCPTrie>} 
      */
     static ucptrie_openFromBinary(type, valueWidth, data, length, pActualLength, pErrorCode) {
         result := DllCall("icu.dll\ucptrie_openFromBinary", "int", type, "int", valueWidth, "ptr", data, "int", length, "int*", pActualLength, "int*", pErrorCode, "CDecl ptr")
@@ -16644,30 +16751,29 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCPTrie>} trie 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucptrie_close(trie) {
-        result := DllCall("icu.dll\ucptrie_close", "ptr", trie, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucptrie_close", "ptr", trie, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UCPTrie>} trie 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucptrie_getType(trie) {
-        result := DllCall("icu.dll\ucptrie_getType", "ptr", trie, "CDecl ptr")
+        result := DllCall("icu.dll\ucptrie_getType", "ptr", trie, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCPTrie>} trie 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucptrie_getValueWidth(trie) {
-        result := DllCall("icu.dll\ucptrie_getValueWidth", "ptr", trie, "CDecl ptr")
+        result := DllCall("icu.dll\ucptrie_getValueWidth", "ptr", trie, "CDecl int")
         return result
     }
 
@@ -16753,10 +16859,10 @@ class Globalization {
      * @param {Integer} initialValue 
      * @param {Integer} errorValue 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static umutablecptrie_open(initialValue, errorValue, pErrorCode) {
-        result := DllCall("icu.dll\umutablecptrie_open", "uint", initialValue, "uint", errorValue, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\umutablecptrie_open", "uint", initialValue, "uint", errorValue, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -16764,31 +16870,30 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} other 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static umutablecptrie_clone(other, pErrorCode) {
-        result := DllCall("icu.dll\umutablecptrie_clone", "ptr*", other, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\umutablecptrie_clone", "ptr*", other, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} trie 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umutablecptrie_close(trie) {
-        result := DllCall("icu.dll\umutablecptrie_close", "ptr*", trie, "CDecl ptr")
-        return result
+        DllCall("icu.dll\umutablecptrie_close", "ptr*", trie, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} map 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static umutablecptrie_fromUCPMap(map, pErrorCode) {
-        result := DllCall("icu.dll\umutablecptrie_fromUCPMap", "ptr*", map, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\umutablecptrie_fromUCPMap", "ptr*", map, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -16796,10 +16901,10 @@ class Globalization {
      * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static umutablecptrie_fromUCPTrie(trie, pErrorCode) {
-        result := DllCall("icu.dll\umutablecptrie_fromUCPTrie", "ptr", trie, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\umutablecptrie_fromUCPTrie", "ptr", trie, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -16836,11 +16941,10 @@ class Globalization {
      * @param {Integer} c 
      * @param {Integer} value 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umutablecptrie_set(trie, c, value, pErrorCode) {
-        result := DllCall("icu.dll\umutablecptrie_set", "ptr*", trie, "int", c, "uint", value, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icu.dll\umutablecptrie_set", "ptr*", trie, "int", c, "uint", value, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -16850,11 +16954,10 @@ class Globalization {
      * @param {Integer} end 
      * @param {Integer} value 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umutablecptrie_setRange(trie, start, end, value, pErrorCode) {
-        result := DllCall("icu.dll\umutablecptrie_setRange", "ptr*", trie, "int", start, "int", end, "uint", value, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icu.dll\umutablecptrie_setRange", "ptr*", trie, "int", start, "int", end, "uint", value, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -16863,7 +16966,7 @@ class Globalization {
      * @param {Integer} type 
      * @param {Integer} valueWidth 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<UCPTrie>} 
      */
     static umutablecptrie_buildImmutable(trie, type, valueWidth, pErrorCode) {
         result := DllCall("icu.dll\umutablecptrie_buildImmutable", "ptr*", trie, "int", type, "int", valueWidth, "int*", pErrorCode, "CDecl ptr")
@@ -16879,11 +16982,10 @@ class Globalization {
      * @param {Integer} codePoint 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_STOP(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        result := DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16894,13 +16996,12 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_STOP(context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
 
-        result := DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16912,11 +17013,10 @@ class Globalization {
      * @param {Integer} codePoint 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_SKIP(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        result := DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16928,11 +17028,10 @@ class Globalization {
      * @param {Integer} codePoint 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_SUBSTITUTE(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        result := DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16944,11 +17043,10 @@ class Globalization {
      * @param {Integer} codePoint 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_ESCAPE(context, fromUArgs, codeUnits, length, codePoint, reason, err) {
-        result := DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", "ptr", context, "ptr", fromUArgs, "ushort*", codeUnits, "int", length, "int", codePoint, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16959,13 +17057,12 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_SKIP(context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
 
-        result := DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16976,13 +17073,12 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_SUBSTITUTE(context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
 
-        result := DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
@@ -16993,26 +17089,25 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} reason 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_ESCAPE(context, toUArgs, codeUnits, length, reason, err) {
         codeUnits := codeUnits is String? StrPtr(codeUnits) : codeUnits
 
-        result := DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", "ptr", context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, "int*", err, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} name1 
      * @param {Pointer<Byte>} name2 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucnv_compareNames(name1, name2) {
         name1 := name1 is String? StrPtr(name1) : name1
         name2 := name2 is String? StrPtr(name2) : name2
 
-        result := DllCall("icuuc.dll\ucnv_compareNames", "ptr", name1, "ptr", name2, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_compareNames", "ptr", name1, "ptr", name2, "CDecl int")
         return result
     }
 
@@ -17020,12 +17115,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} converterName 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_open(converterName, err) {
         converterName := converterName is String? StrPtr(converterName) : converterName
 
-        result := DllCall("icuuc.dll\ucnv_open", "ptr", converterName, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_open", "ptr", converterName, "int*", err, "CDecl ptr*")
         return result
     }
 
@@ -17033,10 +17128,10 @@ class Globalization {
      * 
      * @param {Pointer<UInt16>} name 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_openU(name, err) {
-        result := DllCall("icuuc.dll\ucnv_openU", "ushort*", name, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_openU", "ushort*", name, "int*", err, "CDecl ptr*")
         return result
     }
 
@@ -17045,10 +17140,10 @@ class Globalization {
      * @param {Integer} codepage 
      * @param {Integer} platform 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_openCCSID(codepage, platform, err) {
-        result := DllCall("icuuc.dll\ucnv_openCCSID", "int", codepage, "int", platform, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_openCCSID", "int", codepage, "int", platform, "int*", err, "CDecl ptr*")
         return result
     }
 
@@ -17057,13 +17152,13 @@ class Globalization {
      * @param {Pointer<Byte>} packageName 
      * @param {Pointer<Byte>} converterName 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_openPackage(packageName, converterName, err) {
         packageName := packageName is String? StrPtr(packageName) : packageName
         converterName := converterName is String? StrPtr(converterName) : converterName
 
-        result := DllCall("icuuc.dll\ucnv_openPackage", "ptr", packageName, "ptr", converterName, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_openPackage", "ptr", packageName, "ptr", converterName, "int*", err, "CDecl ptr*")
         return result
     }
 
@@ -17073,21 +17168,20 @@ class Globalization {
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Int32>} pBufferSize 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_safeClone(cnv, stackBuffer, pBufferSize, status) {
-        result := DllCall("icuuc.dll\ucnv_safeClone", "ptr*", cnv, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_safeClone", "ptr*", cnv, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} converter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_close(converter) {
-        result := DllCall("icuuc.dll\ucnv_close", "ptr*", converter, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_close", "ptr*", converter, "CDecl ")
     }
 
     /**
@@ -17096,13 +17190,12 @@ class Globalization {
      * @param {Pointer<Byte>} subChars 
      * @param {Pointer<SByte>} len 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getSubstChars(converter, subChars, len, err) {
         subChars := subChars is String? StrPtr(subChars) : subChars
 
-        result := DllCall("icuuc.dll\ucnv_getSubstChars", "ptr*", converter, "ptr", subChars, "char*", len, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getSubstChars", "ptr*", converter, "ptr", subChars, "char*", len, "int*", err, "CDecl ")
     }
 
     /**
@@ -17111,13 +17204,12 @@ class Globalization {
      * @param {Pointer<Byte>} subChars 
      * @param {Integer} len 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setSubstChars(converter, subChars, len, err) {
         subChars := subChars is String? StrPtr(subChars) : subChars
 
-        result := DllCall("icuuc.dll\ucnv_setSubstChars", "ptr*", converter, "ptr", subChars, "char", len, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_setSubstChars", "ptr*", converter, "ptr", subChars, "char", len, "int*", err, "CDecl ")
     }
 
     /**
@@ -17126,11 +17218,10 @@ class Globalization {
      * @param {Pointer<UInt16>} s 
      * @param {Integer} length 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setSubstString(cnv, s, length, err) {
-        result := DllCall("icuuc.dll\ucnv_setSubstString", "ptr*", cnv, "ushort*", s, "int", length, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_setSubstString", "ptr*", cnv, "ushort*", s, "int", length, "int*", err, "CDecl ")
     }
 
     /**
@@ -17139,13 +17230,12 @@ class Globalization {
      * @param {Pointer<Byte>} errBytes 
      * @param {Pointer<SByte>} len 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getInvalidChars(converter, errBytes, len, err) {
         errBytes := errBytes is String? StrPtr(errBytes) : errBytes
 
-        result := DllCall("icuuc.dll\ucnv_getInvalidChars", "ptr*", converter, "ptr", errBytes, "char*", len, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getInvalidChars", "ptr*", converter, "ptr", errBytes, "char*", len, "int*", err, "CDecl ")
     }
 
     /**
@@ -17154,41 +17244,37 @@ class Globalization {
      * @param {Pointer<UInt16>} errUChars 
      * @param {Pointer<SByte>} len 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getInvalidUChars(converter, errUChars, len, err) {
-        result := DllCall("icuuc.dll\ucnv_getInvalidUChars", "ptr*", converter, "ushort*", errUChars, "char*", len, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getInvalidUChars", "ptr*", converter, "ushort*", errUChars, "char*", len, "int*", err, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} converter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_reset(converter) {
-        result := DllCall("icuuc.dll\ucnv_reset", "ptr*", converter, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_reset", "ptr*", converter, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} converter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_resetToUnicode(converter) {
-        result := DllCall("icuuc.dll\ucnv_resetToUnicode", "ptr*", converter, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_resetToUnicode", "ptr*", converter, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} converter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_resetFromUnicode(converter) {
-        result := DllCall("icuuc.dll\ucnv_resetFromUnicode", "ptr*", converter, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_resetFromUnicode", "ptr*", converter, "CDecl ")
     }
 
     /**
@@ -17253,20 +17339,20 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} converter 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucnv_getPlatform(converter, err) {
-        result := DllCall("icuuc.dll\ucnv_getPlatform", "ptr*", converter, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getPlatform", "ptr*", converter, "int*", err, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} converter 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucnv_getType(converter) {
-        result := DllCall("icuuc.dll\ucnv_getType", "ptr*", converter, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getType", "ptr*", converter, "CDecl int")
         return result
     }
 
@@ -17275,11 +17361,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} converter 
      * @param {Pointer<SByte>} starters 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getStarters(converter, starters, err) {
-        result := DllCall("icuuc.dll\ucnv_getStarters", "ptr*", converter, "char*", starters, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getStarters", "ptr*", converter, "char*", starters, "int*", err, "CDecl ")
     }
 
     /**
@@ -17288,11 +17373,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} setFillIn 
      * @param {Integer} whichSet 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getUnicodeSet(cnv, setFillIn, whichSet, pErrorCode) {
-        result := DllCall("icuuc.dll\ucnv_getUnicodeSet", "ptr*", cnv, "ptr*", setFillIn, "int", whichSet, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getUnicodeSet", "ptr*", cnv, "ptr*", setFillIn, "int", whichSet, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -17300,11 +17384,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} converter 
      * @param {Pointer<UConverterToUCallback>} action 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getToUCallBack(converter, action, context) {
-        result := DllCall("icuuc.dll\ucnv_getToUCallBack", "ptr*", converter, "ptr", action, "ptr", context, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getToUCallBack", "ptr*", converter, "ptr", action, "ptr", context, "CDecl ")
     }
 
     /**
@@ -17312,11 +17395,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} converter 
      * @param {Pointer<UConverterFromUCallback>} action 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getFromUCallBack(converter, action, context) {
-        result := DllCall("icuuc.dll\ucnv_getFromUCallBack", "ptr*", converter, "ptr", action, "ptr", context, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getFromUCallBack", "ptr*", converter, "ptr", action, "ptr", context, "CDecl ")
     }
 
     /**
@@ -17327,11 +17409,10 @@ class Globalization {
      * @param {Pointer<UConverterToUCallback>} oldAction 
      * @param {Pointer<Void>} oldContext 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setToUCallBack(converter, newAction, newContext, oldAction, oldContext, err) {
-        result := DllCall("icuuc.dll\ucnv_setToUCallBack", "ptr*", converter, "ptr", newAction, "ptr", newContext, "ptr", oldAction, "ptr", oldContext, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_setToUCallBack", "ptr*", converter, "ptr", newAction, "ptr", newContext, "ptr", oldAction, "ptr", oldContext, "int*", err, "CDecl ")
     }
 
     /**
@@ -17342,11 +17423,10 @@ class Globalization {
      * @param {Pointer<UConverterFromUCallback>} oldAction 
      * @param {Pointer<Void>} oldContext 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setFromUCallBack(converter, newAction, newContext, oldAction, oldContext, err) {
-        result := DllCall("icuuc.dll\ucnv_setFromUCallBack", "ptr*", converter, "ptr", newAction, "ptr", newContext, "ptr", oldAction, "ptr", oldContext, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_setFromUCallBack", "ptr*", converter, "ptr", newAction, "ptr", newContext, "ptr", oldAction, "ptr", oldContext, "int*", err, "CDecl ")
     }
 
     /**
@@ -17359,13 +17439,12 @@ class Globalization {
      * @param {Pointer<Int32>} offsets 
      * @param {Integer} flush 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_fromUnicode(converter, target, targetLimit, source, sourceLimit, offsets, flush, err) {
         targetLimit := targetLimit is String? StrPtr(targetLimit) : targetLimit
 
-        result := DllCall("icuuc.dll\ucnv_fromUnicode", "ptr*", converter, "ptr", target, "ptr", targetLimit, "ptr", source, "ushort*", sourceLimit, "int*", offsets, "char", flush, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_fromUnicode", "ptr*", converter, "ptr", target, "ptr", targetLimit, "ptr", source, "ushort*", sourceLimit, "int*", offsets, "char", flush, "int*", err, "CDecl ")
     }
 
     /**
@@ -17378,13 +17457,12 @@ class Globalization {
      * @param {Pointer<Int32>} offsets 
      * @param {Integer} flush 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_toUnicode(converter, target, targetLimit, source, sourceLimit, offsets, flush, err) {
         sourceLimit := sourceLimit is String? StrPtr(sourceLimit) : sourceLimit
 
-        result := DllCall("icuuc.dll\ucnv_toUnicode", "ptr*", converter, "ptr", target, "ushort*", targetLimit, "ptr", source, "ptr", sourceLimit, "int*", offsets, "char", flush, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_toUnicode", "ptr*", converter, "ptr", target, "ushort*", targetLimit, "ptr", source, "ptr", sourceLimit, "int*", offsets, "char", flush, "int*", err, "CDecl ")
     }
 
     /**
@@ -17451,14 +17529,13 @@ class Globalization {
      * @param {Integer} reset 
      * @param {Integer} flush 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_convertEx(targetCnv, sourceCnv, target, targetLimit, source, sourceLimit, pivotStart, pivotSource, pivotTarget, pivotLimit, reset, flush, pErrorCode) {
         targetLimit := targetLimit is String? StrPtr(targetLimit) : targetLimit
         sourceLimit := sourceLimit is String? StrPtr(sourceLimit) : sourceLimit
 
-        result := DllCall("icuuc.dll\ucnv_convertEx", "ptr*", targetCnv, "ptr*", sourceCnv, "ptr", target, "ptr", targetLimit, "ptr", source, "ptr", sourceLimit, "ushort*", pivotStart, "ptr", pivotSource, "ptr", pivotTarget, "ushort*", pivotLimit, "char", reset, "char", flush, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_convertEx", "ptr*", targetCnv, "ptr*", sourceCnv, "ptr", target, "ptr", targetLimit, "ptr", source, "ptr", sourceLimit, "ushort*", pivotStart, "ptr", pivotSource, "ptr", pivotTarget, "ushort*", pivotLimit, "char", reset, "char", flush, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -17551,10 +17628,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_openAllNames(pErrorCode) {
-        result := DllCall("icuuc.dll\ucnv_openAllNames", "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_openAllNames", "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -17590,13 +17667,12 @@ class Globalization {
      * @param {Pointer<Byte>} alias 
      * @param {Pointer<SByte>} aliases 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getAliases(alias, aliases, pErrorCode) {
         alias := alias is String? StrPtr(alias) : alias
 
-        result := DllCall("icuuc.dll\ucnv_getAliases", "ptr", alias, "ptr", aliases, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_getAliases", "ptr", alias, "ptr", aliases, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -17604,13 +17680,13 @@ class Globalization {
      * @param {Pointer<Byte>} convName 
      * @param {Pointer<Byte>} standard 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnv_openStandardNames(convName, standard, pErrorCode) {
         convName := convName is String? StrPtr(convName) : convName
         standard := standard is String? StrPtr(standard) : standard
 
-        result := DllCall("icuuc.dll\ucnv_openStandardNames", "ptr", convName, "ptr", standard, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_openStandardNames", "ptr", convName, "ptr", standard, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -17676,13 +17752,12 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Byte>} name 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setDefaultName(name) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("icuuc.dll\ucnv_setDefaultName", "ptr", name, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_setDefaultName", "ptr", name, "CDecl ")
     }
 
     /**
@@ -17690,11 +17765,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} cnv 
      * @param {Pointer<UInt16>} source 
      * @param {Integer} sourceLen 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_fixFileSeparator(cnv, source, sourceLen) {
-        result := DllCall("icuuc.dll\ucnv_fixFileSeparator", "ptr*", cnv, "ushort*", source, "int", sourceLen, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_fixFileSeparator", "ptr*", cnv, "ushort*", source, "int", sourceLen, "CDecl ")
     }
 
     /**
@@ -17711,11 +17785,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} cnv 
      * @param {Integer} usesFallback 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setFallback(cnv, usesFallback) {
-        result := DllCall("icuuc.dll\ucnv_setFallback", "ptr*", cnv, "char", usesFallback, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_setFallback", "ptr*", cnv, "char", usesFallback, "CDecl ")
     }
 
     /**
@@ -17783,13 +17856,12 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} offsetIndex 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteBytes(args, source, length, offsetIndex, err) {
         source := source is String? StrPtr(source) : source
 
-        result := DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", "ptr", args, "ptr", source, "int", length, "int", offsetIndex, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", "ptr", args, "ptr", source, "int", length, "int", offsetIndex, "int*", err, "CDecl ")
     }
 
     /**
@@ -17797,11 +17869,10 @@ class Globalization {
      * @param {Pointer<UConverterFromUnicodeArgs>} args 
      * @param {Integer} offsetIndex 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteSub(args, offsetIndex, err) {
-        result := DllCall("icuuc.dll\ucnv_cbFromUWriteSub", "ptr", args, "int", offsetIndex, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_cbFromUWriteSub", "ptr", args, "int", offsetIndex, "int*", err, "CDecl ")
     }
 
     /**
@@ -17811,11 +17882,10 @@ class Globalization {
      * @param {Pointer<UInt16>} sourceLimit 
      * @param {Integer} offsetIndex 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteUChars(args, source, sourceLimit, offsetIndex, err) {
-        result := DllCall("icuuc.dll\ucnv_cbFromUWriteUChars", "ptr", args, "ptr", source, "ushort*", sourceLimit, "int", offsetIndex, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_cbFromUWriteUChars", "ptr", args, "ptr", source, "ushort*", sourceLimit, "int", offsetIndex, "int*", err, "CDecl ")
     }
 
     /**
@@ -17825,11 +17895,10 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} offsetIndex 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbToUWriteUChars(args, source, length, offsetIndex, err) {
-        result := DllCall("icuuc.dll\ucnv_cbToUWriteUChars", "ptr", args, "ushort*", source, "int", length, "int", offsetIndex, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_cbToUWriteUChars", "ptr", args, "ushort*", source, "int", length, "int", offsetIndex, "int*", err, "CDecl ")
     }
 
     /**
@@ -17837,30 +17906,27 @@ class Globalization {
      * @param {Pointer<UConverterToUnicodeArgs>} args 
      * @param {Integer} offsetIndex 
      * @param {Pointer<Int32>} err 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbToUWriteSub(args, offsetIndex, err) {
-        result := DllCall("icuuc.dll\ucnv_cbToUWriteSub", "ptr", args, "int", offsetIndex, "int*", err, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnv_cbToUWriteSub", "ptr", args, "int", offsetIndex, "int*", err, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_init(status) {
-        result := DllCall("icuuc.dll\u_init", "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_init", "int*", status, "CDecl ")
     }
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_cleanup() {
-        result := DllCall("icuuc.dll\u_cleanup", "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_cleanup", "CDecl ")
     }
 
     /**
@@ -17870,11 +17936,10 @@ class Globalization {
      * @param {Pointer<UMemReallocFn>} r 
      * @param {Pointer<UMemFreeFn>} f 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_setMemoryFunctions(context, a, r, f, status) {
-        result := DllCall("icuuc.dll\u_setMemoryFunctions", "ptr", context, "ptr", a, "ptr", r, "ptr", f, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_setMemoryFunctions", "ptr", context, "ptr", a, "ptr", r, "ptr", f, "int*", status, "CDecl ")
     }
 
     /**
@@ -17895,11 +17960,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} catd 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_catclose(catd) {
-        result := DllCall("icuuc.dll\u_catclose", "ptr*", catd, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_catclose", "ptr*", catd, "CDecl ")
     }
 
     /**
@@ -18024,10 +18088,10 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static u_getNumericValue(c) {
-        result := DllCall("icuuc.dll\u_getNumericValue", "int", c, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_getNumericValue", "int", c, "CDecl double")
         return result
     }
 
@@ -18214,10 +18278,10 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static u_charDirection(c) {
-        result := DllCall("icuuc.dll\u_charDirection", "int", c, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_charDirection", "int", c, "CDecl int")
         return result
     }
 
@@ -18265,11 +18329,10 @@ class Globalization {
      * 
      * @param {Pointer<UCharEnumTypeRange>} enumRange 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_enumCharTypes(enumRange, context) {
-        result := DllCall("icuuc.dll\u_enumCharTypes", "ptr", enumRange, "ptr", context, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_enumCharTypes", "ptr", enumRange, "ptr", context, "CDecl ")
     }
 
     /**
@@ -18295,10 +18358,10 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ublock_getCode(c) {
-        result := DllCall("icuuc.dll\ublock_getCode", "int", c, "CDecl ptr")
+        result := DllCall("icuuc.dll\ublock_getCode", "int", c, "CDecl int")
         return result
     }
 
@@ -18340,11 +18403,10 @@ class Globalization {
      * @param {Pointer<Void>} context 
      * @param {Integer} nameChoice 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_enumCharNames(start, limit, fn, context, nameChoice, pErrorCode) {
-        result := DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, "ptr", fn, "ptr", context, "int", nameChoice, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, "ptr", fn, "ptr", context, "int", nameChoice, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18361,12 +18423,12 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Byte>} alias 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static u_getPropertyEnum(alias) {
         alias := alias is String? StrPtr(alias) : alias
 
-        result := DllCall("icuuc.dll\u_getPropertyEnum", "ptr", alias, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_getPropertyEnum", "ptr", alias, "CDecl int")
         return result
     }
 
@@ -18512,21 +18574,19 @@ class Globalization {
      * 
      * @param {Integer} c 
      * @param {Pointer<Byte>} versionArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_charAge(c, versionArray) {
-        result := DllCall("icuuc.dll\u_charAge", "int", c, "char*", versionArray, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_charAge", "int", c, "char*", versionArray, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} versionArray 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_getUnicodeVersion(versionArray) {
-        result := DllCall("icuuc.dll\u_getUnicodeVersion", "char*", versionArray, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_getUnicodeVersion", "char*", versionArray, "CDecl ")
     }
 
     /**
@@ -18544,10 +18604,10 @@ class Globalization {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubidi_open() {
-        result := DllCall("icuuc.dll\ubidi_open", "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_open", "CDecl ptr*")
         return result
     }
 
@@ -18556,32 +18616,30 @@ class Globalization {
      * @param {Integer} maxLength 
      * @param {Integer} maxRunCount 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubidi_openSized(maxLength, maxRunCount, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_openSized", "int", maxLength, "int", maxRunCount, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_openSized", "int", maxLength, "int", maxRunCount, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} pBiDi 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_close(pBiDi) {
-        result := DllCall("icuuc.dll\ubidi_close", "ptr*", pBiDi, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_close", "ptr*", pBiDi, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Integer} isInverse 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setInverse(pBiDi, isInverse) {
-        result := DllCall("icuuc.dll\ubidi_setInverse", "ptr*", pBiDi, "char", isInverse, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setInverse", "ptr*", pBiDi, "char", isInverse, "CDecl ")
     }
 
     /**
@@ -18598,11 +18656,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Integer} orderParagraphsLTR 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_orderParagraphsLTR(pBiDi, orderParagraphsLTR) {
-        result := DllCall("icuuc.dll\ubidi_orderParagraphsLTR", "ptr*", pBiDi, "char", orderParagraphsLTR, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_orderParagraphsLTR", "ptr*", pBiDi, "char", orderParagraphsLTR, "CDecl ")
     }
 
     /**
@@ -18619,20 +18676,19 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Integer} reorderingMode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setReorderingMode(pBiDi, reorderingMode) {
-        result := DllCall("icuuc.dll\ubidi_setReorderingMode", "ptr*", pBiDi, "int", reorderingMode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setReorderingMode", "ptr*", pBiDi, "int", reorderingMode, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} pBiDi 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ubidi_getReorderingMode(pBiDi) {
-        result := DllCall("icuuc.dll\ubidi_getReorderingMode", "ptr*", pBiDi, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_getReorderingMode", "ptr*", pBiDi, "CDecl int")
         return result
     }
 
@@ -18640,11 +18696,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Integer} reorderingOptions 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setReorderingOptions(pBiDi, reorderingOptions) {
-        result := DllCall("icuuc.dll\ubidi_setReorderingOptions", "ptr*", pBiDi, "uint", reorderingOptions, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setReorderingOptions", "ptr*", pBiDi, "uint", reorderingOptions, "CDecl ")
     }
 
     /**
@@ -18665,11 +18720,10 @@ class Globalization {
      * @param {Pointer<UInt16>} epilogue 
      * @param {Integer} epiLength 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setContext(pBiDi, prologue, proLength, epilogue, epiLength, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_setContext", "ptr*", pBiDi, "ushort*", prologue, "int", proLength, "ushort*", epilogue, "int", epiLength, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setContext", "ptr*", pBiDi, "ushort*", prologue, "int", proLength, "ushort*", epilogue, "int", epiLength, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18680,11 +18734,10 @@ class Globalization {
      * @param {Integer} paraLevel 
      * @param {Pointer<Byte>} embeddingLevels 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setPara(pBiDi, text, length, paraLevel, embeddingLevels, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_setPara", "ptr*", pBiDi, "ushort*", text, "int", length, "char", paraLevel, "char*", embeddingLevels, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setPara", "ptr*", pBiDi, "ushort*", text, "int", length, "char", paraLevel, "char*", embeddingLevels, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18694,20 +18747,19 @@ class Globalization {
      * @param {Integer} limit 
      * @param {Pointer<IntPtr>} pLineBiDi 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setLine(pParaBiDi, start, limit, pLineBiDi, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_setLine", "ptr*", pParaBiDi, "int", start, "int", limit, "ptr*", pLineBiDi, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setLine", "ptr*", pParaBiDi, "int", start, "int", limit, "ptr*", pLineBiDi, "int*", pErrorCode, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} pBiDi 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ubidi_getDirection(pBiDi) {
-        result := DllCall("icuuc.dll\ubidi_getDirection", "ptr*", pBiDi, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_getDirection", "ptr*", pBiDi, "CDecl int")
         return result
     }
 
@@ -18715,10 +18767,10 @@ class Globalization {
      * 
      * @param {Pointer<UInt16>} text 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ubidi_getBaseDirection(text, length) {
-        result := DllCall("icuuc.dll\ubidi_getBaseDirection", "ushort*", text, "int", length, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_getBaseDirection", "ushort*", text, "int", length, "CDecl int")
         return result
     }
 
@@ -18785,11 +18837,10 @@ class Globalization {
      * @param {Pointer<Int32>} pParaLimit 
      * @param {Pointer<Byte>} pParaLevel 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getParagraphByIndex(pBiDi, paraIndex, pParaStart, pParaLimit, pParaLevel, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_getParagraphByIndex", "ptr*", pBiDi, "int", paraIndex, "int*", pParaStart, "int*", pParaLimit, "char*", pParaLevel, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_getParagraphByIndex", "ptr*", pBiDi, "int", paraIndex, "int*", pParaStart, "int*", pParaLimit, "char*", pParaLevel, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18820,11 +18871,10 @@ class Globalization {
      * @param {Integer} logicalPosition 
      * @param {Pointer<Int32>} pLogicalLimit 
      * @param {Pointer<Byte>} pLevel 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getLogicalRun(pBiDi, logicalPosition, pLogicalLimit, pLevel) {
-        result := DllCall("icuuc.dll\ubidi_getLogicalRun", "ptr*", pBiDi, "int", logicalPosition, "int*", pLogicalLimit, "char*", pLevel, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_getLogicalRun", "ptr*", pBiDi, "int", logicalPosition, "int*", pLogicalLimit, "char*", pLevel, "CDecl ")
     }
 
     /**
@@ -18844,10 +18894,10 @@ class Globalization {
      * @param {Integer} runIndex 
      * @param {Pointer<Int32>} pLogicalStart 
      * @param {Pointer<Int32>} pLength 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ubidi_getVisualRun(pBiDi, runIndex, pLogicalStart, pLength) {
-        result := DllCall("icuuc.dll\ubidi_getVisualRun", "ptr*", pBiDi, "int", runIndex, "int*", pLogicalStart, "int*", pLength, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_getVisualRun", "ptr*", pBiDi, "int", runIndex, "int*", pLogicalStart, "int*", pLength, "CDecl int")
         return result
     }
 
@@ -18880,11 +18930,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Pointer<Int32>} indexMap 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getLogicalMap(pBiDi, indexMap, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_getLogicalMap", "ptr*", pBiDi, "int*", indexMap, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_getLogicalMap", "ptr*", pBiDi, "int*", indexMap, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18892,11 +18941,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Pointer<Int32>} indexMap 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getVisualMap(pBiDi, indexMap, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_getVisualMap", "ptr*", pBiDi, "int*", indexMap, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_getVisualMap", "ptr*", pBiDi, "int*", indexMap, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18904,11 +18952,10 @@ class Globalization {
      * @param {Pointer<Byte>} levels 
      * @param {Integer} length 
      * @param {Pointer<Int32>} indexMap 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_reorderLogical(levels, length, indexMap) {
-        result := DllCall("icuuc.dll\ubidi_reorderLogical", "char*", levels, "int", length, "int*", indexMap, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_reorderLogical", "char*", levels, "int", length, "int*", indexMap, "CDecl ")
     }
 
     /**
@@ -18916,11 +18963,10 @@ class Globalization {
      * @param {Pointer<Byte>} levels 
      * @param {Integer} length 
      * @param {Pointer<Int32>} indexMap 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_reorderVisual(levels, length, indexMap) {
-        result := DllCall("icuuc.dll\ubidi_reorderVisual", "char*", levels, "int", length, "int*", indexMap, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_reorderVisual", "char*", levels, "int", length, "int*", indexMap, "CDecl ")
     }
 
     /**
@@ -18928,11 +18974,10 @@ class Globalization {
      * @param {Pointer<Int32>} srcMap 
      * @param {Pointer<Int32>} destMap 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_invertMap(srcMap, destMap, length) {
-        result := DllCall("icuuc.dll\ubidi_invertMap", "int*", srcMap, "int*", destMap, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_invertMap", "int*", srcMap, "int*", destMap, "int", length, "CDecl ")
     }
 
     /**
@@ -18959,10 +19004,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ubidi_getCustomizedClass(pBiDi, c) {
-        result := DllCall("icuuc.dll\ubidi_getCustomizedClass", "ptr*", pBiDi, "int", c, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubidi_getCustomizedClass", "ptr*", pBiDi, "int", c, "CDecl int")
         return result
     }
 
@@ -18974,11 +19019,10 @@ class Globalization {
      * @param {Pointer<UBiDiClassCallback>} oldFn 
      * @param {Pointer<Void>} oldContext 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setClassCallback(pBiDi, newFn, newContext, oldFn, oldContext, pErrorCode) {
-        result := DllCall("icuuc.dll\ubidi_setClassCallback", "ptr*", pBiDi, "ptr", newFn, "ptr", newContext, "ptr", oldFn, "ptr", oldContext, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_setClassCallback", "ptr*", pBiDi, "ptr", newFn, "ptr", newContext, "ptr", oldFn, "ptr", oldContext, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -18986,11 +19030,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} pBiDi 
      * @param {Pointer<UBiDiClassCallback>} fn 
      * @param {Pointer<Void>} context 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getClassCallback(pBiDi, fn, context) {
-        result := DllCall("icuuc.dll\ubidi_getClassCallback", "ptr*", pBiDi, "ptr", fn, "ptr", context, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubidi_getClassCallback", "ptr*", pBiDi, "ptr", fn, "ptr", context, "CDecl ")
     }
 
     /**
@@ -19046,27 +19089,26 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubiditransform_open(pErrorCode) {
-        result := DllCall("icuuc.dll\ubiditransform_open", "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubiditransform_open", "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} pBidiTransform 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubiditransform_close(pBidiTransform) {
-        result := DllCall("icuuc.dll\ubiditransform_close", "ptr*", pBidiTransform, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubiditransform_close", "ptr*", pBidiTransform, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UText>} ut 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static utext_close(ut) {
         result := DllCall("icuuc.dll\utext_close", "ptr", ut, "CDecl ptr")
@@ -19079,7 +19121,7 @@ class Globalization {
      * @param {Pointer<Byte>} s 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static utext_openUTF8(ut, s, length, status) {
         s := s is String? StrPtr(s) : s
@@ -19094,7 +19136,7 @@ class Globalization {
      * @param {Pointer<UInt16>} s 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static utext_openUChars(ut, s, length, status) {
         result := DllCall("icuuc.dll\utext_openUChars", "ptr", ut, "ushort*", s, "int64", length, "int*", status, "CDecl ptr")
@@ -19108,7 +19150,7 @@ class Globalization {
      * @param {Integer} deep 
      * @param {Integer} readOnly 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static utext_clone(dest, src, deep, readOnly, status) {
         result := DllCall("icuuc.dll\utext_clone", "ptr", dest, "ptr", src, "char", deep, "char", readOnly, "int*", status, "CDecl ptr")
@@ -19223,11 +19265,10 @@ class Globalization {
      * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utext_setNativeIndex(ut, nativeIndex) {
-        result := DllCall("icuuc.dll\utext_setNativeIndex", "ptr", ut, "int64", nativeIndex, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\utext_setNativeIndex", "ptr", ut, "int64", nativeIndex, "CDecl ")
     }
 
     /**
@@ -19309,21 +19350,19 @@ class Globalization {
      * @param {Integer} destIndex 
      * @param {Integer} move 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utext_copy(ut, nativeStart, nativeLimit, destIndex, move, status) {
-        result := DllCall("icuuc.dll\utext_copy", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\utext_copy", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UText>} ut 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utext_freeze(ut) {
-        result := DllCall("icuuc.dll\utext_freeze", "ptr", ut, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\utext_freeze", "ptr", ut, "CDecl ")
     }
 
     /**
@@ -19331,7 +19370,7 @@ class Globalization {
      * @param {Pointer<UText>} ut 
      * @param {Integer} extraSpace 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static utext_setup(ut, extraSpace, status) {
         result := DllCall("icuuc.dll\utext_setup", "ptr", ut, "int", extraSpace, "int*", status, "CDecl ptr")
@@ -19340,10 +19379,10 @@ class Globalization {
 
     /**
      * 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uset_openEmpty() {
-        result := DllCall("icuuc.dll\uset_openEmpty", "CDecl ptr")
+        result := DllCall("icuuc.dll\uset_openEmpty", "CDecl ptr*")
         return result
     }
 
@@ -19351,10 +19390,10 @@ class Globalization {
      * 
      * @param {Integer} start 
      * @param {Integer} end 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uset_open(start, end) {
-        result := DllCall("icuuc.dll\uset_open", "int", start, "int", end, "CDecl ptr")
+        result := DllCall("icuuc.dll\uset_open", "int", start, "int", end, "CDecl ptr*")
         return result
     }
 
@@ -19363,10 +19402,10 @@ class Globalization {
      * @param {Pointer<UInt16>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uset_openPattern(pattern, patternLength, ec) {
-        result := DllCall("icuuc.dll\uset_openPattern", "ushort*", pattern, "int", patternLength, "int*", ec, "CDecl ptr")
+        result := DllCall("icuuc.dll\uset_openPattern", "ushort*", pattern, "int", patternLength, "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -19376,30 +19415,29 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Integer} options 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uset_openPatternOptions(pattern, patternLength, options, ec) {
-        result := DllCall("icuuc.dll\uset_openPatternOptions", "ushort*", pattern, "int", patternLength, "uint", options, "int*", ec, "CDecl ptr")
+        result := DllCall("icuuc.dll\uset_openPatternOptions", "ushort*", pattern, "int", patternLength, "uint", options, "int*", ec, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_close(set) {
-        result := DllCall("icuuc.dll\uset_close", "ptr*", set, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_close", "ptr*", set, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uset_clone(set) {
-        result := DllCall("icuuc.dll\uset_clone", "ptr*", set, "CDecl ptr")
+        result := DllCall("icuuc.dll\uset_clone", "ptr*", set, "CDecl ptr*")
         return result
     }
 
@@ -19416,20 +19454,19 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_freeze(set) {
-        result := DllCall("icuuc.dll\uset_freeze", "ptr*", set, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_freeze", "ptr*", set, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uset_cloneAsThawed(set) {
-        result := DllCall("icuuc.dll\uset_cloneAsThawed", "ptr*", set, "CDecl ptr")
+        result := DllCall("icuuc.dll\uset_cloneAsThawed", "ptr*", set, "CDecl ptr*")
         return result
     }
 
@@ -19438,11 +19475,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} start 
      * @param {Integer} end 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_set(set, start, end) {
-        result := DllCall("icuuc.dll\uset_set", "ptr*", set, "int", start, "int", end, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_set", "ptr*", set, "int", start, "int", end, "CDecl ")
     }
 
     /**
@@ -19465,11 +19501,10 @@ class Globalization {
      * @param {Integer} prop 
      * @param {Integer} value 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_applyIntPropertyValue(set, prop, value, ec) {
-        result := DllCall("icuuc.dll\uset_applyIntPropertyValue", "ptr*", set, "int", prop, "int", value, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_applyIntPropertyValue", "ptr*", set, "int", prop, "int", value, "int*", ec, "CDecl ")
     }
 
     /**
@@ -19480,11 +19515,10 @@ class Globalization {
      * @param {Pointer<UInt16>} value 
      * @param {Integer} valueLength 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_applyPropertyAlias(set, prop, propLength, value, valueLength, ec) {
-        result := DllCall("icuuc.dll\uset_applyPropertyAlias", "ptr*", set, "ushort*", prop, "int", propLength, "ushort*", value, "int", valueLength, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_applyPropertyAlias", "ptr*", set, "ushort*", prop, "int", propLength, "ushort*", value, "int", valueLength, "int*", ec, "CDecl ")
     }
 
     /**
@@ -19517,22 +19551,20 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_add(set, c) {
-        result := DllCall("icuuc.dll\uset_add", "ptr*", set, "int", c, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_add", "ptr*", set, "int", c, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<IntPtr>} additionalSet 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_addAll(set, additionalSet) {
-        result := DllCall("icuuc.dll\uset_addAll", "ptr*", set, "ptr*", additionalSet, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_addAll", "ptr*", set, "ptr*", additionalSet, "CDecl ")
     }
 
     /**
@@ -19540,11 +19572,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} start 
      * @param {Integer} end 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_addRange(set, start, end) {
-        result := DllCall("icuuc.dll\uset_addRange", "ptr*", set, "int", start, "int", end, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_addRange", "ptr*", set, "int", start, "int", end, "CDecl ")
     }
 
     /**
@@ -19552,11 +19583,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<UInt16>} str 
      * @param {Integer} strLen 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_addString(set, str, strLen) {
-        result := DllCall("icuuc.dll\uset_addString", "ptr*", set, "ushort*", str, "int", strLen, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_addString", "ptr*", set, "ushort*", str, "int", strLen, "CDecl ")
     }
 
     /**
@@ -19564,22 +19594,20 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<UInt16>} str 
      * @param {Integer} strLen 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_addAllCodePoints(set, str, strLen) {
-        result := DllCall("icuuc.dll\uset_addAllCodePoints", "ptr*", set, "ushort*", str, "int", strLen, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_addAllCodePoints", "ptr*", set, "ushort*", str, "int", strLen, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_remove(set, c) {
-        result := DllCall("icuuc.dll\uset_remove", "ptr*", set, "int", c, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_remove", "ptr*", set, "int", c, "CDecl ")
     }
 
     /**
@@ -19587,11 +19615,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} start 
      * @param {Integer} end 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_removeRange(set, start, end) {
-        result := DllCall("icuuc.dll\uset_removeRange", "ptr*", set, "int", start, "int", end, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_removeRange", "ptr*", set, "int", start, "int", end, "CDecl ")
     }
 
     /**
@@ -19599,22 +19626,20 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<UInt16>} str 
      * @param {Integer} strLen 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_removeString(set, str, strLen) {
-        result := DllCall("icuuc.dll\uset_removeString", "ptr*", set, "ushort*", str, "int", strLen, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_removeString", "ptr*", set, "ushort*", str, "int", strLen, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<IntPtr>} removeSet 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_removeAll(set, removeSet) {
-        result := DllCall("icuuc.dll\uset_removeAll", "ptr*", set, "ptr*", removeSet, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_removeAll", "ptr*", set, "ptr*", removeSet, "CDecl ")
     }
 
     /**
@@ -19622,84 +19647,76 @@ class Globalization {
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} start 
      * @param {Integer} end 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_retain(set, start, end) {
-        result := DllCall("icuuc.dll\uset_retain", "ptr*", set, "int", start, "int", end, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_retain", "ptr*", set, "int", start, "int", end, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<IntPtr>} retain 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_retainAll(set, retain) {
-        result := DllCall("icuuc.dll\uset_retainAll", "ptr*", set, "ptr*", retain, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_retainAll", "ptr*", set, "ptr*", retain, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_compact(set) {
-        result := DllCall("icuuc.dll\uset_compact", "ptr*", set, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_compact", "ptr*", set, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_complement(set) {
-        result := DllCall("icuuc.dll\uset_complement", "ptr*", set, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_complement", "ptr*", set, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Pointer<IntPtr>} complement 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_complementAll(set, complement) {
-        result := DllCall("icuuc.dll\uset_complementAll", "ptr*", set, "ptr*", complement, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_complementAll", "ptr*", set, "ptr*", complement, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_clear(set) {
-        result := DllCall("icuuc.dll\uset_clear", "ptr*", set, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_clear", "ptr*", set, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
      * @param {Integer} attributes 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_closeOver(set, attributes) {
-        result := DllCall("icuuc.dll\uset_closeOver", "ptr*", set, "int", attributes, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_closeOver", "ptr*", set, "int", attributes, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} set 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_removeAllStrings(set) {
-        result := DllCall("icuuc.dll\uset_removeAllStrings", "ptr*", set, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_removeAllStrings", "ptr*", set, "CDecl ")
     }
 
     /**
@@ -19946,11 +19963,10 @@ class Globalization {
      * 
      * @param {Pointer<USerializedSet>} fillSet 
      * @param {Integer} c 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uset_setSerializedToOne(fillSet, c) {
-        result := DllCall("icuuc.dll\uset_setSerializedToOne", "ptr", fillSet, "int", c, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uset_setSerializedToOne", "ptr", fillSet, "int", c, "CDecl ")
     }
 
     /**
@@ -20058,21 +20074,20 @@ class Globalization {
      * @param {Pointer<IntPtr>} norm2 
      * @param {Pointer<IntPtr>} filterSet 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unorm2_openFiltered(norm2, filterSet, pErrorCode) {
-        result := DllCall("icuuc.dll\unorm2_openFiltered", "ptr*", norm2, "ptr*", filterSet, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\unorm2_openFiltered", "ptr*", norm2, "ptr*", filterSet, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} norm2 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unorm2_close(norm2) {
-        result := DllCall("icuuc.dll\unorm2_close", "ptr*", norm2, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\unorm2_close", "ptr*", norm2, "CDecl ")
     }
 
     /**
@@ -20192,10 +20207,10 @@ class Globalization {
      * @param {Pointer<UInt16>} s 
      * @param {Integer} length 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static unorm2_quickCheck(norm2, s, length, pErrorCode) {
-        result := DllCall("icuuc.dll\unorm2_quickCheck", "ptr*", norm2, "ushort*", s, "int", length, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\unorm2_quickCheck", "ptr*", norm2, "ushort*", s, "int", length, "int*", pErrorCode, "CDecl int")
         return result
     }
 
@@ -20267,21 +20282,20 @@ class Globalization {
      * @param {Pointer<IntPtr>} excludedCodePoints 
      * @param {Integer} whichSet 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnvsel_open(converterList, converterListSize, excludedCodePoints, whichSet, status) {
-        result := DllCall("icuuc.dll\ucnvsel_open", "ptr", converterList, "int", converterListSize, "ptr*", excludedCodePoints, "int", whichSet, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_open", "ptr", converterList, "int", converterListSize, "ptr*", excludedCodePoints, "int", whichSet, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} sel 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucnvsel_close(sel) {
-        result := DllCall("icuuc.dll\ucnvsel_close", "ptr*", sel, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucnvsel_close", "ptr*", sel, "CDecl ")
     }
 
     /**
@@ -20289,10 +20303,10 @@ class Globalization {
      * @param {Pointer<Void>} buffer 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnvsel_openFromSerialized(buffer, length, status) {
-        result := DllCall("icuuc.dll\ucnvsel_openFromSerialized", "ptr", buffer, "int", length, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_openFromSerialized", "ptr", buffer, "int", length, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -20315,10 +20329,10 @@ class Globalization {
      * @param {Pointer<UInt16>} s 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnvsel_selectForString(sel, s, length, status) {
-        result := DllCall("icuuc.dll\ucnvsel_selectForString", "ptr*", sel, "ushort*", s, "int", length, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_selectForString", "ptr*", sel, "ushort*", s, "int", length, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -20328,12 +20342,12 @@ class Globalization {
      * @param {Pointer<Byte>} s 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucnvsel_selectForUTF8(sel, s, length, status) {
         s := s is String? StrPtr(s) : s
 
-        result := DllCall("icuuc.dll\ucnvsel_selectForUTF8", "ptr*", sel, "ptr", s, "int", length, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnvsel_selectForUTF8", "ptr*", sel, "ptr", s, "int", length, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -20342,13 +20356,12 @@ class Globalization {
      * @param {Pointer<Byte>} cs 
      * @param {Pointer<UInt16>} us 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_charsToUChars(cs, us, length) {
         cs := cs is String? StrPtr(cs) : cs
 
-        result := DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, "ushort*", us, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, "ushort*", us, "int", length, "CDecl ")
     }
 
     /**
@@ -20356,13 +20369,12 @@ class Globalization {
      * @param {Pointer<UInt16>} us 
      * @param {Pointer<Byte>} cs 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_UCharsToChars(us, cs, length) {
         cs := cs is String? StrPtr(cs) : cs
 
-        result := DllCall("icuuc.dll\u_UCharsToChars", "ushort*", us, "ptr", cs, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_UCharsToChars", "ushort*", us, "ptr", cs, "int", length, "CDecl ")
     }
 
     /**
@@ -21190,23 +21202,22 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Integer} options 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucasemap_open(locale, options, pErrorCode) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ucasemap_open", "ptr", locale, "uint", options, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucasemap_open", "ptr", locale, "uint", options, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} csm 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_close(csm) {
-        result := DllCall("icuuc.dll\ucasemap_close", "ptr*", csm, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucasemap_close", "ptr*", csm, "CDecl ")
     }
 
     /**
@@ -21234,13 +21245,12 @@ class Globalization {
      * @param {Pointer<IntPtr>} csm 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setLocale(csm, locale, pErrorCode) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ucasemap_setLocale", "ptr*", csm, "ptr", locale, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucasemap_setLocale", "ptr*", csm, "ptr", locale, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -21248,11 +21258,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} csm 
      * @param {Integer} options 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setOptions(csm, options, pErrorCode) {
-        result := DllCall("icuuc.dll\ucasemap_setOptions", "ptr*", csm, "uint", options, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucasemap_setOptions", "ptr*", csm, "uint", options, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -21270,11 +21279,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} csm 
      * @param {Pointer<IntPtr>} iterToAdopt 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setBreakIterator(csm, iterToAdopt, pErrorCode) {
-        result := DllCall("icuuc.dll\ucasemap_setBreakIterator", "ptr*", csm, "ptr*", iterToAdopt, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ucasemap_setBreakIterator", "ptr*", csm, "ptr*", iterToAdopt, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -21369,13 +21377,13 @@ class Globalization {
      * @param {Pointer<Byte>} path 
      * @param {Pointer<Byte>} fileName 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static usprep_open(path, fileName, status) {
         path := path is String? StrPtr(path) : path
         fileName := fileName is String? StrPtr(fileName) : fileName
 
-        result := DllCall("icuuc.dll\usprep_open", "ptr", path, "ptr", fileName, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\usprep_open", "ptr", path, "ptr", fileName, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -21383,21 +21391,20 @@ class Globalization {
      * 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static usprep_openByType(type, status) {
-        result := DllCall("icuuc.dll\usprep_openByType", "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\usprep_openByType", "int", type, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} profile 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usprep_close(profile) {
-        result := DllCall("icuuc.dll\usprep_close", "ptr*", profile, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\usprep_close", "ptr*", profile, "CDecl ")
     }
 
     /**
@@ -21421,21 +21428,20 @@ class Globalization {
      * 
      * @param {Integer} options 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uidna_openUTS46(options, pErrorCode) {
-        result := DllCall("icuuc.dll\uidna_openUTS46", "uint", options, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\uidna_openUTS46", "uint", options, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} idna 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uidna_close(idna) {
-        result := DllCall("icuuc.dll\uidna_close", "ptr*", idna, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\uidna_close", "ptr*", idna, "CDecl ")
     }
 
     /**
@@ -21585,12 +21591,12 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubrk_open(type, locale, text, textLength, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ubrk_open", "int", type, "ptr", locale, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_open", "int", type, "ptr", locale, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -21602,10 +21608,10 @@ class Globalization {
      * @param {Integer} textLength 
      * @param {Pointer<UParseError>} parseErr 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubrk_openRules(rules, rulesLength, text, textLength, parseErr, status) {
-        result := DllCall("icuuc.dll\ubrk_openRules", "ushort*", rules, "int", rulesLength, "ushort*", text, "int", textLength, "ptr", parseErr, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_openRules", "ushort*", rules, "int", rulesLength, "ushort*", text, "int", textLength, "ptr", parseErr, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -21616,10 +21622,10 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubrk_openBinaryRules(binaryRules, rulesLength, text, textLength, status) {
-        result := DllCall("icuuc.dll\ubrk_openBinaryRules", "char*", binaryRules, "int", rulesLength, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_openBinaryRules", "char*", binaryRules, "int", rulesLength, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -21629,21 +21635,20 @@ class Globalization {
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Int32>} pBufferSize 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ubrk_safeClone(bi, stackBuffer, pBufferSize, status) {
-        result := DllCall("icuuc.dll\ubrk_safeClone", "ptr*", bi, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_safeClone", "ptr*", bi, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} bi 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_close(bi) {
-        result := DllCall("icuuc.dll\ubrk_close", "ptr*", bi, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubrk_close", "ptr*", bi, "CDecl ")
     }
 
     /**
@@ -21652,11 +21657,10 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_setText(bi, text, textLength, status) {
-        result := DllCall("icuuc.dll\ubrk_setText", "ptr*", bi, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubrk_setText", "ptr*", bi, "ushort*", text, "int", textLength, "int*", status, "CDecl ")
     }
 
     /**
@@ -21664,11 +21668,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} bi 
      * @param {Pointer<UText>} text 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_setUText(bi, text, status) {
-        result := DllCall("icuuc.dll\ubrk_setUText", "ptr*", bi, "ptr", text, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubrk_setUText", "ptr*", bi, "ptr", text, "int*", status, "CDecl ")
     }
 
     /**
@@ -21813,11 +21816,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} bi 
      * @param {Pointer<UText>} text 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_refreshUText(bi, text, status) {
-        result := DllCall("icuuc.dll\ubrk_refreshUText", "ptr*", bi, "ptr", text, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ubrk_refreshUText", "ptr*", bi, "ptr", text, "int*", status, "CDecl ")
     }
 
     /**
@@ -21837,11 +21839,10 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} dataVersionFillin 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_getDataVersion(dataVersionFillin, status) {
-        result := DllCall("icuuc.dll\u_getDataVersion", "char*", dataVersionFillin, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\u_getDataVersion", "char*", dataVersionFillin, "int*", status, "CDecl ")
     }
 
     /**
@@ -21850,22 +21851,22 @@ class Globalization {
      * @param {Pointer<Byte>} region 
      * @param {Pointer<Int32>} rawOffset 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucal_openTimeZoneIDEnumeration(zoneType, region, rawOffset, ec) {
         region := region is String? StrPtr(region) : region
 
-        result := DllCall("icuin.dll\ucal_openTimeZoneIDEnumeration", "int", zoneType, "ptr", region, "int*", rawOffset, "int*", ec, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_openTimeZoneIDEnumeration", "int", zoneType, "ptr", region, "int*", rawOffset, "int*", ec, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucal_openTimeZones(ec) {
-        result := DllCall("icuin.dll\ucal_openTimeZones", "int*", ec, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_openTimeZones", "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -21873,12 +21874,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} country 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucal_openCountryTimeZones(country, ec) {
         country := country is String? StrPtr(country) : country
 
-        result := DllCall("icuin.dll\ucal_openCountryTimeZones", "ptr", country, "int*", ec, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_openCountryTimeZones", "ptr", country, "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -21898,11 +21899,10 @@ class Globalization {
      * 
      * @param {Pointer<UInt16>} zoneID 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setDefaultTimeZone(zoneID, ec) {
-        result := DllCall("icuin.dll\ucal_setDefaultTimeZone", "ushort*", zoneID, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setDefaultTimeZone", "ushort*", zoneID, "int*", ec, "CDecl ")
     }
 
     /**
@@ -21956,11 +21956,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} cal 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_close(cal) {
-        result := DllCall("icuin.dll\ucal_close", "ptr", cal, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_close", "ptr", cal, "CDecl ")
     }
 
     /**
@@ -21980,11 +21979,10 @@ class Globalization {
      * @param {Pointer<UInt16>} zoneID 
      * @param {Integer} len 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setTimeZone(cal, zoneID, len, status) {
-        result := DllCall("icuin.dll\ucal_setTimeZone", "ptr", cal, "ushort*", zoneID, "int", len, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setTimeZone", "ptr", cal, "ushort*", zoneID, "int", len, "int*", status, "CDecl ")
     }
 
     /**
@@ -22033,11 +22031,10 @@ class Globalization {
      * @param {Pointer<Void>} cal 
      * @param {Float} date 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setGregorianChange(cal, date, pErrorCode) {
-        result := DllCall("icuin.dll\ucal_setGregorianChange", "ptr", cal, "double", date, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setGregorianChange", "ptr", cal, "double", date, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -22067,11 +22064,10 @@ class Globalization {
      * @param {Pointer<Void>} cal 
      * @param {Integer} attr 
      * @param {Integer} newValue 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setAttribute(cal, attr, newValue) {
-        result := DllCall("icuin.dll\ucal_setAttribute", "ptr", cal, "int", attr, "int", newValue, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setAttribute", "ptr", cal, "int", attr, "int", newValue, "CDecl ")
     }
 
     /**
@@ -22109,11 +22105,10 @@ class Globalization {
      * @param {Pointer<Void>} cal 
      * @param {Float} dateTime 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setMillis(cal, dateTime, status) {
-        result := DllCall("icuin.dll\ucal_setMillis", "ptr", cal, "double", dateTime, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setMillis", "ptr", cal, "double", dateTime, "int*", status, "CDecl ")
     }
 
     /**
@@ -22123,11 +22118,10 @@ class Globalization {
      * @param {Integer} month 
      * @param {Integer} date 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setDate(cal, year, month, date, status) {
-        result := DllCall("icuin.dll\ucal_setDate", "ptr", cal, "int", year, "int", month, "int", date, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setDate", "ptr", cal, "int", year, "int", month, "int", date, "int*", status, "CDecl ")
     }
 
     /**
@@ -22140,11 +22134,10 @@ class Globalization {
      * @param {Integer} minute 
      * @param {Integer} second 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setDateTime(cal, year, month, date, hour, minute, second, status) {
-        result := DllCall("icuin.dll\ucal_setDateTime", "ptr", cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_setDateTime", "ptr", cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, "int*", status, "CDecl ")
     }
 
     /**
@@ -22164,11 +22157,10 @@ class Globalization {
      * @param {Integer} field 
      * @param {Integer} amount 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_add(cal, field, amount, status) {
-        result := DllCall("icuin.dll\ucal_add", "ptr", cal, "int", field, "int", amount, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_add", "ptr", cal, "int", field, "int", amount, "int*", status, "CDecl ")
     }
 
     /**
@@ -22177,11 +22169,10 @@ class Globalization {
      * @param {Integer} field 
      * @param {Integer} amount 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_roll(cal, field, amount, status) {
-        result := DllCall("icuin.dll\ucal_roll", "ptr", cal, "int", field, "int", amount, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_roll", "ptr", cal, "int", field, "int", amount, "int*", status, "CDecl ")
     }
 
     /**
@@ -22201,11 +22192,10 @@ class Globalization {
      * @param {Pointer<Void>} cal 
      * @param {Integer} field 
      * @param {Integer} value 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_set(cal, field, value) {
-        result := DllCall("icuin.dll\ucal_set", "ptr", cal, "int", field, "int", value, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_set", "ptr", cal, "int", field, "int", value, "CDecl ")
     }
 
     /**
@@ -22223,21 +22213,19 @@ class Globalization {
      * 
      * @param {Pointer<Void>} cal 
      * @param {Integer} field 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_clearField(cal, field) {
-        result := DllCall("icuin.dll\ucal_clearField", "ptr", cal, "int", field, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_clearField", "ptr", cal, "int", field, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Void>} calendar 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucal_clear(calendar) {
-        result := DllCall("icuin.dll\ucal_clear", "ptr", calendar, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucal_clear", "ptr", calendar, "CDecl ")
     }
 
     /**
@@ -22307,13 +22295,13 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Integer} commonlyUsed 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucal_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
         key := key is String? StrPtr(key) : key
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22322,10 +22310,10 @@ class Globalization {
      * @param {Pointer<Void>} cal 
      * @param {Integer} dayOfWeek 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucal_getDayOfWeekType(cal, dayOfWeek, status) {
-        result := DllCall("icuin.dll\ucal_getDayOfWeekType", "ptr", cal, "int", dayOfWeek, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getDayOfWeekType", "ptr", cal, "int", dayOfWeek, "int*", status, "CDecl int")
         return result
     }
 
@@ -22414,12 +22402,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} loc 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_open(loc, status) {
         loc := loc is String? StrPtr(loc) : loc
 
-        result := DllCall("icuin.dll\ucol_open", "ptr", loc, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_open", "ptr", loc, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22431,10 +22419,10 @@ class Globalization {
      * @param {Integer} strength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_openRules(rules, rulesLength, normalizationMode, strength, parseError, status) {
-        result := DllCall("icuin.dll\ucol_openRules", "ushort*", rules, "int", rulesLength, "int", normalizationMode, "int", strength, "ptr", parseError, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openRules", "ushort*", rules, "int", rulesLength, "int", normalizationMode, "int", strength, "ptr", parseError, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22445,21 +22433,19 @@ class Globalization {
      * @param {Pointer<IntPtr>} expansions 
      * @param {Integer} addPrefixes 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_getContractionsAndExpansions(coll, contractions, expansions, addPrefixes, status) {
-        result := DllCall("icuin.dll\ucol_getContractionsAndExpansions", "ptr*", coll, "ptr*", contractions, "ptr*", expansions, "char", addPrefixes, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_getContractionsAndExpansions", "ptr*", coll, "ptr*", contractions, "ptr*", expansions, "char", addPrefixes, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} coll 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_close(coll) {
-        result := DllCall("icuin.dll\ucol_close", "ptr*", coll, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_close", "ptr*", coll, "CDecl ")
     }
 
     /**
@@ -22469,10 +22455,10 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<UInt16>} target 
      * @param {Integer} targetLength 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucol_strcoll(coll, source, sourceLength, target, targetLength) {
-        result := DllCall("icuin.dll\ucol_strcoll", "ptr*", coll, "ushort*", source, "int", sourceLength, "ushort*", target, "int", targetLength, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_strcoll", "ptr*", coll, "ushort*", source, "int", sourceLength, "ushort*", target, "int", targetLength, "CDecl int")
         return result
     }
 
@@ -22484,13 +22470,13 @@ class Globalization {
      * @param {Pointer<Byte>} target 
      * @param {Integer} targetLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucol_strcollUTF8(coll, source, sourceLength, target, targetLength, status) {
         source := source is String? StrPtr(source) : source
         target := target is String? StrPtr(target) : target
 
-        result := DllCall("icuin.dll\ucol_strcollUTF8", "ptr*", coll, "ptr", source, "int", sourceLength, "ptr", target, "int", targetLength, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_strcollUTF8", "ptr*", coll, "ptr", source, "int", sourceLength, "ptr", target, "int", targetLength, "int*", status, "CDecl int")
         return result
     }
 
@@ -22542,10 +22528,10 @@ class Globalization {
      * @param {Pointer<UCharIterator>} sIter 
      * @param {Pointer<UCharIterator>} tIter 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucol_strcollIter(coll, sIter, tIter, status) {
-        result := DllCall("icuin.dll\ucol_strcollIter", "ptr*", coll, "ptr", sIter, "ptr", tIter, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_strcollIter", "ptr*", coll, "ptr", sIter, "ptr", tIter, "int*", status, "CDecl int")
         return result
     }
 
@@ -22563,11 +22549,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} coll 
      * @param {Integer} strength 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setStrength(coll, strength) {
-        result := DllCall("icuin.dll\ucol_setStrength", "ptr*", coll, "int", strength, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_setStrength", "ptr*", coll, "int", strength, "CDecl ")
     }
 
     /**
@@ -22589,11 +22574,10 @@ class Globalization {
      * @param {Pointer<Int32>} reorderCodes 
      * @param {Integer} reorderCodesLength 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setReorderCodes(coll, reorderCodes, reorderCodesLength, pErrorCode) {
-        result := DllCall("icuin.dll\ucol_setReorderCodes", "ptr*", coll, "int*", reorderCodes, "int", reorderCodesLength, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_setReorderCodes", "ptr*", coll, "int*", reorderCodes, "int", reorderCodesLength, "int*", pErrorCode, "CDecl ")
     }
 
     /**
@@ -22648,20 +22632,20 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_openAvailableLocales(status) {
-        result := DllCall("icuin.dll\ucol_openAvailableLocales", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openAvailableLocales", "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_getKeywords(status) {
-        result := DllCall("icuin.dll\ucol_getKeywords", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getKeywords", "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22669,12 +22653,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} keyword 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_getKeywordValues(keyword, status) {
         keyword := keyword is String? StrPtr(keyword) : keyword
 
-        result := DllCall("icuin.dll\ucol_getKeywordValues", "ptr", keyword, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getKeywordValues", "ptr", keyword, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22684,13 +22668,13 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Integer} commonlyUsed 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_getKeywordValuesForLocale(key, locale, commonlyUsed, status) {
         key := key is String? StrPtr(key) : key
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22773,22 +22757,20 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} coll 
      * @param {Pointer<Byte>} info 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_getVersion(coll, info) {
-        result := DllCall("icuin.dll\ucol_getVersion", "ptr*", coll, "char*", info, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_getVersion", "ptr*", coll, "char*", info, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} coll 
      * @param {Pointer<Byte>} info 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_getUCAVersion(coll, info) {
-        result := DllCall("icuin.dll\ucol_getUCAVersion", "ptr*", coll, "char*", info, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_getUCAVersion", "ptr*", coll, "char*", info, "CDecl ")
     }
 
     /**
@@ -22812,11 +22794,10 @@ class Globalization {
      * @param {Integer} attr 
      * @param {Integer} value 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setAttribute(coll, attr, value, status) {
-        result := DllCall("icuin.dll\ucol_setAttribute", "ptr*", coll, "int", attr, "int", value, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_setAttribute", "ptr*", coll, "int", attr, "int", value, "int*", status, "CDecl ")
     }
 
     /**
@@ -22824,10 +22805,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} coll 
      * @param {Integer} attr 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucol_getAttribute(coll, attr, status) {
-        result := DllCall("icuin.dll\ucol_getAttribute", "ptr*", coll, "int", attr, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getAttribute", "ptr*", coll, "int", attr, "int*", status, "CDecl int")
         return result
     }
 
@@ -22836,20 +22817,19 @@ class Globalization {
      * @param {Pointer<IntPtr>} coll 
      * @param {Integer} group 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setMaxVariable(coll, group, pErrorCode) {
-        result := DllCall("icuin.dll\ucol_setMaxVariable", "ptr*", coll, "int", group, "int*", pErrorCode, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_setMaxVariable", "ptr*", coll, "int", group, "int*", pErrorCode, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} coll 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ucol_getMaxVariable(coll) {
-        result := DllCall("icuin.dll\ucol_getMaxVariable", "ptr*", coll, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getMaxVariable", "ptr*", coll, "CDecl int")
         return result
     }
 
@@ -22870,10 +22850,10 @@ class Globalization {
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Int32>} pBufferSize 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_safeClone(coll, stackBuffer, pBufferSize, status) {
-        result := DllCall("icuin.dll\ucol_safeClone", "ptr*", coll, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_safeClone", "ptr*", coll, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22906,10 +22886,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} coll 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_getTailoredSet(coll, status) {
-        result := DllCall("icuin.dll\ucol_getTailoredSet", "ptr*", coll, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getTailoredSet", "ptr*", coll, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22932,10 +22912,10 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<IntPtr>} base 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_openBinary(bin, length, base, status) {
-        result := DllCall("icuin.dll\ucol_openBinary", "char*", bin, "int", length, "ptr*", base, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openBinary", "char*", bin, "int", length, "ptr*", base, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22945,10 +22925,10 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucol_openElements(coll, text, textLength, status) {
-        result := DllCall("icuin.dll\ucol_openElements", "ptr*", coll, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_openElements", "ptr*", coll, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -22966,21 +22946,19 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} elems 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_closeElements(elems) {
-        result := DllCall("icuin.dll\ucol_closeElements", "ptr*", elems, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_closeElements", "ptr*", elems, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} elems 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_reset(elems) {
-        result := DllCall("icuin.dll\ucol_reset", "ptr*", elems, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_reset", "ptr*", elems, "CDecl ")
     }
 
     /**
@@ -23022,11 +23000,10 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setText(elems, text, textLength, status) {
-        result := DllCall("icuin.dll\ucol_setText", "ptr*", elems, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_setText", "ptr*", elems, "ushort*", text, "int", textLength, "int*", status, "CDecl ")
     }
 
     /**
@@ -23044,11 +23021,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} elems 
      * @param {Integer} offset 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setOffset(elems, offset, status) {
-        result := DllCall("icuin.dll\ucol_setOffset", "ptr*", elems, "int", offset, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucol_setOffset", "ptr*", elems, "int", offset, "int*", status, "CDecl ")
     }
 
     /**
@@ -23084,21 +23060,20 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucsdet_open(status) {
-        result := DllCall("icuin.dll\ucsdet_open", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_open", "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} ucsd 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_close(ucsd) {
-        result := DllCall("icuin.dll\ucsdet_close", "ptr*", ucsd, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucsdet_close", "ptr*", ucsd, "CDecl ")
     }
 
     /**
@@ -23107,13 +23082,12 @@ class Globalization {
      * @param {Pointer<Byte>} textIn 
      * @param {Integer} len 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_setText(ucsd, textIn, len, status) {
         textIn := textIn is String? StrPtr(textIn) : textIn
 
-        result := DllCall("icuin.dll\ucsdet_setText", "ptr*", ucsd, "ptr", textIn, "int", len, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucsdet_setText", "ptr*", ucsd, "ptr", textIn, "int", len, "int*", status, "CDecl ")
     }
 
     /**
@@ -23122,13 +23096,12 @@ class Globalization {
      * @param {Pointer<Byte>} encoding 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_setDeclaredEncoding(ucsd, encoding, length, status) {
         encoding := encoding is String? StrPtr(encoding) : encoding
 
-        result := DllCall("icuin.dll\ucsdet_setDeclaredEncoding", "ptr*", ucsd, "ptr", encoding, "int", length, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ucsdet_setDeclaredEncoding", "ptr*", ucsd, "ptr", encoding, "int", length, "int*", status, "CDecl ")
     }
 
     /**
@@ -23204,10 +23177,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} ucsd 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucsdet_getAllDetectableCharsets(ucsd, status) {
-        result := DllCall("icuin.dll\ucsdet_getAllDetectableCharsets", "ptr*", ucsd, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_getAllDetectableCharsets", "ptr*", ucsd, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -23235,21 +23208,20 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ufieldpositer_open(status) {
-        result := DllCall("icuin.dll\ufieldpositer_open", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufieldpositer_open", "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} fpositer 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ufieldpositer_close(fpositer) {
-        result := DllCall("icuin.dll\ufieldpositer_close", "ptr*", fpositer, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ufieldpositer_close", "ptr*", fpositer, "CDecl ")
     }
 
     /**
@@ -23277,21 +23249,20 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} fmt 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ufmt_close(fmt) {
-        result := DllCall("icuin.dll\ufmt_close", "ptr", fmt, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ufmt_close", "ptr", fmt, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ufmt_getType(fmt, status) {
-        result := DllCall("icuin.dll\ufmt_getType", "ptr", fmt, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getType", "ptr", fmt, "int*", status, "CDecl int")
         return result
     }
 
@@ -23320,10 +23291,10 @@ class Globalization {
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static ufmt_getDouble(fmt, status) {
-        result := DllCall("icuin.dll\ufmt_getDouble", "ptr", fmt, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getDouble", "ptr", fmt, "int*", status, "CDecl double")
         return result
     }
 
@@ -23410,10 +23381,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ucfpos_open(ec) {
-        result := DllCall("icu.dll\ucfpos_open", "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\ucfpos_open", "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -23421,21 +23392,19 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} ucfpos 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_reset(ucfpos, ec) {
-        result := DllCall("icu.dll\ucfpos_reset", "ptr*", ucfpos, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_reset", "ptr*", ucfpos, "int*", ec, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} ucfpos 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_close(ucfpos) {
-        result := DllCall("icu.dll\ucfpos_close", "ptr*", ucfpos, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_close", "ptr*", ucfpos, "CDecl ")
     }
 
     /**
@@ -23443,11 +23412,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} ucfpos 
      * @param {Integer} category 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_constrainCategory(ucfpos, category, ec) {
-        result := DllCall("icu.dll\ucfpos_constrainCategory", "ptr*", ucfpos, "int", category, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_constrainCategory", "ptr*", ucfpos, "int", category, "int*", ec, "CDecl ")
     }
 
     /**
@@ -23456,11 +23424,10 @@ class Globalization {
      * @param {Integer} category 
      * @param {Integer} field 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_constrainField(ucfpos, category, field, ec) {
-        result := DllCall("icu.dll\ucfpos_constrainField", "ptr*", ucfpos, "int", category, "int", field, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_constrainField", "ptr*", ucfpos, "int", category, "int", field, "int*", ec, "CDecl ")
     }
 
     /**
@@ -23491,11 +23458,10 @@ class Globalization {
      * @param {Pointer<Int32>} pStart 
      * @param {Pointer<Int32>} pLimit 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_getIndexes(ucfpos, pStart, pLimit, ec) {
-        result := DllCall("icu.dll\ucfpos_getIndexes", "ptr*", ucfpos, "int*", pStart, "int*", pLimit, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_getIndexes", "ptr*", ucfpos, "int*", pStart, "int*", pLimit, "int*", ec, "CDecl ")
     }
 
     /**
@@ -23514,11 +23480,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} ucfpos 
      * @param {Integer} context 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_setInt64IterationContext(ucfpos, context, ec) {
-        result := DllCall("icu.dll\ucfpos_setInt64IterationContext", "ptr*", ucfpos, "int64", context, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_setInt64IterationContext", "ptr*", ucfpos, "int64", context, "int*", ec, "CDecl ")
     }
 
     /**
@@ -23542,11 +23507,10 @@ class Globalization {
      * @param {Integer} start 
      * @param {Integer} limit 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_setState(ucfpos, category, field, start, limit, ec) {
-        result := DllCall("icu.dll\ucfpos_setState", "ptr*", ucfpos, "int", category, "int", field, "int", start, "int", limit, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ucfpos_setState", "ptr*", ucfpos, "int", category, "int", field, "int", start, "int", limit, "int*", ec, "CDecl ")
     }
 
     /**
@@ -23581,32 +23545,31 @@ class Globalization {
      * @param {Pointer<UInt16>} tzID 
      * @param {Integer} tzIDLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static udtitvfmt_open(locale, skeleton, skeletonLength, tzID, tzIDLength, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, "ushort*", skeleton, "int", skeletonLength, "ushort*", tzID, "int", tzIDLength, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, "ushort*", skeleton, "int", skeletonLength, "ushort*", tzID, "int", tzIDLength, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} formatter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udtitvfmt_close(formatter) {
-        result := DllCall("icuin.dll\udtitvfmt_close", "ptr*", formatter, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udtitvfmt_close", "ptr*", formatter, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static udtitvfmt_openResult(ec) {
-        result := DllCall("icu.dll\udtitvfmt_openResult", "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\udtitvfmt_openResult", "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -23624,11 +23587,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} uresult 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udtitvfmt_closeResult(uresult) {
-        result := DllCall("icu.dll\udtitvfmt_closeResult", "ptr*", uresult, "CDecl ptr")
-        return result
+        DllCall("icu.dll\udtitvfmt_closeResult", "ptr*", uresult, "CDecl ")
     }
 
     /**
@@ -23666,10 +23628,10 @@ class Globalization {
      * @param {Pointer<Int32>} genders 
      * @param {Integer} size 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ugender_getListGender(genderInfo, genders, size, status) {
-        result := DllCall("icuin.dll\ugender_getListGender", "ptr*", genderInfo, "int*", genders, "int", size, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ugender_getListGender", "ptr*", genderInfo, "int*", genders, "int", size, "int*", status, "CDecl int")
         return result
     }
 
@@ -23677,12 +23639,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ulistfmt_open(locale, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuuc.dll\ulistfmt_open", "ptr", locale, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ulistfmt_open", "ptr", locale, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -23692,32 +23654,31 @@ class Globalization {
      * @param {Integer} type 
      * @param {Integer} width 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ulistfmt_openForType(locale, type, width, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icu.dll\ulistfmt_openForType", "ptr", locale, "int", type, "int", width, "int*", status, "CDecl ptr")
+        result := DllCall("icu.dll\ulistfmt_openForType", "ptr", locale, "int", type, "int", width, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} listfmt 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulistfmt_close(listfmt) {
-        result := DllCall("icuuc.dll\ulistfmt_close", "ptr*", listfmt, "CDecl ptr")
-        return result
+        DllCall("icuuc.dll\ulistfmt_close", "ptr*", listfmt, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ulistfmt_openResult(ec) {
-        result := DllCall("icu.dll\ulistfmt_openResult", "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\ulistfmt_openResult", "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -23735,11 +23696,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} uresult 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulistfmt_closeResult(uresult) {
-        result := DllCall("icu.dll\ulistfmt_closeResult", "ptr*", uresult, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ulistfmt_closeResult", "ptr*", uresult, "CDecl ")
     }
 
     /**
@@ -23766,45 +23726,42 @@ class Globalization {
      * @param {Integer} stringCount 
      * @param {Pointer<IntPtr>} uresult 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulistfmt_formatStringsToResult(listfmt, strings, stringLengths, stringCount, uresult, status) {
-        result := DllCall("icu.dll\ulistfmt_formatStringsToResult", "ptr*", listfmt, "ptr", strings, "int*", stringLengths, "int", stringCount, "ptr*", uresult, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ulistfmt_formatStringsToResult", "ptr*", listfmt, "ptr", strings, "int*", stringLengths, "int", stringCount, "ptr*", uresult, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} localeID 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ulocdata_open(localeID, status) {
         localeID := localeID is String? StrPtr(localeID) : localeID
 
-        result := DllCall("icuin.dll\ulocdata_open", "ptr", localeID, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ulocdata_open", "ptr", localeID, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} uld 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_close(uld) {
-        result := DllCall("icuin.dll\ulocdata_close", "ptr*", uld, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ulocdata_close", "ptr*", uld, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} uld 
      * @param {Integer} setting 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_setNoSubstitute(uld, setting) {
-        result := DllCall("icuin.dll\ulocdata_setNoSubstitute", "ptr*", uld, "char", setting, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ulocdata_setNoSubstitute", "ptr*", uld, "char", setting, "CDecl ")
     }
 
     /**
@@ -23824,10 +23781,10 @@ class Globalization {
      * @param {Integer} options 
      * @param {Integer} extype 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ulocdata_getExemplarSet(uld, fillIn, options, extype, status) {
-        result := DllCall("icuin.dll\ulocdata_getExemplarSet", "ptr*", uld, "ptr*", fillIn, "uint", options, "int", extype, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ulocdata_getExemplarSet", "ptr*", uld, "ptr*", fillIn, "uint", options, "int", extype, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -23849,12 +23806,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} localeID 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static ulocdata_getMeasurementSystem(localeID, status) {
         localeID := localeID is String? StrPtr(localeID) : localeID
 
-        result := DllCall("icuin.dll\ulocdata_getMeasurementSystem", "ptr", localeID, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ulocdata_getMeasurementSystem", "ptr", localeID, "int*", status, "CDecl int")
         return result
     }
 
@@ -23864,24 +23821,22 @@ class Globalization {
      * @param {Pointer<Int32>} height 
      * @param {Pointer<Int32>} width 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_getPaperSize(localeID, height, width, status) {
         localeID := localeID is String? StrPtr(localeID) : localeID
 
-        result := DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, "int*", height, "int*", width, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, "int*", height, "int*", width, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} versionArray 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_getCLDRVersion(versionArray, status) {
-        result := DllCall("icuin.dll\ulocdata_getCLDRVersion", "char*", versionArray, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ulocdata_getCLDRVersion", "char*", versionArray, "int*", status, "CDecl ")
     }
 
     /**
@@ -23953,13 +23908,12 @@ class Globalization {
      * @param {Pointer<UInt16>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_parseMessage(locale, pattern, patternLength, source, sourceLength, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\u_parseMessage", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\u_parseMessage", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "int*", status, "CDecl ")
     }
 
     /**
@@ -23971,13 +23925,12 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<SByte>} ap 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_vparseMessage(locale, pattern, patternLength, source, sourceLength, ap, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\u_vparseMessage", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "char*", ap, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\u_vparseMessage", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "char*", ap, "int*", status, "CDecl ")
     }
 
     /**
@@ -24026,13 +23979,12 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "ptr", parseError, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "ptr", parseError, "int*", status, "CDecl ")
     }
 
     /**
@@ -24045,13 +23997,12 @@ class Globalization {
      * @param {Pointer<SByte>} ap 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static u_vparseMessageWithError(locale, pattern, patternLength, source, sourceLength, ap, parseError, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "char*", ap, "ptr", parseError, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, "ushort*", pattern, "int", patternLength, "ushort*", source, "int", sourceLength, "char*", ap, "ptr", parseError, "int*", status, "CDecl ")
     }
 
     /**
@@ -24073,11 +24024,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} format 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umsg_close(format) {
-        result := DllCall("icuin.dll\umsg_close", "ptr", format, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\umsg_close", "ptr", format, "CDecl ")
     }
 
     /**
@@ -24095,13 +24045,12 @@ class Globalization {
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Pointer<Byte>} locale 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umsg_setLocale(fmt, locale) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\umsg_setLocale", "ptr", fmt, "ptr", locale, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\umsg_setLocale", "ptr", fmt, "ptr", locale, "CDecl ")
     }
 
     /**
@@ -24121,11 +24070,10 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umsg_applyPattern(fmt, pattern, patternLength, parseError, status) {
-        result := DllCall("icuin.dll\umsg_applyPattern", "ptr", fmt, "ushort*", pattern, "int", patternLength, "ptr", parseError, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\umsg_applyPattern", "ptr", fmt, "ushort*", pattern, "int", patternLength, "ptr", parseError, "int*", status, "CDecl ")
     }
 
     /**
@@ -24175,11 +24123,10 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Int32>} count 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umsg_parse(fmt, source, sourceLength, count, status) {
-        result := DllCall("icuin.dll\umsg_parse", "ptr", fmt, "ushort*", source, "int", sourceLength, "int*", count, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\umsg_parse", "ptr", fmt, "ushort*", source, "int", sourceLength, "int*", count, "int*", status, "CDecl ")
     }
 
     /**
@@ -24190,11 +24137,10 @@ class Globalization {
      * @param {Pointer<Int32>} count 
      * @param {Pointer<SByte>} ap 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static umsg_vparse(fmt, source, sourceLength, count, ap, status) {
-        result := DllCall("icuin.dll\umsg_vparse", "ptr", fmt, "ushort*", source, "int", sourceLength, "int*", count, "char*", ap, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\umsg_vparse", "ptr", fmt, "ushort*", source, "int", sourceLength, "int*", count, "char*", ap, "int*", status, "CDecl ")
     }
 
     /**
@@ -24231,11 +24177,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} fmt 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_close(fmt) {
-        result := DllCall("icuin.dll\unum_close", "ptr", fmt, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_close", "ptr", fmt, "CDecl ")
     }
 
     /**
@@ -24393,10 +24338,10 @@ class Globalization {
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} parsePos 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static unum_parseDouble(fmt, text, textLength, parsePos, status) {
-        result := DllCall("icuin.dll\unum_parseDouble", "ptr", fmt, "ushort*", text, "int", textLength, "int*", parsePos, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_parseDouble", "ptr", fmt, "ushort*", text, "int", textLength, "int*", parsePos, "int*", status, "CDecl double")
         return result
     }
 
@@ -24426,10 +24371,10 @@ class Globalization {
      * @param {Pointer<Int32>} parsePos 
      * @param {Pointer<UInt16>} currency 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static unum_parseDoubleCurrency(fmt, text, textLength, parsePos, currency, status) {
-        result := DllCall("icuin.dll\unum_parseDoubleCurrency", "ptr", fmt, "ushort*", text, "int", textLength, "int*", parsePos, "ushort*", currency, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_parseDoubleCurrency", "ptr", fmt, "ushort*", text, "int", textLength, "int*", parsePos, "ushort*", currency, "int*", status, "CDecl double")
         return result
     }
 
@@ -24456,11 +24401,10 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_applyPattern(format, localized, pattern, patternLength, parseError, status) {
-        result := DllCall("icuin.dll\unum_applyPattern", "ptr", format, "char", localized, "ushort*", pattern, "int", patternLength, "ptr", parseError, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_applyPattern", "ptr", format, "char", localized, "ushort*", pattern, "int", patternLength, "ptr", parseError, "int*", status, "CDecl ")
     }
 
     /**
@@ -24498,21 +24442,20 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Integer} attr 
      * @param {Integer} newValue 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_setAttribute(fmt, attr, newValue) {
-        result := DllCall("icuin.dll\unum_setAttribute", "ptr", fmt, "int", attr, "int", newValue, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_setAttribute", "ptr", fmt, "int", attr, "int", newValue, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Integer} attr 
-     * @returns {Pointer} 
+     * @returns {Float} 
      */
     static unum_getDoubleAttribute(fmt, attr) {
-        result := DllCall("icuin.dll\unum_getDoubleAttribute", "ptr", fmt, "int", attr, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_getDoubleAttribute", "ptr", fmt, "int", attr, "CDecl double")
         return result
     }
 
@@ -24521,11 +24464,10 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Integer} attr 
      * @param {Float} newValue 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_setDoubleAttribute(fmt, attr, newValue) {
-        result := DllCall("icuin.dll\unum_setDoubleAttribute", "ptr", fmt, "int", attr, "double", newValue, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_setDoubleAttribute", "ptr", fmt, "int", attr, "double", newValue, "CDecl ")
     }
 
     /**
@@ -24549,11 +24491,10 @@ class Globalization {
      * @param {Pointer<UInt16>} newValue 
      * @param {Integer} newValueLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_setTextAttribute(fmt, tag, newValue, newValueLength, status) {
-        result := DllCall("icuin.dll\unum_setTextAttribute", "ptr", fmt, "int", tag, "ushort*", newValue, "int", newValueLength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_setTextAttribute", "ptr", fmt, "int", tag, "ushort*", newValue, "int", newValueLength, "int*", status, "CDecl ")
     }
 
     /**
@@ -24591,11 +24532,10 @@ class Globalization {
      * @param {Pointer<UInt16>} value 
      * @param {Integer} length 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_setSymbol(fmt, symbol, value, length, status) {
-        result := DllCall("icuin.dll\unum_setSymbol", "ptr", fmt, "int", symbol, "ushort*", value, "int", length, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_setSymbol", "ptr", fmt, "int", symbol, "ushort*", value, "int", length, "int*", status, "CDecl ")
     }
 
     /**
@@ -24615,11 +24555,10 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Integer} value 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unum_setContext(fmt, value, status) {
-        result := DllCall("icuin.dll\unum_setContext", "ptr", fmt, "int", value, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unum_setContext", "ptr", fmt, "int", value, "int*", status, "CDecl ")
     }
 
     /**
@@ -24627,20 +24566,20 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static unum_getContext(fmt, type, status) {
-        result := DllCall("icuin.dll\unum_getContext", "ptr", fmt, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_getContext", "ptr", fmt, "int", type, "int*", status, "CDecl int")
         return result
     }
 
     /**
      * 
      * @param {Integer} field 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static udat_toCalendarDateField(field) {
-        result := DllCall("icuin.dll\udat_toCalendarDateField", "int", field, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_toCalendarDateField", "int", field, "CDecl int")
         return result
     }
 
@@ -24666,11 +24605,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} format 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_close(format) {
-        result := DllCall("icuin.dll\udat_close", "ptr", format, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_close", "ptr", format, "CDecl ")
     }
 
     /**
@@ -24691,11 +24629,10 @@ class Globalization {
      * @param {Integer} attr 
      * @param {Integer} newValue 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_setBooleanAttribute(fmt, attr, newValue, status) {
-        result := DllCall("icuin.dll\udat_setBooleanAttribute", "ptr", fmt, "int", attr, "char", newValue, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_setBooleanAttribute", "ptr", fmt, "int", attr, "char", newValue, "int*", status, "CDecl ")
     }
 
     /**
@@ -24791,11 +24728,10 @@ class Globalization {
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} parsePos 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_parseCalendar(format, calendar, text, textLength, parsePos, status) {
-        result := DllCall("icuin.dll\udat_parseCalendar", "ptr", format, "ptr", calendar, "ushort*", text, "int", textLength, "int*", parsePos, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_parseCalendar", "ptr", format, "ptr", calendar, "ushort*", text, "int", textLength, "int*", parsePos, "int*", status, "CDecl ")
     }
 
     /**
@@ -24812,11 +24748,10 @@ class Globalization {
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Integer} isLenient 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_setLenient(fmt, isLenient) {
-        result := DllCall("icuin.dll\udat_setLenient", "ptr", fmt, "char", isLenient, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_setLenient", "ptr", fmt, "char", isLenient, "CDecl ")
     }
 
     /**
@@ -24833,11 +24768,10 @@ class Globalization {
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Pointer<Void>} calendarToSet 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_setCalendar(fmt, calendarToSet) {
-        result := DllCall("icuin.dll\udat_setCalendar", "ptr", fmt, "ptr", calendarToSet, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_setCalendar", "ptr", fmt, "ptr", calendarToSet, "CDecl ")
     }
 
     /**
@@ -24867,33 +24801,30 @@ class Globalization {
      * @param {Pointer<UInt16>} fields 
      * @param {Pointer<Void>} numberFormatToSet 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_adoptNumberFormatForFields(fmt, fields, numberFormatToSet, status) {
-        result := DllCall("icuin.dll\udat_adoptNumberFormatForFields", "ptr", fmt, "ushort*", fields, "ptr", numberFormatToSet, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_adoptNumberFormatForFields", "ptr", fmt, "ushort*", fields, "ptr", numberFormatToSet, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Pointer<Void>} numberFormatToSet 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_setNumberFormat(fmt, numberFormatToSet) {
-        result := DllCall("icuin.dll\udat_setNumberFormat", "ptr", fmt, "ptr", numberFormatToSet, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_setNumberFormat", "ptr", fmt, "ptr", numberFormatToSet, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Void>} fmt 
      * @param {Pointer<Void>} numberFormatToAdopt 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_adoptNumberFormat(fmt, numberFormatToAdopt) {
-        result := DllCall("icuin.dll\udat_adoptNumberFormat", "ptr", fmt, "ptr", numberFormatToAdopt, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_adoptNumberFormat", "ptr", fmt, "ptr", numberFormatToAdopt, "CDecl ")
     }
 
     /**
@@ -24931,11 +24862,10 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Float} d 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_set2DigitYearStart(fmt, d, status) {
-        result := DllCall("icuin.dll\udat_set2DigitYearStart", "ptr", fmt, "double", d, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_set2DigitYearStart", "ptr", fmt, "double", d, "int*", status, "CDecl ")
     }
 
     /**
@@ -24958,11 +24888,10 @@ class Globalization {
      * @param {Integer} localized 
      * @param {Pointer<UInt16>} pattern 
      * @param {Integer} patternLength 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_applyPattern(format, localized, pattern, patternLength) {
-        result := DllCall("icuin.dll\udat_applyPattern", "ptr", format, "char", localized, "ushort*", pattern, "int", patternLength, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_applyPattern", "ptr", format, "char", localized, "ushort*", pattern, "int", patternLength, "CDecl ")
     }
 
     /**
@@ -24999,11 +24928,10 @@ class Globalization {
      * @param {Pointer<UInt16>} value 
      * @param {Integer} valueLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_setSymbols(format, type, symbolIndex, value, valueLength, status) {
-        result := DllCall("icuin.dll\udat_setSymbols", "ptr", format, "int", type, "int", symbolIndex, "ushort*", value, "int", valueLength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_setSymbols", "ptr", format, "int", type, "int", symbolIndex, "ushort*", value, "int", valueLength, "int*", status, "CDecl ")
     }
 
     /**
@@ -25023,11 +24951,10 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Integer} value 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udat_setContext(fmt, value, status) {
-        result := DllCall("icuin.dll\udat_setContext", "ptr", fmt, "int", value, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udat_setContext", "ptr", fmt, "int", value, "int*", status, "CDecl ")
     }
 
     /**
@@ -25035,10 +24962,10 @@ class Globalization {
      * @param {Pointer<Void>} fmt 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static udat_getContext(fmt, type, status) {
-        result := DllCall("icuin.dll\udat_getContext", "ptr", fmt, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_getContext", "ptr", fmt, "int", type, "int*", status, "CDecl int")
         return result
     }
 
@@ -25068,11 +24995,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} dtpg 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udatpg_close(dtpg) {
-        result := DllCall("icuin.dll\udatpg_close", "ptr", dtpg, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udatpg_close", "ptr", dtpg, "CDecl ")
     }
 
     /**
@@ -25157,10 +25083,10 @@ class Globalization {
      * @param {Integer} capacity 
      * @param {Pointer<Int32>} pLength 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static udatpg_addPattern(dtpg, pattern, patternLength, override, conflictingPattern, capacity, pLength, pErrorCode) {
-        result := DllCall("icuin.dll\udatpg_addPattern", "ptr", dtpg, "ushort*", pattern, "int", patternLength, "char", override, "ushort*", conflictingPattern, "int", capacity, "int*", pLength, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuin.dll\udatpg_addPattern", "ptr", dtpg, "ushort*", pattern, "int", patternLength, "char", override, "ushort*", conflictingPattern, "int", capacity, "int*", pLength, "int*", pErrorCode, "CDecl int")
         return result
     }
 
@@ -25170,11 +25096,10 @@ class Globalization {
      * @param {Integer} field 
      * @param {Pointer<UInt16>} value 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udatpg_setAppendItemFormat(dtpg, field, value, length) {
-        result := DllCall("icuin.dll\udatpg_setAppendItemFormat", "ptr", dtpg, "int", field, "ushort*", value, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udatpg_setAppendItemFormat", "ptr", dtpg, "int", field, "ushort*", value, "int", length, "CDecl ")
     }
 
     /**
@@ -25195,11 +25120,10 @@ class Globalization {
      * @param {Integer} field 
      * @param {Pointer<UInt16>} value 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udatpg_setAppendItemName(dtpg, field, value, length) {
-        result := DllCall("icuin.dll\udatpg_setAppendItemName", "ptr", dtpg, "int", field, "ushort*", value, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udatpg_setAppendItemName", "ptr", dtpg, "int", field, "ushort*", value, "int", length, "CDecl ")
     }
 
     /**
@@ -25234,11 +25158,10 @@ class Globalization {
      * @param {Pointer<Void>} dtpg 
      * @param {Pointer<UInt16>} dtFormat 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udatpg_setDateTimeFormat(dtpg, dtFormat, length) {
-        result := DllCall("icuin.dll\udatpg_setDateTimeFormat", "ptr", dtpg, "ushort*", dtFormat, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udatpg_setDateTimeFormat", "ptr", dtpg, "ushort*", dtFormat, "int", length, "CDecl ")
     }
 
     /**
@@ -25257,11 +25180,10 @@ class Globalization {
      * @param {Pointer<Void>} dtpg 
      * @param {Pointer<UInt16>} decimal 
      * @param {Integer} length 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static udatpg_setDecimal(dtpg, decimal, length) {
-        result := DllCall("icuin.dll\udatpg_setDecimal", "ptr", dtpg, "ushort*", decimal, "int", length, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\udatpg_setDecimal", "ptr", dtpg, "ushort*", decimal, "int", length, "CDecl ")
     }
 
     /**
@@ -25314,10 +25236,10 @@ class Globalization {
      * 
      * @param {Pointer<Void>} dtpg 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static udatpg_openSkeletons(dtpg, pErrorCode) {
-        result := DllCall("icuin.dll\udatpg_openSkeletons", "ptr", dtpg, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuin.dll\udatpg_openSkeletons", "ptr", dtpg, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -25325,10 +25247,10 @@ class Globalization {
      * 
      * @param {Pointer<Void>} dtpg 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static udatpg_openBaseSkeletons(dtpg, pErrorCode) {
-        result := DllCall("icuin.dll\udatpg_openBaseSkeletons", "ptr", dtpg, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuin.dll\udatpg_openBaseSkeletons", "ptr", dtpg, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -25351,12 +25273,12 @@ class Globalization {
      * @param {Integer} skeletonLen 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unumf_openForSkeletonAndLocale(skeleton, skeletonLen, locale, ec) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icu.dll\unumf_openForSkeletonAndLocale", "ushort*", skeleton, "int", skeletonLen, "ptr", locale, "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\unumf_openForSkeletonAndLocale", "ushort*", skeleton, "int", skeletonLen, "ptr", locale, "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -25367,22 +25289,22 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<UParseError>} perror 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unumf_openForSkeletonAndLocaleWithError(skeleton, skeletonLen, locale, perror, ec) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icu.dll\unumf_openForSkeletonAndLocaleWithError", "ushort*", skeleton, "int", skeletonLen, "ptr", locale, "ptr", perror, "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\unumf_openForSkeletonAndLocaleWithError", "ushort*", skeleton, "int", skeletonLen, "ptr", locale, "ptr", perror, "int*", ec, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unumf_openResult(ec) {
-        result := DllCall("icu.dll\unumf_openResult", "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\unumf_openResult", "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -25392,11 +25314,10 @@ class Globalization {
      * @param {Integer} value 
      * @param {Pointer<IntPtr>} uresult 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatInt(uformatter, value, uresult, ec) {
-        result := DllCall("icu.dll\unumf_formatInt", "ptr*", uformatter, "int64", value, "ptr*", uresult, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\unumf_formatInt", "ptr*", uformatter, "int64", value, "ptr*", uresult, "int*", ec, "CDecl ")
     }
 
     /**
@@ -25405,11 +25326,10 @@ class Globalization {
      * @param {Float} value 
      * @param {Pointer<IntPtr>} uresult 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatDouble(uformatter, value, uresult, ec) {
-        result := DllCall("icu.dll\unumf_formatDouble", "ptr*", uformatter, "double", value, "ptr*", uresult, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\unumf_formatDouble", "ptr*", uformatter, "double", value, "ptr*", uresult, "int*", ec, "CDecl ")
     }
 
     /**
@@ -25419,13 +25339,12 @@ class Globalization {
      * @param {Integer} valueLen 
      * @param {Pointer<IntPtr>} uresult 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatDecimal(uformatter, value, valueLen, uresult, ec) {
         value := value is String? StrPtr(value) : value
 
-        result := DllCall("icu.dll\unumf_formatDecimal", "ptr*", uformatter, "ptr", value, "int", valueLen, "ptr*", uresult, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\unumf_formatDecimal", "ptr*", uformatter, "ptr", value, "int", valueLen, "ptr*", uresult, "int*", ec, "CDecl ")
     }
 
     /**
@@ -25469,43 +25388,40 @@ class Globalization {
      * @param {Pointer<IntPtr>} uresult 
      * @param {Pointer<IntPtr>} ufpositer 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumf_resultGetAllFieldPositions(uresult, ufpositer, ec) {
-        result := DllCall("icu.dll\unumf_resultGetAllFieldPositions", "ptr*", uresult, "ptr*", ufpositer, "int*", ec, "CDecl ptr")
-        return result
+        DllCall("icu.dll\unumf_resultGetAllFieldPositions", "ptr*", uresult, "ptr*", ufpositer, "int*", ec, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} uformatter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumf_close(uformatter) {
-        result := DllCall("icu.dll\unumf_close", "ptr*", uformatter, "CDecl ptr")
-        return result
+        DllCall("icu.dll\unumf_close", "ptr*", uformatter, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} uresult 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumf_closeResult(uresult) {
-        result := DllCall("icu.dll\unumf_closeResult", "ptr*", uresult, "CDecl ptr")
-        return result
+        DllCall("icu.dll\unumf_closeResult", "ptr*", uresult, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unumsys_open(locale, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\unumsys_open", "ptr", locale, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_open", "ptr", locale, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25513,32 +25429,31 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} name 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unumsys_openByName(name, status) {
         name := name is String? StrPtr(name) : name
 
-        result := DllCall("icuin.dll\unumsys_openByName", "ptr", name, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_openByName", "ptr", name, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} unumsys 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static unumsys_close(unumsys) {
-        result := DllCall("icuin.dll\unumsys_close", "ptr*", unumsys, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\unumsys_close", "ptr*", unumsys, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static unumsys_openAvailableNames(status) {
-        result := DllCall("icuin.dll\unumsys_openAvailableNames", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_openAvailableNames", "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25589,12 +25504,12 @@ class Globalization {
      * 
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uplrules_open(locale, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\uplrules_open", "ptr", locale, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uplrules_open", "ptr", locale, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25603,23 +25518,22 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uplrules_openForType(locale, type, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\uplrules_openForType", "ptr", locale, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uplrules_openForType", "ptr", locale, "int", type, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} uplrules 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uplrules_close(uplrules) {
-        result := DllCall("icuin.dll\uplrules_close", "ptr*", uplrules, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uplrules_close", "ptr*", uplrules, "CDecl ")
     }
 
     /**
@@ -25654,10 +25568,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} uplrules 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uplrules_getKeywords(uplrules, status) {
-        result := DllCall("icuin.dll\uplrules_getKeywords", "ptr*", uplrules, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uplrules_getKeywords", "ptr*", uplrules, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25668,10 +25582,10 @@ class Globalization {
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregex_open(pattern, patternLength, flags, pe, status) {
-        result := DllCall("icuin.dll\uregex_open", "ushort*", pattern, "int", patternLength, "uint", flags, "ptr", pe, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_open", "ushort*", pattern, "int", patternLength, "uint", flags, "ptr", pe, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25681,10 +25595,10 @@ class Globalization {
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregex_openUText(pattern, flags, pe, status) {
-        result := DllCall("icuin.dll\uregex_openUText", "ptr", pattern, "uint", flags, "ptr", pe, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_openUText", "ptr", pattern, "uint", flags, "ptr", pe, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25694,33 +25608,32 @@ class Globalization {
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregex_openC(pattern, flags, pe, status) {
         pattern := pattern is String? StrPtr(pattern) : pattern
 
-        result := DllCall("icuin.dll\uregex_openC", "ptr", pattern, "uint", flags, "ptr", pe, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_openC", "ptr", pattern, "uint", flags, "ptr", pe, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} regexp 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_close(regexp) {
-        result := DllCall("icuin.dll\uregex_close", "ptr*", regexp, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_close", "ptr*", regexp, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} regexp 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregex_clone(regexp, status) {
-        result := DllCall("icuin.dll\uregex_clone", "ptr*", regexp, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregex_clone", "ptr*", regexp, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -25740,7 +25653,7 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} regexp 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static uregex_patternUText(regexp, status) {
         result := DllCall("icuin.dll\uregex_patternUText", "ptr*", regexp, "int*", status, "CDecl ptr")
@@ -25764,11 +25677,10 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setText(regexp, text, textLength, status) {
-        result := DllCall("icuin.dll\uregex_setText", "ptr*", regexp, "ushort*", text, "int", textLength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setText", "ptr*", regexp, "ushort*", text, "int", textLength, "int*", status, "CDecl ")
     }
 
     /**
@@ -25776,11 +25688,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Pointer<UText>} text 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setUText(regexp, text, status) {
-        result := DllCall("icuin.dll\uregex_setUText", "ptr*", regexp, "ptr", text, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setUText", "ptr*", regexp, "ptr", text, "int*", status, "CDecl ")
     }
 
     /**
@@ -25800,7 +25711,7 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static uregex_getUText(regexp, dest, status) {
         result := DllCall("icuin.dll\uregex_getUText", "ptr*", regexp, "ptr", dest, "int*", status, "CDecl ptr")
@@ -25812,11 +25723,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Pointer<UText>} text 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_refreshUText(regexp, text, status) {
-        result := DllCall("icuin.dll\uregex_refreshUText", "ptr*", regexp, "ptr", text, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_refreshUText", "ptr*", regexp, "ptr", text, "int*", status, "CDecl ")
     }
 
     /**
@@ -25962,7 +25872,7 @@ class Globalization {
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Int64>} groupLength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static uregex_groupUText(regexp, groupNum, dest, groupLength, status) {
         result := DllCall("icuin.dll\uregex_groupUText", "ptr*", regexp, "int", groupNum, "ptr", dest, "int64*", groupLength, "int*", status, "CDecl ptr")
@@ -26022,11 +25932,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Integer} index 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_reset(regexp, index, status) {
-        result := DllCall("icuin.dll\uregex_reset", "ptr*", regexp, "int", index, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_reset", "ptr*", regexp, "int", index, "int*", status, "CDecl ")
     }
 
     /**
@@ -26034,11 +25943,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Integer} index 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_reset64(regexp, index, status) {
-        result := DllCall("icuin.dll\uregex_reset64", "ptr*", regexp, "int64", index, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_reset64", "ptr*", regexp, "int64", index, "int*", status, "CDecl ")
     }
 
     /**
@@ -26047,11 +25955,10 @@ class Globalization {
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setRegion(regexp, regionStart, regionLimit, status) {
-        result := DllCall("icuin.dll\uregex_setRegion", "ptr*", regexp, "int", regionStart, "int", regionLimit, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setRegion", "ptr*", regexp, "int", regionStart, "int", regionLimit, "int*", status, "CDecl ")
     }
 
     /**
@@ -26060,11 +25967,10 @@ class Globalization {
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setRegion64(regexp, regionStart, regionLimit, status) {
-        result := DllCall("icuin.dll\uregex_setRegion64", "ptr*", regexp, "int64", regionStart, "int64", regionLimit, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setRegion64", "ptr*", regexp, "int64", regionStart, "int64", regionLimit, "int*", status, "CDecl ")
     }
 
     /**
@@ -26074,11 +25980,10 @@ class Globalization {
      * @param {Integer} regionLimit 
      * @param {Integer} startIndex 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setRegionAndStart(regexp, regionStart, regionLimit, startIndex, status) {
-        result := DllCall("icuin.dll\uregex_setRegionAndStart", "ptr*", regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setRegionAndStart", "ptr*", regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, "int*", status, "CDecl ")
     }
 
     /**
@@ -26141,11 +26046,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Integer} b 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_useTransparentBounds(regexp, b, status) {
-        result := DllCall("icuin.dll\uregex_useTransparentBounds", "ptr*", regexp, "char", b, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_useTransparentBounds", "ptr*", regexp, "char", b, "int*", status, "CDecl ")
     }
 
     /**
@@ -26164,11 +26068,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Integer} b 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_useAnchoringBounds(regexp, b, status) {
-        result := DllCall("icuin.dll\uregex_useAnchoringBounds", "ptr*", regexp, "char", b, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_useAnchoringBounds", "ptr*", regexp, "char", b, "int*", status, "CDecl ")
     }
 
     /**
@@ -26214,7 +26117,7 @@ class Globalization {
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static uregex_replaceAllUText(regexp, replacement, dest, status) {
         result := DllCall("icuin.dll\uregex_replaceAllUText", "ptr*", regexp, "ptr", replacement, "ptr", dest, "int*", status, "CDecl ptr")
@@ -26242,7 +26145,7 @@ class Globalization {
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static uregex_replaceFirstUText(regexp, replacement, dest, status) {
         result := DllCall("icuin.dll\uregex_replaceFirstUText", "ptr*", regexp, "ptr", replacement, "ptr", dest, "int*", status, "CDecl ptr")
@@ -26270,11 +26173,10 @@ class Globalization {
      * @param {Pointer<UText>} replacementText 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_appendReplacementUText(regexp, replacementText, dest, status) {
-        result := DllCall("icuin.dll\uregex_appendReplacementUText", "ptr*", regexp, "ptr", replacementText, "ptr", dest, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_appendReplacementUText", "ptr*", regexp, "ptr", replacementText, "ptr", dest, "int*", status, "CDecl ")
     }
 
     /**
@@ -26295,7 +26197,7 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<UText>} 
      */
     static uregex_appendTailUText(regexp, dest, status) {
         result := DllCall("icuin.dll\uregex_appendTailUText", "ptr*", regexp, "ptr", dest, "int*", status, "CDecl ptr")
@@ -26336,11 +26238,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Integer} limit 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setTimeLimit(regexp, limit, status) {
-        result := DllCall("icuin.dll\uregex_setTimeLimit", "ptr*", regexp, "int", limit, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setTimeLimit", "ptr*", regexp, "int", limit, "int*", status, "CDecl ")
     }
 
     /**
@@ -26359,11 +26260,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} regexp 
      * @param {Integer} limit 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setStackLimit(regexp, limit, status) {
-        result := DllCall("icuin.dll\uregex_setStackLimit", "ptr*", regexp, "int", limit, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setStackLimit", "ptr*", regexp, "int", limit, "int*", status, "CDecl ")
     }
 
     /**
@@ -26383,11 +26283,10 @@ class Globalization {
      * @param {Pointer<URegexMatchCallback>} callback 
      * @param {Pointer<Void>} context 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setMatchCallback(regexp, callback, context, status) {
-        result := DllCall("icuin.dll\uregex_setMatchCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setMatchCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ")
     }
 
     /**
@@ -26396,11 +26295,10 @@ class Globalization {
      * @param {Pointer<URegexMatchCallback>} callback 
      * @param {Pointer<Void>} context 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_getMatchCallback(regexp, callback, context, status) {
-        result := DllCall("icuin.dll\uregex_getMatchCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_getMatchCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ")
     }
 
     /**
@@ -26409,11 +26307,10 @@ class Globalization {
      * @param {Pointer<URegexFindProgressCallback>} callback 
      * @param {Pointer<Void>} context 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setFindProgressCallback(regexp, callback, context, status) {
-        result := DllCall("icuin.dll\uregex_setFindProgressCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_setFindProgressCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ")
     }
 
     /**
@@ -26422,11 +26319,10 @@ class Globalization {
      * @param {Pointer<URegexFindProgressCallback>} callback 
      * @param {Pointer<Void>} context 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uregex_getFindProgressCallback(regexp, callback, context, status) {
-        result := DllCall("icuin.dll\uregex_getFindProgressCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uregex_getFindProgressCallback", "ptr*", regexp, "ptr", callback, "ptr", context, "int*", status, "CDecl ")
     }
 
     /**
@@ -26457,10 +26353,10 @@ class Globalization {
      * 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregion_getAvailable(type, status) {
-        result := DllCall("icuin.dll\uregion_getAvailable", "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getAvailable", "int", type, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -26500,10 +26396,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} uregion 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregion_getContainedRegions(uregion, status) {
-        result := DllCall("icuin.dll\uregion_getContainedRegions", "ptr*", uregion, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getContainedRegions", "ptr*", uregion, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -26512,10 +26408,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} uregion 
      * @param {Integer} type 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregion_getContainedRegionsOfType(uregion, type, status) {
-        result := DllCall("icuin.dll\uregion_getContainedRegionsOfType", "ptr*", uregion, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getContainedRegionsOfType", "ptr*", uregion, "int", type, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -26534,10 +26430,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} uregion 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uregion_getPreferredValues(uregion, status) {
-        result := DllCall("icuin.dll\uregion_getPreferredValues", "ptr*", uregion, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getPreferredValues", "ptr*", uregion, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -26564,10 +26460,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} uregion 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uregion_getType(uregion) {
-        result := DllCall("icuin.dll\uregion_getType", "ptr*", uregion, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getType", "ptr*", uregion, "CDecl int")
         return result
     }
 
@@ -26578,32 +26474,31 @@ class Globalization {
      * @param {Integer} width 
      * @param {Integer} capitalizationContext 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ureldatefmt_open(locale, nfToAdopt, width, capitalizationContext, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\ureldatefmt_open", "ptr", locale, "ptr", nfToAdopt, "int", width, "int", capitalizationContext, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ureldatefmt_open", "ptr", locale, "ptr", nfToAdopt, "int", width, "int", capitalizationContext, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} reldatefmt 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_close(reldatefmt) {
-        result := DllCall("icuin.dll\ureldatefmt_close", "ptr*", reldatefmt, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\ureldatefmt_close", "ptr*", reldatefmt, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Int32>} ec 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static ureldatefmt_openResult(ec) {
-        result := DllCall("icu.dll\ureldatefmt_openResult", "int*", ec, "CDecl ptr")
+        result := DllCall("icu.dll\ureldatefmt_openResult", "int*", ec, "CDecl ptr*")
         return result
     }
 
@@ -26621,11 +26516,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} ufrdt 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_closeResult(ufrdt) {
-        result := DllCall("icu.dll\ureldatefmt_closeResult", "ptr*", ufrdt, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ureldatefmt_closeResult", "ptr*", ufrdt, "CDecl ")
     }
 
     /**
@@ -26650,11 +26544,10 @@ class Globalization {
      * @param {Integer} unit 
      * @param {Pointer<IntPtr>} result 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_formatNumericToResult(reldatefmt, offset, unit, result, status) {
-        result := DllCall("icu.dll\ureldatefmt_formatNumericToResult", "ptr*", reldatefmt, "double", offset, "int", unit, "ptr*", result, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ureldatefmt_formatNumericToResult", "ptr*", reldatefmt, "double", offset, "int", unit, "ptr*", result, "int*", status, "CDecl ")
     }
 
     /**
@@ -26679,11 +26572,10 @@ class Globalization {
      * @param {Integer} unit 
      * @param {Pointer<IntPtr>} result 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_formatToResult(reldatefmt, offset, unit, result, status) {
-        result := DllCall("icu.dll\ureldatefmt_formatToResult", "ptr*", reldatefmt, "double", offset, "int", unit, "ptr*", result, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icu.dll\ureldatefmt_formatToResult", "ptr*", reldatefmt, "double", offset, "int", unit, "ptr*", result, "int*", status, "CDecl ")
     }
 
     /**
@@ -26712,12 +26604,12 @@ class Globalization {
      * @param {Pointer<Byte>} locale 
      * @param {Pointer<IntPtr>} breakiter 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static usearch_open(pattern, patternlength, text, textlength, locale, breakiter, status) {
         locale := locale is String? StrPtr(locale) : locale
 
-        result := DllCall("icuin.dll\usearch_open", "ushort*", pattern, "int", patternlength, "ushort*", text, "int", textlength, "ptr", locale, "ptr*", breakiter, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\usearch_open", "ushort*", pattern, "int", patternlength, "ushort*", text, "int", textlength, "ptr", locale, "ptr*", breakiter, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -26730,21 +26622,20 @@ class Globalization {
      * @param {Pointer<IntPtr>} collator 
      * @param {Pointer<IntPtr>} breakiter 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static usearch_openFromCollator(pattern, patternlength, text, textlength, collator, breakiter, status) {
-        result := DllCall("icuin.dll\usearch_openFromCollator", "ushort*", pattern, "int", patternlength, "ushort*", text, "int", textlength, "ptr*", collator, "ptr*", breakiter, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\usearch_openFromCollator", "ushort*", pattern, "int", patternlength, "ushort*", text, "int", textlength, "ptr*", collator, "ptr*", breakiter, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} searchiter 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_close(searchiter) {
-        result := DllCall("icuin.dll\usearch_close", "ptr*", searchiter, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_close", "ptr*", searchiter, "CDecl ")
     }
 
     /**
@@ -26752,11 +26643,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} strsrch 
      * @param {Integer} position 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setOffset(strsrch, position, status) {
-        result := DllCall("icuin.dll\usearch_setOffset", "ptr*", strsrch, "int", position, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_setOffset", "ptr*", strsrch, "int", position, "int*", status, "CDecl ")
     }
 
     /**
@@ -26775,21 +26665,20 @@ class Globalization {
      * @param {Integer} attribute 
      * @param {Integer} value 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setAttribute(strsrch, attribute, value, status) {
-        result := DllCall("icuin.dll\usearch_setAttribute", "ptr*", strsrch, "int", attribute, "int", value, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_setAttribute", "ptr*", strsrch, "int", attribute, "int", value, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} strsrch 
      * @param {Integer} attribute 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static usearch_getAttribute(strsrch, attribute) {
-        result := DllCall("icuin.dll\usearch_getAttribute", "ptr*", strsrch, "int", attribute, "CDecl ptr")
+        result := DllCall("icuin.dll\usearch_getAttribute", "ptr*", strsrch, "int", attribute, "CDecl int")
         return result
     }
 
@@ -26831,11 +26720,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} strsrch 
      * @param {Pointer<IntPtr>} breakiter 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setBreakIterator(strsrch, breakiter, status) {
-        result := DllCall("icuin.dll\usearch_setBreakIterator", "ptr*", strsrch, "ptr*", breakiter, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_setBreakIterator", "ptr*", strsrch, "ptr*", breakiter, "int*", status, "CDecl ")
     }
 
     /**
@@ -26854,11 +26742,10 @@ class Globalization {
      * @param {Pointer<UInt16>} text 
      * @param {Integer} textlength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setText(strsrch, text, textlength, status) {
-        result := DllCall("icuin.dll\usearch_setText", "ptr*", strsrch, "ushort*", text, "int", textlength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_setText", "ptr*", strsrch, "ushort*", text, "int", textlength, "int*", status, "CDecl ")
     }
 
     /**
@@ -26875,10 +26762,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} strsrch 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static usearch_getCollator(strsrch) {
-        result := DllCall("icuin.dll\usearch_getCollator", "ptr*", strsrch, "CDecl ptr")
+        result := DllCall("icuin.dll\usearch_getCollator", "ptr*", strsrch, "CDecl ptr*")
         return result
     }
 
@@ -26887,11 +26774,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} strsrch 
      * @param {Pointer<IntPtr>} collator 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setCollator(strsrch, collator, status) {
-        result := DllCall("icuin.dll\usearch_setCollator", "ptr*", strsrch, "ptr*", collator, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_setCollator", "ptr*", strsrch, "ptr*", collator, "int*", status, "CDecl ")
     }
 
     /**
@@ -26900,11 +26786,10 @@ class Globalization {
      * @param {Pointer<UInt16>} pattern 
      * @param {Integer} patternlength 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setPattern(strsrch, pattern, patternlength, status) {
-        result := DllCall("icuin.dll\usearch_setPattern", "ptr*", strsrch, "ushort*", pattern, "int", patternlength, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_setPattern", "ptr*", strsrch, "ushort*", pattern, "int", patternlength, "int*", status, "CDecl ")
     }
 
     /**
@@ -26989,20 +26874,19 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} strsrch 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static usearch_reset(strsrch) {
-        result := DllCall("icuin.dll\usearch_reset", "ptr*", strsrch, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\usearch_reset", "ptr*", strsrch, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uspoof_open(status) {
-        result := DllCall("icuin.dll\uspoof_open", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_open", "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -27012,10 +26896,10 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Int32>} pActualLength 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uspoof_openFromSerialized(data, length, pActualLength, pErrorCode) {
-        result := DllCall("icuin.dll\uspoof_openFromSerialized", "ptr", data, "int", length, "int*", pActualLength, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_openFromSerialized", "ptr", data, "int", length, "int*", pActualLength, "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -27028,34 +26912,33 @@ class Globalization {
      * @param {Pointer<Int32>} errType 
      * @param {Pointer<UParseError>} pe 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uspoof_openFromSource(confusables, confusablesLen, confusablesWholeScript, confusablesWholeScriptLen, errType, pe, status) {
         confusables := confusables is String? StrPtr(confusables) : confusables
         confusablesWholeScript := confusablesWholeScript is String? StrPtr(confusablesWholeScript) : confusablesWholeScript
 
-        result := DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, "int", confusablesLen, "ptr", confusablesWholeScript, "int", confusablesWholeScriptLen, "int*", errType, "ptr", pe, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, "int", confusablesLen, "ptr", confusablesWholeScript, "int", confusablesWholeScriptLen, "int*", errType, "ptr", pe, "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} sc 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_close(sc) {
-        result := DllCall("icuin.dll\uspoof_close", "ptr*", sc, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uspoof_close", "ptr*", sc, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} sc 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uspoof_clone(sc, status) {
-        result := DllCall("icuin.dll\uspoof_clone", "ptr*", sc, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_clone", "ptr*", sc, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -27064,11 +26947,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} sc 
      * @param {Integer} checks 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setChecks(sc, checks, status) {
-        result := DllCall("icuin.dll\uspoof_setChecks", "ptr*", sc, "int", checks, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uspoof_setChecks", "ptr*", sc, "int", checks, "int*", status, "CDecl ")
     }
 
     /**
@@ -27086,20 +26968,19 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} sc 
      * @param {Integer} restrictionLevel 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setRestrictionLevel(sc, restrictionLevel) {
-        result := DllCall("icuin.dll\uspoof_setRestrictionLevel", "ptr*", sc, "int", restrictionLevel, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uspoof_setRestrictionLevel", "ptr*", sc, "int", restrictionLevel, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} sc 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uspoof_getRestrictionLevel(sc) {
-        result := DllCall("icuin.dll\uspoof_getRestrictionLevel", "ptr*", sc, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getRestrictionLevel", "ptr*", sc, "CDecl int")
         return result
     }
 
@@ -27108,13 +26989,12 @@ class Globalization {
      * @param {Pointer<IntPtr>} sc 
      * @param {Pointer<Byte>} localesList 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setAllowedLocales(sc, localesList, status) {
         localesList := localesList is String? StrPtr(localesList) : localesList
 
-        result := DllCall("icuin.dll\uspoof_setAllowedLocales", "ptr*", sc, "ptr", localesList, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uspoof_setAllowedLocales", "ptr*", sc, "ptr", localesList, "int*", status, "CDecl ")
     }
 
     /**
@@ -27133,11 +27013,10 @@ class Globalization {
      * @param {Pointer<IntPtr>} sc 
      * @param {Pointer<IntPtr>} chars 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setAllowedChars(sc, chars, status) {
-        result := DllCall("icuin.dll\uspoof_setAllowedChars", "ptr*", sc, "ptr*", chars, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uspoof_setAllowedChars", "ptr*", sc, "ptr*", chars, "int*", status, "CDecl ")
     }
 
     /**
@@ -27214,21 +27093,20 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static uspoof_openCheckResult(status) {
-        result := DllCall("icuin.dll\uspoof_openCheckResult", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_openCheckResult", "int*", status, "CDecl ptr*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IntPtr>} checkResult 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_closeCheckResult(checkResult) {
-        result := DllCall("icuin.dll\uspoof_closeCheckResult", "ptr*", checkResult, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\uspoof_closeCheckResult", "ptr*", checkResult, "CDecl ")
     }
 
     /**
@@ -27246,10 +27124,10 @@ class Globalization {
      * 
      * @param {Pointer<IntPtr>} checkResult 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uspoof_getCheckResultRestrictionLevel(checkResult, status) {
-        result := DllCall("icuin.dll\uspoof_getCheckResultRestrictionLevel", "ptr*", checkResult, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getCheckResultRestrictionLevel", "ptr*", checkResult, "int*", status, "CDecl int")
         return result
     }
 
@@ -27442,11 +27320,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} trans 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_close(trans) {
-        result := DllCall("icuin.dll\utrans_close", "ptr", trans, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_close", "ptr", trans, "CDecl ")
     }
 
     /**
@@ -27464,22 +27341,20 @@ class Globalization {
      * 
      * @param {Pointer<Void>} adoptedTrans 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_register(adoptedTrans, status) {
-        result := DllCall("icuin.dll\utrans_register", "ptr", adoptedTrans, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_register", "ptr", adoptedTrans, "int*", status, "CDecl ")
     }
 
     /**
      * 
      * @param {Pointer<UInt16>} id 
      * @param {Integer} idLength 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_unregisterID(id, idLength) {
-        result := DllCall("icuin.dll\utrans_unregisterID", "ushort*", id, "int", idLength, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_unregisterID", "ushort*", id, "int", idLength, "CDecl ")
     }
 
     /**
@@ -27488,11 +27363,10 @@ class Globalization {
      * @param {Pointer<UInt16>} filterPattern 
      * @param {Integer} filterPatternLen 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_setFilter(trans, filterPattern, filterPatternLen, status) {
-        result := DllCall("icuin.dll\utrans_setFilter", "ptr", trans, "ushort*", filterPattern, "int", filterPatternLen, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_setFilter", "ptr", trans, "ushort*", filterPattern, "int", filterPatternLen, "int*", status, "CDecl ")
     }
 
     /**
@@ -27507,10 +27381,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Int32>} pErrorCode 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static utrans_openIDs(pErrorCode) {
-        result := DllCall("icuin.dll\utrans_openIDs", "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuin.dll\utrans_openIDs", "int*", pErrorCode, "CDecl ptr*")
         return result
     }
 
@@ -27522,11 +27396,10 @@ class Globalization {
      * @param {Integer} start 
      * @param {Pointer<Int32>} limit 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_trans(trans, rep, repFunc, start, limit, status) {
-        result := DllCall("icuin.dll\utrans_trans", "ptr", trans, "ptr", rep, "ptr", repFunc, "int", start, "int*", limit, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_trans", "ptr", trans, "ptr", rep, "ptr", repFunc, "int", start, "int*", limit, "int*", status, "CDecl ")
     }
 
     /**
@@ -27536,11 +27409,10 @@ class Globalization {
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
      * @param {Pointer<UTransPosition>} pos 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_transIncremental(trans, rep, repFunc, pos, status) {
-        result := DllCall("icuin.dll\utrans_transIncremental", "ptr", trans, "ptr", rep, "ptr", repFunc, "ptr", pos, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_transIncremental", "ptr", trans, "ptr", rep, "ptr", repFunc, "ptr", pos, "int*", status, "CDecl ")
     }
 
     /**
@@ -27552,11 +27424,10 @@ class Globalization {
      * @param {Integer} start 
      * @param {Pointer<Int32>} limit 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_transUChars(trans, text, textLength, textCapacity, start, limit, status) {
-        result := DllCall("icuin.dll\utrans_transUChars", "ptr", trans, "ushort*", text, "int*", textLength, "int", textCapacity, "int", start, "int*", limit, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_transUChars", "ptr", trans, "ushort*", text, "int*", textLength, "int", textCapacity, "int", start, "int*", limit, "int*", status, "CDecl ")
     }
 
     /**
@@ -27567,11 +27438,10 @@ class Globalization {
      * @param {Integer} textCapacity 
      * @param {Pointer<UTransPosition>} pos 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static utrans_transIncrementalUChars(trans, text, textLength, textCapacity, pos, status) {
-        result := DllCall("icuin.dll\utrans_transIncrementalUChars", "ptr", trans, "ushort*", text, "int*", textLength, "int", textCapacity, "ptr", pos, "int*", status, "CDecl ptr")
-        return result
+        DllCall("icuin.dll\utrans_transIncrementalUChars", "ptr", trans, "ushort*", text, "int*", textLength, "int", textCapacity, "ptr", pos, "int*", status, "CDecl ")
     }
 
     /**
@@ -27594,10 +27464,10 @@ class Globalization {
      * @param {Integer} ignoreFilter 
      * @param {Pointer<IntPtr>} fillIn 
      * @param {Pointer<Int32>} status 
-     * @returns {Pointer} 
+     * @returns {Pointer<IntPtr>} 
      */
     static utrans_getSourceSet(trans, ignoreFilter, fillIn, status) {
-        result := DllCall("icuin.dll\utrans_getSourceSet", "ptr", trans, "char", ignoreFilter, "ptr*", fillIn, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\utrans_getSourceSet", "ptr", trans, "char", ignoreFilter, "ptr*", fillIn, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -27622,7 +27492,7 @@ class Globalization {
      * 
      * Receives the distance between the candidate language and the closest language in the list.
      * The value is in the range 0.0 to 1.0, where 1.0 is an exact match.
-     * @returns {Integer} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
+     * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * 
      * If there is no match to any language in the list, the function returns `HRESULT_FROM_WIN32(ERROR_NO_MATCH)`
      * and a distance of 0.0.
@@ -27633,6 +27503,9 @@ class Globalization {
         pszLanguagesList := pszLanguagesList is String? StrPtr(pszLanguagesList) : pszLanguagesList
 
         result := DllCall("bcp47mrm.dll\GetDistanceOfClosestLanguageInList", "ptr", pszLanguage, "ptr", pszLanguagesList, "char", wchListDelimiter, "double*", pClosestDistance, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -27869,7 +27742,7 @@ class Globalization {
      * @param {Pointer<Char>} lpStringValue Pointer to the search string for which the function searches in the source string.
      * @param {Integer} cchValue Size, in characters excluding the terminating null character, of the string indicated by <i>lpStringValue</i>. The application must normally specify a positive number, or 0. The application can specify -1 if the string is null-terminated and the function should calculate the size automatically.
      * @param {Integer} bIgnoreCase <b>TRUE</b> if the function is to perform a case-insensitive comparison, and <b>FALSE</b> otherwise. The comparison is not a linguistic operation and is not appropriate for all locales and languages. Its behavior is similar to that for English.
-     * @returns {Pointer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. If the function succeeds, the found string is the same size as the value of <i>lpStringValue</i>. A return value of 0 indicates that the function found a match at the beginning of the source string.
+     * @returns {Integer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. If the function succeeds, the found string is the same size as the value of <i>lpStringValue</i>. A return value of 0 indicates that the function found a match at the beginning of the source string.
      * 
      * The function returns -1 if it does not succeed or if it does not find the search string. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
@@ -27887,7 +27760,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindStringOrdinal", "uint", dwFindStringOrdinalFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int", bIgnoreCase)
+        result := DllCall("KERNEL32.dll\FindStringOrdinal", "uint", dwFindStringOrdinalFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int", bIgnoreCase, "int")
         if(A_LastError)
             throw OSError()
 
@@ -27924,7 +27797,7 @@ class Globalization {
      * @param {Pointer<Byte>} lpString2 Type: <b>LPCTSTR</b>
      * 
      * The second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the string pointed to by 
      * 						<i>lpString1</i> is less than the string pointed to by 
@@ -27938,7 +27811,7 @@ class Globalization {
         lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcmpA", "ptr", lpString1, "ptr", lpString2)
+        result := DllCall("KERNEL32.dll\lstrcmpA", "ptr", lpString1, "ptr", lpString2, "int")
         return result
     }
 
@@ -27972,7 +27845,7 @@ class Globalization {
      * @param {Pointer<Char>} lpString2 Type: <b>LPCTSTR</b>
      * 
      * The second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the string pointed to by 
      * 						<i>lpString1</i> is less than the string pointed to by 
@@ -27986,7 +27859,7 @@ class Globalization {
         lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcmpW", "ptr", lpString1, "ptr", lpString2)
+        result := DllCall("KERNEL32.dll\lstrcmpW", "ptr", lpString1, "ptr", lpString2, "int")
         return result
     }
 
@@ -28020,7 +27893,7 @@ class Globalization {
      * @param {Pointer<Byte>} lpString2 Type: <b>LPCTSTR</b>
      * 
      * The second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the string pointed to by 
      * 						<i>lpString1</i> is less than the string pointed to by 
@@ -28034,7 +27907,7 @@ class Globalization {
         lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcmpiA", "ptr", lpString1, "ptr", lpString2)
+        result := DllCall("KERNEL32.dll\lstrcmpiA", "ptr", lpString1, "ptr", lpString2, "int")
         return result
     }
 
@@ -28068,7 +27941,7 @@ class Globalization {
      * @param {Pointer<Char>} lpString2 Type: <b>LPCTSTR</b>
      * 
      * The second null-terminated string to be compared.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the string pointed to by 
      * 						<i>lpString1</i> is less than the string pointed to by 
@@ -28082,7 +27955,7 @@ class Globalization {
         lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcmpiW", "ptr", lpString1, "ptr", lpString2)
+        result := DllCall("KERNEL32.dll\lstrcmpiW", "ptr", lpString1, "ptr", lpString2, "int")
         return result
     }
 
@@ -28454,7 +28327,7 @@ class Globalization {
      * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be checked.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The function returns the length of the string, in characters. If <i>lpString</i> is <b>NULL</b>, the function returns 0.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrlena
@@ -28463,7 +28336,7 @@ class Globalization {
     static lstrlenA(lpString) {
         lpString := lpString is String? StrPtr(lpString) : lpString
 
-        result := DllCall("KERNEL32.dll\lstrlenA", "ptr", lpString)
+        result := DllCall("KERNEL32.dll\lstrlenA", "ptr", lpString, "int")
         return result
     }
 
@@ -28475,7 +28348,7 @@ class Globalization {
      * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be checked.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The function returns the length of the string, in characters. If <i>lpString</i> is <b>NULL</b>, the function returns 0.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrlenw
@@ -28484,7 +28357,7 @@ class Globalization {
     static lstrlenW(lpString) {
         lpString := lpString is String? StrPtr(lpString) : lpString
 
-        result := DllCall("KERNEL32.dll\lstrlenW", "ptr", lpString)
+        result := DllCall("KERNEL32.dll\lstrlenW", "ptr", lpString, "int")
         return result
     }
 

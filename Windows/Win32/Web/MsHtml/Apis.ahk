@@ -31561,12 +31561,15 @@ class MsHtml {
      * @param {Pointer<Char>} pszUrl 
      * @param {Pointer<IEnumPrivacyRecords>} pPrivacyEnum 
      * @param {Integer} fReportAllSites 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DoPrivacyDlg(hwndOwner, pszUrl, pPrivacyEnum, fReportAllSites) {
         pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHDOCVW.dll\DoPrivacyDlg", "ptr", hwndOwner, "ptr", pszUrl, "ptr", pPrivacyEnum, "int", fReportAllSites, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -5657,7 +5657,7 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-pauseclusternode">PauseClusterNode</a> function). Nodes that are undergoing 
      *     maintenance are typically placed in this state.
      * @param {Pointer} hNode Handle to the node for which state information should be returned.
-     * @returns {Pointer} <b>GetClusterNodeState</b> returns the current state 
+     * @returns {Integer} <b>GetClusterNodeState</b> returns the current state 
      *        of the node, which is represented by one of the following values.
      * 
      * 
@@ -5740,7 +5740,7 @@ class Clustering {
     static GetClusterNodeState(hNode) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode)
+        result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6252,7 +6252,7 @@ class Clustering {
      * @param {Pointer} hNode Handle to the node to remove from the cluster.
      * @param {Integer} dwTimeOut Specifies the number of milliseconds for the function to wait for cleanup operations to occur. The function 
      *       will return when the cleanup is complete or when the specified time elapses, whichever is sooner.
-     * @param {Pointer<Int32>} phrCleanupStatus Pointer to an <b>HRESULT</b>   that describes the results of the cleanup operation.
+     * @param {Pointer<HRESULT>} phrCleanupStatus Pointer to an <b>HRESULT</b>   that describes the results of the cleanup operation.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -6279,7 +6279,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static EvictClusterNodeEx(hNode, dwTimeOut, phrCleanupStatus) {
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, "int*", phrCleanupStatus, "uint")
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, "ptr", phrCleanupStatus, "uint")
         return result
     }
 
@@ -6287,14 +6287,14 @@ class Clustering {
      * 
      * @param {Pointer} hNode 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<Int32>} phrCleanupStatus 
+     * @param {Pointer<HRESULT>} phrCleanupStatus 
      * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static EvictClusterNodeEx2(hNode, dwTimeout, phrCleanupStatus, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, "int*", phrCleanupStatus, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, "ptr", phrCleanupStatus, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7182,7 +7182,7 @@ class Clustering {
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
-     * @returns {Pointer} <b>GetClusterGroupState</b> returns the current 
+     * @returns {Integer} <b>GetClusterGroupState</b> returns the current 
      *        state of the group, which is represented by one of the following values.
      * 
      * <table>
@@ -7276,7 +7276,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, "uint*", lpcchNodeName)
+        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, "uint*", lpcchNodeName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8035,7 +8035,7 @@ class Clustering {
      *        <b>NULL</b>. On input, specifies the maximum number of characters the buffer can hold, 
      *        including the terminating <b>NULL</b>. On output, specifies the number of characters in the 
      *        resulting name, excluding the terminating <b>NULL</b>.
-     * @returns {Pointer} <b>GetClusterResourceState</b> returns the 
+     * @returns {Integer} <b>GetClusterResourceState</b> returns the 
      *        current state of the resource enumerated from the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration, which can be 
      *        represented by one of the following values.
@@ -8156,7 +8156,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, "uint*", lpcchNodeName, "ptr", lpszGroupName, "uint*", lpcchGroupName)
+        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, "uint*", lpcchNodeName, "ptr", lpszGroupName, "uint*", lpcchGroupName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10720,7 +10720,7 @@ class Clustering {
     /**
      * Current state of a network.
      * @param {Pointer} hNetwork Handle to the network for which state information should be returned.
-     * @returns {Pointer} <b>GetClusterNetworkState</b> returns the current 
+     * @returns {Integer} <b>GetClusterNetworkState</b> returns the current 
      *        state of the network, which is represented by one of the following values enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_state">CLUSTER_NETWORK_STATE</a> enumeration.
      * 
@@ -10800,7 +10800,7 @@ class Clustering {
     static GetClusterNetworkState(hNetwork) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork)
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11255,7 +11255,7 @@ class Clustering {
     /**
      * Returns the current state of a network interface.
      * @param {Pointer} hNetInterface Handle to the network interface for which state information should be returned.
-     * @returns {Pointer} <b>GetClusterNetInterfaceState</b> returns 
+     * @returns {Integer} <b>GetClusterNetInterfaceState</b> returns 
      *        the current state of the network interface, which is represented by one of the following values enumerated by 
      *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_netinterface_state">CLUSTER_NETINTERFACE_STATE</a> 
      *        enumeration.
@@ -11333,7 +11333,7 @@ class Clustering {
     static GetClusterNetInterfaceState(hNetInterface) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface)
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14790,13 +14790,12 @@ class Clustering {
      * @param {Pointer<Byte>} pOutParams Pointer to the parameter block to deallocate.
      * @param {Pointer<Byte>} pInParams Pointer to the parameter block to use as a reference.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties in the input parameter block.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfreeparameterblock
      * @since windowsserver2008
      */
     static ResUtilFreeParameterBlock(pOutParams, pInParams, pPropertyTable) {
-        result := DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", "char*", pOutParams, "char*", pInParams, "ptr", pPropertyTable)
-        return result
+        DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", "char*", pOutParams, "char*", pInParams, "ptr", pPropertyTable)
     }
 
     /**
@@ -16314,12 +16313,11 @@ class Clustering {
      * 
      * The **ClusWorkerTerminate** utility function checks the *hThread* and *Terminate* members of the **CLUS_WORKER** structure pointed to by *lpWorker*. If *hThread* is not NULL and *Terminate* is set to FALSE, indicating that this is your first call to **ClusWorkerTerminate**, the function waits for the thread to exit before returning. Otherwise, if you have called **ClusWorkerTerminate** previously, indicated by *Terminate* being set to TRUE, the function may return before the thread has terminated.
      * @param {Pointer<CLUS_WORKER>} lpWorker Pointer to a [CLUS_WORKER](ns-resapi-clus_worker.md) structure describing the thread to terminate.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkerterminate
      */
     static ClusWorkerTerminate(lpWorker) {
-        result := DllCall("RESUTILS.dll\ClusWorkerTerminate", "ptr", lpWorker)
-        return result
+        DllCall("RESUTILS.dll\ClusWorkerTerminate", "ptr", lpWorker)
     }
 
     /**
@@ -17097,7 +17095,7 @@ class Clustering {
      * Determines whether or not a specific role has been assigned to a cluster.
      * @param {Pointer} hCluster The handle of the queried cluster.
      * @param {Integer} eClusterRole The role the cluster was queried about.  The possible values for this parameter are enumerators from the <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role">CLUSTER_ROLE</a> enumeration.  The following values are valid.
-     * @returns {Pointer} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
+     * @returns {Integer} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
      * 
      * <table>
      * <tr>
@@ -17147,7 +17145,7 @@ class Clustering {
     static ResUtilGetClusterRoleState(hCluster, eClusterRole) {
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole)
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole, "int")
         if(A_LastError)
             throw OSError()
 

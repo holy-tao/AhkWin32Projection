@@ -2944,10 +2944,10 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UInt16>} String1 
      * @param {Pointer<UInt16>} String2 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uaw_lstrcmpW(String1, String2) {
-        result := DllCall("KERNEL32.dll\uaw_lstrcmpW", "ushort*", String1, "ushort*", String2)
+        result := DllCall("KERNEL32.dll\uaw_lstrcmpW", "ushort*", String1, "ushort*", String2, "int")
         return result
     }
 
@@ -2955,20 +2955,20 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UInt16>} String1 
      * @param {Pointer<UInt16>} String2 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uaw_lstrcmpiW(String1, String2) {
-        result := DllCall("KERNEL32.dll\uaw_lstrcmpiW", "ushort*", String1, "ushort*", String2)
+        result := DllCall("KERNEL32.dll\uaw_lstrcmpiW", "ushort*", String1, "ushort*", String2, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UInt16>} String 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uaw_lstrlenW(String) {
-        result := DllCall("KERNEL32.dll\uaw_lstrlenW", "ushort*", String)
+        result := DllCall("KERNEL32.dll\uaw_lstrlenW", "ushort*", String, "int")
         return result
     }
 
@@ -2998,10 +2998,10 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UInt16>} String1 
      * @param {Pointer<UInt16>} String2 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static uaw_wcsicmp(String1, String2) {
-        result := DllCall("KERNEL32.dll\uaw_wcsicmp", "ushort*", String1, "ushort*", String2)
+        result := DllCall("KERNEL32.dll\uaw_wcsicmp", "ushort*", String1, "ushort*", String2, "int")
         return result
     }
 
@@ -3188,13 +3188,12 @@ class WindowsProgramming {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UInt64>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
      * @since windows10.0.10240
      */
     static QueryInterruptTimePrecise(lpInterruptTimePrecise) {
-        result := DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", "uint*", lpInterruptTimePrecise)
-        return result
+        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", "uint*", lpInterruptTimePrecise)
     }
 
     /**
@@ -3213,13 +3212,12 @@ class WindowsProgramming {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UInt64>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
      * @since windows10.0.10240
      */
     static QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
-        result := DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", "uint*", lpUnbiasedInterruptTimePrecise)
-        return result
+        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", "uint*", lpUnbiasedInterruptTimePrecise)
     }
 
     /**
@@ -3236,13 +3234,12 @@ class WindowsProgramming {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UInt64>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime
      * @since windows10.0.10240
      */
     static QueryInterruptTime(lpInterruptTime) {
-        result := DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", "uint*", lpInterruptTime)
-        return result
+        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", "uint*", lpInterruptTime)
     }
 
     /**
@@ -3275,12 +3272,15 @@ class WindowsProgramming {
      * @remarks
      * You can determine the availability of the auxiliary counter by comparing the returned value against <b>E_NOTIMPL</b>.
      * @param {Pointer<UInt64>} lpAuxiliaryCounterFrequency Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
-     * @returns {Integer} Returns <b>S_OK</b> if the auxiliary counter is supported and <b>E_NOTIMPL</b> if the auxiliary counter is not supported.
+     * @returns {HRESULT} Returns <b>S_OK</b> if the auxiliary counter is supported and <b>E_NOTIMPL</b> if the auxiliary counter is not supported.
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
      * @since windows10.0.15063
      */
     static QueryAuxiliaryCounterFrequency(lpAuxiliaryCounterFrequency) {
         result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", "uint*", lpAuxiliaryCounterFrequency, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3289,7 +3289,7 @@ class WindowsProgramming {
      * @param {Integer} ullAuxiliaryCounterValue The auxiliary counter value to convert.
      * @param {Pointer<UInt64>} lpPerformanceCounterValue On success, contains the converted performance counter value. Will be undefined if the function fails.
      * @param {Pointer<UInt64>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
-     * @returns {Integer} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
+     * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
      * 
      * <table>
      * <tr>
@@ -3335,6 +3335,9 @@ class WindowsProgramming {
      */
     static ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpPerformanceCounterValue, lpConversionError) {
         result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertAuxiliaryCounterToPerformanceCounter", "uint", ullAuxiliaryCounterValue, "uint*", lpPerformanceCounterValue, "uint*", lpConversionError, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3343,7 +3346,7 @@ class WindowsProgramming {
      * @param {Integer} ullPerformanceCounterValue The performance counter value to convert.
      * @param {Pointer<UInt64>} lpAuxiliaryCounterValue On success, contains the converted auxiliary counter value. Will be undefined if the function fails.
      * @param {Pointer<UInt64>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
-     * @returns {Integer} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
+     * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
      * 
      * <table>
      * <tr>
@@ -3400,6 +3403,9 @@ class WindowsProgramming {
      */
     static ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue, lpAuxiliaryCounterValue, lpConversionError) {
         result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertPerformanceCounterToAuxiliaryCounter", "uint", ullPerformanceCounterValue, "uint*", lpAuxiliaryCounterValue, "uint*", lpConversionError, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3416,21 +3422,19 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<Void>} hMem 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static GlobalFix(hMem) {
-        result := DllCall("KERNEL32.dll\GlobalFix", "ptr", hMem)
-        return result
+        DllCall("KERNEL32.dll\GlobalFix", "ptr", hMem)
     }
 
     /**
      * 
      * @param {Pointer<Void>} hMem 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static GlobalUnfix(hMem) {
-        result := DllCall("KERNEL32.dll\GlobalUnfix", "ptr", hMem)
-        return result
+        DllCall("KERNEL32.dll\GlobalUnfix", "ptr", hMem)
     }
 
     /**
@@ -3489,11 +3493,11 @@ class WindowsProgramming {
     /**
      * The SetHandleCount function changes the number of file handles available to a process.
      * @param {Integer} uNumber The requested number of available file handles.
-     * @returns {Pointer} The number of available file handles.
+     * @returns {Integer} The number of available file handles.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-sethandlecount
      */
     static SetHandleCount(uNumber) {
-        result := DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber)
+        result := DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber, "uint")
         return result
     }
 
@@ -3533,14 +3537,14 @@ class WindowsProgramming {
      * @param {Integer} nNumber The multiplicand.
      * @param {Integer} nNumerator The multiplier.
      * @param {Integer} nDenominator The number by which the result of the multiplication operation is to be divided.
-     * @returns {Pointer} If the function succeeds, the return value is the result of the multiplication and division, rounded to the nearest integer. If the result is a positive half integer (ends in .5), it is rounded up. If the result is a negative half integer, it is rounded down.
+     * @returns {Integer} If the function succeeds, the return value is the result of the multiplication and division, rounded to the nearest integer. If the result is a positive half integer (ends in .5), it is rounded up. If the result is a negative half integer, it is rounded down.
      * 
      * If either an overflow occurred or <i>nDenominator</i> was 0, the return value is -1.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-muldiv
      * @since windows5.1.2600
      */
     static MulDiv(nNumber, nNumerator, nDenominator) {
-        result := DllCall("KERNEL32.dll\MulDiv", "int", nNumber, "int", nNumerator, "int", nDenominator)
+        result := DllCall("KERNEL32.dll\MulDiv", "int", nNumber, "int", nNumerator, "int", nDenominator, "int")
         return result
     }
 
@@ -3742,11 +3746,11 @@ class WindowsProgramming {
      * @param {Integer} hFile Identifies the specified file.
      * @param {Pointer} lpBuffer Pointer to a buffer that contains the data read from the file.
      * @param {Integer} uBytes Specifies the number of bytes to be read from the file.
-     * @returns {Pointer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
+     * @returns {Integer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lread
      */
     static _lread(hFile, lpBuffer, uBytes) {
-        result := DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
+        result := DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes, "uint")
         return result
     }
 
@@ -3755,13 +3759,13 @@ class WindowsProgramming {
      * @param {Integer} hFile A handle to the file that receives the data. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
      * @param {Pointer} lpBuffer The buffer that contains the data to be added.
      * @param {Integer} uBytes The number of bytes to write to the file.
-     * @returns {Pointer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @returns {Integer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
      */
     static _lwrite(hFile, lpBuffer, uBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
+        result := DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4520,7 +4524,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
      * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @returns {Pointer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
+     * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileinta
      * @since windows5.0
      */
@@ -4528,7 +4532,7 @@ class WindowsProgramming {
         lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
         lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
 
-        result := DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
+        result := DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "uint")
         return result
     }
 
@@ -4575,7 +4579,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
      * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @returns {Pointer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
+     * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileintw
      * @since windows5.0
      */
@@ -4583,7 +4587,7 @@ class WindowsProgramming {
         lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
         lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
 
-        result := DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
+        result := DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "uint")
         return result
     }
 
@@ -5226,7 +5230,7 @@ class WindowsProgramming {
      * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
      * @param {Pointer<Byte>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {Pointer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
+     * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileinta
      * @since windows5.0
      */
@@ -5235,7 +5239,7 @@ class WindowsProgramming {
         lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName)
+        result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName, "uint")
         return result
     }
 
@@ -6897,13 +6901,12 @@ class WindowsProgramming {
      * @remarks
      * This routine does not release the Unicode string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
      * @param {Pointer<STRING>} AnsiString A pointer to an ANSI string whose buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeansistring
      * @since windows5.0
      */
     static RtlFreeAnsiString(AnsiString) {
-        result := DllCall("ntdll.dll\RtlFreeAnsiString", "ptr", AnsiString)
-        return result
+        DllCall("ntdll.dll\RtlFreeAnsiString", "ptr", AnsiString)
     }
 
     /**
@@ -6915,13 +6918,12 @@ class WindowsProgramming {
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
      * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode string whose
      *         buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeunicodestring
      * @since windows5.0
      */
     static RtlFreeUnicodeString(UnicodeString) {
-        result := DllCall("ntdll.dll\RtlFreeUnicodeString", "ptr", UnicodeString)
-        return result
+        DllCall("ntdll.dll\RtlFreeUnicodeString", "ptr", UnicodeString)
     }
 
     /**
@@ -6930,13 +6932,12 @@ class WindowsProgramming {
      * This routine releases the <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure. The <b>Length</b> and <b>MaximumLength</b> members are not affected by this routine.
      * @param {Pointer<STRING>} OemString Address of the OEM string whose buffer
      *         was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtooemstring">RtlUnicodeStringToOemString</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeoemstring
      * @since windows5.0
      */
     static RtlFreeOemString(OemString) {
-        result := DllCall("ntdll.dll\RtlFreeOemString", "ptr", OemString)
-        return result
+        DllCall("ntdll.dll\RtlFreeOemString", "ptr", OemString)
     }
 
     /**
@@ -6953,12 +6954,11 @@ class WindowsProgramming {
      * <div> </div>
      * @param {Pointer<STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
      * @param {Pointer<SByte>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitstring
      */
     static RtlInitString(DestinationString, SourceString) {
-        result := DllCall("ntdll.dll\RtlInitString", "ptr", DestinationString, "char*", SourceString)
-        return result
+        DllCall("ntdll.dll\RtlInitString", "ptr", DestinationString, "char*", SourceString)
     }
 
     /**
@@ -6976,11 +6976,10 @@ class WindowsProgramming {
      * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<SByte>} SourceString 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RtlInitAnsiString(DestinationString, SourceString) {
-        result := DllCall("ntdll.dll\RtlInitAnsiString", "ptr", DestinationString, "char*", SourceString)
-        return result
+        DllCall("ntdll.dll\RtlInitAnsiString", "ptr", DestinationString, "char*", SourceString)
     }
 
     /**
@@ -6999,15 +6998,14 @@ class WindowsProgramming {
      * @param {Pointer<UNICODE_STRING>} DestinationString The buffer for a counted Unicode string to be initialized. The length is initialized to zero if the <i>SourceString</i> is not specified.
      * @param {Pointer<Char>} SourceString Optional pointer to a null-terminated Unicode string with
      *         which to initialize the counted string.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitunicodestring
      * @since windows5.0
      */
     static RtlInitUnicodeString(DestinationString, SourceString) {
         SourceString := SourceString is String? StrPtr(SourceString) : SourceString
 
-        result := DllCall("ntdll.dll\RtlInitUnicodeString", "ptr", DestinationString, "ptr", SourceString)
-        return result
+        DllCall("ntdll.dll\RtlInitUnicodeString", "ptr", DestinationString, "ptr", SourceString)
     }
 
     /**
@@ -7195,11 +7193,11 @@ class WindowsProgramming {
      * This function is intended for infrastructure use only. (GetFeatureEnabledState)
      * @param {Integer} featureId Infrastructure use only.
      * @param {Integer} changeTime Infrastructure use only.
-     * @returns {Pointer} Infrastructure use only.
+     * @returns {Integer} Infrastructure use only.
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     static GetFeatureEnabledState(featureId, changeTime) {
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, "int", changeTime)
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, "int", changeTime, "int")
         return result
     }
 
@@ -7209,26 +7207,24 @@ class WindowsProgramming {
      * @param {Integer} kind Infrastructure use only.
      * @param {Integer} addend Infrastructure use only.
      * @param {Pointer<Byte>} originName Infrastructure use only.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureusage
      */
     static RecordFeatureUsage(featureId, kind, addend, originName) {
         originName := originName is String? StrPtr(originName) : originName
 
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
-        return result
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
     }
 
     /**
      * This function is intended for infrastructure use only. (RecordFeatureError)
      * @param {Integer} featureId Infrastructure use only.
      * @param {Pointer<FEATURE_ERROR>} error Infrastructure use only.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureerror
      */
     static RecordFeatureError(featureId, error) {
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", error)
-        return result
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", error)
     }
 
     /**
@@ -7236,23 +7232,21 @@ class WindowsProgramming {
      * @param {Pointer<Void>} subscription Infrastructure use only.
      * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
      * @param {Pointer<Void>} context Infrastructure use only.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
      */
     static SubscribeFeatureStateChangeNotification(subscription, callback, context) {
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, "ptr", context)
-        return result
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, "ptr", context)
     }
 
     /**
      * This function is intended for infrastructure use only. (UnsubscribeFeatureStateChangeNotification)
      * @param {Pointer<Void>} subscription Infrastructure use only.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-unsubscribefeaturestatechangenotification
      */
     static UnsubscribeFeatureStateChangeNotification(subscription) {
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\UnsubscribeFeatureStateChangeNotification", "ptr", subscription)
-        return result
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\UnsubscribeFeatureStateChangeNotification", "ptr", subscription)
     }
 
     /**
@@ -7283,25 +7277,24 @@ class WindowsProgramming {
     /**
      * Closes a device context of a display.
      * @param {Pointer<Void>} hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
-     * @returns {Pointer} If the function succeeds, the return value is nonzero.  Otherwise, it returns zero.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
      * @since windows5.0
      */
     static DCICloseProvider(hdc) {
-        result := DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc)
-        return result
+        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc)
     }
 
     /**
      * Creates a primary surface and obtains surface information.
      * @param {Pointer<Void>} hdc The device context handle of the device for the primary surface to be created.
      * @param {Pointer<DCISURFACEINFO>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {Pointer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
+     * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
      * @since windows5.0
      */
     static DCICreatePrimary(hdc, lplpSurface) {
-        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr", lplpSurface)
+        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr", lplpSurface, "int")
         return result
     }
 
@@ -7317,10 +7310,10 @@ class WindowsProgramming {
      * @param {Integer} dwDCICaps 
      * @param {Integer} dwBitCount 
      * @param {Pointer<DCIOFFSCREEN>} lplpSurface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static DCICreateOffscreen(hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
-        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr", lplpSurface)
+        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr", lplpSurface, "int")
         return result
     }
 
@@ -7329,10 +7322,10 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hdc 
      * @param {Pointer<Void>} lpOffscreenSurf 
      * @param {Pointer<DCIOVERLAY>} lplpSurface 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static DCICreateOverlay(hdc, lpOffscreenSurf, lplpSurface) {
-        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, "ptr", lpOffscreenSurf, "ptr", lplpSurface)
+        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, "ptr", lpOffscreenSurf, "ptr", lplpSurface, "int")
         return result
     }
 
@@ -7343,10 +7336,10 @@ class WindowsProgramming {
      * @param {Pointer<RECT>} lprSrc 
      * @param {Pointer<Void>} lpFnCallback 
      * @param {Pointer<Void>} lpContext 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static DCIEnum(hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
-        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc, "ptr", lprDst, "ptr", lprSrc, "ptr", lpFnCallback, "ptr", lpContext)
+        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc, "ptr", lprDst, "ptr", lprSrc, "ptr", lpFnCallback, "ptr", lpContext, "int")
         return result
     }
 
@@ -7376,11 +7369,10 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<Void>} hWW 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static WinWatchClose(hWW) {
-        result := DllCall("DCIMAN32.dll\WinWatchClose", "ptr", hWW)
-        return result
+        DllCall("DCIMAN32.dll\WinWatchClose", "ptr", hWW)
     }
 
     /**
@@ -7389,10 +7381,10 @@ class WindowsProgramming {
      * @param {Pointer<RECT>} prc 
      * @param {Integer} size 
      * @param {Pointer<RGNDATA>} prd 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static WinWatchGetClipList(hWW, prc, size, prd) {
-        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size, "ptr", prd)
+        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size, "ptr", prd, "uint")
         return result
     }
 
@@ -7445,13 +7437,12 @@ class WindowsProgramming {
     /**
      * Releases access to display frame buffer.
      * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciendaccess
      * @since windows5.0
      */
     static DCIEndAccess(pdci) {
-        result := DllCall("DCIMAN32.dll\DCIEndAccess", "ptr", pdci)
-        return result
+        DllCall("DCIMAN32.dll\DCIEndAccess", "ptr", pdci)
     }
 
     /**
@@ -7473,13 +7464,12 @@ class WindowsProgramming {
     /**
      * Destroys a primary surface on the display device.
      * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcidestroy
      * @since windows5.0
      */
     static DCIDestroy(pdci) {
-        result := DllCall("DCIMAN32.dll\DCIDestroy", "ptr", pdci)
-        return result
+        DllCall("DCIMAN32.dll\DCIDestroy", "ptr", pdci)
     }
 
     /**
@@ -7535,7 +7525,7 @@ class WindowsProgramming {
      * @param {Pointer<Void>} phEXE 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RunSetupCommandA(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
         szCmdName := szCmdName is String? StrPtr(szCmdName) : szCmdName
@@ -7544,6 +7534,9 @@ class WindowsProgramming {
         lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7557,7 +7550,7 @@ class WindowsProgramming {
      * @param {Pointer<Void>} phEXE 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RunSetupCommandW(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
         szCmdName := szCmdName is String? StrPtr(szCmdName) : szCmdName
@@ -7566,6 +7559,9 @@ class WindowsProgramming {
         lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7594,13 +7590,16 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} pszINF 
      * @param {Pointer<Byte>} pszSec 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RebootCheckOnInstallA(hwnd, pszINF, pszSec, dwReserved) {
         pszINF := pszINF is String? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String? StrPtr(pszSec) : pszSec
 
         result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7610,13 +7609,16 @@ class WindowsProgramming {
      * @param {Pointer<Char>} pszINF 
      * @param {Pointer<Char>} pszSec 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RebootCheckOnInstallW(hwnd, pszINF, pszSec, dwReserved) {
         pszINF := pszINF is String? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String? StrPtr(pszSec) : pszSec
 
         result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7629,7 +7631,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} pszBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} pdwRequiredSize 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
@@ -7641,6 +7643,9 @@ class WindowsProgramming {
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7653,7 +7658,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} pszBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} pdwRequiredSize 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
@@ -7665,6 +7670,9 @@ class WindowsProgramming {
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7676,7 +7684,7 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hmod The module containing the values to be updated.
      * @param {Pointer<Byte>} pszSection The sections containing the values to be updated.
      * @param {Pointer<STRTABLEA>} pstTable The table of values to be updated.
-     * @returns {Integer} Returns S_OK on success. Returns E_FAIL on failure.
+     * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
      * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstalla
      * @since windows10.0.10240
      */
@@ -7684,6 +7692,9 @@ class WindowsProgramming {
         pszSection := pszSection is String? StrPtr(pszSection) : pszSection
 
         result := DllCall("ADVPACK.dll\RegInstallA", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7695,7 +7706,7 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hmod The module containing the values to be updated.
      * @param {Pointer<Char>} pszSection The sections containing the values to be updated.
      * @param {Pointer<STRTABLEW>} pstTable The table of values to be updated.
-     * @returns {Integer} Returns S_OK on success. Returns E_FAIL on failure.
+     * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
      * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstallw
      * @since windows10.0.10240
      */
@@ -7703,6 +7714,9 @@ class WindowsProgramming {
         pszSection := pszSection is String? StrPtr(pszSection) : pszSection
 
         result := DllCall("ADVPACK.dll\RegInstallW", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7712,12 +7726,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static LaunchINFSectionExW(hwnd, hInstance, pszParms, nShow) {
         pszParms := pszParms is String? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7726,10 +7743,13 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hwnd 
      * @param {Pointer<CABINFOA>} pCab 
      * @param {Pointer<Void>} pReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ExecuteCabA(hwnd, pCab, pReserved) {
         result := DllCall("ADVPACK.dll\ExecuteCabA", "ptr", hwnd, "ptr", pCab, "ptr", pReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7738,10 +7758,13 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hwnd 
      * @param {Pointer<CABINFOW>} pCab 
      * @param {Pointer<Void>} pReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ExecuteCabW(hwnd, pCab, pReserved) {
         result := DllCall("ADVPACK.dll\ExecuteCabW", "ptr", hwnd, "ptr", pCab, "ptr", pReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7754,7 +7777,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} lpszDestFile 
      * @param {Integer} dwFlags 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static AdvInstallFileA(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
         lpszSourceDir := lpszSourceDir is String? StrPtr(lpszSourceDir) : lpszSourceDir
@@ -7763,6 +7786,9 @@ class WindowsProgramming {
         lpszDestFile := lpszDestFile is String? StrPtr(lpszDestFile) : lpszDestFile
 
         result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7775,7 +7801,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} lpszDestFile 
      * @param {Integer} dwFlags 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static AdvInstallFileW(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
         lpszSourceDir := lpszSourceDir is String? StrPtr(lpszSourceDir) : lpszSourceDir
@@ -7784,6 +7810,9 @@ class WindowsProgramming {
         lpszDestFile := lpszDestFile is String? StrPtr(lpszDestFile) : lpszDestFile
 
         result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7796,7 +7825,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} pcszSubKey 
      * @param {Pointer<Byte>} pcszValueName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegSaveRestoreA(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
         pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
@@ -7805,6 +7834,9 @@ class WindowsProgramming {
         pcszValueName := pcszValueName is String? StrPtr(pcszValueName) : pcszValueName
 
         result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7817,7 +7849,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} pcszSubKey 
      * @param {Pointer<Char>} pcszValueName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegSaveRestoreW(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
         pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
@@ -7826,6 +7858,9 @@ class WindowsProgramming {
         pcszValueName := pcszValueName is String? StrPtr(pcszValueName) : pcszValueName
 
         result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7838,7 +7873,7 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hHKLMBackKey 
      * @param {Pointer<Void>} hHKCUBackKey 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
         pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
@@ -7846,6 +7881,9 @@ class WindowsProgramming {
         pszSection := pszSection is String? StrPtr(pszSection) : pszSection
 
         result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7858,7 +7896,7 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hHKLMBackKey 
      * @param {Pointer<Void>} hHKCUBackKey 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
         pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
@@ -7866,6 +7904,9 @@ class WindowsProgramming {
         pszSection := pszSection is String? StrPtr(pszSection) : pszSection
 
         result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7874,12 +7915,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hWnd 
      * @param {Pointer<Byte>} pszTitleString 
      * @param {Pointer<Void>} hkBckupKey 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegRestoreAllA(hWnd, pszTitleString, hkBckupKey) {
         pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
 
         result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7888,12 +7932,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hWnd 
      * @param {Pointer<Char>} pszTitleString 
      * @param {Pointer<Void>} hkBckupKey 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static RegRestoreAllW(hWnd, pszTitleString, hkBckupKey) {
         pszTitleString := pszTitleString is String? StrPtr(pszTitleString) : pszTitleString
 
         result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7904,7 +7951,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} lpDir 
      * @param {Pointer<Char>} lpBaseName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FileSaveRestoreW(hDlg, lpFileList, lpDir, lpBaseName, dwFlags) {
         lpFileList := lpFileList is String? StrPtr(lpFileList) : lpFileList
@@ -7912,6 +7959,9 @@ class WindowsProgramming {
         lpBaseName := lpBaseName is String? StrPtr(lpBaseName) : lpBaseName
 
         result := DllCall("ADVPACK.dll\FileSaveRestoreW", "ptr", hDlg, "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7924,7 +7974,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} pszBackupDir 
      * @param {Pointer<Byte>} pszBaseBackupFile 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FileSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
         pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
@@ -7934,6 +7984,9 @@ class WindowsProgramming {
         pszBaseBackupFile := pszBaseBackupFile is String? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
 
         result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7946,7 +7999,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} pszBackupDir 
      * @param {Pointer<Char>} pszBaseBackupFile 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FileSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
         pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
@@ -7956,6 +8009,9 @@ class WindowsProgramming {
         pszBaseBackupFile := pszBaseBackupFile is String? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
 
         result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7965,7 +8021,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} lpcszBackupDir 
      * @param {Pointer<Byte>} lpcszBaseName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static AddDelBackupEntryA(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
         lpcszFileList := lpcszFileList is String? StrPtr(lpcszFileList) : lpcszFileList
@@ -7973,6 +8029,9 @@ class WindowsProgramming {
         lpcszBaseName := lpcszBaseName is String? StrPtr(lpcszBaseName) : lpcszBaseName
 
         result := DllCall("ADVPACK.dll\AddDelBackupEntryA", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7982,7 +8041,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} lpcszBackupDir 
      * @param {Pointer<Char>} lpcszBaseName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static AddDelBackupEntryW(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags) {
         lpcszFileList := lpcszFileList is String? StrPtr(lpcszFileList) : lpcszFileList
@@ -7990,6 +8049,9 @@ class WindowsProgramming {
         lpcszBaseName := lpcszBaseName is String? StrPtr(lpcszBaseName) : lpcszBaseName
 
         result := DllCall("ADVPACK.dll\AddDelBackupEntryW", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7998,7 +8060,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} lpFileList 
      * @param {Pointer<Byte>} lpDir 
      * @param {Pointer<Byte>} lpBaseName 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FileSaveMarkNotExistA(lpFileList, lpDir, lpBaseName) {
         lpFileList := lpFileList is String? StrPtr(lpFileList) : lpFileList
@@ -8006,6 +8068,9 @@ class WindowsProgramming {
         lpBaseName := lpBaseName is String? StrPtr(lpBaseName) : lpBaseName
 
         result := DllCall("ADVPACK.dll\FileSaveMarkNotExistA", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8014,7 +8079,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} lpFileList 
      * @param {Pointer<Char>} lpDir 
      * @param {Pointer<Char>} lpBaseName 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
         lpFileList := lpFileList is String? StrPtr(lpFileList) : lpFileList
@@ -8022,6 +8087,9 @@ class WindowsProgramming {
         lpBaseName := lpBaseName is String? StrPtr(lpBaseName) : lpBaseName
 
         result := DllCall("ADVPACK.dll\FileSaveMarkNotExistW", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8031,12 +8099,15 @@ class WindowsProgramming {
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
         result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8046,12 +8117,15 @@ class WindowsProgramming {
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
         result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8061,12 +8135,15 @@ class WindowsProgramming {
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
         result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8076,12 +8153,15 @@ class WindowsProgramming {
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
         result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8100,12 +8180,15 @@ class WindowsProgramming {
      * 
      * @param {Pointer<Byte>} pszFileOrDirName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DelNodeA(pszFileOrDirName, dwFlags) {
         pszFileOrDirName := pszFileOrDirName is String? StrPtr(pszFileOrDirName) : pszFileOrDirName
 
         result := DllCall("ADVPACK.dll\DelNodeA", "ptr", pszFileOrDirName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8113,12 +8196,15 @@ class WindowsProgramming {
      * 
      * @param {Pointer<Char>} pszFileOrDirName 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DelNodeW(pszFileOrDirName, dwFlags) {
         pszFileOrDirName := pszFileOrDirName is String? StrPtr(pszFileOrDirName) : pszFileOrDirName
 
         result := DllCall("ADVPACK.dll\DelNodeW", "ptr", pszFileOrDirName, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8128,12 +8214,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DelNodeRunDLL32W(hwnd, hInstance, pszParms, nShow) {
         pszParms := pszParms is String? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8144,13 +8233,16 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} phInf 
      * @param {Pointer<Void>} pvReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static OpenINFEngineA(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
         pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
         pszInstallSection := pszInstallSection is String? StrPtr(pszInstallSection) : pszInstallSection
 
         result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr", phInf, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8161,13 +8253,16 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} phInf 
      * @param {Pointer<Void>} pvReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static OpenINFEngineW(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReserved) {
         pszInfFilename := pszInfFilename is String? StrPtr(pszInfFilename) : pszInfFilename
         pszInstallSection := pszInstallSection is String? StrPtr(pszInstallSection) : pszInstallSection
 
         result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr", phInf, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8180,7 +8275,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} pszBuffer 
      * @param {Integer} dwBufferSize 
      * @param {Pointer<UInt32>} pdwRequiredSize 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
@@ -8191,6 +8286,9 @@ class WindowsProgramming {
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("ADVPACK.dll\TranslateInfStringExA", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8203,7 +8301,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} pszBuffer 
      * @param {Integer} dwBufferSize 
      * @param {Pointer<UInt32>} pdwRequiredSize 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
@@ -8214,16 +8312,22 @@ class WindowsProgramming {
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("ADVPACK.dll\TranslateInfStringExW", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hInf 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static CloseINFEngine(hInf) {
         result := DllCall("ADVPACK.dll\CloseINFEngine", "ptr", hInf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8235,7 +8339,7 @@ class WindowsProgramming {
      * @param {Pointer<Byte>} pszFileList 
      * @param {Pointer<Void>} lpReserved 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ExtractFilesA(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
         pszCabName := pszCabName is String? StrPtr(pszCabName) : pszCabName
@@ -8243,6 +8347,9 @@ class WindowsProgramming {
         pszFileList := pszFileList is String? StrPtr(pszFileList) : pszFileList
 
         result := DllCall("ADVPACK.dll\ExtractFilesA", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, "ptr", lpReserved, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8254,7 +8361,7 @@ class WindowsProgramming {
      * @param {Pointer<Char>} pszFileList 
      * @param {Pointer<Void>} lpReserved 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static ExtractFilesW(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved, dwReserved) {
         pszCabName := pszCabName is String? StrPtr(pszCabName) : pszCabName
@@ -8262,6 +8369,9 @@ class WindowsProgramming {
         pszFileList := pszFileList is String? StrPtr(pszFileList) : pszFileList
 
         result := DllCall("ADVPACK.dll\ExtractFilesW", "ptr", pszCabName, "ptr", pszExpandDir, "uint", dwFlags, "ptr", pszFileList, "ptr", lpReserved, "uint", dwReserved, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8271,12 +8381,12 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Char>} pszParams 
      * @param {Integer} nShow 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static LaunchINFSectionW(hwndOwner, hInstance, pszParams, nShow) {
         pszParams := pszParams is String? StrPtr(pszParams) : pszParams
 
-        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow)
+        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow, "int")
         return result
     }
 
@@ -8286,12 +8396,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Byte>} pszParms 
      * @param {Integer} nShow 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UserInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
         pszParms := pszParms is String? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8301,12 +8414,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UserInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
         pszParms := pszParms is String? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8316,12 +8432,15 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Byte>} pszParms 
      * @param {Integer} nShow 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UserUnInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
         pszParms := pszParms is String? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8331,32 +8450,41 @@ class WindowsProgramming {
      * @param {Pointer<Void>} hInstance 
      * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static UserUnInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
         pszParms := pszParms is String? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<PERUSERSECTIONA>} pPerUser 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static SetPerUserSecValuesA(pPerUser) {
         result := DllCall("ADVPACK.dll\SetPerUserSecValuesA", "ptr", pPerUser, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<PERUSERSECTIONW>} pPerUser 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static SetPerUserSecValuesW(pPerUser) {
         result := DllCall("ADVPACK.dll\SetPerUserSecValuesW", "ptr", pPerUser, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8703,10 +8831,10 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @returns {Pointer} 
+     * @returns {Integer} 
      */
     static WINNLSGetIMEHotkey(param0) {
-        result := DllCall("USER32.dll\WINNLSGetIMEHotkey", "ptr", param0)
+        result := DllCall("USER32.dll\WINNLSGetIMEHotkey", "ptr", param0, "uint")
         return result
     }
 
@@ -8777,11 +8905,14 @@ class WindowsProgramming {
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host and source file to be evaluated.
      * @param {Pointer<UInt32>} lockdownState Provides the resulting policy secure value. If !WLDP_LOCKDOWN_IS_OFF, then UMCI is enabled. You can also check WLDP_LOCKDOWN_IS_AUDIT and WLDP_LOCKDOWN_IS_ENFORCE to determine if a policy is in audit or enforce mode.
      * @param {Integer} lockdownFlags The following flag values are defined WLDP\_FLAGS\_SKIPSIGNATUREVALIDATION 0x00000100 – when set, skip the SaferIdentifyLevel validation, which will ignore whether a script is signed.
-     * @returns {Integer} This method returns S\_OK if successful or a failure code otherwise.
+     * @returns {HRESULT} This method returns S\_OK if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
      */
     static WldpGetLockdownPolicy(hostInformation, lockdownState, lockdownFlags) {
         result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "uint*", lockdownState, "uint", lockdownFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8791,22 +8922,28 @@ class WindowsProgramming {
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host to be evaluated.
      * @param {Pointer<Int32>} isApproved On successful completion, contains **TRUE** if the class ID is approved; otherwise, **FALSE**.
      * @param {Integer} optionalFlags This parameter is reserved and must be set to zero.
-     * @returns {Integer} This method returns **S\_OK** if successful or a failure code otherwise.
+     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
      */
     static WldpIsClassInApprovedList(classID, hostInformation, isApproved, optionalFlags) {
         result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "int*", isApproved, "uint", optionalFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Sets an on-disk .NET CRL Dynamic Code trustable for .NET.
      * @param {Pointer<Void>} fileHandle Handle to a on-disk dynamic code file.
-     * @returns {Integer} This method returns **S\_OK** if successful or a failure code otherwise.
+     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpsetdynamiccodetrust
      */
     static WldpSetDynamicCodeTrust(fileHandle) {
         result := DllCall("Wldp.dll\WldpSetDynamicCodeTrust", "ptr", fileHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8815,11 +8952,14 @@ class WindowsProgramming {
      * @remarks
      * Dynamic code refers to .NET CRL dynamically-generated code.
      * @param {Pointer<Int32>} isEnabled On success, returns **true** if the Device Guard policy enforces .NET Dynamic Code policy; otherwise, returns **false**.
-     * @returns {Integer} This method returns **S\_OK** if successful or a failure code otherwise.
+     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
      */
     static WldpIsDynamicCodePolicyEnabled(isEnabled) {
         result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "int*", isEnabled, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8828,11 +8968,14 @@ class WindowsProgramming {
      * @param {Pointer<Void>} fileHandle Handle to the on-disk dynamic code file to check. If *fileHandle* is non-**NULL**, *baseImage* should be **NULL**.
      * @param {Pointer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
      * @param {Integer} imageSize When *baseImage* is non-**NULL**, indicates the buffer size that *baseImage* points to.
-     * @returns {Integer} This method returns **S\_OK** if successful or a failure code otherwise.
+     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
      */
     static WldpQueryDynamicCodeTrust(fileHandle, baseImage, imageSize) {
         result := DllCall("Wldp.dll\WldpQueryDynamicCodeTrust", "ptr", fileHandle, "ptr", baseImage, "uint", imageSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8841,10 +8984,13 @@ class WindowsProgramming {
      * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
      * @param {Integer} informationLength 
      * @param {Pointer<UInt32>} returnLength 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static WldpQueryDeviceSecurityInformation(information, informationLength, returnLength) {
         result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, "uint*", returnLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8866,13 +9012,16 @@ class WindowsProgramming {
      * > Callers should only pass open file handles to **WldpCanExecuteFile** and should not cache the security authorization on a specific file. It should be assumed that authorization to run a particular file is revoked when its file handle is closed. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
      * @param {Pointer<Char>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @param {Pointer<Int32>} result Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @returns {Integer} Returns S_OK on success and a failure code otherwise.
+     * @returns {HRESULT} Returns S_OK on success and a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
      */
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo, result) {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
         result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8895,13 +9044,16 @@ class WindowsProgramming {
      * @param {Integer} bufferSize The size of *buffer*, in bytes.
      * @param {Pointer<Char>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @param {Pointer<Int32>} result Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @returns {Integer} Returns S_OK on success and a failure code otherwise.
+     * @returns {HRESULT} Returns S_OK on success and a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
      */
     static WldpCanExecuteBuffer(host, options, buffer, bufferSize, auditInfo, result) {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
         result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, "char*", buffer, "uint", bufferSize, "ptr", auditInfo, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8920,13 +9072,16 @@ class WindowsProgramming {
      * @param {Pointer<IStream>} stream 
      * @param {Pointer<Char>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @param {Pointer<Int32>} result Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @returns {Integer} Returns S_OK on success and a failure code otherwise.
+     * @returns {HRESULT} Returns S_OK on success and a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
      */
     static WldpCanExecuteStream(host, options, stream, auditInfo, result) {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
         result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

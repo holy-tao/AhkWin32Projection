@@ -98,7 +98,7 @@ class WebServicesOnDevices {
     /**
      * Retrieves a pointer to the IWSDUdpMessageParameters interface.
      * @param {Pointer<IWSDUdpMessageParameters>} ppTxParams Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdudpmessageparameters">IWSDUdpMessageParameters</a> interface that you use to specify how often WSD repeats the message transmission.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -133,13 +133,16 @@ class WebServicesOnDevices {
      */
     static WSDCreateUdpMessageParameters(ppTxParams) {
         result := DllCall("wsdapi.dll\WSDCreateUdpMessageParameters", "ptr", ppTxParams, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an IWSDUdpAddress object.
      * @param {Pointer<IWSDUdpAddress>} ppAddress An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdudpaddress">IWSDUdpAddress</a> interface pointer. This parameter cannot be <b>NULL</b>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -185,13 +188,16 @@ class WebServicesOnDevices {
      */
     static WSDCreateUdpAddress(ppAddress) {
         result := DllCall("wsdapi.dll\WSDCreateUdpAddress", "ptr", ppAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an IWSDHttpMessageParameters object.
      * @param {Pointer<IWSDHttpMessageParameters>} ppTxParams Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdhttpmessageparameters">IWSDHttpMessageParameters</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -237,13 +243,16 @@ class WebServicesOnDevices {
      */
     static WSDCreateHttpMessageParameters(ppTxParams) {
         result := DllCall("wsdapi.dll\WSDCreateHttpMessageParameters", "ptr", ppTxParams, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an IWSDHttpAddress object.
      * @param {Pointer<IWSDHttpAddress>} ppAddress Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdhttpaddress">IWSDHttpAddress</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -289,13 +298,16 @@ class WebServicesOnDevices {
      */
     static WSDCreateHttpAddress(ppAddress) {
         result := DllCall("wsdapi.dll\WSDCreateHttpAddress", "ptr", ppAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an IWSDOutboundAttachment object.
      * @param {Pointer<IWSDOutboundAttachment>} ppAttachment Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsdattachment/nn-wsdattachment-iwsdoutboundattachment">IWSDOutboundAttachment</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -341,6 +353,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateOutboundAttachment(ppAttachment) {
         result := DllCall("wsdapi.dll\WSDCreateOutboundAttachment", "ptr", ppAttachment, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -349,7 +364,7 @@ class WebServicesOnDevices {
      * @param {Pointer<Char>} pszNamespace The namespace to match with a built-in namespace.
      * @param {Pointer<Char>} pszName The name to match with a built-in name.
      * @param {Pointer<WSDXML_NAME>} ppName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the returned built-in name.  The memory usage of <i>ppName</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppName</i>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -398,6 +413,9 @@ class WebServicesOnDevices {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr", ppName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -406,7 +424,7 @@ class WebServicesOnDevices {
      * @param {Pointer<IWSDXMLContext>} ppContext Pointer to a newly allocated 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object. If the function fails, 
      *       this parameter can be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -452,6 +470,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLCreateContext(ppContext) {
         result := DllCall("wsdapi.dll\WSDXMLCreateContext", "ptr", ppContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -461,7 +482,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDiscoveryProvider>} ppProvider Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -485,6 +506,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryProvider(pContext, ppProvider) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider", "ptr", pContext, "ptr", ppProvider, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -496,7 +520,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @param {Pointer<IWSDiscoveryProvider>} ppProvider Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -520,6 +544,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount, ppProvider) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppProvider, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -529,7 +556,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDiscoveryPublisher>} ppPublisher Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher">IWSDiscoveryPublisher</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -575,6 +602,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryPublisher(pContext, ppPublisher) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher", "ptr", pContext, "ptr", ppPublisher, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -586,7 +616,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @param {Pointer<IWSDiscoveryPublisher>} ppPublisher Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher">IWSDiscoveryPublisher</a> object. Cannot be <b>NULL</b>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -632,6 +662,9 @@ class WebServicesOnDevices {
      */
     static WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount, ppPublisher) {
         result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppPublisher, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -653,7 +686,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDDeviceProxy>} ppDeviceProxy Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object that you use to represent a remote WSD device for client applications and middleware.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -713,6 +746,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceProxy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -739,7 +775,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDDeviceProxy>} ppDeviceProxy Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> interface that you use to represent a remote WSD device for client applications and middleware.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -799,6 +835,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceProxy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -822,7 +861,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @param {Pointer<IWSDDeviceProxy>} ppDeviceProxy Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object that you use to represent a remote WSD device for client applications and middleware.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -882,6 +921,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppDeviceProxy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -921,7 +963,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDDeviceHost>} ppDeviceHost Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -980,6 +1022,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceHost, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1024,7 +1069,7 @@ class WebServicesOnDevices {
      * If <i>pszLocalId</i> contains a logical address, the resulting behavior is a mapping between the logical address and a specific set of physical addresses (instead of a mapping between the logical address and a default physical address).
      * @param {Integer} dwHostAddressCount The number of items in the <i>ppHostAddresses</i> array. If <i>ppHostAddresses</i> is an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface, count must be 1.
      * @param {Pointer<IWSDDeviceHost>} ppDeviceHost Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> interface that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -1083,6 +1128,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr", ppHostAddresses, "uint", dwHostAddressCount, "ptr", ppDeviceHost, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1122,7 +1170,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @param {Pointer<IWSDDeviceHost>} ppDeviceHost Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -1181,6 +1229,9 @@ class WebServicesOnDevices {
         pszLocalId := pszLocalId is String? StrPtr(pszLocalId) : pszLocalId
 
         result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppDeviceHost, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1207,7 +1258,7 @@ class WebServicesOnDevices {
      * </table>
      * @param {Pointer} pVoid Pointer to the configuration data. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then <i>pVoid</i> should point to a DWORD that represents the  size of an inbound message. The size of the message is  a value between 32768 and 1048576.
      * @param {Integer} cbInBuffer The size, in bytes, of the data pointed to by <i>pVoid</i>. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, this parameter should be set to <c>sizeof(DWORD)</c>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1242,6 +1293,9 @@ class WebServicesOnDevices {
      */
     static WSDSetConfigurationOption(dwOption, pVoid, cbInBuffer) {
         result := DllCall("wsdapi.dll\WSDSetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbInBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1268,7 +1322,7 @@ class WebServicesOnDevices {
      * </table>
      * @param {Pointer} pVoid Pointer to the configuration data.
      * @param {Integer} cbOutBuffer The size, in bytes, of the data pointed to by <i>pVoid</i>. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then this parameter should be set to <c>sizeof(DWORD)</c>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1314,6 +1368,9 @@ class WebServicesOnDevices {
      */
     static WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
         result := DllCall("wsdapi.dll\WSDGetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbOutBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1328,7 +1385,7 @@ class WebServicesOnDevices {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<Void>} pParent Pointer to the parent memory block.
      * @param {Pointer} cbSize Size of the memory block to be allocated.
-     * @returns {Pointer} Pointer to the newly allocated memory block.
+     * @returns {Pointer<Void>} Pointer to the newly allocated memory block.
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory
      * @since windows6.0.6000
      */
@@ -1342,13 +1399,12 @@ class WebServicesOnDevices {
      * @remarks
      * All children of the memory block are automatically freed.
      * @param {Pointer<Void>} pVoid Pointer to the memory block to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory
      * @since windows6.0.6000
      */
     static WSDFreeLinkedMemory(pVoid) {
-        result := DllCall("wsdapi.dll\WSDFreeLinkedMemory", "ptr", pVoid)
-        return result
+        DllCall("wsdapi.dll\WSDFreeLinkedMemory", "ptr", pVoid)
     }
 
     /**
@@ -1358,13 +1414,12 @@ class WebServicesOnDevices {
      * block is freed. Both the parent and child memory blocks must have been previously allocated by calls to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a>.
      * @param {Pointer<Void>} pParent Pointer to the parent memory block.
      * @param {Pointer<Void>} pChild Pointer to the child memory block.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdattachlinkedmemory
      * @since windows6.0.6000
      */
     static WSDAttachLinkedMemory(pParent, pChild) {
-        result := DllCall("wsdapi.dll\WSDAttachLinkedMemory", "ptr", pParent, "ptr", pChild)
-        return result
+        DllCall("wsdapi.dll\WSDAttachLinkedMemory", "ptr", pParent, "ptr", pChild)
     }
 
     /**
@@ -1372,13 +1427,12 @@ class WebServicesOnDevices {
      * @remarks
      * The child memory block must have been previously allocated by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a>.
      * @param {Pointer<Void>} pVoid Pointer to the memory block to be detached.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsddetachlinkedmemory
      * @since windows6.0.6000
      */
     static WSDDetachLinkedMemory(pVoid) {
-        result := DllCall("wsdapi.dll\WSDDetachLinkedMemory", "ptr", pVoid)
-        return result
+        DllCall("wsdapi.dll\WSDDetachLinkedMemory", "ptr", pVoid)
     }
 
     /**
@@ -1386,7 +1440,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSDXML_NAME>} pElementName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the name of the  created element.
      * @param {Pointer<Char>} pszText The text value of the created element.
      * @param {Pointer<WSDXML_ELEMENT>} ppAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> that contains the created element.  <i>ppAny</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1445,6 +1499,9 @@ class WebServicesOnDevices {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
         result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr", ppAny, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1454,7 +1511,7 @@ class WebServicesOnDevices {
      * @param {Pointer<Char>} pszName The name of the element to retrieve.
      * @param {Pointer<WSDXML_ELEMENT>} pAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the <b>any</b> element that is the parent of the element to retrieve.
      * @param {Pointer<Char>} ppszValue The text value of the element specified by <i>pszNamespace</i> and <i>pszName</i>.  The memory usage of <i>ppszValue</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppszValue</i>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1514,6 +1571,9 @@ class WebServicesOnDevices {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("wsdapi.dll\WSDXMLGetValueFromAny", "ptr", pszNamespace, "ptr", pszName, "ptr", pAny, "ptr", ppszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1521,7 +1581,7 @@ class WebServicesOnDevices {
      * Adds a sibling element.
      * @param {Pointer<WSDXML_ELEMENT>} pFirst Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the first sibling.
      * @param {Pointer<WSDXML_ELEMENT>} pSecond Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the second sibling.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1556,6 +1616,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLAddSibling(pFirst, pSecond) {
         result := DllCall("wsdapi.dll\WSDXMLAddSibling", "ptr", pFirst, "ptr", pSecond, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1563,7 +1626,7 @@ class WebServicesOnDevices {
      * Adds a child element.
      * @param {Pointer<WSDXML_ELEMENT>} pParent Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the parent element.
      * @param {Pointer<WSDXML_ELEMENT>} pChild Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the child element.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1598,13 +1661,16 @@ class WebServicesOnDevices {
      */
     static WSDXMLAddChild(pParent, pChild) {
         result := DllCall("wsdapi.dll\WSDXMLAddChild", "ptr", pParent, "ptr", pChild, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Frees memory associated with an XML element.
      * @param {Pointer<WSDXML_ELEMENT>} pAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies extension content allowed by the XML <b>ANY</b> keyword.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1639,6 +1705,9 @@ class WebServicesOnDevices {
      */
     static WSDXMLCleanupElement(pAny) {
         result := DllCall("wsdapi.dll\WSDXMLCleanupElement", "ptr", pAny, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1669,7 +1738,7 @@ class WebServicesOnDevices {
      * @param {Pointer<Char>} pszDetail Contains application-specific error information pertaining to the fault.
      * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that represents the context in which to generate the fault.
      * @param {Pointer<WSD_SOAP_FAULT>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  When the calling application is done with this data, <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -1720,6 +1789,9 @@ class WebServicesOnDevices {
         pszDetail := pszDetail is String? StrPtr(pszDetail) : pszDetail
 
         result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr", ppFault, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1751,7 +1823,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_LOCALIZED_STRING_LIST>} pReasons A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that contains a list of localized reason codes.
      * @param {Pointer<Char>} pszDetail Contains application-specific error information pertaining to the fault.
      * @param {Pointer<WSD_SOAP_FAULT>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @returns {Integer} Possible return values include, but are not limited to, the following:
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
      * <tr>
@@ -1799,6 +1871,9 @@ class WebServicesOnDevices {
         pszDetail := pszDetail is String? StrPtr(pszDetail) : pszDetail
 
         result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr", ppFault, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1812,7 +1887,7 @@ class WebServicesOnDevices {
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
      * @param {Pointer<Char>} destOut Pointer to a string that contains the encoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<UInt32>} cchDestOut Specifies the length of <i>destOut</i> in characters.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1871,6 +1946,9 @@ class WebServicesOnDevices {
         source := source is String? StrPtr(source) : source
 
         result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, "ptr", destOut, "uint*", cchDestOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1882,7 +1960,7 @@ class WebServicesOnDevices {
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
      * @param {Pointer<Char>} destOut Pointer to a string that contains the decoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<UInt32>} cchDestOut Specifies the length of <i>destOut</i> in characters.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1941,6 +2019,9 @@ class WebServicesOnDevices {
         source := source is String? StrPtr(source) : source
 
         result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, "ptr", destOut, "uint*", cchDestOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

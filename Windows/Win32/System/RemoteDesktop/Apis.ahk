@@ -1629,13 +1629,12 @@ class RemoteDesktop {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function.
      * 
      * Do not pass <b>WTS_CURRENT_SERVER_HANDLE</b> for this parameter.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscloseserver
      * @since windows6.0.6000
      */
     static WTSCloseServer(hServer) {
-        result := DllCall("WTSAPI32.dll\WTSCloseServer", "ptr", hServer)
-        return result
+        DllCall("WTSAPI32.dll\WTSCloseServer", "ptr", hServer)
     }
 
     /**
@@ -2855,13 +2854,12 @@ class RemoteDesktop {
      * Several Remote Desktop Services functions allocate buffers to return information. Use the 
      * <b>WTSFreeMemory</b> function to free these buffers.
      * @param {Pointer<Void>} pMemory Pointer to the memory to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememory
      * @since windows6.0.6000
      */
     static WTSFreeMemory(pMemory) {
-        result := DllCall("WTSAPI32.dll\WTSFreeMemory", "ptr", pMemory)
-        return result
+        DllCall("WTSAPI32.dll\WTSFreeMemory", "ptr", pMemory)
     }
 
     /**
@@ -3643,12 +3641,15 @@ class RemoteDesktop {
      * 
      * The format of this data is dependent upon the value passed in the <i>renderHintType</i> 
      *        parameter.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wtshintapi/nf-wtshintapi-wtssetrenderhint
      * @since windows8.0
      */
     static WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLength, pHintData) {
         result := DllCall("WTSAPI32.dll\WTSSetRenderHint", "uint*", pRenderHintID, "ptr", hwndOwner, "uint", renderHintType, "uint", cbHintDataLength, "ptr", pHintData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

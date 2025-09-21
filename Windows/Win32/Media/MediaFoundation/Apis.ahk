@@ -10401,7 +10401,7 @@ class MediaFoundation {
      * 
      * The function pointer type is <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_plugin">PDXVAHDSW_Plugin</a>.
      * @param {Pointer<IDXVAHD_Device>} ppDevice Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nn-dxvahd-idxvahd_device">IDXVAHD_Device</a> interface. The caller must release the interface.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -10436,6 +10436,9 @@ class MediaFoundation {
      */
     static DXVAHD_CreateDevice(pD3DDevice, pContentDesc, Usage, pPlugin, ppDevice) {
         result := DllCall("dxva2.dll\DXVAHD_CreateDevice", "ptr", pD3DDevice, "ptr", pContentDesc, "int", Usage, "ptr", pPlugin, "ptr", ppDevice, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10445,12 +10448,15 @@ class MediaFoundation {
      * Windows Store apps must use <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> and <a href="https://docs.microsoft.com/windows/desktop/medfound/direct3d-11-video-apis">Direct3D 11 Video APIs</a>.
      * @param {Pointer<UInt32>} pResetToken Receives a token that identifies this instance of the Direct3D device manager. Use this token when calling <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-resetdevice">IDirect3DDeviceManager9::ResetDevice</a>.
      * @param {Pointer<IDirect3DDeviceManager9>} ppDeviceManager Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirect3ddevicemanager9">IDirect3DDeviceManager9</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-dxva2createdirect3ddevicemanager9
      * @since windows6.0.6000
      */
     static DXVA2CreateDirect3DDeviceManager9(pResetToken, ppDeviceManager) {
         result := DllCall("dxva2.dll\DXVA2CreateDirect3DDeviceManager9", "uint*", pResetToken, "ptr", ppDeviceManager, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10472,12 +10478,15 @@ class MediaFoundation {
      * </li>
      * </ul>
      * @param {Pointer<Void>} ppService Receives a pointer to the interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-dxva2createvideoservice
      * @since windows6.0.6000
      */
     static DXVA2CreateVideoService(pDD, riid, ppService) {
         result := DllCall("dxva2.dll\DXVA2CreateVideoService", "ptr", pDD, "ptr", riid, "ptr", ppService, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10518,12 +10527,15 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<UInt32>} pulNumVideoOutputs Receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointers returned in the <i>pppOPMVideoOutputArray</i> parameter.
      * @param {Pointer<IOPMVideoOutput>} pppOPMVideoOutputArray Receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointers. Each <b>IOPMVideoOutput</b> pointer is associated with a single physical monitor. The caller must release each pointer in the array, and call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the array.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-opmgetvideooutputsfromhmonitor
      * @since windows6.0.6000
      */
     static OPMGetVideoOutputsFromHMONITOR(hMonitor, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
         result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, "uint*", pulNumVideoOutputs, "ptr", pppOPMVideoOutputArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10562,12 +10574,15 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<IOPMVideoOutput>} ppOPMVideoOutput Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointer. The caller must release this  pointer.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-opmgetvideooutputfortarget
      * @since windows6.0.6000
      */
     static OPMGetVideoOutputForTarget(pAdapterLuid, VidPnTarget, vos, ppOPMVideoOutput) {
         result := DllCall("dxva2.dll\OPMGetVideoOutputForTarget", "ptr", pAdapterLuid, "uint", VidPnTarget, "int", vos, "ptr", ppOPMVideoOutput, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10608,12 +10623,15 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<UInt32>} pulNumVideoOutputs Receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointers returned in the <i>pppOPMVideoOutputArray</i> parameter.
      * @param {Pointer<IOPMVideoOutput>} pppOPMVideoOutputArray Receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointers. Each <b>IOPMVideoOutput</b> pointer is associated with a single physical monitor. The caller must release each pointer in the array, and call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the array.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-opmgetvideooutputsfromidirect3ddevice9object
      * @since windows6.0.6000
      */
     static OPMGetVideoOutputsFromIDirect3DDevice9Object(pDirect3DDevice9, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
         result := DllCall("dxva2.dll\OPMGetVideoOutputsFromIDirect3DDevice9Object", "ptr", pDirect3DDevice9, "int", vos, "uint*", pulNumVideoOutputs, "ptr", pppOPMVideoOutputArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10640,7 +10658,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pAttr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of the attribute store.
      * @param {Integer} dwOptions Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attribute_serialize_options">MF_ATTRIBUTE_SERIALIZE_OPTIONS</a> enumeration.
      * @param {Pointer<IStream>} pStm Pointer to the <b>IStream</b> interface of the stream where the attributes are saved.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -10664,6 +10682,9 @@ class MediaFoundation {
      */
     static MFSerializeAttributesToStream(pAttr, dwOptions, pStm) {
         result := DllCall("MFPlat.dll\MFSerializeAttributesToStream", "ptr", pAttr, "uint", dwOptions, "ptr", pStm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10688,7 +10709,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pAttr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of the attribute store.
      * @param {Integer} dwOptions Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_attribute_serialize_options">MF_ATTRIBUTE_SERIALIZE_OPTIONS</a> enumeration.
      * @param {Pointer<IStream>} pStm Pointer to the <b>IStream</b> interface of the stream from which to read the attributes.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -10712,6 +10733,9 @@ class MediaFoundation {
      */
     static MFDeserializeAttributesFromStream(pAttr, dwOptions, pStm) {
         result := DllCall("MFPlat.dll\MFDeserializeAttributesFromStream", "ptr", pAttr, "uint", dwOptions, "ptr", pStm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10801,12 +10825,15 @@ class MediaFoundation {
      * For more information about activation objects, see <a href="https://docs.microsoft.com/windows/desktop/medfound/activation-objects">Activation Objects</a>.
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface.
      *           The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-mfcreatetransformactivate
      * @since windows6.1
      */
     static MFCreateTransformActivate(ppActivate) {
         result := DllCall("MFPlat.dll\MFCreateTransformActivate", "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10836,7 +10863,7 @@ class MediaFoundation {
      * </ul>
      * @param {Pointer<IMFAttributes>} pConfiguration Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. This parameter can be <b>NULL</b>. See Remarks.
      * @param {Pointer<IMFMediaSession>} ppMediaSession Receives a pointer to the Media Session's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasession">IMFMediaSession</a> interface. The caller must release the interface. Before releasing the last reference to the <b>IMFMediaSession</b> pointer, the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-shutdown">IMFMediaSession::Shutdown</a> method.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -10861,6 +10888,9 @@ class MediaFoundation {
      */
     static MFCreateMediaSession(pConfiguration, ppMediaSession) {
         result := DllCall("MF.dll\MFCreateMediaSession", "ptr", pConfiguration, "ptr", ppMediaSession, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10906,7 +10936,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pConfiguration A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. This parameter can be <b>NULL</b>. See Remarks.
      * @param {Pointer<IMFMediaSession>} ppMediaSession Receives a pointer to the PMP Media Session's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasession">IMFMediaSession</a> interface. The caller must release the interface. Before releasing the last reference to the <b>IMFMediaSession</b> pointer, the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-shutdown">IMFMediaSession::Shutdown</a> method.
      * @param {Pointer<IMFActivate>} ppEnablerActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface or the value <b>NULL</b>. If non-<b>NULL</b>, the caller must release the interface. See Remarks.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
      * <table>
@@ -10931,6 +10961,9 @@ class MediaFoundation {
      */
     static MFCreatePMPMediaSession(dwCreationFlags, pConfiguration, ppMediaSession, ppEnablerActivate) {
         result := DllCall("MF.dll\MFCreatePMPMediaSession", "uint", dwCreationFlags, "ptr", pConfiguration, "ptr", ppMediaSession, "ptr", ppEnablerActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10940,12 +10973,15 @@ class MediaFoundation {
      * <div class="alert"><b>Note</b>  Prior to Windows 7, this function was exported from mf.dll. Starting in Windows 7, this function is exported from mfplat.dll, and mf.dll exports a stub function that calls into mfplat.dll. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-headers-and-libraries">Library Changes in Windows 7</a>.</div>
      * <div> </div>
      * @param {Pointer<IMFSourceResolver>} ppISourceResolver Receives a pointer to the source resolver's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsourceresolver">IMFSourceResolver</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesourceresolver
      * @since windows6.0.6000
      */
     static MFCreateSourceResolver(ppISourceResolver) {
         result := DllCall("MFPlat.dll\MFCreateSourceResolver", "ptr", ppISourceResolver, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10959,19 +10995,22 @@ class MediaFoundation {
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
      * @param {Pointer<IPropertyStore>} ppStore Receives a pointer to the <b>IPropertyStore</b> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-createpropertystore
      * @since windows6.0.6000
      */
     static CreatePropertyStore(ppStore) {
         result := DllCall("MFPlat.dll\CreatePropertyStore", "ptr", ppStore, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Retrieves the URL schemes that are registered for the source resolver.
      * @param {Pointer<PROPVARIANT>} pPropVarSchemeArray Pointer to a <b>PROPVARIANT</b> that receives the URL schemes. Before calling this method, call <b>PropVariantInit</b> to initialize the <b>PROPVARIANT</b>. If the method succeeds, the <b>PROPVARIANT</b> contains an array of wide-character strings. The <b>PROPVARIANT</b> data type is VT_VECTOR | VT_LPWSTR. The caller must release the <b>PROPVARIANT</b> by calling <b>PropVariantClear</b>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -10995,13 +11034,16 @@ class MediaFoundation {
      */
     static MFGetSupportedSchemes(pPropVarSchemeArray) {
         result := DllCall("MFPlat.dll\MFGetSupportedSchemes", "ptr", pPropVarSchemeArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Retrieves the MIME types that are registered for the source resolver.
      * @param {Pointer<PROPVARIANT>} pPropVarMimeTypeArray Pointer to a <b>PROPVARIANT</b> that receives the MIME types. Before calling this method, call <b>PropVariantInit</b> to initialize the <b>PROPVARIANT</b>. If the method succeeds, the <b>PROPVARIANT</b> contains an array of wide-character strings. The <b>PROPVARIANT</b> data type is VT_VECTOR | VT_LPWSTR. The caller must release the <b>PROPVARIANT</b> by calling <b>PropVariantClear</b>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11026,13 +11068,16 @@ class MediaFoundation {
      */
     static MFGetSupportedMimeTypes(pPropVarMimeTypeArray) {
         result := DllCall("MFPlat.dll\MFGetSupportedMimeTypes", "ptr", pPropVarMimeTypeArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates a topology object.
      * @param {Pointer<IMFTopology>} ppTopo Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the topology object. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11056,6 +11101,9 @@ class MediaFoundation {
      */
     static MFCreateTopology(ppTopo) {
         result := DllCall("MF.dll\MFCreateTopology", "ptr", ppTopo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11063,12 +11111,15 @@ class MediaFoundation {
      * Creates a topology node.
      * @param {Integer} NodeType The type of node to create, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_topology_type">MF_TOPOLOGY_TYPE</a> enumeration.
      * @param {Pointer<IMFTopologyNode>} ppNode Receives a pointer to the node's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatetopologynode
      * @since windows6.0.6000
      */
     static MFCreateTopologyNode(NodeType, ppNode) {
         result := DllCall("MF.dll\MFCreateTopologyNode", "int", NodeType, "ptr", ppNode, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11094,7 +11145,7 @@ class MediaFoundation {
      * <li>Transform nodes: If the value is <b>TRUE</b>, the <i>dwStreamIndex</i> parameter is the index for an output stream. Otherwise, <i>dwStreamIndex</i> is the index for an input stream.</li>
      * </ul>
      * @param {Pointer<IMFMediaType>} ppType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11129,6 +11180,9 @@ class MediaFoundation {
      */
     static MFGetTopoNodeCurrentType(pNode, dwStreamIndex, fOutput, ppType) {
         result := DllCall("MF.dll\MFGetTopoNodeCurrentType", "ptr", pNode, "uint", dwStreamIndex, "int", fOutput, "ptr", ppType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11138,7 +11192,7 @@ class MediaFoundation {
      * @param {Pointer<Guid>} guidService The service identifier (SID) of the service. For a list of service identifiers, see <a href="https://docs.microsoft.com/windows/desktop/medfound/service-interfaces">Service Interfaces</a>.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @param {Pointer<Void>} ppvObject Receives the interface pointer. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11175,6 +11229,9 @@ class MediaFoundation {
      */
     static MFGetService(punkObject, guidService, riid, ppvObject) {
         result := DllCall("MF.dll\MFGetService", "ptr", punkObject, "ptr", guidService, "ptr", riid, "ptr", ppvObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11196,19 +11253,22 @@ class MediaFoundation {
      * 
      * Typically applications do not create the presentation clock. The Media Session automatically creates the presentation clock. To get a pointer to the presentation clock from the Media Session, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-getclock">IMFMediaSession::GetClock</a>.
      * @param {Pointer<IMFPresentationClock>} ppPresentationClock Receives a pointer to the clock's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatepresentationclock
      * @since windows6.0.6000
      */
     static MFCreatePresentationClock(ppPresentationClock) {
         result := DllCall("MF.dll\MFCreatePresentationClock", "ptr", ppPresentationClock, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates a presentation time source that is based on the system time.
      * @param {Pointer<IMFPresentationTimeSource>} ppSystemTimeSource Receives a pointer to the object's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationtimesource">IMFPresentationTimeSource</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11232,6 +11292,9 @@ class MediaFoundation {
      */
     static MFCreateSystemTimeSource(ppSystemTimeSource) {
         result := DllCall("MFPlat.dll\MFCreateSystemTimeSource", "ptr", ppSystemTimeSource, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11250,12 +11313,15 @@ class MediaFoundation {
      * @param {Integer} cStreamDescriptors Number of elements in the <i>apStreamDescriptors</i> array.
      * @param {Pointer<IMFStreamDescriptor>} apStreamDescriptors Array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfstreamdescriptor">IMFStreamDescriptor</a> interface pointers. Each pointer represents a stream descriptor for one stream in the presentation.
      * @param {Pointer<IMFPresentationDescriptor>} ppPresentationDescriptor Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the presentation descriptor. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatepresentationdescriptor
      * @since windows6.0.6000
      */
     static MFCreatePresentationDescriptor(cStreamDescriptors, apStreamDescriptors, ppPresentationDescriptor) {
         result := DllCall("MFPlat.dll\MFCreatePresentationDescriptor", "uint", cStreamDescriptors, "ptr", apStreamDescriptors, "ptr", ppPresentationDescriptor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11268,7 +11334,7 @@ class MediaFoundation {
      * 
      * Internally, this function checks whether any of the stream descriptors in the presentation have the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sd-protected-attribute">MF_SD_PROTECTED</a> attribute with the value <b>TRUE</b>.
      * @param {Pointer<IMFPresentationDescriptor>} pPresentationDescriptor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of a presentation descriptor. The presentation descriptor is created by the media source, and describes the presentation.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11303,6 +11369,9 @@ class MediaFoundation {
      */
     static MFRequireProtectedEnvironment(pPresentationDescriptor) {
         result := DllCall("MF.dll\MFRequireProtectedEnvironment", "ptr", pPresentationDescriptor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11313,7 +11382,7 @@ class MediaFoundation {
      * @param {Pointer<IMFPresentationDescriptor>} pPD Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the presentation descriptor to serialize.
      * @param {Pointer<UInt32>} pcbData Receives the size of the <i>ppbData</i> array, in bytes.
      * @param {Pointer<Byte>} ppbData Receives a pointer to an array of bytes containing the serialized presentation descriptor. The caller must free the memory for the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11337,6 +11406,9 @@ class MediaFoundation {
      */
     static MFSerializePresentationDescriptor(pPD, pcbData, ppbData) {
         result := DllCall("MFPlat.dll\MFSerializePresentationDescriptor", "ptr", pPD, "uint*", pcbData, "ptr", ppbData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11345,7 +11417,7 @@ class MediaFoundation {
      * @param {Integer} cbData Size of the <i>pbData</i> array, in bytes.
      * @param {Pointer<Byte>} pbData Pointer to an array of bytes that contains the serialized presentation descriptor.
      * @param {Pointer<IMFPresentationDescriptor>} ppPD Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the presentation descriptor. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11369,6 +11441,9 @@ class MediaFoundation {
      */
     static MFDeserializePresentationDescriptor(cbData, pbData, ppPD) {
         result := DllCall("MFPlat.dll\MFDeserializePresentationDescriptor", "uint", cbData, "char*", pbData, "ptr", ppPD, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11388,12 +11463,15 @@ class MediaFoundation {
      * @param {Integer} cMediaTypes Number of elements in the <i>apMediaTypes</i> array.
      * @param {Pointer<IMFMediaType>} apMediaTypes Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface pointers. These pointers are used to initialize the media type handler for the stream descriptor.
      * @param {Pointer<IMFStreamDescriptor>} ppDescriptor Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfstreamdescriptor">IMFStreamDescriptor</a> interface of the new stream descriptor. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatestreamdescriptor
      * @since windows6.0.6000
      */
     static MFCreateStreamDescriptor(dwStreamIdentifier, cMediaTypes, apMediaTypes, ppDescriptor) {
         result := DllCall("MFPlat.dll\MFCreateStreamDescriptor", "uint", dwStreamIdentifier, "uint", cMediaTypes, "ptr", apMediaTypes, "ptr", ppDescriptor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11402,7 +11480,7 @@ class MediaFoundation {
      * @remarks
      * The media-type handler created by this function supports one media type at a time. Set the media type by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediatypehandler-setcurrentmediatype">IMFMediaTypeHandler::SetCurrentMediaType</a>. After the type is set, <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediatypehandler-ismediatypesupported">IMFMediaTypeHandler::IsMediaTypeSupported</a> always checks against that type.
      * @param {Pointer<IMFMediaTypeHandler>} ppHandler Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediatypehandler">IMFMediaTypeHandler</a> interface of the media-type handler. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11426,6 +11504,9 @@ class MediaFoundation {
      */
     static MFCreateSimpleTypeHandler(ppHandler) {
         result := DllCall("MF.dll\MFCreateSimpleTypeHandler", "ptr", ppHandler, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11434,7 +11515,7 @@ class MediaFoundation {
      * @remarks
      * This function is not related to the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfshutdown">MFShutdown</a> function, which shuts down the Media Foundation platform, as described in <a href="https://docs.microsoft.com/windows/desktop/medfound/initializing-media-foundation">Initializing Media Foundation</a>.
      * @param {Pointer<IUnknown>} pUnk Pointer to the <b>IUnknown</b> interface of the object.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11459,6 +11540,9 @@ class MediaFoundation {
      */
     static MFShutdownObject(pUnk) {
         result := DllCall("MF.dll\MFShutdownObject", "ptr", pUnk, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11511,12 +11595,15 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<IMFAttributes>} pAudioAttributes A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface, which is used to configure the audio renderer. This parameter can be <b>NULL</b>. See Remarks.
      * @param {Pointer<IMFMediaSink>} ppSink Receives a pointer to the audio renderer's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreateaudiorenderer
      * @since windows6.0.6000
      */
     static MFCreateAudioRenderer(pAudioAttributes, ppSink) {
         result := DllCall("MF.dll\MFCreateAudioRenderer", "ptr", pAudioAttributes, "ptr", ppSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11572,12 +11659,15 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. Use this interface to create the audio renderer. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreateaudiorendereractivate
      * @since windows6.0.6000
      */
     static MFCreateAudioRendererActivate(ppActivate) {
         result := DllCall("MF.dll\MFCreateAudioRendererActivate", "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11635,7 +11725,7 @@ class MediaFoundation {
      * When <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> is called, the activation objects sets the video window on the EVR by calling <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideodisplaycontrol-setvideoposition">IMFVideoDisplayControl::SetVideoPosition</a>. Passing <b>NULL</b> for the <i>hwndVideo</i> parameter is not an error, but no video will render unless the EVR has a valid video window.
      * @param {Pointer<Void>} hwndVideo Handle to the window where the video will be displayed.
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. Use this interface to create the EVR. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11659,6 +11749,9 @@ class MediaFoundation {
      */
     static MFCreateVideoRendererActivate(hwndVideo, ppActivate) {
         result := DllCall("MF.dll\MFCreateVideoRendererActivate", "ptr", hwndVideo, "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11678,12 +11771,15 @@ class MediaFoundation {
      * 
      * This parameter can be <b>NULL</b>, but not if <i>pVideoMediaType</i> is <b>NULL</b>.
      * @param {Pointer<IMFMediaSink>} ppIMediaSink Receives a pointer to the MP4 media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatempeg4mediasink
      * @since windows6.1
      */
     static MFCreateMPEG4MediaSink(pIByteStream, pVideoMediaType, pAudioMediaType, ppIMediaSink) {
         result := DllCall("MF.dll\MFCreateMPEG4MediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr", ppIMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11703,12 +11799,15 @@ class MediaFoundation {
      * 
      * This parameter can be <b>NULL</b>, but not if <i>pVideoMediaType</i> is <b>NULL</b>.
      * @param {Pointer<IMFMediaSink>} ppIMediaSink Receives a pointer to the 3GP media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreate3gpmediasink
      * @since windows6.1
      */
     static MFCreate3GPMediaSink(pIByteStream, pVideoMediaType, pAudioMediaType, ppIMediaSink) {
         result := DllCall("MF.dll\MFCreate3GPMediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr", ppIMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11719,12 +11818,15 @@ class MediaFoundation {
      * audio samples as input, and writes an MP3 file with ID3 headers as output. The MP3 media sink does not perform MP3 audio encoding.
      * @param {Pointer<IMFByteStream>} pTargetByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of a byte stream.  The media sink writes the MP3 file to this byte stream. The byte stream must be writable.
      * @param {Pointer<IMFMediaSink>} ppMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface of the MP3 media sink.. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatemp3mediasink
      * @since windows6.1
      */
     static MFCreateMP3MediaSink(pTargetByteStream, ppMediaSink) {
         result := DllCall("MF.dll\MFCreateMP3MediaSink", "ptr", pTargetByteStream, "ptr", ppMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11754,12 +11856,15 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<IMFMediaSink>} ppMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreateac3mediasink
      * @since windows8.0
      */
     static MFCreateAC3MediaSink(pTargetByteStream, pAudioMediaType, ppMediaSink) {
         result := DllCall("MF.dll\MFCreateAC3MediaSink", "ptr", pTargetByteStream, "ptr", pAudioMediaType, "ptr", ppMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11797,12 +11902,15 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<IMFMediaSink>} ppMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreateadtsmediasink
      * @since windows8.0
      */
     static MFCreateADTSMediaSink(pTargetByteStream, pAudioMediaType, ppMediaSink) {
         result := DllCall("MF.dll\MFCreateADTSMediaSink", "ptr", pTargetByteStream, "ptr", pAudioMediaType, "ptr", ppMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11828,12 +11936,15 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pOutputAttributes A list of format attributes for the MFT output type. This parameter is optional and can be <b>NULL</b>.
      * @param {Pointer<IMFByteStream>} pOutputByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of a byte stream. The output from the MFT is written to this byte stream. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFMediaSink>} ppMuxSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface of the media sink. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatemuxsink
      * @since windows8.0
      */
     static MFCreateMuxSink(guidOutputSubType, pOutputAttributes, pOutputByteStream, ppMuxSink) {
         result := DllCall("MF.dll\MFCreateMuxSink", "ptr", guidOutputSubType, "ptr", pOutputAttributes, "ptr", pOutputByteStream, "ptr", ppMuxSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11847,12 +11958,15 @@ class MediaFoundation {
      * 
      * This parameter can be <b>NULL</b>, but not if <i>pVideoMediaType</i> is <b>NULL</b>.
      * @param {Pointer<IMFMediaSink>} ppIMediaSink Receives a pointer to the MP4 media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatefmpeg4mediasink
      * @since windows8.0
      */
     static MFCreateFMPEG4MediaSink(pIByteStream, pVideoMediaType, pAudioMediaType, ppIMediaSink) {
         result := DllCall("MF.dll\MFCreateFMPEG4MediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr", ppIMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11862,12 +11976,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pVideoMediaType Pointer to the media type of the video input stream
      * @param {Pointer<IMFMediaType>} pAudioMediaType Pointer to the media type of the audio input stream
      * @param {Pointer<IMFMediaSink>} ppIMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> Interface.  The caller must release this interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreateavimediasink
      * @since windows8.1
      */
     static MFCreateAVIMediaSink(pIByteStream, pVideoMediaType, pAudioMediaType, ppIMediaSink) {
         result := DllCall("mfsrcsnk.dll\MFCreateAVIMediaSink", "ptr", pIByteStream, "ptr", pVideoMediaType, "ptr", pAudioMediaType, "ptr", ppIMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11876,19 +11993,22 @@ class MediaFoundation {
      * @param {Pointer<IMFByteStream>} pTargetByteStream Pointer to the byte stream that will be used to write the .wav file.
      * @param {Pointer<IMFMediaType>} pAudioMediaType Pointer to the audio media type.
      * @param {Pointer<IMFMediaSink>} ppMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface.  The caller must release this interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatewavemediasink
      * @since windows8.1
      */
     static MFCreateWAVEMediaSink(pTargetByteStream, pAudioMediaType, ppMediaSink) {
         result := DllCall("mfsrcsnk.dll\MFCreateWAVEMediaSink", "ptr", pTargetByteStream, "ptr", pAudioMediaType, "ptr", ppMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates a new instance of the topology loader.
      * @param {Pointer<IMFTopoLoader>} ppObj Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopoloader">IMFTopoLoader</a> interface of the topology loader. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11912,6 +12032,9 @@ class MediaFoundation {
      */
     static MFCreateTopoLoader(ppObj) {
         result := DllCall("MF.dll\MFCreateTopoLoader", "ptr", ppObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11933,19 +12056,22 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pIMFMediaType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface, defining the media type for the sample grabber's input stream.
      * @param {Pointer<IMFSampleGrabberSinkCallback>} pIMFSampleGrabberSinkCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsamplegrabbersinkcallback">IMFSampleGrabberSinkCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {Pointer<IMFActivate>} ppIActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. Use this interface to complete the creation of the sample grabber. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesamplegrabbersinkactivate
      * @since windows6.0.6000
      */
     static MFCreateSampleGrabberSinkActivate(pIMFMediaType, pIMFSampleGrabberSinkCallback, ppIActivate) {
         result := DllCall("MF.dll\MFCreateSampleGrabberSinkActivate", "ptr", pIMFMediaType, "ptr", pIMFSampleGrabberSinkCallback, "ptr", ppIActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the default implementation of the quality manager.
      * @param {Pointer<IMFQualityManager>} ppQualityManager Receives a pointer to the quality manager's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualitymanager">IMFQualityManager</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -11970,6 +12096,9 @@ class MediaFoundation {
      */
     static MFCreateStandardQualityManager(ppQualityManager) {
         result := DllCall("MF.dll\MFCreateStandardQualityManager", "ptr", ppQualityManager, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11977,7 +12106,7 @@ class MediaFoundation {
      * Creates the sequencer source.
      * @param {Pointer<IUnknown>} pReserved Reserved. Must be <b>NULL</b>.
      * @param {Pointer<IMFSequencerSource>} ppSequencerSource Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsequencersource">IMFSequencerSource</a> interface of the sequencer source. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -12001,6 +12130,9 @@ class MediaFoundation {
      */
     static MFCreateSequencerSource(pReserved, ppSequencerSource) {
         result := DllCall("MF.dll\MFCreateSequencerSource", "ptr", pReserved, "ptr", ppSequencerSource, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12011,12 +12143,15 @@ class MediaFoundation {
      * @param {Integer} dwId Sequencer element identifier. This value specifies the segment in which to begin playback. The element identifier is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsequencersource-appendtopology">IMFSequencerSource::AppendTopology</a> method.
      * @param {Integer} hnsOffset Starting position within the segment, in 100-nanosecond units.
      * @param {Pointer<PROPVARIANT>} pvarSegmentOffset Pointer to a <b>PROPVARIANT</b>. The method fills in the <b>PROPVARIANT</b> with the information needed for performing a seek operation. The caller must free the <b>PROPVARIANT</b> by calling <b>PropVariantClear</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesequencersegmentoffset
      * @since windows6.0.6000
      */
     static MFCreateSequencerSegmentOffset(dwId, hnsOffset, pvarSegmentOffset) {
         result := DllCall("MF.dll\MFCreateSequencerSegmentOffset", "uint", dwId, "int64", hnsOffset, "ptr", pvarSegmentOffset, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12026,7 +12161,7 @@ class MediaFoundation {
      * The aggregated media source is useful for combining  streams from separate media sources. For example, you can use it to  combine a video capture source and an audio capture source.
      * @param {Pointer<IMFCollection>} pSourceCollection A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface of the collection object that contains a list of media sources.
      * @param {Pointer<IMFMediaSource>} ppAggSource Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> interface of the aggregated media source. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * 
      * 
@@ -12063,13 +12198,16 @@ class MediaFoundation {
      */
     static MFCreateAggregateSource(pSourceCollection, ppAggSource) {
         result := DllCall("MF.dll\MFCreateAggregateSource", "ptr", pSourceCollection, "ptr", ppAggSource, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates a credential cache object. An application can use this object to implement a custom credential manager.
      * @param {Pointer<IMFNetCredentialCache>} ppCache Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredentialcache">IMFNetCredentialCache</a> interface of the new credential cache object. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -12094,6 +12232,9 @@ class MediaFoundation {
      */
     static MFCreateCredentialCache(ppCache) {
         result := DllCall("MF.dll\MFCreateCredentialCache", "ptr", ppCache, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12105,7 +12246,7 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<IPropertyStore>} pProxyConfig Pointer to the <b>IPropertyStore</b> interface of a property store that contains the proxy configuration in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-proxysettings-property">MFNETSOURCE_PROXYSETTINGS</a> property.
      * @param {Pointer<IMFNetProxyLocator>} ppProxyLocator Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetproxylocator">IMFNetProxyLocator</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -12132,6 +12273,9 @@ class MediaFoundation {
         pszProtocol := pszProtocol is String? StrPtr(pszProtocol) : pszProtocol
 
         result := DllCall("MF.dll\MFCreateProxyLocator", "ptr", pszProtocol, "ptr", pProxyConfig, "ptr", ppProxyLocator, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12139,7 +12283,7 @@ class MediaFoundation {
      * Creates the scheme handler for the network source.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the interface to retrieve.
      * @param {Pointer<Void>} ppvHandler Receives a pointer to the requested interface. The caller must release the interface. The scheme handler exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfschemehandler">IMFSchemeHandler</a> interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -12163,6 +12307,9 @@ class MediaFoundation {
      */
     static MFCreateNetSchemePlugin(riid, ppvHandler) {
         result := DllCall("MF.dll\MFCreateNetSchemePlugin", "ptr", riid, "ptr", ppvHandler, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12170,7 +12317,7 @@ class MediaFoundation {
      * Creates the protected media path (PMP) server object.
      * @param {Integer} dwCreationFlags A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpmpsession_creation_flags">MFPMPSESSION_CREATION_FLAGS</a> enumeration that specifies how to create the PMP session.
      * @param {Pointer<IMFPMPServer>} ppPMPServer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpmpserver">IMFPMPServer</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -12195,13 +12342,16 @@ class MediaFoundation {
      */
     static MFCreatePMPServer(dwCreationFlags, ppPMPServer) {
         result := DllCall("MF.dll\MFCreatePMPServer", "uint", dwCreationFlags, "ptr", ppPMPServer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the remote desktop plug-in object. Use this object if the application is running in a Terminal Services client session.
      * @param {Pointer<IMFRemoteDesktopPlugin>} ppPlugin Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfremotedesktopplugin">IMFRemoteDesktopPlugin</a> interface of the plug-in object. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
      * <table>
@@ -12237,13 +12387,16 @@ class MediaFoundation {
      */
     static MFCreateRemoteDesktopPlugin(ppPlugin) {
         result := DllCall("MF.dll\MFCreateRemoteDesktopPlugin", "ptr", ppPlugin, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an empty property store to hold name/value pairs.
      * @param {Pointer<INamedPropertyStore>} ppStore Receives a pointer to the <b>INamedPropertyStore</b> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -12267,6 +12420,9 @@ class MediaFoundation {
      */
     static CreateNamedPropertyStore(ppStore) {
         result := DllCall("MF.dll\CreateNamedPropertyStore", "ptr", ppStore, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12295,12 +12451,15 @@ class MediaFoundation {
      * 
      * A specific example of such a media sink is the  <a href="https://docs.microsoft.com/windows/desktop/medfound/enhanced-video-renderer">Enhanced Video Renderer</a> (EVR). The EVR allocates samples that contain Direct3D surface buffers, so it cannot receive video samples directly from a media source. Starting in Windows 7, the topology loader automatically handles this case by inserting the sample copier between the media source and the EVR.
      * @param {Pointer<IMFTransform>} ppCopierMFT Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nn-mftransform-imftransform">IMFTransform</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesamplecopiermft
      * @since windows6.1
      */
     static MFCreateSampleCopierMFT(ppCopierMFT) {
         result := DllCall("MF.dll\MFCreateSampleCopierMFT", "ptr", ppCopierMFT, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12331,12 +12490,15 @@ class MediaFoundation {
      * </li>
      * </ul>
      * @param {Pointer<IMFTranscodeProfile>} ppTranscodeProfile Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftranscodeprofile">IMFTranscodeProfile</a> interface of the transcode profile object. Caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatetranscodeprofile
      * @since windows6.1
      */
     static MFCreateTranscodeProfile(ppTranscodeProfile) {
         result := DllCall("MF.dll\MFCreateTranscodeProfile", "ptr", ppTranscodeProfile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12357,7 +12519,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} pwszOutputFilePath A pointer to a null-terminated string that contains the name and path of the output file to be generated.
      * @param {Pointer<IMFTranscodeProfile>} pProfile A pointer to the transcode profile that contains the configuration settings for the audio stream, the video stream, and the container to which the file is written. The transcode profile object exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftranscodeprofile">IMFTranscodeProfile</a> interface and must be created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatetranscodeprofile">MFCreateTranscodeProfile</a> function. After the object has been created the caller must provide the configuration settings by calling appropriate the <b>IMFTranscodeProfile</b> methods.
      * @param {Pointer<IMFTopology>} ppTranscodeTopo Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the transcode topology object. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * 
      * 
@@ -12440,6 +12602,9 @@ class MediaFoundation {
         pwszOutputFilePath := pwszOutputFilePath is String? StrPtr(pwszOutputFilePath) : pwszOutputFilePath
 
         result := DllCall("MF.dll\MFCreateTranscodeTopology", "ptr", pSrc, "ptr", pwszOutputFilePath, "ptr", pProfile, "ptr", ppTranscodeTopo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12451,12 +12616,15 @@ class MediaFoundation {
      * @param {Pointer<IMFByteStream>} pOutputStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of a byte stream. The transcoded output will be written to this byte stream.
      * @param {Pointer<IMFTranscodeProfile>} pProfile A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftranscodeprofile">IMFTranscodeProfile</a> interface of a transcoding profile.
      * @param {Pointer<IMFTopology>} ppTranscodeTopo Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatetranscodetopologyfrombytestream
      * @since windows8.0
      */
     static MFCreateTranscodeTopologyFromByteStream(pSrc, pOutputStream, pProfile, ppTranscodeTopo) {
         result := DllCall("MF.dll\MFCreateTranscodeTopologyFromByteStream", "ptr", pSrc, "ptr", pOutputStream, "ptr", pProfile, "ptr", ppTranscodeTopo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12507,7 +12675,7 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<IMFCollection>} ppAvailableTypes Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface of a collection object that contains a list of preferred audio media types. The collection contains <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> pointers. The caller must release the interface pointer.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * 
      * 
@@ -12544,30 +12712,39 @@ class MediaFoundation {
      */
     static MFTranscodeGetAudioOutputAvailableTypes(guidSubType, dwMFTFlags, pCodecConfig, ppAvailableTypes) {
         result := DllCall("MF.dll\MFTranscodeGetAudioOutputAvailableTypes", "ptr", guidSubType, "uint", dwMFTFlags, "ptr", pCodecConfig, "ptr", ppAvailableTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the transcode sink activation object.
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. This interface is used to create the file sink instance from the activation object. Before doing so, query the returned pointer for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftranscodesinkinfoprovider">IMFTranscodeSinkInfoProvider</a> interface and use that interface to initialize the object.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatetranscodesinkactivate
      * @since windows6.1
      */
     static MFCreateTranscodeSinkActivate(ppActivate) {
         result := DllCall("MF.dll\MFCreateTranscodeSinkActivate", "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an IMFTrackedSample object that tracks the reference counts on a video media sample.
      * @param {Pointer<IMFTrackedSample>} ppMFSample Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftrackedsample">IMFTrackedSample</a> interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatetrackedsample
      * @since windows8.0
      */
     static MFCreateTrackedSample(ppMFSample) {
         result := DllCall("MFPlat.dll\MFCreateTrackedSample", "ptr", ppMFSample, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12577,12 +12754,15 @@ class MediaFoundation {
      * This function enables applications to pass an <b>IStream</b> object to a Media Foundation API that takes an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> pointer.
      * @param {Pointer<IStream>} pStream A pointer to the <b>IStream</b> interface.
      * @param {Pointer<IMFByteStream>} ppByteStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface. The caller must release the interface.
-     * @returns {Integer} Returns an <b>HRESULT</b> value.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatemfbytestreamonstream
      * @since windows6.1
      */
     static MFCreateMFByteStreamOnStream(pStream, ppByteStream) {
         result := DllCall("MFPlat.dll\MFCreateMFByteStreamOnStream", "ptr", pStream, "ptr", ppByteStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12592,12 +12772,15 @@ class MediaFoundation {
      * This function enables an application to pass a Media Foundation byte stream to an API that takes an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer.
      * @param {Pointer<IMFByteStream>} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the Media Foundation byte stream.
      * @param {Pointer<IStream>} ppStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatestreamonmfbytestream
      * @since windows8.0
      */
     static MFCreateStreamOnMFByteStream(pByteStream, ppStream) {
         result := DllCall("MFPlat.dll\MFCreateStreamOnMFByteStream", "ptr", pByteStream, "ptr", ppStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12605,12 +12788,15 @@ class MediaFoundation {
      * Creates a Microsoft Media Foundation byte stream that wraps an IRandomAccessStream object.
      * @param {Pointer<IUnknown>} punkStream A pointer to the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> interface.
      * @param {Pointer<IMFByteStream>} ppByteStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatemfbytestreamonstreamex
      * @since windows8.0
      */
     static MFCreateMFByteStreamOnStreamEx(punkStream, ppByteStream) {
         result := DllCall("MFPlat.dll\MFCreateMFByteStreamOnStreamEx", "ptr", punkStream, "ptr", ppByteStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12621,12 +12807,15 @@ class MediaFoundation {
      * @param {Pointer<IMFByteStream>} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the Media Foundation byte stream.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @param {Pointer<Void>} ppv Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatestreamonmfbytestreamex
      * @since windows8.0
      */
     static MFCreateStreamOnMFByteStreamEx(pByteStream, riid, ppv) {
         result := DllCall("MFPlat.dll\MFCreateStreamOnMFByteStreamEx", "ptr", pByteStream, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12634,12 +12823,15 @@ class MediaFoundation {
      * Create an IMFMediaType from properties.
      * @param {Pointer<IUnknown>} punkStream A pointer to properties.
      * @param {Pointer<IMFMediaType>} ppMediaType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a>. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatemediatypefromproperties
      * @since windows8.0
      */
     static MFCreateMediaTypeFromProperties(punkStream, ppMediaType) {
         result := DllCall("MFPlat.dll\MFCreateMediaTypeFromProperties", "ptr", punkStream, "ptr", ppMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12648,12 +12840,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMediaType A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @param {Pointer<Void>} ppv Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatepropertiesfrommediatype
      * @since windows8.0
      */
     static MFCreatePropertiesFromMediaType(pMediaType, riid, ppv) {
         result := DllCall("MFPlat.dll\MFCreatePropertiesFromMediaType", "ptr", pMediaType, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12753,12 +12948,15 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<IMFActivate>} pppSourceActivate Receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface pointers. Each pointer represents an activation object for a media source. The function allocates the memory for the array. The caller must release the pointers in the array and call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the memory for the array.
      * @param {Pointer<UInt32>} pcSourceActivate Receives the number of elements in the <i>pppSourceActivate</i> array. If no capture devices match the search criteria, this parameter receives the value 0.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfenumdevicesources
      * @since windows6.1
      */
     static MFEnumDeviceSources(pAttributes, pppSourceActivate, pcSourceActivate) {
         result := DllCall("MF.dll\MFEnumDeviceSources", "ptr", pAttributes, "ptr", pppSourceActivate, "uint*", pcSourceActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12832,12 +13030,15 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of an attribute store, which is used to select the device. See Remarks.
      * @param {Pointer<IMFMediaSource>} ppSource Receives a pointer to the media source's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatedevicesource
      * @since windows6.1
      */
     static MFCreateDeviceSource(pAttributes, ppSource) {
         result := DllCall("MF.dll\MFCreateDeviceSource", "ptr", pAttributes, "ptr", ppSource, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12909,24 +13110,30 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of an attribute store, which is used to select the device. See Remarks.
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. The caller must release the interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatedevicesourceactivate
      * @since windows6.1
      */
     static MFCreateDeviceSourceActivate(pAttributes, ppActivate) {
         result := DllCall("MF.dll\MFCreateDeviceSourceActivate", "ptr", pAttributes, "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an IMFProtectedEnvironmentAccess object that allows content protection systems to perform a handshake with the protected environment.
      * @param {Pointer<IMFProtectedEnvironmentAccess>} ppAccess Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfprotectedenvironmentaccess">IMFProtectedEnvironmentAccess</a> interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreateprotectedenvironmentaccess
      * @since windows8.0
      */
     static MFCreateProtectedEnvironmentAccess(ppAccess) {
         result := DllCall("MF.dll\MFCreateProtectedEnvironmentAccess", "ptr", ppAccess, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12936,7 +13143,7 @@ class MediaFoundation {
      * A singlemodule load count is maintained on the dynamic link library (as it is with <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>).  This load count  is freed when the final release is called on the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsignedlibrary">IMFSignedLibrary</a> object.
      * @param {Pointer<Char>} pszName The name of the dynamic link library to load.  This dynamic link library must be signed for the protected environment.
      * @param {Pointer<IMFSignedLibrary>} ppLib Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsignedlibrary">IMFSignedLibrary</a> interface for the library.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfloadsignedlibrary
      * @since windows8.0
      */
@@ -12944,18 +13151,24 @@ class MediaFoundation {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("MF.dll\MFLoadSignedLibrary", "ptr", pszName, "ptr", ppLib, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Returns an IMFSystemId object for retrieving system id data.
      * @param {Pointer<IMFSystemId>} ppId Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsystemid">IMFSystemId</a> interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfgetsystemid
      * @since windows8.0
      */
     static MFGetSystemId(ppId) {
         result := DllCall("MF.dll\MFGetSystemId", "ptr", ppId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12964,12 +13177,15 @@ class MediaFoundation {
      * @param {Pointer} verifier Application-specific verifier value.
      * @param {Integer} size Length in bytes of verifier.
      * @param {Pointer<Char>} id Returned ID string.  This value must be freed by the caller by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfgetlocalid
      * @since windows8.0
      */
     static MFGetLocalId(verifier, size, id) {
         result := DllCall("MF.dll\MFGetLocalId", "ptr", verifier, "uint", size, "ptr", id, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12977,12 +13193,15 @@ class MediaFoundation {
      * Creates an IMFContentProtectionDevice interface for the specified media protection system.
      * @param {Pointer<Guid>} ProtectionSystemId The identifier of the media protection system for which you want to create the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfcontentprotectiondevice">IMFContentProtectionDevice</a> interface.
      * @param {Pointer<IMFContentProtectionDevice>} ContentProtectionDevice Pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfcontentprotectiondevice">IMFContentProtectionDevice</a> interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatecontentprotectiondevice
      * @since windows10.0.10240
      */
     static MFCreateContentProtectionDevice(ProtectionSystemId, ContentProtectionDevice) {
         result := DllCall("MFPlat.dll\MFCreateContentProtectionDevice", "ptr", ProtectionSystemId, "ptr", ContentProtectionDevice, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12990,12 +13209,15 @@ class MediaFoundation {
      * Checks whether a hardware security processor is supported for the specified media protection system.
      * @param {Pointer<Guid>} ProtectionSystemId The identifier of the protection system that you want to check.
      * @param {Pointer<Int32>} isSupported <b>TRUE</b> if the hardware security processor is supported for the specified protection system; otherwise <b>FALSE</b>.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfiscontentprotectiondevicesupported
      * @since windows10.0.10240
      */
     static MFIsContentProtectionDeviceSupported(ProtectionSystemId, isSupported) {
         result := DllCall("MFPlat.dll\MFIsContentProtectionDeviceSupported", "ptr", ProtectionSystemId, "int*", isSupported, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13005,12 +13227,15 @@ class MediaFoundation {
      * @param {Pointer<IMFDXGIDeviceManager>} pD3DManager Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> interface that you want to use for sharing the Direct3D 11 device.
      * @param {Pointer<IMFContentProtectionDevice>} pContentProtectionDevice The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfcontentprotectiondevice">IMFContentProtectionDevice</a> interface for the specified media protection system.
      * @param {Pointer<IMFContentDecryptorContext>} ppContentDecryptorContext Pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfcontentdecryptorcontext">IMFContentDecryptorContext</a> interface.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatecontentdecryptorcontext
      * @since windows10.0.10240
      */
     static MFCreateContentDecryptorContext(guidMediaProtectionSystemId, pD3DManager, pContentProtectionDevice, ppContentDecryptorContext) {
         result := DllCall("MFPlat.dll\MFCreateContentDecryptorContext", "ptr", guidMediaProtectionSystemId, "ptr", pD3DManager, "ptr", pContentProtectionDevice, "ptr", ppContentDecryptorContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13023,7 +13248,7 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<Char>} SensorGroupSymbolicLink The symbolic link for the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorgroup">IMFSensorGroup</a>. This name can be obtained through device enumeration APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassdevsw">SetupDiGetClassDevs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfenumdevicesources">MFEnumDeviceSources</a> or by getting the  <a href="https://docs.microsoft.com/uwp/api/Windows.Devices.Enumeration.DeviceInformation">Id</a> property of the <a href="https://docs.microsoft.com/uwp/api/Windows.Devices.Enumeration.DeviceInformation">DeviceInformation</a> class.
      * @param {Pointer<IMFSensorGroup>} ppSensorGroup The symbolic link for the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorgroup">IMFSensorGroup</a>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13071,6 +13296,9 @@ class MediaFoundation {
         SensorGroupSymbolicLink := SensorGroupSymbolicLink is String? StrPtr(SensorGroupSymbolicLink) : SensorGroupSymbolicLink
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorGroup", "ptr", SensorGroupSymbolicLink, "ptr", ppSensorGroup, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13080,7 +13308,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pAttributes The attribute store for the created stream.
      * @param {Pointer<IMFCollection>} pMediaTypeCollection The collection of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> objects specifying the media types supported by the stream.
      * @param {Pointer<IMFSensorStream>} ppStream The created stream interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13126,6 +13354,9 @@ class MediaFoundation {
      */
     static MFCreateSensorStream(StreamId, pAttributes, pMediaTypeCollection, ppStream) {
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorStream", "uint", StreamId, "ptr", pAttributes, "ptr", pMediaTypeCollection, "ptr", ppStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13135,7 +13366,7 @@ class MediaFoundation {
      * @param {Integer} ProfileIndex The profile index.
      * @param {Pointer<Char>} Constraints Any optional constraints to be put on the profile.
      * @param {Pointer<IMFSensorProfile>} ppProfile On success, returns a double pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofile">IMFSensorProfile</a> containing the sensor profile.
-     * @returns {Integer} This function does not return a value.
+     * @returns {HRESULT} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensorprofile
      * @since windows10.0.17134
      */
@@ -13143,18 +13374,24 @@ class MediaFoundation {
         Constraints := Constraints is String? StrPtr(Constraints) : Constraints
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfile", "ptr", ProfileType, "uint", ProfileIndex, "ptr", Constraints, "ptr", ppProfile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates a sensor profile collection.
      * @param {Pointer<IMFSensorProfileCollection>} ppSensorProfile On success, points to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofilecollection">IMFSensorProfileCollection</a> containing the sensor profile collection.
-     * @returns {Integer} This function does not return a value.
+     * @returns {HRESULT} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensorprofilecollection
      * @since windows10.0.15063
      */
     static MFCreateSensorProfileCollection(ppSensorProfile) {
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfileCollection", "ptr", ppSensorProfile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13162,7 +13399,7 @@ class MediaFoundation {
      * Initializes a new instance of the IMFSensorActivityMonitor interface.
      * @param {Pointer<IMFSensorActivitiesReportCallback>} pCallback An implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreportcallback">IMFSensorActivitiesReportCallback</a> interface through which the system delivers <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreport">IMFSensorActivitiesReport</a> objects.
      * @param {Pointer<IMFSensorActivityMonitor>} ppActivityMonitor A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitymonitor">IMFSensorActivityMonitor</a>.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
      * <table>
@@ -13198,16 +13435,22 @@ class MediaFoundation {
      */
     static MFCreateSensorActivityMonitor(pCallback, ppActivityMonitor) {
         result := DllCall("MFSENSORGROUP.dll\MFCreateSensorActivityMonitor", "ptr", pCallback, "ptr", ppActivityMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<IMFExtendedCameraIntrinsics>} ppExtendedCameraIntrinsics 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static MFCreateExtendedCameraIntrinsics(ppExtendedCameraIntrinsics) {
         result := DllCall("MFCORE.dll\MFCreateExtendedCameraIntrinsics", "ptr", ppExtendedCameraIntrinsics, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13215,10 +13458,13 @@ class MediaFoundation {
      * 
      * @param {Integer} distortionModelType 
      * @param {Pointer<IMFExtendedCameraIntrinsicModel>} ppExtendedCameraIntrinsicModel 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static MFCreateExtendedCameraIntrinsicModel(distortionModelType, ppExtendedCameraIntrinsicModel) {
         result := DllCall("MFCORE.dll\MFCreateExtendedCameraIntrinsicModel", "int", distortionModelType, "ptr", ppExtendedCameraIntrinsicModel, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13227,7 +13473,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} videoDeviceId A string containing the symbolic link name of the video capture device.
      * @param {Pointer<Char>} displayMonitorDeviceId A string containing the symbolic link name of the display monitor device.
      * @param {Pointer<IMFRelativePanelWatcher>} ppRelativePanelWatcher A pointer to an **IMFRelativePanelWatcher** interface representing the watcher.
-     * @returns {Integer} The function returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
      * 
      * | Return code | Description |
      * |--------------|------------------------|
@@ -13240,6 +13486,9 @@ class MediaFoundation {
         displayMonitorDeviceId := displayMonitorDeviceId is String? StrPtr(displayMonitorDeviceId) : displayMonitorDeviceId
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateRelativePanelWatcher", "ptr", videoDeviceId, "ptr", displayMonitorDeviceId, "ptr", ppRelativePanelWatcher, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13248,7 +13497,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} symbolicLink The symbolic link name of the video device for which occlusion state will be monitored. This value is enumerated through the standard Windows enumeration APIs such as [MFEnumDeviceSources](../mfidl/nf-mfidl-mfenumdevicesources.md) and [DeviceInformation](/uwp/api/Windows.Devices.Enumeration.DeviceInformation)
      * @param {Pointer<IMFCameraOcclusionStateReportCallback>} callback The [IMFCameraOcclusionStateReportCallback](nn-mfidl-imfcameraocclusionstatereportcallback.md) implemented by the client to receive camera occlusion state change notifications.
      * @param {Pointer<IMFCameraOcclusionStateMonitor>} occlusionStateMonitor An output parameter that receives the [IMFCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
-     * @returns {Integer} Returns an HRESULT value, including but not limited to the following values:
+     * @returns {HRESULT} Returns an HRESULT value, including but not limited to the following values:
      * 
      * | Error code | Description |
      * |------------|-------------|
@@ -13260,6 +13509,9 @@ class MediaFoundation {
         symbolicLink := symbolicLink is String? StrPtr(symbolicLink) : symbolicLink
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateCameraOcclusionStateMonitor", "ptr", symbolicLink, "ptr", callback, "ptr", occlusionStateMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13270,7 +13522,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} symbolicLink String symbolic link name of the video capture device that is active.
      * @param {Pointer<IMFCameraControlNotify>} callback Pointer to an object that implements the [IMFCameraControlNotify](nn-mfidl-imfcameracontrolnotify.md) callback interface.
      * @param {Pointer<IMFCameraControlMonitor>} ppCameraControlMonitor Receives a pointer to the created **IMFCameraControlMonitor** object.
-     * @returns {Integer} An HRESULT including the following:
+     * @returns {HRESULT} An HRESULT including the following:
      * 
      * | Value | Description | 
      * |-------|-------------|
@@ -13282,13 +13534,16 @@ class MediaFoundation {
         symbolicLink := symbolicLink is String? StrPtr(symbolicLink) : symbolicLink
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateCameraControlMonitor", "ptr", symbolicLink, "ptr", callback, "ptr", ppCameraControlMonitor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the ASF Header Object object.
      * @param {Pointer<IMFASFContentInfo>} ppIContentInfo Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13312,13 +13567,16 @@ class MediaFoundation {
      */
     static MFCreateASFContentInfo(ppIContentInfo) {
         result := DllCall("MF.dll\MFCreateASFContentInfo", "ptr", ppIContentInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the ASF Indexer object.
      * @param {Pointer<IMFASFIndexer>} ppIIndexer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfindexer">IMFASFIndexer</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13342,6 +13600,9 @@ class MediaFoundation {
      */
     static MFCreateASFIndexer(ppIIndexer) {
         result := DllCall("MF.dll\MFCreateASFIndexer", "ptr", ppIIndexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13350,7 +13611,7 @@ class MediaFoundation {
      * @param {Pointer<IMFByteStream>} pIContentByteStream Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of a byte stream that contains the ASF stream.
      * @param {Integer} cbIndexStartOffset Byte offset of the index within the ASF stream. To get this value, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition">IMFASFIndexer::GetIndexPosition</a>.
      * @param {Pointer<IMFByteStream>} pIIndexByteStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface. Use this interface to read from the index or write to the index. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table:
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table:
      * 
      * <table>
      * <tr>
@@ -13385,13 +13646,16 @@ class MediaFoundation {
      */
     static MFCreateASFIndexerByteStream(pIContentByteStream, cbIndexStartOffset, pIIndexByteStream) {
         result := DllCall("MF.dll\MFCreateASFIndexerByteStream", "ptr", pIContentByteStream, "uint", cbIndexStartOffset, "ptr", pIIndexByteStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the ASF Splitter.
      * @param {Pointer<IMFASFSplitter>} ppISplitter Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfsplitter">IMFASFSplitter</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13415,13 +13679,16 @@ class MediaFoundation {
      */
     static MFCreateASFSplitter(ppISplitter) {
         result := DllCall("MF.dll\MFCreateASFSplitter", "ptr", ppISplitter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the ASF profile object.
      * @param {Pointer<IMFASFProfile>} ppIProfile Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfprofile">IMFASFProfile</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13445,6 +13712,9 @@ class MediaFoundation {
      */
     static MFCreateASFProfile(ppIProfile) {
         result := DllCall("MF.dll\MFCreateASFProfile", "ptr", ppIProfile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13452,7 +13722,7 @@ class MediaFoundation {
      * Creates an ASF profile object from a presentation descriptor.
      * @param {Pointer<IMFPresentationDescriptor>} pIPD Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the presentation descriptor that contains the profile information.
      * @param {Pointer<IMFASFProfile>} ppIProfile Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfprofile">IMFASFProfile</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13476,6 +13746,9 @@ class MediaFoundation {
      */
     static MFCreateASFProfileFromPresentationDescriptor(pIPD, ppIProfile) {
         result := DllCall("MF.dll\MFCreateASFProfileFromPresentationDescriptor", "ptr", pIPD, "ptr", ppIProfile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13483,7 +13756,7 @@ class MediaFoundation {
      * Creates a presentation descriptor from an ASF profile object.
      * @param {Pointer<IMFASFProfile>} pIProfile Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfprofile">IMFASFProfile</a> interface of the ASF profile object.
      * @param {Pointer<IMFPresentationDescriptor>} ppIPD Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13508,13 +13781,16 @@ class MediaFoundation {
      */
     static MFCreatePresentationDescriptorFromASFProfile(pIProfile, ppIPD) {
         result := DllCall("MF.dll\MFCreatePresentationDescriptorFromASFProfile", "ptr", pIProfile, "ptr", ppIPD, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates the ASF Multiplexer.
      * @param {Pointer<IMFASFMultiplexer>} ppIMultiplexer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfmultiplexer">IMFASFMultiplexer</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13538,6 +13814,9 @@ class MediaFoundation {
      */
     static MFCreateASFMultiplexer(ppIMultiplexer) {
         result := DllCall("MF.dll\MFCreateASFMultiplexer", "ptr", ppIMultiplexer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13545,7 +13824,7 @@ class MediaFoundation {
      * Creates the ASF stream selector.
      * @param {Pointer<IMFASFProfile>} pIASFProfile Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfprofile">IMFASFProfile</a> interface.
      * @param {Pointer<IMFASFStreamSelector>} ppSelector Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamselector">IMFASFStreamSelector</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13570,6 +13849,9 @@ class MediaFoundation {
      */
     static MFCreateASFStreamSelector(pIASFProfile, ppSelector) {
         result := DllCall("MF.dll\MFCreateASFStreamSelector", "ptr", pIASFProfile, "ptr", ppSelector, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13577,7 +13859,7 @@ class MediaFoundation {
      * Creates the ASF media sink.
      * @param {Pointer<IMFByteStream>} pIByteStream Pointer to a byte stream that will be used to write the ASF stream.
      * @param {Pointer<IMFMediaSink>} ppIMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13601,6 +13883,9 @@ class MediaFoundation {
      */
     static MFCreateASFMediaSink(pIByteStream, ppIMediaSink) {
         result := DllCall("MF.dll\MFCreateASFMediaSink", "ptr", pIByteStream, "ptr", ppIMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13609,7 +13894,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} pwszFileName Null-terminated wide-character string that contains the output file name.
      * @param {Pointer<IMFASFContentInfo>} pContentInfo A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of an initialized <a href="https://docs.microsoft.com/windows/desktop/medfound/asf-file-structure">ASF Header Object</a> object. Use this interface to configure the ASF media sink.
      * @param {Pointer<IMFActivate>} ppIActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13635,6 +13920,9 @@ class MediaFoundation {
         pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("MF.dll\MFCreateASFMediaSinkActivate", "ptr", pwszFileName, "ptr", pContentInfo, "ptr", ppIActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13643,12 +13931,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMediaType A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. This parameter specifies the encoded output format.
      * @param {Pointer<IPropertyStore>} pEncodingConfigurationProperties A pointer to the <b>IPropertyStore</b> interface of a property store that contains encoding parameters. Encoding parameters for the WMV encoder are defined in the header file wmcodecdsp.h. If you have an ASF ContentInfo object that contains an ASF profile object with all the streams for the output file, you can get the property store by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getencodingconfigurationpropertystore">IMFASFContentInfo::GetEncodingConfigurationPropertyStore</a>.
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. Use this interface to create the encoder. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-mfcreatewmvencoderactivate
      * @since windows6.0.6000
      */
     static MFCreateWMVEncoderActivate(pMediaType, pEncodingConfigurationProperties, ppActivate) {
         result := DllCall("MF.dll\MFCreateWMVEncoderActivate", "ptr", pMediaType, "ptr", pEncodingConfigurationProperties, "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13657,12 +13948,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMediaType A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. This parameter specifies the encoded output format.
      * @param {Pointer<IPropertyStore>} pEncodingConfigurationProperties A pointer to the <b>IPropertyStore</b> interface of a property store that contains encoding parameters. Encoding parameters for the WMV encoder are defined in the header file wmcodecdsp.h. If you have an ASF ContentInfo object that contains an ASF profile object with all the streams for the output file, you can get the property store by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getencodingconfigurationpropertystore">IMFASFContentInfo::GetEncodingConfigurationPropertyStore</a>.
      * @param {Pointer<IMFActivate>} ppActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface. Use this interface to create the encoder. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-mfcreatewmaencoderactivate
      * @since windows6.0.6000
      */
     static MFCreateWMAEncoderActivate(pMediaType, pEncodingConfigurationProperties, ppActivate) {
         result := DllCall("MF.dll\MFCreateWMAEncoderActivate", "ptr", pMediaType, "ptr", pEncodingConfigurationProperties, "ptr", ppActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13676,12 +13970,15 @@ class MediaFoundation {
      * <a href="https://docs.microsoft.com/windows/desktop/medfound/setting-properties-in-the-contentinfo-object">Setting Properties in the ContentInfo Object</a>.
      * @param {Pointer<IMFByteStream>} pIByteStream A pointer to a byte stream object in which the ASF media sink writes the streamed content.
      * @param {Pointer<IMFMediaSink>} ppIMediaSink Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface of the ASF streaming-media sink object. To create the media sink, the application must call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> on the received pointer. The caller must release the interface pointer.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-mfcreateasfstreamingmediasink
      * @since windows6.1
      */
     static MFCreateASFStreamingMediaSink(pIByteStream, ppIMediaSink) {
         result := DllCall("MF.dll\MFCreateASFStreamingMediaSink", "ptr", pIByteStream, "ptr", ppIMediaSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13698,12 +13995,15 @@ class MediaFoundation {
      * @param {Pointer<IMFActivate>} pByteStreamActivate A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface of an activation object. The caller  implements this interface.  The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> method of the activation object must create a byte-stream object. The byte stream exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface. The ASF streaming sink will write data to this byte stream.
      * @param {Pointer<IMFASFContentInfo>} pContentInfo A pointer to an <a href="https://docs.microsoft.com/windows/desktop/medfound/asf-contentinfo-object">ASF ContentInfo Object</a> that contains the properties that describe the ASF content. These  settings can contain  stream settings, encoding properties, and metadata. For more information about these properties, see <a href="https://docs.microsoft.com/windows/desktop/medfound/setting-properties-in-the-contentinfo-object">Setting Properties in the ContentInfo Object</a>.
      * @param {Pointer<IMFActivate>} ppIActivate Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface of the activation object that is used to create the ASF streaming-media sink. To create the media sink, the application must call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> by using the received pointer. The <b>ActivateObject</b> method also calls   <b>IMFActivate::Activate</b> on the byte stream activate object specified by  <i>pByteStreamActivate</i>, to create it so that the media sink can write streamed content in the byte stream. The caller must release the <b>IMFActivate</b> interface pointer of the media sink activation object received in <i>ppIActivate</i>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-mfcreateasfstreamingmediasinkactivate
      * @since windows6.1
      */
     static MFCreateASFStreamingMediaSinkActivate(pByteStreamActivate, pContentInfo, ppIActivate) {
         result := DllCall("MF.dll\MFCreateASFStreamingMediaSinkActivate", "ptr", pByteStreamActivate, "ptr", pContentInfo, "ptr", ppIActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13712,7 +14012,7 @@ class MediaFoundation {
      * @param {Pointer<ID3D12Device>} pDevice The [ID3D12Device](../d3d12/nn-d3d12-id3d12device.md) associated with the resource and primitive being created.
      * @param {Pointer<Guid>} riid The GUID identifying the interface of the synchronization object that will be created.
      * @param {Pointer<Void>} ppvSyncObject Receives a **void\*\*** pointing to the created synchronization object.
-     * @returns {Integer} An HRESULT including but not limited to the following values:
+     * @returns {HRESULT} An HRESULT including but not limited to the following values:
      * 
      * | Value | Description |
      * |-------|-------------|
@@ -13723,6 +14023,9 @@ class MediaFoundation {
      */
     static MFCreateD3D12SynchronizationObject(pDevice, riid, ppvSyncObject) {
         result := DllCall("MFPlat.dll\MFCreateD3D12SynchronizationObject", "ptr", pDevice, "ptr", riid, "ptr", ppvSyncObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13788,7 +14091,7 @@ class MediaFoundation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13846,6 +14149,9 @@ class MediaFoundation {
      */
     static MFStartup(Version, dwFlags) {
         result := DllCall("MFPlat.dll\MFStartup", "uint", Version, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13861,12 +14167,15 @@ class MediaFoundation {
      * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfshutdown
      * @since windows6.0.6000
      */
     static MFShutdown() {
         result := DllCall("MFPlat.dll\MFShutdown", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13887,7 +14196,7 @@ class MediaFoundation {
      * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13911,6 +14220,9 @@ class MediaFoundation {
      */
     static MFLockPlatform() {
         result := DllCall("MFPlat.dll\MFLockPlatform", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13925,7 +14237,7 @@ class MediaFoundation {
      * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -13949,6 +14261,9 @@ class MediaFoundation {
      */
     static MFUnlockPlatform() {
         result := DllCall("MFPlat.dll\MFUnlockPlatform", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13959,7 +14274,7 @@ class MediaFoundation {
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard Media Foundation work queues, or a work queue created by the application. For list of standard Media Foundation work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>. To create a new work queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueueex">MFAllocateWorkQueueEx</a>.
      * @param {Pointer<IMFAsyncCallback>} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface. The caller must implement this interface.
      * @param {Pointer<IUnknown>} pState A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -14005,6 +14320,9 @@ class MediaFoundation {
      */
     static MFPutWorkItem(dwQueue, pCallback, pState) {
         result := DllCall("MFPlat.dll\MFPutWorkItem", "uint", dwQueue, "ptr", pCallback, "ptr", pState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14014,7 +14332,7 @@ class MediaFoundation {
      * @param {Integer} Priority The priority of the work item. Work items are performed in order of priority.
      * @param {Pointer<IMFAsyncCallback>} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface. The caller must implement this interface.
      * @param {Pointer<IUnknown>} pState A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -14060,6 +14378,9 @@ class MediaFoundation {
      */
     static MFPutWorkItem2(dwQueue, Priority, pCallback, pState) {
         result := DllCall("MFPlat.dll\MFPutWorkItem2", "uint", dwQueue, "int", Priority, "ptr", pCallback, "ptr", pState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14077,7 +14398,7 @@ class MediaFoundation {
      * </ul>
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard Media Foundation work queues, or a work queue created by the application. For list of standard Media Foundation work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>. To create a new work queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueueex">MFAllocateWorkQueueEx</a>.
      * @param {Pointer<IMFAsyncResult>} pResult A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateasyncresult">MFCreateAsyncResult</a>.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -14123,6 +14444,9 @@ class MediaFoundation {
      */
     static MFPutWorkItemEx(dwQueue, pResult) {
         result := DllCall("MFPlat.dll\MFPutWorkItemEx", "uint", dwQueue, "ptr", pResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14133,7 +14457,7 @@ class MediaFoundation {
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard Media Foundation work queues, or a work queue created by the application. For list of standard Media Foundation work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>. To create a new work queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueueex">MFAllocateWorkQueueEx</a>.
      * @param {Integer} Priority The priority of the work item. This value should be 1, 0, or -1. Items with a value of 1 are executed before items with a value of 0. Items with a value of  -1 are executed after items with a value of 0.
      * @param {Pointer<IMFAsyncResult>} pResult A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateasyncresult">MFCreateAsyncResult</a>.
-     * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
      * <tr>
@@ -14179,6 +14503,9 @@ class MediaFoundation {
      */
     static MFPutWorkItemEx2(dwQueue, Priority, pResult) {
         result := DllCall("MFPlat.dll\MFPutWorkItemEx2", "uint", dwQueue, "int", Priority, "ptr", pResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14204,12 +14531,15 @@ class MediaFoundation {
      * @param {Pointer<UInt64>} pKey Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcancelworkitem">MFCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
      * 
      * This parameter can be <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfputwaitingworkitem
      * @since windows8.0
      */
     static MFPutWaitingWorkItem(hEvent, Priority, pResult, pKey) {
         result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", "ptr", hEvent, "int", Priority, "ptr", pResult, "uint*", pKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14254,7 +14584,7 @@ class MediaFoundation {
      * <li>A serial queue created by the <b>MFAllocateSerialWorkQueue</b> function.</li>
      * </ul>
      * @param {Pointer<UInt32>} pdwWorkQueue Receives an identifier for the new serial work queue. Use this identifier when queuing work items.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -14303,6 +14633,9 @@ class MediaFoundation {
      */
     static MFAllocateSerialWorkQueue(dwWorkQueue, pdwWorkQueue) {
         result := DllCall("MFPlat.dll\MFAllocateSerialWorkQueue", "uint", dwWorkQueue, "uint*", pdwWorkQueue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14313,7 +14646,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAsyncResult>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateasyncresult">MFCreateAsyncResult</a>.
      * @param {Integer} Timeout Time-out interval, in milliseconds. Set this parameter to a negative value. The callback is invoked after −<i>Timeout</i> milliseconds. For example, if <i>Timeout</i> is −5000, the callback is invoked after 5000 milliseconds.
      * @param {Pointer<UInt64>} pKey Receives a key that can be used to cancel the timer. To cancel the timer, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcancelworkitem">MFCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14337,6 +14670,9 @@ class MediaFoundation {
      */
     static MFScheduleWorkItemEx(pResult, Timeout, pKey) {
         result := DllCall("MFPlat.dll\MFScheduleWorkItemEx", "ptr", pResult, "int64", Timeout, "uint*", pKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14355,7 +14691,7 @@ class MediaFoundation {
      * @param {Pointer<IUnknown>} pState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @param {Integer} Timeout Time-out interval, in milliseconds. Set this parameter to a negative value. The callback is invoked after −<i>Timeout</i> milliseconds. For example, if <i>Timeout</i> is −5000, the callback is invoked after 5000 milliseconds.
      * @param {Pointer<UInt64>} pKey Receives a key that can be used to cancel the timer. To cancel the timer, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcancelworkitem">MFCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14379,6 +14715,9 @@ class MediaFoundation {
      */
     static MFScheduleWorkItem(pCallback, pState, Timeout, pKey) {
         result := DllCall("MFPlat.dll\MFScheduleWorkItem", "ptr", pCallback, "ptr", pState, "int64", Timeout, "uint*", pKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14394,19 +14733,22 @@ class MediaFoundation {
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
      * @param {Integer} Key The key that was received in the <i>pKey</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfscheduleworkitem">MFScheduleWorkItem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfscheduleworkitemex">MFScheduleWorkItemEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfputwaitingworkitem">MFPutWaitingWorkItem</a> functions.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcancelworkitem
      * @since windows6.0.6000
      */
     static MFCancelWorkItem(Key) {
         result := DllCall("MFPlat.dll\MFCancelWorkItem", "uint", Key, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Retrieves the timer interval for the MFAddPeriodicCallback function.
      * @param {Pointer<UInt32>} Periodicity Receives the timer interval, in milliseconds.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14431,6 +14773,9 @@ class MediaFoundation {
      */
     static MFGetTimerPeriodicity(Periodicity) {
         result := DllCall("MFPlat.dll\MFGetTimerPeriodicity", "uint*", Periodicity, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14441,7 +14786,7 @@ class MediaFoundation {
      * @param {Pointer<MFPERIODICCALLBACK>} Callback Pointer to the callback function, of type <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nc-mfapi-mfperiodiccallback">MFPERIODICCALLBACK</a>.
      * @param {Pointer<IUnknown>} pContext Pointer to a caller-provided object that implements <b>IUnknown</b>, or <b>NULL</b>. This parameter is passed to the callback function.
      * @param {Pointer<UInt32>} pdwKey Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfremoveperiodiccallback">MFRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14465,6 +14810,9 @@ class MediaFoundation {
      */
     static MFAddPeriodicCallback(Callback, pContext, pdwKey) {
         result := DllCall("MFPlat.dll\MFAddPeriodicCallback", "ptr", Callback, "ptr", pContext, "uint*", pdwKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14473,7 +14821,7 @@ class MediaFoundation {
      * @remarks
      * The callback is dispatched on another thread, and this function does not attempt to synchronize with the callback thread. Therefore, it is possible for the callback to be invoked after this function returns.
      * @param {Integer} dwKey Key that identifies the callback. This value is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfaddperiodiccallback">MFAddPeriodicCallback</a> function.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14497,6 +14845,9 @@ class MediaFoundation {
      */
     static MFRemovePeriodicCallback(dwKey) {
         result := DllCall("MFPlat.dll\MFRemovePeriodicCallback", "uint", dwKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14547,7 +14898,7 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<UInt32>} pdwWorkQueue Receives an identifier for the work queue that was created.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14604,6 +14955,9 @@ class MediaFoundation {
      */
     static MFAllocateWorkQueueEx(WorkQueueType, pdwWorkQueue) {
         result := DllCall("MFPlat.dll\MFAllocateWorkQueueEx", "int", WorkQueueType, "uint*", pdwWorkQueue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14612,7 +14966,7 @@ class MediaFoundation {
      * @remarks
      * When you are done using the work queue, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfunlockworkqueue">MFUnlockWorkQueue</a>.
      * @param {Pointer<UInt32>} pdwWorkQueue Receives an identifier for the work queue.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14661,6 +15015,9 @@ class MediaFoundation {
      */
     static MFAllocateWorkQueue(pdwWorkQueue) {
         result := DllCall("MFPlat.dll\MFAllocateWorkQueue", "uint*", pdwWorkQueue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14675,12 +15032,15 @@ class MediaFoundation {
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function implicitly locks the work queue that it creates.</div>
      * <div> </div>
      * @param {Integer} dwWorkQueue The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mflockworkqueue
      * @since windows6.0.6000
      */
     static MFLockWorkQueue(dwWorkQueue) {
         result := DllCall("MFPlat.dll\MFLockWorkQueue", "uint", dwWorkQueue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14689,7 +15049,7 @@ class MediaFoundation {
      * @remarks
      * The application must call <b>MFUnlockWorkQueue</b> once for every call to <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> and then once for every call to <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mflockworkqueue">MFLockWorkQueue</a>.
      * @param {Integer} dwWorkQueue Identifier for the work queue to be unlocked. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14713,6 +15073,9 @@ class MediaFoundation {
      */
     static MFUnlockWorkQueue(dwWorkQueue) {
         result := DllCall("MFPlat.dll\MFUnlockWorkQueue", "uint", dwWorkQueue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14727,7 +15090,7 @@ class MediaFoundation {
      * @param {Integer} dwTaskId The unique task identifier. To obtain a new task identifier, set this value to zero.
      * @param {Pointer<IMFAsyncCallback>} pDoneCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {Pointer<IUnknown>} pDoneState A pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14753,6 +15116,9 @@ class MediaFoundation {
         wszClass := wszClass is String? StrPtr(wszClass) : wszClass
 
         result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "ptr", pDoneCallback, "ptr", pDoneState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14771,7 +15137,7 @@ class MediaFoundation {
      * @param {Integer} lPriority The base relative priority for the work-queue threads. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadpriority">AvSetMmThreadPriority</a>.
      * @param {Pointer<IMFAsyncCallback>} pDoneCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {Pointer<IUnknown>} pDoneState A pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfbeginregisterworkqueuewithmmcssex
      * @since windows8.0
      */
@@ -14779,6 +15145,9 @@ class MediaFoundation {
         wszClass := wszClass is String? StrPtr(wszClass) : wszClass
 
         result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSSEx", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "int", lPriority, "ptr", pDoneCallback, "ptr", pDoneState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14790,7 +15159,7 @@ class MediaFoundation {
      * To unregister the work queue from the MMCSS class, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbeginunregisterworkqueuewithmmcss">MFBeginUnregisterWorkQueueWithMMCSS</a>.
      * @param {Pointer<IMFAsyncResult>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @param {Pointer<UInt32>} pdwTaskId The unique task identifier.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14814,6 +15183,9 @@ class MediaFoundation {
      */
     static MFEndRegisterWorkQueueWithMMCSS(pResult, pdwTaskId) {
         result := DllCall("MFPlat.dll\MFEndRegisterWorkQueueWithMMCSS", "ptr", pResult, "uint*", pdwTaskId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14826,7 +15198,7 @@ class MediaFoundation {
      * @param {Integer} dwWorkQueueId The identifier of the work queue.  For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function. For platform work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>.
      * @param {Pointer<IMFAsyncCallback>} pDoneCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {Pointer<IUnknown>} pDoneState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14850,6 +15222,9 @@ class MediaFoundation {
      */
     static MFBeginUnregisterWorkQueueWithMMCSS(dwWorkQueueId, pDoneCallback, pDoneState) {
         result := DllCall("MFPlat.dll\MFBeginUnregisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", pDoneCallback, "ptr", pDoneState, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14858,7 +15233,7 @@ class MediaFoundation {
      * @remarks
      * Call this function when the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbeginunregisterworkqueuewithmmcss">MFBeginUnregisterWorkQueueWithMMCSS</a> function completes asynchronously.
      * @param {Pointer<IMFAsyncResult>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14882,6 +15257,9 @@ class MediaFoundation {
      */
     static MFEndUnregisterWorkQueueWithMMCSS(pResult) {
         result := DllCall("MFPlat.dll\MFEndUnregisterWorkQueueWithMMCSS", "ptr", pResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14894,7 +15272,7 @@ class MediaFoundation {
      * @param {Integer} dwWorkQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function.
      * @param {Pointer<Char>} pwszClass Pointer to a buffer that receives the name of the MMCSS class. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} pcchClass On input, specifies the size of the <i>pwszClass</i> buffer, in characters. On output, receives the required size of the buffer, in characters. The size includes the terminating null character.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14931,6 +15309,9 @@ class MediaFoundation {
         pwszClass := pwszClass is String? StrPtr(pwszClass) : pwszClass
 
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", "uint", dwWorkQueueId, "ptr", pwszClass, "uint*", pcchClass, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14940,7 +15321,7 @@ class MediaFoundation {
      * To associate a work queue with an MMCSS task, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbeginregisterworkqueuewithmmcss">MFBeginRegisterWorkQueueWithMMCSS</a>.
      * @param {Integer} dwWorkQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function.
      * @param {Pointer<UInt32>} pdwTaskId Receives the task identifier.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -14964,6 +15345,9 @@ class MediaFoundation {
      */
     static MFGetWorkQueueMMCSSTaskId(dwWorkQueueId, pdwTaskId) {
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSTaskId", "uint", dwWorkQueueId, "uint*", pdwTaskId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14974,7 +15358,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} wszClass The name of the MMCSS task.
      * @param {Pointer<UInt32>} pdwTaskId The MMCSS task identifier. On input, specify an existing  MCCSS task group ID, or use the value zero to create a new task group. On output, receives the actual task group ID.
      * @param {Integer} lPriority The base priority of the work-queue threads.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfregisterplatformwithmmcss
      * @since windows8.0
      */
@@ -14982,17 +15366,23 @@ class MediaFoundation {
         wszClass := wszClass is String? StrPtr(wszClass) : wszClass
 
         result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, "uint*", pdwTaskId, "int", lPriority, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Unregisters the Microsoft Media Foundation platform work queues from a Multimedia Class Scheduler Service (MMCSS) task.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfunregisterplatformfrommmcss
      * @since windows8.0
      */
     static MFUnregisterPlatformFromMMCSS() {
         result := DllCall("MFPlat.dll\MFUnregisterPlatformFromMMCSS", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15026,7 +15416,7 @@ class MediaFoundation {
      * If the regular-priority queue is being used (<i>wszClass</i>=""), then the value 0 must be passed in.
      * @param {Pointer<UInt32>} pdwTaskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID , or use the value zero to create a new task group. If the regular priority queue is being used (<i>wszClass</i>=""), then <b>NULL</b> must be passed in. On output, receives the actual task group ID.
      * @param {Pointer<UInt32>} pID Receives an identifier for the new work queue. Use this identifier when queuing work items.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mflocksharedworkqueue
      * @since windows8.0
      */
@@ -15034,6 +15424,9 @@ class MediaFoundation {
         wszClass := wszClass is String? StrPtr(wszClass) : wszClass
 
         result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, "int", BasePriority, "uint*", pdwTaskId, "uint*", pID, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15043,12 +15436,15 @@ class MediaFoundation {
      * This function returns the relative thread priority set by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbeginregisterworkqueuewithmmcssex">MFBeginRegisterWorkQueueWithMMCSSEx</a> function.
      * @param {Integer} dwWorkQueueId The identifier of the work queue. For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfallocateworkqueue">MFAllocateWorkQueue</a> function. For platform work queues, see <a href="https://docs.microsoft.com/windows/desktop/medfound/work-queue-identifiers">Work Queue Identifiers</a>.
      * @param {Pointer<Int32>} lPriority Receives the relative thread priority.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetworkqueuemmcsspriority
      * @since windows8.0
      */
     static MFGetWorkQueueMMCSSPriority(dwWorkQueueId, lPriority) {
         result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSPriority", "uint", dwWorkQueueId, "int*", lPriority, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15060,7 +15456,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAsyncCallback>} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
      * @param {Pointer<IUnknown>} punkState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFAsyncResult>} ppAsyncResult Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15084,6 +15480,9 @@ class MediaFoundation {
      */
     static MFCreateAsyncResult(punkObject, pCallback, punkState, ppAsyncResult) {
         result := DllCall("MFPlat.dll\MFCreateAsyncResult", "ptr", punkObject, "ptr", pCallback, "ptr", punkState, "ptr", ppAsyncResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15096,7 +15495,7 @@ class MediaFoundation {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfshutdown">MFShutdown</a> function shuts down the work queue threads, so the callback is not guaranteed to be invoked after <b>MFShutdown</b> is called.
      * @param {Pointer<IMFAsyncResult>} pAsyncResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. To create this object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreateasyncresult">MFCreateAsyncResult</a>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15143,6 +15542,9 @@ class MediaFoundation {
      */
     static MFInvokeCallback(pAsyncResult) {
         result := DllCall("MFPlat.dll\MFInvokeCallback", "ptr", pAsyncResult, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15160,7 +15562,7 @@ class MediaFoundation {
      * @param {Integer} fFlags Bitwise <b>OR</b> of values from the <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_flags">MF_FILE_FLAGS</a> enumeration.
      * @param {Pointer<Char>} pwszFileURL Pointer to a null-terminated string that contains the file name.
      * @param {Pointer<IMFByteStream>} ppIByteStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the byte stream. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatefile
      * @since windows6.0.6000
      */
@@ -15168,6 +15570,9 @@ class MediaFoundation {
         pwszFileURL := pwszFileURL is String? StrPtr(pwszFileURL) : pwszFileURL
 
         result := DllCall("MFPlat.dll\MFCreateFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", pwszFileURL, "ptr", ppIByteStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15187,12 +15592,15 @@ class MediaFoundation {
      * @param {Integer} OpenMode The behavior of the function if the file already exists or does not exist, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_openmode">MF_FILE_OPENMODE</a> enumeration.
      * @param {Integer} fFlags Bitwise <b>OR</b> of values from the <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_flags">MF_FILE_FLAGS</a> enumeration.
      * @param {Pointer<IMFByteStream>} ppIByteStream Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the byte stream. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatetempfile
      * @since windows6.0.6000
      */
     static MFCreateTempFile(AccessMode, OpenMode, fFlags, ppIByteStream) {
         result := DllCall("MFPlat.dll\MFCreateTempFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", ppIByteStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15207,7 +15615,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAsyncCallback>} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface
      * @param {Pointer<IUnknown>} pState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @param {Pointer<IUnknown>} ppCancelCookie Receives an <b>IUnknown</b> pointer or the value <b>NULL</b>. If the value is not <b>NULL</b>, you can cancel the asynchronous operation by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcancelcreatefile">MFCancelCreateFile</a> function. The caller must release the interface. This parameter is optional and can be <b>NULL</b>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15233,6 +15641,9 @@ class MediaFoundation {
         pwszFilePath := pwszFilePath is String? StrPtr(pwszFilePath) : pwszFilePath
 
         result := DllCall("MFPlat.dll\MFBeginCreateFile", "int", AccessMode, "int", OpenMode, "int", fFlags, "ptr", pwszFilePath, "ptr", pCallback, "ptr", pState, "ptr", ppCancelCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15242,7 +15653,7 @@ class MediaFoundation {
      * Call this function when the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbegincreatefile">MFBeginCreateFile</a> function completes asynchronously.
      * @param {Pointer<IMFAsyncResult>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">Invoke</a> method.
      * @param {Pointer<IMFByteStream>} ppFile Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the byte stream. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15266,6 +15677,9 @@ class MediaFoundation {
      */
     static MFEndCreateFile(pResult, ppFile) {
         result := DllCall("MFPlat.dll\MFEndCreateFile", "ptr", pResult, "ptr", ppFile, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15274,7 +15688,7 @@ class MediaFoundation {
      * @remarks
      * You can use this function to cancel a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbegincreatefile">MFBeginCreateFile</a>. Because that function is asynchronous, however, it might complete before the operation can be canceled. Therefore, your callback might still be invoked after you call this function.
      * @param {Pointer<IUnknown>} pCancelCookie A pointer to the <b>IUnknown</b> interface of the cancellation object. This pointer is received in the <i>ppCancelCookie</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfbegincreatefile">MFBeginCreateFile</a> function.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15298,6 +15712,9 @@ class MediaFoundation {
      */
     static MFCancelCreateFile(pCancelCookie) {
         result := DllCall("MFPlat.dll\MFCancelCreateFile", "ptr", pCancelCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15316,7 +15733,7 @@ class MediaFoundation {
      * </ul>
      * @param {Integer} cbMaxLength Size of the buffer, in bytes.
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface of the media buffer. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15351,6 +15768,9 @@ class MediaFoundation {
      */
     static MFCreateMemoryBuffer(cbMaxLength, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateMemoryBuffer", "uint", cbMaxLength, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15369,7 +15789,7 @@ class MediaFoundation {
      * @param {Integer} cbOffset The start of the new buffer, as an offset in bytes from the start of the original buffer.
      * @param {Integer} dwLength The size of the new buffer. The value of <i>cbOffset</i> + <i>dwLength</i> must be less than or equal to the size of valid data the original buffer. (The size of the valid data is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength">IMFMediaBuffer::GetCurrentLength</a> method.)
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15406,6 +15826,9 @@ class MediaFoundation {
      */
     static MFCreateMediaBufferWrapper(pBuffer, cbOffset, dwLength, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateMediaBufferWrapper", "ptr", pBuffer, "uint", cbOffset, "uint", dwLength, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15419,7 +15842,7 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaBuffer>} pMFMediaBuffer Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface of the Media Foundation buffer.
      * @param {Integer} cbOffset Offset in bytes from the start of the Media Foundation buffer. This offset defines where the DMO buffer starts. If this parameter is zero, the DMO buffer starts at the beginning of the Media Foundation buffer.
      * @param {Pointer<IMediaBuffer>} ppMediaBuffer Receives a pointer to the <b>IMediaBuffer</b> interface. This interface is documented in the DirectShow SDK documentation. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15454,18 +15877,21 @@ class MediaFoundation {
      */
     static MFCreateLegacyMediaBufferOnMFMediaBuffer(pSample, pMFMediaBuffer, cbOffset, ppMediaBuffer) {
         result := DllCall("MFPlat.dll\MFCreateLegacyMediaBufferOnMFMediaBuffer", "ptr", pSample, "ptr", pMFMediaBuffer, "uint", cbOffset, "ptr", ppMediaBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Converts a Microsoft Direct3D 9 format identifier to a Microsoft DirectX Graphics Infrastructure (DXGI) format identifier.
      * @param {Integer} dx9 The <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_d3dformat_data">D3DFORMAT</a> value or FOURCC code to convert.
-     * @returns {Pointer} Returns a <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value.
+     * @returns {Integer} Returns a <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> value.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfmapdx9formattodxgiformat
      * @since windows8.0
      */
     static MFMapDX9FormatToDXGIFormat(dx9) {
-        result := DllCall("MFPlat.dll\MFMapDX9FormatToDXGIFormat", "uint", dx9)
+        result := DllCall("MFPlat.dll\MFMapDX9FormatToDXGIFormat", "uint", dx9, "int")
         return result
     }
 
@@ -15492,12 +15918,15 @@ class MediaFoundation {
      * @param {Pointer<UInt32>} pResetToken Receives a token that identifies this instance of the DXGI Device Manager. Use this token when calling <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-resetdevice">IMFDXGIDeviceManager::ResetDevice</a>.
      *           This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFDXGIDeviceManager>} ppManager Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mflockdxgidevicemanager
      * @since windows8.0
      */
     static MFLockDXGIDeviceManager(pResetToken, ppManager) {
         result := DllCall("MFPlat.dll\MFLockDXGIDeviceManager", "uint*", pResetToken, "ptr", ppManager, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15505,12 +15934,15 @@ class MediaFoundation {
      * Unlocks the shared Microsoft DirectX Graphics Infrastructure (DXGI) Device Manager.
      * @remarks
      * Call this function after a successful call to the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mflockdxgidevicemanager">MFLockDXGIDeviceManager</a> function.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfunlockdxgidevicemanager
      * @since windows8.0
      */
     static MFUnlockDXGIDeviceManager() {
         result := DllCall("MFPlat.dll\MFUnlockDXGIDeviceManager", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15532,7 +15964,7 @@ class MediaFoundation {
      * 
      * For more information about top-down versus bottom-up images, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the buffer.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
      * <table>
@@ -15569,6 +16001,9 @@ class MediaFoundation {
      */
     static MFCreateDXSurfaceBuffer(riid, punkSurface, fBottomUpWhenLinear, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateDXSurfaceBuffer", "ptr", riid, "ptr", punkSurface, "int", fBottomUpWhenLinear, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15577,12 +16012,15 @@ class MediaFoundation {
      * @param {Pointer<Guid>} riid Set this parameter to <c>__uuidof(IWICBitmap)</c>.
      * @param {Pointer<IUnknown>} punkSurface A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the bitmap surface. The bitmap surface must be a WIC bitmap that exposes the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a> interface.
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatewicbitmapbuffer
      * @since windows8.0
      */
     static MFCreateWICBitmapBuffer(riid, punkSurface, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateWICBitmapBuffer", "ptr", riid, "ptr", punkSurface, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15613,12 +16051,15 @@ class MediaFoundation {
      * 
      * For more information about top-down versus bottom-up images, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the buffer.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatedxgisurfacebuffer
      * @since windows8.0
      */
     static MFCreateDXGISurfaceBuffer(riid, punkSurface, uSubresourceIndex, fBottomUpWhenLinear, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateDXGISurfaceBuffer", "ptr", riid, "ptr", punkSurface, "uint", uSubresourceIndex, "int", fBottomUpWhenLinear, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15628,12 +16069,15 @@ class MediaFoundation {
      * This function creates an allocator for DXGI video surfaces. The buffers created by this allocator expose the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgibuffer">IMFDXGIBuffer</a> interface. To create an allocator for Microsoft Direct3D 9 video surfaces, call <a href="https://docs.microsoft.com/windows/desktop/api/evr/nc-evr-mfcreatevideosampleallocator">MFCreateVideoSampleAllocator</a>.
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppSampleAllocator Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatevideosampleallocatorex
      * @since windows8.0
      */
     static MFCreateVideoSampleAllocatorEx(riid, ppSampleAllocator) {
         result := DllCall("MFPlat.dll\MFCreateVideoSampleAllocatorEx", "ptr", riid, "ptr", ppSampleAllocator, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15643,12 +16087,15 @@ class MediaFoundation {
      * When you create an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> with <b>MFCreateDXGIDeviceManager</b>, a Microsoft Direct3D 11 device is not associated with the device manager. To associate a Direct3D 11 device with the device manager, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-resetdevice">IMFDXGIDeviceManager::ResetDevice</a>, passing in the pointer to the Direct3D 11 device. To create a Direct3D 11 device, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdevice">D3D11CreateDevice</a>. The device should be created with the <b>D3D11_CREATE_DEVICE_VIDEO_SUPPORT</b> device creation flag which is defined in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_FLAG</a> enumeration.
      * @param {Pointer<UInt32>} resetToken Receives a token that identifies this instance of the DXGI Device Manager. Use this token when calling <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-resetdevice">IMFDXGIDeviceManager::ResetDevice</a>.
      * @param {Pointer<IMFDXGIDeviceManager>} ppDeviceManager Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatedxgidevicemanager
      * @since windows8.0
      */
     static MFCreateDXGIDeviceManager(resetToken, ppDeviceManager) {
         result := DllCall("MFPlat.dll\MFCreateDXGIDeviceManager", "uint*", resetToken, "ptr", ppDeviceManager, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15787,7 +16234,7 @@ class MediaFoundation {
      * </tr>
      * </table>
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface of the media buffer. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
      * <table>
@@ -15813,6 +16260,9 @@ class MediaFoundation {
      */
     static MFCreateAlignedMemoryBuffer(cbMaxLength, cbAligment, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateAlignedMemoryBuffer", "uint", cbMaxLength, "uint", cbAligment, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15827,10 +16277,10 @@ class MediaFoundation {
      * </ul>
      * @param {Integer} met The event type. See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-gettype">IMFMediaEvent::GetType</a>. For a list of event types, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-events">Media Foundation Events</a>.
      * @param {Pointer<Guid>} guidExtendedType The extended type. See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getextendedtype">IMFMediaEvent::GetExtendedType</a>. If the event type does not have an extended type, use the value GUID_NULL.
-     * @param {Integer} hrStatus The event status. See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getstatus">IMFMediaEvent::GetStatus</a>
+     * @param {HRESULT} hrStatus The event status. See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getstatus">IMFMediaEvent::GetStatus</a>
      * @param {Pointer<PROPVARIANT>} pvValue The value associated with the event, if any. See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getvalue">IMFMediaEvent::GetValue</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFMediaEvent>} ppEvent Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15854,6 +16304,9 @@ class MediaFoundation {
      */
     static MFCreateMediaEvent(met, guidExtendedType, hrStatus, pvValue, ppEvent) {
         result := DllCall("MFPlat.dll\MFCreateMediaEvent", "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pvValue, "ptr", ppEvent, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15869,7 +16322,7 @@ class MediaFoundation {
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
      * @param {Pointer<IMFMediaEventQueue>} ppMediaEventQueue Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaeventqueue">IMFMediaEventQueue</a> interface of the event queue. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15893,6 +16346,9 @@ class MediaFoundation {
      */
     static MFCreateEventQueue(ppMediaEventQueue) {
         result := DllCall("MFPlat.dll\MFCreateEventQueue", "ptr", ppMediaEventQueue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15908,7 +16364,7 @@ class MediaFoundation {
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
      * @param {Pointer<IMFSample>} ppIMFSample Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the media sample. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15932,6 +16388,9 @@ class MediaFoundation {
      */
     static MFCreateSample(ppIMFSample) {
         result := DllCall("MFPlat.dll\MFCreateSample", "ptr", ppIMFSample, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15943,12 +16402,15 @@ class MediaFoundation {
      * For a complete list of all the defined attribute GUIDs in Media Foundation, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-attributes">Media Foundation Attributes</a>.
      * @param {Pointer<IMFAttributes>} ppMFAttributes Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
      * @param {Integer} cInitialSize The initial number of elements allocated for the attribute store. The attribute store grows as needed.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreateattributes
      * @since windows6.0.6000
      */
     static MFCreateAttributes(ppMFAttributes, cInitialSize) {
         result := DllCall("MFPlat.dll\MFCreateAttributes", "ptr", ppMFAttributes, "uint", cInitialSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15961,7 +16423,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of the attribute store.
      * @param {Pointer} pBuf Pointer to the array that contains the initialization data.
      * @param {Integer} cbBufSize Size of the <i>pBuf</i> array, in bytes.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -15996,6 +16458,9 @@ class MediaFoundation {
      */
     static MFInitAttributesFromBlob(pAttributes, pBuf, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitAttributesFromBlob", "ptr", pAttributes, "ptr", pBuf, "uint", cbBufSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16005,7 +16470,7 @@ class MediaFoundation {
      * Use this function to find the size of the array that is needed for the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfgetattributesasblob">MFGetAttributesAsBlob</a> function.
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of the attribute store.
      * @param {Pointer<UInt32>} pcbBufSize Receives the required size of the array, in bytes.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -16029,6 +16494,9 @@ class MediaFoundation {
      */
     static MFGetAttributesAsBlobSize(pAttributes, pcbBufSize) {
         result := DllCall("MFPlat.dll\MFGetAttributesAsBlobSize", "ptr", pAttributes, "uint*", pcbBufSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16043,7 +16511,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of the attribute store.
      * @param {Pointer} pBuf Pointer to an array that receives the attribute data.
      * @param {Integer} cbBufSize Size of the <i>pBuf</i> array, in bytes. To get the required size of the buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfgetattributesasblobsize">MFGetAttributesAsBlobSize</a>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -16078,6 +16546,9 @@ class MediaFoundation {
      */
     static MFGetAttributesAsBlob(pAttributes, pBuf, cbBufSize) {
         result := DllCall("MFPlat.dll\MFGetAttributesAsBlob", "ptr", pAttributes, "ptr", pBuf, "uint", cbBufSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16230,7 +16701,7 @@ class MediaFoundation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftregister
      * @since windows6.0.6000
      */
@@ -16238,6 +16709,9 @@ class MediaFoundation {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("MFPlat.dll\MFTRegister", "ptr", clsidMFT, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "ptr", pAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16248,12 +16722,15 @@ class MediaFoundation {
      * 
      * It is safe to call <b>MFTUnregister</b> twice with the same CLSID. If the CLSID is not found in the registry, the function succeeds and does nothing.
      * @param {Pointer<Guid>} clsidMFT The CLSID of the MFT.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftunregister
      * @since windows6.0.6000
      */
     static MFTUnregister(clsidMFT) {
         result := DllCall("MFPlat.dll\MFTUnregister", "ptr", clsidMFT, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16279,7 +16756,7 @@ class MediaFoundation {
      * @param {Pointer<MFT_REGISTER_TYPE_INFO>} pInputTypes A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mft_register_type_info">MFT_REGISTER_TYPE_INFO</a> structures. Each member of the array specifies an input format that the MFT supports. This parameter can be <b>NULL</b> if <i>cInputTypes</i> is zero.
      * @param {Integer} cOutputTypes The number of elements in the <i>pOutputTypes</i> array.
      * @param {Pointer<MFT_REGISTER_TYPE_INFO>} pOutputTypes A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mft_register_type_info">MFT_REGISTER_TYPE_INFO</a> structures. Each member of the array defines an output format that the MFT supports. This parameter can be <b>NULL</b> if <i>cOutputTypes</i> is zero.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftregisterlocal
      * @since windows6.1
      */
@@ -16287,6 +16764,9 @@ class MediaFoundation {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("MFPlat.dll\MFTRegisterLocal", "ptr", pClassFactory, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16297,7 +16777,7 @@ class MediaFoundation {
      * 
      * If the <i>pClassFactory</i> parameter is <b>NULL</b>, all local MFTs in the process are unregistered. Otherwise, the function unregisters the MFT associated with the class factory specified by the <i>pClassFactory</i> parameter. In that case, the <i>pClassFactory</i> parameter should equal a pointer value that was previously passed to  the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocal">MFTRegisterLocal</a> function.
      * @param {Pointer<IClassFactory>} pClassFactory A pointer to the <b>IClassFactory</b> interface of a class factory object. This parameter can be <b>NULL</b>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -16332,6 +16812,9 @@ class MediaFoundation {
      */
     static MFTUnregisterLocal(pClassFactory) {
         result := DllCall("MFPlat.dll\MFTUnregisterLocal", "ptr", pClassFactory, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16353,7 +16836,7 @@ class MediaFoundation {
      * @param {Pointer<MFT_REGISTER_TYPE_INFO>} pInputTypes A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mft_register_type_info">MFT_REGISTER_TYPE_INFO</a> structures. Each member of the array specifies an input format that the MFT supports. This parameter can be <b>NULL</b> if <i>cInputTypes</i> is zero.
      * @param {Integer} cOutputTypes The number of elements in the <i>pOutputTypes</i> array.
      * @param {Pointer<MFT_REGISTER_TYPE_INFO>} pOutputTypes A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mft_register_type_info">MFT_REGISTER_TYPE_INFO</a> structures. Each member of the array defines an output format that the MFT supports. This parameter can be <b>NULL</b> if <i>cOutputTypes</i> is zero.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftregisterlocalbyclsid
      * @since windows6.1
      */
@@ -16361,6 +16844,9 @@ class MediaFoundation {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("MFPlat.dll\MFTRegisterLocalByCLSID", "ptr", clisdMFT, "ptr", guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, "ptr", pInputTypes, "uint", cOutputTypes, "ptr", pOutputTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16369,7 +16855,7 @@ class MediaFoundation {
      * @remarks
      * Use this function to unregister a local MFT that was previously registered through the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocalbyclsid">MFTRegisterLocalByCLSID</a> function.
      * @param {Pointer<Guid>} clsidMFT The class identifier (CLSID) of the MFT.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -16404,6 +16890,9 @@ class MediaFoundation {
      */
     static MFTUnregisterLocalByCLSID(clsidMFT) {
         result := DllCall("MFPlat.dll\MFTUnregisterLocalByCLSID", "ptr", clsidMFT, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16431,12 +16920,15 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<Guid>} ppclsidMFT Receives a pointer to an array of CLSIDs. To create an MFT from this list, call <b>CoCreateInstance</b> with one of the CLSIDs. To get information about a particular MFT from its CLSID, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftgetinfo">MFTGetInfo</a>. The caller must free the memory for the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<UInt32>} pcMFTs Receives the number of elements in the <i>ppclsidMFT</i> array. The value can be zero.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftenum
      * @since windows6.0.6000
      */
     static MFTEnum(guidCategory, Flags, pInputType, pOutputType, pAttributes, ppclsidMFT, pcMFTs) {
         result := DllCall("MFPlat.dll\MFTEnum", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr", ppclsidMFT, "uint*", pcMFTs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16622,12 +17114,15 @@ class MediaFoundation {
      * This parameter can be <b>NULL</b>. If <b>NULL</b>, all output types are matched.
      * @param {Pointer<IMFActivate>} pppMFTActivate Receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface pointers. Each pointer represents an activation object for an MFT that matches the search criteria. The function allocates the memory for the array. The caller must release the pointers and call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory for the array.
      * @param {Pointer<UInt32>} pnumMFTActivate Receives the number of elements in the <i>pppMFTActivate</i> array. If no MFTs match the search criteria, this parameter receives the value zero.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftenumex
      * @since windows6.1
      */
     static MFTEnumEx(guidCategory, Flags, pInputType, pOutputType, pppMFTActivate, pnumMFTActivate) {
         result := DllCall("MFPlat.dll\MFTEnumEx", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pppMFTActivate, "uint*", pnumMFTActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16816,7 +17311,7 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} pAttributes A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface that enables access to the standard attribute store. To specify a specific hardware adapter for which MFTs are queried, set the  <a href="https://docs.microsoft.com/windows/win32/medfound/mft-enum-adapter-luid">MFT_ENUM_ADAPTER_LUID</a> attribute to the LUID of the adapter. If you do this, you must also specify the MFT_ENUM_FLAG_HARDWARE flag or E_INVALIDARG is returned.
      * @param {Pointer<IMFActivate>} pppMFTActivate Receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface pointers. Each pointer represents an activation object for an MFT that matches the search criteria. The function allocates the memory for the array. The caller must release the pointers and call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory for the array.
      * @param {Pointer<UInt32>} pnumMFTActivate Receives the number of elements in the <i>pppMFTActivate</i> array. If no MFTs match the search criteria, this parameter receives the value zero.
-     * @returns {Integer} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
      * <tr>
@@ -16840,6 +17335,9 @@ class MediaFoundation {
      */
     static MFTEnum2(guidCategory, Flags, pInputType, pOutputType, pAttributes, pppMFTActivate, pnumMFTActivate) {
         result := DllCall("MFPlat.dll\MFTEnum2", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr", pppMFTActivate, "uint*", pnumMFTActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16854,24 +17352,30 @@ class MediaFoundation {
      * @param {Pointer<IMFAttributes>} ppAttributes Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface of an attribute store. The caller must release the interface. The attribute store might contain attributes that are stored in the registry for the specified MFT. (For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregister">MFTRegister</a>.)  If no attributes are stored in the registry for this MFT, the attribute store is empty. 
      * 
      * This parameter can be <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mftgetinfo
      * @since windows6.0.6000
      */
     static MFTGetInfo(clsidMFT, pszName, ppInputTypes, pcInputTypes, ppOutputTypes, pcOutputTypes, ppAttributes) {
         result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, "ptr", pszName, "ptr", ppInputTypes, "uint*", pcInputTypes, "ptr", ppOutputTypes, "uint*", pcOutputTypes, "ptr", ppAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Gets a pointer to the Microsoft Media Foundation plug-in manager.
      * @param {Pointer<IMFPluginControl>} ppPluginControl Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfplugincontrol">IMFPluginControl</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetplugincontrol
      * @since windows6.1
      */
     static MFGetPluginControl(ppPluginControl) {
         result := DllCall("MFPlat.dll\MFGetPluginControl", "ptr", ppPluginControl, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16888,12 +17392,15 @@ class MediaFoundation {
      * <li>A null-terminated wide-character string that contains the symbol link for the underlying hardware device. Include the size of the terminating null in the value of <i>cbVerifier</i>.</li>
      * </ul>
      * @param {Pointer<UInt32>} merit Receives the merit value.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetmftmerit
      * @since windows6.1
      */
     static MFGetMFTMerit(pMFT, cbVerifier, verifier, merit) {
         result := DllCall("MFPlat.dll\MFGetMFTMerit", "ptr", pMFT, "uint", cbVerifier, "ptr", verifier, "uint*", merit, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16916,7 +17423,7 @@ class MediaFoundation {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> 
      *       method of the activation object must create a scheme handler object. The scheme handler exposes the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfschemehandler">IMFSchemeHandler</a> interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfregisterlocalschemehandler
      * @since windows8.0
      */
@@ -16924,6 +17431,9 @@ class MediaFoundation {
         szScheme := szScheme is String? StrPtr(szScheme) : szScheme
 
         result := DllCall("MFPlat.dll\MFRegisterLocalSchemeHandler", "ptr", szScheme, "ptr", pActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16940,7 +17450,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} szFileExtension A string that contains the file name extension for this handler.
      * @param {Pointer<Char>} szMimeType A string that contains the MIME type for this handler.
      * @param {Pointer<IMFActivate>} pActivate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface of an activation object. The caller implements this interface. The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> method of the activation object must create a byte-stream handler. The byte-stream handler exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfbytestreamhandler">IMFByteStreamHandler</a> interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfregisterlocalbytestreamhandler
      * @since windows8.0
      */
@@ -16949,6 +17459,9 @@ class MediaFoundation {
         szMimeType := szMimeType is String? StrPtr(szMimeType) : szMimeType
 
         result := DllCall("MFPlat.dll\MFRegisterLocalByteStreamHandler", "ptr", szFileExtension, "ptr", szMimeType, "ptr", pActivate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16958,12 +17471,15 @@ class MediaFoundation {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> methods on the wrapper call directly through to the original byte stream, except for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfbytestream-close">IMFByteStream::Close</a> method. Calling <b>Close</b> on the wrapper closes the wrapper object, but leaves the original byte stream open.
      * @param {Pointer<IMFByteStream>} pStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the original byte stream.
      * @param {Pointer<IMFByteStream>} ppStreamWrapper Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the wrapper. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemfbytestreamwrapper
      * @since windows8.0
      */
     static MFCreateMFByteStreamWrapper(pStream, ppStreamWrapper) {
         result := DllCall("MFPlat.dll\MFCreateMFByteStreamWrapper", "ptr", pStream, "ptr", ppStreamWrapper, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16987,7 +17503,7 @@ class MediaFoundation {
      * </li>
      * </ul>
      * @param {Pointer<Void>} ppvObject Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemediaextensionactivate
      * @since windows8.0
      */
@@ -16995,6 +17511,9 @@ class MediaFoundation {
         szActivatableClassId := szActivatableClassId is String? StrPtr(szActivatableClassId) : szActivatableClassId
 
         result := DllCall("MFPlat.dll\MFCreateMediaExtensionActivate", "ptr", szActivatableClassId, "ptr", pConfiguration, "ptr", riid, "ptr", ppvObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17002,7 +17521,7 @@ class MediaFoundation {
      * Creates an IMFAttributes describing the content of multiplexed substreams.
      * @param {Pointer<IMFCollection>} pAttributesToMux The collection containing the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> for each multiplexed substream.
      * @param {Pointer<IMFAttributes>} ppMuxAttribs The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> containing the attributes for the multiplexed substreams.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17037,6 +17556,9 @@ class MediaFoundation {
      */
     static MFCreateMuxStreamAttributes(pAttributesToMux, ppMuxAttribs) {
         result := DllCall("MFPlat.dll\MFCreateMuxStreamAttributes", "ptr", pAttributesToMux, "ptr", ppMuxAttribs, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17044,7 +17566,7 @@ class MediaFoundation {
      * Creates an IMFMediaType describing the media types of multiplexed substreams.
      * @param {Pointer<IMFCollection>} pMediaTypesToMux The collection containing the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> for each multiplexed substream.
      * @param {Pointer<IMFMediaType>} ppMuxMediaType The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> containing the media types for the multiplexed substreams.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17079,6 +17601,9 @@ class MediaFoundation {
      */
     static MFCreateMuxStreamMediaType(pMediaTypesToMux, ppMuxMediaType) {
         result := DllCall("MFPlat.dll\MFCreateMuxStreamMediaType", "ptr", pMediaTypesToMux, "ptr", ppMuxMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17086,7 +17611,7 @@ class MediaFoundation {
      * Creates an IMFSample containing the samples of multiplexed substreams.
      * @param {Pointer<IMFCollection>} pSamplesToMux The collection containing the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> for each multiplexed substream.
      * @param {Pointer<IMFSample>} ppMuxSample The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> containing the samples for the multiplexed substreams.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17121,6 +17646,9 @@ class MediaFoundation {
      */
     static MFCreateMuxStreamSample(pSamplesToMux, ppMuxSample) {
         result := DllCall("MFPlat.dll\MFCreateMuxStreamSample", "ptr", pSamplesToMux, "ptr", ppMuxSample, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17136,7 +17664,7 @@ class MediaFoundation {
      * @param {Pointer<Guid>} FormatType 
      * @param {Pointer} pBlock Pointer to a buffer that contains the format block.
      * @param {Integer} cbSize Size of the <i>pBlock</i> buffer, in bytes.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17185,6 +17713,9 @@ class MediaFoundation {
      */
     static MFValidateMediaTypeSize(FormatType, pBlock, cbSize) {
         result := DllCall("MFPlat.dll\MFValidateMediaTypeSize", "ptr", FormatType, "ptr", pBlock, "uint", cbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17193,12 +17724,15 @@ class MediaFoundation {
      * @remarks
      * The media type is created without any attributes.
      * @param {Pointer<IMFMediaType>} ppMFType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemediatype
      * @since windows6.0.6000
      */
     static MFCreateMediaType(ppMFType) {
         result := DllCall("MFPlat.dll\MFCreateMediaType", "ptr", ppMFType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17207,12 +17741,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of a video media type.
      * @param {Pointer<MFVIDEOFORMAT>} ppMFVF Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure. The caller must release the memory allocated for the structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<UInt32>} pcbSize Receives the size of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemfvideoformatfrommfmediatype
      * @since windows6.0.6000
      */
     static MFCreateMFVideoFormatFromMFMediaType(pMFType, ppMFVF, pcbSize) {
         result := DllCall("MFPlat.dll\MFCreateMFVideoFormatFromMFMediaType", "ptr", pMFType, "ptr", ppMFVF, "uint*", pcbSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17224,7 +17761,7 @@ class MediaFoundation {
      * @param {Pointer<WAVEFORMATEX>} ppWF Receives a pointer to the <b>WAVEFORMATEX</b> structure. The caller must release the memory allocated for the structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<UInt32>} pcbSize Receives the size of the <b>WAVEFORMATEX</b> structure.
      * @param {Integer} Flags Contains a flag from the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/ne-mfapi-mfwaveformatexconvertflags">MFWaveFormatExConvertFlags</a> enumeration.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17248,6 +17785,9 @@ class MediaFoundation {
      */
     static MFCreateWaveFormatExFromMFMediaType(pMFType, ppWF, pcbSize, Flags) {
         result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, "ptr", ppWF, "uint*", pcbSize, "uint", Flags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17264,12 +17804,15 @@ class MediaFoundation {
      * @param {Pointer} pVIH Pointer to a <b>VIDEOINFOHEADER</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
      * @param {Integer} cbBufSize Size of the <b>VIDEOINFOHEADER</b> structure, in bytes.
      * @param {Pointer<Guid>} pSubtype Pointer to a subtype GUID. This parameter can be <b>NULL</b>. If the subtype GUID is specified, the function uses it to set the media subtype. Otherwise, the function attempts to deduce the subtype from the <b>biCompression</b> field contained in the <b>VIDEOINFOHEADER</b> structure.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfinitmediatypefromvideoinfoheader
      * @since windows6.0.6000
      */
     static MFInitMediaTypeFromVideoInfoHeader(pMFType, pVIH, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader", "ptr", pMFType, "ptr", pVIH, "uint", cbBufSize, "ptr", pSubtype, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17279,7 +17822,7 @@ class MediaFoundation {
      * @param {Pointer} pVIH2 Pointer to a <b>VIDEOINFOHEADER2</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
      * @param {Integer} cbBufSize Size of the <b>VIDEOINFOHEADER2</b> structure, in bytes.
      * @param {Pointer<Guid>} pSubtype Pointer to a subtype GUID. This parameter can be <b>NULL</b>. If the subtype GUID is specified, the function uses it to set the media subtype. Otherwise, the function attempts to deduce the subtype from the <b>biCompression</b> field contained in the <b>VIDEOINFOHEADER2</b> structure.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17303,6 +17846,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromVideoInfoHeader2(pMFType, pVIH2, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader2", "ptr", pMFType, "ptr", pVIH2, "uint", cbBufSize, "ptr", pSubtype, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17312,7 +17858,7 @@ class MediaFoundation {
      * @param {Pointer} pMP1VI Pointer to a <b>MPEG1VIDEOINFO</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
      * @param {Integer} cbBufSize Size of the <b>MPEG1VIDEOINFO</b> structure, in bytes.
      * @param {Pointer<Guid>} pSubtype Pointer to a subtype GUID. This parameter can be <b>NULL</b>. If the subtype GUID is specified, the function uses it to set the media subtype. Otherwise, the function attempts to deduce the subtype from the <b>biCompression</b> field contained in the <b>MPEG1VIDEOINFO</b> structure.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17336,6 +17882,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromMPEG1VideoInfo(pMFType, pMP1VI, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG1VideoInfo", "ptr", pMFType, "ptr", pMP1VI, "uint", cbBufSize, "ptr", pSubtype, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17345,7 +17894,7 @@ class MediaFoundation {
      * @param {Pointer} pMP2VI Pointer to a <b>MPEG2VIDEOINFO</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
      * @param {Integer} cbBufSize Size of the <b>MPEG2VIDEOINFO</b> structure, in bytes.
      * @param {Pointer<Guid>} pSubtype Pointer to a subtype GUID. This parameter can be <b>NULL</b>. If the subtype GUID is specified, the function uses it to set the media subtype. Otherwise, the function attempts to deduce the subtype from the <b>biCompression</b> field contained in the <b>MPEG2VIDEOINFO</b> structure.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17369,6 +17918,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromMPEG2VideoInfo(pMFType, pMP2VI, cbBufSize, pSubtype) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG2VideoInfo", "ptr", pMFType, "ptr", pMP2VI, "uint", cbBufSize, "ptr", pSubtype, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17398,7 +17950,7 @@ class MediaFoundation {
      * @param {Integer} cbBufSize Size of the <i>pBMIH</i> buffer, in bytes. The size includes any color masks or palette entries that follow the <b>BITMAPINFOHEADER</b> structure.
      * @param {Pointer<UInt32>} pcbImageSize Receives the image size, in bytes.
      * @param {Pointer<Int32>} pbKnown Receives the value <b>TRUE</b> if the function recognizes the video format. Otherwise, receives the value <b>FALSE</b>. This parameter can be <b>NULL</b>.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17435,6 +17987,9 @@ class MediaFoundation {
      */
     static MFCalculateBitmapImageSize(pBMIH, cbBufSize, pcbImageSize, pbKnown) {
         result := DllCall("MFPlat.dll\MFCalculateBitmapImageSize", "ptr", pBMIH, "uint", cbBufSize, "uint*", pcbImageSize, "int*", pbKnown, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17444,7 +17999,7 @@ class MediaFoundation {
      * @param {Integer} unWidth Width of the image, in pixels.
      * @param {Integer} unHeight Height of the image, in pixels.
      * @param {Pointer<UInt32>} pcbImageSize Receives the size of each frame, in bytes. If the format is compressed or is not recognized, the value is zero.
-     * @returns {Integer} The function returns an HRESULT. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17468,6 +18023,9 @@ class MediaFoundation {
      */
     static MFCalculateImageSize(guidSubtype, unWidth, unHeight, pcbImageSize) {
         result := DllCall("MFPlat.dll\MFCalculateImageSize", "ptr", guidSubtype, "uint", unWidth, "uint", unHeight, "uint*", pcbImageSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17534,12 +18092,15 @@ class MediaFoundation {
      * @param {Integer} unNumerator The numerator of the frame rate.
      * @param {Integer} unDenominator The denominator of the frame rate.
      * @param {Pointer<UInt64>} punAverageTimePerFrame Receives the average duration of a video frame, in 100-nanosecond units.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfframeratetoaveragetimeperframe
      * @since windows6.0.6000
      */
     static MFFrameRateToAverageTimePerFrame(unNumerator, unDenominator, punAverageTimePerFrame) {
         result := DllCall("MFPlat.dll\MFFrameRateToAverageTimePerFrame", "uint", unNumerator, "uint", unDenominator, "uint*", punAverageTimePerFrame, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17552,7 +18113,7 @@ class MediaFoundation {
      * @param {Integer} unAverageTimePerFrame The average duration of a video frame, in 100-nanosecond units.
      * @param {Pointer<UInt32>} punNumerator Receives the numerator of the frame rate.
      * @param {Pointer<UInt32>} punDenominator Receives the denominator of the frame rate.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17576,6 +18137,9 @@ class MediaFoundation {
      */
     static MFAverageTimePerFrameToFrameRate(unAverageTimePerFrame, punNumerator, punDenominator) {
         result := DllCall("MFPlat.dll\MFAverageTimePerFrameToFrameRate", "uint", unAverageTimePerFrame, "uint*", punNumerator, "uint*", punDenominator, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17584,12 +18148,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to initialize. To create the uninitialized media type object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
      * @param {Pointer} pMFVF Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure that describes the media type. The caller must fill in the structure members before calling this function.
      * @param {Integer} cbBufSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure, in bytes.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfinitmediatypefrommfvideoformat
      * @since windows6.0.6000
      */
     static MFInitMediaTypeFromMFVideoFormat(pMFType, pMFVF, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromMFVideoFormat", "ptr", pMFType, "ptr", pMFVF, "uint", cbBufSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17598,7 +18165,7 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to initialize. To create the uninitialized media type object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
      * @param {Pointer} pWaveFormat Pointer to a <b>WAVEFORMATEX</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
      * @param {Integer} cbBufSize Size of the <b>WAVEFORMATEX</b> structure, in bytes.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17622,6 +18189,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromWaveFormatEx(pMFType, pWaveFormat, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromWaveFormatEx", "ptr", pMFType, "ptr", pWaveFormat, "uint", cbBufSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17642,7 +18212,7 @@ class MediaFoundation {
      * </ul>
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to initialize. To create the uninitialized media type object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
      * @param {Pointer<AM_MEDIA_TYPE>} pAMType Pointer to an <b>AM_MEDIA_TYPE</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17666,6 +18236,9 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromAMMediaType(pMFType, pAMType) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromAMMediaType", "ptr", pMFType, "ptr", pAMType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17681,7 +18254,7 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to convert.
      * @param {Pointer<Guid>} guidFormatBlockType Format type GUID. This value corresponds to the <b>formattype</b> member of the <b>AM_MEDIA_TYPE</b> structure and specifies the type of format block to allocate. If the value is GUID_NULL, the function attempts to deduce the correct format block, based on the major type and subtype.
      * @param {Pointer<AM_MEDIA_TYPE>} pAMType Pointer to an <b>AM_MEDIA_TYPE</b> structure. The function allocates memory for the format block. The caller must release the format block by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> on the <b>pbFormat</b> member.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17716,6 +18289,9 @@ class MediaFoundation {
      */
     static MFInitAMMediaTypeFromMFMediaType(pMFType, guidFormatBlockType, pAMType) {
         result := DllCall("MFPlat.dll\MFInitAMMediaTypeFromMFMediaType", "ptr", pMFType, "ptr", guidFormatBlockType, "ptr", pAMType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17737,7 +18313,7 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to convert.
      * @param {Pointer<Guid>} guidFormatBlockType Format type GUID. This value corresponds to the <b>formattype</b> member of the <b>AM_MEDIA_TYPE</b> structure and specifies the type of format block to allocate. If the value is GUID_NULL, the function attempts to deduce the correct format block, based on the major type and subtype.
      * @param {Pointer<AM_MEDIA_TYPE>} ppAMType Receives a pointer to an <b>AM_MEDIA_TYPE</b> structure. The caller must release the memory allocated for the structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The function also allocates memory for the format block, which the caller must release by calling <b>CoTaskMemFree</b> on the <b>pbFormat</b> member.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -17761,6 +18337,9 @@ class MediaFoundation {
      */
     static MFCreateAMMediaTypeFromMFMediaType(pMFType, guidFormatBlockType, ppAMType) {
         result := DllCall("MFPlat.dll\MFCreateAMMediaTypeFromMFMediaType", "ptr", pMFType, "ptr", guidFormatBlockType, "ptr", ppAMType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17817,12 +18396,15 @@ class MediaFoundation {
      * </ul>
      * Applications can define custom subtype GUIDs.
      * @param {Pointer<IMFMediaType>} ppWrap Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the new media type that wraps the original media type. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfwrapmediatype
      * @since windows6.0.6000
      */
     static MFWrapMediaType(pOrig, MajorType, SubType, ppWrap) {
         result := DllCall("MFPlat.dll\MFWrapMediaType", "ptr", pOrig, "ptr", MajorType, "ptr", SubType, "ptr", ppWrap, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17837,12 +18419,15 @@ class MediaFoundation {
      * </ul>
      * @param {Pointer<IMFMediaType>} pWrap Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type that was retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfwrapmediatype">MFWrapMediaType</a>.
      * @param {Pointer<IMFMediaType>} ppOrig Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the original media type. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfunwrapmediatype
      * @since windows6.0.6000
      */
     static MFUnwrapMediaType(pWrap, ppOrig) {
         result := DllCall("MFPlat.dll\MFUnwrapMediaType", "ptr", pWrap, "ptr", ppOrig, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17856,12 +18441,15 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<MFVIDEOFORMAT>} pVideoFormat Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure that describes the video format.
      * @param {Pointer<IMFVideoMediaType>} ppIVideoMediaType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfvideomediatype">IMFVideoMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatevideomediatype
      * @since windows6.0.6000
      */
     static MFCreateVideoMediaType(pVideoFormat, ppIVideoMediaType) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaType", "ptr", pVideoFormat, "ptr", ppIVideoMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17885,12 +18473,15 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<Guid>} pAMSubtype Pointer to a GUID that specifies the subtype. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-subtype-guids">Video Subtype GUIDs</a>.
      * @param {Pointer<IMFVideoMediaType>} ppIVideoMediaType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfvideomediatype">IMFVideoMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatevideomediatypefromsubtype
      * @since windows6.0.6000
      */
     static MFCreateVideoMediaTypeFromSubtype(pAMSubtype, ppIVideoMediaType) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromSubtype", "ptr", pAMSubtype, "ptr", ppIVideoMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17951,12 +18542,15 @@ class MediaFoundation {
      * @param {Integer} qwFramesPerSecondDenominator Reserved.
      * @param {Integer} dwMaxBitRate Reserved.
      * @param {Pointer<IMFVideoMediaType>} ppIVideoMediaType Reserved.
-     * @returns {Integer} Returns <b>E_FAIL</b>.
+     * @returns {HRESULT} Returns <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatevideomediatypefrombitmapinfoheader
      * @since windows6.0.6000
      */
     static MFCreateVideoMediaTypeFromBitMapInfoHeader(pbmihBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, qwFramesPerSecondNumerator, qwFramesPerSecondDenominator, dwMaxBitRate, ppIVideoMediaType) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeader", "ptr", pbmihBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, "int", InterlaceMode, "uint", VideoFlags, "uint", qwFramesPerSecondNumerator, "uint", qwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr", ppIVideoMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17977,12 +18571,15 @@ class MediaFoundation {
      * @param {Integer} format FOURCC code or <b>D3DFORMAT</b> value that specifies the video format. If you have a video subtype GUID, you can use the first <b>DWORD</b> of the subtype.
      * @param {Integer} dwWidth Width of the image, in pixels.
      * @param {Pointer<Int32>} pStride Receives the minimum surface stride, in pixels.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetstrideforbitmapinfoheader
      * @since windows6.0.6000
      */
     static MFGetStrideForBitmapInfoHeader(format, dwWidth, pStride) {
         result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, "int*", pStride, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17998,7 +18595,7 @@ class MediaFoundation {
      * @param {Integer} dwWidth Width of the image, in pixels.
      * @param {Integer} dwHeight Height of the image, in pixels.
      * @param {Pointer<UInt32>} pdwPlaneSize Receives the size of one frame, in bytes. If the format is compressed or is not recognized, this value is zero.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18023,6 +18620,9 @@ class MediaFoundation {
      */
     static MFGetPlaneSize(format, dwWidth, dwHeight, pdwPlaneSize) {
         result := DllCall("EVR.dll\MFGetPlaneSize", "uint", format, "uint", dwWidth, "uint", dwHeight, "uint*", pdwPlaneSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18040,12 +18640,15 @@ class MediaFoundation {
      * @param {Integer} dwMaxBitRate The approximate data rate of the video stream, in bits per second. If the rate is unknown, set this parameter to zero.
      * @param {Pointer<IMFVideoMediaType>} ppIVideoMediaType Receives a pointer to the 
      *           <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfvideomediatype">IMFVideoMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatevideomediatypefrombitmapinfoheaderex
      * @since windows6.1
      */
     static MFCreateVideoMediaTypeFromBitMapInfoHeaderEx(pbmihBitMapInfoHeader, cbBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, dwFramesPerSecondNumerator, dwFramesPerSecondDenominator, dwMaxBitRate, ppIVideoMediaType) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeaderEx", "ptr", pbmihBitMapInfoHeader, "uint", cbBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, "int", InterlaceMode, "uint", VideoFlags, "uint", dwFramesPerSecondNumerator, "uint", dwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr", ppIVideoMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18086,7 +18689,7 @@ class MediaFoundation {
      * </table>
      * @param {Pointer<Void>} pvRepresentation Pointer to a buffer that contains the format representation to convert. The layout of the buffer depends on the value of <i>guidRepresentation</i>.
      * @param {Pointer<IMFMediaType>} ppIMediaType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18121,6 +18724,9 @@ class MediaFoundation {
      */
     static MFCreateMediaTypeFromRepresentation(guidRepresentation, pvRepresentation, ppIMediaType) {
         result := DllCall("MFPlat.dll\MFCreateMediaTypeFromRepresentation", "ptr", guidRepresentation, "ptr", pvRepresentation, "ptr", ppIMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18147,12 +18753,15 @@ class MediaFoundation {
      * </ul>
      * @param {Pointer<WAVEFORMATEX>} pAudioFormat Pointer to a <b>WAVEFORMATEX</b> structure that describes the audio format.
      * @param {Pointer<IMFAudioMediaType>} ppIAudioMediaType Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfaudiomediatype">IMFAudioMediaType</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreateaudiomediatype
      * @since windows6.0.6000
      */
     static MFCreateAudioMediaType(pAudioFormat, ppIAudioMediaType) {
         result := DllCall("MFPlat.dll\MFCreateAudioMediaType", "ptr", pAudioFormat, "ptr", ppIAudioMediaType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18178,12 +18787,15 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<MFVIDEOFORMAT>} pVideoFormat A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure. The function fills in the structure members based on the video format specified in the type parameter.
      * @param {Integer} type The video format, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfstandardvideoformat">MFStandardVideoFormat</a> enumeration.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfinitvideoformat
      * @since windows6.0.6000
      */
     static MFInitVideoFormat(pVideoFormat, type) {
         result := DllCall("MFPlat.dll\MFInitVideoFormat", "ptr", pVideoFormat, "int", type, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18205,12 +18817,15 @@ class MediaFoundation {
      * @param {Integer} dwWidth The width of the video, in pixels.
      * @param {Integer} dwHeight The height of the video, in pixels.
      * @param {Integer} D3Dfmt A <b>D3DFORMAT</b> value that specifies the RGB format.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfinitvideoformat_rgb
      * @since windows6.0.6000
      */
     static MFInitVideoFormat_RGB(pVideoFormat, dwWidth, dwHeight, D3Dfmt) {
         result := DllCall("MFPlat.dll\MFInitVideoFormat_RGB", "ptr", pVideoFormat, "uint", dwWidth, "uint", dwHeight, "uint", D3Dfmt, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18221,12 +18836,15 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<UInt32>} pdwToDXVA Receives the DXVA extended color information. The bitfields in the <b>DWORD</b> are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure.
      * @param {Pointer<MFVIDEOFORMAT>} pFromFormat Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure that describes the video format.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfconvertcolorinfotodxva
      * @since windows6.0.6000
      */
     static MFConvertColorInfoToDXVA(pdwToDXVA, pFromFormat) {
         result := DllCall("MFPlat.dll\MFConvertColorInfoToDXVA", "uint*", pdwToDXVA, "ptr", pFromFormat, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18247,12 +18865,15 @@ class MediaFoundation {
      * <div> </div>
      * @param {Pointer<MFVIDEOFORMAT>} pToFormat Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure. The function fills in the structure members that correspond to the DXVA color information in the <i>dwFromDXVA</i> parameter. The function does not modify the other structure members.
      * @param {Integer} dwFromDXVA <b>DWORD</b> that contains extended color information. The bitfields in the <b>DWORD</b> are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfconvertcolorinfofromdxva
      * @since windows6.0.6000
      */
     static MFConvertColorInfoFromDXVA(pToFormat, dwFromDXVA) {
         result := DllCall("MFPlat.dll\MFConvertColorInfoFromDXVA", "ptr", pToFormat, "uint", dwFromDXVA, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18273,12 +18894,15 @@ class MediaFoundation {
      * @param {Integer} lSrcStride Stride of the source image, in bytes.
      * @param {Integer} dwWidthInBytes Width of the image, in bytes.
      * @param {Integer} dwLines Number of rows of pixels to copy.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcopyimage
      * @since windows6.0.6000
      */
     static MFCopyImage(pDest, lDestStride, pSrc, lSrcStride, dwWidthInBytes, dwLines) {
         result := DllCall("MFPlat.dll\MFCopyImage", "char*", pDest, "int", lDestStride, "char*", pSrc, "int", lSrcStride, "uint", dwWidthInBytes, "uint", dwLines, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18293,12 +18917,15 @@ class MediaFoundation {
      * @param {Pointer<Single>} pDest Pointer to an array of <b>float</b> values. The array must contain at least <i>dwCount</i> elements.
      * @param {Pointer<UInt16>} pSrc Pointer to an array of 16-bit floating-point values, typed as <b>WORD</b> values. The array must contain at least <i>dwCount</i> elements.
      * @param {Integer} dwCount Number of elements in the <i>pSrc</i> array to convert.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfconvertfromfp16array
      * @since windows6.0.6000
      */
     static MFConvertFromFP16Array(pDest, pSrc, dwCount) {
         result := DllCall("MFPlat.dll\MFConvertFromFP16Array", "float*", pDest, "ushort*", pSrc, "uint", dwCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18313,12 +18940,15 @@ class MediaFoundation {
      * @param {Pointer<UInt16>} pDest Pointer to an array of 16-bit floating-point values, typed as <b>WORD</b> values. The array must contain at least <i>dwCount</i> elements.
      * @param {Pointer<Single>} pSrc Pointer to an array of <b>float</b> values. The array must contain at least <i>dwCount</i> elements.
      * @param {Integer} dwCount Number of elements in the <i>pSrc</i> array to convert.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfconverttofp16array
      * @since windows6.0.6000
      */
     static MFConvertToFP16Array(pDest, pSrc, dwCount) {
         result := DllCall("MFPlat.dll\MFConvertToFP16Array", "ushort*", pDest, "float*", pSrc, "uint", dwCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18335,7 +18965,7 @@ class MediaFoundation {
      * 
      * For more information about top-down versus bottom-up images, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -18370,6 +19000,9 @@ class MediaFoundation {
      */
     static MFCreate2DMediaBuffer(dwWidth, dwHeight, dwFourCC, fBottomUp, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreate2DMediaBuffer", "uint", dwWidth, "uint", dwHeight, "uint", dwFourCC, "int", fBottomUp, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18386,19 +19019,22 @@ class MediaFoundation {
      * @param {Integer} dwMinLength The minimum size of the buffer, in bytes. The actual buffer size might be larger. Specify zero to allocate the default buffer size for the media type.
      * @param {Integer} dwMinAlignment The minimum memory alignment for the buffer. Specify zero to use the default memory alignment.
      * @param {Pointer<IMFMediaBuffer>} ppBuffer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemediabufferfrommediatype
      * @since windows8.0
      */
     static MFCreateMediaBufferFromMediaType(pMediaType, llDuration, dwMinLength, dwMinAlignment, ppBuffer) {
         result := DllCall("MFPlat.dll\MFCreateMediaBufferFromMediaType", "ptr", pMediaType, "int64", llDuration, "uint", dwMinLength, "uint", dwMinAlignment, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Creates an empty collection object.
      * @param {Pointer<IMFCollection>} ppIMFCollection Receives a pointer to the collection object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18422,6 +19058,9 @@ class MediaFoundation {
      */
     static MFCreateCollection(ppIMFCollection) {
         result := DllCall("MFPlat.dll\MFCreateCollection", "ptr", ppIMFCollection, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18436,7 +19075,7 @@ class MediaFoundation {
      * @param {Pointer<Byte>} pszFile Reserved. Set to <b>NULL</b>.
      * @param {Integer} line Reserved. Set to zero.
      * @param {Integer} eat Reserved. Set to <b>eAllocationTypeIgnore</b>.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to the allocated memory block. If the function fails, it returns <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, it returns a pointer to the allocated memory block. If the function fails, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfheapalloc
      * @since windows6.0.6000
      */
@@ -18450,13 +19089,12 @@ class MediaFoundation {
     /**
      * Frees a block of memory that was allocated by calling the MFHeapAlloc function.
      * @param {Pointer<Void>} pv Pointer to the memory to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfheapfree
      * @since windows6.0.6000
      */
     static MFHeapFree(pv) {
-        result := DllCall("MFPlat.dll\MFHeapFree", "ptr", pv)
-        return result
+        DllCall("MFPlat.dll\MFHeapFree", "ptr", pv)
     }
 
     /**
@@ -18483,12 +19121,15 @@ class MediaFoundation {
      * The class identifier can be used to create the input trust authority (ITA) for the content protection system. Call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpmphost-createobjectbyclsid">IMFPMPHost::CreateObjectByCLSID</a> to get an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftrustedinput">IMFTrustedInput</a>  pointer.
      * @param {Pointer<Guid>} guidProtectionSystemID The GUID that identifies the content protection system.
      * @param {Pointer<Guid>} pclsid Receives the class identifier to the content protection system.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetcontentprotectionsystemclsid
      * @since windows8.0
      */
     static MFGetContentProtectionSystemCLSID(guidProtectionSystemID, pclsid) {
         result := DllCall("MFPlat.dll\MFGetContentProtectionSystemCLSID", "ptr", guidProtectionSystemID, "ptr", pclsid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18500,12 +19141,15 @@ class MediaFoundation {
      * @param {Pointer<IMFSample>} pSampleToAdd A pointer to an [IMFSample](../mfobjects/nn-mfobjects-imfsample.md) to append to the sample provided in the  *pSample* parameter.
      * @param {Integer} dwMaxMergedDurationInMS The maximum duration in milliseconds that the combined sample can fill for the operation to be successful.
      * @param {Pointer<Int32>} pMerged Output parameter that receives a BOOL indicating whether the sample was successfully appended.
-     * @returns {Integer} Returns HRESULT.
+     * @returns {HRESULT} Returns HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcombinesamples
      * @since windows10.0.19041
      */
     static MFCombineSamples(pSample, pSampleToAdd, dwMaxMergedDurationInMS, pMerged) {
         result := DllCall("MFPlat.dll\MFCombineSamples", "ptr", pSample, "ptr", pSampleToAdd, "uint", dwMaxMergedDurationInMS, "int*", pMerged, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18517,12 +19161,15 @@ class MediaFoundation {
      * @param {Pointer<IMFSample>} pOutputSamples Receives a pointer to an array of output samples from the split operation.
      * @param {Integer} dwOutputSampleMaxCount The maximum output array size. Call [IMFSample::GetBufferCount](../mfobjects/nf-mfobjects-imfsample-getbuffercount.md) on the sample provided in *pSample* to find out an upper bound.
      * @param {Pointer<UInt32>} pdwOutputSampleCount Output parameter that receives the number of samples contained in the pOutputSamples array.
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfsplitsample
      * @since windows10.0.19041
      */
     static MFSplitSample(pSample, pOutputSamples, dwOutputSampleMaxCount, pdwOutputSampleCount) {
         result := DllCall("MFPlat.dll\MFSplitSample", "ptr", pSample, "ptr", pOutputSamples, "uint", dwOutputSampleMaxCount, "uint*", pdwOutputSampleCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18538,7 +19185,7 @@ class MediaFoundation {
      * @param {Pointer<Char>} pwszURL The URL  of a media file to open.
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. You can use this parameter to configure the source reader. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/source-reader-attributes">Source Reader Attributes</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFSourceReader>} ppSourceReader Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereader">IMFSourceReader</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfromurl
      * @since windows6.1
      */
@@ -18546,6 +19193,9 @@ class MediaFoundation {
         pwszURL := pwszURL is String? StrPtr(pwszURL) : pwszURL
 
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromURL", "ptr", pwszURL, "ptr", pAttributes, "ptr", ppSourceReader, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18561,12 +19211,15 @@ class MediaFoundation {
      * @param {Pointer<IMFByteStream>} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of a byte stream. This byte stream will provide the source data for the source reader.
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. You can use this parameter to configure the source reader. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/source-reader-attributes">Source Reader Attributes</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFSourceReader>} ppSourceReader Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereader">IMFSourceReader</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-mfcreatesourcereaderfrombytestream
      * @since windows6.1
      */
     static MFCreateSourceReaderFromByteStream(pByteStream, pAttributes, ppSourceReader) {
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromByteStream", "ptr", pByteStream, "ptr", pAttributes, "ptr", ppSourceReader, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18597,7 +19250,7 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaSource>} pMediaSource A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> interface of a media source.
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. You can use this parameter to configure the source reader. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/source-reader-attributes">Source Reader Attributes</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFSourceReader>} ppSourceReader Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereader">IMFSourceReader</a> interface. The caller must release the interface.
-     * @returns {Integer} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18632,6 +19285,9 @@ class MediaFoundation {
      */
     static MFCreateSourceReaderFromMediaSource(pMediaSource, pAttributes, ppSourceReader) {
         result := DllCall("MFReadWrite.dll\MFCreateSourceReaderFromMediaSource", "ptr", pMediaSource, "ptr", pAttributes, "ptr", ppSourceReader, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18687,7 +19343,7 @@ class MediaFoundation {
      * If this parameter is a valid pointer, the sink writer writes to the provided byte stream. (The byte stream must be writable.) Otherwise, if <i>pByteStream</i> is <b>NULL</b>, the sink writer creates a new file named <i>pwszOutputURL</i>.
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. You can use this parameter to configure the sink writer. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/sink-writer-attributes">Sink Writer Attributes</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFSinkWriter>} ppSinkWriter Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsinkwriter">IMFSinkWriter</a> interface. The caller must release the interface.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -18724,6 +19380,9 @@ class MediaFoundation {
         pwszOutputURL := pwszOutputURL is String? StrPtr(pwszOutputURL) : pwszOutputURL
 
         result := DllCall("MFReadWrite.dll\MFCreateSinkWriterFromURL", "ptr", pwszOutputURL, "ptr", pByteStream, "ptr", pAttributes, "ptr", ppSinkWriter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18738,12 +19397,15 @@ class MediaFoundation {
      * @param {Pointer<IMFMediaSink>} pMediaSink Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasink">IMFMediaSink</a> interface of a media sink.
      * @param {Pointer<IMFAttributes>} pAttributes Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. You can use this parameter to configure the sink writer. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/sink-writer-attributes">Sink Writer Attributes</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFSinkWriter>} ppSinkWriter Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsinkwriter">IMFSinkWriter</a> interface. The caller must release the interface.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-mfcreatesinkwriterfrommediasink
      * @since windows6.1
      */
     static MFCreateSinkWriterFromMediaSink(pMediaSink, pAttributes, ppSinkWriter) {
         result := DllCall("MFReadWrite.dll\MFCreateSinkWriterFromMediaSink", "ptr", pMediaSink, "ptr", pAttributes, "ptr", ppSinkWriter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18753,7 +19415,7 @@ class MediaFoundation {
      * @param {Pointer<Guid>} riidDevice Interface identifier (IID) of the video device interface that will be used for processing the video. Currently the only supported value is IID_IDirect3DDevice9.
      * @param {Pointer<Guid>} riid IID of the requested interface on the video presenter. The video presenter exposes the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imfvideopresenter">IMFVideoPresenter</a> interface.
      * @param {Pointer<Void>} ppVideoPresenter Receives a pointer to the requested interface on the video presenter. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18777,6 +19439,9 @@ class MediaFoundation {
      */
     static MFCreateVideoPresenter(pOwner, riidDevice, riid, ppVideoPresenter) {
         result := DllCall("EVR.dll\MFCreateVideoPresenter", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, "ptr", ppVideoPresenter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18786,7 +19451,7 @@ class MediaFoundation {
      * @param {Pointer<Guid>} riidDevice Interface identifier (IID) of the video device interface that will be used for processing the video. Currently the only supported value is IID_IDirect3DDevice9.
      * @param {Pointer<Guid>} riid IID of the requested interface on the video mixer.  The video mixer exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nn-mftransform-imftransform">IMFTransform</a> interface.
      * @param {Pointer<Void>} ppv Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18809,6 +19474,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMixer(pOwner, riidDevice, riid, ppv) {
         result := DllCall("EVR.dll\MFCreateVideoMixer", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18820,7 +19488,7 @@ class MediaFoundation {
      * @param {Pointer<Void>} ppvVideoMixer Receives a pointer to the requested interface on the video mixer. The caller must release the interface.
      * @param {Pointer<Guid>} riidPresenter IID of the requested interface on the video presenter. The video presenter exposes the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imfvideopresenter">IMFVideoPresenter</a> interface.
      * @param {Pointer<Void>} ppvVideoPresenter Receives a pointer to the requested interface on the video presenter. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18844,6 +19512,9 @@ class MediaFoundation {
      */
     static MFCreateVideoMixerAndPresenter(pMixerOwner, pPresenterOwner, riidMixer, ppvVideoMixer, riidPresenter, ppvVideoPresenter) {
         result := DllCall("EVR.dll\MFCreateVideoMixerAndPresenter", "ptr", pMixerOwner, "ptr", pPresenterOwner, "ptr", riidMixer, "ptr", ppvVideoMixer, "ptr", riidPresenter, "ptr", ppvVideoPresenter, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18853,7 +19524,7 @@ class MediaFoundation {
      * This function creates the Media Foundation version of the EVR. To create the DirectShow EVR filter, call <b>CoCreateInstance</b> with the class identifier CLSID_EnhancedVideoRenderer.
      * @param {Pointer<Guid>} riidRenderer Interface identifier (IID) of the requested interface on the EVR.
      * @param {Pointer<Void>} ppVideoRenderer Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
      * <tr>
@@ -18876,6 +19547,9 @@ class MediaFoundation {
      */
     static MFCreateVideoRenderer(riidRenderer, ppVideoRenderer) {
         result := DllCall("MF.dll\MFCreateVideoRenderer", "ptr", riidRenderer, "ptr", ppVideoRenderer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18898,11 +19572,14 @@ class MediaFoundation {
      * @param {Pointer<IUnknown>} pUnkSurface A pointer to the <b>IUnknown</b> interface of the Direct3D surface. This parameter can be <b>NULL</b>.
      * @param {Pointer<IMFSample>} ppSample Receives a pointer to the sample's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface.
      *           The caller must release the interface.
-     * @returns {Integer} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/evr/nc-evr-mfcreatevideosamplefromsurface
      */
     static MFCreateVideoSampleFromSurface(pUnkSurface, ppSample) {
         result := DllCall("EVR.dll\MFCreateVideoSampleFromSurface", "ptr", pUnkSurface, "ptr", ppSample, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18910,11 +19587,14 @@ class MediaFoundation {
      * Creates an object that allocates video samples.
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppSampleAllocator Receives a pointer to the requested interface. The caller must release the interface.
-     * @returns {Integer} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/evr/nc-evr-mfcreatevideosampleallocator
      */
     static MFCreateVideoSampleAllocator(riid, ppSampleAllocator) {
         result := DllCall("EVR.dll\MFCreateVideoSampleAllocator", "ptr", riid, "ptr", ppSampleAllocator, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18941,7 +19621,7 @@ class MediaFoundation {
      * 
      * If <i>hWnd</i> is <b>NULL</b>, MFPlay will not display any video unless the application calls <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaitem-setstreamsink">IMFPMediaItem::SetStreamSink</a> to specify a media sink for the video stream.
      * @param {Pointer<IMFPMediaPlayer>} ppMediaPlayer Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> interface. The caller must release the interface. This parameter can be <b>NULL</b>. If this parameter is <b>NULL</b>, <i>fStartPlayback</i> must be <b>TRUE</b> and <i>pwszURL</i> cannot be <b>NULL</b>.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-mfpcreatemediaplayer
      * @since windows6.1
      */
@@ -18949,6 +19629,9 @@ class MediaFoundation {
         pwszURL := pwszURL is String? StrPtr(pwszURL) : pwszURL
 
         result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "int", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", hWnd, "ptr", ppMediaPlayer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18960,7 +19643,7 @@ class MediaFoundation {
      * @param {Pointer<IStream>} objectStream An [IStream](../objidl/nn-objidl-istream.md) representing the object stream that will be loaded via IMFActivate::Load.
      * @param {Pointer<Char>} classId An **LPCWSTR** representing the target object's activatable class id.
      * @param {Pointer<IMFActivate>} activate Receives a reference to the to an **IMFActivate**.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-mfcreateencryptedmediaextensionsstoreactivate
      * @since windows10.0.19041
      */
@@ -18968,6 +19651,9 @@ class MediaFoundation {
         classId := classId is String? StrPtr(classId) : classId
 
         result := DllCall("MF.dll\MFCreateEncryptedMediaExtensionsStoreActivate", "ptr", pmpHost, "ptr", objectStream, "ptr", classId, "ptr", activate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -18988,7 +19674,7 @@ class MediaFoundation {
      * @param {Pointer<Guid>} categories 
      * @param {Integer} categoryCount The number of categories provided in the *categories* parameter.  If *categories* is nullptr, *categoryCount* must be 0.
      * @param {Pointer<IMFVirtualCamera>} virtualCamera Output parameter that receives the newly created [IMFVirtualCamera](nn-mfvirtualcamera-imfvirtualcamera.md).  This parameter must not be nullptr.
-     * @returns {Integer} Returns an HRESULT value, including but not limited to the following values:
+     * @returns {HRESULT} Returns an HRESULT value, including but not limited to the following values:
      * 
      * | Error code | Description |
      * |------------|-------------|
@@ -19003,6 +19689,9 @@ class MediaFoundation {
         sourceId := sourceId is String? StrPtr(sourceId) : sourceId
 
         result := DllCall("MFSENSORGROUP.dll\MFCreateVirtualCamera", "int", type, "int", lifetime, "int", access, "ptr", friendlyName, "ptr", sourceId, "ptr", categories, "uint", categoryCount, "ptr", virtualCamera, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19010,7 +19699,7 @@ class MediaFoundation {
      * Returns a value indicating if a particular virtual camera is supported on the platform.
      * @param {Integer} type A member of the [MFVirtualCameraType](ne-mfvirtualcamera-mfvirtualcameratype.md) enumeration specifying the virtual camera type for which support is being queried. In the current release, only **MFVirtualCameraType_SoftwareCameraSource** is supported.
      * @param {Pointer<Int32>} supported An output parameter that receives a boolean indicating if the specified camera type is supported on the current device.
-     * @returns {Integer} Returns an HRESULT value, including but not limited to the following values:
+     * @returns {HRESULT} Returns an HRESULT value, including but not limited to the following values:
      * 
      * | Error code | Description |
      * |------------|-------------|
@@ -19022,26 +19711,35 @@ class MediaFoundation {
      */
     static MFIsVirtualCameraTypeSupported(type, supported) {
         result := DllCall("MFSENSORGROUP.dll\MFIsVirtualCameraTypeSupported", "int", type, "int*", supported, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Integer} HDCPType 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static OPMXboxEnableHDCP(HDCPType) {
         result := DllCall("OPMXbox.dll\OPMXboxEnableHDCP", "int", HDCPType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Int32>} pHDCPStatus 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static OPMXboxGetHDCPStatus(pHDCPStatus) {
         result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatus", "int*", pHDCPStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -19049,10 +19747,13 @@ class MediaFoundation {
      * 
      * @param {Pointer<Int32>} pHDCPStatus 
      * @param {Pointer<Int32>} pHDCPType 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static OPMXboxGetHDCPStatusAndType(pHDCPStatus, pHDCPType) {
         result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatusAndType", "int*", pHDCPStatus, "int*", pHDCPType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

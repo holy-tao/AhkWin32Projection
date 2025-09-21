@@ -1487,12 +1487,11 @@ class Imapi {
      *   
      * A message session keeps track of all **IMessage**-on- **IStorage** objects opened during the duration of the session, in addition to all the attachments and other properties of the messages. When a client or provider calls **CloseIMsgSession**, it closes all these objects. Calling **CloseIMsgSession** is the only way to close **IMessage**-on- **IStorage** objects.
      * @param {Pointer} lpMsgSess > [in] Pointer to the message session object obtained using the [OpenIMsgSession](openimsgsession.md) function at the start of the message session.
-     * @returns {Pointer} None.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/closeimsgsession
      */
     static CloseIMsgSession(lpMsgSess) {
-        result := DllCall("MAPI32.dll\CloseIMsgSession", "ptr", lpMsgSess)
-        return result
+        DllCall("MAPI32.dll\CloseIMsgSession", "ptr", lpMsgSess)
     }
 
     /**
@@ -1543,7 +1542,7 @@ class Imapi {
      * @param {Pointer<Void>} lpObject > [in] Pointer to an **IMessage** object obtained from the [OpenIMsgOnIStg](openimsgonistg.md) function.
      * @param {Pointer<SPropTagArray>} lpPropTagArray > [in] Pointer to an [SPropTagArray](sproptagarray.md) structure that contains an array of property tags indicating the properties for which attributes are to be retrieved.
      * @param {Pointer<SPropAttrArray>} lppPropAttrArray > [out] Pointer to a pointer to the returned [SPropAttrArray](spropattrarray.md) structure that contains the retrieved property attributes.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values. 
      *     
@@ -1554,6 +1553,9 @@ class Imapi {
      */
     static GetAttribIMsgOnIStg(lpObject, lpPropTagArray, lppPropAttrArray) {
         result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", "ptr", lpObject, "ptr", lpPropTagArray, "ptr", lppPropAttrArray, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1571,7 +1573,7 @@ class Imapi {
      * @param {Pointer<SPropTagArray>} lpPropTags > [in] Pointer to an [SPropTagArray](sproptagarray.md) structure containing an array of property tags indicating the properties for which property attributes are being set.
      * @param {Pointer<SPropAttrArray>} lpPropAttrs > [in] Pointer to an [SPropAttrArray](spropattrarray.md) structure listing the property attributes to set.
      * @param {Pointer<SPropProblemArray>} lppPropProblems > [out] Pointer to the returned [SPropProblemArray](spropproblemarray.md) structure containing a set of property problems. This structure identifies problems encountered if **SetAttribIMsgOnIStg** has been able to set some properties, but not all. If a pointer to NULL is passed in the _lppPropProblems_ parameter, no property problem array is returned even if some properties were not set.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      *     
@@ -1582,6 +1584,9 @@ class Imapi {
      */
     static SetAttribIMsgOnIStg(lpObject, lpPropTags, lpPropAttrs, lppPropProblems) {
         result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", "ptr", lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, "ptr", lppPropProblems, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

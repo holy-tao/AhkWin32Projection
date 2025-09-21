@@ -44,7 +44,7 @@ class SPSEMANTICERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrResultCode {
         get => NumGet(this, 32, "int")

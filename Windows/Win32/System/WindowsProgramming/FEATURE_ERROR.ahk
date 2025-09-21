@@ -15,7 +15,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 0, "int")

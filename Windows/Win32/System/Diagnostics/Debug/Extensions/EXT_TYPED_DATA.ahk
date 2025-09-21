@@ -139,7 +139,7 @@ class EXT_TYPED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 320, "int")

@@ -60,7 +60,7 @@ class PrintDocumentPackageStatus extends Win32Struct
 
     /**
      * The error state of the job.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     PackageStatus {
         get => NumGet(this, 20, "int")

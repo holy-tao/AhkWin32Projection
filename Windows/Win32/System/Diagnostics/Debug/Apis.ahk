@@ -2083,11 +2083,10 @@ class Debug {
     /**
      * 
      * @param {Pointer<CONTEXT>} ContextRecord 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RtlCaptureContext2(ContextRecord) {
-        result := DllCall("KERNEL32.dll\RtlCaptureContext2", "ptr", ContextRecord)
-        return result
+        DllCall("KERNEL32.dll\RtlCaptureContext2", "ptr", ContextRecord)
     }
 
     /**
@@ -2096,25 +2095,23 @@ class Debug {
      * <b>RtlGrowFunctionTable</b> should be called after populating the corresponding entries in the <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-runtime_function">RUNTIME_FUNCTION</a> array specified in <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-rtladdgrowablefunctiontable">RtlAddGrowableFunctionTable.</a>
      * @param {Pointer<Void>} DynamicTable An opaque reference returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-rtladdgrowablefunctiontable">RtlAddGrowableFunctionTable.</a>.
      * @param {Integer} NewEntryCount The new number of entries in the <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-runtime_function">RUNTIME_FUNCTION</a> array. This must be greater than the previously reported size of the array.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlgrowfunctiontable
      * @since windows8.0
      */
     static RtlGrowFunctionTable(DynamicTable, NewEntryCount) {
-        result := DllCall("ntdll.dll\RtlGrowFunctionTable", "ptr", DynamicTable, "uint", NewEntryCount)
-        return result
+        DllCall("ntdll.dll\RtlGrowFunctionTable", "ptr", DynamicTable, "uint", NewEntryCount)
     }
 
     /**
      * Informs the system that a previously reported dynamic function table is no longer in use.
      * @param {Pointer<Void>} DynamicTable An opaque reference returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-rtladdgrowablefunctiontable">RtlAddGrowableFunctionTable.</a>
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtldeletegrowablefunctiontable
      * @since windows8.0
      */
     static RtlDeleteGrowableFunctionTable(DynamicTable) {
-        result := DllCall("ntdll.dll\RtlDeleteGrowableFunctionTable", "ptr", DynamicTable)
-        return result
+        DllCall("ntdll.dll\RtlDeleteGrowableFunctionTable", "ptr", DynamicTable)
     }
 
     /**
@@ -2139,12 +2136,11 @@ class Debug {
      *       during the unwind operation.
      * @param {Pointer<UNWIND_HISTORY_TABLE>} HistoryTable A pointer to the unwind history table. This structure is processor specific. For definitions of this 
      *       structure, see Winternl.h.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlunwindex
      */
     static RtlUnwindEx(TargetFrame, TargetIp, ExceptionRecord, ReturnValue, ContextRecord, HistoryTable) {
-        result := DllCall("KERNEL32.dll\RtlUnwindEx", "ptr", TargetFrame, "ptr", TargetIp, "ptr", ExceptionRecord, "ptr", ReturnValue, "ptr", ContextRecord, "ptr", HistoryTable)
-        return result
+        DllCall("KERNEL32.dll\RtlUnwindEx", "ptr", TargetFrame, "ptr", TargetIp, "ptr", ExceptionRecord, "ptr", ReturnValue, "ptr", ContextRecord, "ptr", HistoryTable)
     }
 
     /**
@@ -2338,13 +2334,12 @@ class Debug {
     /**
      * Retrieves a context record in the context of the caller.
      * @param {Pointer<CONTEXT>} ContextRecord A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlcapturecontext
      * @since windows5.1.2600
      */
     static RtlCaptureContext(ContextRecord) {
-        result := DllCall("KERNEL32.dll\RtlCaptureContext", "ptr", ContextRecord)
-        return result
+        DllCall("KERNEL32.dll\RtlCaptureContext", "ptr", ContextRecord)
     }
 
     /**
@@ -2356,13 +2351,12 @@ class Debug {
      * @param {Pointer<EXCEPTION_RECORD>} ExceptionRecord A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-exception_record">EXCEPTION_RECORD</a> 
      *       structure.
      * @param {Pointer<Void>} ReturnValue A value to be placed in the integer function return register before continuing execution.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlunwind
      * @since windows5.1.2600
      */
     static RtlUnwind(TargetFrame, TargetIp, ExceptionRecord, ReturnValue) {
-        result := DllCall("KERNEL32.dll\RtlUnwind", "ptr", TargetFrame, "ptr", TargetIp, "ptr", ExceptionRecord, "ptr", ReturnValue)
-        return result
+        DllCall("KERNEL32.dll\RtlUnwind", "ptr", TargetFrame, "ptr", TargetIp, "ptr", ExceptionRecord, "ptr", ReturnValue)
     }
 
     /**
@@ -2373,12 +2367,11 @@ class Debug {
      * An exception record is used primarily with long jump and C++ catch-throw support. If the <b>ExceptionCode</b> member is STATUS_LONGJUMP, the <b>ExceptionInformation</b> member contains a pointer to a jump buffer. <b>RtlRestoreContext</b> will copy the non-volatile state from the jump buffer in to the context record before the context record is restored.
      * 
      * If the <b>ExceptionCode</b> member is STATUS_UNWIND_CONSOLIDATE, the <b>ExceptionInformation</b> member contains a pointer to a callback function, such as a catch handler. <b>RtlRestoreContext</b> consolidates the call frames between its frame and the frame specified in the context record before calling the callback function. This hides frames from any exception handling that might occur in the callback function. The difference between this and a typical unwind is that the data on the stack is still present, so frame data such as a throw object is still available. The callback function returns a new program counter to update in the context record, which is then used in a normal restore context.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlrestorecontext
      */
     static RtlRestoreContext(ContextRecord, ExceptionRecord) {
-        result := DllCall("KERNEL32.dll\RtlRestoreContext", "ptr", ContextRecord, "ptr", ExceptionRecord, "CDecl ptr")
-        return result
+        DllCall("KERNEL32.dll\RtlRestoreContext", "ptr", ContextRecord, "ptr", ExceptionRecord, "CDecl ")
     }
 
     /**
@@ -2388,12 +2381,11 @@ class Debug {
      *       captures the machine state of the current thread in a context record. The 
      *       <b>ExceptionAddress</b> member of the exception record is set to the caller's return 
      *       address.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/rtlsupportapi/nf-rtlsupportapi-rtlraiseexception
      */
     static RtlRaiseException(ExceptionRecord) {
-        result := DllCall("KERNEL32.dll\RtlRaiseException", "ptr", ExceptionRecord)
-        return result
+        DllCall("KERNEL32.dll\RtlRaiseException", "ptr", ExceptionRecord)
     }
 
     /**
@@ -2435,13 +2427,12 @@ class Debug {
      * Causes a breakpoint exception to occur in the current process. This allows the calling thread to signal the debugger to handle the exception.
      * @remarks
      * If the process is not being debugged, the function uses the search logic of a standard exception handler. In most cases, this causes the calling process to terminate because of an unhandled breakpoint exception.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/debugapi/nf-debugapi-debugbreak
      * @since windows5.1.2600
      */
     static DebugBreak() {
-        result := DllCall("KERNEL32.dll\DebugBreak")
-        return result
+        DllCall("KERNEL32.dll\DebugBreak")
     }
 
     /**
@@ -2464,15 +2455,14 @@ class Debug {
      * 
      * The debugapi.h header defines OutputDebugString as an alias that automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that is not encoding-neutral can lead to mismatches and compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Byte>} lpOutputString The null-terminated string to be displayed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/debugapi/nf-debugapi-outputdebugstringa
      * @since windows5.1.2600
      */
     static OutputDebugStringA(lpOutputString) {
         lpOutputString := lpOutputString is String? StrPtr(lpOutputString) : lpOutputString
 
-        result := DllCall("KERNEL32.dll\OutputDebugStringA", "ptr", lpOutputString)
-        return result
+        DllCall("KERNEL32.dll\OutputDebugStringA", "ptr", lpOutputString)
     }
 
     /**
@@ -2495,15 +2485,14 @@ class Debug {
      * 
      * The debugapi.h header defines OutputDebugString as an alias that automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that is not encoding-neutral can lead to mismatches and compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Char>} lpOutputString The null-terminated string to be displayed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/debugapi/nf-debugapi-outputdebugstringw
      * @since windows5.1.2600
      */
     static OutputDebugStringW(lpOutputString) {
         lpOutputString := lpOutputString is String? StrPtr(lpOutputString) : lpOutputString
 
-        result := DllCall("KERNEL32.dll\OutputDebugStringW", "ptr", lpOutputString)
-        return result
+        DllCall("KERNEL32.dll\OutputDebugStringW", "ptr", lpOutputString)
     }
 
     /**
@@ -2816,10 +2805,13 @@ class Debug {
      * @param {Pointer<Void>} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
      * @param {Pointer<Void>} EncodedPtr 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static EncodeRemotePointer(ProcessHandle, Ptr, EncodedPtr) {
         result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr", EncodedPtr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2828,10 +2820,13 @@ class Debug {
      * @param {Pointer<Void>} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
      * @param {Pointer<Void>} DecodedPtr 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static DecodeRemotePointer(ProcessHandle, Ptr, DecodedPtr) {
         result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr", DecodedPtr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2898,13 +2893,12 @@ class Debug {
      * @param {Integer} dwExceptionFlags The exception flags. This can be either zero to indicate a continuable exception, or EXCEPTION_NONCONTINUABLE to indicate a noncontinuable exception. Any attempt to continue execution after a noncontinuable exception causes the EXCEPTION_NONCONTINUABLE_EXCEPTION exception.
      * @param {Integer} nNumberOfArguments The number of arguments in the <i>lpArguments</i> array. This value must not exceed EXCEPTION_MAXIMUM_PARAMETERS. This parameter is ignored if <i>lpArguments</i> is <b>NULL</b>.
      * @param {Pointer<UIntPtr>} lpArguments An array of arguments. This parameter can be <b>NULL</b>. These arguments can contain any application-defined data that needs to be passed to the filter expression of the exception handler.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-raiseexception
      * @since windows5.1.2600
      */
     static RaiseException(dwExceptionCode, dwExceptionFlags, nNumberOfArguments, lpArguments) {
-        result := DllCall("KERNEL32.dll\RaiseException", "uint", dwExceptionCode, "uint", dwExceptionFlags, "uint", nNumberOfArguments, "ptr*", lpArguments)
-        return result
+        DllCall("KERNEL32.dll\RaiseException", "uint", dwExceptionCode, "uint", dwExceptionFlags, "uint", nNumberOfArguments, "ptr*", lpArguments)
     }
 
     /**
@@ -2974,13 +2968,13 @@ class Debug {
      * 
      * 
      * The filter function has syntax similar to that of
-     * @returns {Pointer} The 
+     * @returns {Pointer<LPTOP_LEVEL_EXCEPTION_FILTER>} The 
      * <b>SetUnhandledExceptionFilter</b> function returns the address of the previous exception filter established with the function. A <b>NULL</b> return value means that there is no current top-level exception handler.
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-setunhandledexceptionfilter
      * @since windows5.1.2600
      */
     static SetUnhandledExceptionFilter(lpTopLevelExceptionFilter) {
-        result := DllCall("KERNEL32.dll\SetUnhandledExceptionFilter", "ptr", lpTopLevelExceptionFilter)
+        result := DllCall("KERNEL32.dll\SetUnhandledExceptionFilter", "ptr", lpTopLevelExceptionFilter, "ptr")
         return result
     }
 
@@ -2997,7 +2991,7 @@ class Debug {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-seterrormode">SetErrorMode</a> since it is less disruptive to the normal 
      *       behavior of the system. <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getthreaderrormode">GetThreadErrorMode</a> is the 
      *       call function that corresponds to <b>GetErrorMode</b>.
-     * @returns {Pointer} The process error mode. This function returns one of the following values.
+     * @returns {Integer} The process error mode. This function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -3062,7 +3056,7 @@ class Debug {
      * @since windows6.0.6000
      */
     static GetErrorMode() {
-        result := DllCall("KERNEL32.dll\GetErrorMode")
+        result := DllCall("KERNEL32.dll\GetErrorMode", "uint")
         return result
     }
 
@@ -3214,13 +3208,12 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-raisefailfastexception
      * @since windows6.1
      */
     static RaiseFailFastException(pExceptionRecord, pContextRecord, dwFlags) {
-        result := DllCall("KERNEL32.dll\RaiseFailFastException", "ptr", pExceptionRecord, "ptr", pContextRecord, "uint", dwFlags)
-        return result
+        DllCall("KERNEL32.dll\RaiseFailFastException", "ptr", pExceptionRecord, "ptr", pContextRecord, "uint", dwFlags)
     }
 
     /**
@@ -3238,15 +3231,14 @@ class Debug {
      * > The errhandlingapi.h header defines FatalAppExit as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} uAction This parameter must be zero.
      * @param {Pointer<Byte>} lpMessageText The null-terminated string that is displayed in the message box.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-fatalappexita
      * @since windows5.1.2600
      */
     static FatalAppExitA(uAction, lpMessageText) {
         lpMessageText := lpMessageText is String? StrPtr(lpMessageText) : lpMessageText
 
-        result := DllCall("KERNEL32.dll\FatalAppExitA", "uint", uAction, "ptr", lpMessageText)
-        return result
+        DllCall("KERNEL32.dll\FatalAppExitA", "uint", uAction, "ptr", lpMessageText)
     }
 
     /**
@@ -3264,15 +3256,14 @@ class Debug {
      * > The errhandlingapi.h header defines FatalAppExit as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} uAction This parameter must be zero.
      * @param {Pointer<Char>} lpMessageText The null-terminated string that is displayed in the message box.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-fatalappexitw
      * @since windows5.1.2600
      */
     static FatalAppExitW(uAction, lpMessageText) {
         lpMessageText := lpMessageText is String? StrPtr(lpMessageText) : lpMessageText
 
-        result := DllCall("KERNEL32.dll\FatalAppExitW", "uint", uAction, "ptr", lpMessageText)
-        return result
+        DllCall("KERNEL32.dll\FatalAppExitW", "uint", uAction, "ptr", lpMessageText)
     }
 
     /**
@@ -3357,11 +3348,10 @@ class Debug {
     /**
      * 
      * @param {Pointer} FailedAllocationSize 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static TerminateProcessOnMemoryExhaustion(FailedAllocationSize) {
-        result := DllCall("api-ms-win-core-errorhandling-l1-1-3.dll\TerminateProcessOnMemoryExhaustion", "ptr", FailedAllocationSize)
-        return result
+        DllCall("api-ms-win-core-errorhandling-l1-1-3.dll\TerminateProcessOnMemoryExhaustion", "ptr", FailedAllocationSize)
     }
 
     /**
@@ -3391,13 +3381,12 @@ class Debug {
      * @remarks
      * If the WCT session was opened in asynchronous mode (with WCT_ASYNC_OPEN_FLAG), the function cancels any outstanding operations after their callback functions have been called and returned, and then it returns.
      * @param {Pointer<Void>} WctHandle A handle to the WCT session created by the <a href="https://docs.microsoft.com/windows/desktop/api/wct/nf-wct-openthreadwaitchainsession">OpenThreadWaitChainSession</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wct/nf-wct-closethreadwaitchainsession
      * @since windows6.0.6000
      */
     static CloseThreadWaitChainSession(WctHandle) {
-        result := DllCall("ADVAPI32.dll\CloseThreadWaitChainSession", "ptr", WctHandle)
-        return result
+        DllCall("ADVAPI32.dll\CloseThreadWaitChainSession", "ptr", WctHandle)
     }
 
     /**
@@ -3532,13 +3521,12 @@ class Debug {
      * If a thread is blocked on a COM call, WCT can retrieve COM ownership information using these callback functions. If this function is callback multiple times, only the last addresses retrieved are used.
      * @param {Pointer<PCOGETCALLSTATE>} CallStateCallback The address of the <b>CoGetCallState</b> function.
      * @param {Pointer<PCOGETACTIVATIONSTATE>} ActivationStateCallback The address of the <b>CoGetActivationState</b> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wct/nf-wct-registerwaitchaincomcallback
      * @since windows6.0.6000
      */
     static RegisterWaitChainCOMCallback(CallStateCallback, ActivationStateCallback) {
-        result := DllCall("ADVAPI32.dll\RegisterWaitChainCOMCallback", "ptr", CallStateCallback, "ptr", ActivationStateCallback)
-        return result
+        DllCall("ADVAPI32.dll\RegisterWaitChainCOMCallback", "ptr", CallStateCallback, "ptr", ActivationStateCallback)
     }
 
     /**
@@ -13002,11 +12990,10 @@ class Debug {
     /**
      * 
      * @param {Pointer<LPCALL_BACK_USER_INTERRUPT_ROUTINE>} lpStartAddress 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static SetCheckUserInterruptShared(lpStartAddress) {
-        result := DllCall("dbghelp.dll\SetCheckUserInterruptShared", "ptr", lpStartAddress)
-        return result
+        DllCall("dbghelp.dll\SetCheckUserInterruptShared", "ptr", lpStartAddress)
     }
 
     /**
@@ -13022,12 +13009,11 @@ class Debug {
     /**
      * Sets a symbol load error.
      * @param {Integer} error A symbol load error.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-setsymloaderror
      */
     static SetSymLoadError(error) {
-        result := DllCall("dbghelp.dll\SetSymLoadError", "uint", error)
-        return result
+        DllCall("dbghelp.dll\SetSymLoadError", "uint", error)
     }
 
     /**
@@ -13047,11 +13033,10 @@ class Debug {
     /**
      * 
      * @param {Pointer<Void>} hProcess 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RemoveInvalidModuleList(hProcess) {
-        result := DllCall("dbghelp.dll\RemoveInvalidModuleList", "ptr", hProcess)
-        return result
+        DllCall("dbghelp.dll\RemoveInvalidModuleList", "ptr", hProcess)
     }
 
     /**
@@ -13066,11 +13051,10 @@ class Debug {
     /**
      * 
      * @param {Pointer<Void>} RmapHandle 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static RangeMapFree(RmapHandle) {
-        result := DllCall("dbghelp.dll\RangeMapFree", "ptr", RmapHandle)
-        return result
+        DllCall("dbghelp.dll\RangeMapFree", "ptr", RmapHandle)
     }
 
     /**
@@ -13173,13 +13157,12 @@ class Debug {
      * An application should only use 
      * <b>FatalExit</b> for debugging purposes. It should not call the function in a retail version of the application because doing so will terminate the application.
      * @param {Integer} ExitCode The error code associated with the exit.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-fatalexit
      * @since windows5.1.2600
      */
     static FatalExit(ExitCode) {
-        result := DllCall("KERNEL32.dll\FatalExit", "int", ExitCode)
-        return result
+        DllCall("KERNEL32.dll\FatalExit", "int", ExitCode)
     }
 
     /**

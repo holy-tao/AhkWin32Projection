@@ -34,7 +34,7 @@ class PEER_INVITATION_RESPONSE extends Win32Struct
 
     /**
      * Any extended information that is part of the response. This can include an error code corresponding to the failure on the recipient of the invitation.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrExtendedInfo {
         get => NumGet(this, 16, "int")

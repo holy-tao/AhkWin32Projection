@@ -20,7 +20,7 @@ class WINBIO_FP_BU_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     CreationResult {
         get => NumGet(this, 4, "int")

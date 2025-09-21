@@ -842,7 +842,7 @@ class WindowsWebServices {
      * <div> </div>
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -888,6 +888,9 @@ class WindowsWebServices {
      */
     static WsStartReaderCanonicalization(reader, writeCallback, writeCallbackState, properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsStartReaderCanonicalization", "ptr*", reader, "ptr", writeCallback, "ptr", writeCallbackState, "ptr", properties, "uint", propertyCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -900,7 +903,7 @@ class WindowsWebServices {
      * It is not necessary to call <b>WsEndReaderCanonicalization</b> in order to call <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreereader">WsFreeReader</a>.
      * @param {Pointer<IntPtr>} reader A pointer to the XML reader on which canonicalization should be stopped.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -935,6 +938,9 @@ class WindowsWebServices {
      */
     static WsEndReaderCanonicalization(reader, error) {
         result := DllCall("webservices.dll\WsEndReaderCanonicalization", "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -972,7 +978,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_XML_CANONICALIZATION_PROPERTY>} properties An array of optional properties controlling how canonicalization is to be performed.  See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_canonicalization_property">WS_XML_CANONICALIZATION_PROPERTY</a>.
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1018,6 +1024,9 @@ class WindowsWebServices {
      */
     static WsStartWriterCanonicalization(writer, writeCallback, writeCallbackState, properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsStartWriterCanonicalization", "ptr*", writer, "ptr", writeCallback, "ptr", writeCallbackState, "ptr", properties, "uint", propertyCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1031,7 +1040,7 @@ class WindowsWebServices {
      * It is not necessary to call <b>WsEndWriterCanonicalization</b> in order to call <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreewriter">WsFreeWriter</a>.
      * @param {Pointer<IntPtr>} writer A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object on which canonicalization should be stopped.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1066,6 +1075,9 @@ class WindowsWebServices {
      */
     static WsEndWriterCanonicalization(writer, error) {
         result := DllCall("webservices.dll\WsEndWriterCanonicalization", "ptr*", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1081,7 +1093,7 @@ class WindowsWebServices {
      * 
      * The XML buffer is initially  empty.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -1116,6 +1128,9 @@ class WindowsWebServices {
      */
     static WsCreateXmlBuffer(heap, properties, propertyCount, buffer, error) {
         result := DllCall("webservices.dll\WsCreateXmlBuffer", "ptr*", heap, "ptr", properties, "uint", propertyCount, "ptr", buffer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1123,7 +1138,7 @@ class WindowsWebServices {
      * Removes the node at the specified position from the xml buffer. If positioned on an element it will remove the element including all of its children and its corresponding end element, otherwise it will remove a single node.
      * @param {Pointer<WS_XML_NODE_POSITION>} nodePosition The position of the node that should be removed.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1147,6 +1162,9 @@ class WindowsWebServices {
      */
     static WsRemoveNode(nodePosition, error) {
         result := DllCall("webservices.dll\WsRemoveNode", "ptr", nodePosition, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1179,12 +1197,15 @@ class WindowsWebServices {
      *                 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreereader">WsFreeReader</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wscreatereader
      * @since windows6.1
      */
     static WsCreateReader(properties, propertyCount, reader, error) {
         result := DllCall("webservices.dll\WsCreateReader", "ptr", properties, "uint", propertyCount, "ptr", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1209,12 +1230,15 @@ class WindowsWebServices {
      * @param {Pointer<WS_XML_READER_PROPERTY>} properties An array reference of optional Reader properties.
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wssetinput
      * @since windows6.1
      */
     static WsSetInput(reader, encoding, input, properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsSetInput", "ptr*", reader, "ptr", encoding, "ptr", input, "ptr", properties, "uint", propertyCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1229,25 +1253,27 @@ class WindowsWebServices {
      * <div> </div>.
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wssetinputtobuffer
      * @since windows6.1
      */
     static WsSetInputToBuffer(reader, buffer, properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsSetInputToBuffer", "ptr*", reader, "ptr*", buffer, "ptr", properties, "uint", propertyCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Releases the memory resource associated with an XML_Reader object.
      * @param {Pointer<IntPtr>} reader A pointer to the <b>XML Reader</b> object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> object returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatereader">WsCreateReader</a>    and the referenced <b>XML Reader</b> value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreereader
      * @since windows6.1
      */
     static WsFreeReader(reader) {
-        result := DllCall("webservices.dll\WsFreeReader", "ptr*", reader)
-        return result
+        DllCall("webservices.dll\WsFreeReader", "ptr*", reader)
     }
 
     /**
@@ -1259,7 +1285,7 @@ class WindowsWebServices {
      *             of the property.
      * @param {Integer} valueSize A byte count of the buffer that the caller has allocated for the retrieved value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1283,6 +1309,9 @@ class WindowsWebServices {
      */
     static WsGetReaderProperty(reader, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetReaderProperty", "ptr*", reader, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1324,7 +1353,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} xmlReader A pointer to the reader for which the current node will be obtained.  This must be valid WS_XML_READER object.
      * @param {Pointer<WS_XML_NODE>} node A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_node">WS_XML_NODE</a> structure where the current node is returned.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1348,6 +1377,9 @@ class WindowsWebServices {
      */
     static WsGetReaderNode(xmlReader, node, error) {
         result := DllCall("webservices.dll\WsGetReaderNode", "ptr*", xmlReader, "ptr", node, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1367,7 +1399,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> data structure with information about invoking the function asynchronously.  A <b>NULL</b> 
      *                  value indicates a request for synchronous operation.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1392,6 +1424,9 @@ class WindowsWebServices {
      */
     static WsFillReader(reader, minSize, asyncContext, error) {
         result := DllCall("webservices.dll\WsFillReader", "ptr*", reader, "uint", minSize, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1401,7 +1436,7 @@ class WindowsWebServices {
      * This function can fail for any of the reasons listed in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadnode">WsReadNode</a>.
      * @param {Pointer<IntPtr>} reader A pointer to the <b>XML Reader</b> object used to read the Start element.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1436,6 +1471,9 @@ class WindowsWebServices {
      */
     static WsReadStartElement(reader, error) {
         result := DllCall("webservices.dll\WsReadStartElement", "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1518,7 +1556,7 @@ class WindowsWebServices {
      *           If not specified, and an element is not found or the localName and namespace don't match, then it will return 
      *           <b>WS_E_INVALID_FORMAT</b>. (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1553,6 +1591,9 @@ class WindowsWebServices {
      */
     static WsReadToStartElement(reader, localName, ns, found, error) {
         result := DllCall("webservices.dll\WsReadToStartElement", "ptr*", reader, "ptr", localName, "ptr", ns, "int*", found, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1564,7 +1605,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} reader A pointer to the <b>XML Reader</b> object used to read the Start attribute.
      * @param {Integer} attributeIndex The index of the attribute to read.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1588,6 +1629,9 @@ class WindowsWebServices {
      */
     static WsReadStartAttribute(reader, attributeIndex, error) {
         result := DllCall("webservices.dll\WsReadStartAttribute", "ptr*", reader, "uint", attributeIndex, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1598,7 +1642,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} reader A pointer to the <b>XML Reader</b> that reads the <b>End attribute</b>.
      *                   The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1622,6 +1666,9 @@ class WindowsWebServices {
      */
     static WsReadEndAttribute(reader, error) {
         result := DllCall("webservices.dll\WsReadEndAttribute", "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1639,7 +1686,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} reader A pointer to the <b>XML Reader</b> object to advance.
      *           The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> and it may not be <b>NULL</b>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1674,6 +1721,9 @@ class WindowsWebServices {
      */
     static WsReadNode(reader, error) {
         result := DllCall("webservices.dll\WsReadNode", "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1686,7 +1736,7 @@ class WindowsWebServices {
      * This function can fail for any of the reasons listed in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadnode">WsReadNode</a>.
      * @param {Pointer<IntPtr>} reader The reader which is to skip to the next node.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1721,6 +1771,9 @@ class WindowsWebServices {
      */
     static WsSkipNode(reader, error) {
         result := DllCall("webservices.dll\WsSkipNode", "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1730,7 +1783,7 @@ class WindowsWebServices {
      * This function can fail for any of the reasons listed in <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadnode">WsReadNode</a>.
      * @param {Pointer<IntPtr>} reader A pointer to the <b>XML Reader</b> that is reads the <b>End element</b>. The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1765,6 +1818,9 @@ class WindowsWebServices {
      */
     static WsReadEndElement(reader, error) {
         result := DllCall("webservices.dll\WsReadEndElement", "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1786,7 +1842,7 @@ class WindowsWebServices {
      * @param {Pointer<UInt32>} attributeIndex If the attribute is found, then the index of the attribute, is returned here.
      *           This index can then be passed to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadstartattribute">WsReadStartAttribute</a>.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1810,6 +1866,9 @@ class WindowsWebServices {
      */
     static WsFindAttribute(reader, localName, ns, required, attributeIndex, error) {
         result := DllCall("webservices.dll\WsFindAttribute", "ptr*", reader, "ptr", localName, "ptr", ns, "int", required, "uint*", attributeIndex, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1896,7 +1955,7 @@ class WindowsWebServices {
      * @param {Pointer} value A pointer to the parsed data if parsing was successful according to the specified value type.  The size required is determined by value type.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_value_type">WS_VALUE_TYPE</a> for more information.
      * @param {Integer} valueSize The byte size of the retrieved value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1931,6 +1990,9 @@ class WindowsWebServices {
      */
     static WsReadValue(reader, valueType, value, valueSize, error) {
         result := DllCall("webservices.dll\WsReadValue", "ptr*", reader, "int", valueType, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1949,7 +2011,7 @@ class WindowsWebServices {
      *           the actual number of characters that were read.  This may be less than maxCharCount even when there
      *           are more characters remaining.  There are no more characters when this returns zero.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -1986,6 +2048,9 @@ class WindowsWebServices {
         chars := chars is String? StrPtr(chars) : chars
 
         result := DllCall("webservices.dll\WsReadChars", "ptr*", reader, "ptr", chars, "uint", maxCharCount, "uint*", actualCharCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2004,7 +2069,7 @@ class WindowsWebServices {
      *           the actual number of bytes that were read.  This may be less than maxByteCount even when there
      *           are more bytes remaining.  There are no more bytes when this returns zero.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2039,6 +2104,9 @@ class WindowsWebServices {
      */
     static WsReadCharsUtf8(reader, bytes, maxByteCount, actualByteCount, error) {
         result := DllCall("webservices.dll\WsReadCharsUtf8", "ptr*", reader, "char*", bytes, "uint", maxByteCount, "uint*", actualByteCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2057,7 +2125,7 @@ class WindowsWebServices {
      *           the actual number of bytes that were read.  This may be less than maxByteCount even when there
      *           are more bytes remaining.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2092,6 +2160,9 @@ class WindowsWebServices {
      */
     static WsReadBytes(reader, bytes, maxByteCount, actualByteCount, error) {
         result := DllCall("webservices.dll\WsReadBytes", "ptr*", reader, "ptr", bytes, "uint", maxByteCount, "uint*", actualByteCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2115,7 +2186,7 @@ class WindowsWebServices {
      * @param {Pointer<UInt32>} actualItemCount The actual number of items that were read.  This may be less than itemCount even when there
      *           are more items remaining.  There are no more elements when this returns zero.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2150,6 +2221,9 @@ class WindowsWebServices {
      */
     static WsReadArray(reader, localName, ns, valueType, array, arraySize, itemOffset, itemCount, actualItemCount, error) {
         result := DllCall("webservices.dll\WsReadArray", "ptr*", reader, "ptr", localName, "ptr", ns, "int", valueType, "ptr", array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, "uint*", actualItemCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2160,7 +2234,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} reader The reader for which the current position will be obtained.
      * @param {Pointer<WS_XML_NODE_POSITION>} nodePosition The current position of the reader.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2184,6 +2258,9 @@ class WindowsWebServices {
      */
     static WsGetReaderPosition(reader, nodePosition, error) {
         result := DllCall("webservices.dll\WsGetReaderPosition", "ptr*", reader, "ptr", nodePosition, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2199,7 +2276,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} reader A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> object for which the current position is set.  The pointer must reference a valid <b>XML Reader</b> object.
      * @param {Pointer<WS_XML_NODE_POSITION>} nodePosition A pointer to the position to set the Reader.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2234,6 +2311,9 @@ class WindowsWebServices {
      */
     static WsSetReaderPosition(reader, nodePosition, error) {
         result := DllCall("webservices.dll\WsSetReaderPosition", "ptr*", reader, "ptr", nodePosition, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2253,7 +2333,7 @@ class WindowsWebServices {
      * @param {Integer} moveTo This enumerator specifies direction or next position of the Reader relative to the current position.
      * @param {Pointer<Int32>} found Indicates success or failure of the specified move.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2299,6 +2379,9 @@ class WindowsWebServices {
      */
     static WsMoveReader(reader, moveTo, found, error) {
         result := DllCall("webservices.dll\WsMoveReader", "ptr*", reader, "int", moveTo, "int*", found, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2326,7 +2409,7 @@ class WindowsWebServices {
      *                 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreewriter">WsFreeWriter</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -2350,6 +2433,9 @@ class WindowsWebServices {
      */
     static WsCreateWriter(properties, propertyCount, writer, error) {
         result := DllCall("webservices.dll\WsCreateWriter", "ptr", properties, "uint", propertyCount, "ptr", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2360,13 +2446,12 @@ class WindowsWebServices {
      *         all data is emitted.
      * @param {Pointer<IntPtr>} writer A pointer to the <b>XML Writer</b> object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object
      *                     returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatewriter">WsCreateWriter</a> and   the referenced value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreewriter
      * @since windows6.1
      */
     static WsFreeWriter(writer) {
-        result := DllCall("webservices.dll\WsFreeWriter", "ptr*", writer)
-        return result
+        DllCall("webservices.dll\WsFreeWriter", "ptr*", writer)
     }
 
     /**
@@ -2403,7 +2488,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_XML_WRITER_PROPERTY>} properties An array of optional properties of the writer.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_writer_property">WS_XML_WRITER_PROPERTY</a>.
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2427,6 +2512,9 @@ class WindowsWebServices {
      */
     static WsSetOutput(writer, encoding, output, properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsSetOutput", "ptr*", writer, "ptr", encoding, "ptr", output, "ptr", properties, "uint", propertyCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2439,7 +2527,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_XML_WRITER_PROPERTY>} properties A WS_XML_WRITER_PROPERTY pointer that  references an "array" of optional Writer properties.
      * @param {Integer} propertyCount The number of properties.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2463,6 +2551,9 @@ class WindowsWebServices {
      */
     static WsSetOutputToBuffer(writer, buffer, properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsSetOutputToBuffer", "ptr*", writer, "ptr*", buffer, "ptr", properties, "uint", propertyCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2475,7 +2566,7 @@ class WindowsWebServices {
      *                 The pointer must have an alignment compatible with the type
      *             of the property.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2499,6 +2590,9 @@ class WindowsWebServices {
      */
     static WsGetWriterProperty(writer, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetWriterProperty", "ptr*", writer, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2535,7 +2629,7 @@ class WindowsWebServices {
      * Zero should be specified to guarantee that the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_write_callback">callback</a> is invoked.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2571,6 +2665,9 @@ class WindowsWebServices {
      */
     static WsFlushWriter(writer, minSize, asyncContext, error) {
         result := DllCall("webservices.dll\WsFlushWriter", "ptr*", writer, "uint", minSize, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2601,7 +2698,7 @@ class WindowsWebServices {
      *         
      * If no prefix is specified the Writer may use a prefix in scope that is bound to the specified namespace or it may generate a prefix and include an XMLNS attribute. If a prefix is specified the Writer will use that prefix and may include an XMLNS attribute if needed to override an existing prefix in scope.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2658,6 +2755,9 @@ class WindowsWebServices {
      */
     static WsWriteStartElement(writer, prefix, localName, ns, error) {
         result := DllCall("webservices.dll\WsWriteStartElement", "ptr*", writer, "ptr", prefix, "ptr", localName, "ptr", ns, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2672,7 +2772,7 @@ class WindowsWebServices {
      *       (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
      * @param {Pointer<IntPtr>} writer The writer for which the current element should be committed.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2729,6 +2829,9 @@ class WindowsWebServices {
      */
     static WsWriteEndStartElement(writer, error) {
         result := DllCall("webservices.dll\WsWriteEndStartElement", "ptr*", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2757,7 +2860,7 @@ class WindowsWebServices {
      *         </div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2814,6 +2917,9 @@ class WindowsWebServices {
      */
     static WsWriteXmlnsAttribute(writer, prefix, ns, singleQuote, error) {
         result := DllCall("webservices.dll\WsWriteXmlnsAttribute", "ptr*", writer, "ptr", prefix, "ptr", ns, "int", singleQuote, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2847,7 +2953,7 @@ class WindowsWebServices {
      * </div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2904,6 +3010,9 @@ class WindowsWebServices {
      */
     static WsWriteStartAttribute(writer, prefix, localName, ns, singleQuote, error) {
         result := DllCall("webservices.dll\WsWriteStartAttribute", "ptr*", writer, "ptr", prefix, "ptr", localName, "ptr", ns, "int", singleQuote, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2911,7 +3020,7 @@ class WindowsWebServices {
      * This operation finishes writing an attribute to the current element. If WsWriteStartAttribute is called the Writer does not permit another element or attribute to be written until WsWriteEndAttribute is called.
      * @param {Pointer<IntPtr>} writer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object to which the attribute is written.  The pointer must reference a valid <b>XML Writer</b> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2946,6 +3055,9 @@ class WindowsWebServices {
      */
     static WsWriteEndAttribute(writer, error) {
         result := DllCall("webservices.dll\WsWriteEndAttribute", "ptr*", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2961,7 +3073,7 @@ class WindowsWebServices {
      * @param {Pointer} value A void  pointer to the primitive value.
      * @param {Integer} valueSize The size in bytes of the value being written.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -2996,6 +3108,9 @@ class WindowsWebServices {
      */
     static WsWriteValue(writer, valueType, value, valueSize, error) {
         result := DllCall("webservices.dll\WsWriteValue", "ptr*", writer, "int", valueType, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3006,7 +3121,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} writer The writer to which the XML buffer will be written.
      * @param {Pointer<IntPtr>} xmlBuffer The XML buffer to write.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3052,6 +3167,9 @@ class WindowsWebServices {
      */
     static WsWriteXmlBuffer(writer, xmlBuffer, error) {
         result := DllCall("webservices.dll\WsWriteXmlBuffer", "ptr*", writer, "ptr*", xmlBuffer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3071,7 +3189,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap The heap from which to allocate the XML buffer.
      * @param {Pointer<IntPtr>} xmlBuffer The XML buffer is returned here.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3117,6 +3235,9 @@ class WindowsWebServices {
      */
     static WsReadXmlBuffer(reader, heap, xmlBuffer, error) {
         result := DllCall("webservices.dll\WsReadXmlBuffer", "ptr*", reader, "ptr*", heap, "ptr", xmlBuffer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3139,7 +3260,7 @@ class WindowsWebServices {
      * @param {Pointer<Void>} bytes The generated bytes are returned here.
      * @param {Pointer<UInt32>} byteCount The number of generated bytes are returned here.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3185,6 +3306,9 @@ class WindowsWebServices {
      */
     static WsWriteXmlBufferToBytes(writer, xmlBuffer, encoding, properties, propertyCount, heap, bytes, byteCount, error) {
         result := DllCall("webservices.dll\WsWriteXmlBufferToBytes", "ptr*", writer, "ptr*", xmlBuffer, "ptr", encoding, "ptr", properties, "uint", propertyCount, "ptr*", heap, "ptr", bytes, "uint*", byteCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3206,7 +3330,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap The heap from which to allocate the XML buffer.
      * @param {Pointer<IntPtr>} xmlBuffer The XML buffer into which the bytes were read is returned here.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3252,6 +3376,9 @@ class WindowsWebServices {
      */
     static WsReadXmlBufferFromBytes(reader, encoding, properties, propertyCount, bytes, byteCount, heap, xmlBuffer, error) {
         result := DllCall("webservices.dll\WsReadXmlBufferFromBytes", "ptr*", reader, "ptr", encoding, "ptr", properties, "uint", propertyCount, "ptr", bytes, "uint", byteCount, "ptr*", heap, "ptr", xmlBuffer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3272,12 +3399,15 @@ class WindowsWebServices {
      * @param {Integer} itemOffset The item offset within the array to write.
      * @param {Integer} itemCount The total number of items to write from the array.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wswritearray
      * @since windows6.1
      */
     static WsWriteArray(writer, localName, ns, valueType, array, arraySize, itemOffset, itemCount, error) {
         result := DllCall("webservices.dll\WsWriteArray", "ptr*", writer, "ptr", localName, "ptr", ns, "int", valueType, "ptr", array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3302,7 +3432,7 @@ class WindowsWebServices {
      * 
      * If a prefix is specified the Writer uses that prefix and may include an XMLNS attribute if needed to override an existing prefix in scope.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3337,6 +3467,9 @@ class WindowsWebServices {
      */
     static WsWriteQualifiedName(writer, prefix, localName, ns, error) {
         result := DllCall("webservices.dll\WsWriteQualifiedName", "ptr*", writer, "ptr", prefix, "ptr", localName, "ptr", ns, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3348,7 +3481,7 @@ class WindowsWebServices {
      * @param {Pointer<Char>} chars A pointer to the characters to write.
      * @param {Integer} charCount The number of characters to write.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3385,6 +3518,9 @@ class WindowsWebServices {
         chars := chars is String? StrPtr(chars) : chars
 
         result := DllCall("webservices.dll\WsWriteChars", "ptr*", writer, "ptr", chars, "uint", charCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3396,7 +3532,7 @@ class WindowsWebServices {
      * @param {Pointer<Byte>} bytes A pointer to the encoded UTF-8 characters to write.
      * @param {Integer} byteCount The number of bytes to write.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3431,6 +3567,9 @@ class WindowsWebServices {
      */
     static WsWriteCharsUtf8(writer, bytes, byteCount, error) {
         result := DllCall("webservices.dll\WsWriteCharsUtf8", "ptr*", writer, "char*", bytes, "uint", byteCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3454,7 +3593,7 @@ class WindowsWebServices {
      * @param {Pointer} bytes The bytes to write to the document.
      * @param {Integer} byteCount The number bytes to write to the document.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3500,6 +3639,9 @@ class WindowsWebServices {
      */
     static WsWriteBytes(writer, bytes, byteCount, error) {
         result := DllCall("webservices.dll\WsWriteBytes", "ptr*", writer, "ptr", bytes, "uint", byteCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3517,7 +3659,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_PUSH_BYTES_CALLBACK>} callback This parameter is the callback to invoke to write the data.
      * @param {Pointer<Void>} callbackState A pointer to a user-defined state that is  passed to the callback function.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3552,6 +3694,9 @@ class WindowsWebServices {
      */
     static WsPushBytes(writer, callback, callbackState, error) {
         result := DllCall("webservices.dll\WsPushBytes", "ptr*", writer, "ptr", callback, "ptr", callbackState, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3568,7 +3713,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_PULL_BYTES_CALLBACK>} callback The callback to invoke when its time to write the binary data.
      * @param {Pointer<Void>} callbackState User-defined state to be passed to the callback.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3614,6 +3759,9 @@ class WindowsWebServices {
      */
     static WsPullBytes(writer, callback, callbackState, error) {
         result := DllCall("webservices.dll\WsPullBytes", "ptr*", writer, "ptr", callback, "ptr", callbackState, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3621,7 +3769,7 @@ class WindowsWebServices {
      * Writes an end element to a Writer.
      * @param {Pointer<IntPtr>} writer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object to which the end element is written.  The pointer must reference a valid <b>XML Writer</b> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3656,6 +3804,9 @@ class WindowsWebServices {
      */
     static WsWriteEndElement(writer, error) {
         result := DllCall("webservices.dll\WsWriteEndElement", "ptr*", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3677,7 +3828,7 @@ class WindowsWebServices {
      *         </div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3712,6 +3863,9 @@ class WindowsWebServices {
      */
     static WsWriteText(writer, text, error) {
         result := DllCall("webservices.dll\WsWriteText", "ptr*", writer, "ptr", text, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3719,7 +3873,7 @@ class WindowsWebServices {
      * This operation starts a CDATA section in the writer.
      * @param {Pointer<IntPtr>} writer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object to which the CDATA section is written.  The pointer must reference a valid <b>XML Writer</b> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3754,6 +3908,9 @@ class WindowsWebServices {
      */
     static WsWriteStartCData(writer, error) {
         result := DllCall("webservices.dll\WsWriteStartCData", "ptr*", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3761,7 +3918,7 @@ class WindowsWebServices {
      * Ends a CDATA section in the writer.
      * @param {Pointer<IntPtr>} writer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object to which the end CDATA section is written.  The pointer must reference a valid <b>XML Writer</b> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3796,6 +3953,9 @@ class WindowsWebServices {
      */
     static WsWriteEndCData(writer, error) {
         result := DllCall("webservices.dll\WsWriteEndCData", "ptr*", writer, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3804,7 +3964,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} writer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> object to which the node is written.  The pointer must reference a valid <b>XML Writer</b> object.
      * @param {Pointer<WS_XML_NODE>} node A pointer to the Node object to write to the document.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3861,6 +4021,9 @@ class WindowsWebServices {
      */
     static WsWriteNode(writer, node, error) {
         result := DllCall("webservices.dll\WsWriteNode", "ptr*", writer, "ptr", node, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3883,7 +4046,7 @@ class WindowsWebServices {
      *         <div class="alert"><b>Note</b>  The value returned is valid only until the writer advances.</div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3907,6 +4070,9 @@ class WindowsWebServices {
      */
     static WsGetPrefixFromNamespace(writer, ns, required, prefix, error) {
         result := DllCall("webservices.dll\WsGetPrefixFromNamespace", "ptr*", writer, "ptr", ns, "int", required, "ptr", prefix, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3921,7 +4087,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} writer The writer for which the current position will be obtained.
      * @param {Pointer<WS_XML_NODE_POSITION>} nodePosition The current position of the writer is returned here.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3945,6 +4111,9 @@ class WindowsWebServices {
      */
     static WsGetWriterPosition(writer, nodePosition, error) {
         result := DllCall("webservices.dll\WsGetWriterPosition", "ptr*", writer, "ptr", nodePosition, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3961,7 +4130,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} writer The writer for which the current position will be set.
      * @param {Pointer<WS_XML_NODE_POSITION>} nodePosition The position to set the writer to.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -3996,6 +4165,9 @@ class WindowsWebServices {
      */
     static WsSetWriterPosition(writer, nodePosition, error) {
         result := DllCall("webservices.dll\WsSetWriterPosition", "ptr*", writer, "ptr", nodePosition, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4021,7 +4193,7 @@ class WindowsWebServices {
      * If this is <b>NULL</b>, and the position could not be moved to, then the function will return <b>WS_E_INVALID_FORMAT</b>.
      *         (See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.)
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4067,6 +4239,9 @@ class WindowsWebServices {
      */
     static WsMoveWriter(writer, moveTo, found, error) {
         result := DllCall("webservices.dll\WsMoveWriter", "ptr*", writer, "int", moveTo, "int*", found, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4082,7 +4257,7 @@ class WindowsWebServices {
      * @param {Pointer<UInt16>} trimmedChars Returns a pointer into the original string starting at the first non-whitespace character.
      * @param {Pointer<UInt32>} trimmedCount Returns the length of the trimmed string.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wstrimxmlwhitespace
      * @since windows6.1
      */
@@ -4090,6 +4265,9 @@ class WindowsWebServices {
         chars := chars is String? StrPtr(chars) : chars
 
         result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, "uint", charCount, "ptr", trimmedChars, "uint*", trimmedCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4098,7 +4276,7 @@ class WindowsWebServices {
      * @param {Pointer<Char>} ncNameChars The string to be verified.
      * @param {Integer} ncNameCharCount The length of the <i>ncNameChars</i> string.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4124,6 +4302,9 @@ class WindowsWebServices {
         ncNameChars := ncNameChars is String? StrPtr(ncNameChars) : ncNameChars
 
         result := DllCall("webservices.dll\WsVerifyXmlNCName", "ptr", ncNameChars, "uint", ncNameCharCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4134,7 +4315,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_XML_STRING>} string1 A pointer to the first string to compare.
      * @param {Pointer<WS_XML_STRING>} string2 A pointer to the second string to compare.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4180,6 +4361,9 @@ class WindowsWebServices {
      */
     static WsXmlStringEquals(string1, string2, error) {
         result := DllCall("webservices.dll\WsXmlStringEquals", "ptr", string1, "ptr", string2, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4196,7 +4380,7 @@ class WindowsWebServices {
      *           whether or not an error should be returned if a matching namespace is not found.
      * @param {Pointer<WS_XML_STRING>} ns A reference to a namespace to which the prefix is bound if successful.  The value returned is valid only until the writer advances.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4220,6 +4404,9 @@ class WindowsWebServices {
      */
     static WsGetNamespaceFromPrefix(reader, prefix, required, ns, error) {
         result := DllCall("webservices.dll\WsGetNamespaceFromPrefix", "ptr*", reader, "ptr", prefix, "int", required, "ptr", ns, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4233,7 +4420,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} error If the localName is missing the function will return <b>WS_E_INVALID_FORMAT</b>.  
      *           If the ns parameter is specified, but the prefix is not bound to a namespace, 
      *            <b>WS_E_INVALID_FORMAT</b> will be returned.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4257,6 +4444,9 @@ class WindowsWebServices {
      */
     static WsReadQualifiedName(reader, heap, prefix, localName, ns, error) {
         result := DllCall("webservices.dll\WsReadQualifiedName", "ptr*", reader, "ptr*", heap, "ptr", prefix, "ptr", localName, "ptr", ns, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4277,7 +4467,7 @@ class WindowsWebServices {
      * @param {Pointer<UInt16>} valueChars The value of the attribute is stored here.
      * @param {Pointer<UInt32>} valueCharCount The length of the valueChars.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4313,6 +4503,9 @@ class WindowsWebServices {
      */
     static WsGetXmlAttribute(reader, localName, heap, valueChars, valueCharCount, error) {
         result := DllCall("webservices.dll\WsGetXmlAttribute", "ptr*", reader, "ptr", localName, "ptr*", heap, "ptr", valueChars, "uint*", valueCharCount, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4331,7 +4524,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} writer Pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> to which to copy the XML node.
      * @param {Pointer<IntPtr>} reader Pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a>   from which to copy the XML node.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -4377,6 +4570,9 @@ class WindowsWebServices {
      */
     static WsCopyNode(writer, reader, error) {
         result := DllCall("webservices.dll\WsCopyNode", "ptr*", writer, "ptr*", reader, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4405,12 +4601,15 @@ class WindowsWebServices {
      * @param {Pointer<Void>} callbackState A void pointer to a user-defined value that is passed to each <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_async_function">WS_ASYNC_FUNCTION</a>.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to information for invoking the function asynchronously. Pass <b>NULL</b> to invoke the function synchronously.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsasyncexecute
      * @since windows6.1
      */
     static WsAsyncExecute(asyncState, operation, callbackModel, callbackState, asyncContext, error) {
         result := DllCall("webservices.dll\WsAsyncExecute", "ptr", asyncState, "ptr", operation, "int", callbackModel, "ptr", callbackState, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4446,7 +4645,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} channel Pointer that receives the address of the created channel.   
      *                     When the channel  is no longer needed, you must free  it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreechannel">WsFreeChannel</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -4492,6 +4691,9 @@ class WindowsWebServices {
      */
     static WsCreateChannel(channelType, channelBinding, properties, propertyCount, securityDescription, channel, error) {
         result := DllCall("webservices.dll\WsCreateChannel", "int", channelType, "int", channelBinding, "ptr", properties, "uint", propertyCount, "ptr", securityDescription, "ptr", channel, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4519,7 +4721,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ENDPOINT_ADDRESS>} endpointAddress The address of the endpoint.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -4852,6 +5054,9 @@ class WindowsWebServices {
      */
     static WsOpenChannel(channel, endpointAddress, asyncContext, error) {
         result := DllCall("webservices.dll\WsOpenChannel", "ptr*", channel, "ptr", endpointAddress, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -4882,7 +5087,7 @@ class WindowsWebServices {
      * @param {Integer} bodyValueSize The size of the value being serialized, in bytes.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -5281,6 +5486,9 @@ class WindowsWebServices {
      */
     static WsSendMessage(channel, message, messageDescription, writeOption, bodyValue, bodyValueSize, asyncContext, error) {
         result := DllCall("webservices.dll\WsSendMessage", "ptr*", channel, "ptr*", message, "ptr", messageDescription, "int", writeOption, "ptr", bodyValue, "uint", bodyValueSize, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5356,7 +5564,7 @@ class WindowsWebServices {
      *                     (for example, if there is only one message description).
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -5781,6 +5989,9 @@ class WindowsWebServices {
      */
     static WsReceiveMessage(channel, message, messageDescriptions, messageDescriptionCount, receiveOption, readBodyOption, heap, value, valueSize, index, asyncContext, error) {
         result := DllCall("webservices.dll\WsReceiveMessage", "ptr*", channel, "ptr*", message, "ptr", messageDescriptions, "uint", messageDescriptionCount, "int", receiveOption, "int", readBodyOption, "ptr*", heap, "ptr", value, "uint", valueSize, "uint*", index, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -5837,7 +6048,7 @@ class WindowsWebServices {
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -6249,6 +6460,9 @@ class WindowsWebServices {
      */
     static WsRequestReply(channel, requestMessage, requestMessageDescription, writeOption, requestBodyValue, requestBodyValueSize, replyMessage, replyMessageDescription, readOption, heap, value, valueSize, asyncContext, error) {
         result := DllCall("webservices.dll\WsRequestReply", "ptr*", channel, "ptr*", requestMessage, "ptr", requestMessageDescription, "int", writeOption, "ptr", requestBodyValue, "uint", requestBodyValueSize, "ptr*", replyMessage, "ptr", replyMessageDescription, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6282,7 +6496,7 @@ class WindowsWebServices {
      * <div> </div>
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> data structure with information about invoking the function asynchronously.  A <b>NULL</b> value indicates a request for synchronous operation.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -6439,6 +6653,9 @@ class WindowsWebServices {
      */
     static WsSendReplyMessage(channel, replyMessage, replyMessageDescription, writeOption, replyBodyValue, replyBodyValueSize, requestMessage, asyncContext, error) {
         result := DllCall("webservices.dll\WsSendReplyMessage", "ptr*", channel, "ptr*", replyMessage, "ptr", replyMessageDescription, "int", writeOption, "ptr", replyBodyValue, "uint", replyBodyValueSize, "ptr*", requestMessage, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6489,7 +6706,7 @@ class WindowsWebServices {
      *                     <b>WS_MESSAGE_STATE_INITIALIZED</b>.  If an initialized message is provided,
      *                     it should have been initialized using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_initialization">WS_FAULT_MESSAGE</a>.
      * @param {Pointer<IntPtr>} faultError The error object to use to construct the fault.
-     * @param {Integer} faultErrorCode The error code associated with the fault.  This cannot
+     * @param {HRESULT} faultErrorCode The error code associated with the fault.  This cannot
      *                     be a success code.
      *                 
      * 
@@ -6504,7 +6721,7 @@ class WindowsWebServices {
      * The message can be in any state but <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -6650,6 +6867,9 @@ class WindowsWebServices {
      */
     static WsSendFaultMessageForError(channel, replyMessage, faultError, faultErrorCode, faultDisclosure, requestMessage, asyncContext, error) {
         result := DllCall("webservices.dll\WsSendFaultMessageForError", "ptr*", channel, "ptr*", replyMessage, "ptr*", faultError, "int", faultErrorCode, "int", faultDisclosure, "ptr*", requestMessage, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6665,7 +6885,7 @@ class WindowsWebServices {
      * @param {Integer} valueSize The number of bytes allocated by the caller to
      *                     store the retrieved property.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -6711,6 +6931,9 @@ class WindowsWebServices {
      */
     static WsGetChannelProperty(channel, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetChannelProperty", "ptr*", channel, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6723,7 +6946,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The size in bytes of of the property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -6771,6 +6994,9 @@ class WindowsWebServices {
      */
     static WsSetChannelProperty(channel, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsSetChannelProperty", "ptr*", channel, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -6799,7 +7025,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} message The message to write.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -7198,6 +7424,9 @@ class WindowsWebServices {
      */
     static WsWriteMessageStart(channel, message, asyncContext, error) {
         result := DllCall("webservices.dll\WsWriteMessageStart", "ptr*", channel, "ptr*", message, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7214,7 +7443,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} message The message to write.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -7613,6 +7842,9 @@ class WindowsWebServices {
      */
     static WsWriteMessageEnd(channel, message, asyncContext, error) {
         result := DllCall("webservices.dll\WsWriteMessageEnd", "ptr*", channel, "ptr*", message, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -7646,7 +7878,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} message The message to receive into.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -8069,6 +8301,9 @@ class WindowsWebServices {
      */
     static WsReadMessageStart(channel, message, asyncContext, error) {
         result := DllCall("webservices.dll\WsReadMessageStart", "ptr*", channel, "ptr*", message, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8086,7 +8321,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} message The message to read the end of.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -8485,6 +8720,9 @@ class WindowsWebServices {
      */
     static WsReadMessageEnd(channel, message, asyncContext, error) {
         result := DllCall("webservices.dll\WsReadMessageEnd", "ptr*", channel, "ptr*", message, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8512,7 +8750,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> data structure containing information for invoking the function asynchronously.  Pass a <b>NULL</b> 
      *                  value to call the function synchronously.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  where additional error information is stored if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -8649,6 +8887,9 @@ class WindowsWebServices {
      */
     static WsCloseChannel(channel, asyncContext, error) {
         result := DllCall("webservices.dll\WsCloseChannel", "ptr*", channel, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8675,7 +8916,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} channel A   pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a>  structure representing the channel for which 
      *                     to cancel I/O.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -8711,6 +8952,9 @@ class WindowsWebServices {
      */
     static WsAbortChannel(channel, error) {
         result := DllCall("webservices.dll\WsAbortChannel", "ptr*", channel, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8719,13 +8963,12 @@ class WindowsWebServices {
      * @remarks
      * A channel that is in the process of being accepted/opened cannot be released until the accept/open completes.  Use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsabortchannel">WsAbortChannel</a> to cancel the accept/open process.
      * @param {Pointer<IntPtr>} channel A pointer to the <b>Channel</b> object to release. The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a> object returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannel">WsCreateChannel</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>. The referenced value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreechannel
      * @since windows6.1
      */
     static WsFreeChannel(channel) {
-        result := DllCall("webservices.dll\WsFreeChannel", "ptr*", channel)
-        return result
+        DllCall("webservices.dll\WsFreeChannel", "ptr*", channel)
     }
 
     /**
@@ -8741,7 +8984,7 @@ class WindowsWebServices {
      * If called correctly, this function will not fail (for example, due to lack of system resources).
      * @param {Pointer<IntPtr>} channel The channel to reset.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -8766,6 +9009,9 @@ class WindowsWebServices {
      */
     static WsResetChannel(channel, error) {
         result := DllCall("webservices.dll\WsResetChannel", "ptr*", channel, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8825,7 +9071,7 @@ class WindowsWebServices {
      *                     the same message that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessagestart">WsWriteMessageStart</a> 
      *                     or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmessagestart">WsReadMessageStart</a> function.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -8862,6 +9108,9 @@ class WindowsWebServices {
      */
     static WsAbandonMessage(channel, message, error) {
         result := DllCall("webservices.dll\WsAbandonMessage", "ptr*", channel, "ptr*", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8912,7 +9161,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} channel The session channel to shut down.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -8937,6 +9186,9 @@ class WindowsWebServices {
      */
     static WsShutdownSessionChannel(channel, asyncContext, error) {
         result := DllCall("webservices.dll\WsShutdownSessionChannel", "ptr*", channel, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8949,12 +9201,15 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The size of the buffer that the caller has allocated for the retrieved value.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsgetoperationcontextproperty
      * @since windows6.1
      */
     static WsGetOperationContextProperty(context, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetOperationContextProperty", "ptr*", context, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -8963,12 +9218,15 @@ class WindowsWebServices {
      * @param {Integer} encoding Indicates an enumeration of the Dictionary encoding.
      * @param {Pointer<WS_XML_DICTIONARY>} dictionary A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_dictionary">WS_XML_DICTIONARY</a> structure for the retrieved <b>Dictionary</b>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsgetdictionary
      * @since windows6.1
      */
     static WsGetDictionary(encoding, dictionary, error) {
         result := DllCall("webservices.dll\WsGetDictionary", "int", encoding, "ptr", dictionary, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9006,7 +9264,7 @@ class WindowsWebServices {
      * This size should correspond to the size of the buffer passed
      *                     using the value parameter.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9067,6 +9325,9 @@ class WindowsWebServices {
      */
     static WsReadEndpointAddressExtension(reader, endpointAddress, extensionType, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsReadEndpointAddressExtension", "ptr*", reader, "ptr", endpointAddress, "int", extensionType, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9083,7 +9344,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ERROR_PROPERTY>} properties An array of  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_error_property">WS_ERROR_PROPERTY</a> structures containing optional error properties.
      * @param {Integer} propertyCount The number of properties in the <i>properties</i> array.
      * @param {Pointer<IntPtr>} error On success, a pointer that receives the address of the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure representing the created error object.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -9129,6 +9390,9 @@ class WindowsWebServices {
      */
     static WsCreateError(properties, propertyCount, error) {
         result := DllCall("webservices.dll\WsCreateError", "ptr", properties, "uint", propertyCount, "ptr", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9140,7 +9404,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure representing the error object to which to add the string.
      * @param {Pointer<WS_STRING>} string The string to add.  The error object will
      *                     make a copy of the string.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -9186,6 +9450,9 @@ class WindowsWebServices {
      */
     static WsAddErrorString(error, string) {
         result := DllCall("webservices.dll\WsAddErrorString", "ptr*", error, "ptr", string, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9207,7 +9474,7 @@ class WindowsWebServices {
      *                 
      * 
      * The string is not zero terminated.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9242,6 +9509,9 @@ class WindowsWebServices {
      */
     static WsGetErrorString(error, index, string) {
         result := DllCall("webservices.dll\WsGetErrorString", "ptr*", error, "uint", index, "ptr", string, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9249,7 +9519,7 @@ class WindowsWebServices {
      * Copies an error object from a specified source to a specified destination.
      * @param {Pointer<IntPtr>} source Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure representing the error object to copy.
      * @param {Pointer<IntPtr>} destination Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives the copied error object.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -9307,6 +9577,9 @@ class WindowsWebServices {
      */
     static WsCopyError(source, destination) {
         result := DllCall("webservices.dll\WsCopyError", "ptr*", source, "ptr*", destination, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9317,7 +9590,7 @@ class WindowsWebServices {
      * @param {Pointer} buffer A pointer referencing the location to store the retrieved property.
      * @param {Integer} bufferSize The number of bytes allocated by the caller to
      *                     store the retrieved property.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9363,6 +9636,9 @@ class WindowsWebServices {
      */
     static WsGetErrorProperty(error, id, buffer, bufferSize) {
         result := DllCall("webservices.dll\WsGetErrorProperty", "ptr*", error, "int", id, "ptr", buffer, "uint", bufferSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9374,7 +9650,7 @@ class WindowsWebServices {
      *                     The pointer must have an alignment compatible with the type
      *                     of the property.
      * @param {Integer} valueSize The size in bytes of the property value.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9422,6 +9698,9 @@ class WindowsWebServices {
      */
     static WsSetErrorProperty(error, id, value, valueSize) {
         result := DllCall("webservices.dll\WsSetErrorProperty", "ptr*", error, "int", id, "ptr", value, "uint", valueSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9433,7 +9712,7 @@ class WindowsWebServices {
      * 
      * Properties that have been set using the  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsseterrorproperty">WsSetErrorProperty</a> function are released.
      * @param {Pointer<IntPtr>} error This parameter is a   pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object to reset.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9457,6 +9736,9 @@ class WindowsWebServices {
      */
     static WsResetError(error) {
         result := DllCall("webservices.dll\WsResetError", "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9465,13 +9747,12 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} error A pointer to the <b>Error</b> object to release.  The pointer must reference a valid <b>WS_ERROR</b> object
      *                     returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateerror">WsCreateError</a>.  The referenced value may 
      *                     not be NULL.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreeerror
      * @since windows6.1
      */
     static WsFreeError(error) {
-        result := DllCall("webservices.dll\WsFreeError", "ptr*", error)
-        return result
+        DllCall("webservices.dll\WsFreeError", "ptr*", error)
     }
 
     /**
@@ -9486,7 +9767,7 @@ class WindowsWebServices {
      * <div> </div>
      * @param {Integer} bufferSize The number of bytes allocated by the caller to
      *                     store the retrieved property.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9521,6 +9802,9 @@ class WindowsWebServices {
      */
     static WsGetFaultErrorProperty(error, id, buffer, bufferSize) {
         result := DllCall("webservices.dll\WsGetFaultErrorProperty", "ptr*", error, "int", id, "ptr", buffer, "uint", bufferSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9532,7 +9816,7 @@ class WindowsWebServices {
      *                     The pointer must have an alignment compatible with the type
      *                     of the property.
      * @param {Integer} valueSize The size in bytes of the property value.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9580,6 +9864,9 @@ class WindowsWebServices {
      */
     static WsSetFaultErrorProperty(error, id, value, valueSize) {
         result := DllCall("webservices.dll\WsSetFaultErrorProperty", "ptr*", error, "int", id, "ptr", value, "uint", valueSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9609,7 +9896,7 @@ class WindowsWebServices {
      *                 user default UI language. However, you can change the language by setting 
      *                 the WS_ERROR_PROPERTY_LANGID property. See the the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_error_property_id">WS_ERROR_PROPERTY_ID</a> enumeration.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure representing the error object from which to construct the fault.
-     * @param {Integer} faultErrorCode The HRESULT error code returned from the function that failed.
+     * @param {HRESULT} faultErrorCode The HRESULT error code returned from the function that failed.
      *                     The HRESULT value cannot be a success code.
      *                 
      * 
@@ -9620,7 +9907,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a> structure representing the <a href="https://docs.microsoft.com/windows/desktop/wsw/heap">heap</a> from which to allocate memory for the returned fault object.
      * @param {Pointer<WS_FAULT>} fault Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_fault">WS_FAULT</a> structure representing the returned fault object.  The fields of the fault object are good until
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeheap">WsFreeHeap</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetheap">WsResetHeap</a> is called to release the specified heap resources.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -9666,6 +9953,9 @@ class WindowsWebServices {
      */
     static WsCreateFaultFromError(error, faultErrorCode, faultDisclosure, heap, fault) {
         result := DllCall("webservices.dll\WsCreateFaultFromError", "ptr*", error, "int", faultErrorCode, "int", faultDisclosure, "ptr*", heap, "ptr", fault, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9710,7 +10000,7 @@ class WindowsWebServices {
      *                 
      * 
      * If the value is <b>NULL</b>, then the size should be 0.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9756,6 +10046,9 @@ class WindowsWebServices {
      */
     static WsSetFaultErrorDetail(error, faultDetailDescription, writeOption, value, valueSize) {
         result := DllCall("webservices.dll\WsSetFaultErrorDetail", "ptr*", error, "ptr", faultDetailDescription, "int", writeOption, "ptr", value, "uint", valueSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9814,7 +10107,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap The heap to store the deserialized values in.
      * @param {Pointer} value The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -9872,6 +10165,9 @@ class WindowsWebServices {
      */
     static WsGetFaultErrorDetail(error, faultDetailDescription, readOption, heap, value, valueSize) {
         result := DllCall("webservices.dll\WsGetFaultErrorDetail", "ptr*", error, "ptr", faultDetailDescription, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9894,12 +10190,15 @@ class WindowsWebServices {
      * @param {Integer} propertyCount Reserved for future use; set to 0 (zero).
      * @param {Pointer<IntPtr>} heap On   success, pointer that receives the address of the  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a> structure representing the new heap object.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wscreateheap
      * @since windows6.1
      */
     static WsCreateHeap(maxSize, trimSize, properties, propertyCount, heap, error) {
         result := DllCall("webservices.dll\WsCreateHeap", "ptr", maxSize, "ptr", trimSize, "ptr", properties, "uint", propertyCount, "ptr", heap, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9919,7 +10218,7 @@ class WindowsWebServices {
      * 
      * Zero byte allocations will return a non-NULL pointer.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -9955,6 +10254,9 @@ class WindowsWebServices {
      */
     static WsAlloc(heap, size, ptr, error) {
         result := DllCall("webservices.dll\WsAlloc", "ptr*", heap, "ptr", size, "ptr", ptr, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9967,12 +10269,15 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The buffer size allocated by the caller for the retrieved property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsgetheapproperty
      * @since windows6.1
      */
     static WsGetHeapProperty(heap, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetHeapProperty", "ptr*", heap, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -9989,12 +10294,15 @@ class WindowsWebServices {
      * 
      * The heap object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsresetheap
      * @since windows6.1
      */
     static WsResetHeap(heap, error) {
         result := DllCall("webservices.dll\WsResetHeap", "ptr*", heap, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10002,13 +10310,12 @@ class WindowsWebServices {
      * This frees the heap object, and the memory associated with any allocations made on it using WsAlloc.
      * @param {Pointer<IntPtr>} heap The heap to free.  This must be a valid heap object that was returned
      *                     from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateheap">WsCreateHeap</a>.  This parameter may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreeheap
      * @since windows6.1
      */
     static WsFreeHeap(heap) {
-        result := DllCall("webservices.dll\WsFreeHeap", "ptr*", heap)
-        return result
+        DllCall("webservices.dll\WsFreeHeap", "ptr*", heap)
     }
 
     /**
@@ -10039,7 +10346,7 @@ class WindowsWebServices {
      * If you are creating a custom channel (using the WS_CUSTOM_CHANNEL_BINDING value of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CHANNEL_BINDING</a> enumeration), the security description must be <b>NULL</b>. See the Remarks section.
      * @param {Pointer<IntPtr>} listener On   success, a pointer that receives the address of the  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-listener">WS_LISTENER</a> structure representing the new listener.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -10096,6 +10403,9 @@ class WindowsWebServices {
      */
     static WsCreateListener(channelType, channelBinding, properties, propertyCount, securityDescription, listener, error) {
         result := DllCall("webservices.dll\WsCreateListener", "int", channelType, "int", channelBinding, "ptr", properties, "uint", propertyCount, "ptr", securityDescription, "ptr", listener, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10130,7 +10440,7 @@ class WindowsWebServices {
      * <div> </div>
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer  to A WS_ASYNC_CONTEXT object that has information about how to invoke the function asynchronously.  The value is set to <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -10267,6 +10577,9 @@ class WindowsWebServices {
      */
     static WsOpenListener(listener, url, asyncContext, error) {
         result := DllCall("webservices.dll\WsOpenListener", "ptr*", listener, "ptr", url, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10289,7 +10602,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> data structure with information for invoking the function asynchronously.  Pass a <b>NULL</b> 
      *                  value for a synchronous operation.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -10455,6 +10768,9 @@ class WindowsWebServices {
      */
     static WsAcceptChannel(listener, channel, asyncContext, error) {
         result := DllCall("webservices.dll\WsAcceptChannel", "ptr*", listener, "ptr*", channel, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10472,7 +10788,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} listener Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-listener">WS_LISTENER</a> structure representing the listener  to close.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> structure containing information for invoking the function asynchronously. Pass <b>NULL</b> to invoke the function synchronously.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -10554,6 +10870,9 @@ class WindowsWebServices {
      */
     static WsCloseListener(listener, asyncContext, error) {
         result := DllCall("webservices.dll\WsCloseListener", "ptr*", listener, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10570,12 +10889,15 @@ class WindowsWebServices {
      * If called with valid parameters, this function will not fail for reasons such as a lack of system resources.
      * @param {Pointer<IntPtr>} listener Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-listener">WS_LISTENER</a> structure representing the listener for which to cancel I/O.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsabortlistener
      * @since windows6.1
      */
     static WsAbortListener(listener, error) {
         result := DllCall("webservices.dll\WsAbortListener", "ptr*", listener, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10585,7 +10907,7 @@ class WindowsWebServices {
      * Before reusing a listener, this function should be called.
      * @param {Pointer<IntPtr>} listener A pointer to the <b>Listener</b> object to reset.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-listener">WS_LISTENER</a>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -10610,6 +10932,9 @@ class WindowsWebServices {
      */
     static WsResetListener(listener, error) {
         result := DllCall("webservices.dll\WsResetListener", "ptr*", listener, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10617,13 +10942,12 @@ class WindowsWebServices {
      * Releases the memory resource associated with a Listener object.
      * @param {Pointer<IntPtr>} listener A pointer to the <b>Listener</b> object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-listener">WS_LISTENER</a> returned
      *                     by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a>.  The referenced value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreelistener
      * @since windows6.1
      */
     static WsFreeListener(listener) {
-        result := DllCall("webservices.dll\WsFreeListener", "ptr*", listener)
-        return result
+        DllCall("webservices.dll\WsFreeListener", "ptr*", listener)
     }
 
     /**
@@ -10636,7 +10960,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize Represents the byte-length buffer size allocated by the caller to store the retrieved property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -10671,6 +10995,9 @@ class WindowsWebServices {
      */
     static WsGetListenerProperty(listener, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetListenerProperty", "ptr*", listener, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10683,7 +11010,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The size in bytes  of the property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -10731,6 +11058,9 @@ class WindowsWebServices {
      */
     static WsSetListenerProperty(listener, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsSetListenerProperty", "ptr*", listener, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10760,7 +11090,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} channel On success, a pointer that receives the address of the created channel.   
      *                     When the channel  is no longer needed, you must free  it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreechannel">WsFreeChannel</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -10806,6 +11136,9 @@ class WindowsWebServices {
      */
     static WsCreateChannelForListener(listener, properties, propertyCount, channel, error) {
         result := DllCall("webservices.dll\WsCreateChannelForListener", "ptr*", listener, "ptr", properties, "uint", propertyCount, "ptr", channel, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10828,7 +11161,7 @@ class WindowsWebServices {
      * 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreemessage">WsFreeMessage</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -10874,6 +11207,9 @@ class WindowsWebServices {
      */
     static WsCreateMessage(envelopeVersion, addressingVersion, properties, propertyCount, message, error) {
         result := DllCall("webservices.dll\WsCreateMessage", "int", envelopeVersion, "int", addressingVersion, "ptr", properties, "uint", propertyCount, "ptr", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10892,7 +11228,7 @@ class WindowsWebServices {
      * 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreemessage">WsFreeMessage</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -10938,6 +11274,9 @@ class WindowsWebServices {
      */
     static WsCreateMessageForChannel(channel, properties, propertyCount, message, error) {
         result := DllCall("webservices.dll\WsCreateMessageForChannel", "ptr*", channel, "ptr", properties, "uint", propertyCount, "ptr", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -10964,7 +11303,7 @@ class WindowsWebServices {
      *                     has the value of <b>WS_DUPLICATE_MESSAGE</b>,
      *                     <b>WS_REPLY_MESSAGE</b>, or <b>WS_FAULT_MESSAGE</b>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11010,6 +11349,9 @@ class WindowsWebServices {
      */
     static WsInitializeMessage(message, initialization, sourceMessage, error) {
         result := DllCall("webservices.dll\WsInitializeMessage", "ptr*", message, "int", initialization, "ptr*", sourceMessage, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11023,7 +11365,7 @@ class WindowsWebServices {
      *                 more efficient than creating and freeing the message object for each message.
      * @param {Pointer<IntPtr>} message A pointer to the Message  object to reset.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11047,6 +11389,9 @@ class WindowsWebServices {
      */
     static WsResetMessage(message, error) {
         result := DllCall("webservices.dll\WsResetMessage", "ptr*", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11054,13 +11399,12 @@ class WindowsWebServices {
      * Releases the memory resource associated with a Message object.
      * @param {Pointer<IntPtr>} message A pointer to the <b>Message</b> object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-message">WS_MESSAGE</a> object returned
      *                     by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemessage">WsCreateMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemessageforchannel">WsCreateMessageForChannel</a> and the referenced value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreemessage
      * @since windows6.1
      */
     static WsFreeMessage(message) {
-        result := DllCall("webservices.dll\WsFreeMessage", "ptr*", message)
-        return result
+        DllCall("webservices.dll\WsFreeMessage", "ptr*", message)
     }
 
     /**
@@ -11072,7 +11416,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} reader A pointer to the reader to query.  This must be valid WS_XML_READER object returned from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatereader">WsCreateReader</a>   and cannot be <b>NULL</b>.
      * @param {Pointer<UInt32>} headerAttributes On success the value referenced by this pointer is set to the header attributes.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11129,6 +11473,9 @@ class WindowsWebServices {
      */
     static WsGetHeaderAttributes(message, reader, headerAttributes, error) {
         result := DllCall("webservices.dll\WsGetHeaderAttributes", "ptr*", message, "ptr*", reader, "uint*", headerAttributes, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11159,7 +11506,7 @@ class WindowsWebServices {
      * @param {Pointer} value The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11237,6 +11584,9 @@ class WindowsWebServices {
      */
     static WsGetHeader(message, headerType, valueType, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetHeader", "ptr*", message, "int", headerType, "int", valueType, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11274,7 +11624,7 @@ class WindowsWebServices {
      * @param {Pointer<UInt32>} headerAttributes Returns the <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_text_type">WS_HEADER_ATTRIBUTES</a> for this header.
      *                     The pointer may be <b>NULL</b>, in which case no attributes are returned.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11354,6 +11704,9 @@ class WindowsWebServices {
      */
     static WsGetCustomHeader(message, customHeaderDescription, repeatingOption, headerIndex, readOption, heap, value, valueSize, headerAttributes, error) {
         result := DllCall("webservices.dll\WsGetCustomHeader", "ptr*", message, "ptr", customHeaderDescription, "int", repeatingOption, "uint", headerIndex, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "uint*", headerAttributes, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11365,7 +11718,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} message A pointer to the <b>Message</b> object with the header  to be removed. The message can be in any state except <b>WS_MESSAGE_STATE_EMPTY</b>.
      * @param {Integer} headerType Indicates the type of header to be removed.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11411,6 +11764,9 @@ class WindowsWebServices {
      */
     static WsRemoveHeader(message, headerType, error) {
         result := DllCall("webservices.dll\WsRemoveHeader", "ptr*", message, "int", headerType, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11444,7 +11800,7 @@ class WindowsWebServices {
      *                     more information.
      * @param {Integer} valueSize The size of the value being serialized, in bytes.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11504,6 +11860,9 @@ class WindowsWebServices {
      */
     static WsSetHeader(message, headerType, valueType, writeOption, value, valueSize, error) {
         result := DllCall("webservices.dll\WsSetHeader", "ptr*", message, "int", headerType, "int", valueType, "int", writeOption, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11517,7 +11876,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_XML_STRING>} headerName A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_string">WS_XML_STRING</a> object that references the "local name" of the header element to be  removed.
      * @param {Pointer<WS_XML_STRING>} headerNs A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_string">WS_XML_STRING</a> object that references the namespace of the header element to be removed.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11574,6 +11933,9 @@ class WindowsWebServices {
      */
     static WsRemoveCustomHeader(message, headerName, headerNs, error) {
         result := DllCall("webservices.dll\WsRemoveCustomHeader", "ptr*", message, "ptr", headerName, "ptr", headerNs, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11597,7 +11959,7 @@ class WindowsWebServices {
      * @param {Integer} valueSize The size of the value being serialized, in bytes.
      * @param {Integer} headerAttributes The values of the SOAP attributes for the header.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -11656,6 +12018,9 @@ class WindowsWebServices {
      */
     static WsAddCustomHeader(message, headerDescription, writeOption, value, valueSize, headerAttributes, error) {
         result := DllCall("webservices.dll\WsAddCustomHeader", "ptr*", message, "ptr", headerDescription, "int", writeOption, "ptr", value, "uint", valueSize, "uint", headerAttributes, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11685,7 +12050,7 @@ class WindowsWebServices {
      * @param {Pointer} value The header value to serialize.  For more information, see  the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_write_option">WS_WRITE_OPTION</a> enumeration.
      * @param {Integer} valueSize The size of the value being serialized, in bytes.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -11733,6 +12098,9 @@ class WindowsWebServices {
      */
     static WsAddMappedHeader(message, headerName, valueType, writeOption, value, valueSize, error) {
         result := DllCall("webservices.dll\WsAddMappedHeader", "ptr*", message, "ptr", headerName, "int", valueType, "int", writeOption, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11751,7 +12119,7 @@ class WindowsWebServices {
      * The message can be in any state but <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_state">WS_MESSAGE_STATE_EMPTY</a>.
      * @param {Pointer<WS_XML_STRING>} headerName The name of the mapped header to remove.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11787,6 +12155,9 @@ class WindowsWebServices {
      */
     static WsRemoveMappedHeader(message, headerName, error) {
         result := DllCall("webservices.dll\WsRemoveMappedHeader", "ptr*", message, "ptr", headerName, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11832,7 +12203,7 @@ class WindowsWebServices {
      * @param {Pointer} value The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -11912,6 +12283,9 @@ class WindowsWebServices {
      */
     static WsGetMappedHeader(message, headerName, repeatingOption, headerIndex, valueType, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetMappedHeader", "ptr*", message, "ptr", headerName, "int", repeatingOption, "uint", headerIndex, "int", valueType, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11948,7 +12322,7 @@ class WindowsWebServices {
      * @param {Integer} valueSize The size in bytes of the value to write.
      *                 If the value is <b>NULL</b> the size should be 0.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12005,6 +12379,9 @@ class WindowsWebServices {
      */
     static WsWriteBody(message, bodyDescription, writeOption, value, valueSize, error) {
         result := DllCall("webservices.dll\WsWriteBody", "ptr*", message, "ptr", bodyDescription, "int", writeOption, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12040,7 +12417,7 @@ class WindowsWebServices {
      * @param {Pointer} value The interpretation of the data referenced by this parameter depends on the <b>WS_READ_OPTION</b>.
      * @param {Integer} valueSize The interpretation of the value of this parameter depends on the <b>WS_READ_OPTION</b>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12097,6 +12474,9 @@ class WindowsWebServices {
      */
     static WsReadBody(message, bodyDescription, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsReadBody", "ptr*", message, "ptr", bodyDescription, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12122,7 +12502,7 @@ class WindowsWebServices {
      *  in use by this message. If this function fails the callback is not called. If the function succeeds the callback is invoked one time only.
      * @param {Pointer<Void>} doneCallbackState A void pointer to a user-defined state that will be passed to the specified callback. This parameter may be <b>NULL</b>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12179,6 +12559,9 @@ class WindowsWebServices {
      */
     static WsWriteEnvelopeStart(message, writer, doneCallback, doneCallbackState, error) {
         result := DllCall("webservices.dll\WsWriteEnvelopeStart", "ptr*", message, "ptr*", writer, "ptr", doneCallback, "ptr", doneCallbackState, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12190,7 +12573,7 @@ class WindowsWebServices {
      *                 of whether the function fails or not.
      * @param {Pointer<IntPtr>} message A pointer to the <b>Message</b> object to write.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-message">WS_MESSAGE</a> object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12247,6 +12630,9 @@ class WindowsWebServices {
      */
     static WsWriteEnvelopeEnd(message, error) {
         result := DllCall("webservices.dll\WsWriteEnvelopeEnd", "ptr*", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12276,7 +12662,7 @@ class WindowsWebServices {
      *                     to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_message_done_callback">WS_MESSAGE_DONE_CALLBACK</a>.
      *                     This parameter may be <b>NULL</b> if the callback is not used.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12333,6 +12719,9 @@ class WindowsWebServices {
      */
     static WsReadEnvelopeStart(message, reader, doneCallback, doneCallbackState, error) {
         result := DllCall("webservices.dll\WsReadEnvelopeStart", "ptr*", message, "ptr*", reader, "ptr", doneCallback, "ptr", doneCallbackState, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12344,7 +12733,7 @@ class WindowsWebServices {
      *                 of function success or failure.
      * @param {Pointer<IntPtr>} message A pointer to the <b>Message</b> object read.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-message">WS_MESSAGE</a>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12401,6 +12790,9 @@ class WindowsWebServices {
      */
     static WsReadEnvelopeEnd(message, error) {
         result := DllCall("webservices.dll\WsReadEnvelopeEnd", "ptr*", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12413,7 +12805,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The byte-length buffer size allocated by the caller to store the retrieved property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12459,6 +12851,9 @@ class WindowsWebServices {
      */
     static WsGetMessageProperty(message, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetMessageProperty", "ptr*", message, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12471,7 +12866,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The size in bytes  of the property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12519,6 +12914,9 @@ class WindowsWebServices {
      */
     static WsSetMessageProperty(message, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsSetMessageProperty", "ptr*", message, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12560,7 +12958,7 @@ class WindowsWebServices {
      *                 </div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -12631,6 +13029,9 @@ class WindowsWebServices {
      */
     static WsAddressMessage(message, address, error) {
         result := DllCall("webservices.dll\WsAddressMessage", "ptr*", message, "ptr", address, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12656,7 +13057,7 @@ class WindowsWebServices {
      * The message must be in the WS_MESSAGE_STATE_READING state.
      * @param {Pointer<IntPtr>} message Pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-message">WS_MESSAGE</a> structure containing the headers to be understood.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  where additional error information is stored if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -12726,6 +13127,9 @@ class WindowsWebServices {
      */
     static WsCheckMustUnderstandHeaders(message, error) {
         result := DllCall("webservices.dll\WsCheckMustUnderstandHeaders", "ptr*", message, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12739,7 +13143,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} message A pointer to the Message object with the header to mark.
      * @param {Pointer<WS_XML_NODE_POSITION>} headerPosition A pointer to the position of the header element within the XML header segment.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12797,6 +13201,9 @@ class WindowsWebServices {
      */
     static WsMarkHeaderAsUnderstood(message, headerPosition, error) {
         result := DllCall("webservices.dll\WsMarkHeaderAsUnderstood", "ptr*", message, "ptr", headerPosition, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12816,7 +13223,7 @@ class WindowsWebServices {
      * <div> </div>
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> data structure with information about invoking the function asynchronously.  A <b>NULL</b> value indicates a request for synchronous operation.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12897,6 +13304,9 @@ class WindowsWebServices {
      */
     static WsFillBody(message, minSize, asyncContext, error) {
         result := DllCall("webservices.dll\WsFillBody", "ptr*", message, "uint", minSize, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12926,7 +13336,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> data structure with information about invoking the function asynchronously.  A <b>NULL</b> 
      *                  value indicates a request for synchronous operation.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -12995,6 +13405,9 @@ class WindowsWebServices {
      */
     static WsFlushBody(message, minSize, asyncContext, error) {
         result := DllCall("webservices.dll\WsFlushBody", "ptr*", message, "uint", minSize, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13027,7 +13440,7 @@ class WindowsWebServices {
      * presented to a service.  The token must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreesecuritytoken">WsFreeSecurityToken</a> when it is no longer needed.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13052,6 +13465,9 @@ class WindowsWebServices {
      */
     static WsRequestSecurityToken(channel, properties, propertyCount, token, asyncContext, error) {
         result := DllCall("webservices.dll\WsRequestSecurityToken", "ptr*", channel, "ptr", properties, "uint", propertyCount, "ptr", token, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13067,7 +13483,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap Heap to store additional property data. This parameter must be non-<b>NULL</b> when the queried property is
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_token_property_id">WS_SECURITY_TOKEN_PROPERTY_SYMMETRIC_KEY</a> and must be <b>NULL</b> otherwise.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13113,6 +13529,9 @@ class WindowsWebServices {
      */
     static WsGetSecurityTokenProperty(securityToken, id, value, valueSize, heap, error) {
         result := DllCall("webservices.dll\WsGetSecurityTokenProperty", "ptr*", securityToken, "int", id, "ptr", value, "uint", valueSize, "ptr*", heap, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13156,7 +13575,7 @@ class WindowsWebServices {
      * 
      * presented to a service.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -13202,31 +13621,36 @@ class WindowsWebServices {
      */
     static WsCreateXmlSecurityToken(tokenXml, tokenKey, properties, propertyCount, token, error) {
         result := DllCall("webservices.dll\WsCreateXmlSecurityToken", "ptr*", tokenXml, "ptr", tokenKey, "ptr", properties, "uint", propertyCount, "ptr", token, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Releases the memory resource associated with a Security Token object.
      * @param {Pointer<IntPtr>} token A pointer to the <b>Security Token</b> object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-security-token">WS_SECURITY_TOKEN</a> object returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatexmlsecuritytoken">WsCreateXmlSecurityToken</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreesecuritytoken
      * @since windows6.1
      */
     static WsFreeSecurityToken(token) {
-        result := DllCall("webservices.dll\WsFreeSecurityToken", "ptr*", token)
-        return result
+        DllCall("webservices.dll\WsFreeSecurityToken", "ptr*", token)
     }
 
     /**
      * Revokes a security context. Can only be called on the server side. Further requests using this security context will fail and a fault will be sent to the client.
      * @param {Pointer<IntPtr>} securityContext The security context to be revoked.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsrevokesecuritycontext
      * @since windows6.1
      */
     static WsRevokeSecurityContext(securityContext, error) {
         result := DllCall("webservices.dll\WsRevokeSecurityContext", "ptr*", securityContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13237,7 +13661,7 @@ class WindowsWebServices {
      * @param {Pointer} value The address to place the retrieved value. The pointer must have an alignment compatible with the type of the property.
      * @param {Integer} valueSize The size of the buffer that the caller has allocated for the retrieved value.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13283,6 +13707,9 @@ class WindowsWebServices {
      */
     static WsGetSecurityContextProperty(securityContext, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetSecurityContextProperty", "ptr*", securityContext, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13304,7 +13731,7 @@ class WindowsWebServices {
      * @param {Pointer} value The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13362,6 +13789,9 @@ class WindowsWebServices {
      */
     static WsReadElement(reader, elementDescription, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsReadElement", "ptr*", reader, "ptr", elementDescription, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13383,7 +13813,7 @@ class WindowsWebServices {
      * @param {Pointer} value The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13441,6 +13871,9 @@ class WindowsWebServices {
      */
     static WsReadAttribute(reader, attributeDescription, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsReadAttribute", "ptr*", reader, "ptr", attributeDescription, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13464,7 +13897,7 @@ class WindowsWebServices {
      * @param {Pointer} value The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Integer} valueSize The interpretation of this parameter depends on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_read_option">WS_READ_OPTION</a>.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13522,6 +13955,9 @@ class WindowsWebServices {
      */
     static WsReadType(reader, typeMapping, type, typeDescription, readOption, heap, value, valueSize, error) {
         result := DllCall("webservices.dll\WsReadType", "ptr*", reader, "int", typeMapping, "int", type, "ptr", typeDescription, "int", readOption, "ptr*", heap, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13545,7 +13981,7 @@ class WindowsWebServices {
      * 
      * If the value is <b>NULL</b>, then the size should be 0.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13591,6 +14027,9 @@ class WindowsWebServices {
      */
     static WsWriteElement(writer, elementDescription, writeOption, value, valueSize, error) {
         result := DllCall("webservices.dll\WsWriteElement", "ptr*", writer, "ptr", elementDescription, "int", writeOption, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13613,7 +14052,7 @@ class WindowsWebServices {
      * 
      * If the value is <b>NULL</b>, then the size should be 0.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13659,6 +14098,9 @@ class WindowsWebServices {
      */
     static WsWriteAttribute(writer, attributeDescription, writeOption, value, valueSize, error) {
         result := DllCall("webservices.dll\WsWriteAttribute", "ptr*", writer, "ptr", attributeDescription, "int", writeOption, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13681,7 +14123,7 @@ class WindowsWebServices {
      * @param {Pointer} value A pointer to the value to serialize.
      * @param {Integer} valueSize The size of the value being serialized.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13738,6 +14180,9 @@ class WindowsWebServices {
      */
     static WsWriteType(writer, typeMapping, type, typeDescription, writeOption, value, valueSize, error) {
         result := DllCall("webservices.dll\WsWriteType", "ptr*", writer, "int", typeMapping, "int", type, "ptr", typeDescription, "int", writeOption, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13748,12 +14193,15 @@ class WindowsWebServices {
      * @param {Pointer<WS_OPERATION_FREE_STATE_CALLBACK>} freestateCallback A optional parameter specifying the function pointer to the free state call.
      * @param {Pointer<Void>} userState A optional parameter specifying the application specific state which can be used to identify call data.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsregisteroperationforcancel
      * @since windows6.1
      */
     static WsRegisterOperationForCancel(context, cancelCallback, freestateCallback, userState, error) {
         result := DllCall("webservices.dll\WsRegisterOperationForCancel", "ptr*", context, "ptr", cancelCallback, "ptr", freestateCallback, "ptr", userState, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13766,7 +14214,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The byte-length buffer size allocated by the caller to store the retrieved property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -13790,6 +14238,9 @@ class WindowsWebServices {
      */
     static WsGetServiceHostProperty(serviceHost, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetServiceHostProperty", "ptr*", serviceHost, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13805,7 +14256,7 @@ class WindowsWebServices {
      *                 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeservicehost">WsFreeServiceHost</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -13862,6 +14313,9 @@ class WindowsWebServices {
      */
     static WsCreateServiceHost(endpoints, endpointCount, serviceProperties, servicePropertyCount, serviceHost, error) {
         result := DllCall("webservices.dll\WsCreateServiceHost", "ptr", endpoints, "ushort", endpointCount, "ptr", serviceProperties, "uint", servicePropertyCount, "ptr", serviceHost, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13874,7 +14328,7 @@ class WindowsWebServices {
      *                     returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateservicehost">WsCreateServiceHost</a> and the referenced <b>Service Host</b> value may not be <b>NULL</b>.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer  to A WS_ASYNC_CONTEXT object that has information about how to invoke the function asynchronously.  The value is set to <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -14009,6 +14463,9 @@ class WindowsWebServices {
      */
     static WsOpenServiceHost(serviceHost, asyncContext, error) {
         result := DllCall("webservices.dll\WsOpenServiceHost", "ptr*", serviceHost, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14025,7 +14482,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} serviceHost Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a> structure that represents the service host to be closed.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> structure containing information for invoking the function asynchronously. Pass <b>NULL</b> to invoke the function synchronously.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -14105,6 +14562,9 @@ class WindowsWebServices {
      */
     static WsCloseServiceHost(serviceHost, asyncContext, error) {
         result := DllCall("webservices.dll\WsCloseServiceHost", "ptr*", serviceHost, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14122,7 +14582,7 @@ class WindowsWebServices {
      *                 see  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsregisteroperationforcancel">WsRegisterOperationForCancel</a>.
      * @param {Pointer<IntPtr>} serviceHost Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a>  structure representing the service host on which to abort operations.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -14146,6 +14606,9 @@ class WindowsWebServices {
      */
     static WsAbortServiceHost(serviceHost, error) {
         result := DllCall("webservices.dll\WsAbortServiceHost", "ptr*", serviceHost, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14153,20 +14616,19 @@ class WindowsWebServices {
      * Releases the memory associated with a Service Host object.
      * @param {Pointer<IntPtr>} serviceHost A pointer to the <b>Service Host</b> object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a> object
      *                     returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateservicehost">WsCreateServiceHost</a> and the referenced <b>Service Host</b> value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreeservicehost
      * @since windows6.1
      */
     static WsFreeServiceHost(serviceHost) {
-        result := DllCall("webservices.dll\WsFreeServiceHost", "ptr*", serviceHost)
-        return result
+        DllCall("webservices.dll\WsFreeServiceHost", "ptr*", serviceHost)
     }
 
     /**
      * Resets service host so that it can be opened again.
      * @param {Pointer<IntPtr>} serviceHost The service host to reset.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -14201,6 +14663,9 @@ class WindowsWebServices {
      */
     static WsResetServiceHost(serviceHost, error) {
         result := DllCall("webservices.dll\WsResetServiceHost", "ptr*", serviceHost, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14213,7 +14678,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The value of this ULONG parameter represents the byte-length buffer size allocated by the caller to store the retrieved property value.
      * @param {Pointer<IntPtr>} error This parameter is a  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> pointer to where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -14237,6 +14702,9 @@ class WindowsWebServices {
      */
     static WsGetServiceProxyProperty(serviceProxy, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetServiceProxyProperty", "ptr*", serviceProxy, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14259,7 +14727,7 @@ class WindowsWebServices {
      *                 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeserviceproxy">WsFreeServiceProxy</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -14305,6 +14773,9 @@ class WindowsWebServices {
      */
     static WsCreateServiceProxy(channelType, channelBinding, securityDescription, properties, propertyCount, channelProperties, channelPropertyCount, serviceProxy, error) {
         result := DllCall("webservices.dll\WsCreateServiceProxy", "int", channelType, "int", channelBinding, "ptr", securityDescription, "ptr", properties, "uint", propertyCount, "ptr", channelProperties, "uint", channelPropertyCount, "ptr", serviceProxy, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14315,7 +14786,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_ENDPOINT_ADDRESS>} address A pointer to the address of the endpoint.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext A pointer  to A WS_ASYNC_CONTEXT object that has information about how to invoke the function asynchronously.  The value is set to <b>NULL</b> if invoking synchronously.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -14652,6 +15123,9 @@ class WindowsWebServices {
      */
     static WsOpenServiceProxy(serviceProxy, address, asyncContext, error) {
         result := DllCall("webservices.dll\WsOpenServiceProxy", "ptr*", serviceProxy, "ptr", address, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14666,7 +15140,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} serviceProxy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> structure representing he service proxy to be closed.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_async_context">WS_ASYNC_CONTEXT</a> structure containing information for invoking the function asynchronously. Pass <b>NULL</b> to invoke the function synchronously.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -14804,6 +15278,9 @@ class WindowsWebServices {
      */
     static WsCloseServiceProxy(serviceProxy, asyncContext, error) {
         result := DllCall("webservices.dll\WsCloseServiceProxy", "ptr*", serviceProxy, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14823,7 +15300,7 @@ class WindowsWebServices {
      * For an example of using this function, see <a href="https://docs.microsoft.com/windows/desktop/wsw/servicecancellationexample">ServiceCancellationExample</a>.
      * @param {Pointer<IntPtr>} serviceProxy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> structure representing the service proxy to abort.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -14847,6 +15324,9 @@ class WindowsWebServices {
      */
     static WsAbortServiceProxy(serviceProxy, error) {
         result := DllCall("webservices.dll\WsAbortServiceProxy", "ptr*", serviceProxy, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14856,20 +15336,19 @@ class WindowsWebServices {
      * For details of when it is allowed to call this function, see <a href="https://docs.microsoft.com/windows/desktop/wsw/service-proxy">Service Proxy</a> .
      * @param {Pointer<IntPtr>} serviceProxy A pointer to the <b>Service Proxy</b> to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-proxy">WS_SERVICE_PROXY</a> object
      *                     returned by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreateserviceproxy">WsCreateServiceProxy</a>. The referenced value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreeserviceproxy
      * @since windows6.1
      */
     static WsFreeServiceProxy(serviceProxy) {
-        result := DllCall("webservices.dll\WsFreeServiceProxy", "ptr*", serviceProxy)
-        return result
+        DllCall("webservices.dll\WsFreeServiceProxy", "ptr*", serviceProxy)
     }
 
     /**
      * Resets service proxy.
      * @param {Pointer<IntPtr>} serviceProxy The service proxy.
      * @param {Pointer<IntPtr>} error Specifies where additional error information should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -14904,6 +15383,9 @@ class WindowsWebServices {
      */
     static WsResetServiceProxy(serviceProxy, error) {
         result := DllCall("webservices.dll\WsResetServiceProxy", "ptr*", serviceProxy, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14935,7 +15417,7 @@ class WindowsWebServices {
      * @param {Integer} callId ID of the call to abandon.
      *                 (See the Remarks section.)
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -14970,6 +15452,9 @@ class WindowsWebServices {
      */
     static WsAbandonCall(serviceProxy, callId, error) {
         result := DllCall("webservices.dll\WsAbandonCall", "ptr*", serviceProxy, "uint", callId, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14986,7 +15471,7 @@ class WindowsWebServices {
      * @param {Integer} callPropertyCount The number of properties in the call properties array.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Pointer to information for invoking the function asynchronously. Pass <b>NULL</b> to invoke the function synchronously.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -15088,6 +15573,9 @@ class WindowsWebServices {
      */
     static WsCall(serviceProxy, operation, arguments, heap, callProperties, callPropertyCount, asyncContext, error) {
         result := DllCall("webservices.dll\WsCall", "ptr*", serviceProxy, "ptr", operation, "ptr", arguments, "ptr*", heap, "ptr", callProperties, "uint", callPropertyCount, "ptr", asyncContext, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15114,7 +15602,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a> in which to allocate the returned URL reference.
      * @param {Pointer<WS_URL>} outUrl Reference to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_url">WS_URL</a> structure that encapsulates the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_url_scheme_type">WS_URL_SCHEME_TYPE</a> value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15172,6 +15660,9 @@ class WindowsWebServices {
      */
     static WsDecodeUrl(url, flags, heap, outUrl, error) {
         result := DllCall("webservices.dll\WsDecodeUrl", "ptr", url, "uint", flags, "ptr*", heap, "ptr", outUrl, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15185,7 +15676,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} heap A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a> in which to allocate URL.
      * @param {Pointer<WS_STRING>} outUrl A pointer to the resulting URL string.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15243,6 +15734,9 @@ class WindowsWebServices {
      */
     static WsEncodeUrl(url, flags, heap, outUrl, error) {
         result := DllCall("webservices.dll\WsEncodeUrl", "ptr", url, "uint", flags, "ptr*", heap, "ptr", outUrl, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15261,7 +15755,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_STRING>} resultUrl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-listener">WS_STRING</a> structure that receives the resulting URL.
      *                 This is an absolute URL in encoded format.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -15320,6 +15814,9 @@ class WindowsWebServices {
      */
     static WsCombineUrl(baseUrl, referenceUrl, flags, heap, resultUrl, error) {
         result := DllCall("webservices.dll\WsCombineUrl", "ptr", baseUrl, "ptr", referenceUrl, "uint", flags, "ptr*", heap, "ptr", resultUrl, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15331,7 +15828,7 @@ class WindowsWebServices {
      * @param {Pointer<WS_DATETIME>} dateTime A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_datetime">WS_DATETIME</a> structure to convert.
      * @param {Pointer<FILETIME>} fileTime A pointer to the new FILETIME object that contains the converted time.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15366,6 +15863,9 @@ class WindowsWebServices {
      */
     static WsDateTimeToFileTime(dateTime, fileTime, error) {
         result := DllCall("webservices.dll\WsDateTimeToFileTime", "ptr", dateTime, "ptr", fileTime, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15380,7 +15880,7 @@ class WindowsWebServices {
      * @param {Pointer<FILETIME>} fileTime A pointer to the FILETIME structure to convert.
      * @param {Pointer<WS_DATETIME>} dateTime A pointer to the new WS_DATETIME object that has the newly converted time.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15415,6 +15915,9 @@ class WindowsWebServices {
      */
     static WsFileTimeToDateTime(fileTime, dateTime, error) {
         result := DllCall("webservices.dll\WsFileTimeToDateTime", "ptr", fileTime, "ptr", dateTime, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15428,7 +15931,7 @@ class WindowsWebServices {
      *                 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreemetadata">WsFreeMetadata</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
      * <tr>
@@ -15474,6 +15977,9 @@ class WindowsWebServices {
      */
     static WsCreateMetadata(properties, propertyCount, metadata, error) {
         result := DllCall("webservices.dll\WsCreateMetadata", "ptr", properties, "uint", propertyCount, "ptr", metadata, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15528,7 +16034,7 @@ class WindowsWebServices {
      * 
      * ```
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15619,6 +16125,9 @@ class WindowsWebServices {
      */
     static WsReadMetadata(metadata, reader, url, error) {
         result := DllCall("webservices.dll\WsReadMetadata", "ptr*", metadata, "ptr*", reader, "ptr", url, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15629,13 +16138,12 @@ class WindowsWebServices {
      *                 were retrieved using the metadata object will also be freed.
      * @param {Pointer<IntPtr>} metadata A pointer to the metadata object to release.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-metadata">WS_METADATA</a> object returned
      *                     by <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatemetadata">WsCreateMetadata</a> and the referenced value may not be <b>NULL</b>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsfreemetadata
      * @since windows6.1
      */
     static WsFreeMetadata(metadata) {
-        result := DllCall("webservices.dll\WsFreeMetadata", "ptr*", metadata)
-        return result
+        DllCall("webservices.dll\WsFreeMetadata", "ptr*", metadata)
     }
 
     /**
@@ -15645,7 +16153,7 @@ class WindowsWebServices {
      *             If called correctly, this function will not fail.
      * @param {Pointer<IntPtr>} metadata A pointer to the <b>Metadata</b> object to reset.  The pointer must reference a valid <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-metadata">WS_METADATA</a>.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15670,6 +16178,9 @@ class WindowsWebServices {
      */
     static WsResetMetadata(metadata, error) {
         result := DllCall("webservices.dll\WsResetMetadata", "ptr*", metadata, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15682,7 +16193,7 @@ class WindowsWebServices {
      *                     of the property.
      * @param {Integer} valueSize The byte-length buffer size allocated by the caller to store the retrieved property value.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15728,6 +16239,9 @@ class WindowsWebServices {
      */
     static WsGetMetadataProperty(metadata, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetMetadataProperty", "ptr*", metadata, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15750,7 +16264,7 @@ class WindowsWebServices {
      * <div class="alert"><b>Note</b>  The data returned by this function is valid until the metadata object is freed or reset.  The data should not be modified.</div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error This parameter is a  <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> pointer to where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15796,6 +16310,9 @@ class WindowsWebServices {
      */
     static WsGetMissingMetadataDocumentAddress(metadata, address, error) {
         result := DllCall("webservices.dll\WsGetMissingMetadataDocumentAddress", "ptr*", metadata, "ptr", address, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15813,7 +16330,7 @@ class WindowsWebServices {
      *                     is populated with information about the endpoints that were 
      *                     defined in the metadata object.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15859,6 +16376,9 @@ class WindowsWebServices {
      */
     static WsGetMetadataEndpoints(metadata, endpoints, error) {
         result := DllCall("webservices.dll\WsGetMetadataEndpoints", "ptr*", metadata, "ptr", endpoints, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15916,7 +16436,7 @@ class WindowsWebServices {
      * </div>
      * <div> </div>
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -15979,6 +16499,9 @@ class WindowsWebServices {
      */
     static WsMatchPolicyAlternative(policy, alternativeIndex, policyConstraints, matchRequired, heap, error) {
         result := DllCall("webservices.dll\WsMatchPolicyAlternative", "ptr*", policy, "uint", alternativeIndex, "ptr", policyConstraints, "int", matchRequired, "ptr*", heap, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15994,7 +16517,7 @@ class WindowsWebServices {
      * @param {Integer} valueSize The number of bytes allocated by the caller to
      *                     store the retrieved property.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -16040,6 +16563,9 @@ class WindowsWebServices {
      */
     static WsGetPolicyProperty(policy, id, value, valueSize, error) {
         result := DllCall("webservices.dll\WsGetPolicyProperty", "ptr*", policy, "int", id, "ptr", value, "uint", valueSize, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16051,7 +16577,7 @@ class WindowsWebServices {
      * @param {Pointer<IntPtr>} policy A pointer to the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-policy">WS_POLICY</a> object from which to count alternatives.
      * @param {Pointer<UInt32>} count A pointer to the number value of alternatives.  This may be 0.
      * @param {Pointer<IntPtr>} error A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object where additional information about the error should be stored if the function fails.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -16097,6 +16623,9 @@ class WindowsWebServices {
      */
     static WsGetPolicyAlternativeCount(policy, count, error) {
         result := DllCall("webservices.dll\WsGetPolicyAlternativeCount", "ptr*", policy, "uint*", count, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16205,12 +16734,15 @@ class WindowsWebServices {
      *                 
      * When you no longer need this structure, you must free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeserviceproxy">WsFreeServiceProxy</a>.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wscreateserviceproxyfromtemplate
      * @since windows6.1
      */
     static WsCreateServiceProxyFromTemplate(channelType, properties, propertyCount, templateType, templateValue, templateSize, templateDescription, templateDescriptionSize, serviceProxy, error) {
         result := DllCall("webservices.dll\WsCreateServiceProxyFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "int", templateType, "ptr", templateValue, "uint", templateSize, "ptr", templateDescription, "uint", templateDescriptionSize, "ptr", serviceProxy, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16234,12 +16766,15 @@ class WindowsWebServices {
      * @param {Integer} templateDescriptionSize The size of the template description.
      * @param {Pointer<WS_SERVICE_ENDPOINT>} serviceEndpoint On   success, a pointer that receives the address of the  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a> structure representing the new service endpoint.
      * @param {Pointer<IntPtr>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure  that receives additional error information if the function fails.
-     * @returns {Integer} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
+     * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wscreateserviceendpointfromtemplate
      * @since windows6.1
      */
     static WsCreateServiceEndpointFromTemplate(channelType, properties, propertyCount, addressUrl, contract, authorizationCallback, heap, templateType, templateValue, templateSize, templateDescription, templateDescriptionSize, serviceEndpoint, error) {
         result := DllCall("webservices.dll\WsCreateServiceEndpointFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "ptr", addressUrl, "ptr", contract, "ptr", authorizationCallback, "ptr*", heap, "int", templateType, "ptr", templateValue, "uint", templateSize, "ptr", templateDescription, "uint", templateDescriptionSize, "ptr", serviceEndpoint, "ptr*", error, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16256,11 +16791,14 @@ class WindowsWebServices {
     /**
      * Determines if the platform authenticator service is available.
      * @param {Pointer<Int32>} pbIsUserVerifyingPlatformAuthenticatorAvailable A pointer to a **BOOL** that is set to **TRUE** if the authenticator service is available, or **FALSE** otherwise.
-     * @returns {Integer} AN **HRESULT** indicating success or failure of the operation.
+     * @returns {HRESULT} AN **HRESULT** indicating success or failure of the operation.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnisuserverifyingplatformauthenticatoravailable
      */
     static WebAuthNIsUserVerifyingPlatformAuthenticatorAvailable(pbIsUserVerifyingPlatformAuthenticatorAvailable) {
         result := DllCall("webauthn.dll\WebAuthNIsUserVerifyingPlatformAuthenticatorAvailable", "int*", pbIsUserVerifyingPlatformAuthenticatorAvailable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16273,11 +16811,14 @@ class WindowsWebServices {
      * @param {Pointer<WEBAUTHN_CLIENT_DATA>} pWebAuthNClientData The client data to be sent to the authenticator for the Relying Party.
      * @param {Pointer<WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS>} pWebAuthNMakeCredentialOptions Provides the options to use when creating the public key credential source.
      * @param {Pointer<WEBAUTHN_CREDENTIAL_ATTESTATION>} ppWebAuthNCredentialAttestation On successful completion of this operation, the authenticator returns the attestation object to the client.
-     * @returns {Integer} Returns an **HRESULT** indicating success or failure.
+     * @returns {HRESULT} Returns an **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatormakecredential
      */
     static WebAuthNAuthenticatorMakeCredential(hWnd, pRpInformation, pUserInformation, pPubKeyCredParams, pWebAuthNClientData, pWebAuthNMakeCredentialOptions, ppWebAuthNCredentialAttestation) {
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorMakeCredential", "ptr", hWnd, "ptr", pRpInformation, "ptr", pUserInformation, "ptr", pPubKeyCredParams, "ptr", pWebAuthNClientData, "ptr", pWebAuthNMakeCredentialOptions, "ptr", ppWebAuthNCredentialAttestation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16293,46 +16834,50 @@ class WindowsWebServices {
      * @param {Pointer<WEBAUTHN_CLIENT_DATA>} pWebAuthNClientData The client data to be sent to the authenticator for the Relying Party.
      * @param {Pointer<WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS>} pWebAuthNGetAssertionOptions The options for the **WebAuthNAuthenticatorGetAssertion** operation.
      * @param {Pointer<WEBAUTHN_ASSERTION>} ppWebAuthNAssertion A pointer to a **WEBAUTHN_ASSERTION** that receives the assertion.
-     * @returns {Integer} Returns an **HRESULT** indicating success or failure.
+     * @returns {HRESULT} Returns an **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatorgetassertion
      */
     static WebAuthNAuthenticatorGetAssertion(hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions, ppWebAuthNAssertion) {
         pwszRpId := pwszRpId is String? StrPtr(pwszRpId) : pwszRpId
 
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr", ppWebAuthNAssertion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Frees a previously allocated credential attestation.
      * @param {Pointer<WEBAUTHN_CREDENTIAL_ATTESTATION>} pWebAuthNCredentialAttestation The credential attestation to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnfreecredentialattestation
      */
     static WebAuthNFreeCredentialAttestation(pWebAuthNCredentialAttestation) {
-        result := DllCall("webauthn.dll\WebAuthNFreeCredentialAttestation", "ptr", pWebAuthNCredentialAttestation)
-        return result
+        DllCall("webauthn.dll\WebAuthNFreeCredentialAttestation", "ptr", pWebAuthNCredentialAttestation)
     }
 
     /**
      * Frees a previously allocated WebAuthN assertion.
      * @param {Pointer<WEBAUTHN_ASSERTION>} pWebAuthNAssertion The **WEBAUTHN_ASSERTION** to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnfreeassertion
      */
     static WebAuthNFreeAssertion(pWebAuthNAssertion) {
-        result := DllCall("webauthn.dll\WebAuthNFreeAssertion", "ptr", pWebAuthNAssertion)
-        return result
+        DllCall("webauthn.dll\WebAuthNFreeAssertion", "ptr", pWebAuthNAssertion)
     }
 
     /**
      * Gets the cancellation ID for a canceled operation.
      * @param {Pointer<Guid>} pCancellationId The **GUID** returned, representing the ID of the cancelled operation.
-     * @returns {Integer} An **HRESULT** indicating success or failure.
+     * @returns {HRESULT} An **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthngetcancellationid
      */
     static WebAuthNGetCancellationId(pCancellationId) {
         result := DllCall("webauthn.dll\WebAuthNGetCancellationId", "ptr", pCancellationId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16341,11 +16886,14 @@ class WindowsWebServices {
      * @remarks
      * This operation is ignored if it is invoked in an authenticator session which does not have an **WebAuthNAuthenticatorMakeCredential** or **WebAuthNAuthenticatorGetAssertion** operation currently in progress.
      * @param {Pointer<Guid>} pCancellationId The **GUID** returned, representing the ID of the cancelled operation.
-     * @returns {Integer} Returns an **HRESULT** indicating success or failure.
+     * @returns {HRESULT} Returns an **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthncancelcurrentoperation
      */
     static WebAuthNCancelCurrentOperation(pCancellationId) {
         result := DllCall("webauthn.dll\WebAuthNCancelCurrentOperation", "ptr", pCancellationId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16353,34 +16901,39 @@ class WindowsWebServices {
      * Gets the list of stored credentials.
      * @param {Pointer<WEBAUTHN_GET_CREDENTIALS_OPTIONS>} pGetCredentialsOptions The options for the operation.
      * @param {Pointer<WEBAUTHN_CREDENTIAL_DETAILS_LIST>} ppCredentialDetailsList The credentials list returned by the operation.
-     * @returns {Integer} An **HRESULT** indicating success or failure.
+     * @returns {HRESULT} An **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthngetplatformcredentiallist
      */
     static WebAuthNGetPlatformCredentialList(pGetCredentialsOptions, ppCredentialDetailsList) {
         result := DllCall("webauthn.dll\WebAuthNGetPlatformCredentialList", "ptr", pGetCredentialsOptions, "ptr", ppCredentialDetailsList, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Frees the allocation for the platform credential list.
      * @param {Pointer<WEBAUTHN_CREDENTIAL_DETAILS_LIST>} pCredentialDetailsList The platform credential list to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnfreeplatformcredentiallist
      */
     static WebAuthNFreePlatformCredentialList(pCredentialDetailsList) {
-        result := DllCall("webauthn.dll\WebAuthNFreePlatformCredentialList", "ptr", pCredentialDetailsList)
-        return result
+        DllCall("webauthn.dll\WebAuthNFreePlatformCredentialList", "ptr", pCredentialDetailsList)
     }
 
     /**
      * Removes a credential source stored on an authenticator.
      * @param {Integer} cbCredentialId The ID of the credential to be removed.
      * @param {Pointer} pbCredentialId A pointer to the credential ID to be removed.
-     * @returns {Integer} Returns an **HRESULT** indicating success or failure.
+     * @returns {HRESULT} Returns an **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthndeleteplatformcredential
      */
     static WebAuthNDeletePlatformCredential(cbCredentialId, pbCredentialId) {
         result := DllCall("webauthn.dll\WebAuthNDeletePlatformCredential", "uint", cbCredentialId, "ptr", pbCredentialId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16397,7 +16950,7 @@ class WindowsWebServices {
      * | **NTE_INVALID_PARAMETER** | NotSupporedError |
      * | **NTE_DEVICE_NOT_FOUND**<br>**NTE_NOT_FOUND**<br>**HRESULT_FROM_WIN32(ERROR_CANCELLED)**<br>**NTE_USER_CANCELLED**<br>**HRESULT_FROM_WIN32(ERROR_TIMEOUT)** | NotAllowedError |
      * | All other **HRESULT** values | UnknownError |
-     * @param {Integer} hr The **HRESULT** to get the error name for.
+     * @param {HRESULT} hr The **HRESULT** to get the error name for.
      * @returns {Pointer<Char>} An error name string.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthngeterrorname
      */
@@ -16408,12 +16961,15 @@ class WindowsWebServices {
 
     /**
      * Gets the W3C DOM error code for the last failed operation.
-     * @param {Integer} hr The **HRESULT** returned by the last failed operation in the session.
-     * @returns {Integer} An **HRESULT** with the failure status.
+     * @param {HRESULT} hr The **HRESULT** returned by the last failed operation in the session.
+     * @returns {HRESULT} An **HRESULT** with the failure status.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthngetw3cexceptiondomerror
      */
     static WebAuthNGetW3CExceptionDOMError(hr) {
         result := DllCall("webauthn.dll\WebAuthNGetW3CExceptionDOMError", "int", hr, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

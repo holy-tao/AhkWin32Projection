@@ -11049,13 +11049,12 @@ class Controls {
      * Under Comctl32.dll version 5.x, only Windows 95 classes (ICC_WIN95_CLASSES) can be registered through <b>InitCommonControls</b>. Programs which require additional common control classes must use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initcommoncontrolsex">InitCommonControlsEx</a> function.
      * 
      * Under Comctl32.dll version 6.0 and later, <b>InitCommonControls</b> does nothing. Applications must explicitly register all common controls through <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initcommoncontrolsex">InitCommonControlsEx</a>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-initcommoncontrols
      * @since windows6.0.6000
      */
     static InitCommonControls() {
-        result := DllCall("COMCTL32.dll\InitCommonControls")
-        return result
+        DllCall("COMCTL32.dll\InitCommonControls")
     }
 
     /**
@@ -11105,7 +11104,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_Create(cx, cy, flags, cInitial, cGrow) {
-        result := DllCall("COMCTL32.dll\ImageList_Create", "int", cx, "int", cy, "uint", flags, "int", cInitial, "int", cGrow)
+        result := DllCall("COMCTL32.dll\ImageList_Create", "int", cx, "int", cy, "uint", flags, "int", cInitial, "int", cGrow, "ptr")
         return result
     }
 
@@ -11130,14 +11129,14 @@ class Controls {
      * @param {Pointer} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of images.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_getimagecount
      * @since windows6.0.6000
      */
     static ImageList_GetImageCount(himl) {
-        result := DllCall("COMCTL32.dll\ImageList_GetImageCount", "ptr", himl)
+        result := DllCall("COMCTL32.dll\ImageList_GetImageCount", "ptr", himl, "int")
         return result
     }
 
@@ -11179,14 +11178,14 @@ class Controls {
      * @param {Pointer<Void>} hbmMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to the bitmap that contains the mask. If no mask is used with the image list, this parameter is ignored. This parameter can be <b>NULL</b>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first new image if successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_add
      * @since windows6.0.6000
      */
     static ImageList_Add(himl, hbmImage, hbmMask) {
-        result := DllCall("COMCTL32.dll\ImageList_Add", "ptr", himl, "ptr", hbmImage, "ptr", hbmMask)
+        result := DllCall("COMCTL32.dll\ImageList_Add", "ptr", himl, "ptr", hbmImage, "ptr", hbmMask, "int")
         return result
     }
 
@@ -11205,14 +11204,14 @@ class Controls {
      * @param {Pointer<Void>} hicon Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a></b>
      * 
      * The handle to the icon or cursor that contains the bitmap and mask for the new image.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image if successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_replaceicon
      * @since windows6.0.6000
      */
     static ImageList_ReplaceIcon(himl, i, hicon) {
-        result := DllCall("COMCTL32.dll\ImageList_ReplaceIcon", "ptr", himl, "int", i, "ptr", hicon)
+        result := DllCall("COMCTL32.dll\ImageList_ReplaceIcon", "ptr", himl, "int", i, "ptr", hicon, "int")
         return result
     }
 
@@ -11348,14 +11347,14 @@ class Controls {
      * @param {Integer} crMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * The color used to generate the mask. Each pixel of this color in the specified bitmap is changed to black, and the corresponding bit in the mask is set to 1. If this parameter is CLR_DEFAULT, then the color of the pixel at (0,0) is used as the mask.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first new image if successful, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_addmasked
      * @since windows6.0.6000
      */
     static ImageList_AddMasked(himl, hbmImage, crMask) {
-        result := DllCall("COMCTL32.dll\ImageList_AddMasked", "ptr", himl, "ptr", hbmImage, "uint", crMask)
+        result := DllCall("COMCTL32.dll\ImageList_AddMasked", "ptr", himl, "ptr", hbmImage, "uint", crMask, "int")
         return result
     }
 
@@ -11556,7 +11555,7 @@ class Controls {
     static ImageList_LoadImageA(hi, lpbmp, cx, cGrow, crMask, uType, uFlags) {
         lpbmp := lpbmp is String? StrPtr(lpbmp) : lpbmp
 
-        result := DllCall("COMCTL32.dll\ImageList_LoadImageA", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags)
+        result := DllCall("COMCTL32.dll\ImageList_LoadImageA", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
         return result
     }
 
@@ -11654,7 +11653,7 @@ class Controls {
     static ImageList_LoadImageW(hi, lpbmp, cx, cGrow, crMask, uType, uFlags) {
         lpbmp := lpbmp is String? StrPtr(lpbmp) : lpbmp
 
-        result := DllCall("COMCTL32.dll\ImageList_LoadImageW", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags)
+        result := DllCall("COMCTL32.dll\ImageList_LoadImageW", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
         return result
     }
 
@@ -11715,13 +11714,12 @@ class Controls {
      * Ends a drag operation. (ImageList_EndDrag)
      * @remarks
      * The temporary image list is destroyed when the <b>ImageList_EndDrag</b> function is called. To begin a drag operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_begindrag">ImageList_BeginDrag</a> function.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_enddrag
      * @since windows6.0.6000
      */
     static ImageList_EndDrag() {
-        result := DllCall("COMCTL32.dll\ImageList_EndDrag")
-        return result
+        DllCall("COMCTL32.dll\ImageList_EndDrag")
     }
 
     /**
@@ -11843,7 +11841,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_GetDragImage(ppt, pptHotspot) {
-        result := DllCall("COMCTL32.dll\ImageList_GetDragImage", "ptr", ppt, "ptr", pptHotspot)
+        result := DllCall("COMCTL32.dll\ImageList_GetDragImage", "ptr", ppt, "ptr", pptHotspot, "ptr")
         return result
     }
 
@@ -11859,7 +11857,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_Read(pstm) {
-        result := DllCall("COMCTL32.dll\ImageList_Read", "ptr", pstm)
+        result := DllCall("COMCTL32.dll\ImageList_Read", "ptr", pstm, "ptr")
         return result
     }
 
@@ -11929,7 +11927,7 @@ class Controls {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * The address of a pointer to the interface for the image list if successful, <b>NULL</b> otherwise.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_readex
@@ -11937,6 +11935,9 @@ class Controls {
      */
     static ImageList_ReadEx(dwFlags, pstm, riid, ppv) {
         result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -11987,7 +11988,7 @@ class Controls {
      * @param {Pointer<IStream>} pstm Type: <b>LPSTREAM</b>
      * 
      * The address of the stream.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_writeex
@@ -11995,6 +11996,9 @@ class Controls {
      */
     static ImageList_WriteEx(himl, dwFlags, pstm) {
         result := DllCall("COMCTL32.dll\ImageList_WriteEx", "ptr", himl, "uint", dwFlags, "ptr", pstm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12095,7 +12099,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_Merge(himl1, i1, himl2, i2, dx, dy) {
-        result := DllCall("COMCTL32.dll\ImageList_Merge", "ptr", himl1, "int", i1, "ptr", himl2, "int", i2, "int", dx, "int", dy)
+        result := DllCall("COMCTL32.dll\ImageList_Merge", "ptr", himl1, "int", i1, "ptr", himl2, "int", i2, "int", dx, "int", dy, "ptr")
         return result
     }
 
@@ -12111,7 +12115,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_Duplicate(himl) {
-        result := DllCall("COMCTL32.dll\ImageList_Duplicate", "ptr", himl)
+        result := DllCall("COMCTL32.dll\ImageList_Duplicate", "ptr", himl, "ptr")
         return result
     }
 
@@ -12126,7 +12130,7 @@ class Controls {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the address of the interface pointer requested in <i>riid</i>. If the object does not support the interface specified in <i>riid</i>, <i>ppv</i> is <b>NULL</b>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-himagelist_queryinterface
@@ -12134,6 +12138,9 @@ class Controls {
      */
     static HIMAGELIST_QueryInterface(himl, riid, ppv) {
         result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12314,15 +12321,14 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawstatustexta
      * @since windows6.0.6000
      */
     static DrawStatusTextA(hDC, lprc, pszText, uFlags) {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
-        result := DllCall("COMCTL32.dll\DrawStatusTextA", "ptr", hDC, "ptr", lprc, "ptr", pszText, "uint", uFlags)
-        return result
+        DllCall("COMCTL32.dll\DrawStatusTextA", "ptr", hDC, "ptr", lprc, "ptr", pszText, "uint", uFlags)
     }
 
     /**
@@ -12385,15 +12391,14 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawstatustextw
      * @since windows6.0.6000
      */
     static DrawStatusTextW(hDC, lprc, pszText, uFlags) {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
-        result := DllCall("COMCTL32.dll\DrawStatusTextW", "ptr", hDC, "ptr", lprc, "ptr", pszText, "uint", uFlags)
-        return result
+        DllCall("COMCTL32.dll\DrawStatusTextW", "ptr", hDC, "ptr", lprc, "ptr", pszText, "uint", uFlags)
     }
 
     /**
@@ -12503,13 +12508,12 @@ class Controls {
      * @param {Pointer<UInt32>} lpwIDs Type: <b>LPUINT</b>
      * 
      * Pointer to an array of values that contains pairs of string resource identifiers and menu handles. The function searches the array for the handle to the selected menu and, if found, uses the corresponding resource identifier to load the appropriate Help string.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-menuhelp
      * @since windows6.0.6000
      */
     static MenuHelp(uMsg, wParam, lParam, hMainMenu, hInst, hwndStatus, lpwIDs) {
-        result := DllCall("COMCTL32.dll\MenuHelp", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", hMainMenu, "ptr", hInst, "ptr", hwndStatus, "uint*", lpwIDs)
-        return result
+        DllCall("COMCTL32.dll\MenuHelp", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", hMainMenu, "ptr", hInst, "ptr", hwndStatus, "uint*", lpwIDs)
     }
 
     /**
@@ -12547,13 +12551,12 @@ class Controls {
      * @param {Pointer<Int32>} lpInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a>*</b>
      * 
      * A pointer to a null-terminated array of integers that identify controls in the client area. Each control requires a pair of consecutive elements. The first element of the pair must be nonzero and the second element of the pair must be the control identifier. The first pair represents the menu and is ignored. The last element must be zero to identify the end of the array.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-geteffectiveclientrect
      * @since windows6.0.6000
      */
     static GetEffectiveClientRect(hWnd, lprc, lpInfo) {
-        result := DllCall("COMCTL32.dll\GetEffectiveClientRect", "ptr", hWnd, "ptr", lprc, "int*", lpInfo)
-        return result
+        DllCall("COMCTL32.dll\GetEffectiveClientRect", "ptr", hWnd, "ptr", lprc, "int*", lpInfo)
     }
 
     /**
@@ -12583,13 +12586,12 @@ class Controls {
      * @param {Integer} nItem Type: <b>int</b>
      * 
      * The identifier of the icon item to be drawn.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawinsert
      * @since windows6.0.6000
      */
     static DrawInsert(handParent, hLB, nItem) {
-        result := DllCall("COMCTL32.dll\DrawInsert", "ptr", handParent, "ptr", hLB, "int", nItem)
-        return result
+        DllCall("COMCTL32.dll\DrawInsert", "ptr", handParent, "ptr", hLB, "int", nItem)
     }
 
     /**
@@ -12608,14 +12610,14 @@ class Controls {
      * @param {Integer} bAutoScroll Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A scroll flag. If this parameter is <b>TRUE</b> and the point is directly above or below the list box, the function scrolls the list box by one line and returns -1. Otherwise, the function does not scroll the list box.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the item identifier if the point is over a list item, or -1 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-lbitemfrompt
      * @since windows6.0.6000
      */
     static LBItemFromPt(hLB, pt, bAutoScroll) {
-        result := DllCall("COMCTL32.dll\LBItemFromPt", "ptr", hLB, "ptr", pt, "int", bAutoScroll)
+        result := DllCall("COMCTL32.dll\LBItemFromPt", "ptr", hLB, "ptr", pt, "int", bAutoScroll, "int")
         return result
     }
 
@@ -12717,7 +12719,7 @@ class Controls {
      * 
      * Address of a variable that receives one of the button IDs specified in the <b>pRadioButtons</b> member of the <i>pTaskConfig</i> parameter. If this parameter is <b>NULL</b>, no value is returned.
      * @param {Pointer<Int32>} pfVerificationFlagChecked Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * This function can return one of these values.
      * 
@@ -12776,6 +12778,9 @@ class Controls {
      */
     static TaskDialogIndirect(pTaskConfig, pnButton, pnRadioButton, pfVerificationFlagChecked) {
         result := DllCall("COMCTL32.dll\TaskDialogIndirect", "ptr", pTaskConfig, "int*", pnButton, "int*", pnRadioButton, "int*", pfVerificationFlagChecked, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -12952,7 +12957,7 @@ class Controls {
      * </tr>
      * </table>
      * @param {Pointer<Int32>} pnButton Type: <b>int*</b>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * This function can return one of these values.
      * 
@@ -13016,6 +13021,9 @@ class Controls {
         pszIcon := pszIcon is String? StrPtr(pszIcon) : pszIcon
 
         result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, "int*", pnButton, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13026,13 +13034,12 @@ class Controls {
      * @param {Integer} uiLang Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LANGID</a></b>
      * 
      * The  <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the language to be used by the common controls.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-initmuilanguage
      * @since windows6.0.6000
      */
     static InitMUILanguage(uiLang) {
-        result := DllCall("COMCTL32.dll\InitMUILanguage", "ushort", uiLang)
-        return result
+        DllCall("COMCTL32.dll\InitMUILanguage", "ushort", uiLang)
     }
 
     /**
@@ -13068,7 +13075,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DSA_Create(cbItem, cItemGrow) {
-        result := DllCall("COMCTL32.dll\DSA_Create", "int", cbItem, "int", cItemGrow)
+        result := DllCall("COMCTL32.dll\DSA_Create", "int", cbItem, "int", cItemGrow, "ptr")
         return result
     }
 
@@ -13099,13 +13106,12 @@ class Controls {
      * @param {Pointer<Void>} pData Type: <b>void*</b>
      * 
      * A callback data pointer. This pointer is, in turn, passed as a parameter to <i>pfnCB</i>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_destroycallback
      * @since windows6.0.6000
      */
     static DSA_DestroyCallback(hdsa, pfnCB, pData) {
-        result := DllCall("COMCTL32.dll\DSA_DestroyCallback", "ptr", hdsa, "ptr", pfnCB, "ptr", pData)
-        return result
+        DllCall("COMCTL32.dll\DSA_DestroyCallback", "ptr", hdsa, "ptr", pfnCB, "ptr", pData)
     }
 
     /**
@@ -13156,13 +13162,12 @@ class Controls {
      * @param {Pointer<Void>} pData Type: <b>void*</b>
      * 
      * A callback data pointer. <i>pData</i> is passed as a parameter to <i>pfnCB</i>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_enumcallback
      * @since windows6.0.6000
      */
     static DSA_EnumCallback(hdsa, pfnCB, pData) {
-        result := DllCall("COMCTL32.dll\DSA_EnumCallback", "ptr", hdsa, "ptr", pfnCB, "ptr", pData)
-        return result
+        DllCall("COMCTL32.dll\DSA_EnumCallback", "ptr", hdsa, "ptr", pfnCB, "ptr", pData)
     }
 
     /**
@@ -13178,14 +13183,14 @@ class Controls {
      * @param {Pointer<Void>} pitem Type: <b>void*</b>
      * 
      * A pointer to the item that is to be inserted.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the new item if the insertion succeeds, or DSA_ERR (<c>-1</c>) if the insertion fails.
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_insertitem
      * @since windows6.0.6000
      */
     static DSA_InsertItem(hdsa, i, pitem) {
-        result := DllCall("COMCTL32.dll\DSA_InsertItem", "ptr", hdsa, "int", i, "ptr", pitem)
+        result := DllCall("COMCTL32.dll\DSA_InsertItem", "ptr", hdsa, "int", i, "ptr", pitem, "int")
         return result
     }
 
@@ -13272,7 +13277,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DSA_Clone(hdsa) {
-        result := DllCall("COMCTL32.dll\DSA_Clone", "ptr", hdsa)
+        result := DllCall("COMCTL32.dll\DSA_Clone", "ptr", hdsa, "ptr")
         return result
     }
 
@@ -13326,7 +13331,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DPA_Create(cItemGrow) {
-        result := DllCall("COMCTL32.dll\DPA_Create", "int", cItemGrow)
+        result := DllCall("COMCTL32.dll\DPA_Create", "int", cItemGrow, "ptr")
         return result
     }
 
@@ -13347,7 +13352,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DPA_CreateEx(cpGrow, hheap) {
-        result := DllCall("COMCTL32.dll\DPA_CreateEx", "int", cpGrow, "ptr", hheap)
+        result := DllCall("COMCTL32.dll\DPA_CreateEx", "int", cpGrow, "ptr", hheap, "ptr")
         return result
     }
 
@@ -13372,7 +13377,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DPA_Clone(hdpa, hdpaNew) {
-        result := DllCall("COMCTL32.dll\DPA_Clone", "ptr", hdpa, "ptr", hdpaNew)
+        result := DllCall("COMCTL32.dll\DPA_Clone", "ptr", hdpa, "ptr", hdpaNew, "ptr")
         return result
     }
 
@@ -13403,13 +13408,12 @@ class Controls {
      * @param {Pointer<Void>} pData Type: <b>void*</b>
      * 
      * A callback data pointer. <i>pData</i> is passed as a parameter to <i>pfnCB</i>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_destroycallback
      * @since windows6.0.6000
      */
     static DPA_DestroyCallback(hdpa, pfnCB, pData) {
-        result := DllCall("COMCTL32.dll\DPA_DestroyCallback", "ptr", hdpa, "ptr", pfnCB, "ptr", pData)
-        return result
+        DllCall("COMCTL32.dll\DPA_DestroyCallback", "ptr", hdpa, "ptr", pfnCB, "ptr", pData)
     }
 
     /**
@@ -13456,13 +13460,12 @@ class Controls {
      * @param {Pointer<Void>} pData Type: <b>void*</b>
      * 
      * A callback data pointer. <i>pData</i> is passed as a parameter to <i>pfnCB</i>.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_enumcallback
      * @since windows6.0.6000
      */
     static DPA_EnumCallback(hdpa, pfnCB, pData) {
-        result := DllCall("COMCTL32.dll\DPA_EnumCallback", "ptr", hdpa, "ptr", pfnCB, "ptr", pData)
-        return result
+        DllCall("COMCTL32.dll\DPA_EnumCallback", "ptr", hdpa, "ptr", pfnCB, "ptr", pData)
     }
 
     /**
@@ -13497,14 +13500,14 @@ class Controls {
      * @param {Pointer<Void>} p Type: <b>void*</b>
      * 
      * A pointer to the item that is to be inserted.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the new item or <c>-1</c>, if the insertion fails.
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_insertptr
      * @since windows6.0.6000
      */
     static DPA_InsertPtr(hdpa, i, p) {
-        result := DllCall("COMCTL32.dll\DPA_InsertPtr", "ptr", hdpa, "int", i, "ptr", p)
+        result := DllCall("COMCTL32.dll\DPA_InsertPtr", "ptr", hdpa, "int", i, "ptr", p, "int")
         return result
     }
 
@@ -13560,14 +13563,14 @@ class Controls {
      * @param {Pointer<Void>} p Type: <b>const void*</b>
      * 
      * A pointer to an item to locate in <i>hdpa</i>.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The index of the item pointed to by <i>pvoid</i>, if found; otherwise, -1.
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_getptrindex
      * @since windows6.0.6000
      */
     static DPA_GetPtrIndex(hdpa, p) {
-        result := DllCall("COMCTL32.dll\DPA_GetPtrIndex", "ptr", hdpa, "ptr", p)
+        result := DllCall("COMCTL32.dll\DPA_GetPtrIndex", "ptr", hdpa, "ptr", p, "int")
         return result
     }
 
@@ -13627,7 +13630,7 @@ class Controls {
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
      * 
      * A pointer to callback data. <i>pvInstData</i> is passed as a parameter to <i>pfn</i>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -13697,6 +13700,9 @@ class Controls {
      */
     static DPA_LoadStream(phdpa, pfn, pstream, pvInstData) {
         result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr*", phdpa, "ptr", pfn, "ptr", pstream, "ptr", pvInstData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13718,7 +13724,7 @@ class Controls {
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
      * 
      * A pointer to callback data. <i>pvInstData</i> is passed as a parameter to <i>pfn</i>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -13766,6 +13772,9 @@ class Controls {
      */
     static DPA_SaveStream(hdpa, pfn, pstream, pvInstData) {
         result := DllCall("COMCTL32.dll\DPA_SaveStream", "ptr", hdpa, "ptr", pfn, "ptr", pstream, "ptr", pvInstData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13922,14 +13931,14 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index where the item was found in the DPA or <c>-1</c> if the item was not found.
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_search
      * @since windows6.0.6000
      */
     static DPA_Search(hdpa, pFind, iStart, pfnCompare, lParam, options) {
-        result := DllCall("COMCTL32.dll\DPA_Search", "ptr", hdpa, "ptr", pFind, "int", iStart, "ptr", pfnCompare, "ptr", lParam, "uint", options)
+        result := DllCall("COMCTL32.dll\DPA_Search", "ptr", hdpa, "ptr", pFind, "int", iStart, "ptr", pfnCompare, "ptr", lParam, "uint", options, "int")
         return result
     }
 
@@ -14040,14 +14049,14 @@ class Controls {
      * <div> </div>
      * @param {Pointer<Void>} param0 
      * @param {Integer} code Type: <b>int</b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the current thumb position of the specified flat scroll bar.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollpos
      * @since windows6.0.6000
      */
     static FlatSB_GetScrollPos(param0, code) {
-        result := DllCall("COMCTL32.dll\FlatSB_GetScrollPos", "ptr", param0, "int", code)
+        result := DllCall("COMCTL32.dll\FlatSB_GetScrollPos", "ptr", param0, "int", code, "int")
         return result
     }
 
@@ -14086,14 +14095,14 @@ class Controls {
      * @param {Integer} fRedraw Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar should be redrawn immediately to reflect the change. If this parameter is <b>TRUE</b>, the scroll bar is redrawn; if it is <b>FALSE</b>, the scroll bar is not redrawn.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the previous position of the thumb in the specified flat scroll bar.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollpos
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollPos(param0, code, pos, fRedraw) {
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollPos", "ptr", param0, "int", code, "int", pos, "int", fRedraw)
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollPos", "ptr", param0, "int", code, "int", pos, "int", fRedraw, "int")
         return result
     }
 
@@ -14110,14 +14119,14 @@ class Controls {
      * @param {Integer} fRedraw Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar should be redrawn immediately to reflect the change. If this parameter is <b>TRUE</b>, the scroll bar is redrawn; if it is <b>FALSE</b>, the scroll bar is not redrawn.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the current scroll position. If the call to <b>FlatSB_SetScrollInfo</b> changes the scroll position, then the previous position is returned.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollinfo
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollInfo(param0, code, psi, fRedraw) {
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollInfo", "ptr", param0, "int", code, "ptr", psi, "int", fRedraw)
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollInfo", "ptr", param0, "int", code, "ptr", psi, "int", fRedraw, "int")
         return result
     }
 
@@ -14137,14 +14146,14 @@ class Controls {
      * @param {Integer} fRedraw Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar should be redrawn immediately to reflect the change. If this parameter is <b>TRUE</b>, the scroll bar is redrawn; if it is <b>FALSE</b>, the scroll bar is not redrawn.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollrange
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollRange(param0, code, min, max, fRedraw) {
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollRange", "ptr", param0, "int", code, "int", min, "int", max, "int", fRedraw)
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollRange", "ptr", param0, "int", code, "int", min, "int", max, "int", fRedraw, "int")
         return result
     }
 
@@ -14198,7 +14207,7 @@ class Controls {
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
      * @param {Pointer<Void>} param0 
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values. 
      * 
@@ -14246,6 +14255,9 @@ class Controls {
      */
     static UninitializeFlatSB(param0) {
         result := DllCall("COMCTL32.dll\UninitializeFlatSB", "ptr", param0, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14317,7 +14329,7 @@ class Controls {
      * @param {Pointer<Void>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, otherwise an error, including the following value.
      * 
@@ -14345,6 +14357,9 @@ class Controls {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("COMCTL32.dll\LoadIconMetric", "ptr", hinst, "ptr", pszName, "int", lims, "ptr", phico, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14488,7 +14503,7 @@ class Controls {
      * @param {Pointer<Void>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -14516,6 +14531,9 @@ class Controls {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", "ptr", hinst, "ptr", pszName, "int", cx, "int", cy, "ptr", phico, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14550,7 +14568,7 @@ class Controls {
      * @param {Integer} iyOffset Type: <b>int</b>
      * 
      * A value of type <b>int</b> that specifies the y-coordinate of where the text should begin.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the height of the text in logical units if the function succeeds, otherwise returns zero.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawshadowtext
@@ -14559,7 +14577,7 @@ class Controls {
     static DrawShadowText(hdc, pszText, cch, prc, dwFlags, crText, crShadow, ixOffset, iyOffset) {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
-        result := DllCall("COMCTL32.dll\DrawShadowText", "ptr", hdc, "ptr", pszText, "uint", cch, "ptr", prc, "uint", dwFlags, "uint", crText, "uint", crShadow, "int", ixOffset, "int", iyOffset)
+        result := DllCall("COMCTL32.dll\DrawShadowText", "ptr", hdc, "ptr", pszText, "uint", cch, "ptr", prc, "uint", dwFlags, "uint", crText, "uint", crShadow, "int", ixOffset, "int", iyOffset, "int")
         return result
     }
 
@@ -14581,7 +14599,7 @@ class Controls {
      * @param {Pointer<Void>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist2">IImageList2</a>, which provides the <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize">Initialize</a> method.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-imagelist_cocreateinstance
@@ -14589,6 +14607,9 @@ class Controls {
      */
     static ImageList_CoCreateInstance(rclsid, punkOuter, riid, ppv) {
         result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, "ptr", ppv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14668,12 +14689,15 @@ class Controls {
      * @param {Integer} cbSize The byte size of a buffer that is pointed by <i>pvProperty</i>.
      * @param {Pointer<UInt32>} pcbSizeOut The                                    byte  size of the returned 
      * property.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeanimationproperty
      * @since windows8.0
      */
     static GetThemeAnimationProperty(hTheme, iStoryboardId, iTargetId, eProperty, pvProperty, cbSize, pcbSizeOut) {
         result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "int", eProperty, "ptr", pvProperty, "uint", cbSize, "uint*", pcbSizeOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14686,12 +14710,15 @@ class Controls {
      * @param {Pointer} pTransform A pointer to a buffer to receive a transform structure.
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTransform</i>.
      * @param {Pointer<UInt32>} pcbSizeOut The                                    byte  size of a transform operation structure.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeanimationtransform
      * @since windows8.0
      */
     static GetThemeAnimationTransform(hTheme, iStoryboardId, iTargetId, dwTransformIndex, pTransform, cbSize, pcbSizeOut) {
         result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "uint", dwTransformIndex, "ptr", pTransform, "uint", cbSize, "uint*", pcbSizeOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14703,12 +14730,15 @@ class Controls {
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTimingFunction</i>.
      * @param {Pointer<UInt32>} pcbSizeOut The byte size of
      * the timing function structure.
-     * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetimingfunction
      * @since windows8.0
      */
     static GetThemeTimingFunction(hTheme, iTimingFunctionId, pTimingFunction, cbSize, pcbSizeOut) {
         result := DllCall("UXTHEME.dll\GetThemeTimingFunction", "ptr", hTheme, "int", iTimingFunctionId, "ptr", pTimingFunction, "uint", cbSize, "uint*", pcbSizeOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14771,7 +14801,7 @@ class Controls {
      * @param {Pointer} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an <b>HTHEME</b>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-closethemedata
@@ -14779,6 +14809,9 @@ class Controls {
      */
     static CloseThemeData(hTheme) {
         result := DllCall("UXTHEME.dll\CloseThemeData", "ptr", hTheme, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14804,7 +14837,7 @@ class Controls {
      * @param {Pointer<RECT>} pClipRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains a clipping rectangle. This parameter may be set to <b>NULL</b>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemebackground
@@ -14812,6 +14845,9 @@ class Controls {
      */
     static DrawThemeBackground(hTheme, hdc, iPartId, iStateId, pRect, pClipRect) {
         result := DllCall("UXTHEME.dll\DrawThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pClipRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14837,7 +14873,7 @@ class Controls {
      * @param {Pointer<DTBGOPTS>} pOptions Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dtbgopts">DTBGOPTS</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dtbgopts">DTBGOPTS</a> structure that contains clipping information. This parameter may be set to <b>NULL</b>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemebackgroundex
@@ -14845,6 +14881,9 @@ class Controls {
      */
     static DrawThemeBackgroundEx(hTheme, hdc, iPartId, iStateId, pRect, pOptions) {
         result := DllCall("UXTHEME.dll\DrawThemeBackgroundEx", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pOptions, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14882,7 +14921,7 @@ class Controls {
      * @param {Pointer<RECT>} pRect Type: <b>LPCRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle, in logical coordinates, in which the text is to be drawn.  It is recommended to use <b>pExtentRect</b> from <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemetextextent">GetThemeTextExtent</a> to retrieve the correct coordinates.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemetext
@@ -14892,6 +14931,9 @@ class Controls {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
         result := DllCall("UxTheme.dll\DrawThemeText", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchText, "uint", dwTextFlags, "uint", dwTextFlags2, "ptr", pRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14917,7 +14959,7 @@ class Controls {
      * @param {Pointer<RECT>} pContentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the content area background rectangle, in logical coordinates.  This rectangle is calculated to fit the content area.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundcontentrect
@@ -14925,6 +14967,9 @@ class Controls {
      */
     static GetThemeBackgroundContentRect(hTheme, hdc, iPartId, iStateId, pBoundingRect, pContentRect) {
         result := DllCall("UXTHEME.dll\GetThemeBackgroundContentRect", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pBoundingRect, "ptr", pContentRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14950,7 +14995,7 @@ class Controls {
      * @param {Pointer<RECT>} pExtentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the background rectangle, in logical coordinates. This rectangle is based on the <i>pContentRect</i>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundextent
@@ -14958,6 +15003,9 @@ class Controls {
      */
     static GetThemeBackgroundExtent(hTheme, hdc, iPartId, iStateId, pContentRect, pExtentRect) {
         result := DllCall("UXTHEME.dll\GetThemeBackgroundExtent", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pContentRect, "ptr", pExtentRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -14983,7 +15031,7 @@ class Controls {
      * @param {Pointer<Void>} pRegion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a>*</b>
      * 
      * Pointer to the handle to the computed <a href="https://docs.microsoft.com/windows/desktop/gdi/regions">region</a>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundregion
@@ -14991,6 +15039,9 @@ class Controls {
      */
     static GetThemeBackgroundRegion(hTheme, hdc, iPartId, iStateId, pRect, pRegion) {
         result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pRegion, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15015,7 +15066,7 @@ class Controls {
      * @param {Pointer<SIZE>} psz Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the specified part.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemepartsize
@@ -15023,6 +15074,9 @@ class Controls {
      */
     static GetThemePartSize(hTheme, hdc, iPartId, iStateId, prc, eSize, psz) {
         result := DllCall("UXTHEME.dll\GetThemePartSize", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", prc, "int", eSize, "ptr", psz, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15055,7 +15109,7 @@ class Controls {
      * @param {Pointer<RECT>} pExtentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains, in logical coordinates, the rectangle required to fit the rendered text.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetextextent
@@ -15065,6 +15119,9 @@ class Controls {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
         result := DllCall("UxTheme.dll\GetThemeTextExtent", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchCharCount, "uint", dwTextFlags, "ptr", pBoundingRect, "ptr", pExtentRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15085,7 +15142,7 @@ class Controls {
      * @param {Pointer<TEXTMETRICW>} ptm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a>*</b>
      * 
      * Receives the font information.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetextmetrics
@@ -15093,6 +15150,9 @@ class Controls {
      */
     static GetThemeTextMetrics(hTheme, hdc, iPartId, iStateId, ptm) {
         result := DllCall("UxTheme.dll\GetThemeTextMetrics", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", ptm, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15128,7 +15188,7 @@ class Controls {
      * @param {Pointer<UInt16>} pwHitTestCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a>*</b>
      * 
      * <b>WORD</b> that receives the hit test code that indicates whether the point in <i>ptTest</i> is in the background area bounded by <i>pRect</i> or <i>hrgn</i>. See <a href="https://docs.microsoft.com/windows/desktop/Controls/theme-hit-test-retval">Hit Test Return Values</a> for a list of values returned.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-hittestthemebackground
@@ -15136,6 +15196,9 @@ class Controls {
      */
     static HitTestThemeBackground(hTheme, hdc, iPartId, iStateId, dwOptions, pRect, hrgn, ptTest, pwHitTestCode) {
         result := DllCall("UxTheme.dll\HitTestThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "uint", dwOptions, "ptr", pRect, "ptr", hrgn, "ptr", ptTest, "ushort*", pwHitTestCode, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15258,7 +15321,7 @@ class Controls {
      * @param {Pointer<RECT>} pContentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains, in logical coordinates, the rectangle that receives the interior rectangle, if <i>uFlags</i> is set to BF_ADJUST. This parameter may be set to <b>NULL</b>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeedge
@@ -15266,6 +15329,9 @@ class Controls {
      */
     static DrawThemeEdge(hTheme, hdc, iPartId, iStateId, pDestRect, uEdge, uFlags, pContentRect) {
         result := DllCall("UxTheme.dll\DrawThemeEdge", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pDestRect, "uint", uEdge, "uint", uFlags, "ptr", pContentRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15292,7 +15358,7 @@ class Controls {
      * @param {Integer} iImageIndex Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the index of the image to draw.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeicon
@@ -15300,6 +15366,9 @@ class Controls {
      */
     static DrawThemeIcon(hTheme, hdc, iPartId, iStateId, pRect, himl, iImageIndex) {
         result := DllCall("UxTheme.dll\DrawThemeIcon", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", himl, "int", iImageIndex, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15422,7 +15491,7 @@ class Controls {
      * @param {Pointer<UInt32>} pColor Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that receives the color value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemecolor
@@ -15430,6 +15499,9 @@ class Controls {
      */
     static GetThemeColor(hTheme, iPartId, iStateId, iPropId, pColor) {
         result := DllCall("UXTHEME.dll\GetThemeColor", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint*", pColor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15451,7 +15523,7 @@ class Controls {
      * @param {Pointer<Int32>} piVal Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the metric property value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthememetric
@@ -15459,6 +15531,9 @@ class Controls {
      */
     static GetThemeMetric(hTheme, hdc, iPartId, iStateId, iPropId, piVal) {
         result := DllCall("UXTHEME.dll\GetThemeMetric", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "int*", piVal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15482,7 +15557,7 @@ class Controls {
      * @param {Integer} cchMaxBuffChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the maximum number of characters <i>pszBuff</i> can contain.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemestring
@@ -15492,6 +15567,9 @@ class Controls {
         pszBuff := pszBuff is String? StrPtr(pszBuff) : pszBuff
 
         result := DllCall("UxTheme.dll\GetThemeString", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pszBuff, "int", cchMaxBuffChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15510,7 +15588,7 @@ class Controls {
      * @param {Pointer<Int32>} pfVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * Pointer to a <b>BOOL</b> that receives the retrieved property value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebool
@@ -15518,6 +15596,9 @@ class Controls {
      */
     static GetThemeBool(hTheme, iPartId, iStateId, iPropId, pfVal) {
         result := DllCall("UxTheme.dll\GetThemeBool", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", pfVal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15538,7 +15619,7 @@ class Controls {
      * @param {Pointer<Int32>} piVal Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the retrieved value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeint
@@ -15546,6 +15627,9 @@ class Controls {
      */
     static GetThemeInt(hTheme, iPartId, iStateId, iPropId, piVal) {
         result := DllCall("UXTHEME.dll\GetThemeInt", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", piVal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15566,7 +15650,7 @@ class Controls {
      * @param {Pointer<Int32>} piVal Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the enumerated type value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeenumvalue
@@ -15574,6 +15658,9 @@ class Controls {
      */
     static GetThemeEnumValue(hTheme, iPartId, iStateId, iPropId, piVal) {
         result := DllCall("UXTHEME.dll\GetThemeEnumValue", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", piVal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15596,7 +15683,7 @@ class Controls {
      * @param {Pointer<POINT>} pPoint Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the position value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeposition
@@ -15604,6 +15691,9 @@ class Controls {
      */
     static GetThemePosition(hTheme, iPartId, iStateId, iPropId, pPoint) {
         result := DllCall("UXTHEME.dll\GetThemePosition", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pPoint, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15631,7 +15721,7 @@ class Controls {
      * @param {Pointer<LOGFONTW>} pFont Type: <b>LOGFONTW*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that receives the font property value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemefont
@@ -15639,6 +15729,9 @@ class Controls {
      */
     static GetThemeFont(hTheme, hdc, iPartId, iStateId, iPropId, pFont) {
         result := DllCall("UXTHEME.dll\GetThemeFont", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pFont, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15659,7 +15752,7 @@ class Controls {
      * @param {Pointer<RECT>} pRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives a  rectangle.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemerect
@@ -15667,6 +15760,9 @@ class Controls {
      */
     static GetThemeRect(hTheme, iPartId, iStateId, iPropId, pRect) {
         result := DllCall("UXTHEME.dll\GetThemeRect", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pRect, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15693,7 +15789,7 @@ class Controls {
      * @param {Pointer<MARGINS>} pMargins Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a> structure that receives the retrieved value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthememargins
@@ -15701,6 +15797,9 @@ class Controls {
      */
     static GetThemeMargins(hTheme, hdc, iPartId, iStateId, iPropId, prc, pMargins) {
         result := DllCall("UXTHEME.dll\GetThemeMargins", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", prc, "ptr", pMargins, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15721,7 +15820,7 @@ class Controls {
      * @param {Pointer<INTLIST>} pIntList Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-intlist">INTLIST</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-intlist">INTLIST</a> structure that receives the <b>int</b> data.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, otherwise an error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeintlist
@@ -15729,6 +15828,9 @@ class Controls {
      */
     static GetThemeIntList(hTheme, iPartId, iStateId, iPropId, pIntList) {
         result := DllCall("UxTheme.dll\GetThemeIntList", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pIntList, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15747,7 +15849,7 @@ class Controls {
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. You may use any of the property values from Vssym32.h. These values are described in the reference pages for the functions that use them. For instance, the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeint">GetThemeInt</a> function uses the TMT_BORDERSIZE value. See the <a href="https://docs.microsoft.com/windows/desktop/Controls/uxctl-ref">Visual Styles Reference</a> for a list of functions.
      * @param {Pointer<Int32>} pOrigin 
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemepropertyorigin
@@ -15755,6 +15857,9 @@ class Controls {
      */
     static GetThemePropertyOrigin(hTheme, iPartId, iStateId, iPropId, pOrigin) {
         result := DllCall("UxTheme.dll\GetThemePropertyOrigin", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", pOrigin, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15774,7 +15879,7 @@ class Controls {
      * @param {Pointer<Char>} pszSubIdList Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * Pointer to a string that contains a semicolon-separated list of CLSID names to use in place of the actual list passed by the window's class. If this parameter is <b>NULL</b>, the ID list from the calling class is used.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-setwindowtheme
@@ -15785,6 +15890,9 @@ class Controls {
         pszSubIdList := pszSubIdList is String? StrPtr(pszSubIdList) : pszSubIdList
 
         result := DllCall("UXTHEME.dll\SetWindowTheme", "ptr", hwnd, "ptr", pszSubAppName, "ptr", pszSubIdList, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -15808,7 +15916,7 @@ class Controls {
      * @param {Integer} cchMaxBuffChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that receives the maximum number of characters in the file name
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemefilename
@@ -15818,6 +15926,9 @@ class Controls {
         pszThemeFileName := pszThemeFileName is String? StrPtr(pszThemeFileName) : pszThemeFileName
 
         result := DllCall("UxTheme.dll\GetThemeFilename", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pszThemeFileName, "int", cchMaxBuffChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16019,14 +16130,14 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the size in pixels.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesyssize
      * @since windows6.0.6000
      */
     static GetThemeSysSize(hTheme, iSizeId) {
-        result := DllCall("UxTheme.dll\GetThemeSysSize", "ptr", hTheme, "int", iSizeId)
+        result := DllCall("UxTheme.dll\GetThemeSysSize", "ptr", hTheme, "int", iSizeId, "int")
         return result
     }
 
@@ -16045,7 +16156,7 @@ class Controls {
      * @param {Pointer<LOGFONTW>} plf Type: <b>LOGFONTW*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that receives the font information from this function.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysfont
@@ -16053,6 +16164,9 @@ class Controls {
      */
     static GetThemeSysFont(hTheme, iFontId, plf) {
         result := DllCall("UxTheme.dll\GetThemeSysFont", "ptr", hTheme, "int", iFontId, "ptr", plf, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16070,7 +16184,7 @@ class Controls {
      * @param {Integer} cchMaxStringChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the maximum number of characters the string buffer can hold.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysstring
@@ -16080,6 +16194,9 @@ class Controls {
         pszStringBuff := pszStringBuff is String? StrPtr(pszStringBuff) : pszStringBuff
 
         result := DllCall("UxTheme.dll\GetThemeSysString", "ptr", hTheme, "int", iStringId, "ptr", pszStringBuff, "int", cchMaxStringChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16111,7 +16228,7 @@ class Controls {
      * @param {Pointer<Int32>} piValue Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the system integer value.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysint
@@ -16119,6 +16236,9 @@ class Controls {
      */
     static GetThemeSysInt(hTheme, iIntId, piValue) {
         result := DllCall("UxTheme.dll\GetThemeSysInt", "ptr", hTheme, "int", iIntId, "int*", piValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16327,7 +16447,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-enablethemedialogtexture
@@ -16335,6 +16455,9 @@ class Controls {
      */
     static EnableThemeDialogTexture(hwnd, dwFlags) {
         result := DllCall("UxTheme.dll\EnableThemeDialogTexture", "ptr", hwnd, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16487,13 +16610,12 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-setthemeappproperties
      * @since windows6.0.6000
      */
     static SetThemeAppProperties(dwFlags) {
-        result := DllCall("UxTheme.dll\SetThemeAppProperties", "uint", dwFlags)
-        return result
+        DllCall("UxTheme.dll\SetThemeAppProperties", "uint", dwFlags)
     }
 
     /**
@@ -16516,7 +16638,7 @@ class Controls {
      * @param {Integer} cchMaxSizeChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that contains the maximum number of characters allowed in the size name.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, otherwise an error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getcurrentthemename
@@ -16528,6 +16650,9 @@ class Controls {
         pszSizeBuff := pszSizeBuff is String? StrPtr(pszSizeBuff) : pszSizeBuff
 
         result := DllCall("UXTHEME.dll\GetCurrentThemeName", "ptr", pszThemeFileName, "int", cchMaxNameChars, "ptr", pszColorBuff, "int", cchMaxColorChars, "ptr", pszSizeBuff, "int", cchMaxSizeChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16545,7 +16670,7 @@ class Controls {
      * @param {Integer} cchMaxValChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the maximum number of characters that <i>pszValueBuff</i> can contain.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemedocumentationproperty
@@ -16557,6 +16682,9 @@ class Controls {
         pszValueBuff := pszValueBuff is String? StrPtr(pszValueBuff) : pszValueBuff
 
         result := DllCall("UxTheme.dll\GetThemeDocumentationProperty", "ptr", pszThemeName, "ptr", pszPropertyName, "ptr", pszValueBuff, "int", cchMaxValChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16571,7 +16699,7 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The area to be drawn. The rectangle is in the child window's coordinates. If this parameter is NULL, the area to be drawn includes the entire area occupied by the child control.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeparentbackground
@@ -16579,13 +16707,16 @@ class Controls {
      */
     static DrawThemeParentBackground(hwnd, hdc, prc) {
         result := DllCall("UXTHEME.dll\DrawThemeParentBackground", "ptr", hwnd, "ptr", hdc, "ptr", prc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Windows Vista through Windows 7:\_Enables or disables visual styles for the current user in the current and later sessions.Windows 8 and later:\_This function does nothing. Visual styles are always enabled in Windows 8 and later.
      * @param {Integer} fEnable Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-enabletheming
@@ -16593,6 +16724,9 @@ class Controls {
      */
     static EnableTheming(fEnable) {
         result := DllCall("UxTheme.dll\EnableTheming", "int", fEnable, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16608,7 +16742,7 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Optional. The area to be drawn, in child coordinates. If this parameter is NULL, the area to be drawn includes the entire area occupied by the child control.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * S_OK if successful; otherwise, S_FALSE.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeparentbackgroundex
@@ -16616,6 +16750,9 @@ class Controls {
      */
     static DrawThemeParentBackgroundEx(hwnd, hdc, dwFlags, prc) {
         result := DllCall("UxTheme.dll\DrawThemeParentBackgroundEx", "ptr", hwnd, "ptr", hdc, "uint", dwFlags, "ptr", prc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16631,7 +16768,7 @@ class Controls {
      * @param {Integer} cbAttribute Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the size, in bytes, of the data pointed to by <i>pvAttribute</i>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-setwindowthemeattribute
@@ -16639,6 +16776,9 @@ class Controls {
      */
     static SetWindowThemeAttribute(hwnd, eAttribute, pvAttribute, cbAttribute) {
         result := DllCall("UXTHEME.dll\SetWindowThemeAttribute", "ptr", hwnd, "int", eAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16673,7 +16813,7 @@ class Controls {
      * @param {Pointer<DTTOPTS>} pOptions Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dttopts">DTTOPTS</a>*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dttopts">DTTOPTS</a> structure that defines additional formatting options that will be applied to the text being drawn.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemetextex
@@ -16683,6 +16823,9 @@ class Controls {
         pszText := pszText is String? StrPtr(pszText) : pszText
 
         result := DllCall("UXTHEME.dll\DrawThemeTextEx", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchText, "uint", dwTextFlags, "ptr", pRect, "ptr", pOptions, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16706,7 +16849,7 @@ class Controls {
      * @param {Pointer<Void>} phBitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a>*</b>
      * 
      * A pointer that receives a handle to the requested bitmap.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebitmap
@@ -16714,6 +16857,9 @@ class Controls {
      */
     static GetThemeBitmap(hTheme, iPartId, iStateId, iPropId, dwFlags, phBitmap) {
         result := DllCall("UXTHEME.dll\GetThemeBitmap", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint", dwFlags, "ptr", phBitmap, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16745,7 +16891,7 @@ class Controls {
      * @param {Pointer<Void>} hInst Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * If <i>iPropId</i> is TMT_STREAM, this value is <b>NULL</b>. If <i>iPropId</i> is TMT_DISKSTREAM, this value is the HINSTANCE of a loaded styles file.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemestream
@@ -16753,6 +16899,9 @@ class Controls {
      */
     static GetThemeStream(hTheme, iPartId, iStateId, iPropId, ppvStream, pcbStream, hInst) {
         result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", ppvStream, "uint*", pcbStream, "ptr", hInst, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16766,7 +16915,7 @@ class Controls {
      * 
      * 
      * This function only needs to be called once in the lifetime of a thread. Typically, this function is called before creating the main application window, or during <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-create">WM_CREATE</a>. Call <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintuninit">BufferedPaintUnInit</a> after destroying the window, or during <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncdestroy">WM_NCDESTROY</a>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintinit
@@ -16774,12 +16923,15 @@ class Controls {
      */
     static BufferedPaintInit() {
         result := DllCall("UXTHEME.dll\BufferedPaintInit", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Closes down buffered painting for the current thread. Called once for each call to BufferedPaintInit after calls to BeginBufferedPaint are no longer needed.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintuninit
@@ -16787,6 +16939,9 @@ class Controls {
      */
     static BufferedPaintUnInit() {
         result := DllCall("UXTHEME.dll\BufferedPaintUnInit", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16835,7 +16990,7 @@ class Controls {
      * @param {Integer} fUpdateTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> to copy the buffer to the target DC.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-endbufferedpaint
@@ -16843,6 +16998,9 @@ class Controls {
      */
     static EndBufferedPaint(hBufferedPaint, fUpdateTarget) {
         result := DllCall("UXTHEME.dll\EndBufferedPaint", "ptr", hBufferedPaint, "int", fUpdateTarget, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16856,7 +17014,7 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * When this function returns, contains the requested rectangle.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpainttargetrect
@@ -16864,6 +17022,9 @@ class Controls {
      */
     static GetBufferedPaintTargetRect(hBufferedPaint, prc) {
         result := DllCall("UxTheme.dll\GetBufferedPaintTargetRect", "ptr", hBufferedPaint, "ptr", prc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16914,7 +17075,7 @@ class Controls {
      * @param {Pointer<Int32>} pcxRow Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the width, in pixels, of the buffer bitmap. This value is not necessarily equal to the buffer width. It may be larger.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, or an error value otherwise. If an error occurs, <i>ppbBuffer</i>  is set to <b>NULL</b> and <i>pcxRow</i> is set to zero.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintbits
@@ -16922,6 +17083,9 @@ class Controls {
      */
     static GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
         result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, "ptr", ppbBuffer, "int*", pcxRow, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16935,7 +17099,7 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the rectangle to clear. Set this parameter to <b>NULL</b> to specify the entire buffer.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintclear
@@ -16943,6 +17107,9 @@ class Controls {
      */
     static BufferedPaintClear(hBufferedPaint, prc) {
         result := DllCall("UXTHEME.dll\BufferedPaintClear", "ptr", hBufferedPaint, "ptr", prc, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16959,7 +17126,7 @@ class Controls {
      * @param {Integer} alpha Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * The alpha value to set. The alpha value can range from zero (fully transparent) to 255 (fully opaque).
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintsetalpha
@@ -16967,6 +17134,9 @@ class Controls {
      */
     static BufferedPaintSetAlpha(hBufferedPaint, prc, alpha) {
         result := DllCall("UxTheme.dll\BufferedPaintSetAlpha", "ptr", hBufferedPaint, "ptr", prc, "char", alpha, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -16975,7 +17145,7 @@ class Controls {
      * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window in which to stop all animations.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintstopallanimations
@@ -16983,6 +17153,9 @@ class Controls {
      */
     static BufferedPaintStopAllAnimations(hwnd) {
         result := DllCall("UXTHEME.dll\BufferedPaintStopAllAnimations", "ptr", hwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17038,7 +17211,7 @@ class Controls {
      * @param {Integer} fUpdateTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>TRUE</b>, updates the target DC with the animation.  If <b>FALSE</b>, the animation is not started, the target DC is not updated, and the <i>hbpAnimation</i> parameter is freed.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-endbufferedanimation
@@ -17046,6 +17219,9 @@ class Controls {
      */
     static EndBufferedAnimation(hbpAnimation, fUpdateTarget) {
         result := DllCall("UxTheme.dll\EndBufferedAnimation", "ptr", hbpAnimation, "int", fUpdateTarget, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17154,7 +17330,7 @@ class Controls {
      * @param {Pointer<UInt32>} pdwDuration Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a variable that receives the transition duration, in milliseconds.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetransitionduration
@@ -17162,6 +17338,9 @@ class Controls {
      */
     static GetThemeTransitionDuration(hTheme, iPartId, iStateIdFrom, iStateIdTo, iPropId, pdwDuration) {
         result := DllCall("UxTheme.dll\GetThemeTransitionDuration", "ptr", hTheme, "int", iPartId, "int", iStateIdFrom, "int", iStateIdTo, "int", iPropId, "uint*", pdwDuration, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -17241,7 +17420,7 @@ class Controls {
      * @param {Integer} nIDButton Type: <b>int</b>
      * 
      * The identifier of the button control.
-     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The return value from a button created with the <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTOCHECKBOX</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTORADIOBUTTON</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTO3STATE</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_CHECKBOX</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_RADIOBUTTON</a>, or <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_3STATE</a> styles can be one of the values in the following table. If the button has any other style, the return value is zero. 
      * 				
@@ -17289,7 +17468,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static IsDlgButtonChecked(hDlg, nIDButton) {
-        result := DllCall("USER32.dll\IsDlgButtonChecked", "ptr", hDlg, "int", nIDButton)
+        result := DllCall("USER32.dll\IsDlgButtonChecked", "ptr", hDlg, "int", nIDButton, "uint")
         return result
     }
 
@@ -17345,13 +17524,12 @@ class Controls {
     /**
      * Destroys the specified pointer injection device.
      * @param {Pointer<Void>} device A handle to the pointer injection device.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroysyntheticpointerdevice
      * @since windows10.0.17763
      */
     static DestroySyntheticPointerDevice(device) {
-        result := DllCall("USER32.dll\DestroySyntheticPointerDevice", "ptr", device)
-        return result
+        DllCall("USER32.dll\DestroySyntheticPointerDevice", "ptr", device)
     }
 
     /**
@@ -17521,7 +17699,7 @@ class Controls {
      * @param {Integer} bRedraw Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar is redrawn to reflect the new scroll box position. If this parameter is <b>TRUE</b>, the scroll bar is redrawn. If it is <b>FALSE</b>, the scroll bar is not redrawn.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the previous position of the scroll box.
      *                     
@@ -17534,7 +17712,7 @@ class Controls {
     static SetScrollPos(hWnd, nBar, nPos, bRedraw) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetScrollPos", "ptr", hWnd, "int", nBar, "int", nPos, "int", bRedraw)
+        result := DllCall("USER32.dll\SetScrollPos", "ptr", hWnd, "int", nBar, "int", nPos, "int", bRedraw, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17688,7 +17866,7 @@ class Controls {
      * 
      * The identifier of a static control in the <i>hDlg</i> dialog box. <b>DlgDirList</b> sets the text of this control to display the current drive and directory. This parameter can be zero if you do not want to display the current drive and directory.
      * @param {Integer} uFileType Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -17700,7 +17878,7 @@ class Controls {
     static DlgDirListA(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType) {
         lpPathSpec := lpPathSpec is String? StrPtr(lpPathSpec) : lpPathSpec
 
-        result := DllCall("USER32.dll\DlgDirListA", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDListBox, "int", nIDStaticPath, "uint", uFileType)
+        result := DllCall("USER32.dll\DlgDirListA", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDListBox, "int", nIDStaticPath, "uint", uFileType, "int")
         return result
     }
 
@@ -17742,7 +17920,7 @@ class Controls {
      * The identifier of a static control in the 
      * 					<i>hDlg</i> dialog box. <b>DlgDirList</b> sets the text of this control to display the current drive and directory. This parameter can be zero if you do not want to display the current drive and directory.
      * @param {Integer} uFileType Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -17754,7 +17932,7 @@ class Controls {
     static DlgDirListW(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType) {
         lpPathSpec := lpPathSpec is String? StrPtr(lpPathSpec) : lpPathSpec
 
-        result := DllCall("USER32.dll\DlgDirListW", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDListBox, "int", nIDStaticPath, "uint", uFileType)
+        result := DllCall("USER32.dll\DlgDirListW", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDListBox, "int", nIDStaticPath, "uint", uFileType, "int")
         return result
     }
 
@@ -17892,7 +18070,7 @@ class Controls {
      * 
      * The identifier of a static control in the <i>hDlg</i> dialog box. <b>DlgDirListComboBox</b> sets the text of this control to display the current drive and directory. This parameter can be zero if you do not want to display the current drive and directory.
      * @param {Integer} uFiletype Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is nonzero.
      *                     
@@ -17907,7 +18085,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DlgDirListComboBoxA", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDComboBox, "int", nIDStaticPath, "uint", uFiletype)
+        result := DllCall("USER32.dll\DlgDirListComboBoxA", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDComboBox, "int", nIDStaticPath, "uint", uFiletype, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17957,7 +18135,7 @@ class Controls {
      * 
      * The identifier of a static control in the <i>hDlg</i> dialog box. <b>DlgDirListComboBox</b> sets the text of this control to display the current drive and directory. This parameter can be zero if you do not want to display the current drive and directory.
      * @param {Integer} uFiletype Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is nonzero.
      *                     
@@ -17972,7 +18150,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DlgDirListComboBoxW", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDComboBox, "int", nIDStaticPath, "uint", uFiletype)
+        result := DllCall("USER32.dll\DlgDirListComboBoxW", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDComboBox, "int", nIDStaticPath, "uint", uFiletype, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18124,14 +18302,14 @@ class Controls {
      * @param {Integer} redraw Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar is redrawn to reflect the changes to the scroll bar. If this parameter is <b>TRUE</b>, the scroll bar is redrawn, otherwise, it is not redrawn.
-     * @returns {Pointer} Type: <b>int</b>
+     * @returns {Integer} Type: <b>int</b>
      * 
      * The return value is the current position of the scroll box.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setscrollinfo
      * @since windows6.0.6000
      */
     static SetScrollInfo(hwnd, nBar, lpsi, redraw) {
-        result := DllCall("USER32.dll\SetScrollInfo", "ptr", hwnd, "int", nBar, "ptr", lpsi, "int", redraw)
+        result := DllCall("USER32.dll\SetScrollInfo", "ptr", hwnd, "int", nBar, "ptr", lpsi, "int", redraw, "int")
         return result
     }
 

@@ -6537,12 +6537,11 @@ class WinHttp {
      * @param {Pointer<WINHTTP_QUERY_CONNECTION_GROUP_RESULT>} pResult Type: \_Inout\_ **[WINHTTP_QUERY_CONNECTION_GROUP_RESULT](ns-winhttp-winhttp_query_connection_group_result.md)\***
      * 
      * A pointer to the [WINHTTP_QUERY_CONNECTION_GROUP_RESULT](ns-winhttp-winhttp_query_connection_group_result.md) object to free.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreequeryconnectiongroupresult
      */
     static WinHttpFreeQueryConnectionGroupResult(pResult) {
-        result := DllCall("WINHTTP.dll\WinHttpFreeQueryConnectionGroupResult", "ptr", pResult)
-        return result
+        DllCall("WINHTTP.dll\WinHttpFreeQueryConnectionGroupResult", "ptr", pResult)
     }
 
     /**
@@ -7063,23 +7062,21 @@ class WinHttp {
      * @remarks
      * Upon completion, all internal members of <i>pProxyResult</i> will be zeroed and the memory allocated to those members will be freed. If <i>pProxyResult</i> is an allocated pointer, the caller must free the pointer.
      * @param {Pointer<WINHTTP_PROXY_RESULT>} pProxyResult A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ns-winhttp-winhttp_proxy_result">WINHTTP_PROXY_RESULT</a> structure retrieved from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyresult">WinHttpGetProxyResult</a>.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreeproxyresult
      * @since windows8.0
      */
     static WinHttpFreeProxyResult(pProxyResult) {
-        result := DllCall("WINHTTP.dll\WinHttpFreeProxyResult", "ptr", pProxyResult)
-        return result
+        DllCall("WINHTTP.dll\WinHttpFreeProxyResult", "ptr", pProxyResult)
     }
 
     /**
      * 
      * @param {Pointer<WINHTTP_PROXY_RESULT_EX>} pProxyResultEx 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static WinHttpFreeProxyResultEx(pProxyResultEx) {
-        result := DllCall("WINHTTP.dll\WinHttpFreeProxyResultEx", "ptr", pProxyResultEx)
-        return result
+        DllCall("WINHTTP.dll\WinHttpFreeProxyResultEx", "ptr", pProxyResultEx)
     }
 
     /**
@@ -7339,11 +7336,10 @@ class WinHttp {
     /**
      * 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      */
     static WinHttpFreeProxySettings(pWinHttpProxySettings) {
-        result := DllCall("WINHTTP.dll\WinHttpFreeProxySettings", "ptr", pWinHttpProxySettings)
-        return result
+        DllCall("WINHTTP.dll\WinHttpFreeProxySettings", "ptr", pWinHttpProxySettings)
     }
 
     /**

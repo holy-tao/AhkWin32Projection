@@ -58,7 +58,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 20, "int")

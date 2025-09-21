@@ -15,7 +15,7 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
 
     /**
      * Overlay/VPE error code. Zero indicates success; any other value is failure.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrVPEStatus {
         get => NumGet(this, 0, "int")

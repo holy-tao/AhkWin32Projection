@@ -13801,13 +13801,16 @@ class Tapi {
      * @param {Pointer<IMessage>} lpMessage > [in] Pointer to a message object as a destination for a decoded message with attachments or a source for an encoded message with attachments. Any properties of a destination message might be overwritten by the properties of an encoded message.
      * @param {Integer} wKeyVal 
      * @param {Pointer<ITnef>} lppTNEF > [out] Pointer to the new TNEF object.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstream
      */
     static OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lppTNEF) {
         result := DllCall("MAPI32.dll\OpenTnefStream", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lppTNEF, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13852,13 +13855,16 @@ class Tapi {
      * @param {Integer} wKeyVal > [in] A search key that the TNEF object uses to match attachments to the text tags inserted in the message text. This value should be relatively unique across messages.
      * @param {Pointer<IAddrBook>} lpAdressBook 
      * @param {Pointer<ITnef>} lppTNEF > [out] Pointer to the new TNEF object.
-     * @returns {Integer} S_OK 
+     * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstreamex
      */
     static OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook, lppTNEF) {
         result := DllCall("MAPI32.dll\OpenTnefStreamEx", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr", lppTNEF, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -13869,7 +13875,7 @@ class Tapi {
      * @param {Pointer<IStream>} lpStream > [in] Pointer to a storage stream object OLE **IStream** interface providing a source for a TNEF stream message.
      * @param {Pointer<UInt32>} lpulCodepage > [out] Pointer to the code page of the stream.
      * @param {Pointer<UInt32>} lpulSubCodepage > [out] Pointer to the subcode page of the stream.
-     * @returns {Integer} **S_OK**
+     * @returns {HRESULT} **S_OK**
      *   
      * > The call succeeded and has returned the expected value or values.
      *     
@@ -13884,6 +13890,9 @@ class Tapi {
      */
     static GetTnefStreamCodepage(lpStream, lpulCodepage, lpulSubCodepage) {
         result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, "uint*", lpulCodepage, "uint*", lpulSubCodepage, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

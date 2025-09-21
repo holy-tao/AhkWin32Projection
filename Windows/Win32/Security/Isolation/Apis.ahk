@@ -46,20 +46,26 @@ class Isolation {
      * 
      * @param {Pointer<Void>} Reserved 
      * @param {Pointer<Int32>} isProcessInWDAGContainer 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static IsProcessInWDAGContainer(Reserved, isProcessInWDAGContainer) {
         result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", "ptr", Reserved, "int*", isProcessInWDAGContainer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Int32>} isProcessInIsolatedContainer 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static IsProcessInIsolatedContainer(isProcessInIsolatedContainer) {
         result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", isProcessInIsolatedContainer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -70,11 +76,14 @@ class Isolation {
      * @param {Pointer<Int32>} isProcessInIsolatedWindowsEnvironment `[out]`
      * 
      * A pointer to a boolean value that receives the result of the API. This parameter will be `true` if the process is in an Isolated Windows Environment, `false` otherwise.
-     * @returns {Integer} Returns `S_OK` if the function succeeds. If it fails, it returns an `HRESULT` error code.
+     * @returns {HRESULT} Returns `S_OK` if the function succeeds. If it fails, it returns an `HRESULT` error code.
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
     static IsProcessInIsolatedWindowsEnvironment(isProcessInIsolatedWindowsEnvironment) {
         result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "int*", isProcessInIsolatedWindowsEnvironment, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -92,11 +101,14 @@ class Isolation {
      * @param {Pointer<Int32>} isCrossIsolatedEnvironmentClipboardContent `[out]`
      * 
      * A pointer to a boolean value that receives the result of the API. This parameter will be `true` if the clipboard content came from the other side of a WDAG boundary, `false` otherwise.
-     * @returns {Integer} If the function succeeds, the return value is `S_OK`. If it fails, it returns an `HRESULT` error code.
+     * @returns {HRESULT} If the function succeeds, the return value is `S_OK`. If it fails, it returns an `HRESULT` error code.
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
     static IsCrossIsolatedEnvironmentClipboardContent(isCrossIsolatedEnvironmentClipboardContent) {
         result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "int*", isCrossIsolatedEnvironmentClipboardContent, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -112,7 +124,7 @@ class Isolation {
      * @param {Pointer<SID_AND_ATTRIBUTES>} pCapabilities The SIDs that define the requested capabilities.
      * @param {Integer} dwCapabilityCount The number of SIDs in <i>pCapabilities</i>.
      * @param {Pointer<Void>} ppSidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @returns {Integer} If this function succeeds, it returns a standard HRESULT code, including the following:
+     * @returns {HRESULT} If this function succeeds, it returns a standard HRESULT code, including the following:
      * 
      * <table>
      * <tr>
@@ -173,6 +185,9 @@ class Isolation {
         pszDescription := pszDescription is String? StrPtr(pszDescription) : pszDescription
 
         result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, "ptr", pCapabilities, "uint", dwCapabilityCount, "ptr", ppSidAppContainerSid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -185,7 +200,7 @@ class Isolation {
      * 
      * If the function fails, the status of the profile is undetermined, and you should call <b>DeleteAppContainerProfile</b> again to complete the operation.
      * @param {Pointer<Char>} pszAppContainerName The name given to the profile in the call to the <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createappcontainerprofile">CreateAppContainerProfile</a> function. This string is at most 64 characters in length, and  fits into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
-     * @returns {Integer} If this function succeeds, it returns a standard HRESULT code, including the following:
+     * @returns {HRESULT} If this function succeeds, it returns a standard HRESULT code, including the following:
      * 
      * <table>
      * <tr>
@@ -233,6 +248,9 @@ class Isolation {
         pszAppContainerName := pszAppContainerName is String? StrPtr(pszAppContainerName) : pszAppContainerName
 
         result := DllCall("USERENV.dll\DeleteAppContainerProfile", "ptr", pszAppContainerName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -246,7 +264,7 @@ class Isolation {
      * @param {Pointer<Void>} phAppContainerKey Type: <b>PHKEY</b>
      * 
      * A pointer to an HKEY that, when this function returns successfully, receives the registry storage location for the current profile.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function returns an <b>HRESULT</b> code, including but not limited to the following:
      * 
@@ -283,6 +301,9 @@ class Isolation {
      */
     static GetAppContainerRegistryLocation(desiredAccess, phAppContainerKey) {
         result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, "ptr", phAppContainerKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -294,7 +315,7 @@ class Isolation {
      * If a thread token is set, this function uses the app container for the current user. If no thread token is set, this function uses the app container associated with the process identity.
      * @param {Pointer<Char>} pszAppContainerSid A pointer to the SID of the app container.
      * @param {Pointer<Char>} ppszPath The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @returns {Integer} This function returns an <b>HRESULT</b> code, including but not limited to the following:
+     * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including but not limited to the following:
      * 
      * <table>
      * <tr>
@@ -331,6 +352,9 @@ class Isolation {
         pszAppContainerSid := pszAppContainerSid is String? StrPtr(pszAppContainerSid) : pszAppContainerSid
 
         result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr", ppszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -339,7 +363,7 @@ class Isolation {
      * @param {Pointer<Void>} psidAppContainerSid Reserved.
      * @param {Pointer<Char>} pszRestrictedAppContainerName Reserved.
      * @param {Pointer<Void>} ppsidRestrictedAppContainerSid Reserved.
-     * @returns {Integer} Reserved.
+     * @returns {HRESULT} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
      * @since windows10.0.10240
      */
@@ -347,6 +371,9 @@ class Isolation {
         pszRestrictedAppContainerName := pszRestrictedAppContainerName is String? StrPtr(pszRestrictedAppContainerName) : pszRestrictedAppContainerName
 
         result := DllCall("USERENV.dll\DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName", "ptr", psidAppContainerSid, "ptr", pszRestrictedAppContainerName, "ptr", ppsidRestrictedAppContainerSid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -354,7 +381,7 @@ class Isolation {
      * Gets the SID of the specified profile.
      * @param {Pointer<Char>} pszAppContainerName The name of the profile.
      * @param {Pointer<Void>} ppsidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @returns {Integer} This function can return one of these values.
+     * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
      * <tr>
@@ -391,6 +418,9 @@ class Isolation {
         pszAppContainerName := pszAppContainerName is String? StrPtr(pszAppContainerName) : pszAppContainerName
 
         result := DllCall("USERENV.dll\DeriveAppContainerSidFromAppContainerName", "ptr", pszAppContainerName, "ptr", ppsidAppContainerSid, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

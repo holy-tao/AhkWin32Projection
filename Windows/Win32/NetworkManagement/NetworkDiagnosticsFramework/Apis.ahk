@@ -174,7 +174,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * A handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -235,6 +235,9 @@ class NetworkDiagnosticsFramework {
         helperClassName := helperClassName is String? StrPtr(helperClassName) : helperClassName
 
         result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -258,7 +261,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -320,6 +323,9 @@ class NetworkDiagnosticsFramework {
         appId := appId is String? StrPtr(appId) : appId
 
         result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -331,7 +337,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -392,6 +398,9 @@ class NetworkDiagnosticsFramework {
         url := url is String? StrPtr(url) : url
 
         result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -409,7 +418,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -471,6 +480,9 @@ class NetworkDiagnosticsFramework {
         moduleName := moduleName is String? StrPtr(moduleName) : moduleName
 
         result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -482,7 +494,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -543,6 +555,9 @@ class NetworkDiagnosticsFramework {
         UNCPath := UNCPath is String? StrPtr(UNCPath) : UNCPath
 
         result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -559,7 +574,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -620,6 +635,9 @@ class NetworkDiagnosticsFramework {
         hostname := hostname is String? StrPtr(hostname) : hostname
 
         result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -628,7 +646,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -687,6 +705,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfCreateConnectivityIncident(handle) {
         result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -700,7 +721,7 @@ class NetworkDiagnosticsFramework {
      * Identifier of the network interface that the caller would like to create the incident for.  
      * 
      * The NULL GUID {00000000-0000-0000-0000-000000000000} may be used if the caller does not want to specify an interface. The system will attempt to determine the most appropriate interface based on the current state of the system.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -759,6 +780,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfCreateNetConnectionIncident(handle, id) {
         result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", "ptr", handle, "ptr", id, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -784,7 +808,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -826,6 +850,9 @@ class NetworkDiagnosticsFramework {
         appId := appId is String? StrPtr(appId) : appId
 
         result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -861,7 +888,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -905,6 +932,9 @@ class NetworkDiagnosticsFramework {
         appId := appId is String? StrPtr(appId) : appId
 
         result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -916,7 +946,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
      * 
      * Handle to the window that is intended to display the diagnostic information. If specified, the NDF UI is modal to the window.  If <b>NULL</b>, the UI is non-modal.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -953,6 +983,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfExecuteDiagnosis(handle, hwnd) {
         result := DllCall("NDFAPI.dll\NdfExecuteDiagnosis", "ptr", handle, "ptr", hwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -961,7 +994,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to the NDF incident that is being closed.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -987,6 +1020,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfCloseIncident(handle) {
         result := DllCall("NDFAPI.dll\NdfCloseIncident", "ptr", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1071,7 +1107,7 @@ class NetworkDiagnosticsFramework {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -1119,6 +1155,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
         result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", "ptr", Handle, "uint*", RootCauseCount, "ptr", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1139,7 +1178,7 @@ class NetworkDiagnosticsFramework {
      * @param {Integer} dwWait Type: <b>DWORD</b>
      * 
      * The length of time, in milliseconds, to wait before terminating the diagnostic routine. INFINITE may be passed to this parameter if no timeout is desired.
-     * @returns {Integer} Possible return values include, but are not limited to, the following.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
      * <tr>
@@ -1199,6 +1238,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfRepairIncident(Handle, RepairEx, dwWait) {
         result := DllCall("NDFAPI.dll\NdfRepairIncident", "ptr", Handle, "ptr", RepairEx, "uint", dwWait, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1214,7 +1256,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to the Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -1243,6 +1285,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfCancelIncident(Handle) {
         result := DllCall("NDFAPI.dll\NdfCancelIncident", "ptr", Handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1258,7 +1303,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Char>} TraceFileLocation Type: <b>LPCWSTR*</b>
      * 
      * The location of the trace file.
-     * @returns {Integer} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
      * 
@@ -1287,6 +1332,9 @@ class NetworkDiagnosticsFramework {
      */
     static NdfGetTraceFile(Handle, TraceFileLocation) {
         result := DllCall("NDFAPI.dll\NdfGetTraceFile", "ptr", Handle, "ptr", TraceFileLocation, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

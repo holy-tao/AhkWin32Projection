@@ -2933,13 +2933,12 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} p Type: <b>void**</b>
      * 
      * Address of the pointer to be freed.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfreememory0
      * @since windows6.0.6000
      */
     static FwpmFreeMemory0(p) {
-        result := DllCall("fwpuclnt.dll\FwpmFreeMemory0", "ptr", p)
-        return result
+        DllCall("fwpuclnt.dll\FwpmFreeMemory0", "ptr", p)
     }
 
     /**

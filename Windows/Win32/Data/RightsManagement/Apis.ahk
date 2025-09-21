@@ -358,26 +358,32 @@ class RightsManagement {
      * Only one option can be specified in each call to <b>DRMSetGlobalOptions</b>. For example, if both WinHTTP and the server lockbox are required, you must call <b>DRMSetGlobalOptions</b> twice, once with <i>eGlobalOptions</i> set to <b>DRMGLOBALOPTIONS_USE_WINHTTP</b> and once with <i>eGlobalOptions</i> set to <b>DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR</b>.
      * @param {Pointer<Void>} pvdata A pointer to a <b>void</b> value. This parameter is not currently used.
      * @param {Integer} dwlen The size, in bytes, of the <i>pvdata</i> buffer. This parameter is not currently used.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetglobaloptions
      */
     static DRMSetGlobalOptions(eGlobalOptions, pvdata, dwlen) {
         result := DllCall("msdrm.dll\DRMSetGlobalOptions", "int", eGlobalOptions, "ptr", pvdata, "uint", dwlen, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * Returns the version number of the Active Directory Rights Management Services client software and whether the hierarchy is for Production or Pre-production purposes.
      * @param {Pointer<DRM_CLIENT_VERSION_INFO>} pDRMClientVersionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ns-msdrmdefs-drm_client_version_info">DRM_CLIENT_VERSION_INFO</a> structure that receives the version number of the Active Directory Rights Management Services client software and the hierarchy information, such as Production or Pre-production.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetclientversion
      */
     static DRMGetClientVersion(pDRMClientVersionInfo) {
         result := DllCall("msdrm.dll\DRMGetClientVersion", "ptr", pDRMClientVersionInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -407,7 +413,7 @@ class RightsManagement {
      * @param {Pointer<UInt32>} phDefaultLibrary A pointer to the handle of the library used to create the principal object. You must close this handle 
      *       before closing the environment handle. For more information, see the Remarks section. Close by calling 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a>.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. 
      *        Possible values include, but are not limited to, those in the following list. For a list of common error codes, 
@@ -420,6 +426,9 @@ class RightsManagement {
         wszMachineCredentials := wszMachineCredentials is String? StrPtr(wszMachineCredentials) : wszMachineCredentials
 
         result := DllCall("msdrm.dll\DRMInitEnvironment", "int", eSecurityProviderType, "int", eSpecification, "ptr", wszSecurityProvider, "ptr", wszManifestCredentials, "ptr", wszMachineCredentials, "uint*", phEnv, "uint*", phDefaultLibrary, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -435,7 +444,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszLibraryProvider Name and optional path to the DLL. Every DLL must have a unique name. If similarly named DLLs are loaded, even if they are in different paths, only the first item will be included in the manifest and checked.
      * @param {Pointer<Char>} wszCredentials Reserved, must be <b>NULL</b>. The DLL that is loaded must be referenced in the application manifest loaded by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
      * @param {Pointer<UInt32>} phLibrary A handle to the library.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmloadlibrary
@@ -445,6 +454,9 @@ class RightsManagement {
         wszCredentials := wszCredentials is String? StrPtr(wszCredentials) : wszCredentials
 
         result := DllCall("msdrm.dll\DRMLoadLibrary", "uint", hEnv, "int", eSpecification, "ptr", wszLibraryProvider, "ptr", wszCredentials, "uint*", phLibrary, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -458,7 +470,7 @@ class RightsManagement {
      * @param {Pointer<DRMID>} pidPrincipal A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ns-msdrmdefs-drmid">DRMID</a> structure that identifies the enabling principal. The <b>DRMID</b> members can be <b>NULL</b> to use the first principal in a license.
      * @param {Pointer<Char>} wszCredentials A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/r-gly">rights account certificate</a> of the current user.
      * @param {Pointer<UInt32>} phEnablingPrincipal A pointer to a <b>DRMHANDLE</b> value that receives the created principal. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateenablingprincipal
@@ -468,6 +480,9 @@ class RightsManagement {
         wszCredentials := wszCredentials is String? StrPtr(wszCredentials) : wszCredentials
 
         result := DllCall("msdrm.dll\DRMCreateEnablingPrincipal", "uint", hEnv, "uint", hLibrary, "ptr", wszObject, "ptr", pidPrincipal, "ptr", wszCredentials, "uint*", phEnablingPrincipal, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -480,13 +495,16 @@ class RightsManagement {
      * 
      * Closing a handle to a library will cause the library to be unloaded if it has no remaining open objects.
      * @param {Integer} handle A handle to close.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosehandle
      */
     static DRMCloseHandle(handle) {
         result := DllCall("msdrm.dll\DRMCloseHandle", "uint", handle, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -497,13 +515,16 @@ class RightsManagement {
      * 
      * If this function fails, an application should destroy the current process before reinitializing an environment to use.
      * @param {Integer} hEnv A handle to an environment.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcloseenvironmenthandle
      */
     static DRMCloseEnvironmentHandle(hEnv) {
         result := DllCall("msdrm.dll\DRMCloseEnvironmentHandle", "uint", hEnv, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -513,13 +534,16 @@ class RightsManagement {
      * Use this function to duplicate all handles except environment handles. (For that, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmduplicateenvironmenthandle">DRMDuplicateEnvironmentHandle</a>.) This function allows an application to keep a proper reference count on environment handles. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle created by calling this function.
      * @param {Integer} hToCopy A handle to copy.
      * @param {Pointer<UInt32>} phCopy A copy of the handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicatehandle
      */
     static DRMDuplicateHandle(hToCopy, phCopy) {
         result := DllCall("msdrm.dll\DRMDuplicateHandle", "uint", hToCopy, "uint*", phCopy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -529,13 +553,16 @@ class RightsManagement {
      * This function allows an application to keep a proper reference count on environment handles, so use this function, rather than simply copy assignment, to copy an environment handle. For other handles, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmduplicatehandle">DRMDuplicateHandle</a>. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a> to close the environment handle created by calling this function.
      * @param {Integer} hToCopy A handle to copy. An environment handle is created by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
      * @param {Pointer<UInt32>} phCopy A copy of the handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a> to close.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicateenvironmenthandle
      */
     static DRMDuplicateEnvironmentHandle(hToCopy, phCopy) {
         result := DllCall("msdrm.dll\DRMDuplicateEnvironmentHandle", "uint", hToCopy, "uint*", phCopy, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -545,7 +572,7 @@ class RightsManagement {
      * A revocation list holds all group identities, end-user licenses, or other principals that have been revoked. This function blocks the display of content from distributors or users whose license has been revoked. When an attempt to bind to a license fails with <b>E_DRM_BIND_REVOCATION_LIST_STALE</b> or <b>E_DRM_BIND_NO_APPLICABLE_REVOCATION_LIST</b>, this indicates that the license requires a revocation list. This list must either be found in the license store (using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmenumeratelicense">DRMEnumerateLicense</a>) or must be acquired fresh using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquireadvisories">DRMAcquireAdvisories</a> and then retrieved from the license store. Registration is only for the lifetime of the environment passed in. Any time that a new environment object is created, the necessary revocation lists must be registered for that environment.
      * @param {Integer} hEnv A handle to an environment, created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
      * @param {Pointer<Char>} wszRevocationList Revocation list as a null-terminated string.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmregisterrevocationlist
@@ -554,6 +581,9 @@ class RightsManagement {
         wszRevocationList := wszRevocationList is String? StrPtr(wszRevocationList) : wszRevocationList
 
         result := DllCall("msdrm.dll\DRMRegisterRevocationList", "uint", hEnv, "ptr", wszRevocationList, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -563,13 +593,16 @@ class RightsManagement {
      * Currently only environment security checks are allowed. A comprehensive security check can be time-consuming.
      * @param {Integer} hEnv A handle to an environment.
      * @param {Integer} cLevel Level of the security check to run, from 1 to 10, with 10 being the most secure but most resource-intensive.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmchecksecurity
      */
     static DRMCheckSecurity(hEnv, cLevel) {
         result := DllCall("msdrm.dll\DRMCheckSecurity", "uint", hEnv, "uint", cLevel, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -580,13 +613,16 @@ class RightsManagement {
      * 
      * Every call to this function with <b>TRUE</b> must have a corresponding call to this function with <b>FALSE</b> to maintain proper reference counting.
      * @param {Integer} fRegister Pass <b>TRUE</b> when you open an AD RMS-protected document. Pass <b>FALSE</b> when you close that document.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmregistercontent
      */
     static DRMRegisterContent(fRegister) {
         result := DllCall("msdrm.dll\DRMRegisterContent", "int", fRegister, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -606,13 +642,16 @@ class RightsManagement {
      * @param {Pointer<Byte>} pbInData A pointer to a buffer that contains the bytes to encrypt.
      * @param {Pointer<UInt32>} pcNumOutBytes The number of encrypted bytes.
      * @param {Pointer<Byte>} pbOutData A pointer to the encrypted bytes.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmencrypt
      */
     static DRMEncrypt(hCryptoProvider, iPosition, cNumInBytes, pbInData, pcNumOutBytes, pbOutData) {
         result := DllCall("msdrm.dll\DRMEncrypt", "uint", hCryptoProvider, "uint", iPosition, "uint", cNumInBytes, "char*", pbInData, "uint*", pcNumOutBytes, "char*", pbOutData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -629,13 +668,16 @@ class RightsManagement {
      * @param {Pointer<Byte>} pbInData Pointer to a buffer that contains the bytes to decrypt.
      * @param {Pointer<UInt32>} pcNumOutBytes Size, in bytes,  of the decrypted data.
      * @param {Pointer<Byte>} pbOutData Decrypted data.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdecrypt
      */
     static DRMDecrypt(hCryptoProvider, iPosition, cNumInBytes, pbInData, pcNumOutBytes, pbOutData) {
         result := DllCall("msdrm.dll\DRMDecrypt", "uint", hCryptoProvider, "uint", iPosition, "uint", cNumInBytes, "char*", pbInData, "uint*", pcNumOutBytes, "char*", pbOutData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -674,7 +716,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszLicenseChain A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/e-gly">end-user license</a> (or license chain).
      * @param {Pointer<UInt32>} phBoundLicense A pointer to a handle that receives the bound license. The <b>DRMHANDLE</b> passed back through <i>phBoundLicense</i> allows an application to navigate through all the license's objects (such as principals or rights) and attributes (such as maximum play count). A bound license consolidates duplicated rights information in the license and removes any rights information that is not available to the current user.
      * @param {Pointer<UInt32>} phErrorLog This parameter must be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateboundlicense
@@ -683,6 +725,9 @@ class RightsManagement {
         wszLicenseChain := wszLicenseChain is String? StrPtr(wszLicenseChain) : wszLicenseChain
 
         result := DllCall("msdrm.dll\DRMCreateBoundLicense", "uint", hEnv, "ptr", pParams, "ptr", wszLicenseChain, "uint*", phBoundLicense, "uint*", phErrorLog, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -703,7 +748,7 @@ class RightsManagement {
      * @param {Integer} hAuxLib Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {Pointer<Char>} wszAuxPlug Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {Pointer<UInt32>} phDecryptor A pointer to the decrypting object.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateenablingbitsdecryptor
@@ -713,6 +758,9 @@ class RightsManagement {
         wszAuxPlug := wszAuxPlug is String? StrPtr(wszAuxPlug) : wszAuxPlug
 
         result := DllCall("msdrm.dll\DRMCreateEnablingBitsDecryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, "uint*", phDecryptor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -733,7 +781,7 @@ class RightsManagement {
      * @param {Integer} hAuxLib Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {Pointer<Char>} wszAuxPlug Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {Pointer<UInt32>} phEncryptor A pointer to the encrypting object.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateenablingbitsencryptor
@@ -743,6 +791,9 @@ class RightsManagement {
         wszAuxPlug := wszAuxPlug is String? StrPtr(wszAuxPlug) : wszAuxPlug
 
         result := DllCall("msdrm.dll\DRMCreateEnablingBitsEncryptor", "uint", hBoundLicense, "ptr", wszRight, "uint", hAuxLib, "ptr", wszAuxPlug, "uint*", phEncryptor, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -761,7 +812,7 @@ class RightsManagement {
      * @param {Integer} eType An enumeration that determines whether to include full environment data or only a hash.
      * @param {Pointer<UInt32>} pcAttestedBlob Length, in characters, of the string being returned, plus one for a terminating null character.
      * @param {Pointer<Char>} wszAttestedBlob The signed data.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmattest
@@ -771,6 +822,9 @@ class RightsManagement {
         wszAttestedBlob := wszAttestedBlob is String? StrPtr(wszAttestedBlob) : wszAttestedBlob
 
         result := DllCall("msdrm.dll\DRMAttest", "uint", hEnablingPrincipal, "ptr", wszData, "int", eType, "uint*", pcAttestedBlob, "ptr", wszAttestedBlob, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -779,13 +833,16 @@ class RightsManagement {
      * @param {Integer} hEnv Environment handle.
      * @param {Integer} eTimerIdType The type of time returned.
      * @param {Pointer<SYSTEMTIME>} poTimeObject Pointer to a time structure.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgettime
      */
     static DRMGetTime(hEnv, eTimerIdType, poTimeObject) {
         result := DllCall("msdrm.dll\DRMGetTime", "uint", hEnv, "int", eTimerIdType, "ptr", poTimeObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -826,7 +883,7 @@ class RightsManagement {
      * <div> </div>
      * <div class="alert"><b>Important</b>  If <i>wszAttribute</i> is specified as <b>g_wszQUERY_SYMMETRICKEY_TYPE</b>, possible values for <i>pbBuffer</i> include <b>AES</b> for ECB encryption and <b>AES_CBC4K</b> for CBC encryption.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetinfo
@@ -835,6 +892,9 @@ class RightsManagement {
         wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
 
         result := DllCall("msdrm.dll\DRMGetInfo", "uint", handle, "ptr", wszAttribute, "int*", peEncoding, "uint*", pcBuffer, "char*", pbBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -860,7 +920,7 @@ class RightsManagement {
      * @param {Pointer<Int32>} peEncoding Encoding type used.
      * @param {Pointer<UInt32>} pcBuffer A pointer to a UINT value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
      * @param {Pointer<Byte>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetenvironmentinfo
@@ -869,6 +929,9 @@ class RightsManagement {
         wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
 
         result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", "uint", handle, "ptr", wszAttribute, "int*", peEncoding, "uint*", pcBuffer, "char*", pbBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -879,7 +942,7 @@ class RightsManagement {
      * @param {Integer} hLibrary A handle to the library where the function resides. Output from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmloadlibrary">DRMLoadLibrary</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
      * @param {Pointer<Char>} wszProcName The name of the function to find the address of.
      * @param {Pointer<FARPROC>} ppfnProcAddress Address of the procedure to run.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetprocaddress
@@ -888,6 +951,9 @@ class RightsManagement {
         wszProcName := wszProcName is String? StrPtr(wszProcName) : wszProcName
 
         result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, "ptr", ppfnProcAddress, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -900,7 +966,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to the branch of the license to query, from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetboundlicenseobject">DRMGetBoundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {Pointer<Char>} wszSubObjectType The type of XrML object to find. For more information, see Remarks.
      * @param {Pointer<UInt32>} pcSubObjects Number of objects of this type within this branch.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseobjectcount
@@ -909,6 +975,9 @@ class RightsManagement {
         wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
 
         result := DllCall("msdrm.dll\DRMGetBoundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint*", pcSubObjects, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -936,7 +1005,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszSubObjectType The type of XrML object to find. For more information, see Remarks.
      * @param {Integer} iWhich Zero-based index specifying which occurrence to retrieve.
      * @param {Pointer<UInt32>} phSubObject A handle to the returned license object. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseobject
@@ -945,6 +1014,9 @@ class RightsManagement {
         wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
 
         result := DllCall("msdrm.dll\DRMGetBoundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iWhich, "uint*", phSubObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -957,7 +1029,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or license object, from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetboundlicenseobject">DRMGetBoundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {Pointer<Char>} wszAttribute Name of the attribute to count.
      * @param {Pointer<UInt32>} pcAttributes Count of attribute occurrences.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseattributecount
@@ -966,6 +1038,9 @@ class RightsManagement {
         wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
 
         result := DllCall("msdrm.dll\DRMGetBoundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttribute, "uint*", pcAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -983,7 +1058,7 @@ class RightsManagement {
      * @param {Pointer<Int32>} peEncoding Encoding type used.
      * @param {Pointer<UInt32>} pcBuffer Size, in characters, of the attribute retrieved plus one for a terminating null character.
      * @param {Pointer<Byte>} pbBuffer Pointer to the attribute object.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetboundlicenseattribute
@@ -992,6 +1067,9 @@ class RightsManagement {
         wszAttribute := wszAttribute is String? StrPtr(wszAttribute) : wszAttribute
 
         result := DllCall("msdrm.dll\DRMGetBoundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttribute, "uint", iWhich, "int*", peEncoding, "uint*", pcBuffer, "char*", pbBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1012,7 +1090,7 @@ class RightsManagement {
      * 
      * Set this parameter to  <b>NULL</b> if you intend only to use the client session handle created by this function to retrieve a service location by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a>.
      * @param {Pointer<UInt32>} phClient A pointer to a <b>DRMHSESSION</b> value that receives the client session handle. When you have finished using the client session, close it by passing this handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateclientsession
@@ -1022,6 +1100,9 @@ class RightsManagement {
         wszGroupID := wszGroupID is String? StrPtr(wszGroupID) : wszGroupID
 
         result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", pfnCallback, "uint", uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, "uint*", phClient, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1034,13 +1115,16 @@ class RightsManagement {
      * @param {Integer} hClient A handle to a client session created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateclientsession">DRMCreateClientSession</a> function.
      * @param {Integer} uFlags 
      * @param {Pointer<DRM_ACTSERV_INFO>} pActServInfo This parameter is reserved and must be set to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmisactivated
      */
     static DRMIsActivated(hClient, uFlags, pActServInfo) {
         result := DllCall("msdrm.dll\DRMIsActivated", "uint", hClient, "uint", uFlags, "ptr", pActServInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1109,13 +1193,16 @@ class RightsManagement {
      * @param {Pointer<DRM_ACTSERV_INFO>} pActServInfo Optional server information. If the client has not been configured to use Active Directory Federation Services (ADFS) with AD RMS, you can pass <b>NULL</b> to use the Windows Live ID service for service discovery. If the client has been configured to use ADFS, you must pass the Windows Live certification URL. <!-- Currently, the Windows Live ID certification service URL is https://certification.isv.drm.microsoft.com/certification/certification.asmx.--> For more information about service discovery, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
      * @param {Pointer<Void>} hParentWnd Parent window handle used in nonsilent Windows Live ID activation (user activation only). In nonsilent activation, a Windows Live ID window opens to request user information. This parameter allows the application to assign an arbitrary window as the window's parent. If this parameter is <b>NULL</b>, the active window is used.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmactivate
      */
     static DRMActivate(hClient, uFlags, uLangID, pActServInfo, pvContext, hParentWnd) {
         result := DllCall("msdrm.dll\DRMActivate", "uint", hClient, "uint", uFlags, "uint", uLangID, "ptr", pActServInfo, "ptr", pvContext, "ptr", hParentWnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1216,7 +1303,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszServiceURL A pointer to a Unicode string buffer that receives the URL of the server. The <i>puServiceURLLength</i> parameter contains the size, in characters, including the terminating null character, of this buffer.
      * 
      * If this parameter is <b>NULL</b>, <i>puServiceURLLength</i> receives the number of characters, including the terminating null character, that are required for the server URL.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetservicelocation
@@ -1226,6 +1313,9 @@ class RightsManagement {
         wszServiceURL := wszServiceURL is String? StrPtr(wszServiceURL) : wszServiceURL
 
         result := DllCall("msdrm.dll\DRMGetServiceLocation", "uint", hClient, "uint", uServiceType, "uint", uServiceLocation, "ptr", wszIssuanceLicense, "uint*", puServiceURLLength, "ptr", wszServiceURL, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1243,7 +1333,7 @@ class RightsManagement {
      * @param {Integer} uFlags This parameter is reserved and must be set to zero.
      * @param {Pointer<Char>} wszIssuanceLicense A pointer to a null-terminated Unicode string that contains a signed issuance license. The created license storage session is associated with this issuance license.
      * @param {Pointer<UInt32>} phLicenseStorage A pointer to a handle that receives the license storage session handle. This handle must be passed to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function when the license storage session is no longer needed.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreatelicensestoragesession
@@ -1252,6 +1342,9 @@ class RightsManagement {
         wszIssuanceLicense := wszIssuanceLicense is String? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
 
         result := DllCall("msdrm.dll\DRMCreateLicenseStorageSession", "uint", hEnv, "uint", hDefaultLibrary, "uint", hClient, "uint", uFlags, "ptr", wszIssuanceLicense, "uint*", phLicenseStorage, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1262,7 +1355,7 @@ class RightsManagement {
      * @param {Integer} hLicenseStorage A handle to a license storage session, created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreatelicensestoragesession">DRMCreateLicenseStorageSession</a>.
      * @param {Integer} uFlags 
      * @param {Pointer<Char>} wszLicense A pointer to null-terminated string that contains the end-user license chain to add to the temporary or permanent license store.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmaddlicense
@@ -1271,6 +1364,9 @@ class RightsManagement {
         wszLicense := wszLicense is String? StrPtr(wszLicense) : wszLicense
 
         result := DllCall("msdrm.dll\DRMAddLicense", "uint", hLicenseStorage, "uint", uFlags, "ptr", wszLicense, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1292,7 +1388,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszLicense A pointer to a null-terminated Unicode string that contains the license that requires a revocation list. This can be any license or certificate (or certificate chain or concatenated licenses) that supports revocation lists, including <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/e-gly">end-user licenses</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/r-gly">rights account certificates</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/c-gly">client licensor certificates</a>.
      * @param {Pointer<Char>} wszURL A pointer to a null-terminated Unicode string that contains an additional URL to query for advisories. This will be checked in addition to any URLs mentioned in the license passed in. This parameter can be set to <b>NULL</b>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmacquireadvisories
@@ -1302,6 +1398,9 @@ class RightsManagement {
         wszURL := wszURL is String? StrPtr(wszURL) : wszURL
 
         result := DllCall("msdrm.dll\DRMAcquireAdvisories", "uint", hLicenseStorage, "ptr", wszLicense, "ptr", wszURL, "ptr", pvContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1448,7 +1547,7 @@ class RightsManagement {
      * set.
      * 
      * To obtain the necessary size of this buffer, pass <b>NULL</b> for <i>wszCertificateData</i>. The required number of characters, including the terminating null character, will be placed in <i>puCertificateDataLen</i>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmenumeratelicense
@@ -1457,6 +1556,9 @@ class RightsManagement {
         wszCertificateData := wszCertificateData is String? StrPtr(wszCertificateData) : wszCertificateData
 
         result := DllCall("msdrm.dll\DRMEnumerateLicense", "uint", hSession, "uint", uFlags, "uint", uIndex, "int*", pfSharedFlag, "uint*", puCertificateDataLen, "ptr", wszCertificateData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1566,7 +1668,7 @@ class RightsManagement {
      * 
      * A license may hold multiple license acquisition URLs, but only the first is used by default. To use any of the other URLs specified, you must parse the license. For more information, see the Remarks section.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmacquirelicense
@@ -1578,6 +1680,9 @@ class RightsManagement {
         wszURL := wszURL is String? StrPtr(wszURL) : wszURL
 
         result := DllCall("msdrm.dll\DRMAcquireLicense", "uint", hSession, "uint", uFlags, "ptr", wszGroupIdentityCredential, "ptr", wszRequestedRights, "ptr", wszCustomData, "ptr", wszURL, "ptr", pvContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1595,7 +1700,7 @@ class RightsManagement {
      * 
      * You can retrieve a handle to a license storage session by using   the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreatelicensestoragesession">DRMCreateLicenseStorageSession</a> function. You can retrieve a handle to a client session by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateclientsession">DRMCreateClientSession</a> function.
      * @param {Pointer<Char>} wszLicenseId A pointer to a null-terminated string that contains the ID of the license or template to be deleted. The license ID can be found inside the <b>ID</b> element of the license XrML, by querying using the license querying functions and the <b>g_wszQUERY_CONTENTIDVALUE</b> constant. The template ID is a GUID. You can enumerate the GUIDs by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmenumeratelicense">DRMEnumerateLicense</a> function.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdeletelicense
@@ -1604,6 +1709,9 @@ class RightsManagement {
         wszLicenseId := wszLicenseId is String? StrPtr(wszLicenseId) : wszLicenseId
 
         result := DllCall("msdrm.dll\DRMDeleteLicense", "uint", hSession, "ptr", wszLicenseId, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1612,13 +1720,16 @@ class RightsManagement {
      * @remarks
      * Client sessions are created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateclientsession">DRMCreateClientSession</a> function. License storage sessions are created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreatelicensestoragesession">DRMCreateLicenseStorageSession</a> function. Be sure to close a session properly by using this function, which clears out sensitive information from memory and properly closes session handles.
      * @param {Integer} hSession A handle to the session to be closed.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosesession
      */
     static DRMCloseSession(hSession) {
         result := DllCall("msdrm.dll\DRMCloseSession", "uint", hSession, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1628,13 +1739,16 @@ class RightsManagement {
      * Creating, copying, and closing handles with the appropriate function allows the rights management system to maintain a reference count on resources and free them appropriately, and also clears sensitive data from memory. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> to close the handle created by calling this function.
      * @param {Integer} hSessionIn A handle to a session to duplicate.
      * @param {Pointer<UInt32>} phSessionOut Pointer to the duplicated session handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicatesession
      */
     static DRMDuplicateSession(hSessionIn, phSessionOut) {
         result := DllCall("msdrm.dll\DRMDuplicateSession", "uint", hSessionIn, "uint*", phSessionOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1647,7 +1761,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszType Type of security provider (such as "filename").
      * @param {Pointer<UInt32>} puPathLen On input, length of the allocated <i>wszPath</i> buffer. On output, actual length, in characters, plus one for a null terminator, of the value returned by <i>wszPath</i>.
      * @param {Pointer<Char>} wszPath Path to the lockbox.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsecurityprovider
@@ -1657,6 +1771,9 @@ class RightsManagement {
         wszPath := wszPath is String? StrPtr(wszPath) : wszPath
 
         result := DllCall("msdrm.dll\DRMGetSecurityProvider", "uint", uFlags, "uint*", puTypeLen, "ptr", wszType, "uint*", puPathLen, "ptr", wszPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1671,7 +1788,7 @@ class RightsManagement {
      * @param {Pointer<Byte>} pbDecodedData Pointer to the data to encode.
      * @param {Pointer<UInt32>} puEncodedStringLen Length of the output data, in bytes.
      * @param {Pointer<Char>} wszEncodedString The encoded string.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmencode
@@ -1681,6 +1798,9 @@ class RightsManagement {
         wszEncodedString := wszEncodedString is String? StrPtr(wszEncodedString) : wszEncodedString
 
         result := DllCall("msdrm.dll\DRMEncode", "ptr", wszAlgID, "uint", uDataLen, "char*", pbDecodedData, "uint*", puEncodedStringLen, "ptr", wszEncodedString, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1694,7 +1814,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszEncodedString The encoded string.
      * @param {Pointer<UInt32>} puDecodedDataLen The length of the decoded string, in characters, plus one for a null terminator.
      * @param {Pointer<Byte>} pbDecodedData Pointer to the decoded data.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdecode
@@ -1704,6 +1824,9 @@ class RightsManagement {
         wszEncodedString := wszEncodedString is String? StrPtr(wszEncodedString) : wszEncodedString
 
         result := DllCall("msdrm.dll\DRMDecode", "ptr", wszAlgID, "ptr", wszEncodedString, "uint*", puDecodedDataLen, "char*", pbDecodedData, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1721,7 +1844,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszChain A pointer to a null-terminated Unicode string that receives the constructed chain.
      * 
      * To determine the required size for this buffer, call this function with <b>NULL</b> for the <i>wszChain</i> parameter. The required number of Unicode characters, including the terminating null character, will be returned in the <i>pcChain</i> parameter.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmconstructcertificatechain
@@ -1730,6 +1853,9 @@ class RightsManagement {
         wszChain := wszChain is String? StrPtr(wszChain) : wszChain
 
         result := DllCall("msdrm.dll\DRMConstructCertificateChain", "uint", cCertificates, "ptr", rgwszCertificates, "uint*", pcChain, "ptr", wszChain, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1747,7 +1873,7 @@ class RightsManagement {
      * Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosequeryhandle">DRMCloseQueryHandle</a> to close the unbound license handle created by calling this function.
      * @param {Pointer<Char>} wszCertificate The leaf certificate on the license to be examined, in plain text (not encoded).
      * @param {Pointer<UInt32>} phQueryRoot Pointer to a handle to the root object of the license. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosequeryhandle">DRMCloseQueryHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmparseunboundlicense
@@ -1756,6 +1882,9 @@ class RightsManagement {
         wszCertificate := wszCertificate is String? StrPtr(wszCertificate) : wszCertificate
 
         result := DllCall("msdrm.dll\DRMParseUnboundLicense", "ptr", wszCertificate, "uint*", phQueryRoot, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1764,13 +1893,16 @@ class RightsManagement {
      * @remarks
      * The AD RMS system exposes an object-oriented interface to a license. Bound licenses are accessed using a <b>DRMHANDLE</b>, while unbound licenses are accessed by a <b>DRMQUERYHANDLE</b>. The two types are not interchangeable. This function closes unbound licenses. For more information about examining unbound licenses, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {Integer} hQuery A handle to an object in an unbound license.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosequeryhandle
      */
     static DRMCloseQueryHandle(hQuery) {
         result := DllCall("msdrm.dll\DRMCloseQueryHandle", "uint", hQuery, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1783,7 +1915,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or object in the license, created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetunboundlicenseobject">DRMGetUnboundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {Pointer<Char>} wszSubObjectType The type of XrML object to find. For more information, see Remarks.
      * @param {Pointer<UInt32>} pcSubObjects Count of object instances one level down within the specified branch.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseobjectcount
@@ -1792,6 +1924,9 @@ class RightsManagement {
         wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
 
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseObjectCount", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint*", pcSubObjects, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1819,7 +1954,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszSubObjectType Name of the object to find.
      * @param {Integer} iIndex Zero-based index indicating which instance to retrieve, if more than one exists.
      * @param {Pointer<UInt32>} phSubQuery The retrieved object. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the  handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseobject
@@ -1828,6 +1963,9 @@ class RightsManagement {
         wszSubObjectType := wszSubObjectType is String? StrPtr(wszSubObjectType) : wszSubObjectType
 
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseObject", "uint", hQueryRoot, "ptr", wszSubObjectType, "uint", iIndex, "uint*", phSubQuery, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1838,7 +1976,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or an object in the license, created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetunboundlicenseobject">DRMGetUnboundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {Pointer<Char>} wszAttributeType Name of the attribute to retrieve.
      * @param {Pointer<UInt32>} pcAttributes Count of attribute occurrences one level down within the specified branch.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseattributecount
@@ -1847,6 +1985,9 @@ class RightsManagement {
         wszAttributeType := wszAttributeType is String? StrPtr(wszAttributeType) : wszAttributeType
 
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttributeCount", "uint", hQueryRoot, "ptr", wszAttributeType, "uint*", pcAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1866,7 +2007,7 @@ class RightsManagement {
      * @param {Pointer<Int32>} peEncoding An enumeration value specifying the encoding type of the return value.
      * @param {Pointer<UInt32>} pcBuffer Size of the returned data, in characters, plus one for a null terminator.
      * @param {Pointer<Byte>} pbBuffer Attribute value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetunboundlicenseattribute
@@ -1875,6 +2016,9 @@ class RightsManagement {
         wszAttributeType := wszAttributeType is String? StrPtr(wszAttributeType) : wszAttributeType
 
         result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttribute", "uint", hQueryRoot, "ptr", wszAttributeType, "uint", iWhich, "int*", peEncoding, "uint*", pcBuffer, "char*", pbBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1884,7 +2028,7 @@ class RightsManagement {
      * This function is used with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmdeconstructcertificatechain">DRMDeconstructCertificateChain</a> to allow an application to loop through a certificate chain and retrieve individual certificates.
      * @param {Pointer<Char>} wszChain The chain to count.
      * @param {Pointer<UInt32>} pcCertCount The number of certificates in the chain.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetcertificatechaincount
@@ -1893,6 +2037,9 @@ class RightsManagement {
         wszChain := wszChain is String? StrPtr(wszChain) : wszChain
 
         result := DllCall("msdrm.dll\DRMGetCertificateChainCount", "ptr", wszChain, "uint*", pcCertCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1906,7 +2053,7 @@ class RightsManagement {
      * @param {Integer} iWhich A zero-based index specifying which certificate to retrieve.
      * @param {Pointer<UInt32>} pcCert The length of the retrieved certificate, in characters, plus one for a null terminator.
      * @param {Pointer<Char>} wszCert The certificate requested.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdeconstructcertificatechain
@@ -1916,6 +2063,9 @@ class RightsManagement {
         wszCert := wszCert is String? StrPtr(wszCert) : wszCert
 
         result := DllCall("msdrm.dll\DRMDeconstructCertificateChain", "ptr", wszChain, "uint", iWhich, "uint*", pcCert, "ptr", wszCert, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1929,7 +2079,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszPrincipal Certificate chain of the principal attesting the data. This chain is needed to create the principal used to verify the data.
      * @param {Pointer<UInt32>} pcManifest Size, in characters, of the manifest used to sign the data, plus one for a terminating null character. For information about making a manifest, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-an-application-manifest">Creating an Application Manifest</a>.
      * @param {Pointer<Char>} wszManifest The manifest used to sign, as a null-terminated string.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmverify
@@ -1941,6 +2091,9 @@ class RightsManagement {
         wszManifest := wszManifest is String? StrPtr(wszManifest) : wszManifest
 
         result := DllCall("msdrm.dll\DRMVerify", "ptr", wszData, "uint*", pcAttestedData, "ptr", wszAttestedData, "int*", peType, "uint*", pcPrincipal, "ptr", wszPrincipal, "uint*", pcManifest, "ptr", wszManifest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1981,7 +2134,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszUserIdType 
      * @param {Pointer<UInt32>} phUser A pointer to the handle of the created user. Call 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For 
      *        a list of common error codes, see 
@@ -1994,6 +2147,9 @@ class RightsManagement {
         wszUserIdType := wszUserIdType is String? StrPtr(wszUserIdType) : wszUserIdType
 
         result := DllCall("msdrm.dll\DRMCreateUser", "ptr", wszUserName, "ptr", wszUserId, "ptr", wszUserIdType, "uint*", phUser, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2018,7 +2174,7 @@ class RightsManagement {
      * @param {Pointer<Char>} pwszExtendedInfoName An array of null-terminated Unicode string pointers that contains the names of extended information data. Each name in this array must be unique. The <b>cExtendedInfo</b> parameter contains the number of elements in this array.
      * @param {Pointer<Char>} pwszExtendedInfoValue An array of null-terminated Unicode string pointers that contains the values of the extended information items.  The <b>cExtendedInfo</b> parameter contains the number of elements in this array.
      * @param {Pointer<UInt32>} phRight A pointer to a handle that receives the handle of the created right. This handle can be used with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmaddrightwithuser">DRMAddRightWithUser</a> function to bind the right to a user. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateright
@@ -2027,6 +2183,9 @@ class RightsManagement {
         wszRightName := wszRightName is String? StrPtr(wszRightName) : wszRightName
 
         result := DllCall("msdrm.dll\DRMCreateRight", "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "uint", cExtendedInfo, "ptr", pwszExtendedInfoName, "ptr", pwszExtendedInfoValue, "uint*", phRight, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2150,7 +2309,7 @@ class RightsManagement {
      * <div class="alert"><b>Note</b>  If your intent is to create a new issuance license, but you want to use the content key from the original signed issuance license, ensure that the <i>hBoundLicense</i> you pass in to <b>DRMCreateIssuanceLicense</b> is bound to either the OWNER or EDITRIGHTSDATA right. In a subsequent call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetsignedissuancelicense">DRMGetSignedIssuanceLicense</a>,  pass in the issuance license handle obtained from <b>DRMCreateIssuanceLicense</b> and  the DRM_REUSE_KEY flag in order to reuse the content key.</div>
      * <div> </div>
      * @param {Pointer<UInt32>} phIssuanceLicense A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drmpubhandle">DRMPUBHANDLE</a> that receives the handle to the new issuance license.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmcreateissuancelicense
@@ -2161,6 +2320,9 @@ class RightsManagement {
         wszIssuanceLicense := wszIssuanceLicense is String? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
 
         result := DllCall("msdrm.dll\DRMCreateIssuanceLicense", "ptr", pstTimeFrom, "ptr", pstTimeUntil, "ptr", wszReferralInfoName, "ptr", wszReferralInfoURL, "uint", hOwner, "ptr", wszIssuanceLicense, "uint", hBoundLicense, "uint*", phIssuanceLicense, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2173,13 +2335,16 @@ class RightsManagement {
      * @param {Integer} hIssuanceLicense The handle of the issuance license to add the right to. This handle is obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateissuancelicense">DRMCreateIssuanceLicense</a> function.
      * @param {Integer} hRight The handle of the right to add to the issuance license. This handle is obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateright">DRMCreateRight</a> function.
      * @param {Integer} hUser The handle of the user to apply the right to. This handle is obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateuser">DRMCreateUser</a> function.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmaddrightwithuser
      */
     static DRMAddRightWithUser(hIssuanceLicense, hRight, hUser) {
         result := DllCall("msdrm.dll\DRMAddRightWithUser", "uint", hIssuanceLicense, "uint", hRight, "uint", hUser, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2188,13 +2353,16 @@ class RightsManagement {
      * @remarks
      * There is no way to remove individual rights from an issuance license.
      * @param {Integer} hIssuanceLicense A handle to the issuance license to remove the rights from.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclearallrights
      */
     static DRMClearAllRights(hIssuanceLicense) {
         result := DllCall("msdrm.dll\DRMClearAllRights", "uint", hIssuanceLicense, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2230,7 +2398,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszSKUIdType A pointer to a null-terminated Unicode string that contains the type of identifier represented by the <i>wszSKUId</i> parameter. If <i>wszSKUId</i> is specified, the <i>wszSKUIdType</i> parameter must be specified. Otherwise, it can be <b>NULL</b>.
      * @param {Pointer<Char>} wszContentType A pointer to a null-terminated Unicode string that contains application-defined information about the content. Examples include "Financial Statement", "Source Code", "Office Document", and any other that you consider appropriate. This parameter is optional and can be <b>NULL</b>.
      * @param {Pointer<Char>} wszContentName A pointer to a null-terminated Unicode string that contains a display name for the content. This parameter is optional and can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetmetadata
@@ -2244,6 +2412,9 @@ class RightsManagement {
         wszContentName := wszContentName is String? StrPtr(wszContentName) : wszContentName
 
         result := DllCall("msdrm.dll\DRMSetMetaData", "uint", hIssuanceLicense, "ptr", wszContentId, "ptr", wszContentIdType, "ptr", wszSKUId, "ptr", wszSKUIdType, "ptr", wszContentType, "ptr", wszContentName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2301,7 +2472,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszDigestAlgorithm A pointer to a null-terminated Unicode string that contains the algorithm used to create the application digest that is specified by <i>pbDigest</i>.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
      * @param {Pointer<Byte>} pbDigest A pointer to an array of bytes that contains the application digest required or prohibited from exercising rights. The size of this array is contained in the <i>cbDigest</i> parameter.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
      * @param {Integer} cbDigest The number of bytes in the <i>pbDigest</i> array.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetusagepolicy
@@ -2314,6 +2485,9 @@ class RightsManagement {
         wszDigestAlgorithm := wszDigestAlgorithm is String? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
 
         result := DllCall("msdrm.dll\DRMSetUsagePolicy", "uint", hIssuanceLicense, "int", eUsagePolicyType, "int", fDelete, "int", fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, "char*", pbDigest, "uint", cbDigest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2333,7 +2507,7 @@ class RightsManagement {
      * @param {Pointer<SYSTEMTIME>} pstFrequency How often the list must be updated.
      * @param {Pointer<Char>} wszName Optional human-readable name for a revocation list site.
      * @param {Pointer<Char>} wszPublicKey Public key of key pair used to sign and verify the revocation list.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetrevocationpoint
@@ -2346,6 +2520,9 @@ class RightsManagement {
         wszPublicKey := wszPublicKey is String? StrPtr(wszPublicKey) : wszPublicKey
 
         result := DllCall("msdrm.dll\DRMSetRevocationPoint", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, "ptr", pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2361,7 +2538,7 @@ class RightsManagement {
      * @param {Integer} fDelete A flag that indicates whether to add or delete this name-value pair.   <b>FALSE</b> indicates add; <b>TRUE</b> indicates delete.
      * @param {Pointer<Char>} wszName The name of the data.
      * @param {Pointer<Char>} wszValue The value of the data.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetapplicationspecificdata
@@ -2371,6 +2548,9 @@ class RightsManagement {
         wszValue := wszValue is String? StrPtr(wszValue) : wszValue
 
         result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszName, "ptr", wszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2386,7 +2566,7 @@ class RightsManagement {
      * @param {Integer} lcid A locale ID for this name and description. If <i>lcid</i> is given as <b>NULL</b> or zero, the name and description given become the default license name and description. There may be only one name and description for any LCID (locale identifier).
      * @param {Pointer<Char>} wszName A license name, in the language specified by this locale.
      * @param {Pointer<Char>} wszDescription An optional license description, in the language specified by this locale.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetnameanddescription
@@ -2396,6 +2576,9 @@ class RightsManagement {
         wszDescription := wszDescription is String? StrPtr(wszDescription) : wszDescription
 
         result := DllCall("msdrm.dll\DRMSetNameAndDescription", "uint", hIssuanceLicense, "int", fDelete, "uint", lcid, "ptr", wszName, "ptr", wszDescription, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2403,13 +2586,16 @@ class RightsManagement {
      * Specifies the number of days from issuance that can pass before an end�user license must be renewed.
      * @param {Integer} hIssuanceLicense The handle of the issuance license in which to  set the interval time.
      * @param {Integer} cDays An unsigned integer  value that specifies the interval period, in days. For example, if you specify 30, the end–user license must be renewed within 30 days of the day  it was issued.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetintervaltime
      */
     static DRMSetIntervalTime(hIssuanceLicense, cDays) {
         result := DllCall("msdrm.dll\DRMSetIntervalTime", "uint", hIssuanceLicense, "uint", cDays, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2428,7 +2614,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszIssuanceLicenseTemplate A pointer to a null-terminated Unicode string that receives the issuance license template XrML. The size of this buffer is specified by the <i>puIssuanceLicenseTemplateLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puIssuanceLicenseTemplateLength</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetissuancelicensetemplate
@@ -2437,6 +2623,9 @@ class RightsManagement {
         wszIssuanceLicenseTemplate := wszIssuanceLicenseTemplate is String? StrPtr(wszIssuanceLicenseTemplate) : wszIssuanceLicenseTemplate
 
         result := DllCall("msdrm.dll\DRMGetIssuanceLicenseTemplate", "uint", hIssuanceLicense, "uint*", puIssuanceLicenseTemplateLength, "ptr", wszIssuanceLicenseTemplate, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2858,7 +3047,7 @@ class RightsManagement {
      * @param {Pointer<DRMCALLBACK>} pfnCallback A pointer to the callback function used to notify the application of an asynchronous request's progress. For the signature of the callback function you must provide, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
      * @param {Pointer<Char>} wszURL A pointer to a null-terminated Unicode string that contains the URL of an AD RMS licensing server that was obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a> function. This string takes the form "<i>ADRMSLicensingServerURL</i>/_wmcs/Licensing". This parameter value is required for online license requests; you can use <b>NULL</b> for offline license requests. This URL is entered in the signed issuance license as the default silent license acquisition URL, which is where an application will automatically go to acquire an end-user license if none is specified in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquirelicense">DRMAcquireLicense</a>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-callback-function">Creating a Callback Function</a>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsignedissuancelicense
@@ -2869,6 +3058,9 @@ class RightsManagement {
         wszURL := wszURL is String? StrPtr(wszURL) : wszURL
 
         result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "char*", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", pfnCallback, "ptr", wszURL, "ptr", pvContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2887,7 +3079,7 @@ class RightsManagement {
      * @param {Integer} hBoundLicenseCLC A handle to the bound license corresponding to the client licensor certificate created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>. This can be created by binding the <i>wszClientLicensorCertificate</i> to the <b>ISSUE</b> right using the <i>hEnablingPrincipal</i> handle. This parameter is required.
      * @param {Pointer<DRMCALLBACK>} pfnCallback A pointer to the callback function used to notify the application of an asynchronous request's progress. For the signature of the callback function you must provide, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is sent in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-callback-function">Creating a Callback Function</a>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetsignedissuancelicenseex
@@ -2897,6 +3089,9 @@ class RightsManagement {
         wszSymKeyType := wszSymKeyType is String? StrPtr(wszSymKeyType) : wszSymKeyType
 
         result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", "uint", hEnv, "uint", hIssuanceLicense, "uint", uFlags, "ptr", pbSymKey, "uint", cbSymKey, "ptr", wszSymKeyType, "ptr", pvReserved, "uint", hEnablingPrincipal, "uint", hBoundLicenseCLC, "ptr", pfnCallback, "ptr", pvContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2905,13 +3100,16 @@ class RightsManagement {
      * @remarks
      * A <b>DRMPUBHANDLE</b> provides an opaque handle to many publishing objects. Creating, copying, and closing these handles with the appropriate Active Directory Rights Management function allows the AD RMS system to maintain a reference count on resources and free them appropriately, and also clears sensitive data from memory.
      * @param {Integer} hPub A handle to a publishing object.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmclosepubhandle
      */
     static DRMClosePubHandle(hPub) {
         result := DllCall("msdrm.dll\DRMClosePubHandle", "uint", hPub, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2921,13 +3119,16 @@ class RightsManagement {
      * Using the appropriate function to create, copy, and close these handles allows Active Directory Rights Management Services to maintain a reference count on resources and free them appropriately; it also clears sensitive data from memory.
      * @param {Integer} hPubIn The <b>DRMPUBHANDLE</b> to make a copy of.
      * @param {Pointer<UInt32>} phPubOut A pointer to a <b>DRMPUBHANDLE</b> value that receives the duplicate handle. When this handle is no longer needed, release it  by passing it to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> function.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicatepubhandle
      */
     static DRMDuplicatePubHandle(hPubIn, phPubOut) {
         result := DllCall("msdrm.dll\DRMDuplicatePubHandle", "uint", hPubIn, "uint*", phPubOut, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2956,7 +3157,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszUserIdType A pointer to a null-terminated Unicode string that receives the type of ID used to identify the user (such as Passport, Windows, or other). The size of this buffer is specified by the <i>puUserIdTypeLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puUserIdTypeLength</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetuserinfo
@@ -2967,6 +3168,9 @@ class RightsManagement {
         wszUserIdType := wszUserIdType is String? StrPtr(wszUserIdType) : wszUserIdType
 
         result := DllCall("msdrm.dll\DRMGetUserInfo", "uint", hUser, "uint*", puUserNameLength, "ptr", wszUserName, "uint*", puUserIdLength, "ptr", wszUserId, "uint*", puUserIdTypeLength, "ptr", wszUserIdType, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -2981,7 +3185,7 @@ class RightsManagement {
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puRightNameLength</i> value.
      * @param {Pointer<SYSTEMTIME>} pstFrom A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the starting validity time, in UTC time, of the right. If this information is not required, set this parameter to <b>NULL</b>.
      * @param {Pointer<SYSTEMTIME>} pstUntil A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the ending validity time, in UTC time, of the right. If this information is not required, set this parameter to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetrightinfo
@@ -2990,6 +3194,9 @@ class RightsManagement {
         wszRightName := wszRightName is String? StrPtr(wszRightName) : wszRightName
 
         result := DllCall("msdrm.dll\DRMGetRightInfo", "uint", hRight, "uint*", puRightNameLength, "ptr", wszRightName, "ptr", pstFrom, "ptr", pstUntil, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3013,7 +3220,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszExtendedInfoValue A pointer to a null-terminated Unicode string that receives the value associated with the name. The size of this buffer is specified by the <i>puExtendedInfoValueLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puExtendedInfoValueLength</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetrightextendedinfo
@@ -3023,6 +3230,9 @@ class RightsManagement {
         wszExtendedInfoValue := wszExtendedInfoValue is String? StrPtr(wszExtendedInfoValue) : wszExtendedInfoValue
 
         result := DllCall("msdrm.dll\DRMGetRightExtendedInfo", "uint", hRight, "uint", uIndex, "uint*", puExtendedInfoNameLength, "ptr", wszExtendedInfoName, "uint*", puExtendedInfoValueLength, "ptr", wszExtendedInfoValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3033,13 +3243,16 @@ class RightsManagement {
      * @param {Integer} hIssuanceLicense The handle of the issuance license to retrieve the user from.
      * @param {Integer} uIndex The zero-based index of the user in the issuance license to retrieve. To enumerate all the users in the issuance license, create a loop starting at zero and incrementing by one. When the function returns <b>E_DRM_NO_MORE_DATA</b>, there are no more users in the issuance license.
      * @param {Pointer<UInt32>} phUser A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle to the requested user. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetusers
      */
     static DRMGetUsers(hIssuanceLicense, uIndex, phUser) {
         result := DllCall("msdrm.dll\DRMGetUsers", "uint", hIssuanceLicense, "uint", uIndex, "uint*", phUser, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3053,13 +3266,16 @@ class RightsManagement {
      * @param {Integer} hUser The handle of a user in the issuance license to retrieve the rights for.
      * @param {Integer} uIndex The zero-based index that indicates which right to retrieve for the specified user. To enumerate all the rights assigned to a user in the issuance license, create a loop starting at zero and incrementing by one. When the function returns <b>E_DRM_NO_MORE_DATA</b>, there are no more rights assigned to that user.
      * @param {Pointer<UInt32>} phRight A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle to the requested right. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetuserrights
      */
     static DRMGetUserRights(hIssuanceLicense, hUser, uIndex, phRight) {
         result := DllCall("msdrm.dll\DRMGetUserRights", "uint", hIssuanceLicense, "uint", hUser, "uint", uIndex, "uint*", phRight, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3102,7 +3318,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszContentName A pointer to a null-terminated Unicode string that receives the name of the content. The size of this buffer is specified by the <i>puContentNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puContentNameLength</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetmetadata
@@ -3116,6 +3332,9 @@ class RightsManagement {
         wszContentName := wszContentName is String? StrPtr(wszContentName) : wszContentName
 
         result := DllCall("msdrm.dll\DRMGetMetaData", "uint", hIssuanceLicense, "uint*", puContentIdLength, "ptr", wszContentId, "uint*", puContentIdTypeLength, "ptr", wszContentIdType, "uint*", puSKUIdLength, "ptr", wszSKUId, "uint*", puSKUIdTypeLength, "ptr", wszSKUIdType, "uint*", puContentTypeLength, "ptr", wszContentType, "uint*", puContentNameLength, "ptr", wszContentName, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3139,7 +3358,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszValue A pointer to a Unicode character buffer that receives the value portion of the name-value pair. The size of this buffer is specified by the <i>puValueLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puValueLength</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetapplicationspecificdata
@@ -3149,6 +3368,9 @@ class RightsManagement {
         wszValue := wszValue is String? StrPtr(wszValue) : wszValue
 
         result := DllCall("msdrm.dll\DRMGetApplicationSpecificData", "uint", hIssuanceLicense, "uint", uIndex, "uint*", puNameLength, "ptr", wszName, "uint*", puValueLength, "ptr", wszValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3180,7 +3402,7 @@ class RightsManagement {
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puDistributionPointURLLength</i> value.
      * @param {Pointer<UInt32>} phOwner A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle of the issuance license owner. If this information is not required, set this parameter to <b>NULL</b>. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
      * @param {Pointer<Int32>} pfOfficial A pointer to  a Boolean value that specifies whether the issuance license is based on an official template. A nonzero value indicates that the license is based on an official template. Official templates are created and signed by the AD RMS server. Unofficial templates are created by the client from scratch or by adapting an official template. If this information is not required, set this parameter to <b>NULL</b>. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-license-from-a-template">Creating a License From a Template</a>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetissuancelicenseinfo
@@ -3190,6 +3412,9 @@ class RightsManagement {
         wszDistributionPointURL := wszDistributionPointURL is String? StrPtr(wszDistributionPointURL) : wszDistributionPointURL
 
         result := DllCall("msdrm.dll\DRMGetIssuanceLicenseInfo", "uint", hIssuanceLicense, "ptr", pstTimeFrom, "ptr", pstTimeUntil, "uint", uFlags, "uint*", puDistributionPointNameLength, "ptr", wszDistributionPointName, "uint*", puDistributionPointURLLength, "ptr", wszDistributionPointURL, "uint*", phOwner, "int*", pfOfficial, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3231,7 +3456,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszPublicKey A pointer to a null-terminated Unicode string that receives the optional public key to identify a revocation list outside the content's chain of trust. The size of this buffer is specified by the <i>puPublicKeyLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puPublicKeyLength</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetrevocationpoint
@@ -3244,6 +3469,9 @@ class RightsManagement {
         wszPublicKey := wszPublicKey is String? StrPtr(wszPublicKey) : wszPublicKey
 
         result := DllCall("msdrm.dll\DRMGetRevocationPoint", "uint", hIssuanceLicense, "uint*", puIdLength, "ptr", wszId, "uint*", puIdTypeLength, "ptr", wszIdType, "uint*", puURLLength, "ptr", wszRL, "ptr", pstFrequency, "uint*", puNameLength, "ptr", wszName, "uint*", puPublicKeyLength, "ptr", wszPublicKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3299,7 +3527,7 @@ class RightsManagement {
      * @param {Pointer<Byte>} pbDigest A pointer to a buffer that receives the application digest that is required to exercise or prohibited from exercising rights. The size of this buffer is specified by the <i>pcbDigest</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in bytes, in the <i>pcbDigest</i> value.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetusagepolicy
@@ -3312,6 +3540,9 @@ class RightsManagement {
         wszDigestAlgorithm := wszDigestAlgorithm is String? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
 
         result := DllCall("msdrm.dll\DRMGetUsagePolicy", "uint", hIssuanceLicense, "uint", uIndex, "int*", peUsagePolicyType, "int*", pfExclusion, "uint*", puNameLength, "ptr", wszName, "uint*", puMinVersionLength, "ptr", wszMinVersion, "uint*", puMaxVersionLength, "ptr", wszMaxVersion, "uint*", puPublicKeyLength, "ptr", wszPublicKey, "uint*", puDigestAlgorithmLength, "ptr", wszDigestAlgorithm, "uint*", pcbDigest, "char*", pbDigest, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3335,7 +3566,7 @@ class RightsManagement {
      * @param {Pointer<Char>} wszDescription A pointer to a null-terminated Unicode string that receives the description. The size of this buffer is specified by the <i>puDescriptionLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puDescriptionLength</i> parameter.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetnameanddescription
@@ -3345,6 +3576,9 @@ class RightsManagement {
         wszDescription := wszDescription is String? StrPtr(wszDescription) : wszDescription
 
         result := DllCall("msdrm.dll\DRMGetNameAndDescription", "uint", hIssuanceLicense, "uint", uIndex, "uint*", pulcid, "uint*", puNameLength, "ptr", wszName, "uint*", puDescriptionLength, "ptr", wszDescription, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3355,7 +3589,7 @@ class RightsManagement {
      * @param {Integer} hIssuanceLicense A handle to a signed issuance license.
      * @param {Pointer<UInt32>} puOwnerLicenseLength An unsigned integer that contains the length, in characters, of the owner license retrieved by this function. The terminating null character is included in the length.
      * @param {Pointer<Char>} wszOwnerLicense A null-terminated string that contains the owner license in XrML format. For example XrML owner license, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/owner-license-xml-example">Owner License XML Example</a>.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetownerlicense
@@ -3364,6 +3598,9 @@ class RightsManagement {
         wszOwnerLicense := wszOwnerLicense is String? StrPtr(wszOwnerLicense) : wszOwnerLicense
 
         result := DllCall("msdrm.dll\DRMGetOwnerLicense", "uint", hIssuanceLicense, "uint*", puOwnerLicenseLength, "ptr", wszOwnerLicense, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3371,13 +3608,16 @@ class RightsManagement {
      * Retrieves the number of days from issuance that can pass before an end�user license must be renewed.
      * @param {Integer} hIssuanceLicense The handle of the issuance license from which the interval time can be retrieved.
      * @param {Pointer<UInt32>} pcDays A pointer to a <b>UINT</b> that specifies the interval period, in days. For example, if the value is  30, the end–user license must be renewed within 30 days of the day  it was issued.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetintervaltime
      */
     static DRMGetIntervalTime(hIssuanceLicense, pcDays) {
         result := DllCall("msdrm.dll\DRMGetIntervalTime", "uint", hIssuanceLicense, "uint*", pcDays, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3387,13 +3627,16 @@ class RightsManagement {
      * The <b>DRMRepair</b> function first determines whether the machine is activated. If the machine activation is not valid, then the <b>DRMRepair</b> function will restore the machine to a clean state by deleting the machine certificate, rights account certificate, and client licensor certificate of the  currently logged on user.
      * 
      * If the machine activation is valid but the rights account certificate is not valid, then the <b>DRMRepair</b> function will delete the rights account certificate and client licensor certificate of the  currently logged on user.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmrepair
      */
     static DRMRepair() {
         result := DllCall("msdrm.dll\DRMRepair", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3403,7 +3646,7 @@ class RightsManagement {
      * If the process ID does not equal the ID of the thread that created the window, the function fails. Also, if the visibility state of the window is not <b>WS_VISIBLE</b>, the function fails.
      * @param {Integer} hEnv A handle to the secure environment.
      * @param {Pointer<Void>} hwnd A handle to the window to be registered.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmregisterprotectedwindow
@@ -3411,6 +3654,9 @@ class RightsManagement {
      */
     static DRMRegisterProtectedWindow(hEnv, hwnd) {
         result := DllCall("msdrm.dll\DRMRegisterProtectedWindow", "uint", hEnv, "ptr", hwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3418,7 +3664,7 @@ class RightsManagement {
      * Indicates whether a window is associated with a protected environment.
      * @param {Pointer<Void>} hwnd The window handle.
      * @param {Pointer<Int32>} pfProtected A pointer to a <b>BOOL</b> that indicates whether the window is associated with a protected environment.
-     * @returns {Integer} If the function succeeds, the function returns S_OK.
+     * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmiswindowprotected
@@ -3426,6 +3672,9 @@ class RightsManagement {
      */
     static DRMIsWindowProtected(hwnd, pfProtected) {
         result := DllCall("msdrm.dll\DRMIsWindowProtected", "ptr", hwnd, "int*", pfProtected, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -3445,7 +3694,7 @@ class RightsManagement {
      * @param {Pointer<Char>} pwszTemplateIds Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {Pointer<Char>} wszUrl A null-terminated Unicode string that contains the template acquisition URL. You can retrieve this value by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a> and setting the <i>uServiceType</i> parameter to <b>DRM_SERVICE_TYPE_CLIENTLICENSOR</b>.
      * @param {Pointer<Void>} pvContext A 32-bit, application-defined value that is returned in the <i>pvContext</i> parameter of the callback function. This value can be a pointer to data, a pointer to an event handle, or whatever else the custom callback function is designed to handle. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrmdefs/nc-msdrmdefs-drmcallback">Callback Prototype</a>.
-     * @returns {Integer} If the function succeeds, the function returns <b>S_OK</b>.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmacquireissuancelicensetemplate
@@ -3455,6 +3704,9 @@ class RightsManagement {
         wszUrl := wszUrl is String? StrPtr(wszUrl) : wszUrl
 
         result := DllCall("msdrm.dll\DRMAcquireIssuanceLicenseTemplate", "uint", hClient, "uint", uFlags, "ptr", pvReserved, "uint", cTemplates, "ptr", pwszTemplateIds, "ptr", wszUrl, "ptr", pvContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

@@ -81,7 +81,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrError {
         get => NumGet(this, 40, "int")
@@ -156,7 +156,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrErrorCode {
         get => NumGet(this, 40, "int")
@@ -172,7 +172,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrErrorCode1 {
         get => NumGet(this, 24, "int")
@@ -188,7 +188,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrErrorCode12 {
         get => NumGet(this, 24, "int")
@@ -204,7 +204,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrErrorCode123 {
         get => NumGet(this, 24, "int")

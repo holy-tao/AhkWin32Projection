@@ -2258,7 +2258,7 @@ class TextServices {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} <table>
+     * @returns {HRESULT} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -2277,12 +2277,15 @@ class TextServices {
      */
     static InitLocalMsCtfMonitor(dwFlags) {
         result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", "uint", dwFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
     /**
      * The UninitLocalMsCtfMonitor function uninitializes TextServicesFramework on the current desktop.
-     * @returns {Integer} <table>
+     * @returns {HRESULT} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -2297,6 +2300,9 @@ class TextServices {
      */
     static UninitLocalMsCtfMonitor() {
         result := DllCall("MsCtfMonitor.dll\UninitLocalMsCtfMonitor", "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

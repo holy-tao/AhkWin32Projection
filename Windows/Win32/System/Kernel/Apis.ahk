@@ -45,13 +45,12 @@ class Kernel {
      * @remarks
      * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function are forwarded to the <b>RtlInitializeSListHead</b> function. Applications should call <b>InitializeSListHead</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinitializeslisthead
      * @since windows5.1.2600
      */
     static RtlInitializeSListHead(ListHead) {
-        result := DllCall("ntdll.dll\RtlInitializeSListHead", "ptr", ListHead)
-        return result
+        DllCall("ntdll.dll\RtlInitializeSListHead", "ptr", ListHead)
     }
 
     /**

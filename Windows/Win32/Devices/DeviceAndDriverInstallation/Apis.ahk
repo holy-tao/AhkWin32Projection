@@ -5905,13 +5905,12 @@ class DeviceAndDriverInstallation {
     /**
      * The SetupCloseInfFile function closes the INF file opened by a call to SetupOpenInfFile. This function closes any INF files appended to it by calling SetupOpenAppendInfFile.
      * @param {Pointer<Void>} InfHandle Handle to the INF file to be closed.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupcloseinffile
      * @since windows5.1.2600
      */
     static SetupCloseInfFile(InfHandle) {
-        result := DllCall("SETUPAPI.dll\SetupCloseInfFile", "ptr", InfHandle)
-        return result
+        DllCall("SETUPAPI.dll\SetupCloseInfFile", "ptr", InfHandle)
     }
 
     /**
@@ -7378,7 +7377,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Byte>} PathBuffer Optional pointer to a buffer that, upon return, receives the path (no filename) of the location specified by the user through the dialog box.  You should use a <b>null</b>-terminated string. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size.  See the Remarks section.
      * @param {Integer} PathBufferSize Size of the buffer pointed to by <i>PathBuffer</i>, in characters. It should be at least MAX_PATH long. This includes the <b>null</b> terminator.
      * @param {Pointer<UInt32>} PathRequiredSize Optional pointer to a variable that receives the required size for <i>PathBuffer</i>, in characters. This includes the <b>null</b> terminator.
-     * @returns {Pointer} The function returns one of the following values.
+     * @returns {Integer} The function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7395,7 +7394,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupPromptForDiskA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, "uint", DiskPromptStyle, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize)
+        result := DllCall("SETUPAPI.dll\SetupPromptForDiskA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, "uint", DiskPromptStyle, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7433,7 +7432,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Char>} PathBuffer Optional pointer to a buffer that, upon return, receives the path (no filename) of the location specified by the user through the dialog box.  You should use a <b>null</b>-terminated string. The <b>null</b>-terminated string should not exceed the size of the destination buffer. You can call the function once to get the required buffer size, allocate the necessary memory, and then call the function a second time to retrieve the data. Using this technique, you can avoid errors due to an insufficient buffer size.  See the Remarks section.
      * @param {Integer} PathBufferSize Size of the buffer pointed to by <i>PathBuffer</i>, in characters. It should be at least MAX_PATH long. This includes the <b>null</b> terminator.
      * @param {Pointer<UInt32>} PathRequiredSize Optional pointer to a variable that receives the required size for <i>PathBuffer</i>, in characters. This includes the <b>null</b> terminator.
-     * @returns {Pointer} The function returns one of the following values.
+     * @returns {Integer} The function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7450,7 +7449,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupPromptForDiskW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, "uint", DiskPromptStyle, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize)
+        result := DllCall("SETUPAPI.dll\SetupPromptForDiskW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, "uint", DiskPromptStyle, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7502,7 +7501,7 @@ class DeviceAndDriverInstallation {
      * 
      * The buffer size should be at least MAX_PATH characters, including the <b>null</b> terminator.
      * @param {Pointer<UInt32>} PathRequiredSize An optional pointer to a variable in which this function returns the required buffer size, in characters, including the <b>null</b> terminator.
-     * @returns {Pointer} The function returns one of the following values.
+     * @returns {Integer} The function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7519,7 +7518,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupCopyErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", SourceFile, "ptr", TargetPathFile, "uint", Win32ErrorCode, "uint", Style, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize)
+        result := DllCall("SETUPAPI.dll\SetupCopyErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", SourceFile, "ptr", TargetPathFile, "uint", Win32ErrorCode, "uint", Style, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7571,7 +7570,7 @@ class DeviceAndDriverInstallation {
      * 
      * The buffer size should be at least MAX_PATH characters, including the <b>null</b> terminator.
      * @param {Pointer<UInt32>} PathRequiredSize An optional pointer to a variable in which this function returns the required buffer size, in characters, including the <b>null</b> terminator.
-     * @returns {Pointer} The function returns one of the following values.
+     * @returns {Integer} The function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7588,7 +7587,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupCopyErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", SourceFile, "ptr", TargetPathFile, "uint", Win32ErrorCode, "uint", Style, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize)
+        result := DllCall("SETUPAPI.dll\SetupCopyErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", SourceFile, "ptr", TargetPathFile, "uint", Win32ErrorCode, "uint", Style, "ptr", PathBuffer, "uint", PathBufferSize, "uint*", PathRequiredSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7606,7 +7605,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Byte>} TargetFile Pointer to a <b>null</b>-terminated string that specifies the full path of the target file on which the operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Specifies display formatting and behavior of the dialog box. This parameter can be one of the following flags.
-     * @returns {Pointer} This function returns one of the following values.
+     * @returns {Integer} This function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7620,7 +7619,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupRenameErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style)
+        result := DllCall("SETUPAPI.dll\SetupRenameErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7638,7 +7637,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Char>} TargetFile Pointer to a <b>null</b>-terminated string that specifies the full path of the target file on which the operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Specifies display formatting and behavior of the dialog box. This parameter can be one of the following flags.
-     * @returns {Pointer} This function returns one of the following values.
+     * @returns {Integer} This function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7652,7 +7651,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupRenameErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style)
+        result := DllCall("SETUPAPI.dll\SetupRenameErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7669,7 +7668,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Byte>} File Pointer to a <b>null</b>-terminated string specifying the full path of the file on which the delete operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
-     * @returns {Pointer} This function returns one of the following values.
+     * @returns {Integer} This function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7682,7 +7681,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDeleteErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", File, "uint", Win32ErrorCode, "uint", Style)
+        result := DllCall("SETUPAPI.dll\SetupDeleteErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", File, "uint", Win32ErrorCode, "uint", Style, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7699,7 +7698,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Char>} File Pointer to a <b>null</b>-terminated string specifying the full path of the file on which the delete operation failed.
      * @param {Integer} Win32ErrorCode The <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> encountered during the file operation.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
-     * @returns {Pointer} This function returns one of the following values.
+     * @returns {Integer} This function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7712,7 +7711,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDeleteErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", File, "uint", Win32ErrorCode, "uint", Style)
+        result := DllCall("SETUPAPI.dll\SetupDeleteErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", File, "uint", Win32ErrorCode, "uint", Style, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7730,7 +7729,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Byte>} TargetFile Optional pointer to a <b>null</b>-terminated string specifying the full path of the backup name of the file. This parameter can be <b>NULL</b>.
      * @param {Integer} Win32ErrorCode If an error occurs, this member is the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If no error has occurred, it is  NO_ERROR.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
-     * @returns {Pointer} This function returns one of the following values.
+     * @returns {Integer} This function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7744,7 +7743,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupBackupErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style)
+        result := DllCall("SETUPAPI.dll\SetupBackupErrorA", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7762,7 +7761,7 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Char>} TargetFile Optional pointer to a <b>null</b>-terminated string specifying the full path of the backup name of the file. This parameter can be <b>NULL</b>.
      * @param {Integer} Win32ErrorCode If an error occurs, this member is the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If no error has occurred, it is  NO_ERROR.
      * @param {Integer} Style Flags that control display formatting and behavior of the dialog box. This parameter can be one of the following flags.
-     * @returns {Pointer} This function returns one of the following values.
+     * @returns {Integer} This function returns one of the following values.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7776,7 +7775,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupBackupErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style)
+        result := DllCall("SETUPAPI.dll\SetupBackupErrorW", "ptr", hwndParent, "ptr", DialogTitle, "ptr", SourceFile, "ptr", TargetFile, "uint", Win32ErrorCode, "uint", Style, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -10853,7 +10852,7 @@ class DeviceAndDriverInstallation {
      * If <b>TRUE</b>, the user is never asked about rebooting, and system shutdown is not initiated. In this case, <i>FileQueue</i> must be specified. If <b>FALSE</b>, the user is asked about rebooting, as previously described.
      * 
      * Use <i>ScanOnly</i> to determine if shutdown is necessary separately from actually initiating a shutdown.
-     * @returns {Pointer} The function returns a combination of the following flags or –1 if an error occurs.
+     * @returns {Integer} The function returns a combination of the following flags or –1 if an error occurs.
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10863,7 +10862,7 @@ class DeviceAndDriverInstallation {
     static SetupPromptReboot(FileQueue, Owner, ScanOnly) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupPromptReboot", "ptr", FileQueue, "ptr", Owner, "int", ScanOnly)
+        result := DllCall("SETUPAPI.dll\SetupPromptReboot", "ptr", FileQueue, "ptr", Owner, "int", ScanOnly, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10936,21 +10935,17 @@ class DeviceAndDriverInstallation {
      * <b>SetupTermDefaultQueueCallback</b> to release the resources allocated in initializing the context structure. For more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/SetupApi/initializing-and-terminating-the-callback-context">Initializing and Terminating the Callback Context</a>.
      * @param {Pointer<Void>} Context Pointer to the context used by the default callback routine.
-     * @returns {Pointer} Does not return a value.
-     * 
-     * To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setuptermdefaultqueuecallback
      * @since windows5.1.2600
      */
     static SetupTermDefaultQueueCallback(Context) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupTermDefaultQueueCallback", "ptr", Context)
+        DllCall("SETUPAPI.dll\SetupTermDefaultQueueCallback", "ptr", Context)
         if(A_LastError)
             throw OSError()
 
-        return result
     }
 
     /**
@@ -11154,7 +11149,7 @@ class DeviceAndDriverInstallation {
      * </table>
      * @param {Pointer} Param1 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
      * @param {Pointer} Param2 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
-     * @returns {Pointer} Returns an unsigned integer to 
+     * @returns {Integer} Returns an unsigned integer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupcommitfilequeuea">SetupCommitFileQueue</a> that can be the one of the values shown in the following table.
      * 
      * <table>
@@ -11228,7 +11223,7 @@ class DeviceAndDriverInstallation {
     static SetupDefaultQueueCallbackA(Context, Notification, Param1, Param2) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDefaultQueueCallbackA", "ptr", Context, "uint", Notification, "ptr", Param1, "ptr", Param2)
+        result := DllCall("SETUPAPI.dll\SetupDefaultQueueCallbackA", "ptr", Context, "uint", Notification, "ptr", Param1, "ptr", Param2, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11436,7 +11431,7 @@ class DeviceAndDriverInstallation {
      * </table>
      * @param {Pointer} Param1 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
      * @param {Pointer} Param2 Additional message information. The content of this parameter depends on the value of the <i>Notification</i> parameter.
-     * @returns {Pointer} Returns an unsigned integer to 
+     * @returns {Integer} Returns an unsigned integer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupcommitfilequeuea">SetupCommitFileQueue</a> that can be the one of the values shown in the following table.
      * 
      * <table>
@@ -11510,7 +11505,7 @@ class DeviceAndDriverInstallation {
     static SetupDefaultQueueCallbackW(Context, Notification, Param1, Param2) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDefaultQueueCallbackW", "ptr", Context, "uint", Notification, "ptr", Param1, "ptr", Param2)
+        result := DllCall("SETUPAPI.dll\SetupDefaultQueueCallbackW", "ptr", Context, "uint", Notification, "ptr", Param1, "ptr", Param2, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -12607,15 +12602,14 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} ModuleHandle Reserved and should be Null.
      * @param {Pointer<Byte>} CommandLine Pointer to buffer containing the command line. You should use a null-terminated string.
      * @param {Integer} ShowCommand Reserved and should be zero.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-installhinfsectiona
      * @since windows5.1.2600
      */
     static InstallHinfSectionA(Window, ModuleHandle, CommandLine, ShowCommand) {
         CommandLine := CommandLine is String? StrPtr(CommandLine) : CommandLine
 
-        result := DllCall("SETUPAPI.dll\InstallHinfSectionA", "ptr", Window, "ptr", ModuleHandle, "ptr", CommandLine, "int", ShowCommand)
-        return result
+        DllCall("SETUPAPI.dll\InstallHinfSectionA", "ptr", Window, "ptr", ModuleHandle, "ptr", CommandLine, "int", ShowCommand)
     }
 
     /**
@@ -12702,15 +12696,14 @@ class DeviceAndDriverInstallation {
      * @param {Pointer<Void>} ModuleHandle Reserved and should be Null.
      * @param {Pointer<Char>} CommandLine Pointer to buffer containing the command line. You should use a null-terminated string.
      * @param {Integer} ShowCommand Reserved and should be zero.
-     * @returns {Pointer} 
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-installhinfsectionw
      * @since windows5.1.2600
      */
     static InstallHinfSectionW(Window, ModuleHandle, CommandLine, ShowCommand) {
         CommandLine := CommandLine is String? StrPtr(CommandLine) : CommandLine
 
-        result := DllCall("SETUPAPI.dll\InstallHinfSectionW", "ptr", Window, "ptr", ModuleHandle, "ptr", CommandLine, "int", ShowCommand)
-        return result
+        DllCall("SETUPAPI.dll\InstallHinfSectionW", "ptr", Window, "ptr", ModuleHandle, "ptr", CommandLine, "int", ShowCommand)
     }
 
     /**
@@ -13221,13 +13214,12 @@ class DeviceAndDriverInstallation {
      * The SetupCloseLog function closes the log files.
      * @remarks
      * The log files are located in the Windows directory, and the file names are Setupact.log and Setuperr.log.
-     * @returns {Pointer} This function does not return a value.
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupcloselog
      * @since windows5.1.2600
      */
     static SetupCloseLog() {
-        result := DllCall("SETUPAPI.dll\SetupCloseLog")
-        return result
+        DllCall("SETUPAPI.dll\SetupCloseLog")
     }
 
     /**
@@ -13256,13 +13248,12 @@ class DeviceAndDriverInstallation {
      * 
      * For more information about using log tokens, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/setting-and-getting-a-log-token-for-a-thread">Setting and Getting a Log Token for a Thread</a>.
      * @param {Integer} LogToken A <a href="https://docs.microsoft.com/windows-hardware/drivers/install/log-tokens">log token</a> that is either a system-defined log token or was returned by <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupgetthreadlogtoken">SetupGetThreadLogToken</a>.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupsetthreadlogtoken
      * @since windows6.0.6000
      */
     static SetupSetThreadLogToken(LogToken) {
-        result := DllCall("SETUPAPI.dll\SetupSetThreadLogToken", "uint", LogToken)
-        return result
+        DllCall("SETUPAPI.dll\SetupSetThreadLogToken", "uint", LogToken)
     }
 
     /**
@@ -13364,15 +13355,14 @@ class DeviceAndDriverInstallation {
      * </li>
      * </ul>
      * @param {Pointer<Byte>} MessageStr A pointer to a NULL-terminated constant string that contains a <b>printf</b>-compatible format string, which specifies the formatted message to include in the log entry. The comma-separated parameter list that follows <i>MessageStr</i> must match the format specifiers in the format string.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextlog
      * @since windows6.0.6000
      */
     static SetupWriteTextLog(LogToken, Category, Flags, MessageStr) {
         MessageStr := MessageStr is String? StrPtr(MessageStr) : MessageStr
 
-        result := DllCall("SETUPAPI.dll\SetupWriteTextLog", "uint", LogToken, "uint", Category, "uint", Flags, "ptr", MessageStr, "CDecl ptr")
-        return result
+        DllCall("SETUPAPI.dll\SetupWriteTextLog", "uint", LogToken, "uint", Category, "uint", Flags, "ptr", MessageStr, "CDecl ")
     }
 
     /**
@@ -13435,15 +13425,14 @@ class DeviceAndDriverInstallation {
      * </ul>
      * @param {Integer} Error A SetupAPI-specific error code or a Win32 error code. The SetupAPI-specific error codes are listed in <i>Setupapi.h</i>. The Win32 error codes are listed in <i>Winerror.h</i>.
      * @param {Pointer<Byte>} MessageStr A pointer to a NULL-terminated constant string that contains a <b>printf</b>-compatible format string, which specifies the formatted message to include in the log entry.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextlogerror
      * @since windows6.0.6000
      */
     static SetupWriteTextLogError(LogToken, Category, LogFlags, Error, MessageStr) {
         MessageStr := MessageStr is String? StrPtr(MessageStr) : MessageStr
 
-        result := DllCall("SETUPAPI.dll\SetupWriteTextLogError", "uint", LogToken, "uint", Category, "uint", LogFlags, "uint", Error, "ptr", MessageStr, "CDecl ptr")
-        return result
+        DllCall("SETUPAPI.dll\SetupWriteTextLogError", "uint", LogToken, "uint", Category, "uint", LogFlags, "uint", Error, "ptr", MessageStr, "CDecl ")
     }
 
     /**
@@ -13501,13 +13490,12 @@ class DeviceAndDriverInstallation {
      * </ul>
      * @param {Pointer<Void>} InfHandle A handle to the INF file that includes the line of text to be written to the text log. A handle to an INF file is obtained by calling <b>SetupOpenInfFile</b>, which is documented in the Platform SDK.
      * @param {Pointer<INFCONTEXT>} Context A pointer to an INF file context that specifies the  line of text to be written to the text log. An INF file context for a line is obtained by calling the <b>SetupFind</b><i>Xxx</i><b>Line</b> functions. For information about INF files and an INF file context, see the information that is provided in the Platform SDK about using INF files, obtaining an INF file context, and the INFCONTEXT structure.
-     * @returns {Pointer} None
+     * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextloginfline
      * @since windows6.0.6000
      */
     static SetupWriteTextLogInfLine(LogToken, Flags, InfHandle, Context) {
-        result := DllCall("SETUPAPI.dll\SetupWriteTextLogInfLine", "uint", LogToken, "uint", Flags, "ptr", InfHandle, "ptr", Context)
-        return result
+        DllCall("SETUPAPI.dll\SetupWriteTextLogInfLine", "uint", LogToken, "uint", Flags, "ptr", InfHandle, "ptr", Context)
     }
 
     /**
@@ -19525,12 +19513,12 @@ class DeviceAndDriverInstallation {
      * </tr>
      * </table>
      * @param {Integer} Flags These flags control the drawing operation. The LOWORD contains the actual flags defined as follows:
-     * @returns {Pointer} This function returns the offset from the left side of <i>rc</i> where the string should start. If the draw operation fails, the function returns zero.
+     * @returns {Integer} This function returns the offset from the left side of <i>rc</i> where the string should start. If the draw operation fails, the function returns zero.
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupdidrawminiicon
      * @since windows5.0
      */
     static SetupDiDrawMiniIcon(hdc, rc, MiniIconIndex, Flags) {
-        result := DllCall("SETUPAPI.dll\SetupDiDrawMiniIcon", "ptr", hdc, "ptr", rc, "int", MiniIconIndex, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupDiDrawMiniIcon", "ptr", hdc, "ptr", rc, "int", MiniIconIndex, "uint", Flags, "int")
         return result
     }
 

@@ -1141,10 +1141,13 @@ class TpmBaseServices {
      * @param {Integer} cbWindowsAIK 
      * @param {Pointer<UInt32>} pcbResult 
      * @param {Pointer<Int32>} pfProtectedByTPM 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
         result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, "uint*", pcbResult, "int*", pfProtectedByTPM, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 
@@ -1154,12 +1157,15 @@ class TpmBaseServices {
      * @param {Integer} cchWindowsAIK 
      * @param {Pointer<UInt32>} pcchResult 
      * @param {Pointer<Int32>} pfProtectedByTPM 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
     static GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedByTPM) {
         pszWindowsAIK := pszWindowsAIK is String? StrPtr(pszWindowsAIK) : pszWindowsAIK
 
         result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "uint*", pcchResult, "int*", pfProtectedByTPM, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

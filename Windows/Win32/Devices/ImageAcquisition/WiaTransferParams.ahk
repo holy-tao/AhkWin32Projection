@@ -83,7 +83,7 @@ class WiaTransferParams extends Win32Struct
      * 
      * 
      * The status, or error state, of the device set by the driver; for example, "warming up".
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrErrorStatus {
         get => NumGet(this, 16, "int")
