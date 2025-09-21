@@ -181,13 +181,9 @@ class Win32FixedArray {
         if(!IsInteger(index))
             throw TypeError("Expected an Integer but got a(n) " . Type(index))
 
-        if (this.elementType == Primitive) {
-            elementWidth := Win32FixedArray.DllCallTypeWidths[this.dllCallType]
-        } else {
-            packingSize  := this.elementType.packingSize
-            sizeof       := this.elementType.sizeof
-            elementWidth := sizeof + Mod(packingSize - Mod(sizeof, packingSize), packingSize)
-        }
+        elementWidth := this.elementType == Primitive? 
+            Win32FixedArray.DllCallTypeWidths[this.dllCallType] :
+            this.elementType.packedSize
         offset := (index - 1) * (elementWidth)
         return offset
     }
