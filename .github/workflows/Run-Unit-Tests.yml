@@ -1,0 +1,45 @@
+name: CI
+
+on: 
+  pull_request:
+  workflow_dispatch:
+  push:
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install AutoHotkey V2
+        shell: powershell
+        env:
+            url: https://github.com/AutoHotkey/AutoHotkey/releases/download/v2.0.19/AutoHotkey_2.0.19.zip
+        run: |
+          $cwd = (Get-Item .).FullName
+          Invoke-WebRequest "$env:url" -OutFile "$cwd\autohotkey.zip"
+          Expand-Archive -Path "$cwd\autohotkey.zip" -DestinationPath "$cwd\autohotkey" -Force
+          Remove-Item -Path "$cwd\autohotkey.zip" -Force -ErrorAction SilentlyContinue
+
+          Write-Output ("$cwd\autohotkey;" + "$cwd\autohotkey\Compiler") | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Run Unit Tests
+        working-directory: Tests
+        shell: powershell
+        run: AutoHotkey64.exe /ErrorStdOut RunTests.ahk
+
+      - name: Publish Test Results
+        if: always()
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: Tests/junit.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
