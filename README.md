@@ -79,14 +79,21 @@ This project is intended to be used as a library. You can "install" it by clonin
 ```
 
 ### Common Namespaces
-Namespaces can be unintuitive and they aren't really mapped to headers, so a few common namespaces are listed here:
-- [`Windows\Win32\UI\Controls`](./Windows/Win32/UI/Controls): Most Gui and GuiControl related types
-- [`Windows\Win32\UI\WindowsAndMessaging`](./Windows/Win32/WindowsAndMessaging): Contains more fundamental window-related structs and enums (e.g. the [`WINDOW_EX_STYLE`](./Windows/Win32/UI/WindowsAndMessaging/WINDOW_EX_STYLE.ahk) enum)
-- [`Windows\Win32\Foundation`](./Windows/Win32/Foundation): Contains types common to all namespaces like [`RECT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-rect), [`FILETIME`](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime), and [`POINT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-point).
-- [`Windows\Win32\Graphics\Gdi`](./Windows/Win32/Graphics/Gdi) and [`GdiPlus`](./Windows/Win32/Graphics/GdiPlus) : Contains most graphics-related types not otherwise contained in `UI\Controls` - font structs like [`LOGFONTW`](https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-logfontw), for example.
-- [`Windows\Win32\Networking\WinHttp`](./Windows/Win32/Networking/WinHttp): WinHTTP-related items (see also: [About WinHTTP - Win32 apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/win32/winhttp/about-winhttp))
+Namespaces can be unintuitive and they aren't really mapped to headers, so a few common namespaces are listed here. GitHub's file search functionality is also great if you're looking for something specific. Namespaces come directly from the metadata, so they won't be changed unless Microsoft changes them.
 
-GitHub's file search functionality is also great if you're looking for something specific. Namespaces come directly from the metadata, so they won't be changed unless Microsoft changes them.
+<details>
+  <summary>Commonly used Namespaces</summary>
+  
+  - [`Windows\Win32\UI\Controls`](./Windows/Win32/UI/Controls): Most Gui and GuiControl related types
+  - [`Windows\Win32\UI\WindowsAndMessaging`](./Windows/Win32/WindowsAndMessaging): Contains more fundamental window-related structs and enums (e.g. the [`WINDOW_EX_STYLE`](./Windows/Win32/UI/WindowsAndMessaging/WINDOW_EX_STYLE.ahk) enum)
+  - [`Windows\Win32\Foundation`](./Windows/Win32/Foundation): Contains types common to all namespaces like [`RECT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-rect), [`FILETIME`](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime), and [`POINT`](https://learn.microsoft.com/en-us/windows/win32/api/windef/ns-windef-point).
+  - [`Windows\Win32\Graphics\Gdi`](./Windows/Win32/Graphics/Gdi) and [`GdiPlus`](./Windows/Win32/Graphics/GdiPlus) : Contains most graphics-related types not otherwise contained in `UI\Controls` - font structs like [`LOGFONTW`](https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-logfontw), for example.
+  - [`Windows\Win32\System\LibraryLoader`](./Windows/Win32/System/LibraryLoader): Functions for loading and working with DLL and EXE files, including accessing resources in them.
+    - Note that for whatever reason, [`FreeLibrary`](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary) is in the Foundations namespace
+  - [`Windows\Win32\Networking\WinHttp`](./Windows/Win32/Networking/WinHttp): WinHTTP-related items (see also: [About WinHTTP - Win32 apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/win32/winhttp/about-winhttp)).
+    - Note that COM objects are not included in the bindings, but you can still use the WinHttpRequest COM object. The namespace provides structs and Apis for additional functionality.
+  - [`Windows\Win32\System\Memory`](./Windows/Win32/System/Memory): Contains Apis for direct memory manipulation, including the direct allocation and freeing of heap resources, for advanced users.
+</details>
 
 ## Structs
 All structs are represented with proxy objects extending [`Win32Struct`](./Win32Struct.ahk). The base class provides utilities for initializing structs, cloning, copying, and comparing memory blocks. Struct proxy objects have properties whose getters and setters invoke [`NumGet`](https://www.autohotkey.com/docs/v2/lib/NumGet.htm) and [`NumPut`](https://www.autohotkey.com/docs/v2/lib/NumPut.htm) (or occasionally [StrGet](https://www.autohotkey.com/docs/v2/lib/StrGet.htm) / [StrPut](https://www.autohotkey.com/docs/v2/lib/StrPut.htm)):
@@ -132,16 +139,35 @@ logfont := LOGFONTW()           ;Create a new LOGFONTW struct backed by a Buffer
 > 
 > You can use `Win32Struct.Clone()` to create a clone of a struct backed by a `Buffer` if you need to hold on to struct values after the struct is freed.
 
+You can also initialize new structs using object literals with the `FromObject` method. This works with embedded structures and array members as well. The method copies properties from the object literal into the struct member of the same name.
+```autohotkey v2
+Wp := WINDOWPLACEMENT.FromObject({
+	length: WINDOWPLACEMENT.sizeof
+	showCmd: 1,
+	rcNormalPosition: {	  ; An embedded RECT structure
+		top: 0,
+		bottom: 100,
+		left: 0,
+		right: 100
+	}
+})
+```
+Struct members not present in the object literal remain at their default values (0 / NULL). In the above example ([`WINDOWPLACEMENT`](./Windows/Win32/UI/WindowsAndMessaging/WINDOWPLACEMENT.ahk)), the `flags`, `ptMinPosition`, and `ptMaxPosition` members are left unset and default to 0.
+
+When initializing embedded structs or arrays, you can also provide a reference to an `Array` object or `Win32Struct` proxy object of the same type as the embedded struct. It is marginally faster to set the struct members manually, as doing so does not require the creation or disposal of a temporary object nor the enumeration of its properties.
+
 ### Arrays
 Arrays in struct proxies are themselves proxy objects extending [`Win32FixedArray`](./Win32FixedArray.ahk). These are typed, fixed-length arrays. The class mimics the applicable functionality of `Array`, allowing enumeration and access via [`__Item`](https://www.autohotkey.com/docs/v2/Objects.htm#__Item).
 
+To create resizeable arrays in script-managed memory, use [`CStyleArray`](./CStyleArray.ahk) objects. 
+
+#### String Members
 In cases where it is clear that an array is in fact a string (arrays of `char` or `tchar` elements, for example), properties are generated using `StrPut` and `StrGet`. In this case, assign strings to the properties directly:
 ```autohotkey v2
 lpLogFont := LOGFONTW()
 lpLogFont.lfFaceName := "Papyrus"
 ```
-
-To create resizeable arrays in script-managed memory, use [`CStyleArray`](./CStyleArray.ahk) objects. 
+String property getters and setters handle [string encoding](https://www.autohotkey.com/docs/v2/Concepts.htm#string-encoding) automatically. Note that unlike with generated methods, it is not yet possible to pass string pointers to string property getters.
 
 ### Other Notes
 - Handles, pointers (including function pointers and COM interface pointers), and "pseudo-primitives" structs like `CHAR` and `HWND` (also known as NativeTypeDefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
