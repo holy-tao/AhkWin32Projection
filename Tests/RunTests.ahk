@@ -8,8 +8,9 @@
 
 #Include ./Win32Struct.test.ahk
 #Include ./GeneratedStructSmokeTests.ahk
+#Include ./GeneratedApiSmokeTests.ahk
 
 tester := Yunit.Use(YunitStdOut, YunitJUnit, YunitResultCounter)
-tester.Test(Win32StructTest, GeneratedStructSmokeTests)
+tester.Test(Win32StructTest, GeneratedStructSmokeTests, GeneratedApiSmokeTests)
 
 ExitApp(YunitResultCounter.failures == 0? 0 : 1)
