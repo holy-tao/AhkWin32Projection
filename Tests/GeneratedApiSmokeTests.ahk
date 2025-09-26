@@ -85,10 +85,7 @@ class GeneratedApiSmokeTests {
          * or `[CanReturnErrorsAsSuccess]` attribute is present
          */
         LastErrorSettingMethods_OnError_ThrowOSError(){
-            SystemInformation.GetSystemTime(now := SYSTEMTIME())
-
-            ; We don't have permission to set the system time
-            Assert.Throws((*) => SystemInformation.SetSystemTime(now), OSError)
+            Assert.Throws((*) => WindowsAndMessaging.LoadMenuW(0, 0), OSError)
         }
 
         ; //TODO test for [CanReturnMultipleSuccessValues] (these are mostly (all)? COM methods)
