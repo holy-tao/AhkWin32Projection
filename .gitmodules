@@ -1,0 +1,4 @@
+[submodule "Tests/Yunit"]
+	path = Tests/Yunit
+	url = git@github.com:Uberi/Yunit.git
+	branch = v2
