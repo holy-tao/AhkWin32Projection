@@ -64,33 +64,6 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
 
     /**
      * This bitfield backs the following members:
-     * - ServiceAction
-     * - Reserved1
-     * @type {Integer}
-     */
-    _bitfield1 {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ServiceAction {
-        get => (this._bitfield1 >> 0) & 0x1F
-        set => this._bitfield1 := ((value & 0x1F) << 0) | (this._bitfield1 & ~(0x1F << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => (this._bitfield1 >> 5) & 0x7
-        set => this._bitfield1 := ((value & 0x7) << 5) | (this._bitfield1 & ~(0x7 << 5))
-    }
-
-    /**
-     * This bitfield backs the following members:
      * - Type
      * - Scope
      * @type {Integer}

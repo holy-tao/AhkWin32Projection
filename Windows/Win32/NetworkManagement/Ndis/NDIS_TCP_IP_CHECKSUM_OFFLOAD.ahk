@@ -72,4 +72,49 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
         get => (this._bitfield >> 8) & 0x3
         set => this._bitfield := ((value & 0x3) << 8) | (this._bitfield & ~(0x3 << 8))
     }
+
+    /**
+     * This bitfield backs the following members:
+     * - IpExtensionHeadersSupported
+     * - TcpOptionsSupported
+     * - TcpChecksum
+     * - UdpChecksum
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IpExtensionHeadersSupported {
+        get => (this._bitfield1 >> 0) & 0x3
+        set => this._bitfield1 := ((value & 0x3) << 0) | (this._bitfield1 & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TcpOptionsSupported {
+        get => (this._bitfield1 >> 2) & 0x3
+        set => this._bitfield1 := ((value & 0x3) << 2) | (this._bitfield1 & ~(0x3 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TcpChecksum {
+        get => (this._bitfield1 >> 4) & 0x3
+        set => this._bitfield1 := ((value & 0x3) << 4) | (this._bitfield1 & ~(0x3 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UdpChecksum {
+        get => (this._bitfield1 >> 6) & 0x3
+        set => this._bitfield1 := ((value & 0x3) << 6) | (this._bitfield1 & ~(0x3 << 6))
+    }
 }

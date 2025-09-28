@@ -98,15 +98,4 @@ class DNS_RECORD_OPTW extends Win32Struct
             return this.__OPT
         }
     }
-
-    /**
-     * @type {DNS_OPT_DATA}
-     */
-    Opt1{
-        get {
-            if(!this.HasProp("__Opt1"))
-                this.__Opt1 := DNS_OPT_DATA(this.ptr + 36)
-            return this.__Opt1
-        }
-    }
 }
