@@ -8,6 +8,7 @@
 #Include ../Windows/Win32/Graphics/Gdi/LOGFONTA.ahk
 #Include ../Windows/Win32/Graphics/Gdi/LOGFONTW.ahk
 #Include ../Windows/Win32/UI/WindowsAndMessaging/ICONINFOEXW.ahk
+#Include ../Windows/Win32/UI/WindowsAndMessaging/MENUBARINFO.ahk
 
 /**
  * Tests of generated source code
@@ -84,6 +85,51 @@ class GeneratedStructSmokeTests {
             test := ICONINFOEXW()
             Yunit.Assert(test.cbSize == ICONINFOEXW.sizeof, 
                 Format("Expected cbSize to match ICONINFOEXW.sizeof ({1}), but it was {2}", ICONINFOEXW.sizeof, test.cbSize))
+        }
+    }
+
+    /**
+     * Tests for bitfield members
+     */
+    class Bitfields {
+
+        ; One bit field
+        SimpleBitfield_GetAndSet_GetsAndSetsBits() {
+            mbi := MENUBARINFO()
+
+            mbi.fFocused := 1
+            Yunit.Assert(mbi._bitfield == 0x2, Format("Expected _bitfield to be 0x2 but got 0x{1:0X}", mbi._bitfield))
+            Yunit.Assert(mbi.fFocused == 1)
+        }
+
+        SimpleBitfield_Set_Always_MasksInput(){
+            mbi := MENUBARINFO()
+            
+            mbi.fFocused := 0xFFFFFFFF
+            Yunit.Assert(mbi._bitfield == 0x2, Format("Expected _bitfield to be 0x2 but got 0x{1:0X}", mbi._bitfield))
+            Yunit.Assert(mbi.fFocused == 1)
+        }
+
+        LongBitfield_Set_SetsBits(){
+            mbi := MENUBARINFO()
+
+            mbi.fUnused := -1
+            Yunit.Assert(mbi._bitfield == 0xFFFFFFFFFFFFFFFC, Format("Expected _bitfield to be 0xFFFFFFFFFFFFFFFC but got 0x{1:0X}", mbi._bitfield))
+        }
+
+        LongBitfield_Get_GetsBits(){
+            mbi := MENUBARINFO()
+
+            mbi.fUnused := 42
+            Yunit.Assert(mbi.fUnused == 42)
+        }
+
+        BitfieldProperties_Get_UseBackingField(){
+            mbi := MENUBARINFO()
+            mbi._bitfield := -1     ;Set all bits to 1
+
+            Yunit.Assert(mbi.fFocused == 1)
+            Yunit.Assert(mbi.fBarFocused == 1)
         }
     }
 }
