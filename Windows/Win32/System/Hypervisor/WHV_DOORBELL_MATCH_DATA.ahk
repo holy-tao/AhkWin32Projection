@@ -36,10 +36,38 @@ class WHV_DOORBELL_MATCH_DATA extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - MatchOnValue
+     * - MatchOnLength
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MatchOnValue {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MatchOnLength {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 2) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
 }

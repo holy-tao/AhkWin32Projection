@@ -36,10 +36,29 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - IpExtensionHeadersSupported
+     * - TcpOptionsSupported
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IpExtensionHeadersSupported {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TcpOptionsSupported {
+        get => (this._bitfield >> 2) & 0x3
+        set => this._bitfield := ((value & 0x3) << 2) | (this._bitfield & ~(0x3 << 2))
     }
 }

@@ -76,10 +76,38 @@ class IMPORT_OBJECT_HEADER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Type
+     * - NameType
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 18, "ushort")
         set => NumPut("ushort", value, this, 18)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Type {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NameType {
+        get => (this._bitfield >> 2) & 0x7
+        set => this._bitfield := ((value & 0x7) << 2) | (this._bitfield & ~(0x7 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 5) & 0x7FF
+        set => this._bitfield := ((value & 0x7FF) << 5) | (this._bitfield & ~(0x7FF << 5))
     }
 }

@@ -46,11 +46,39 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - WriteProtectStatus
+     * - ReservedDoNotUse_UseAsByteInstead_1
+     * - UpdateRequiresPassword
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 47, "char")
         set => NumPut("char", value, this, 47)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    WriteProtectStatus {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedDoNotUse_UseAsByteInstead_1 {
+        get => (this._bitfield >> 2) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 2) | (this._bitfield & ~(0x1F << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UpdateRequiresPassword {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
 
     /**

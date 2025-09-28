@@ -16,11 +16,42 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR extends Win32Struct
     static packingSize => 1
 
     /**
+     * This bitfield backs the following members:
+     * - Identify
+     * - Streams
+     * - Reserved0
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * The return parameter is an [NVME_DIRECTIVE_TYPE_IDENTIFY](ne-nvme-nvme_directive_types.md), a directive for an Identify operation.
+     * @type {Integer}
+     */
+    Identify {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * The return parameter is an [NVME_DIRECTIVE_TYPE_STREAMS](ne-nvme-nvme_directive_types.md), a directive for a Streams operation.
+     * @type {Integer}
+     */
+    Streams {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 2) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
     }
 
     /**

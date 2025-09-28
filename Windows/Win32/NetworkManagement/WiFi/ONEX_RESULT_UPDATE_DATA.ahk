@@ -55,11 +55,32 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fOneXAuthParams
+     * - fEapError
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * Indicates if the <b>ONEX_RESULT_UPDATE_DATA</b> structure contains 802.1X authentication parameters in the <b>authParams</b> member.
+     * @type {Integer}
+     */
+    fOneXAuthParams {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_RESULT_UPDATE_DATA</b> structure contains an EAP error in the <b>eapError</b> member.
+     * @type {Integer}
+     */
+    fEapError {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

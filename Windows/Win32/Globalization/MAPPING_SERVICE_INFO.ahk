@@ -235,10 +235,106 @@ class MAPPING_SERVICE_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - IsOneToOneLanguageMapping
+     * - HasSubservices
+     * - OnlineOnly
+     * - ServiceType
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 168, "uint")
         set => NumPut("uint", value, this, 168)
+    }
+
+    /**
+     * Flag indicating the language mapping between input language and output language that is supported by the service. Possible values are shown in the following table.
+     * 			 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="0"></a><dl>
+     * <dt><b>0</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input and output languages are not paired and the service can receive data in any of the input languages and render data in any of the output languages.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="1"></a><dl>
+     * <dt><b>1</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The arrays of the input and output languages for the service are paired. In other words, given a particular input language, the service retrieves results in the paired language defined in the output language array. Use of the language pairing can be useful, for example, in bilingual dictionary scenarios. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    IsOneToOneLanguageMapping {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Flag indicating if the service has subservices, that is, other services that plug into the service. This flag is used in service enumeration to determine if the parent service must be called to get a list of subservices. Possible values are shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="0"></a><dl>
+     * <dt><b>0</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service is a regular service that stands alone and has no subservices. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="1"></a><dl>
+     * <dt><b>1</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service acts as a parent for subservices.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    HasSubservices {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * Reserved for future use.
+     * @type {Integer}
+     */
+    OnlineOnly {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * Reserved for future use.
+     * @type {Integer}
+     */
+    ServiceType {
+        get => (this._bitfield >> 3) & 0x3
+        set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
     }
 }

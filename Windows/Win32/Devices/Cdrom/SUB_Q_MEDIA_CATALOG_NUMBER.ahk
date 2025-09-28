@@ -43,11 +43,30 @@ class SUB_Q_MEDIA_CATALOG_NUMBER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved1
+     * - Mcval
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "char")
         set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 0) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Mcval {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
 
     /**

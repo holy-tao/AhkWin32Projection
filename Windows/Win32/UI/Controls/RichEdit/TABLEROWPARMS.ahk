@@ -91,11 +91,72 @@ class TABLEROWPARMS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - nAlignment
+     * - fRTL
+     * - fKeep
+     * - fKeepFollow
+     * - fWrap
+     * - fIdentCells
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    nAlignment {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fRTL {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fKeep {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fKeepFollow {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fWrap {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fIdentCells {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
 
     /**

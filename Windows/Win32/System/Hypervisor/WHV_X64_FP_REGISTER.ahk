@@ -21,11 +21,39 @@ class WHV_X64_FP_REGISTER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - BiasedExponent
+     * - Sign
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BiasedExponent {
+        get => (this._bitfield >> 0) & 0x7FFF
+        set => this._bitfield := ((value & 0x7FFF) << 0) | (this._bitfield & ~(0x7FFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Sign {
+        get => (this._bitfield >> 15) & 0x1
+        set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 16) & 0xFFFFFFFFFFFF
+        set => this._bitfield := ((value & 0xFFFFFFFFFFFF) << 16) | (this._bitfield & ~(0xFFFFFFFFFFFF << 16))
     }
 
     /**

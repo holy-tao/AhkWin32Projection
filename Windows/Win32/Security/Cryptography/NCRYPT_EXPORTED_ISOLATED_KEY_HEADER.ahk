@@ -28,11 +28,30 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - PerBootKey
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PerBootKey {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 1) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
     }
 
     /**

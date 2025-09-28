@@ -20,11 +20,30 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - TrackNumber
+     * - ExtensionFlag
      * @type {Integer}
      */
     _bitfield1 {
         get => NumGet(this, 1, "char")
         set => NumPut("char", value, this, 1)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TrackNumber {
+        get => (this._bitfield1 >> 0) & 0x7F
+        set => this._bitfield1 := ((value & 0x7F) << 0) | (this._bitfield1 & ~(0x7F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExtensionFlag {
+        get => (this._bitfield1 >> 7) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 7) | (this._bitfield1 & ~(0x1 << 7))
     }
 
     /**
@@ -36,11 +55,39 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - CharacterPosition
+     * - BlockNumber
+     * - Unicode
      * @type {Integer}
      */
     _bitfield2 {
         get => NumGet(this, 3, "char")
         set => NumPut("char", value, this, 3)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CharacterPosition {
+        get => (this._bitfield2 >> 0) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BlockNumber {
+        get => (this._bitfield2 >> 4) & 0x7
+        set => this._bitfield2 := ((value & 0x7) << 4) | (this._bitfield2 & ~(0x7 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Unicode {
+        get => (this._bitfield2 >> 7) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 7) | (this._bitfield2 & ~(0x1 << 7))
     }
 
     /**

@@ -28,11 +28,30 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - ServiceAction
+     * - Reserved1
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 12, "char")
         set => NumPut("char", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ServiceAction {
+        get => (this._bitfield >> 0) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 5) & 0x7
+        set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
     }
 
     /**
@@ -44,6 +63,9 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - ServiceAction
+     * - Reserved1
      * @type {Integer}
      */
     _bitfield1 {
@@ -54,9 +76,44 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     /**
      * @type {Integer}
      */
+    ServiceAction {
+        get => (this._bitfield1 >> 0) & 0x1F
+        set => this._bitfield1 := ((value & 0x1F) << 0) | (this._bitfield1 & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield1 >> 5) & 0x7
+        set => this._bitfield1 := ((value & 0x7) << 5) | (this._bitfield1 & ~(0x7 << 5))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - Type
+     * - Scope
+     * @type {Integer}
+     */
     _bitfield2 {
         get => NumGet(this, 13, "char")
         set => NumPut("char", value, this, 13)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Type {
+        get => (this._bitfield2 >> 0) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Scope {
+        get => (this._bitfield2 >> 4) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 4) | (this._bitfield2 & ~(0xF << 4))
     }
 
     /**

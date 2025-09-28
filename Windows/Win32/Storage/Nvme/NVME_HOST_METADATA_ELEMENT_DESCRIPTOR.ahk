@@ -12,11 +12,57 @@ class NVME_HOST_METADATA_ELEMENT_DESCRIPTOR extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - ET
+     * - Reserved0
+     * - ER
+     * - Reserved1
+     * - ELEN
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ET {
+        get => (this._bitfield >> 0) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 0) | (this._bitfield & ~(0x3F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 6) & 0x3
+        set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ER {
+        get => (this._bitfield >> 8) & 0xF
+        set => this._bitfield := ((value & 0xF) << 8) | (this._bitfield & ~(0xF << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 12) & 0xF
+        set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ELEN {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

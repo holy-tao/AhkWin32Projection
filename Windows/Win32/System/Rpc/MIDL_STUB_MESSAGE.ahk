@@ -302,11 +302,162 @@ class MIDL_STUB_MESSAGE extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fInDontFree
+     * - fDontCallFreeInst
+     * - fUnused1
+     * - fHasReturn
+     * - fHasExtensions
+     * - fHasNewCorrDesc
+     * - fIsIn
+     * - fIsOut
+     * - fIsOicf
+     * - fBufferValid
+     * - fHasMemoryValidateCallback
+     * - fInFree
+     * - fNeedMCCP
+     * - fUnused2
+     * - fUnused3
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 192, "int")
         set => NumPut("int", value, this, 192)
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fInDontFree {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fDontCallFreeInst {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fUnused1 {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fHasReturn {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fHasExtensions {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fHasNewCorrDesc {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fIsIn {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fIsOut {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fIsOicf {
+        get => (this._bitfield >> 8) & 0x1
+        set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fBufferValid {
+        get => (this._bitfield >> 9) & 0x1
+        set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fHasMemoryValidateCallback {
+        get => (this._bitfield >> 10) & 0x1
+        set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fInFree {
+        get => (this._bitfield >> 11) & 0x1
+        set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fNeedMCCP {
+        get => (this._bitfield >> 12) & 0x1
+        set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    fUnused2 {
+        get => (this._bitfield >> 13) & 0x7
+        set => this._bitfield := ((value & 0x7) << 13) | (this._bitfield & ~(0x7 << 13))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fUnused3 {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

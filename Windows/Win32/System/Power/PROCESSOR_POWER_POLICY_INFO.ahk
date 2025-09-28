@@ -71,10 +71,41 @@ class PROCESSOR_POWER_POLICY_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - AllowDemotion
+     * - AllowPromotion
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * When set, allows the kernel power policy manager to demote from the current state.
+     * @type {Integer}
+     */
+    AllowDemotion {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * When set, allows the kernel power policy manager to promote from the current state.
+     * @type {Integer}
+     */
+    AllowPromotion {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 2) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
 }

@@ -39,11 +39,30 @@ class RTL_BALANCED_NODE extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Red
+     * - Balance
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 16, "char")
         set => NumPut("char", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Red {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Balance {
+        get => (this._bitfield >> 1) & 0x3
+        set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
     }
 
     /**

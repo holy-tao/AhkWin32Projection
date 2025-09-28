@@ -20,11 +20,30 @@ class RATING_SYSTEM extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - rating_system_is_age_type
+     * - reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "char")
         set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    rating_system_is_age_type {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    reserved {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 
     /**

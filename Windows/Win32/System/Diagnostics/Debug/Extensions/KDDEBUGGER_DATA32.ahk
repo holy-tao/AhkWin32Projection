@@ -73,11 +73,21 @@ class KDDEBUGGER_DATA32 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - PaeEnabled
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 34, "ushort")
         set => NumPut("ushort", value, this, 34)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PaeEnabled {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

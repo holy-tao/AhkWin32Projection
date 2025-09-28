@@ -52,10 +52,29 @@ class NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - AllowDebugging
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AllowDebugging {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 1) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
     }
 }

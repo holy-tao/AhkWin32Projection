@@ -108,10 +108,65 @@ class FIELD_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fPointer
+     * - fArray
+     * - fStruct
+     * - fConstant
+     * - fStatic
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fPointer {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fArray {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fStruct {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fConstant {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fStatic {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 6) & 0x3FFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFF << 6))
     }
 }

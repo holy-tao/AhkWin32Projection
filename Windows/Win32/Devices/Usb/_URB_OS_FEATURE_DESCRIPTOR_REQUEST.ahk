@@ -84,11 +84,30 @@ class _URB_OS_FEATURE_DESCRIPTOR_REQUEST extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Recipient
+     * - Reserved1
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 128, "char")
         set => NumPut("char", value, this, 128)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Recipient {
+        get => (this._bitfield >> 0) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 5) & 0x7
+        set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
     }
 
     /**

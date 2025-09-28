@@ -100,10 +100,31 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - OnlineService
+     * - ServiceType
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
+    }
+
+    /**
+     * Reserved for future use. Must be set to 0.
+     * @type {Integer}
+     */
+    OnlineService {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * Reserved for future use. Must be set to 0.
+     * @type {Integer}
+     */
+    ServiceType {
+        get => (this._bitfield >> 2) & 0x3
+        set => this._bitfield := ((value & 0x3) << 2) | (this._bitfield & ~(0x3 << 2))
     }
 }

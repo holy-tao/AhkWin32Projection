@@ -68,11 +68,30 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - MatchType
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MatchType {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 3) & 0x1FFFFFFF
+        set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
     }
 
     /**

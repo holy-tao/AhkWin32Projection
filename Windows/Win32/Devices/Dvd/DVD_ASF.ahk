@@ -23,10 +23,29 @@ class DVD_ASF extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - SuccessFlag
+     * - Reserved1
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 3, "char")
         set => NumPut("char", value, this, 3)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SuccessFlag {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 }

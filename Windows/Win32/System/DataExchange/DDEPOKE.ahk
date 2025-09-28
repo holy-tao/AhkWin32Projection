@@ -14,11 +14,48 @@ class DDEPOKE extends Win32Struct
     static packingSize => 2
 
     /**
+     * This bitfield backs the following members:
+     * - unused
+     * - fRelease
+     * - fReserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * Type: <b>unsigned short</b>
+     * 
+     * Unused.
+     * @type {Integer}
+     */
+    unused {
+        get => (this._bitfield >> 0) & 0x1FFF
+        set => this._bitfield := ((value & 0x1FFF) << 0) | (this._bitfield & ~(0x1FFF << 0))
+    }
+
+    /**
+     * Type: <b>unsigned short</b>
+     * 
+     * Indicates whether the application receiving the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-poke">WM_DDE_POKE</a> message should free the data. If this value is nonzero, the application should free the data.
+     * @type {Integer}
+     */
+    fRelease {
+        get => (this._bitfield >> 13) & 0x1
+        set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+    }
+
+    /**
+     * Type: <b>unsigned short</b>
+     * 
+     * Reserved.
+     * @type {Integer}
+     */
+    fReserved {
+        get => (this._bitfield >> 14) & 0x3
+        set => this._bitfield := ((value & 0x3) << 14) | (this._bitfield & ~(0x3 << 14))
     }
 
     /**
