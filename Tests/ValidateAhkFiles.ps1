@@ -109,8 +109,8 @@ foreach ($file in $Files) {
         $fail = $true
     }
     if (-not [string]::IsNullOrWhiteSpace($stderr)) {
-        $stderr =FlattenErrorBlocks $stdout
-        $Host.UI.WriteErrorLine($stderr)
+        $stderr = FlattenErrorBlocks $stderr
+        Write-Output $stderr
         $fail = $true
     }
 }
