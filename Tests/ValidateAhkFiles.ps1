@@ -26,6 +26,40 @@ function Get-AutoHotkeyProcStartInfo {
     return $psi
 }
 
+# Output needs to be one line for a problem matcher to pick it up
+# https://github.com/actions/toolkit/issues/1540
+function FlattenErrorBlocks {
+    param([string]$text)
+
+    if ([string]::IsNullOrWhiteSpace($text)) { return "" }
+
+    $lines = $text -split "`r?`n"
+
+    $blocks = @()
+    $currentBlock = @()
+
+    # Regex to detect the start of an error/warning block
+    $blockStartRegex = ".*\.ahk \(\d+\) : ==> (Warning:|[^W].*)"
+
+    foreach ($line in $lines) {
+        if ($line -match $blockStartRegex) {
+            if ($currentBlock.Count -gt 0) {
+                # Join previous block into one line
+                $blocks += ($currentBlock -join " ").Trim()
+                $currentBlock = @()
+            }
+        }
+        $currentBlock += $line.Trim()
+    }
+
+    # Add the last block
+    if ($currentBlock.Count -gt 0) {
+        $blocks += ($currentBlock -join " ").Trim()
+    }
+
+    return $blocks -join "`n"
+}
+
 if (-not $Files -or $Files.Count -eq 0) {
     Write-Output "No .ahk files to validate."
     exit 0
@@ -70,11 +104,13 @@ foreach ($file in $Files) {
     $proc.WaitForExit()
 
     if (-not [string]::IsNullOrWhiteSpace($stdout)) {
+        $stdout = FlattenErrorBlocks $stdout
         Write-Output $stdout
         $fail = $true
     }
     if (-not [string]::IsNullOrWhiteSpace($stderr)) {
-        $Host.UI.WriteErrorLine($stderr)
+        $stderr = FlattenErrorBlocks $stderr
+        Write-Output $stderr
         $fail = $true
     }
 }
