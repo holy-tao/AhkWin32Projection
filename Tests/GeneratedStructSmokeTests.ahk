@@ -13,6 +13,10 @@
 #Include ../Windows/Win32/NetworkManagement/QoS/CONTROL_SERVICE.ahk
 #Include ../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk
 
+class String { 
+    
+}
+
 /**
  * Tests of generated source code
  */
