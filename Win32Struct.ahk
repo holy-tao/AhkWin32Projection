@@ -51,7 +51,7 @@ class Win32Struct extends Object{
      *      0 to use a new `Buffer`.
      */
     __New(ptr := 0){
-        size := %this.__Class%.sizeof
+        size := Win32Struct.ResolveClassName(this.__Class).sizeof
 
         if(ptr == 0){
             this.__buf := Buffer(size, 0)
@@ -67,7 +67,7 @@ class Win32Struct extends Object{
      * @returns {Win32Struct} a copy of the struct managed by the script
      */
     Clone(){
-        clone := %this.__Class%.Call(0)
+        clone := Win32Struct.ResolveClassName(this.__Class).Call(0)
         this.CopyTo(clone)
 
         return clone
@@ -347,6 +347,22 @@ class Win32Struct extends Object{
             }
             return Target
         }
+    }
+
+    /**
+     * Resolve a potentially nested class name to the actual class object. E.g.
+     * 
+     *      "Outer.Inner" => Outer.Inner
+     * @param {String} className name of the class to resolve
+     * @returns {Class} the resolved class
+     */
+    static ResolveClassName(className) {
+        current := ""
+        for(name in StrSplit(className, ".")){
+            current := A_Index == 1? %name% : current.%name%
+        }
+
+        return current
     }
 ;@endregion Static Methods
 }

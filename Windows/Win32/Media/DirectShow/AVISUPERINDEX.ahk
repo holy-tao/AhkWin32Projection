@@ -129,7 +129,7 @@ class AVISUPERINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1022, _avisuperindex_entry, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1022, %this.__Class%._avisuperindex_entry, "")
             return this.__aIndexProxyArray
         }
     }

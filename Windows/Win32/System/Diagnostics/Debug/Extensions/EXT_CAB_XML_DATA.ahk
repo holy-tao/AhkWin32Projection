@@ -114,7 +114,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     SubTags{
         get {
             if(!this.HasProp("__SubTagsProxyArray"))
-                this.__SubTagsProxyArray := Win32FixedArray(this.ptr + 24, 1, _SUBTAGS, "")
+                this.__SubTagsProxyArray := Win32FixedArray(this.ptr + 24, 1, %this.__Class%._SUBTAGS, "")
             return this.__SubTagsProxyArray
         }
     }

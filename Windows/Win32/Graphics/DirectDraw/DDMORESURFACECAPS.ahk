@@ -65,7 +65,7 @@ class DDMORESURFACECAPS extends Win32Struct
     ddsExtendedHeapRestrictions{
         get {
             if(!this.HasProp("__ddsExtendedHeapRestrictionsProxyArray"))
-                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 24, 1, ExtendedHeapRestrictions, "")
+                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 24, 1, %this.__Class%.ExtendedHeapRestrictions, "")
             return this.__ddsExtendedHeapRestrictionsProxyArray
         }
     }

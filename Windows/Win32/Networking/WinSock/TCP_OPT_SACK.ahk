@@ -55,7 +55,7 @@ class TCP_OPT_SACK extends Win32Struct
     Block{
         get {
             if(!this.HasProp("__BlockProxyArray"))
-                this.__BlockProxyArray := Win32FixedArray(this.ptr + 8, 1, tcp_opt_sack_block, "")
+                this.__BlockProxyArray := Win32FixedArray(this.ptr + 8, 1, %this.__Class%.tcp_opt_sack_block, "")
             return this.__BlockProxyArray
         }
     }

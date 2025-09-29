@@ -78,7 +78,7 @@ class AVIOLDINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 8, 1, _avioldindex_entry, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 8, 1, %this.__Class%._avioldindex_entry, "")
             return this.__aIndexProxyArray
         }
     }

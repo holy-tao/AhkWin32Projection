@@ -119,7 +119,7 @@ class AVIFIELDINDEX extends Win32Struct
     aIndex{
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 1, _avifieldindex_entry, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 1, %this.__Class%._avifieldindex_entry, "")
             return this.__aIndexProxyArray
         }
     }
