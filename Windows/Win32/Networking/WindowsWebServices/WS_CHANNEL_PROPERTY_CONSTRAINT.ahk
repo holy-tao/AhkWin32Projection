@@ -14,6 +14,23 @@ class WS_CHANNEL_PROPERTY_CONSTRAINT extends Win32Struct
 
     static packingSize => 8
 
+    class _out extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {WS_CHANNEL_PROPERTY}
+         */
+        channelProperty{
+            get {
+                if(!this.HasProp("__channelProperty"))
+                    this.__channelProperty := WS_CHANNEL_PROPERTY(this.ptr + 0)
+                return this.__channelProperty
+            }
+        }
+    
+    }
+
     /**
      * The ID of the channel property.  The following channel 
      *                     properties constraints may be specified:
@@ -80,13 +97,15 @@ class WS_CHANNEL_PROPERTY_CONSTRAINT extends Win32Struct
     }
 
     /**
-     * @type {WS_CHANNEL_PROPERTY}
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
+     *                     entire contents of this structure will be filled out.
+     * @type {_out}
      */
-    channelProperty{
+    out{
         get {
-            if(!this.HasProp("__channelProperty"))
-                this.__channelProperty := WS_CHANNEL_PROPERTY(this.ptr + 24)
-            return this.__channelProperty
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(this.ptr + 24)
+            return this.__out
         }
     }
 }

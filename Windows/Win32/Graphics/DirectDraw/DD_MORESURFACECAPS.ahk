@@ -18,6 +18,34 @@ class DD_MORESURFACECAPS extends Win32Struct
 
     static packingSize => 8
 
+    class NTExtendedHeapRestrictions extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {DDSCAPSEX}
+         */
+        ddsCapsEx{
+            get {
+                if(!this.HasProp("__ddsCapsEx"))
+                    this.__ddsCapsEx := DDSCAPSEX(this.ptr + 0)
+                return this.__ddsCapsEx
+            }
+        }
+    
+        /**
+         * @type {DDSCAPSEX}
+         */
+        ddsCapsExAlt{
+            get {
+                if(!this.HasProp("__ddsCapsExAlt"))
+                    this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 16)
+                return this.__ddsCapsExAlt
+            }
+        }
+    
+    }
+
     /**
      * Specifies the size of this DD_MORESURFACECAPS structure. The DD_MORESURFACECAPS structure is of variable size. There should be exactly <b>DD_HALINFO.vmiData.dwNumHeaps</b> copies of the <b>ddsExtendedHeapRestrictions</b> structure within the array member of this structure. The total size of a DD_MORESURFACECAPS structure is thus: 
      * 
@@ -50,24 +78,14 @@ class DD_MORESURFACECAPS extends Win32Struct
     }
 
     /**
-     * @type {DDSCAPSEX}
+     * Specifies a structure containing two members. These members are filled in by Microsoft DirectX 6.0-aware drivers (and drivers compliant with later versions of DirectX), to restrict the video memory heaps that are exposed to Microsoft DirectDraw to certain sets of DDSCAPS_<i>Xxx</i> bits. The DirectDraw version is determined by looking at DDVERSIONINFO, which is defined in <i>ddrawi.h</i>. The <b>ddsCapsEx</b> and <b>ddsCapsExAlt</b> members of the DD_MORESURFACECAPS structure are exactly analogous to the <b>ddsCaps</b> and <b>ddsCapsAlt</b> members of the VIDEOMEMORY structures listed in the <b>VIDMEMINFO.pvmList</b> member of <b>DD_HALINFO.vmiData</b>.
+     * @type {Array<NTExtendedHeapRestrictions>}
      */
-    ddsCapsEx{
+    ddsExtendedHeapRestrictions{
         get {
-            if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 24)
-            return this.__ddsCapsEx
-        }
-    }
-
-    /**
-     * @type {DDSCAPSEX}
-     */
-    ddsCapsExAlt{
-        get {
-            if(!this.HasProp("__ddsCapsExAlt"))
-                this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 40)
-            return this.__ddsCapsExAlt
+            if(!this.HasProp("__ddsExtendedHeapRestrictionsProxyArray"))
+                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 24, 1, %this.__Class%.NTExtendedHeapRestrictions, "")
+            return this.__ddsExtendedHeapRestrictionsProxyArray
         }
     }
 }

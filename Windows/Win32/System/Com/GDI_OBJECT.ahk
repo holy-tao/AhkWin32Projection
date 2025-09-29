@@ -11,6 +11,36 @@ class GDI_OBJECT extends Win32Struct
 
     static packingSize => 8
 
+    class _u extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<userHBITMAP>}
+         */
+        hBitmap {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<userHPALETTE>}
+         */
+        hPalette {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<userHGLOBAL>}
+         */
+        hGeneric {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,26 +50,13 @@ class GDI_OBJECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<userHBITMAP>}
+     * @type {_u}
      */
-    hBitmap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<userHPALETTE>}
-     */
-    hPalette {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<userHGLOBAL>}
-     */
-    hGeneric {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u(this.ptr + 8)
+            return this.__u
+        }
     }
 }

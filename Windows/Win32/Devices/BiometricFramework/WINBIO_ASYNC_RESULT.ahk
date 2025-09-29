@@ -210,47 +210,607 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Match {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+    class _Verify extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Match {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _Identify extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 8, "char")
+            set => NumPut("char", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _EnrollCommit extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IsNewTemplate {
+            get => NumGet(this, 8, "char")
+            set => NumPut("char", value, this, 8)
+        }
+    
+    }
+
+    class _EnumEnrollments extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        SubFactorCount {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        SubFactorArray {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
+    class _CaptureSample extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<WINBIO_BIR>}
+         */
+        Sample {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        SampleSize {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+    }
+
+    class _DeleteTemplate extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 8, "char")
+            set => NumPut("char", value, this, 8)
+        }
+    
+    }
+
+    class _GetProperty extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        PropertyType {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PropertyId {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 16, "char")
+            set => NumPut("char", value, this, 16)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        PropertyBufferSize {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        PropertyBuffer {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+    }
+
+    class _SetProperty extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        PropertyType {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PropertyId {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 16, "char")
+            set => NumPut("char", value, this, 16)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        PropertyBufferSize {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        PropertyBuffer {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+    }
+
+    class _GetEvent extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_EVENT}
+         */
+        Event{
+            get {
+                if(!this.HasProp("__Event"))
+                    this.__Event := WINBIO_EVENT(this.ptr + 0)
+                return this.__Event
+            }
+        }
+    
+    }
+
+    class _ControlUnit extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Component {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ControlCode {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OperationStatus {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        SendBuffer {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        SendBufferSize {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        ReceiveBuffer {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        ReceiveBufferSize {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        ReceiveDataSize {
+            get => NumGet(this, 48, "ptr")
+            set => NumPut("ptr", value, this, 48)
+        }
+    
+    }
+
+    class _EnumServiceProviders extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer}
+         */
+        BspCount {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<WINBIO_BSP_SCHEMA>}
+         */
+        BspSchemaArray {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _EnumBiometricUnits extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer}
+         */
+        UnitCount {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<WINBIO_UNIT_SCHEMA>}
+         */
+        UnitSchemaArray {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _EnumDatabases extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer}
+         */
+        StorageCount {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<WINBIO_STORAGE_SCHEMA>}
+         */
+        StorageSchemaArray {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _VerifyAndReleaseTicket extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Match {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Ticket {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _IdentifyAndReleaseTicket extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 8, "char")
+            set => NumPut("char", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Ticket {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+    }
+
+    class _MonitorPresence extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ChangeType {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        PresenceCount {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<WINBIO_PRESENCE>}
+         */
+        PresenceArray {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
+    class _GetProtectionPolicy extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {WINBIO_PROTECTION_POLICY}
+         */
+        Policy{
+            get {
+                if(!this.HasProp("__Policy"))
+                    this.__Policy := WINBIO_PROTECTION_POLICY(this.ptr + 8)
+                return this.__Policy
+            }
+        }
+    
+    }
+
+    class _NotifyUnitStatusChange extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {WINBIO_EXTENDED_UNIT_STATUS}
+         */
+        ExtendedStatus{
+            get {
+                if(!this.HasProp("__ExtendedStatus"))
+                    this.__ExtendedStatus := WINBIO_EXTENDED_UNIT_STATUS(this.ptr + 0)
+                return this.__ExtendedStatus
+            }
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Verify}
      */
-    RejectDetail {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {WINBIO_IDENTITY}
-     */
-    Identity{
+    Verify{
         get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(this.ptr + 40)
-            return this.__Identity
+            if(!this.HasProp("__Verify"))
+                this.__Verify := %this.__Class%._Verify(this.ptr + 40)
+            return this.__Verify
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Identify}
      */
-    SubFactor {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RejectDetail1 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    Identify{
+        get {
+            if(!this.HasProp("__Identify"))
+                this.__Identify := %this.__Class%._Identify(this.ptr + 40)
+            return this.__Identify
+        }
     }
 
     /**
@@ -270,268 +830,146 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_EnrollCommit}
      */
-    IsNewTemplate {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    SubFactorCount {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    SubFactorArray {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<WINBIO_BIR>}
-     */
-    Sample {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    SampleSize {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RejectDetail12 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PropertyType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PropertyId {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {WINBIO_IDENTITY}
-     */
-    Identity1{
+    EnrollCommit{
         get {
-            if(!this.HasProp("__Identity1"))
-                this.__Identity1 := WINBIO_IDENTITY(this.ptr + 48)
-            return this.__Identity1
+            if(!this.HasProp("__EnrollCommit"))
+                this.__EnrollCommit := %this.__Class%._EnrollCommit(this.ptr + 40)
+            return this.__EnrollCommit
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_EnumEnrollments}
      */
-    SubFactor1 {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PropertyBufferSize {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    PropertyBuffer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
-
-    /**
-     * @type {WINBIO_IDENTITY}
-     */
-    Identity12{
+    EnumEnrollments{
         get {
-            if(!this.HasProp("__Identity12"))
-                this.__Identity12 := WINBIO_IDENTITY(this.ptr + 48)
-            return this.__Identity12
+            if(!this.HasProp("__EnumEnrollments"))
+                this.__EnumEnrollments := %this.__Class%._EnumEnrollments(this.ptr + 40)
+            return this.__EnumEnrollments
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_CaptureSample}
      */
-    SubFactor12 {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
-    }
-
-    /**
-     * @type {WINBIO_EVENT}
-     */
-    Event{
+    CaptureSample{
         get {
-            if(!this.HasProp("__Event"))
-                this.__Event := WINBIO_EVENT(this.ptr + 40)
-            return this.__Event
+            if(!this.HasProp("__CaptureSample"))
+                this.__CaptureSample := %this.__Class%._CaptureSample(this.ptr + 40)
+            return this.__CaptureSample
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DeleteTemplate}
      */
-    Component {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    DeleteTemplate{
+        get {
+            if(!this.HasProp("__DeleteTemplate"))
+                this.__DeleteTemplate := %this.__Class%._DeleteTemplate(this.ptr + 40)
+            return this.__DeleteTemplate
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_GetProperty}
      */
-    ControlCode {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+    GetProperty{
+        get {
+            if(!this.HasProp("__GetProperty"))
+                this.__GetProperty := %this.__Class%._GetProperty(this.ptr + 40)
+            return this.__GetProperty
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SetProperty}
      */
-    OperationStatus {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+    SetProperty{
+        get {
+            if(!this.HasProp("__SetProperty"))
+                this.__SetProperty := %this.__Class%._SetProperty(this.ptr + 40)
+            return this.__SetProperty
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {_GetEvent}
      */
-    SendBuffer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    GetEvent{
+        get {
+            if(!this.HasProp("__GetEvent"))
+                this.__GetEvent := %this.__Class%._GetEvent(this.ptr + 40)
+            return this.__GetEvent
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {_ControlUnit}
      */
-    SendBufferSize {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    ControlUnit{
+        get {
+            if(!this.HasProp("__ControlUnit"))
+                this.__ControlUnit := %this.__Class%._ControlUnit(this.ptr + 40)
+            return this.__ControlUnit
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {_EnumServiceProviders}
      */
-    ReceiveBuffer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    EnumServiceProviders{
+        get {
+            if(!this.HasProp("__EnumServiceProviders"))
+                this.__EnumServiceProviders := %this.__Class%._EnumServiceProviders(this.ptr + 40)
+            return this.__EnumServiceProviders
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {_EnumBiometricUnits}
      */
-    ReceiveBufferSize {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    EnumBiometricUnits{
+        get {
+            if(!this.HasProp("__EnumBiometricUnits"))
+                this.__EnumBiometricUnits := %this.__Class%._EnumBiometricUnits(this.ptr + 40)
+            return this.__EnumBiometricUnits
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {_EnumDatabases}
      */
-    ReceiveDataSize {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    EnumDatabases{
+        get {
+            if(!this.HasProp("__EnumDatabases"))
+                this.__EnumDatabases := %this.__Class%._EnumDatabases(this.ptr + 40)
+            return this.__EnumDatabases
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {_VerifyAndReleaseTicket}
      */
-    BspCount {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    VerifyAndReleaseTicket{
+        get {
+            if(!this.HasProp("__VerifyAndReleaseTicket"))
+                this.__VerifyAndReleaseTicket := %this.__Class%._VerifyAndReleaseTicket(this.ptr + 40)
+            return this.__VerifyAndReleaseTicket
+        }
     }
 
     /**
-     * @type {Pointer<WINBIO_BSP_SCHEMA>}
+     * @type {_IdentifyAndReleaseTicket}
      */
-    BspSchemaArray {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    UnitCount {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<WINBIO_UNIT_SCHEMA>}
-     */
-    UnitSchemaArray {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    StorageCount {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<WINBIO_STORAGE_SCHEMA>}
-     */
-    StorageSchemaArray {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Ticket {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RejectDetail123 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Ticket1 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    IdentifyAndReleaseTicket{
+        get {
+            if(!this.HasProp("__IdentifyAndReleaseTicket"))
+                this.__IdentifyAndReleaseTicket := %this.__Class%._IdentifyAndReleaseTicket(this.ptr + 40)
+            return this.__IdentifyAndReleaseTicket
+        }
     }
 
     /**
@@ -543,48 +981,35 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_MonitorPresence}
      */
-    ChangeType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PresenceCount {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<WINBIO_PRESENCE>}
-     */
-    PresenceArray {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {WINBIO_PROTECTION_POLICY}
-     */
-    Policy{
+    MonitorPresence{
         get {
-            if(!this.HasProp("__Policy"))
-                this.__Policy := WINBIO_PROTECTION_POLICY(this.ptr + 48)
-            return this.__Policy
+            if(!this.HasProp("__MonitorPresence"))
+                this.__MonitorPresence := %this.__Class%._MonitorPresence(this.ptr + 40)
+            return this.__MonitorPresence
         }
     }
 
     /**
-     * @type {WINBIO_EXTENDED_UNIT_STATUS}
+     * @type {_GetProtectionPolicy}
      */
-    ExtendedStatus{
+    GetProtectionPolicy{
         get {
-            if(!this.HasProp("__ExtendedStatus"))
-                this.__ExtendedStatus := WINBIO_EXTENDED_UNIT_STATUS(this.ptr + 40)
-            return this.__ExtendedStatus
+            if(!this.HasProp("__GetProtectionPolicy"))
+                this.__GetProtectionPolicy := %this.__Class%._GetProtectionPolicy(this.ptr + 40)
+            return this.__GetProtectionPolicy
+        }
+    }
+
+    /**
+     * @type {_NotifyUnitStatusChange}
+     */
+    NotifyUnitStatusChange{
+        get {
+            if(!this.HasProp("__NotifyUnitStatusChange"))
+                this.__NotifyUnitStatusChange := %this.__Class%._NotifyUnitStatusChange(this.ptr + 40)
+            return this.__NotifyUnitStatusChange
         }
     }
 }

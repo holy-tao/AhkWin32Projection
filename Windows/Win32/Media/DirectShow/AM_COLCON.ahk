@@ -16,6 +16,9 @@ class AM_COLCON extends Win32Struct
     static packingSize => 1
 
     /**
+     * This bitfield backs the following members:
+     * - emph1col
+     * - emph2col
      * @type {Integer}
      */
     _bitfield1 {
@@ -24,6 +27,27 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
+     * Emphasis color 1.
+     * @type {Integer}
+     */
+    emph1col {
+        get => (this._bitfield1 >> 0) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 0) | (this._bitfield1 & ~(0xF << 0))
+    }
+
+    /**
+     * Emphasis color 2.
+     * @type {Integer}
+     */
+    emph2col {
+        get => (this._bitfield1 >> 4) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - backcol
+     * - patcol
      * @type {Integer}
      */
     _bitfield2 {
@@ -32,6 +56,27 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
+     * Background color.
+     * @type {Integer}
+     */
+    backcol {
+        get => (this._bitfield2 >> 0) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
+    }
+
+    /**
+     * Pattern color.
+     * @type {Integer}
+     */
+    patcol {
+        get => (this._bitfield2 >> 4) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 4) | (this._bitfield2 & ~(0xF << 4))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - emph1con
+     * - emph2con
      * @type {Integer}
      */
     _bitfield3 {
@@ -40,10 +85,49 @@ class AM_COLCON extends Win32Struct
     }
 
     /**
+     * Emphasis contrast 1.
+     * @type {Integer}
+     */
+    emph1con {
+        get => (this._bitfield3 >> 0) & 0xF
+        set => this._bitfield3 := ((value & 0xF) << 0) | (this._bitfield3 & ~(0xF << 0))
+    }
+
+    /**
+     * Emphasis contrast 2.
+     * @type {Integer}
+     */
+    emph2con {
+        get => (this._bitfield3 >> 4) & 0xF
+        set => this._bitfield3 := ((value & 0xF) << 4) | (this._bitfield3 & ~(0xF << 4))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - backcon
+     * - patcon
      * @type {Integer}
      */
     _bitfield4 {
         get => NumGet(this, 3, "char")
         set => NumPut("char", value, this, 3)
+    }
+
+    /**
+     * Background contrast.
+     * @type {Integer}
+     */
+    backcon {
+        get => (this._bitfield4 >> 0) & 0xF
+        set => this._bitfield4 := ((value & 0xF) << 0) | (this._bitfield4 & ~(0xF << 0))
+    }
+
+    /**
+     * Pattern contrast.
+     * @type {Integer}
+     */
+    patcon {
+        get => (this._bitfield4 >> 4) & 0xF
+        set => this._bitfield4 := ((value & 0xF) << 4) | (this._bitfield4 & ~(0xF << 4))
     }
 }

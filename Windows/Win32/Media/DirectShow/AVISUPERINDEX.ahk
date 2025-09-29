@@ -17,6 +17,36 @@ class AVISUPERINDEX extends Win32Struct
 
     static packingSize => 8
 
+    class _avisuperindex_entry extends Win32Struct {
+        static sizeof => 8208
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        qwOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwDuration {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
     /**
      * A <b>FOURCC</b> code. The value must be 'indx'.
      * @type {Integer}
@@ -93,26 +123,14 @@ class AVISUPERINDEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * An array of structures that contain the following members. The number of elements in the array is calculated from the value of <b>cb</b>.
+     * @type {Array<_avisuperindex_entry>}
      */
-    qwOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDuration {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+    aIndex{
+        get {
+            if(!this.HasProp("__aIndexProxyArray"))
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 1022, %this.__Class%._avisuperindex_entry, "")
+            return this.__aIndexProxyArray
+        }
     }
 }

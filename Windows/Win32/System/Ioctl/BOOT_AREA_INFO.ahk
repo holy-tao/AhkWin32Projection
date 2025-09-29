@@ -13,6 +13,20 @@ class BOOT_AREA_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _Anonymous extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Offset {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+    }
+
     /**
      * Number of elements in the <b>BootSectors</b> array.
      * @type {Integer}
@@ -23,10 +37,14 @@ class BOOT_AREA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * A variable length array of structures each containing the following member.
+     * @type {Array<Int64>}
      */
-    Offset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    BootSectors{
+        get {
+            if(!this.HasProp("__BootSectorsProxyArray"))
+                this.__BootSectorsProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "int64")
+            return this.__BootSectorsProxyArray
+        }
     }
 }

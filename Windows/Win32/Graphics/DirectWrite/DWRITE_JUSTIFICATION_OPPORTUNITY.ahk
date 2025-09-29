@@ -41,10 +41,81 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - expansionPriority
+     * - compressionPriority
+     * - allowResidualExpansion
+     * - allowResidualCompression
+     * - applyToLeadingEdge
+     * - applyToTrailingEdge
+     * - reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * Priority of this expansion point. Larger priorities are applied later, while priority zero does nothing.
+     * @type {Integer}
+     */
+    expansionPriority {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * Priority of this compression point. Larger priorities are applied later, while priority zero does nothing.
+     * @type {Integer}
+     */
+    compressionPriority {
+        get => (this._bitfield >> 8) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
+    }
+
+    /**
+     * Allow this expansion point to use up any remaining slack space even after all expansion priorities have been used up.
+     * @type {Integer}
+     */
+    allowResidualExpansion {
+        get => (this._bitfield >> 16) & 0x1
+        set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
+    }
+
+    /**
+     * Allow this compression point to use up any remaining space even after all compression priorities have been used up.
+     * @type {Integer}
+     */
+    allowResidualCompression {
+        get => (this._bitfield >> 17) & 0x1
+        set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
+    }
+
+    /**
+     * Apply expansion and compression to the leading edge of the glyph. This bit is <b>FALSE</b> (0) for connected scripts, fixed-size characters, and diacritics. It is generally <b>FALSE</b> within a multi-glyph cluster, unless the script allows expansion of glyphs within a cluster, like Thai.
+     * @type {Integer}
+     */
+    applyToLeadingEdge {
+        get => (this._bitfield >> 18) & 0x1
+        set => this._bitfield := ((value & 0x1) << 18) | (this._bitfield & ~(0x1 << 18))
+    }
+
+    /**
+     * Apply expansion and compression to the trailing edge of the glyph. This bit is <b>FALSE</b> (0) for connected scripts, fixed-size characters, and diacritics. It is generally <b>FALSE</b> within a multi-glyph cluster, unless the script allows expansion of glyphs within a cluster, like Thai.
+     * @type {Integer}
+     */
+    applyToTrailingEdge {
+        get => (this._bitfield >> 19) & 0x1
+        set => this._bitfield := ((value & 0x1) << 19) | (this._bitfield & ~(0x1 << 19))
+    }
+
+    /**
+     * Reserved
+     * @type {Integer}
+     */
+    reserved {
+        get => (this._bitfield >> 20) & 0xFFF
+        set => this._bitfield := ((value & 0xFFF) << 20) | (this._bitfield & ~(0xFFF << 20))
     }
 }

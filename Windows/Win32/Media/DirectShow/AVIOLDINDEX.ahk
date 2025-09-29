@@ -15,6 +15,44 @@ class AVIOLDINDEX extends Win32Struct
 
     static packingSize => 8
 
+    class _avioldindex_entry extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwChunkId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwFlags {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwOffset {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwSize {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
     /**
      * Specifies a FOURCC code. The value must be 'idx1'.
      * @type {Integer}
@@ -34,34 +72,14 @@ class AVIOLDINDEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * Array of structures that contain the following members.
+     * @type {Array<_avioldindex_entry>}
      */
-    dwChunkId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    aIndex{
+        get {
+            if(!this.HasProp("__aIndexProxyArray"))
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 8, 1, %this.__Class%._avioldindex_entry, "")
+            return this.__aIndexProxyArray
+        }
     }
 }

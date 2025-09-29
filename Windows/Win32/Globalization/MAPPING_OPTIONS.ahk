@@ -168,10 +168,21 @@ class MAPPING_OPTIONS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - GetActionDisplayName
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 112, "uint")
         set => NumPut("uint", value, this, 112)
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    GetActionDisplayName {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 }

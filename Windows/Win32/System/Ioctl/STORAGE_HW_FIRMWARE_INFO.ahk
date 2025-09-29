@@ -33,11 +33,32 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - SupportUpgrade
+     * - Reserved0
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "char")
         set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * Indicates that this firmware supports an upgrade.
+     * @type {Integer}
+     */
+    SupportUpgrade {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Reserved for future use.
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 
     /**

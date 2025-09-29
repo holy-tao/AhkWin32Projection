@@ -15,6 +15,42 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
 
     static packingSize => 8
 
+    class _DHCP_CLIENT_SEARCH_UNION_V6 extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {DHCP_IPV6_ADDRESS}
+         */
+        ClientIpAddress{
+            get {
+                if(!this.HasProp("__ClientIpAddress"))
+                    this.__ClientIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                return this.__ClientIpAddress
+            }
+        }
+    
+        /**
+         * @type {DHCP_BINARY_DATA}
+         */
+        ClientDUID{
+            get {
+                if(!this.HasProp("__ClientDUID"))
+                    this.__ClientDUID := DHCP_BINARY_DATA(this.ptr + 0)
+                return this.__ClientDUID
+            }
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ClientName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * Enumeration value that selects the type of the value on which the DHCPv6 database will be searched.
      * @type {Integer}
@@ -25,32 +61,14 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
     }
 
     /**
-     * @type {DHCP_IPV6_ADDRESS}
+     * 
+     * @type {_DHCP_CLIENT_SEARCH_UNION_V6}
      */
-    ClientIpAddress{
+    SearchInfo{
         get {
-            if(!this.HasProp("__ClientIpAddress"))
-                this.__ClientIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 8)
-            return this.__ClientIpAddress
+            if(!this.HasProp("__SearchInfo"))
+                this.__SearchInfo := %this.__Class%._DHCP_CLIENT_SEARCH_UNION_V6(this.ptr + 8)
+            return this.__SearchInfo
         }
-    }
-
-    /**
-     * @type {DHCP_BINARY_DATA}
-     */
-    ClientDUID{
-        get {
-            if(!this.HasProp("__ClientDUID"))
-                this.__ClientDUID := DHCP_BINARY_DATA(this.ptr + 8)
-            return this.__ClientDUID
-        }
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ClientName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 }

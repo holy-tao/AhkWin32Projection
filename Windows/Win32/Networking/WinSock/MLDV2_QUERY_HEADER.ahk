@@ -60,11 +60,39 @@ class MLDV2_QUERY_HEADER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - QuerierRobustnessVariable
+     * - SuppressRouterSideProcessing
+     * - QueryReserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 24, "char")
         set => NumPut("char", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    QuerierRobustnessVariable {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SuppressRouterSideProcessing {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    QueryReserved {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**

@@ -27,36 +27,135 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    VirtualSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _Size extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        VirtualSize {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PhysicalSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BlockSize {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SectorSize {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _ParentLocation extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ParentResolved {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {String}
+         */
+        ParentLocationBuffer {
+            get => StrGet(this.ptr + 4, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 4, 0, "UTF-16")
+        }
+    
+    }
+
+    class _PhysicalDisk extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LogicalSectorSize {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PhysicalSectorSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IsRemote {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+    }
+
+    class _ChangeTrackingState extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Enabled {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NewerChanges {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {String}
+         */
+        MostRecentId {
+            get => StrGet(this.ptr + 8, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 8, 0, "UTF-16")
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Size}
      */
-    PhysicalSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BlockSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SectorSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    Size{
+        get {
+            if(!this.HasProp("__Size"))
+                this.__Size := %this.__Class%._Size(this.ptr + 8)
+            return this.__Size
+        }
     }
 
     /**
@@ -68,19 +167,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ParentLocation}
      */
-    ParentResolved {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {String}
-     */
-    ParentLocationBuffer {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
+    ParentLocation{
+        get {
+            if(!this.HasProp("__ParentLocation"))
+                this.__ParentLocation := %this.__Class%._ParentLocation(this.ptr + 8)
+            return this.__ParentLocation
+        }
     }
 
     /**
@@ -135,27 +229,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_PhysicalDisk}
      */
-    LogicalSectorSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PhysicalSectorSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IsRemote {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    PhysicalDisk{
+        get {
+            if(!this.HasProp("__PhysicalDisk"))
+                this.__PhysicalDisk := %this.__Class%._PhysicalDisk(this.ptr + 8)
+            return this.__PhysicalDisk
+        }
     }
 
     /**
@@ -191,26 +272,13 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ChangeTrackingState}
      */
-    Enabled {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NewerChanges {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
-
-    /**
-     * @type {String}
-     */
-    MostRecentId {
-        get => StrGet(this.ptr + 16, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
+    ChangeTrackingState{
+        get {
+            if(!this.HasProp("__ChangeTrackingState"))
+                this.__ChangeTrackingState := %this.__Class%._ChangeTrackingState(this.ptr + 8)
+            return this.__ChangeTrackingState
+        }
     }
 }

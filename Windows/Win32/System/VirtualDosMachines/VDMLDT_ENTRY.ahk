@@ -27,36 +27,53 @@ class VDMLDT_ENTRY extends Win32Struct
         set => NumPut("ushort", value, this, 2)
     }
 
-    /**
-     * @type {Integer}
-     */
-    BaseMid {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    class _Bytes extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        BaseMid {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flags1 {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flags2 {
+            get => NumGet(this, 2, "char")
+            set => NumPut("char", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BaseHi {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Bytes}
      */
-    Flags1 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags2 {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BaseHi {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    Bytes{
+        get {
+            if(!this.HasProp("__Bytes"))
+                this.__Bytes := %this.__Class%._Bytes(this.ptr + 4)
+            return this.__Bytes
+        }
     }
 
     /**

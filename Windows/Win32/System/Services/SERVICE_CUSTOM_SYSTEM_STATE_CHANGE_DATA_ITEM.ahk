@@ -12,6 +12,31 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct
 
     static packingSize => 8
 
+    class _s extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        DataOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Data{
+            get {
+                if(!this.HasProp("__DataProxyArray"))
+                    this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                return this.__DataProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {SERVICE_TRIGGER_CUSTOM_STATE_ID}
      */
@@ -24,21 +49,13 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_s}
      */
-    DataOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Data{
+    s{
         get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
+            if(!this.HasProp("__s"))
+                this.__s := %this.__Class%._s(this.ptr + 0)
+            return this.__s
         }
     }
 }

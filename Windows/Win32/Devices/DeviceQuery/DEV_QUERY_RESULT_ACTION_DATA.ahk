@@ -12,6 +12,31 @@ class DEV_QUERY_RESULT_ACTION_DATA extends Win32Struct
 
     static packingSize => 8
 
+    class _DEV_QUERY_RESULT_UPDATE_PAYLOAD extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        State {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {DEV_OBJECT}
+         */
+        DeviceObject{
+            get {
+                if(!this.HasProp("__DeviceObject"))
+                    this.__DeviceObject := DEV_OBJECT(this.ptr + 0)
+                return this.__DeviceObject
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -21,21 +46,13 @@ class DEV_QUERY_RESULT_ACTION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_DEV_QUERY_RESULT_UPDATE_PAYLOAD}
      */
-    State {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {DEV_OBJECT}
-     */
-    DeviceObject{
+    Data{
         get {
-            if(!this.HasProp("__DeviceObject"))
-                this.__DeviceObject := DEV_OBJECT(this.ptr + 8)
-            return this.__DeviceObject
+            if(!this.HasProp("__Data"))
+                this.__Data := %this.__Class%._DEV_QUERY_RESULT_UPDATE_PAYLOAD(this.ptr + 8)
+            return this.__Data
         }
     }
 }

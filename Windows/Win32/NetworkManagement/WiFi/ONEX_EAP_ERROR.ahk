@@ -1238,11 +1238,32 @@ class ONEX_EAP_ERROR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fRootCauseString
+     * - fRepairString
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
+    }
+
+    /**
+     * Indicates if the <b>ONEX_EAP_ERROR</b> structure contains a root cause string in the <b>RootCauseString</b> member.
+     * @type {Integer}
+     */
+    fRootCauseString {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_EAP_ERROR</b> structure contains a repair string in the <b>RepairString</b> member.
+     * @type {Integer}
+     */
+    fRepairString {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

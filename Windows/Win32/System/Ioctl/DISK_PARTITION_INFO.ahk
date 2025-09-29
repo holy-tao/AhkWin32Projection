@@ -33,27 +33,61 @@ class DISK_PARTITION_INFO extends Win32Struct
         set => NumPut("int", value, this, 4)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _Mbr extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Signature {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CheckSum {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _Gpt extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        DiskId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Mbr}
      */
-    CheckSum {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Mbr{
+        get {
+            if(!this.HasProp("__Mbr"))
+                this.__Mbr := %this.__Class%._Mbr(this.ptr + 8)
+            return this.__Mbr
+        }
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_Gpt}
      */
-    DiskId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Gpt{
+        get {
+            if(!this.HasProp("__Gpt"))
+                this.__Gpt := %this.__Class%._Gpt(this.ptr + 8)
+            return this.__Gpt
+        }
     }
 }

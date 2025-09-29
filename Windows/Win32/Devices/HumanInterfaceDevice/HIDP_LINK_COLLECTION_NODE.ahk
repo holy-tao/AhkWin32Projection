@@ -60,11 +60,39 @@ class HIDP_LINK_COLLECTION_NODE extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - CollectionType
+     * - IsAlias
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CollectionType {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsAlias {
+        get => (this._bitfield >> 8) & 0x1
+        set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 9) & 0x7FFFFF
+        set => this._bitfield := ((value & 0x7FFFFF) << 9) | (this._bitfield & ~(0x7FFFFF << 9))
     }
 
     /**

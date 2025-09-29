@@ -11,6 +11,52 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
 
     static packingSize => 8
 
+    class _SetupPacket extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        bmRequest {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        bRequest {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wValue {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wIndex {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wLength {
+            get => NumGet(this, 6, "ushort")
+            set => NumPut("ushort", value, this, 6)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,43 +66,14 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_SetupPacket}
      */
-    bmRequest {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bRequest {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wValue {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wIndex {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wLength {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+    SetupPacket{
+        get {
+            if(!this.HasProp("__SetupPacket"))
+                this.__SetupPacket := %this.__Class%._SetupPacket(this.ptr + 8)
+            return this.__SetupPacket
+        }
     }
 
     /**

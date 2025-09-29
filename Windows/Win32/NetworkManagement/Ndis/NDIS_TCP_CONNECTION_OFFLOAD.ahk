@@ -32,11 +32,48 @@ class NDIS_TCP_CONNECTION_OFFLOAD extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - SupportIPv4
+     * - SupportIPv6
+     * - SupportIPv6ExtensionHeaders
+     * - SupportSack
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportIPv4 {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportIPv6 {
+        get => (this._bitfield >> 2) & 0x3
+        set => this._bitfield := ((value & 0x3) << 2) | (this._bitfield & ~(0x3 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportIPv6ExtensionHeaders {
+        get => (this._bitfield >> 4) & 0x3
+        set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportSack {
+        get => (this._bitfield >> 6) & 0x3
+        set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
     }
 
     /**

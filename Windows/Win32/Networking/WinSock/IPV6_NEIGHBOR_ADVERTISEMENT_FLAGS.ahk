@@ -12,11 +12,48 @@ class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved1
+     * - Override
+     * - Solicited
+     * - Router
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 0) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Override {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Solicited {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Router {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
 
     /**

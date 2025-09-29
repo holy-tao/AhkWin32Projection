@@ -13,20 +13,60 @@ class INSTALLSPEC extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Pointer<Char>}
-     */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    class _AppName extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Char>}
+         */
+        Name {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        GPOId {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _COMClass extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        Clsid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ClsCtx {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * Structure that contains the following members.
+     * @type {_AppName}
      */
-    GPOId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    AppName{
+        get {
+            if(!this.HasProp("__AppName"))
+                this.__AppName := %this.__Class%._AppName(this.ptr + 0)
+            return this.__AppName
+        }
     }
 
     /**
@@ -51,18 +91,14 @@ class INSTALLSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * This parameter is reserved and should not be used.
+     * @type {_COMClass}
      */
-    Clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ClsCtx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    COMClass{
+        get {
+            if(!this.HasProp("__COMClass"))
+                this.__COMClass := %this.__Class%._COMClass(this.ptr + 0)
+            return this.__COMClass
+        }
     }
 }

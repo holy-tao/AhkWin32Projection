@@ -41,65 +41,144 @@ class DRT_EVENT_DATA extends Win32Struct
         set => NumPut("ptr", value, this, 8)
     }
 
-    /**
-     * @type {Integer}
-     */
-    change {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    class _leafsetKeyChange extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        change {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {DRT_DATA}
+         */
+        localKey{
+            get {
+                if(!this.HasProp("__localKey"))
+                    this.__localKey := DRT_DATA(this.ptr + 8)
+                return this.__localKey
+            }
+        }
+    
+        /**
+         * @type {DRT_DATA}
+         */
+        remoteKey{
+            get {
+                if(!this.HasProp("__remoteKey"))
+                    this.__remoteKey := DRT_DATA(this.ptr + 24)
+                return this.__remoteKey
+            }
+        }
+    
+    }
+
+    class _registrationStateChange extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        state {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {DRT_DATA}
+         */
+        localKey{
+            get {
+                if(!this.HasProp("__localKey"))
+                    this.__localKey := DRT_DATA(this.ptr + 8)
+                return this.__localKey
+            }
+        }
+    
+    }
+
+    class _statusChange extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        class _bootstrapAddresses extends Win32Struct {
+            static sizeof => 24
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            cntAddress {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<SOCKADDR_STORAGE>}
+             */
+            pAddresses {
+                get => NumGet(this, 8, "ptr")
+                set => NumPut("ptr", value, this, 8)
+            }
+        
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        status {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {_bootstrapAddresses}
+         */
+        bootstrapAddresses{
+            get {
+                if(!this.HasProp("__bootstrapAddresses"))
+                    this.__bootstrapAddresses := %this.__Class%._bootstrapAddresses(this.ptr + 8)
+                return this.__bootstrapAddresses
+            }
+        }
+    
     }
 
     /**
-     * @type {DRT_DATA}
+     * @type {_leafsetKeyChange}
      */
-    localKey{
+    leafsetKeyChange{
         get {
-            if(!this.HasProp("__localKey"))
-                this.__localKey := DRT_DATA(this.ptr + 24)
-            return this.__localKey
+            if(!this.HasProp("__leafsetKeyChange"))
+                this.__leafsetKeyChange := %this.__Class%._leafsetKeyChange(this.ptr + 16)
+            return this.__leafsetKeyChange
         }
     }
 
     /**
-     * @type {DRT_DATA}
+     * @type {_registrationStateChange}
      */
-    remoteKey{
+    registrationStateChange{
         get {
-            if(!this.HasProp("__remoteKey"))
-                this.__remoteKey := DRT_DATA(this.ptr + 40)
-            return this.__remoteKey
+            if(!this.HasProp("__registrationStateChange"))
+                this.__registrationStateChange := %this.__Class%._registrationStateChange(this.ptr + 16)
+            return this.__registrationStateChange
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_statusChange}
      */
-    state {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    status {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cntAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<SOCKADDR_STORAGE>}
-     */
-    pAddresses {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    statusChange{
+        get {
+            if(!this.HasProp("__statusChange"))
+                this.__statusChange := %this.__Class%._statusChange(this.ptr + 16)
+            return this.__statusChange
+        }
     }
 }

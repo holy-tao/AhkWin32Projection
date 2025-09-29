@@ -11,6 +11,36 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _DriverName extends Win32Struct {
+        static sizeof => 56
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Length {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumLength {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Buffer {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -60,26 +90,13 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_DriverName}
      */
-    Length {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaximumLength {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Buffer {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+    DriverName{
+        get {
+            if(!this.HasProp("__DriverName"))
+                this.__DriverName := %this.__Class%._DriverName(this.ptr + 40)
+            return this.__DriverName
+        }
     }
 }

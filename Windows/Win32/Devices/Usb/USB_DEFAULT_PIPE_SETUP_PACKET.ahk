@@ -12,6 +12,66 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
 
     static packingSize => 4
 
+    class _wValue extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        LowByte {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HiByte {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        W {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
+
+    class _wIndex extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        LowByte {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HiByte {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        W {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {BM_REQUEST_TYPE}
      */
@@ -32,27 +92,25 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_wValue}
      */
-    LowByte {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    wValue{
+        get {
+            if(!this.HasProp("__wValue"))
+                this.__wValue := %this.__Class%._wValue(this.ptr + 4)
+            return this.__wValue
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_wIndex}
      */
-    HiByte {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    W {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
+    wIndex{
+        get {
+            if(!this.HasProp("__wIndex"))
+                this.__wIndex := %this.__Class%._wIndex(this.ptr + 8)
+            return this.__wIndex
+        }
     }
 
     /**

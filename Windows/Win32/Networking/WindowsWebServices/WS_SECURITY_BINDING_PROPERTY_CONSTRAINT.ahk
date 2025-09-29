@@ -14,6 +14,23 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
 
     static packingSize => 8
 
+    class _out extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {WS_SECURITY_BINDING_PROPERTY}
+         */
+        securityBindingProperty{
+            get {
+                if(!this.HasProp("__securityBindingProperty"))
+                    this.__securityBindingProperty := WS_SECURITY_BINDING_PROPERTY(this.ptr + 0)
+                return this.__securityBindingProperty
+            }
+        }
+    
+    }
+
     /**
      * The id of the security binding property.  The following security
      *                     binding property constraints may be specified:
@@ -69,13 +86,15 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
     }
 
     /**
-     * @type {WS_SECURITY_BINDING_PROPERTY}
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
+     *                     fields of the property structure will be filled out as follows:
+     * @type {_out}
      */
-    securityBindingProperty{
+    out{
         get {
-            if(!this.HasProp("__securityBindingProperty"))
-                this.__securityBindingProperty := WS_SECURITY_BINDING_PROPERTY(this.ptr + 24)
-            return this.__securityBindingProperty
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(this.ptr + 24)
+            return this.__out
         }
     }
 }

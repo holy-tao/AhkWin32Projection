@@ -11,6 +11,28 @@ class FIELD_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _BitField extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Position {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Size {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+    }
+
     /**
      * @type {Pointer<Byte>}
      */
@@ -92,26 +114,76 @@ class FIELD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_BitField}
      */
-    Position {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
+    BitField{
+        get {
+            if(!this.HasProp("__BitField"))
+                this.__BitField := %this.__Class%._BitField(this.ptr + 52)
+            return this.__BitField
+        }
     }
 
     /**
-     * @type {Integer}
-     */
-    Size1 {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
-
-    /**
+     * This bitfield backs the following members:
+     * - fPointer
+     * - fArray
+     * - fStruct
+     * - fConstant
+     * - fStatic
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fPointer {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fArray {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fStruct {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fConstant {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fStatic {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 6) & 0x3FFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFF << 6))
     }
 }

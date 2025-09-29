@@ -22,27 +22,44 @@ class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    ScsiStatus {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    class _Version1 extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ScsiStatus {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SenseInfoLength {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataTransferLength {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version1}
      */
-    SenseInfoLength {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataTransferLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Version1{
+        get {
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+            return this.__Version1
+        }
     }
 }

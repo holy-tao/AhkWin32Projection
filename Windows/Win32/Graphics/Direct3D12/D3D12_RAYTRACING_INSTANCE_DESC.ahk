@@ -33,6 +33,9 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - InstanceID
+     * - InstanceMask
      * @type {Integer}
      */
     _bitfield1 {
@@ -41,11 +44,58 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 24**
+     * 
+     * An arbitrary 24-bit value that can be accessed using the `InstanceID` intrinsic function in supported shader types.
+     * @type {Integer}
+     */
+    InstanceID {
+        get => (this._bitfield1 >> 0) & 0xFFFFFF
+        set => this._bitfield1 := ((value & 0xFFFFFF) << 0) | (this._bitfield1 & ~(0xFFFFFF << 0))
+    }
+
+    /**
+     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 8**
+     * 
+     * An 8-bit mask assigned to the instance, which can be used to include/reject groups of instances on a per-ray basis. If the value is zero, then the instance will never be included, so typically this should be set to some non-zero value. For more information see, the `InstanceInclusionMask` parameter to the [TraceRay](/windows/win32/direct3d12/traceray-function) function.
+     * @type {Integer}
+     */
+    InstanceMask {
+        get => (this._bitfield1 >> 24) & 0xFF
+        set => this._bitfield1 := ((value & 0xFF) << 24) | (this._bitfield1 & ~(0xFF << 24))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - InstanceContributionToHitGroupIndex
+     * - Flags
      * @type {Integer}
      */
     _bitfield2 {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
+    }
+
+    /**
+     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 24**
+     * 
+     * An arbitrary 24-bit value representing per-instance contribution to add into shader table indexing to select the hit group to use.
+     * @type {Integer}
+     */
+    InstanceContributionToHitGroupIndex {
+        get => (this._bitfield2 >> 0) & 0xFFFFFF
+        set => this._bitfield2 := ((value & 0xFFFFFF) << 0) | (this._bitfield2 & ~(0xFFFFFF << 0))
+    }
+
+    /**
+     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 8**
+     * 
+     * An 8-bit mask representing flags from [D3D12_RAYTRACING_INSTANCE_FLAGS](./ne-d3d12-d3d12_raytracing_instance_flags.md) to apply to the instance.
+     * @type {Integer}
+     */
+    Flags {
+        get => (this._bitfield2 >> 24) & 0xFF
+        set => this._bitfield2 := ((value & 0xFF) << 24) | (this._bitfield2 & ~(0xFF << 24))
     }
 
     /**

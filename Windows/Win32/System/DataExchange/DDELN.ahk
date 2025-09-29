@@ -12,11 +12,48 @@ class DDELN extends Win32Struct
     static packingSize => 2
 
     /**
+     * This bitfield backs the following members:
+     * - unused
+     * - fRelease
+     * - fDeferUpd
+     * - fAckReq
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    unused {
+        get => (this._bitfield >> 0) & 0x1FFF
+        set => this._bitfield := ((value & 0x1FFF) << 0) | (this._bitfield & ~(0x1FFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fRelease {
+        get => (this._bitfield >> 13) & 0x1
+        set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fDeferUpd {
+        get => (this._bitfield >> 14) & 0x1
+        set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fAckReq {
+        get => (this._bitfield >> 15) & 0x1
+        set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
 
     /**

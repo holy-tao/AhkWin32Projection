@@ -47,11 +47,30 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - ExtensionCode
+     * - PartVers1on
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 6, "char")
         set => NumPut("char", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExtensionCode {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PartVers1on {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**

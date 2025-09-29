@@ -43,11 +43,186 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - ThinProvisioningEnabled
+     * - ThinProvisioningReadZeros
+     * - AnchorSupported
+     * - UnmapGranularityAlignmentValid
+     * - GetFreeSpaceSupported
+     * - MapSupported
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "char")
         set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * The thin provisioning–enabled status.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Thin provisioning is disabled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Thin provisioning is enabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    ThinProvisioningEnabled {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Reads to unmapped regions return zeros.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Data read from unmapped regions is undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Reads return zeros.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    ThinProvisioningReadZeros {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * Deterministic read after trim support.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Deterministic read after trim is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Deterministic read after trim is supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    AnchorSupported {
+        get => (this._bitfield >> 2) & 0x7
+        set => this._bitfield := ((value & 0x7) << 2) | (this._bitfield & ~(0x7 << 2))
+    }
+
+    /**
+     * The validity of unmap granularity alignment for the device.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unmap granularity alignment is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unmap granularity alignment is valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @type {Integer}
+     */
+    UnmapGranularityAlignmentValid {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    GetFreeSpaceSupported {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MapSupported {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
 
     /**

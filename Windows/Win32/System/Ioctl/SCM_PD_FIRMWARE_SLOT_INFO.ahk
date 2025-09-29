@@ -36,11 +36,30 @@ class SCM_PD_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - ReadOnly
+     * - Reserved0
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 9, "char")
         set => NumPut("char", value, this, 9)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReadOnly {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 
     /**

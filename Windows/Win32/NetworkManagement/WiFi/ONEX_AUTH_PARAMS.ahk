@@ -62,11 +62,76 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fSessionId
+     * - fhUserToken
+     * - fOnexUserProfile
+     * - fIdentity
+     * - fUserName
+     * - fDomain
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a session ID in the <b>dwSessionId</b> member.
+     * @type {Integer}
+     */
+    fSessionId {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a user token handle in the <b>hUserToken</b> member. 
+     * 
+     * For security reasons, the <b>hUserToken</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
+     * @type {Integer}
+     */
+    fhUserToken {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains an 802.1X user profile in the <b>OneXUserProfile</b> member.
+     * 
+     * For security reasons, the <b>OneXUserProfile</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
+     * @type {Integer}
+     */
+    fOnexUserProfile {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains an 802.1X identity in the <b>Identity</b> member.
+     * @type {Integer}
+     */
+    fIdentity {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a user name used for 802.1X authentication in the <b>UserName</b> member.
+     * @type {Integer}
+     */
+    fUserName {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a domain used for 802.1X authentication in the <b>Domain</b> member.
+     * @type {Integer}
+     */
+    fDomain {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
     }
 
     /**

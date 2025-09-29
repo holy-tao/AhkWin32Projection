@@ -15,6 +15,146 @@ class XPS_COLOR extends Win32Struct
 
     static packingSize => 8
 
+    class XPS_COLOR_VALUE extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        class _sRGB extends Win32Struct {
+            static sizeof => 64
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            alpha {
+                get => NumGet(this, 0, "char")
+                set => NumPut("char", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            red {
+                get => NumGet(this, 1, "char")
+                set => NumPut("char", value, this, 1)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            green {
+                get => NumGet(this, 2, "char")
+                set => NumPut("char", value, this, 2)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            blue {
+                get => NumGet(this, 3, "char")
+                set => NumPut("char", value, this, 3)
+            }
+        
+        }
+    
+        class _scRGB extends Win32Struct {
+            static sizeof => 64
+            static packingSize => 8
+    
+            /**
+             * @type {Float}
+             */
+            alpha {
+                get => NumGet(this, 0, "float")
+                set => NumPut("float", value, this, 0)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            red {
+                get => NumGet(this, 4, "float")
+                set => NumPut("float", value, this, 4)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            green {
+                get => NumGet(this, 8, "float")
+                set => NumPut("float", value, this, 8)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            blue {
+                get => NumGet(this, 12, "float")
+                set => NumPut("float", value, this, 12)
+            }
+        
+        }
+    
+        class _context extends Win32Struct {
+            static sizeof => 64
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            channelCount {
+                get => NumGet(this, 0, "char")
+                set => NumPut("char", value, this, 0)
+            }
+        
+            /**
+             * @type {Array<Single>}
+             */
+            channels{
+                get {
+                    if(!this.HasProp("__channelsProxyArray"))
+                        this.__channelsProxyArray := Win32FixedArray(this.ptr + 4, 9, Primitive, "float")
+                    return this.__channelsProxyArray
+                }
+            }
+        
+        }
+    
+        /**
+         * @type {_sRGB}
+         */
+        sRGB{
+            get {
+                if(!this.HasProp("__sRGB"))
+                    this.__sRGB := %this.__Class%._sRGB(this.ptr + 0)
+                return this.__sRGB
+            }
+        }
+    
+        /**
+         * @type {_scRGB}
+         */
+        scRGB{
+            get {
+                if(!this.HasProp("__scRGB"))
+                    this.__scRGB := %this.__Class%._scRGB(this.ptr + 0)
+                return this.__scRGB
+            }
+        }
+    
+        /**
+         * @type {_context}
+         */
+        context{
+            get {
+                if(!this.HasProp("__context"))
+                    this.__context := %this.__Class%._context(this.ptr + 0)
+                return this.__context
+            }
+        }
+    
+    }
+
     /**
      * 
      * @type {Integer}
@@ -25,77 +165,14 @@ class XPS_COLOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {XPS_COLOR_VALUE}
      */
-    alpha {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    red {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    green {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    blue {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
-
-    /**
-     * @type {Float}
-     */
-    red1 {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
-
-    /**
-     * @type {Float}
-     */
-    green1 {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    blue1 {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    channelCount {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Array<Single>}
-     */
-    channels{
+    value{
         get {
-            if(!this.HasProp("__channelsProxyArray"))
-                this.__channelsProxyArray := Win32FixedArray(this.ptr + 12, 9, Primitive, "float")
-            return this.__channelsProxyArray
+            if(!this.HasProp("__value"))
+                this.__value := %this.__Class%.XPS_COLOR_VALUE(this.ptr + 8)
+            return this.__value
         }
     }
 }

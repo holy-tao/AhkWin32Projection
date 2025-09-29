@@ -11,68 +11,102 @@ class userSTGMEDIUM extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    tymed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _STGMEDIUM_UNION extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        class _u extends Win32Struct {
+            static sizeof => 64
+            static packingSize => 8
+    
+            /**
+             * @type {Pointer<userHMETAFILEPICT>}
+             */
+            hMetaFilePict {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<userHENHMETAFILE>}
+             */
+            hHEnhMetaFile {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<GDI_OBJECT>}
+             */
+            hGdiHandle {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<userHGLOBAL>}
+             */
+            hGlobal {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<Char>}
+             */
+            lpszFileName {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<BYTE_BLOB>}
+             */
+            pstm {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<BYTE_BLOB>}
+             */
+            pstg {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        tymed {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {_u}
+         */
+        u{
+            get {
+                if(!this.HasProp("__u"))
+                    this.__u := %this.__Class%._u(this.ptr + 8)
+                return this.__u
+            }
+        }
+    
     }
 
     /**
-     * @type {Pointer<userHMETAFILEPICT>}
+     * @type {_STGMEDIUM_UNION}
      */
-    hMetaFilePict {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<userHENHMETAFILE>}
-     */
-    hHEnhMetaFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<GDI_OBJECT>}
-     */
-    hGdiHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<userHGLOBAL>}
-     */
-    hGlobal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    lpszFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<BYTE_BLOB>}
-     */
-    pstm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<BYTE_BLOB>}
-     */
-    pstg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._STGMEDIUM_UNION(this.ptr + 0)
+            return this.__u
+        }
     }
 
     /**

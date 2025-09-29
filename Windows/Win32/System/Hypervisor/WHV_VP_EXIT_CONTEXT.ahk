@@ -25,11 +25,30 @@ class WHV_VP_EXIT_CONTEXT extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - InstructionLength
+     * - Cr8
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 4, "char")
         set => NumPut("char", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    InstructionLength {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Cr8 {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**

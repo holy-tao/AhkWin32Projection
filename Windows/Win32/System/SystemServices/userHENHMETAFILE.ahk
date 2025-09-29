@@ -11,6 +11,36 @@ class userHENHMETAFILE extends Win32Struct
 
     static packingSize => 8
 
+    class _u extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hInproc {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<BYTE_BLOB>}
+         */
+        hRemote {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        hInproc64 {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,26 +50,13 @@ class userHENHMETAFILE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_u}
      */
-    hInproc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<BYTE_BLOB>}
-     */
-    hRemote {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hInproc64 {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u(this.ptr + 8)
+            return this.__u
+        }
     }
 }

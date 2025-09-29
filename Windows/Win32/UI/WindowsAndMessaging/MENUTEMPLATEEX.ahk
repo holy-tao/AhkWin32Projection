@@ -15,47 +15,81 @@ class MENUTEMPLATEEX extends Win32Struct
 
     static packingSize => 8
 
+    class _Menu extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {MENUITEMTEMPLATEHEADER}
+         */
+        mitHeader{
+            get {
+                if(!this.HasProp("__mitHeader"))
+                    this.__mitHeader := MENUITEMTEMPLATEHEADER(this.ptr + 0)
+                return this.__mitHeader
+            }
+        }
+    
+        /**
+         * @type {Array<MENUITEMTEMPLATE>}
+         */
+        miTemplate{
+            get {
+                if(!this.HasProp("__miTemplateProxyArray"))
+                    this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUITEMTEMPLATE, "")
+                return this.__miTemplateProxyArray
+            }
+        }
+    
+    }
+
+    class _MenuEx extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {MENUEX_TEMPLATE_HEADER}
+         */
+        mexHeader{
+            get {
+                if(!this.HasProp("__mexHeader"))
+                    this.__mexHeader := MENUEX_TEMPLATE_HEADER(this.ptr + 0)
+                return this.__mexHeader
+            }
+        }
+    
+        /**
+         * @type {Array<MENUEX_TEMPLATE_ITEM>}
+         */
+        mexItem{
+            get {
+                if(!this.HasProp("__mexItemProxyArray"))
+                    this.__mexItemProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUEX_TEMPLATE_ITEM, "")
+                return this.__mexItemProxyArray
+            }
+        }
+    
+    }
+
     /**
-     * @type {MENUITEMTEMPLATEHEADER}
+     * @type {_Menu}
      */
-    mitHeader{
+    Menu{
         get {
-            if(!this.HasProp("__mitHeader"))
-                this.__mitHeader := MENUITEMTEMPLATEHEADER(this.ptr + 0)
-            return this.__mitHeader
+            if(!this.HasProp("__Menu"))
+                this.__Menu := %this.__Class%._Menu(this.ptr + 0)
+            return this.__Menu
         }
     }
 
     /**
-     * @type {Array<MENUITEMTEMPLATE>}
+     * @type {_MenuEx}
      */
-    miTemplate{
+    MenuEx{
         get {
-            if(!this.HasProp("__miTemplateProxyArray"))
-                this.__miTemplateProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUITEMTEMPLATE, "")
-            return this.__miTemplateProxyArray
-        }
-    }
-
-    /**
-     * @type {MENUEX_TEMPLATE_HEADER}
-     */
-    mexHeader{
-        get {
-            if(!this.HasProp("__mexHeader"))
-                this.__mexHeader := MENUEX_TEMPLATE_HEADER(this.ptr + 0)
-            return this.__mexHeader
-        }
-    }
-
-    /**
-     * @type {Array<MENUEX_TEMPLATE_ITEM>}
-     */
-    mexItem{
-        get {
-            if(!this.HasProp("__mexItemProxyArray"))
-                this.__mexItemProxyArray := Win32FixedArray(this.ptr + 8, 1, MENUEX_TEMPLATE_ITEM, "")
-            return this.__mexItemProxyArray
+            if(!this.HasProp("__MenuEx"))
+                this.__MenuEx := %this.__Class%._MenuEx(this.ptr + 0)
+            return this.__MenuEx
         }
     }
 }

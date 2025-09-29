@@ -11,6 +11,192 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
 
     static packingSize => 8
 
+    class _StreamInformation extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        class _DesiredStorageClass extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            Class {
+                get => NumGet(this, 0, "int")
+                set => NumPut("int", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Flags {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+        }
+    
+        class _DataStream extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            Length {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Flags {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Reserved {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Vdl {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+        
+        }
+    
+        class _Reparse extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            Length {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Flags {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            ReparseDataSize {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            ReparseDataOffset {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+        
+        }
+    
+        class _Ea extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            Length {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Flags {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            EaSize {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            EaInformationOffset {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+        
+        }
+    
+        /**
+         * @type {_DesiredStorageClass}
+         */
+        DesiredStorageClass{
+            get {
+                if(!this.HasProp("__DesiredStorageClass"))
+                    this.__DesiredStorageClass := %this.__Class%._DesiredStorageClass(this.ptr + 0)
+                return this.__DesiredStorageClass
+            }
+        }
+    
+        /**
+         * @type {_DataStream}
+         */
+        DataStream{
+            get {
+                if(!this.HasProp("__DataStream"))
+                    this.__DataStream := %this.__Class%._DataStream(this.ptr + 0)
+                return this.__DataStream
+            }
+        }
+    
+        /**
+         * @type {_Reparse}
+         */
+        Reparse{
+            get {
+                if(!this.HasProp("__Reparse"))
+                    this.__Reparse := %this.__Class%._Reparse(this.ptr + 0)
+                return this.__Reparse
+            }
+        }
+    
+        /**
+         * @type {_Ea}
+         */
+        Ea{
+            get {
+                if(!this.HasProp("__Ea"))
+                    this.__Ea := %this.__Class%._Ea(this.ptr + 0)
+                return this.__Ea
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -28,90 +214,13 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_StreamInformation}
      */
-    Class {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags1 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Vdl {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags12 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReparseDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReparseDataOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags123 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EaSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EaInformationOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    StreamInformation{
+        get {
+            if(!this.HasProp("__StreamInformation"))
+                this.__StreamInformation := %this.__Class%._StreamInformation(this.ptr + 8)
+            return this.__StreamInformation
+        }
     }
 }

@@ -62,11 +62,45 @@ class MENUBARINFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fBarFocused
+     * - fFocused
+     * - fUnused
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 40, "int")
         set => NumPut("int", value, this, 40)
+    }
+
+    /**
+     * Type: <b>BOOL</b>
+     * 
+     * If the menu bar or popup menu has the focus, this member is <b>TRUE</b>. Otherwise, the member is <b>FALSE</b>.
+     * @type {Integer}
+     */
+    fBarFocused {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * Type: <b>BOOL</b>
+     * 
+     * If the menu item has the focus, this member is <b>TRUE</b>. Otherwise, the member is <b>FALSE</b>.
+     * @type {Integer}
+     */
+    fFocused {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fUnused {
+        get => (this._bitfield >> 2) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
 
     /**

@@ -96,6 +96,31 @@ class WINBIO_PRESENCE extends Win32Struct
 
     static packingSize => 8
 
+    class _Authorization extends Win32Struct {
+        static sizeof => 480
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Size {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Data{
+            get {
+                if(!this.HasProp("__DataProxyArray"))
+                    this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
+                return this.__DataProxyArray
+            }
+        }
+    
+    }
+
     /**
      * The biometric factor used to monitor the presence of the individual.
      * @type {Integer}
@@ -175,21 +200,13 @@ class WINBIO_PRESENCE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Authorization}
      */
-    Size {
-        get => NumGet(this, 440, "uint")
-        set => NumPut("uint", value, this, 440)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Data{
+    Authorization{
         get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 444, 32, Primitive, "char")
-            return this.__DataProxyArray
+            if(!this.HasProp("__Authorization"))
+                this.__Authorization := %this.__Class%._Authorization(this.ptr + 440)
+            return this.__Authorization
         }
     }
 }

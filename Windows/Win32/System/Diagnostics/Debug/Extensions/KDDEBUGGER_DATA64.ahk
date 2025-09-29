@@ -73,11 +73,39 @@ class KDDEBUGGER_DATA64 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - PaeEnabled
+     * - KiBugCheckRecoveryActive
+     * - PagingLevels
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 54, "ushort")
         set => NumPut("ushort", value, this, 54)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PaeEnabled {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    KiBugCheckRecoveryActive {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PagingLevels {
+        get => (this._bitfield >> 2) & 0xF
+        set => this._bitfield := ((value & 0xF) << 2) | (this._bitfield & ~(0xF << 2))
     }
 
     /**

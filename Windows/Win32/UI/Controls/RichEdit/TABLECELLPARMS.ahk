@@ -25,11 +25,72 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - nVertAlign
+     * - fMergeTop
+     * - fMergePrev
+     * - fVertical
+     * - fMergeStart
+     * - fMergeCont
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 4, "ushort")
         set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    nVertAlign {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fMergeTop {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fMergePrev {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fVertical {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fMergeStart {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fMergeCont {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
     }
 
     /**

@@ -29,6 +29,44 @@ class WHV_TRIGGER_PARAMETERS extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
+    class _DeviceInterrupt extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LogicalDeviceId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MsiAddress {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MsiData {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
     /**
      * @type {WHV_INTERRUPT_CONTROL}
      */
@@ -52,34 +90,13 @@ class WHV_TRIGGER_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_DeviceInterrupt}
      */
-    LogicalDeviceId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MsiAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MsiData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    DeviceInterrupt{
+        get {
+            if(!this.HasProp("__DeviceInterrupt"))
+                this.__DeviceInterrupt := %this.__Class%._DeviceInterrupt(this.ptr + 8)
+            return this.__DeviceInterrupt
+        }
     }
 }

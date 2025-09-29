@@ -18,6 +18,244 @@ class NTFS_STATISTICS_EX extends Win32Struct
 
     static packingSize => 8
 
+    class _MftWritesUserLevel extends Win32Struct {
+        static sizeof => 496
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Write {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Create {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SetInfo {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flush {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _Mft2WritesUserLevel extends Win32Struct {
+        static sizeof => 496
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Write {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Create {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SetInfo {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flush {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _BitmapWritesUserLevel extends Win32Struct {
+        static sizeof => 496
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Write {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Create {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SetInfo {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flush {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _MftBitmapWritesUserLevel extends Win32Struct {
+        static sizeof => 496
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Write {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Create {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SetInfo {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flush {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _Allocate extends Win32Struct {
+        static sizeof => 496
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Calls {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RunsReturned {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Hints {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HintsHonored {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Cache {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CacheMiss {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Clusters {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HintsClusters {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CacheClusters {
+            get => NumGet(this, 40, "uint")
+            set => NumPut("uint", value, this, 40)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CacheMissClusters {
+            get => NumGet(this, 48, "uint")
+            set => NumPut("uint", value, this, 48)
+        }
+    
+    }
+
     /**
      * The number of exceptions generated due to the log file being full.
      * @type {Integer}
@@ -73,35 +311,15 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_MftWritesUserLevel}
      */
-    Write {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Create {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SetInfo {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flush {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    MftWritesUserLevel{
+        get {
+            if(!this.HasProp("__MftWritesUserLevel"))
+                this.__MftWritesUserLevel := %this.__Class%._MftWritesUserLevel(this.ptr + 40)
+            return this.__MftWritesUserLevel
+        }
     }
 
     /**
@@ -147,6 +365,18 @@ class NTFS_STATISTICS_EX extends Win32Struct
     Mft2WriteBytes {
         get => NumGet(this, 80, "uint")
         set => NumPut("uint", value, this, 80)
+    }
+
+    /**
+     * 
+     * @type {_Mft2WritesUserLevel}
+     */
+    Mft2WritesUserLevel{
+        get {
+            if(!this.HasProp("__Mft2WritesUserLevel"))
+                this.__Mft2WritesUserLevel := %this.__Class%._Mft2WritesUserLevel(this.ptr + 88)
+            return this.__Mft2WritesUserLevel
+        }
     }
 
     /**
@@ -276,6 +506,18 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     /**
+     * 
+     * @type {_BitmapWritesUserLevel}
+     */
+    BitmapWritesUserLevel{
+        get {
+            if(!this.HasProp("__BitmapWritesUserLevel"))
+                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(this.ptr + 200)
+            return this.__BitmapWritesUserLevel
+        }
+    }
+
+    /**
      * The number of read operations on the MFT bitmap.
      * @type {Integer}
      */
@@ -336,6 +578,18 @@ class NTFS_STATISTICS_EX extends Win32Struct
     MftBitmapWritesUserRequest {
         get => NumGet(this, 256, "uint")
         set => NumPut("uint", value, this, 256)
+    }
+
+    /**
+     * 
+     * @type {_MftBitmapWritesUserLevel}
+     */
+    MftBitmapWritesUserLevel{
+        get {
+            if(!this.HasProp("__MftBitmapWritesUserLevel"))
+                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(this.ptr + 264)
+            return this.__MftBitmapWritesUserLevel
+        }
     }
 
     /**
@@ -411,83 +665,15 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_Allocate}
      */
-    Calls {
-        get => NumGet(this, 344, "uint")
-        set => NumPut("uint", value, this, 344)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RunsReturned {
-        get => NumGet(this, 348, "uint")
-        set => NumPut("uint", value, this, 348)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Hints {
-        get => NumGet(this, 352, "uint")
-        set => NumPut("uint", value, this, 352)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HintsHonored {
-        get => NumGet(this, 356, "uint")
-        set => NumPut("uint", value, this, 356)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Cache {
-        get => NumGet(this, 360, "uint")
-        set => NumPut("uint", value, this, 360)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CacheMiss {
-        get => NumGet(this, 364, "uint")
-        set => NumPut("uint", value, this, 364)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Clusters {
-        get => NumGet(this, 368, "uint")
-        set => NumPut("uint", value, this, 368)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HintsClusters {
-        get => NumGet(this, 376, "uint")
-        set => NumPut("uint", value, this, 376)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CacheClusters {
-        get => NumGet(this, 384, "uint")
-        set => NumPut("uint", value, this, 384)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CacheMissClusters {
-        get => NumGet(this, 392, "uint")
-        set => NumPut("uint", value, this, 392)
+    Allocate{
+        get {
+            if(!this.HasProp("__Allocate"))
+                this.__Allocate := %this.__Class%._Allocate(this.ptr + 344)
+            return this.__Allocate
+        }
     }
 
     /**

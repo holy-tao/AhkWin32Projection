@@ -68,6 +68,12 @@ class KDEXTS_PTE_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - PteValid
+     * - PteTransition
+     * - Prototype
+     * - Protection
+     * - Reserved
      * @type {Integer}
      */
     _bitfield1 {
@@ -78,8 +84,76 @@ class KDEXTS_PTE_INFO extends Win32Struct
     /**
      * @type {Integer}
      */
+    PteValid {
+        get => (this._bitfield1 >> 0) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 0) | (this._bitfield1 & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PteTransition {
+        get => (this._bitfield1 >> 1) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 1) | (this._bitfield1 & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Prototype {
+        get => (this._bitfield1 >> 2) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 2) | (this._bitfield1 & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Protection {
+        get => (this._bitfield1 >> 3) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 3) | (this._bitfield1 & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield1 >> 4) & 0xFFFFFFF
+        set => this._bitfield1 := ((value & 0xFFFFFFF) << 4) | (this._bitfield1 & ~(0xFFFFFFF << 4))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - ReadInProgress
+     * - WriteInProgress
+     * - Modified
+     * @type {Integer}
+     */
     _bitfield2 {
         get => NumGet(this, 60, "uint")
         set => NumPut("uint", value, this, 60)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReadInProgress {
+        get => (this._bitfield2 >> 0) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 0) | (this._bitfield2 & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    WriteInProgress {
+        get => (this._bitfield2 >> 1) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 1) | (this._bitfield2 & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Modified {
+        get => (this._bitfield2 >> 2) & 0x1
+        set => this._bitfield2 := ((value & 0x1) << 2) | (this._bitfield2 & ~(0x1 << 2))
     }
 }

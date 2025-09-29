@@ -26,43 +26,85 @@ class CREATE_PARTITION_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    partitionType {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    class _MbrPartInfo extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        partitionType {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        bootIndicator {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+    }
+
+    class _GptPartInfo extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        partitionType {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        partitionId {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        attributes {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {String}
+         */
+        name {
+            get => StrGet(this.ptr + 24, 35, "UTF-16")
+            set => StrPut(value, this.ptr + 24, 35, "UTF-16")
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_MbrPartInfo}
      */
-    bootIndicator {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    MbrPartInfo{
+        get {
+            if(!this.HasProp("__MbrPartInfo"))
+                this.__MbrPartInfo := %this.__Class%._MbrPartInfo(this.ptr + 4)
+            return this.__MbrPartInfo
+        }
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_GptPartInfo}
      */
-    partitionId {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    attributes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {String}
-     */
-    name {
-        get => StrGet(this.ptr + 28, 35, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 35, "UTF-16")
+    GptPartInfo{
+        get {
+            if(!this.HasProp("__GptPartInfo"))
+                this.__GptPartInfo := %this.__Class%._GptPartInfo(this.ptr + 4)
+            return this.__GptPartInfo
+        }
     }
 }

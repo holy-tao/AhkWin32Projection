@@ -11,6 +11,28 @@ class userCLIPFORMAT extends Win32Struct
 
     static packingSize => 8
 
+    class _u extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwValue {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,18 +42,13 @@ class userCLIPFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_u}
      */
-    dwValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u(this.ptr + 8)
+            return this.__u
+        }
     }
 }

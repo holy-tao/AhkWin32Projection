@@ -28,11 +28,39 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - AvailableMappingResourcesValid
+     * - UsedMappingResourcesValid
+     * - Reserved0
      * @type {Integer}
      */
     _bitfield1 {
         get => NumGet(this, 8, "char")
         set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AvailableMappingResourcesValid {
+        get => (this._bitfield1 >> 0) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 0) | (this._bitfield1 & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UsedMappingResourcesValid {
+        get => (this._bitfield1 >> 1) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 1) | (this._bitfield1 & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield1 >> 2) & 0x3F
+        set => this._bitfield1 := ((value & 0x3F) << 2) | (this._bitfield1 & ~(0x3F << 2))
     }
 
     /**
@@ -47,11 +75,39 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - AvailableMappingResourcesScope
+     * - UsedMappingResourcesScope
+     * - Reserved2
      * @type {Integer}
      */
     _bitfield2 {
         get => NumGet(this, 12, "char")
         set => NumPut("char", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AvailableMappingResourcesScope {
+        get => (this._bitfield2 >> 0) & 0x3
+        set => this._bitfield2 := ((value & 0x3) << 0) | (this._bitfield2 & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UsedMappingResourcesScope {
+        get => (this._bitfield2 >> 2) & 0x3
+        set => this._bitfield2 := ((value & 0x3) << 2) | (this._bitfield2 & ~(0x3 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved2 {
+        get => (this._bitfield2 >> 4) & 0xF
+        set => this._bitfield2 := ((value & 0xF) << 4) | (this._bitfield2 & ~(0xF << 4))
     }
 
     /**

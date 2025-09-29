@@ -11,28 +11,174 @@ class NLA_BLOB extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    class _header extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        type {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        nextOffset {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_header}
      */
-    dwSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    header{
+        get {
+            if(!this.HasProp("__header"))
+                this.__header := %this.__Class%._header(this.ptr + 0)
+            return this.__header
+        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    nextOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _interfaceData extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwType {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwSpeed {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {String}
+         */
+        adapterName {
+            get => StrGet(this.ptr + 8, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 8, 0, "UTF-16")
+        }
+    
+    }
+
+    class _locationData extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 8
+
+        /**
+         * @type {String}
+         */
+        information {
+            get => StrGet(this.ptr + 0, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 0, "UTF-16")
+        }
+    
+    }
+
+    class _connectivity extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        type {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        internet {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
+    class _ICS extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 8
+
+        class _remote extends Win32Struct {
+            static sizeof => 1040
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            speed {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            type {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            state {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+        
+            /**
+             * @type {String}
+             */
+            machineName {
+                get => StrGet(this.ptr + 12, 255, "UTF-16")
+                set => StrPut(value, this.ptr + 12, 255, "UTF-16")
+            }
+        
+            /**
+             * @type {String}
+             */
+            sharedAdapterName {
+                get => StrGet(this.ptr + 524, 255, "UTF-16")
+                set => StrPut(value, this.ptr + 524, 255, "UTF-16")
+            }
+        
+        }
+    
+        /**
+         * @type {_remote}
+         */
+        remote{
+            get {
+                if(!this.HasProp("__remote"))
+                    this.__remote := %this.__Class%._remote(this.ptr + 0)
+                return this.__remote
+            }
+        }
+    
     }
 
     /**
@@ -44,82 +190,46 @@ class NLA_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_interfaceData}
      */
-    dwType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    interfaceData{
+        get {
+            if(!this.HasProp("__interfaceData"))
+                this.__interfaceData := %this.__Class%._interfaceData(this.ptr + 12)
+            return this.__interfaceData
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_locationData}
      */
-    dwSpeed {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    locationData{
+        get {
+            if(!this.HasProp("__locationData"))
+                this.__locationData := %this.__Class%._locationData(this.ptr + 12)
+            return this.__locationData
+        }
     }
 
     /**
-     * @type {String}
+     * @type {_connectivity}
      */
-    adapterName {
-        get => StrGet(this.ptr + 20, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 0, "UTF-16")
+    connectivity{
+        get {
+            if(!this.HasProp("__connectivity"))
+                this.__connectivity := %this.__Class%._connectivity(this.ptr + 12)
+            return this.__connectivity
+        }
     }
 
     /**
-     * @type {String}
+     * @type {_ICS}
      */
-    information {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
-    }
-
-    /**
-     * @type {Integer}
-     */
-    internet {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    speed {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    type1 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    state {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {String}
-     */
-    machineName {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sharedAdapterName {
-        get => StrGet(this.ptr + 536, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 255, "UTF-16")
+    ICS{
+        get {
+            if(!this.HasProp("__ICS"))
+                this.__ICS := %this.__Class%._ICS(this.ptr + 12)
+            return this.__ICS
+        }
     }
 }

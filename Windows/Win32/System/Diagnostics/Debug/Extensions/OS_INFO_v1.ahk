@@ -19,20 +19,37 @@ class OS_INFO_v1 extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Major {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _Version extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Major {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Minor {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version}
      */
-    Minor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Version{
+        get {
+            if(!this.HasProp("__Version"))
+                this.__Version := %this.__Class%._Version(this.ptr + 8)
+            return this.__Version
+        }
     }
 
     /**

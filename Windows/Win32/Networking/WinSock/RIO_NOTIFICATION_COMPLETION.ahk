@@ -34,43 +34,77 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    EventHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _Event extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        EventHandle {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NotifyReset {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+    }
+
+    class _Iocp extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        IocpHandle {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        CompletionKey {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        Overlapped {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Event}
      */
-    NotifyReset {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    Event{
+        get {
+            if(!this.HasProp("__Event"))
+                this.__Event := %this.__Class%._Event(this.ptr + 8)
+            return this.__Event
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_Iocp}
      */
-    IocpHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    CompletionKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Overlapped {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Iocp{
+        get {
+            if(!this.HasProp("__Iocp"))
+                this.__Iocp := %this.__Class%._Iocp(this.ptr + 8)
+            return this.__Iocp
+        }
     }
 }

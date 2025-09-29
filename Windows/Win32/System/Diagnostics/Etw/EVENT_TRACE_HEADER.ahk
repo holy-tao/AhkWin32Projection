@@ -76,6 +76,36 @@ class EVENT_TRACE_HEADER extends Win32Struct
         set => NumPut("char", value, this, 3)
     }
 
+    class _Class extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        Type {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Level {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Version {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -85,27 +115,14 @@ class EVENT_TRACE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Class}
      */
-    Type {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Version1 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+    Class{
+        get {
+            if(!this.HasProp("__Class"))
+                this.__Class := %this.__Class%._Class(this.ptr + 4)
+            return this.__Class
+        }
     }
 
     /**

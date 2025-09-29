@@ -39,35 +39,77 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
         set => NumPut("ptr", value, this, 8)
     }
 
-    /**
-     * @type {Integer}
-     */
-    numvSwitchFilterExtensions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    class _positionInfo extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        numvSwitchFilterExtensions {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        vSwitchFilterExtensions {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _reorderInfo extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        inRequiredPosition {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        numvSwitchFilterExtensions {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        vSwitchFilterExtensions {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_positionInfo}
      */
-    vSwitchFilterExtensions {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    positionInfo{
+        get {
+            if(!this.HasProp("__positionInfo"))
+                this.__positionInfo := %this.__Class%._positionInfo(this.ptr + 16)
+            return this.__positionInfo
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_reorderInfo}
      */
-    inRequiredPosition {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    numvSwitchFilterExtensions1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    reorderInfo{
+        get {
+            if(!this.HasProp("__reorderInfo"))
+                this.__reorderInfo := %this.__Class%._reorderInfo(this.ptr + 16)
+            return this.__reorderInfo
+        }
     }
 }

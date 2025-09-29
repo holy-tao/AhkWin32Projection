@@ -28,11 +28,39 @@ class STORAGE_IDLE_POWER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - WakeCapableHint
+     * - D3ColdSupported
+     * - Reserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    WakeCapableHint {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    D3ColdSupported {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 2) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
 
     /**

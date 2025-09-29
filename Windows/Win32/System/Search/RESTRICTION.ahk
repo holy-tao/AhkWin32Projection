@@ -46,6 +46,97 @@ class RESTRICTION extends Win32Struct
 
     static packingSize => 8
 
+    class _URes extends Win32Struct {
+        static sizeof => 224
+        static packingSize => 8
+
+        /**
+         * @type {NODERESTRICTION}
+         */
+        ar{
+            get {
+                if(!this.HasProp("__ar"))
+                    this.__ar := NODERESTRICTION(this.ptr + 0)
+                return this.__ar
+            }
+        }
+    
+        /**
+         * @type {NODERESTRICTION}
+         */
+        orRestriction{
+            get {
+                if(!this.HasProp("__orRestriction"))
+                    this.__orRestriction := NODERESTRICTION(this.ptr + 0)
+                return this.__orRestriction
+            }
+        }
+    
+        /**
+         * @type {NODERESTRICTION}
+         */
+        pxr{
+            get {
+                if(!this.HasProp("__pxr"))
+                    this.__pxr := NODERESTRICTION(this.ptr + 0)
+                return this.__pxr
+            }
+        }
+    
+        /**
+         * @type {VECTORRESTRICTION}
+         */
+        vr{
+            get {
+                if(!this.HasProp("__vr"))
+                    this.__vr := VECTORRESTRICTION(this.ptr + 0)
+                return this.__vr
+            }
+        }
+    
+        /**
+         * @type {Pointer<TypeHandle>}
+         */
+        nr {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {CONTENTRESTRICTION}
+         */
+        cr{
+            get {
+                if(!this.HasProp("__cr"))
+                    this.__cr := CONTENTRESTRICTION(this.ptr + 0)
+                return this.__cr
+            }
+        }
+    
+        /**
+         * @type {NATLANGUAGERESTRICTION}
+         */
+        nlr{
+            get {
+                if(!this.HasProp("__nlr"))
+                    this.__nlr := NATLANGUAGERESTRICTION(this.ptr + 0)
+                return this.__nlr
+            }
+        }
+    
+        /**
+         * @type {PROPERTYRESTRICTION}
+         */
+        pr{
+            get {
+                if(!this.HasProp("__pr"))
+                    this.__pr := PROPERTYRESTRICTION(this.ptr + 0)
+                return this.__pr
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -63,87 +154,13 @@ class RESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {NODERESTRICTION}
+     * @type {_URes}
      */
-    ar{
+    res{
         get {
-            if(!this.HasProp("__ar"))
-                this.__ar := NODERESTRICTION(this.ptr + 8)
-            return this.__ar
-        }
-    }
-
-    /**
-     * @type {NODERESTRICTION}
-     */
-    orRestriction{
-        get {
-            if(!this.HasProp("__orRestriction"))
-                this.__orRestriction := NODERESTRICTION(this.ptr + 8)
-            return this.__orRestriction
-        }
-    }
-
-    /**
-     * @type {NODERESTRICTION}
-     */
-    pxr{
-        get {
-            if(!this.HasProp("__pxr"))
-                this.__pxr := NODERESTRICTION(this.ptr + 8)
-            return this.__pxr
-        }
-    }
-
-    /**
-     * @type {VECTORRESTRICTION}
-     */
-    vr{
-        get {
-            if(!this.HasProp("__vr"))
-                this.__vr := VECTORRESTRICTION(this.ptr + 8)
-            return this.__vr
-        }
-    }
-
-    /**
-     * @type {Pointer<TypeHandle>}
-     */
-    nr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {CONTENTRESTRICTION}
-     */
-    cr{
-        get {
-            if(!this.HasProp("__cr"))
-                this.__cr := CONTENTRESTRICTION(this.ptr + 8)
-            return this.__cr
-        }
-    }
-
-    /**
-     * @type {NATLANGUAGERESTRICTION}
-     */
-    nlr{
-        get {
-            if(!this.HasProp("__nlr"))
-                this.__nlr := NATLANGUAGERESTRICTION(this.ptr + 8)
-            return this.__nlr
-        }
-    }
-
-    /**
-     * @type {PROPERTYRESTRICTION}
-     */
-    pr{
-        get {
-            if(!this.HasProp("__pr"))
-                this.__pr := PROPERTYRESTRICTION(this.ptr + 8)
-            return this.__pr
+            if(!this.HasProp("__res"))
+                this.__res := %this.__Class%._URes(this.ptr + 8)
+            return this.__res
         }
     }
 }

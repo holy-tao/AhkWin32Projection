@@ -15,68 +15,121 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Pointer<PFN_RPCNOTIFICATION_ROUTINE>}
-     */
-    NotificationRoutine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    class _APC extends Win32Struct {
+        static sizeof => 80
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<PFN_RPCNOTIFICATION_ROUTINE>}
+         */
+        NotificationRoutine {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        hThread {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _IOC extends Win32Struct {
+        static sizeof => 80
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        hIOPort {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwNumberOfBytesTransferred {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        dwCompletionKey {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Pointer<OVERLAPPED>}
+         */
+        lpOverlapped {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+    }
+
+    class _IntPtr extends Win32Struct {
+        static sizeof => 80
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        hWnd {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Msg {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Void>}
+     * Structure used for Windows asynchronous procedure call (APC) notifications.
+     * @type {_APC}
      */
-    hThread {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    APC{
+        get {
+            if(!this.HasProp("__APC"))
+                this.__APC := %this.__Class%._APC(this.ptr + 0)
+            return this.__APC
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * Structure used for notification on an I/O completion port.
+     * @type {_IOC}
      */
-    hIOPort {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    IOC{
+        get {
+            if(!this.HasProp("__IOC"))
+                this.__IOC := %this.__Class%._IOC(this.ptr + 0)
+            return this.__IOC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_IntPtr}
      */
-    dwNumberOfBytesTransferred {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    dwCompletionKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<OVERLAPPED>}
-     */
-    lpOverlapped {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    hWnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Msg {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    IntPtr{
+        get {
+            if(!this.HasProp("__IntPtr"))
+                this.__IntPtr := %this.__Class%._IntPtr(this.ptr + 0)
+            return this.__IntPtr
+        }
     }
 
     /**
@@ -84,6 +137,15 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
      * @type {Pointer<Void>}
      */
     hEvent {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
+    }
+
+    /**
+     * Calls the user-defined APC notification routine.
+     * @type {Pointer<PFN_RPCNOTIFICATION_ROUTINE>}
+     */
+    NotificationRoutine {
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
     }

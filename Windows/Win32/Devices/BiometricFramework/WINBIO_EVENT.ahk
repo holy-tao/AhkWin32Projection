@@ -22,47 +22,89 @@ class WINBIO_EVENT extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    UnitId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _Unclaimed extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        UnitId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _UnclaimedIdentify extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        UnitId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {WINBIO_IDENTITY}
+         */
+        Identity{
+            get {
+                if(!this.HasProp("__Identity"))
+                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                return this.__Identity
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 16, "char")
+            set => NumPut("char", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Unclaimed}
      */
-    RejectDetail {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {WINBIO_IDENTITY}
-     */
-    Identity{
+    Unclaimed{
         get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(this.ptr + 16)
-            return this.__Identity
+            if(!this.HasProp("__Unclaimed"))
+                this.__Unclaimed := %this.__Class%._Unclaimed(this.ptr + 8)
+            return this.__Unclaimed
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_UnclaimedIdentify}
      */
-    SubFactor {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RejectDetail1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    UnclaimedIdentify{
+        get {
+            if(!this.HasProp("__UnclaimedIdentify"))
+                this.__UnclaimedIdentify := %this.__Class%._UnclaimedIdentify(this.ptr + 8)
+            return this.__UnclaimedIdentify
+        }
     }
 
     /**

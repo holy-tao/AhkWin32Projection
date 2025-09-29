@@ -31,44 +31,78 @@ class PICTDESC extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    hbitmap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _bmp extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        hbitmap {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        hpal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _wmf extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        hmeta {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        xExt {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        yExt {
+            get => NumGet(this, 12, "int")
+            set => NumPut("int", value, this, 12)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_bmp}
      */
-    hpal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    bmp{
+        get {
+            if(!this.HasProp("__bmp"))
+                this.__bmp := %this.__Class%._bmp(this.ptr + 8)
+            return this.__bmp
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_wmf}
      */
-    hmeta {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    xExt {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    yExt {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    wmf{
+        get {
+            if(!this.HasProp("__wmf"))
+                this.__wmf := %this.__Class%._wmf(this.ptr + 8)
+            return this.__wmf
+        }
     }
 
     /**

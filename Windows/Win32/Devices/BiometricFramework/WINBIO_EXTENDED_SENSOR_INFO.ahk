@@ -33,6 +33,119 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
+    class _FacialFeatures extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        class _HardwareInfo extends Win32Struct {
+            static sizeof => 1080
+            static packingSize => 8
+    
+            /**
+             * @type {String}
+             */
+            ColorSensorId {
+                get => StrGet(this.ptr + 0, 259, "UTF-16")
+                set => StrPut(value, this.ptr + 0, 259, "UTF-16")
+            }
+        
+            /**
+             * @type {String}
+             */
+            InfraredSensorId {
+                get => StrGet(this.ptr + 520, 259, "UTF-16")
+                set => StrPut(value, this.ptr + 520, 259, "UTF-16")
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            InfraredSensorRotationAngle {
+                get => NumGet(this, 1040, "uint")
+                set => NumPut("uint", value, this, 1040)
+            }
+        
+        }
+    
+        /**
+         * @type {RECT}
+         */
+        FrameSize{
+            get {
+                if(!this.HasProp("__FrameSize"))
+                    this.__FrameSize := RECT(this.ptr + 0)
+                return this.__FrameSize
+            }
+        }
+    
+        /**
+         * @type {POINT}
+         */
+        FrameOffset{
+            get {
+                if(!this.HasProp("__FrameOffset"))
+                    this.__FrameOffset := POINT(this.ptr + 16)
+                return this.__FrameOffset
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MandatoryOrientation {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {_HardwareInfo}
+         */
+        HardwareInfo{
+            get {
+                if(!this.HasProp("__HardwareInfo"))
+                    this.__HardwareInfo := %this.__Class%._HardwareInfo(this.ptr + 32)
+                return this.__HardwareInfo
+            }
+        }
+    
+    }
+
+    class _Iris extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {RECT}
+         */
+        FrameSize{
+            get {
+                if(!this.HasProp("__FrameSize"))
+                    this.__FrameSize := RECT(this.ptr + 0)
+                return this.__FrameSize
+            }
+        }
+    
+        /**
+         * @type {POINT}
+         */
+        FrameOffset{
+            get {
+                if(!this.HasProp("__FrameOffset"))
+                    this.__FrameOffset := POINT(this.ptr + 16)
+                return this.__FrameOffset
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MandatoryOrientation {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -42,57 +155,14 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {RECT}
+     * @type {_FacialFeatures}
      */
-    FrameSize{
+    FacialFeatures{
         get {
-            if(!this.HasProp("__FrameSize"))
-                this.__FrameSize := RECT(this.ptr + 8)
-            return this.__FrameSize
+            if(!this.HasProp("__FacialFeatures"))
+                this.__FacialFeatures := %this.__Class%._FacialFeatures(this.ptr + 8)
+            return this.__FacialFeatures
         }
-    }
-
-    /**
-     * @type {POINT}
-     */
-    FrameOffset{
-        get {
-            if(!this.HasProp("__FrameOffset"))
-                this.__FrameOffset := POINT(this.ptr + 24)
-            return this.__FrameOffset
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MandatoryOrientation {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {String}
-     */
-    ColorSensorId {
-        get => StrGet(this.ptr + 40, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 259, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    InfraredSensorId {
-        get => StrGet(this.ptr + 560, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 560, 259, "UTF-16")
-    }
-
-    /**
-     * @type {Integer}
-     */
-    InfraredSensorRotationAngle {
-        get => NumGet(this, 1080, "uint")
-        set => NumPut("uint", value, this, 1080)
     }
 
     /**
@@ -101,6 +171,17 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     Fingerprint {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {_Iris}
+     */
+    Iris{
+        get {
+            if(!this.HasProp("__Iris"))
+                this.__Iris := %this.__Class%._Iris(this.ptr + 8)
+            return this.__Iris
+        }
     }
 
     /**

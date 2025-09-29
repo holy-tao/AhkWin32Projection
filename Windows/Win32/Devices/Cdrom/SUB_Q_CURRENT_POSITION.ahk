@@ -32,11 +32,30 @@ class SUB_Q_CURRENT_POSITION extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Control
+     * - ADR
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 5, "char")
         set => NumPut("char", value, this, 5)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Control {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ADR {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**

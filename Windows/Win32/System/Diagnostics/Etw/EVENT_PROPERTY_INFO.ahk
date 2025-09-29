@@ -33,60 +33,127 @@ class EVENT_PROPERTY_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    /**
-     * @type {Integer}
-     */
-    InType {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+    class _nonStructType extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        InType {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OutType {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MapNameOffset {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _structType extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        StructStartIndex {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NumOfStructMembers {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        padding {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _customSchemaType extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        InType {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OutType {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CustomSchemaOffset {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_nonStructType}
      */
-    OutType {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+    nonStructType{
+        get {
+            if(!this.HasProp("__nonStructType"))
+                this.__nonStructType := %this.__Class%._nonStructType(this.ptr + 8)
+            return this.__nonStructType
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_structType}
      */
-    MapNameOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    structType{
+        get {
+            if(!this.HasProp("__structType"))
+                this.__structType := %this.__Class%._structType(this.ptr + 8)
+            return this.__structType
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_customSchemaType}
      */
-    StructStartIndex {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumOfStructMembers {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    padding {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CustomSchemaOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    customSchemaType{
+        get {
+            if(!this.HasProp("__customSchemaType"))
+                this.__customSchemaType := %this.__Class%._customSchemaType(this.ptr + 8)
+            return this.__customSchemaType
+        }
     }
 
     /**

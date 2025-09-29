@@ -27,107 +27,158 @@ class FDIDECRYPT extends Win32Struct
         set => NumPut("ptr", value, this, 8)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pHeaderReserve {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    class _cabinet extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        pHeaderReserve {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbHeaderReserve {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        setID {
+            get => NumGet(this, 10, "ushort")
+            set => NumPut("ushort", value, this, 10)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        iCabinet {
+            get => NumGet(this, 12, "int")
+            set => NumPut("int", value, this, 12)
+        }
+    
+    }
+
+    class _folder extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        pFolderReserve {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbFolderReserve {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        iFolder {
+            get => NumGet(this, 10, "ushort")
+            set => NumPut("ushort", value, this, 10)
+        }
+    
+    }
+
+    class _decrypt extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        pDataReserve {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbDataReserve {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        pbData {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbData {
+            get => NumGet(this, 24, "ushort")
+            set => NumPut("ushort", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        fSplit {
+            get => NumGet(this, 28, "int")
+            set => NumPut("int", value, this, 28)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbPartial {
+            get => NumGet(this, 32, "ushort")
+            set => NumPut("ushort", value, this, 32)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_cabinet}
      */
-    cbHeaderReserve {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+    cabinet{
+        get {
+            if(!this.HasProp("__cabinet"))
+                this.__cabinet := %this.__Class%._cabinet(this.ptr + 16)
+            return this.__cabinet
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_folder}
      */
-    setID {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+    folder{
+        get {
+            if(!this.HasProp("__folder"))
+                this.__folder := %this.__Class%._folder(this.ptr + 16)
+            return this.__folder
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_decrypt}
      */
-    iCabinet {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pFolderReserve {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbFolderReserve {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    iFolder {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pDataReserve {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbDataReserve {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pbData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    fSplit {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbPartial {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+    decrypt{
+        get {
+            if(!this.HasProp("__decrypt"))
+                this.__decrypt := %this.__Class%._decrypt(this.ptr + 16)
+            return this.__decrypt
+        }
     }
 }

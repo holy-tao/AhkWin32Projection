@@ -24,6 +24,20 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _GptPartInfo extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        partitionType {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -33,10 +47,13 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_GptPartInfo}
      */
-    partitionType {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+    GptPartInfo{
+        get {
+            if(!this.HasProp("__GptPartInfo"))
+                this.__GptPartInfo := %this.__Class%._GptPartInfo(this.ptr + 4)
+            return this.__GptPartInfo
+        }
     }
 }

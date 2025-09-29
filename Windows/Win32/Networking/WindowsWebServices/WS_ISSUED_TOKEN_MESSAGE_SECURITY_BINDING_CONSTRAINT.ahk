@@ -23,6 +23,28 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
 
     static packingSize => 8
 
+    class _out extends Win32Struct {
+        static sizeof => 80
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<WS_ENDPOINT_ADDRESS>}
+         */
+        issuerAddress {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<IntPtr>}
+         */
+        requestSecurityTokenTemplate {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
     /**
      * The base binding constraint that this binding constraint derives from.
      *                 
@@ -96,18 +118,15 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WS_ENDPOINT_ADDRESS>}
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
+     *                     entire contents of this structure will be filled out.
+     * @type {_out}
      */
-    issuerAddress {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IntPtr>}
-     */
-    requestSecurityTokenTemplate {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    out{
+        get {
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(this.ptr + 64)
+            return this.__out
+        }
     }
 }

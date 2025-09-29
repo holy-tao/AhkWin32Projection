@@ -205,11 +205,175 @@ class DCB extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fBinary
+     * - fParity
+     * - fOutxCtsFlow
+     * - fOutxDsrFlow
+     * - fDtrControl
+     * - fDsrSensitivity
+     * - fTXContinueOnXoff
+     * - fOutX
+     * - fInX
+     * - fErrorChar
+     * - fNull
+     * - fRtsControl
+     * - fAbortOnError
+     * - fDummy2
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, binary mode is enabled. Windows does not support 
+     *       nonbinary mode transfers, so this member must be <b>TRUE</b>.
+     * @type {Integer}
+     */
+    fBinary {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, parity checking is performed and errors are 
+     *       reported.
+     * @type {Integer}
+     */
+    fParity {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, the CTS (clear-to-send) signal is monitored for output 
+     *       flow control. If this member is <b>TRUE</b> and CTS is turned off, output is suspended until 
+     *       CTS is sent again.
+     * @type {Integer}
+     */
+    fOutxCtsFlow {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, the DSR (data-set-ready) signal is monitored for output 
+     *       flow control. If this member is <b>TRUE</b> and DSR is turned off, output is suspended until 
+     *       DSR is sent again.
+     * @type {Integer}
+     */
+    fOutxDsrFlow {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fDtrControl {
+        get => (this._bitfield >> 4) & 0x3
+        set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, the communications driver is sensitive to the state of 
+     *       the DSR signal. The driver ignores any bytes received, unless the DSR modem input line is high.
+     * @type {Integer}
+     */
+    fDsrSensitivity {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, transmission continues after the input buffer has come 
+     *       within <b>XoffLim</b> bytes of being full and the driver has transmitted the 
+     *       <b>XoffChar</b> character to stop receiving bytes. If this member is 
+     *       <b>FALSE</b>, transmission does not continue until the input buffer is within 
+     *       <b>XonLim</b> bytes of being empty and the driver has transmitted 
+     *       the <b>XonChar</b> character to resume reception.
+     * @type {Integer}
+     */
+    fTXContinueOnXoff {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+    }
+
+    /**
+     * Indicates whether XON/XOFF flow control is used during transmission. If this member is 
+     *       <b>TRUE</b>, transmission stops when the <b>XoffChar</b> character is 
+     *       received and starts again when the <b>XonChar</b> character is received.
+     * @type {Integer}
+     */
+    fOutX {
+        get => (this._bitfield >> 8) & 0x1
+        set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+    }
+
+    /**
+     * Indicates whether XON/XOFF flow control is used during reception. If this member is 
+     *       <b>TRUE</b>, the <b>XoffChar</b> character is sent when the input buffer 
+     *       comes within <b>XoffLim</b> bytes of being full, and the <b>XonChar</b> 
+     *       character is sent when the input buffer comes within <b>XonLim</b> bytes of being 
+     *       empty.
+     * @type {Integer}
+     */
+    fInX {
+        get => (this._bitfield >> 9) & 0x1
+        set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+    }
+
+    /**
+     * Indicates whether bytes received with parity errors are replaced with the character specified by the 
+     *       <b>ErrorChar</b> member. If this member is <b>TRUE</b> and the 
+     *       <b>fParity</b> member is <b>TRUE</b>, replacement occurs.
+     * @type {Integer}
+     */
+    fErrorChar {
+        get => (this._bitfield >> 10) & 0x1
+        set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, null bytes are discarded when received.
+     * @type {Integer}
+     */
+    fNull {
+        get => (this._bitfield >> 11) & 0x1
+        set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    fRtsControl {
+        get => (this._bitfield >> 12) & 0x3
+        set => this._bitfield := ((value & 0x3) << 12) | (this._bitfield & ~(0x3 << 12))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, the driver terminates all read and write operations with 
+     *       an error status if an error occurs. The driver will not accept any further communications operations until the 
+     *       application has acknowledged the error by calling the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-clearcommerror">ClearCommError</a> function.
+     * @type {Integer}
+     */
+    fAbortOnError {
+        get => (this._bitfield >> 14) & 0x1
+        set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+    }
+
+    /**
+     * Reserved; do not use.
+     * @type {Integer}
+     */
+    fDummy2 {
+        get => (this._bitfield >> 15) & 0x1FFFF
+        set => this._bitfield := ((value & 0x1FFFF) << 15) | (this._bitfield & ~(0x1FFFF << 15))
     }
 
     /**

@@ -157,195 +157,313 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * @type {Integer}
-     */
-    ExitStatus {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+    class _Process extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ExitStatus {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        PebBaseAddress {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        AffinityMask {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BasePriority {
+            get => NumGet(this, 24, "int")
+            set => NumPut("int", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ProcessId {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ParentProcessId {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 36, "uint")
+            set => NumPut("uint", value, this, 36)
+        }
+    
+    }
+
+    class _Thread extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ExitStatus {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        TebBaseAddress {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ProcessId {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ThreadId {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        AffinityMask {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Priority {
+            get => NumGet(this, 32, "int")
+            set => NumPut("int", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BasePriority {
+            get => NumGet(this, 36, "int")
+            set => NumPut("int", value, this, 36)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        Win32StartAddress {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
+        }
+    
+    }
+
+    class _Mutant extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CurrentCount {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Abandoned {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OwnerProcessId {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OwnerThreadId {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _Event extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ManualReset {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Signaled {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
+    class _Section extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        BaseAddress {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AllocationAttributes {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumSize {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+    }
+
+    class _Semaphore extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CurrentCount {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumCount {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_Process}
      */
-    PebBaseAddress {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    Process{
+        get {
+            if(!this.HasProp("__Process"))
+                this.__Process := %this.__Class%._Process(this.ptr + 88)
+            return this.__Process
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {_Thread}
      */
-    AffinityMask {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    Thread{
+        get {
+            if(!this.HasProp("__Thread"))
+                this.__Thread := %this.__Class%._Thread(this.ptr + 88)
+            return this.__Thread
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Mutant}
      */
-    BasePriority {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+    Mutant{
+        get {
+            if(!this.HasProp("__Mutant"))
+                this.__Mutant := %this.__Class%._Mutant(this.ptr + 88)
+            return this.__Mutant
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Event}
      */
-    ProcessId {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+    Event{
+        get {
+            if(!this.HasProp("__Event"))
+                this.__Event := %this.__Class%._Event(this.ptr + 88)
+            return this.__Event
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Section}
      */
-    ParentProcessId {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+    Section{
+        get {
+            if(!this.HasProp("__Section"))
+                this.__Section := %this.__Class%._Section(this.ptr + 88)
+            return this.__Section
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Semaphore}
      */
-    Flags1 {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    TebBaseAddress {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessId1 {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ThreadId {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    AffinityMask1 {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Priority {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BasePriority1 {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Win32StartAddress {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CurrentCount {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Abandoned {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    OwnerProcessId {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    OwnerThreadId {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ManualReset {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Signaled {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    BaseAddress {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AllocationAttributes {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaximumSize {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaximumCount {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+    Semaphore{
+        get {
+            if(!this.HasProp("__Semaphore"))
+                this.__Semaphore := %this.__Class%._Semaphore(this.ptr + 88)
+            return this.__Semaphore
+        }
     }
 }

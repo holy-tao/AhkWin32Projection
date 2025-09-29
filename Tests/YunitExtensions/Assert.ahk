@@ -32,4 +32,19 @@ class Assert {
         ))
     }
 
+    /**
+     * Assert that `obj` has a property named `propName` of type `propType`
+     * @param {Object} obj 
+     * @param {String} propName 
+     * @param {Class} propType
+     */
+    static HasProp(obj, propName, propType){
+        if(!obj.HasProp(propName)){
+            throw Error(Format("Object of type '{1}' has no property named '{2}", Type(obj), propName))
+        }
+
+        if(!((val := obj.%propName%) is propType)){
+            throw TypeError(Format("{1}.{2} is a(n) {3}, expected a(n) {4}", Type(obj), propName, Type(val), propType.Prototype.__Class))
+        }
+    }
 }

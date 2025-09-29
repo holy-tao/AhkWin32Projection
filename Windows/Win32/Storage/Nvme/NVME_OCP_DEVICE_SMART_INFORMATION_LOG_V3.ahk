@@ -11,6 +11,128 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
 
     static packingSize => 8
 
+    class _BadUserNANDBlockCount extends Win32Struct {
+        static sizeof => 504
+        static packingSize => 8
+
+        /**
+         * @type {Array<Byte>}
+         */
+        RawCount{
+            get {
+                if(!this.HasProp("__RawCountProxyArray"))
+                    this.__RawCountProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
+                return this.__RawCountProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Normalized{
+            get {
+                if(!this.HasProp("__NormalizedProxyArray"))
+                    this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
+                return this.__NormalizedProxyArray
+            }
+        }
+    
+    }
+
+    class _BadSystemNANDBlockCount extends Win32Struct {
+        static sizeof => 504
+        static packingSize => 8
+
+        /**
+         * @type {Array<Byte>}
+         */
+        RawCount{
+            get {
+                if(!this.HasProp("__RawCountProxyArray"))
+                    this.__RawCountProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
+                return this.__RawCountProxyArray
+            }
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Normalized{
+            get {
+                if(!this.HasProp("__NormalizedProxyArray"))
+                    this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
+                return this.__NormalizedProxyArray
+            }
+        }
+    
+    }
+
+    class _EndToEndCorrectionCounts extends Win32Struct {
+        static sizeof => 504
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        DetectedCounts {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CorrectedCounts {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _UserDataEraseCounts extends Win32Struct {
+        static sizeof => 504
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        MaximumCount {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MinimumCount {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _ThermalThrottling extends Win32Struct {
+        static sizeof => 504
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        EventCount {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Status {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+    }
+
     /**
      * @type {Array<Byte>}
      */
@@ -34,24 +156,24 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {_BadUserNANDBlockCount}
      */
-    RawCount{
+    BadUserNANDBlockCount{
         get {
-            if(!this.HasProp("__RawCountProxyArray"))
-                this.__RawCountProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
-            return this.__RawCountProxyArray
+            if(!this.HasProp("__BadUserNANDBlockCount"))
+                this.__BadUserNANDBlockCount := %this.__Class%._BadUserNANDBlockCount(this.ptr + 32)
+            return this.__BadUserNANDBlockCount
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {_BadSystemNANDBlockCount}
      */
-    Normalized{
+    BadSystemNANDBlockCount{
         get {
-            if(!this.HasProp("__NormalizedProxyArray"))
-                this.__NormalizedProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
-            return this.__NormalizedProxyArray
+            if(!this.HasProp("__BadSystemNANDBlockCount"))
+                this.__BadSystemNANDBlockCount := %this.__Class%._BadSystemNANDBlockCount(this.ptr + 40)
+            return this.__BadSystemNANDBlockCount
         }
     }
 
@@ -80,19 +202,14 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_EndToEndCorrectionCounts}
      */
-    DetectedCounts {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CorrectedCounts {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+    EndToEndCorrectionCounts{
+        get {
+            if(!this.HasProp("__EndToEndCorrectionCounts"))
+                this.__EndToEndCorrectionCounts := %this.__Class%._EndToEndCorrectionCounts(this.ptr + 72)
+            return this.__EndToEndCorrectionCounts
+        }
     }
 
     /**
@@ -115,35 +232,25 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_UserDataEraseCounts}
      */
-    MaximumCount {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+    UserDataEraseCounts{
+        get {
+            if(!this.HasProp("__UserDataEraseCounts"))
+                this.__UserDataEraseCounts := %this.__Class%._UserDataEraseCounts(this.ptr + 88)
+            return this.__UserDataEraseCounts
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ThermalThrottling}
      */
-    MinimumCount {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EventCount {
-        get => NumGet(this, 96, "char")
-        set => NumPut("char", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 97, "char")
-        set => NumPut("char", value, this, 97)
+    ThermalThrottling{
+        get {
+            if(!this.HasProp("__ThermalThrottling"))
+                this.__ThermalThrottling := %this.__Class%._ThermalThrottling(this.ptr + 96)
+            return this.__ThermalThrottling
+        }
     }
 
     /**

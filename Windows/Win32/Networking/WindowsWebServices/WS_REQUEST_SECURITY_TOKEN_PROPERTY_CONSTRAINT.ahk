@@ -14,6 +14,23 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
 
     static packingSize => 8
 
+    class _out extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {WS_REQUEST_SECURITY_TOKEN_PROPERTY}
+         */
+        requestSecurityTokenProperty{
+            get {
+                if(!this.HasProp("__requestSecurityTokenProperty"))
+                    this.__requestSecurityTokenProperty := WS_REQUEST_SECURITY_TOKEN_PROPERTY(this.ptr + 0)
+                return this.__requestSecurityTokenProperty
+            }
+        }
+    
+    }
+
     /**
      * The id of the request security token property.  The following security
      *                     property constraint may be specified:
@@ -68,13 +85,15 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
     }
 
     /**
-     * @type {WS_REQUEST_SECURITY_TOKEN_PROPERTY}
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
+     *                     entire contents of this structure will be filled out.
+     * @type {_out}
      */
-    requestSecurityTokenProperty{
+    out{
         get {
-            if(!this.HasProp("__requestSecurityTokenProperty"))
-                this.__requestSecurityTokenProperty := WS_REQUEST_SECURITY_TOKEN_PROPERTY(this.ptr + 24)
-            return this.__requestSecurityTokenProperty
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(this.ptr + 24)
+            return this.__out
         }
     }
 }

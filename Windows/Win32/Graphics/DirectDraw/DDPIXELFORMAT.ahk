@@ -161,6 +161,28 @@ class DDPIXELFORMAT extends Win32Struct
         set => NumPut("uint", value, this, 16)
     }
 
+    class _MultiSampleCaps extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        wFlipMSTypes {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wBltMSTypes {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -194,19 +216,14 @@ class DDPIXELFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_MultiSampleCaps}
      */
-    wFlipMSTypes {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wBltMSTypes {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
+    MultiSampleCaps{
+        get {
+            if(!this.HasProp("__MultiSampleCaps"))
+                this.__MultiSampleCaps := %this.__Class%._MultiSampleCaps(this.ptr + 20)
+            return this.__MultiSampleCaps
+        }
     }
 
     /**

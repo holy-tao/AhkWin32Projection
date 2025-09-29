@@ -24,19 +24,36 @@ class APPLY_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    SnapshotId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _Version1 extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        SnapshotId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        LeafSnapshotId {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_Version1}
      */
-    LeafSnapshotId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Version1{
+        get {
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+            return this.__Version1
+        }
     }
 }

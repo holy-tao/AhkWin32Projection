@@ -14,11 +14,93 @@ class COMSTAT extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - fCtsHold
+     * - fDsrHold
+     * - fRlsdHold
+     * - fXoffHold
+     * - fXoffSent
+     * - fEof
+     * - fTxim
+     * - fReserved
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, transmission is waiting for the CTS (clear-to-send) signal to be sent.
+     * @type {Integer}
+     */
+    fCtsHold {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, transmission is waiting for the DSR (data-set-ready) signal to be sent.
+     * @type {Integer}
+     */
+    fDsrHold {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, transmission is waiting for the RLSD (receive-line-signal-detect) signal to be sent.
+     * @type {Integer}
+     */
+    fRlsdHold {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, transmission is waiting because the XOFF character was received.
+     * @type {Integer}
+     */
+    fXoffHold {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, transmission is waiting because the XOFF character was transmitted. (Transmission halts when the XOFF character is transmitted to a system that takes the next character as XON, regardless of the actual character.)
+     * @type {Integer}
+     */
+    fXoffSent {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, the end-of-file (EOF) character has been received.
+     * @type {Integer}
+     */
+    fEof {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * If this member is <b>TRUE</b>, there is a character queued for transmission that has come to the communications device by way of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-transmitcommchar">TransmitCommChar</a> function. The communications device transmits such a character ahead of other characters in the device's output buffer.
+     * @type {Integer}
+     */
+    fTxim {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * Reserved; do not use.
+     * @type {Integer}
+     */
+    fReserved {
+        get => (this._bitfield >> 7) & 0x1FFFFFF
+        set => this._bitfield := ((value & 0x1FFFFFF) << 7) | (this._bitfield & ~(0x1FFFFFF << 7))
     }
 
     /**

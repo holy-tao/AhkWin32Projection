@@ -20,11 +20,30 @@ class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Control
+     * - Adr
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 1, "char")
         set => NumPut("char", value, this, 1)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Control {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Adr {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**

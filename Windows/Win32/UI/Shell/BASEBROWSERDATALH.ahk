@@ -94,11 +94,24 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - _fCreatingViewWindow
      * @type {Integer}
      */
     _bitfield {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
+    }
+
+    /**
+     * Type: <b>UINT</b>
+     * 
+     * A view window is being created by the browser.
+     * @type {Integer}
+     */
+    _fCreatingViewWindow {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

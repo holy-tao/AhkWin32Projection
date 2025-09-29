@@ -11,6 +11,28 @@ class RemotableHandle extends Win32Struct
 
     static packingSize => 8
 
+    class _u extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hInproc {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        hRemote {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,18 +42,13 @@ class RemotableHandle extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_u}
      */
-    hInproc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hRemote {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u(this.ptr + 8)
+            return this.__u
+        }
     }
 }

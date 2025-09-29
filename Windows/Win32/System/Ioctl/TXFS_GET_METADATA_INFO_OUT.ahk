@@ -13,20 +13,38 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    LowPart {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    class _TxfFileId extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LowPart {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HighPart {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_TxfFileId}
      */
-    HighPart {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    TxfFileId{
+        get {
+            if(!this.HasProp("__TxfFileId"))
+                this.__TxfFileId := %this.__Class%._TxfFileId(this.ptr + 0)
+            return this.__TxfFileId
+        }
     }
 
     /**

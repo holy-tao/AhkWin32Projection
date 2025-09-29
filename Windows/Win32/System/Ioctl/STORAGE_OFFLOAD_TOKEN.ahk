@@ -49,14 +49,31 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
         }
     }
 
+    class _StorageOffloadZeroDataToken extends Win32Struct {
+        static sizeof => 504
+        static packingSize => 8
+
+        /**
+         * @type {Array<Byte>}
+         */
+        Reserved2{
+            get {
+                if(!this.HasProp("__Reserved2ProxyArray"))
+                    this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 0, 504, Primitive, "char")
+                return this.__Reserved2ProxyArray
+            }
+        }
+    
+    }
+
     /**
-     * @type {Array<Byte>}
+     * @type {_StorageOffloadZeroDataToken}
      */
-    Reserved2{
+    StorageOffloadZeroDataToken{
         get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8, 504, Primitive, "char")
-            return this.__Reserved2ProxyArray
+            if(!this.HasProp("__StorageOffloadZeroDataToken"))
+                this.__StorageOffloadZeroDataToken := %this.__Class%._StorageOffloadZeroDataToken(this.ptr + 8)
+            return this.__StorageOffloadZeroDataToken
         }
     }
 
