@@ -11,6 +11,7 @@
 #Include ../Windows/Win32/UI/WindowsAndMessaging/MENUBARINFO.ahk
 #Include ../Windows/Win32/NetworkManagement/Ndis/NDIS_TCP_IP_CHECKSUM_OFFLOAD.ahk
 #Include ../Windows/Win32/NetworkManagement/QoS/CONTROL_SERVICE.ahk
+#Include ../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk
 
 /**
  * Tests of generated source code
@@ -108,6 +109,12 @@ class GeneratedStructSmokeTests {
             Assert.HasProp(test, "Guaranteed", AD_GUARANTEED)
             Assert.HasProp(test, "ParamBuffer", Win32FixedArray)
             Yunit.Assert(!test.HasProp("Anonymous1"), "CONTROL_SERVICE should not have a property Anonymous1")
+        }
+
+        ArraysOfEmbeddedStructs_Always_ReturnEmbeddedStruct(){
+            test := DDMORESURFACECAPS()
+
+            Yunit.Assert(test.ddsExtendedHeapRestrictions[1] is DDMORESURFACECAPS.ExtendedHeapRestrictions)
         }
     }
 
