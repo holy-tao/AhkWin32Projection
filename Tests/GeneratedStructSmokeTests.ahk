@@ -9,6 +9,8 @@
 #Include ../Windows/Win32/Graphics/Gdi/LOGFONTW.ahk
 #Include ../Windows/Win32/UI/WindowsAndMessaging/ICONINFOEXW.ahk
 #Include ../Windows/Win32/UI/WindowsAndMessaging/MENUBARINFO.ahk
+#Include ../Windows/Win32/NetworkManagement/Ndis/NDIS_TCP_IP_CHECKSUM_OFFLOAD.ahk
+#Include ../Windows/Win32/NetworkManagement/QoS/CONTROL_SERVICE.ahk
 
 /**
  * Tests of generated source code
@@ -85,6 +87,27 @@ class GeneratedStructSmokeTests {
             test := ICONINFOEXW()
             Yunit.Assert(test.cbSize == ICONINFOEXW.sizeof, 
                 Format("Expected cbSize to match ICONINFOEXW.sizeof ({1}), but it was {2}", ICONINFOEXW.sizeof, test.cbSize))
+        }
+    }
+
+    class EmbeddedTypes {
+        
+        NonAnonymousEmbeddedStructs_Never_AreFlattened(){
+            test := NDIS_TCP_IP_CHECKSUM_OFFLOAD()
+            
+            ; Also test that we correcly cut off the _e__Struct from the embedded class name
+            Assert.HasProp(test, "IPv4Transmit", NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv4Transmit)
+            Assert.HasProp(test, "IPv4Receive", NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv4Receive)
+            Assert.HasProp(test, "IPv6Transmit", NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv6Transmit)
+            Assert.HasProp(test, "IPv6Receive", NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv6Receive)
+        }
+
+        AnonymousUnions_Always_AreFlattened(){
+            test := CONTROL_SERVICE()
+
+            Assert.HasProp(test, "Guaranteed", AD_GUARANTEED)
+            Assert.HasProp(test, "ParamBuffer", Win32FixedArray)
+            Yunit.Assert(!test.HasProp("Anonymous1"), "CONTROL_SERVICE should not have a property Anonymous1")
         }
     }
 
