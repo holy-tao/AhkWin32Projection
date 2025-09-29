@@ -30,6 +30,9 @@ jobs:
           Remove-Item -Path "$cwd\autohotkey.zip" -Force -ErrorAction SilentlyContinue
 
           Write-Output ("$cwd\autohotkey;" + "$cwd\autohotkey\Compiler") | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          
+      - name: Enable AHK validator problem matcher
+        run: echo "::add-matcher::.github/problem-matchers/ahk.json"
 
       - name: Validate Changed .ahk Files
         shell: pwsh
