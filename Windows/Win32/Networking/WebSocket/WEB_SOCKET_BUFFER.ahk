@@ -15,43 +15,79 @@ class WEB_SOCKET_BUFFER extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Pointer<Byte>}
-     */
-    pbBuffer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    class _Data extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pbBuffer {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ulBufferLength {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _CloseStatus extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pbReason {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ulReasonLength {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        usStatus {
+            get => NumGet(this, 12, "ushort")
+            set => NumPut("ushort", value, this, 12)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_Data}
      */
-    ulBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Data{
+        get {
+            if(!this.HasProp("__Data"))
+                this.__Data := %this.__Class%._Data(this.ptr + 0)
+            return this.__Data
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * 
+     * @type {_CloseStatus}
      */
-    pbReason {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ulReasonLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    usStatus {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+    CloseStatus{
+        get {
+            if(!this.HasProp("__CloseStatus"))
+                this.__CloseStatus := %this.__Class%._CloseStatus(this.ptr + 0)
+            return this.__CloseStatus
+        }
     }
 }

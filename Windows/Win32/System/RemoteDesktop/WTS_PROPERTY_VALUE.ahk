@@ -22,6 +22,50 @@ class WTS_PROPERTY_VALUE extends Win32Struct
         set => NumPut("ushort", value, this, 0)
     }
 
+    class _strVal extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        size {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pstrVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _bVal extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        size {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pbVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -31,27 +75,25 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_strVal}
      */
-    size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    strVal{
+        get {
+            if(!this.HasProp("__strVal"))
+                this.__strVal := %this.__Class%._strVal(this.ptr + 4)
+            return this.__strVal
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_bVal}
      */
-    pstrVal {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    pbVal {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    bVal{
+        get {
+            if(!this.HasProp("__bVal"))
+                this.__bVal := %this.__Class%._bVal(this.ptr + 4)
+            return this.__bVal
+        }
     }
 
     /**

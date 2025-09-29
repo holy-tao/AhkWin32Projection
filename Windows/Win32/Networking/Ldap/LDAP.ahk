@@ -23,41 +23,58 @@ class LDAP extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Pointer}
-     */
-    sb_sd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    class _ld_sb extends Win32Struct {
+        static sizeof => 184
+        static packingSize => 8
 
-    /**
-     * @type {Array<Byte>}
-     */
-    Reserved1{
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 41, Primitive, "char")
-            return this.__Reserved1ProxyArray
+        /**
+         * @type {Pointer}
+         */
+        sb_sd {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Reserved1{
+            get {
+                if(!this.HasProp("__Reserved1ProxyArray"))
+                    this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 41, Primitive, "char")
+                return this.__Reserved1ProxyArray
+            }
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        sb_naddr {
+            get => NumGet(this, 56, "ptr")
+            set => NumPut("ptr", value, this, 56)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Reserved2{
+            get {
+                if(!this.HasProp("__Reserved2ProxyArray"))
+                    this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "char")
+                return this.__Reserved2ProxyArray
+            }
+        }
+    
     }
 
     /**
-     * @type {Pointer}
+     * @type {_ld_sb}
      */
-    sb_naddr {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Reserved2{
+    ld_sb{
         get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "char")
-            return this.__Reserved2ProxyArray
+            if(!this.HasProp("__ld_sb"))
+                this.__ld_sb := %this.__Class%._ld_sb(this.ptr + 0)
+            return this.__ld_sb
         }
     }
 

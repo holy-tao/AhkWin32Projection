@@ -15,6 +15,93 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
 
     static packingSize => 8
 
+    class DHCP_OPTION_ELEMENT_UNION extends Win32Struct {
+        static sizeof => 80
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ByteOption {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WordOption {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DWordOption {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {DWORD_DWORD}
+         */
+        DWordDWordOption{
+            get {
+                if(!this.HasProp("__DWordDWordOption"))
+                    this.__DWordDWordOption := DWORD_DWORD(this.ptr + 0)
+                return this.__DWordDWordOption
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpAddressOption {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        StringDataOption {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {DHCP_BINARY_DATA}
+         */
+        BinaryDataOption{
+            get {
+                if(!this.HasProp("__BinaryDataOption"))
+                    this.__BinaryDataOption := DHCP_BINARY_DATA(this.ptr + 0)
+                return this.__BinaryDataOption
+            }
+        }
+    
+        /**
+         * @type {DHCP_BINARY_DATA}
+         */
+        EncapsulatedDataOption{
+            get {
+                if(!this.HasProp("__EncapsulatedDataOption"))
+                    this.__EncapsulatedDataOption := DHCP_BINARY_DATA(this.ptr + 0)
+                return this.__EncapsulatedDataOption
+            }
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        Ipv6AddressDataOption {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_option_data_type">DHCP_OPTION_DATA_TYPE</a> enumeration value that indicates the type of data that is present in the subsequent field, <b>Element</b>.
      * @type {Integer}
@@ -25,83 +112,14 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {DHCP_OPTION_ELEMENT_UNION}
      */
-    ByteOption {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    WordOption {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DWordOption {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {DWORD_DWORD}
-     */
-    DWordDWordOption{
+    Element{
         get {
-            if(!this.HasProp("__DWordDWordOption"))
-                this.__DWordDWordOption := DWORD_DWORD(this.ptr + 8)
-            return this.__DWordDWordOption
+            if(!this.HasProp("__Element"))
+                this.__Element := %this.__Class%.DHCP_OPTION_ELEMENT_UNION(this.ptr + 8)
+            return this.__Element
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IpAddressOption {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    StringDataOption {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {DHCP_BINARY_DATA}
-     */
-    BinaryDataOption{
-        get {
-            if(!this.HasProp("__BinaryDataOption"))
-                this.__BinaryDataOption := DHCP_BINARY_DATA(this.ptr + 8)
-            return this.__BinaryDataOption
-        }
-    }
-
-    /**
-     * @type {DHCP_BINARY_DATA}
-     */
-    EncapsulatedDataOption{
-        get {
-            if(!this.HasProp("__EncapsulatedDataOption"))
-                this.__EncapsulatedDataOption := DHCP_BINARY_DATA(this.ptr + 8)
-            return this.__EncapsulatedDataOption
-        }
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    Ipv6AddressDataOption {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 }

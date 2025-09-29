@@ -19,57 +19,116 @@ class KSEVENTDATA extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Event {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _EventHandle extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        Event {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<UIntPtr>}
+         */
+        Reserved{
+            get {
+                if(!this.HasProp("__ReservedProxyArray"))
+                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
+                return this.__ReservedProxyArray
+            }
+        }
+    
+    }
+
+    class _SemaphoreHandle extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        Semaphore {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Adjustment {
+            get => NumGet(this, 12, "int")
+            set => NumPut("int", value, this, 12)
+        }
+    
+    }
+
+    class _Alignment extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        Unused {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<IntPtr>}
+         */
+        Alignment{
+            get {
+                if(!this.HasProp("__AlignmentProxyArray"))
+                    this.__AlignmentProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
+                return this.__AlignmentProxyArray
+            }
+        }
+    
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {_EventHandle}
      */
-    Reserved{
+    EventHandle{
         get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
-            return this.__ReservedProxyArray
+            if(!this.HasProp("__EventHandle"))
+                this.__EventHandle := %this.__Class%._EventHandle(this.ptr + 8)
+            return this.__EventHandle
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_SemaphoreHandle}
      */
-    Semaphore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    SemaphoreHandle{
+        get {
+            if(!this.HasProp("__SemaphoreHandle"))
+                this.__SemaphoreHandle := %this.__Class%._SemaphoreHandle(this.ptr + 8)
+            return this.__SemaphoreHandle
+        }
     }
 
     /**
-     * @type {Integer}
-     */
-    Adjustment {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Unused {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Array<IntPtr>}
+     * @type {_Alignment}
      */
     Alignment{
         get {
-            if(!this.HasProp("__AlignmentProxyArray"))
-                this.__AlignmentProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
-            return this.__AlignmentProxyArray
+            if(!this.HasProp("__Alignment"))
+                this.__Alignment := %this.__Class%._Alignment(this.ptr + 8)
+            return this.__Alignment
         }
     }
 }

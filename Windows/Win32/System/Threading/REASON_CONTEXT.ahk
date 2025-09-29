@@ -34,36 +34,53 @@ class REASON_CONTEXT extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LocalizedReasonModule {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _Detailed extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        LocalizedReasonModule {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LocalizedReasonId {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReasonStringCount {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ReasonStrings {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Detailed}
      */
-    LocalizedReasonId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReasonStringCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ReasonStrings {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Detailed{
+        get {
+            if(!this.HasProp("__Detailed"))
+                this.__Detailed := %this.__Class%._Detailed(this.ptr + 8)
+            return this.__Detailed
+        }
     }
 
     /**

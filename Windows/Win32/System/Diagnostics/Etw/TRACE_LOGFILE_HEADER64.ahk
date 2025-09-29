@@ -21,6 +21,44 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
+    class _VersionDetail extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        MajorVersion {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MinorVersion {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubVersion {
+            get => NumGet(this, 2, "char")
+            set => NumPut("char", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubMinorVersion {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -30,35 +68,14 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_VersionDetail}
      */
-    MajorVersion {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SubVersion {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SubMinorVersion {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    VersionDetail{
+        get {
+            if(!this.HasProp("__VersionDetail"))
+                this.__VersionDetail := %this.__Class%._VersionDetail(this.ptr + 4)
+            return this.__VersionDetail
+        }
     }
 
     /**

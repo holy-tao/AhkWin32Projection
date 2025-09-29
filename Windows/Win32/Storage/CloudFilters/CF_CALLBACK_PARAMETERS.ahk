@@ -38,107 +38,440 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    class _Cancel extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        class _FetchData extends Win32Struct {
+            static sizeof => 16
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            FileOffset {
+                get => NumGet(this, 0, "int64")
+                set => NumPut("int64", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Length {
+                get => NumGet(this, 8, "int64")
+                set => NumPut("int64", value, this, 8)
+            }
+        
+        }
+    
+        /**
+         * @type {_FetchData}
+         */
+        FetchData{
+            get {
+                if(!this.HasProp("__FetchData"))
+                    this.__FetchData := %this.__Class%._FetchData(this.ptr + 8)
+                return this.__FetchData
+            }
+        }
+    
+    }
+
+    class _FetchData extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RequiredFileOffset {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RequiredLength {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OptionalFileOffset {
+            get => NumGet(this, 24, "int64")
+            set => NumPut("int64", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OptionalLength {
+            get => NumGet(this, 32, "int64")
+            set => NumPut("int64", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastDehydrationTime {
+            get => NumGet(this, 40, "int64")
+            set => NumPut("int64", value, this, 40)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastDehydrationReason {
+            get => NumGet(this, 48, "int")
+            set => NumPut("int", value, this, 48)
+        }
+    
+    }
+
+    class _ValidateData extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RequiredFileOffset {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RequiredLength {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+    }
+
+    class _FetchPlaceholders extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        Pattern {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _OpenCompletion extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
+    class _CloseCompletion extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
+    class _Dehydrate extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reason {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
+    class _DehydrateCompletion extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reason {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
+    class _Delete extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
+    class _DeleteCompletion extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
+    class _Rename extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        TargetPath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _RenameCompletion extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourcePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Cancel}
      */
-    FileOffset {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+    Cancel{
+        get {
+            if(!this.HasProp("__Cancel"))
+                this.__Cancel := %this.__Class%._Cancel(this.ptr + 4)
+            return this.__Cancel
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FetchData}
      */
-    Length {
-        get => NumGet(this, 20, "int64")
-        set => NumPut("int64", value, this, 20)
+    FetchData{
+        get {
+            if(!this.HasProp("__FetchData"))
+                this.__FetchData := %this.__Class%._FetchData(this.ptr + 4)
+            return this.__FetchData
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ValidateData}
      */
-    RequiredFileOffset {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+    ValidateData{
+        get {
+            if(!this.HasProp("__ValidateData"))
+                this.__ValidateData := %this.__Class%._ValidateData(this.ptr + 4)
+            return this.__ValidateData
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FetchPlaceholders}
      */
-    RequiredLength {
-        get => NumGet(this, 20, "int64")
-        set => NumPut("int64", value, this, 20)
+    FetchPlaceholders{
+        get {
+            if(!this.HasProp("__FetchPlaceholders"))
+                this.__FetchPlaceholders := %this.__Class%._FetchPlaceholders(this.ptr + 4)
+            return this.__FetchPlaceholders
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_OpenCompletion}
      */
-    OptionalFileOffset {
-        get => NumGet(this, 28, "int64")
-        set => NumPut("int64", value, this, 28)
+    OpenCompletion{
+        get {
+            if(!this.HasProp("__OpenCompletion"))
+                this.__OpenCompletion := %this.__Class%._OpenCompletion(this.ptr + 4)
+            return this.__OpenCompletion
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_CloseCompletion}
      */
-    OptionalLength {
-        get => NumGet(this, 36, "int64")
-        set => NumPut("int64", value, this, 36)
+    CloseCompletion{
+        get {
+            if(!this.HasProp("__CloseCompletion"))
+                this.__CloseCompletion := %this.__Class%._CloseCompletion(this.ptr + 4)
+            return this.__CloseCompletion
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Dehydrate}
      */
-    LastDehydrationTime {
-        get => NumGet(this, 44, "int64")
-        set => NumPut("int64", value, this, 44)
+    Dehydrate{
+        get {
+            if(!this.HasProp("__Dehydrate"))
+                this.__Dehydrate := %this.__Class%._Dehydrate(this.ptr + 4)
+            return this.__Dehydrate
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DehydrateCompletion}
      */
-    LastDehydrationReason {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    DehydrateCompletion{
+        get {
+            if(!this.HasProp("__DehydrateCompletion"))
+                this.__DehydrateCompletion := %this.__Class%._DehydrateCompletion(this.ptr + 4)
+            return this.__DehydrateCompletion
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_Delete}
      */
-    Pattern {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    Delete{
+        get {
+            if(!this.HasProp("__Delete"))
+                this.__Delete := %this.__Class%._Delete(this.ptr + 4)
+            return this.__Delete
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DeleteCompletion}
      */
-    Reason {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    DeleteCompletion{
+        get {
+            if(!this.HasProp("__DeleteCompletion"))
+                this.__DeleteCompletion := %this.__Class%._DeleteCompletion(this.ptr + 4)
+            return this.__DeleteCompletion
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_Rename}
      */
-    TargetPath {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    Rename{
+        get {
+            if(!this.HasProp("__Rename"))
+                this.__Rename := %this.__Class%._Rename(this.ptr + 4)
+            return this.__Rename
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_RenameCompletion}
      */
-    SourcePath {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    RenameCompletion{
+        get {
+            if(!this.HasProp("__RenameCompletion"))
+                this.__RenameCompletion := %this.__Class%._RenameCompletion(this.ptr + 4)
+            return this.__RenameCompletion
+        }
     }
 }

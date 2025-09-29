@@ -158,1019 +158,1741 @@ class NVME_COMMAND extends Win32Struct
         set => NumPut("uint", value, this, 40)
     }
 
-    /**
-     * @type {Integer}
-     */
-    CDW10 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+    class _GENERAL extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW10 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _IDENTIFY extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_IDENTIFY}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_IDENTIFY(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_IDENTIFY}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_IDENTIFY(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
+    }
+
+    class _ABORT extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_ABORT}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_ABORT(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _GETFEATURES extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_GET_FEATURES}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_GET_FEATURES(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_FEATURES}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_FEATURES(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 176, "uint")
+            set => NumPut("uint", value, this, 176)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 180, "uint")
+            set => NumPut("uint", value, this, 180)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 184, "uint")
+            set => NumPut("uint", value, this, 184)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 188, "uint")
+            set => NumPut("uint", value, this, 188)
+        }
+    
+    }
+
+    class _SETFEATURES extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_SET_FEATURES}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_SET_FEATURES(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_FEATURES}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_FEATURES(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW12_FEATURES}
+         */
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_FEATURES(this.ptr + 176)
+                return this.__CDW12
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW13_FEATURES}
+         */
+        CDW13{
+            get {
+                if(!this.HasProp("__CDW13"))
+                    this.__CDW13 := NVME_CDW13_FEATURES(this.ptr + 192)
+                return this.__CDW13
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW14_FEATURES}
+         */
+        CDW14{
+            get {
+                if(!this.HasProp("__CDW14"))
+                    this.__CDW14 := NVME_CDW14_FEATURES(this.ptr + 208)
+                return this.__CDW14
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW15_FEATURES}
+         */
+        CDW15{
+            get {
+                if(!this.HasProp("__CDW15"))
+                    this.__CDW15 := NVME_CDW15_FEATURES(this.ptr + 224)
+                return this.__CDW15
+            }
+        }
+    
+    }
+
+    class _GETLOGPAGE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_GET_LOG_PAGE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_GET_LOG_PAGE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW10_GET_LOG_PAGE_V13}
+         */
+        CDW10_V13{
+            get {
+                if(!this.HasProp("__CDW10_V13"))
+                    this.__CDW10_V13 := NVME_CDW10_GET_LOG_PAGE_V13(this.ptr + 0)
+                return this.__CDW10_V13
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_GET_LOG_PAGE}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_GET_LOG_PAGE(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {NVME_CDW14_GET_LOG_PAGE}
+         */
+        CDW14{
+            get {
+                if(!this.HasProp("__CDW14"))
+                    this.__CDW14 := NVME_CDW14_GET_LOG_PAGE(this.ptr + 24)
+                return this.__CDW14
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
+    }
+
+    class _CREATEIOCQ extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_CREATE_IO_QUEUE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_CREATE_IO_QUEUE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_CREATE_IO_CQ}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_CREATE_IO_CQ(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _CREATEIOSQ extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_CREATE_IO_QUEUE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_CREATE_IO_QUEUE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_CREATE_IO_SQ}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_CREATE_IO_SQ(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _DATASETMANAGEMENT extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_DATASET_MANAGEMENT}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_DATASET_MANAGEMENT(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_DATASET_MANAGEMENT}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_DATASET_MANAGEMENT(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _SECURITYSEND extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_SECURITY_SEND_RECEIVE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_SECURITY_SEND_RECEIVE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _SECURITYRECEIVE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_SECURITY_SEND_RECEIVE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_SECURITY_SEND_RECEIVE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _FIRMWAREDOWNLOAD extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW10 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _FIRMWAREACTIVATE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_FIRMWARE_ACTIVATE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_FIRMWARE_ACTIVATE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _FORMATNVM extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_FORMAT_NVM}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_FORMAT_NVM(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _DIRECTIVERECEIVE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW10 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {NVME_CDW11_DIRECTIVE_RECEIVE}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_DIRECTIVE_RECEIVE(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW12_DIRECTIVE_RECEIVE}
+         */
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_DIRECTIVE_RECEIVE(this.ptr + 16)
+                return this.__CDW12
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 36, "uint")
+            set => NumPut("uint", value, this, 36)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 40, "uint")
+            set => NumPut("uint", value, this, 40)
+        }
+    
+    }
+
+    class _DIRECTIVESEND extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW10 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {NVME_CDW11_DIRECTIVE_SEND}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_DIRECTIVE_SEND(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW12_DIRECTIVE_SEND}
+         */
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_DIRECTIVE_SEND(this.ptr + 16)
+                return this.__CDW12
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 36, "uint")
+            set => NumPut("uint", value, this, 36)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 40, "uint")
+            set => NumPut("uint", value, this, 40)
+        }
+    
+    }
+
+    class _SANITIZE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_SANITIZE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_SANITIZE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_SANITIZE}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_SANITIZE(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _READWRITE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LBALOW {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LBAHIGH {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {NVME_CDW12_READ_WRITE}
+         */
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_READ_WRITE(this.ptr + 8)
+                return this.__CDW12
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW13_READ_WRITE}
+         */
+        CDW13{
+            get {
+                if(!this.HasProp("__CDW13"))
+                    this.__CDW13 := NVME_CDW13_READ_WRITE(this.ptr + 16)
+                return this.__CDW13
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {NVME_CDW15_READ_WRITE}
+         */
+        CDW15{
+            get {
+                if(!this.HasProp("__CDW15"))
+                    this.__CDW15 := NVME_CDW15_READ_WRITE(this.ptr + 32)
+                return this.__CDW15
+            }
+        }
+    
+    }
+
+    class _RESERVATIONACQUIRE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_RESERVATION_ACQUIRE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_RESERVATION_ACQUIRE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _RESERVATIONREGISTER extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_RESERVATION_REGISTER}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_RESERVATION_REGISTER(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _RESERVATIONRELEASE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_RESERVATION_RELEASE}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_RESERVATION_RELEASE(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _RESERVATIONREPORT extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_RESERVATION_REPORT}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_RESERVATION_REPORT(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW11_RESERVATION_REPORT}
+         */
+        CDW11{
+            get {
+                if(!this.HasProp("__CDW11"))
+                    this.__CDW11 := NVME_CDW11_RESERVATION_REPORT(this.ptr + 8)
+                return this.__CDW11
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _ZONEMANAGEMENTSEND extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW1011 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {NVME_CDW13_ZONE_MANAGEMENT_SEND}
+         */
+        CDW13{
+            get {
+                if(!this.HasProp("__CDW13"))
+                    this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_SEND(this.ptr + 16)
+                return this.__CDW13
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _ZONEMANAGEMENTRECEIVE extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW1011 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DWORDCOUNT {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {NVME_CDW13_ZONE_MANAGEMENT_RECEIVE}
+         */
+        CDW13{
+            get {
+                if(!this.HasProp("__CDW13"))
+                    this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(this.ptr + 16)
+                return this.__CDW13
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _ZONEAPPEND extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CDW1011 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {NVME_CDW12_ZONE_APPEND}
+         */
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_ZONE_APPEND(this.ptr + 8)
+                return this.__CDW12
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ILBRT {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {NVME_CDW15_ZONE_APPEND}
+         */
+        CDW15{
+            get {
+                if(!this.HasProp("__CDW15"))
+                    this.__CDW15 := NVME_CDW15_ZONE_APPEND(this.ptr + 24)
+                return this.__CDW15
+            }
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_GENERAL}
      */
-    CDW11 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW12 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {NVME_CDW11_IDENTIFY}
-     */
-    CDW111{
+    GENERAL{
         get {
-            if(!this.HasProp("__CDW111"))
-                this.__CDW111 := NVME_CDW11_IDENTIFY(this.ptr + 56)
-            return this.__CDW111
+            if(!this.HasProp("__GENERAL"))
+                this.__GENERAL := %this.__Class%._GENERAL(this.ptr + 48)
+            return this.__GENERAL
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_IDENTIFY}
      */
-    CDW121 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW131 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW141 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW151 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1112 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1212 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1312 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1412 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1512 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {NVME_CDW11_FEATURES}
-     */
-    CDW11123{
+    IDENTIFY{
         get {
-            if(!this.HasProp("__CDW11123"))
-                this.__CDW11123 := NVME_CDW11_FEATURES(this.ptr + 56)
-            return this.__CDW11123
+            if(!this.HasProp("__IDENTIFY"))
+                this.__IDENTIFY := %this.__Class%._IDENTIFY(this.ptr + 48)
+            return this.__IDENTIFY
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ABORT}
      */
-    CDW12123 {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13123 {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14123 {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123 {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
-    }
-
-    /**
-     * @type {NVME_CDW11_FEATURES}
-     */
-    CDW111234{
+    ABORT{
         get {
-            if(!this.HasProp("__CDW111234"))
-                this.__CDW111234 := NVME_CDW11_FEATURES(this.ptr + 56)
-            return this.__CDW111234
+            if(!this.HasProp("__ABORT"))
+                this.__ABORT := %this.__Class%._ABORT(this.ptr + 48)
+            return this.__ABORT
         }
     }
 
     /**
-     * @type {NVME_CDW12_FEATURES}
+     * @type {_GETFEATURES}
      */
-    CDW121234{
+    GETFEATURES{
         get {
-            if(!this.HasProp("__CDW121234"))
-                this.__CDW121234 := NVME_CDW12_FEATURES(this.ptr + 224)
-            return this.__CDW121234
+            if(!this.HasProp("__GETFEATURES"))
+                this.__GETFEATURES := %this.__Class%._GETFEATURES(this.ptr + 48)
+            return this.__GETFEATURES
         }
     }
 
     /**
-     * @type {NVME_CDW13_FEATURES}
+     * @type {_SETFEATURES}
      */
-    CDW131234{
+    SETFEATURES{
         get {
-            if(!this.HasProp("__CDW131234"))
-                this.__CDW131234 := NVME_CDW13_FEATURES(this.ptr + 240)
-            return this.__CDW131234
+            if(!this.HasProp("__SETFEATURES"))
+                this.__SETFEATURES := %this.__Class%._SETFEATURES(this.ptr + 48)
+            return this.__SETFEATURES
         }
     }
 
     /**
-     * @type {NVME_CDW14_FEATURES}
+     * @type {_GETLOGPAGE}
      */
-    CDW141234{
+    GETLOGPAGE{
         get {
-            if(!this.HasProp("__CDW141234"))
-                this.__CDW141234 := NVME_CDW14_FEATURES(this.ptr + 256)
-            return this.__CDW141234
+            if(!this.HasProp("__GETLOGPAGE"))
+                this.__GETLOGPAGE := %this.__Class%._GETLOGPAGE(this.ptr + 48)
+            return this.__GETLOGPAGE
         }
     }
 
     /**
-     * @type {NVME_CDW15_FEATURES}
+     * @type {_CREATEIOCQ}
      */
-    CDW151234{
+    CREATEIOCQ{
         get {
-            if(!this.HasProp("__CDW151234"))
-                this.__CDW151234 := NVME_CDW15_FEATURES(this.ptr + 272)
-            return this.__CDW151234
+            if(!this.HasProp("__CREATEIOCQ"))
+                this.__CREATEIOCQ := %this.__Class%._CREATEIOCQ(this.ptr + 48)
+            return this.__CREATEIOCQ
         }
     }
 
     /**
-     * @type {NVME_CDW10_GET_LOG_PAGE_V13}
+     * @type {_CREATEIOSQ}
      */
-    CDW10_V13{
+    CREATEIOSQ{
         get {
-            if(!this.HasProp("__CDW10_V13"))
-                this.__CDW10_V13 := NVME_CDW10_GET_LOG_PAGE_V13(this.ptr + 48)
-            return this.__CDW10_V13
+            if(!this.HasProp("__CREATEIOSQ"))
+                this.__CREATEIOSQ := %this.__Class%._CREATEIOSQ(this.ptr + 48)
+            return this.__CREATEIOSQ
         }
     }
 
     /**
-     * @type {NVME_CDW11_GET_LOG_PAGE}
+     * @type {_DATASETMANAGEMENT}
      */
-    CDW1112345{
+    DATASETMANAGEMENT{
         get {
-            if(!this.HasProp("__CDW1112345"))
-                this.__CDW1112345 := NVME_CDW11_GET_LOG_PAGE(this.ptr + 56)
-            return this.__CDW1112345
+            if(!this.HasProp("__DATASETMANAGEMENT"))
+                this.__DATASETMANAGEMENT := %this.__Class%._DATASETMANAGEMENT(this.ptr + 48)
+            return this.__DATASETMANAGEMENT
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SECURITYSEND}
      */
-    CDW1212345 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1312345 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {NVME_CDW14_GET_LOG_PAGE}
-     */
-    CDW1412345{
+    SECURITYSEND{
         get {
-            if(!this.HasProp("__CDW1412345"))
-                this.__CDW1412345 := NVME_CDW14_GET_LOG_PAGE(this.ptr + 72)
-            return this.__CDW1412345
+            if(!this.HasProp("__SECURITYSEND"))
+                this.__SECURITYSEND := %this.__Class%._SECURITYSEND(this.ptr + 48)
+            return this.__SECURITYSEND
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SECURITYRECEIVE}
      */
-    CDW1512345 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {NVME_CDW11_CREATE_IO_CQ}
-     */
-    CDW11123456{
+    SECURITYRECEIVE{
         get {
-            if(!this.HasProp("__CDW11123456"))
-                this.__CDW11123456 := NVME_CDW11_CREATE_IO_CQ(this.ptr + 56)
-            return this.__CDW11123456
+            if(!this.HasProp("__SECURITYRECEIVE"))
+                this.__SECURITYRECEIVE := %this.__Class%._SECURITYRECEIVE(this.ptr + 48)
+            return this.__SECURITYRECEIVE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FIRMWAREDOWNLOAD}
      */
-    CDW12123456 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13123456 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14123456 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123456 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {NVME_CDW11_CREATE_IO_SQ}
-     */
-    CDW111234567{
+    FIRMWAREDOWNLOAD{
         get {
-            if(!this.HasProp("__CDW111234567"))
-                this.__CDW111234567 := NVME_CDW11_CREATE_IO_SQ(this.ptr + 56)
-            return this.__CDW111234567
+            if(!this.HasProp("__FIRMWAREDOWNLOAD"))
+                this.__FIRMWAREDOWNLOAD := %this.__Class%._FIRMWAREDOWNLOAD(this.ptr + 48)
+            return this.__FIRMWAREDOWNLOAD
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FIRMWAREACTIVATE}
      */
-    CDW121234567 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW131234567 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW141234567 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW151234567 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {NVME_CDW11_DATASET_MANAGEMENT}
-     */
-    CDW1112345678{
+    FIRMWAREACTIVATE{
         get {
-            if(!this.HasProp("__CDW1112345678"))
-                this.__CDW1112345678 := NVME_CDW11_DATASET_MANAGEMENT(this.ptr + 56)
-            return this.__CDW1112345678
+            if(!this.HasProp("__FIRMWAREACTIVATE"))
+                this.__FIRMWAREACTIVATE := %this.__Class%._FIRMWAREACTIVATE(this.ptr + 48)
+            return this.__FIRMWAREACTIVATE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FORMATNVM}
      */
-    CDW1212345678 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1312345678 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1412345678 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1512345678 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW11123456789 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW12123456789 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13123456789 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14123456789 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123456789 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1112345678910 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1212345678910 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1312345678910 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1412345678910 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1512345678910 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW111234567891011 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW121234567891011 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW131234567891011 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW141234567891011 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW151234567891011 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW11123456789101112 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW12123456789101112 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13123456789101112 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14123456789101112 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123456789101112 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {NVME_CDW11_DIRECTIVE_RECEIVE}
-     */
-    CDW1112345678910111213{
+    FORMATNVM{
         get {
-            if(!this.HasProp("__CDW1112345678910111213"))
-                this.__CDW1112345678910111213 := NVME_CDW11_DIRECTIVE_RECEIVE(this.ptr + 56)
-            return this.__CDW1112345678910111213
+            if(!this.HasProp("__FORMATNVM"))
+                this.__FORMATNVM := %this.__Class%._FORMATNVM(this.ptr + 48)
+            return this.__FORMATNVM
         }
     }
 
     /**
-     * @type {NVME_CDW12_DIRECTIVE_RECEIVE}
+     * @type {_DIRECTIVERECEIVE}
      */
-    CDW1212345678910111213{
+    DIRECTIVERECEIVE{
         get {
-            if(!this.HasProp("__CDW1212345678910111213"))
-                this.__CDW1212345678910111213 := NVME_CDW12_DIRECTIVE_RECEIVE(this.ptr + 64)
-            return this.__CDW1212345678910111213
+            if(!this.HasProp("__DIRECTIVERECEIVE"))
+                this.__DIRECTIVERECEIVE := %this.__Class%._DIRECTIVERECEIVE(this.ptr + 48)
+            return this.__DIRECTIVERECEIVE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DIRECTIVESEND}
      */
-    CDW1312345678910111213 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1412345678910111213 {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1512345678910111213 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
-
-    /**
-     * @type {NVME_CDW11_DIRECTIVE_SEND}
-     */
-    CDW111234567891011121314{
+    DIRECTIVESEND{
         get {
-            if(!this.HasProp("__CDW111234567891011121314"))
-                this.__CDW111234567891011121314 := NVME_CDW11_DIRECTIVE_SEND(this.ptr + 56)
-            return this.__CDW111234567891011121314
+            if(!this.HasProp("__DIRECTIVESEND"))
+                this.__DIRECTIVESEND := %this.__Class%._DIRECTIVESEND(this.ptr + 48)
+            return this.__DIRECTIVESEND
         }
     }
 
     /**
-     * @type {NVME_CDW12_DIRECTIVE_SEND}
+     * @type {_SANITIZE}
      */
-    CDW121234567891011121314{
+    SANITIZE{
         get {
-            if(!this.HasProp("__CDW121234567891011121314"))
-                this.__CDW121234567891011121314 := NVME_CDW12_DIRECTIVE_SEND(this.ptr + 64)
-            return this.__CDW121234567891011121314
+            if(!this.HasProp("__SANITIZE"))
+                this.__SANITIZE := %this.__Class%._SANITIZE(this.ptr + 48)
+            return this.__SANITIZE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_READWRITE}
      */
-    CDW131234567891011121314 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW141234567891011121314 {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW151234567891011121314 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
-
-    /**
-     * @type {NVME_CDW11_SANITIZE}
-     */
-    CDW11123456789101112131415{
+    READWRITE{
         get {
-            if(!this.HasProp("__CDW11123456789101112131415"))
-                this.__CDW11123456789101112131415 := NVME_CDW11_SANITIZE(this.ptr + 56)
-            return this.__CDW11123456789101112131415
+            if(!this.HasProp("__READWRITE"))
+                this.__READWRITE := %this.__Class%._READWRITE(this.ptr + 48)
+            return this.__READWRITE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RESERVATIONACQUIRE}
      */
-    CDW12123456789101112131415 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13123456789101112131415 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14123456789101112131415 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123456789101112131415 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LBALOW {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LBAHIGH {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {NVME_CDW13_READ_WRITE}
-     */
-    CDW1312345678910111213141516{
+    RESERVATIONACQUIRE{
         get {
-            if(!this.HasProp("__CDW1312345678910111213141516"))
-                this.__CDW1312345678910111213141516 := NVME_CDW13_READ_WRITE(this.ptr + 64)
-            return this.__CDW1312345678910111213141516
+            if(!this.HasProp("__RESERVATIONACQUIRE"))
+                this.__RESERVATIONACQUIRE := %this.__Class%._RESERVATIONACQUIRE(this.ptr + 48)
+            return this.__RESERVATIONACQUIRE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RESERVATIONREGISTER}
      */
-    CDW1412345678910111213141516 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {NVME_CDW15_READ_WRITE}
-     */
-    CDW1512345678910111213141516{
+    RESERVATIONREGISTER{
         get {
-            if(!this.HasProp("__CDW1512345678910111213141516"))
-                this.__CDW1512345678910111213141516 := NVME_CDW15_READ_WRITE(this.ptr + 80)
-            return this.__CDW1512345678910111213141516
+            if(!this.HasProp("__RESERVATIONREGISTER"))
+                this.__RESERVATIONREGISTER := %this.__Class%._RESERVATIONREGISTER(this.ptr + 48)
+            return this.__RESERVATIONREGISTER
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RESERVATIONRELEASE}
      */
-    CDW1112345678910111213141516 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1212345678910111213141516 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW131234567891011121314151617 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW141234567891011121314151617 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW151234567891011121314151617 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW111234567891011121314151617 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW121234567891011121314151617 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW13123456789101112131415161718 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW14123456789101112131415161718 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123456789101112131415161718 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW11123456789101112131415161718 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW12123456789101112131415161718 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1312345678910111213141516171819 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1412345678910111213141516171819 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1512345678910111213141516171819 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {NVME_CDW11_RESERVATION_REPORT}
-     */
-    CDW1112345678910111213141516171819{
+    RESERVATIONRELEASE{
         get {
-            if(!this.HasProp("__CDW1112345678910111213141516171819"))
-                this.__CDW1112345678910111213141516171819 := NVME_CDW11_RESERVATION_REPORT(this.ptr + 56)
-            return this.__CDW1112345678910111213141516171819
+            if(!this.HasProp("__RESERVATIONRELEASE"))
+                this.__RESERVATIONRELEASE := %this.__Class%._RESERVATIONRELEASE(this.ptr + 48)
+            return this.__RESERVATIONRELEASE
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RESERVATIONREPORT}
      */
-    CDW1212345678910111213141516171819 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW131234567891011121314151617181920 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW141234567891011121314151617181920 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW151234567891011121314151617181920 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1011 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {NVME_CDW13_ZONE_MANAGEMENT_SEND}
-     */
-    CDW13123456789101112131415161718192021{
+    RESERVATIONREPORT{
         get {
-            if(!this.HasProp("__CDW13123456789101112131415161718192021"))
-                this.__CDW13123456789101112131415161718192021 := NVME_CDW13_ZONE_MANAGEMENT_SEND(this.ptr + 64)
-            return this.__CDW13123456789101112131415161718192021
+            if(!this.HasProp("__RESERVATIONREPORT"))
+                this.__RESERVATIONREPORT := %this.__Class%._RESERVATIONREPORT(this.ptr + 48)
+            return this.__RESERVATIONREPORT
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ZONEMANAGEMENTSEND}
      */
-    CDW14123456789101112131415161718192021 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW15123456789101112131415161718192021 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DWORDCOUNT {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {NVME_CDW13_ZONE_MANAGEMENT_RECEIVE}
-     */
-    CDW1312345678910111213141516171819202122{
+    ZONEMANAGEMENTSEND{
         get {
-            if(!this.HasProp("__CDW1312345678910111213141516171819202122"))
-                this.__CDW1312345678910111213141516171819202122 := NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(this.ptr + 64)
-            return this.__CDW1312345678910111213141516171819202122
+            if(!this.HasProp("__ZONEMANAGEMENTSEND"))
+                this.__ZONEMANAGEMENTSEND := %this.__Class%._ZONEMANAGEMENTSEND(this.ptr + 48)
+            return this.__ZONEMANAGEMENTSEND
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ZONEMANAGEMENTRECEIVE}
      */
-    CDW1412345678910111213141516171819202122 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW1512345678910111213141516171819202122 {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CDW131234567891011121314151617181920212223 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ILBRT {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {NVME_CDW15_ZONE_APPEND}
-     */
-    CDW151234567891011121314151617181920212223{
+    ZONEMANAGEMENTRECEIVE{
         get {
-            if(!this.HasProp("__CDW151234567891011121314151617181920212223"))
-                this.__CDW151234567891011121314151617181920212223 := NVME_CDW15_ZONE_APPEND(this.ptr + 72)
-            return this.__CDW151234567891011121314151617181920212223
+            if(!this.HasProp("__ZONEMANAGEMENTRECEIVE"))
+                this.__ZONEMANAGEMENTRECEIVE := %this.__Class%._ZONEMANAGEMENTRECEIVE(this.ptr + 48)
+            return this.__ZONEMANAGEMENTRECEIVE
+        }
+    }
+
+    /**
+     * @type {_ZONEAPPEND}
+     */
+    ZONEAPPEND{
+        get {
+            if(!this.HasProp("__ZONEAPPEND"))
+                this.__ZONEAPPEND := %this.__Class%._ZONEAPPEND(this.ptr + 48)
+            return this.__ZONEAPPEND
         }
     }
 }

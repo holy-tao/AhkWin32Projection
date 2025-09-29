@@ -33,62 +33,113 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    ClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _DeviceInterface extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ClassGuid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {String}
+         */
+        SymbolicLink {
+            get => StrGet(this.ptr + 8, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 8, 0, "UTF-16")
+        }
+    
+    }
+
+    class _DeviceHandle extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        EventGuid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NameOffset {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataSize {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Data{
+            get {
+                if(!this.HasProp("__DataProxyArray"))
+                    this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                return this.__DataProxyArray
+            }
+        }
+    
+    }
+
+    class _DeviceInstance extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {String}
+         */
+        InstanceId {
+            get => StrGet(this.ptr + 0, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 0, "UTF-16")
+        }
+    
     }
 
     /**
-     * @type {String}
+     * @type {_DeviceInterface}
      */
-    SymbolicLink {
-        get => StrGet(this.ptr + 16, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    EventGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NameOffset {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Data{
+    DeviceInterface{
         get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__DataProxyArray
+            if(!this.HasProp("__DeviceInterface"))
+                this.__DeviceInterface := %this.__Class%._DeviceInterface(this.ptr + 8)
+            return this.__DeviceInterface
         }
     }
 
     /**
-     * @type {String}
+     * @type {_DeviceHandle}
      */
-    InstanceId {
-        get => StrGet(this.ptr + 8, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 0, "UTF-16")
+    DeviceHandle{
+        get {
+            if(!this.HasProp("__DeviceHandle"))
+                this.__DeviceHandle := %this.__Class%._DeviceHandle(this.ptr + 8)
+            return this.__DeviceHandle
+        }
+    }
+
+    /**
+     * @type {_DeviceInstance}
+     */
+    DeviceInstance{
+        get {
+            if(!this.HasProp("__DeviceInstance"))
+                this.__DeviceInstance := %this.__Class%._DeviceInstance(this.ptr + 8)
+            return this.__DeviceInstance
+        }
     }
 }

@@ -15,6 +15,374 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
 
     static packingSize => 8
 
+    class PAINT_UNION extends Win32Struct {
+        static sizeof => 240
+        static packingSize => 8
+
+        class PAINT_SOLID_GLYPH extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            glyphIndex {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {DWRITE_PAINT_COLOR}
+             */
+            color{
+                get {
+                    if(!this.HasProp("__color"))
+                        this.__color := DWRITE_PAINT_COLOR(this.ptr + 8)
+                    return this.__color
+                }
+            }
+        
+        }
+    
+        class PAINT_LINEAR_GRADIENT extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            extendMode {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            gradientStopCount {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            x0 {
+                get => NumGet(this, 8, "float")
+                set => NumPut("float", value, this, 8)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            y0 {
+                get => NumGet(this, 12, "float")
+                set => NumPut("float", value, this, 12)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            x1 {
+                get => NumGet(this, 16, "float")
+                set => NumPut("float", value, this, 16)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            y1 {
+                get => NumGet(this, 20, "float")
+                set => NumPut("float", value, this, 20)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            x2 {
+                get => NumGet(this, 24, "float")
+                set => NumPut("float", value, this, 24)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            y2 {
+                get => NumGet(this, 28, "float")
+                set => NumPut("float", value, this, 28)
+            }
+        
+        }
+    
+        class PAINT_RADIAL_GRADIENT extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            extendMode {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            gradientStopCount {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            x0 {
+                get => NumGet(this, 8, "float")
+                set => NumPut("float", value, this, 8)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            y0 {
+                get => NumGet(this, 12, "float")
+                set => NumPut("float", value, this, 12)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            radius0 {
+                get => NumGet(this, 16, "float")
+                set => NumPut("float", value, this, 16)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            x1 {
+                get => NumGet(this, 20, "float")
+                set => NumPut("float", value, this, 20)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            y1 {
+                get => NumGet(this, 24, "float")
+                set => NumPut("float", value, this, 24)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            radius1 {
+                get => NumGet(this, 28, "float")
+                set => NumPut("float", value, this, 28)
+            }
+        
+        }
+    
+        class PAINT_SWEEP_GRADIENT extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            extendMode {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            gradientStopCount {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            centerX {
+                get => NumGet(this, 8, "float")
+                set => NumPut("float", value, this, 8)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            centerY {
+                get => NumGet(this, 12, "float")
+                set => NumPut("float", value, this, 12)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            startAngle {
+                get => NumGet(this, 16, "float")
+                set => NumPut("float", value, this, 16)
+            }
+        
+            /**
+             * @type {Float}
+             */
+            endAngle {
+                get => NumGet(this, 20, "float")
+                set => NumPut("float", value, this, 20)
+            }
+        
+        }
+    
+        class PAINT_COLOR_GLYPH extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            glyphIndex {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {D2D_RECT_F}
+             */
+            clipBox{
+                get {
+                    if(!this.HasProp("__clipBox"))
+                        this.__clipBox := D2D_RECT_F(this.ptr + 8)
+                    return this.__clipBox
+                }
+            }
+        
+        }
+    
+        class PAINT_COMPOSITE extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            mode {
+                get => NumGet(this, 0, "int")
+                set => NumPut("int", value, this, 0)
+            }
+        
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        layers {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {PAINT_SOLID_GLYPH}
+         */
+        solidGlyph{
+            get {
+                if(!this.HasProp("__solidGlyph"))
+                    this.__solidGlyph := %this.__Class%.PAINT_SOLID_GLYPH(this.ptr + 0)
+                return this.__solidGlyph
+            }
+        }
+    
+        /**
+         * @type {DWRITE_PAINT_COLOR}
+         */
+        solid{
+            get {
+                if(!this.HasProp("__solid"))
+                    this.__solid := DWRITE_PAINT_COLOR(this.ptr + 0)
+                return this.__solid
+            }
+        }
+    
+        /**
+         * @type {PAINT_LINEAR_GRADIENT}
+         */
+        linearGradient{
+            get {
+                if(!this.HasProp("__linearGradient"))
+                    this.__linearGradient := %this.__Class%.PAINT_LINEAR_GRADIENT(this.ptr + 0)
+                return this.__linearGradient
+            }
+        }
+    
+        /**
+         * @type {PAINT_RADIAL_GRADIENT}
+         */
+        radialGradient{
+            get {
+                if(!this.HasProp("__radialGradient"))
+                    this.__radialGradient := %this.__Class%.PAINT_RADIAL_GRADIENT(this.ptr + 0)
+                return this.__radialGradient
+            }
+        }
+    
+        /**
+         * @type {PAINT_SWEEP_GRADIENT}
+         */
+        sweepGradient{
+            get {
+                if(!this.HasProp("__sweepGradient"))
+                    this.__sweepGradient := %this.__Class%.PAINT_SWEEP_GRADIENT(this.ptr + 0)
+                return this.__sweepGradient
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        glyph {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {PAINT_COLOR_GLYPH}
+         */
+        colorGlyph{
+            get {
+                if(!this.HasProp("__colorGlyph"))
+                    this.__colorGlyph := %this.__Class%.PAINT_COLOR_GLYPH(this.ptr + 0)
+                return this.__colorGlyph
+            }
+        }
+    
+        /**
+         * @type {DWRITE_MATRIX}
+         */
+        transform{
+            get {
+                if(!this.HasProp("__transform"))
+                    this.__transform := DWRITE_MATRIX(this.ptr + 0)
+                return this.__transform
+            }
+        }
+    
+        /**
+         * @type {PAINT_COMPOSITE}
+         */
+        composite{
+            get {
+                if(!this.HasProp("__composite"))
+                    this.__composite := %this.__Class%.PAINT_COMPOSITE(this.ptr + 0)
+                return this.__composite
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -24,206 +392,13 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PAINT_UNION}
      */
-    layers {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    glyphIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {DWRITE_PAINT_COLOR}
-     */
-    color{
+    paint{
         get {
-            if(!this.HasProp("__color"))
-                this.__color := DWRITE_PAINT_COLOR(this.ptr + 16)
-            return this.__color
+            if(!this.HasProp("__paint"))
+                this.__paint := %this.__Class%.PAINT_UNION(this.ptr + 8)
+            return this.__paint
         }
-    }
-
-    /**
-     * @type {DWRITE_PAINT_COLOR}
-     */
-    solid{
-        get {
-            if(!this.HasProp("__solid"))
-                this.__solid := DWRITE_PAINT_COLOR(this.ptr + 8)
-            return this.__solid
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    extendMode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    gradientStopCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Float}
-     */
-    x0 {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    y0 {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
-
-    /**
-     * @type {Float}
-     */
-    x1 {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
-
-    /**
-     * @type {Float}
-     */
-    y1 {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
-
-    /**
-     * @type {Float}
-     */
-    x2 {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
-
-    /**
-     * @type {Float}
-     */
-    y2 {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
-
-    /**
-     * @type {Float}
-     */
-    radius0 {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
-
-    /**
-     * @type {Float}
-     */
-    x11 {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
-
-    /**
-     * @type {Float}
-     */
-    y11 {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
-
-    /**
-     * @type {Float}
-     */
-    radius1 {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
-
-    /**
-     * @type {Float}
-     */
-    centerX {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    centerY {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
-
-    /**
-     * @type {Float}
-     */
-    startAngle {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
-
-    /**
-     * @type {Float}
-     */
-    endAngle {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    glyph {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {D2D_RECT_F}
-     */
-    clipBox{
-        get {
-            if(!this.HasProp("__clipBox"))
-                this.__clipBox := D2D_RECT_F(this.ptr + 16)
-            return this.__clipBox
-        }
-    }
-
-    /**
-     * @type {DWRITE_MATRIX}
-     */
-    transform{
-        get {
-            if(!this.HasProp("__transform"))
-                this.__transform := DWRITE_MATRIX(this.ptr + 8)
-            return this.__transform
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    mode {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
     }
 }

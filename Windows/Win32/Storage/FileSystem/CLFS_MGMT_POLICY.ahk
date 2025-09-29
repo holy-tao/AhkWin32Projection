@@ -51,6 +51,94 @@ class CLFS_MGMT_POLICY extends Win32Struct
         set => NumPut("int", value, this, 12)
     }
 
+    class _GrowthRate extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        AbsoluteGrowthInContainers {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RelativeGrowthPercentage {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _LogTail extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        MinimumAvailablePercentage {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MinimumAvailableContainers {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _NewContainerPrefix extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        PrefixLengthInBytes {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {String}
+         */
+        PrefixString {
+            get => StrGet(this.ptr + 2, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 2, 0, "UTF-16")
+        }
+    
+    }
+
+    class _NewContainerExtension extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ExtensionLengthInBytes {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {String}
+         */
+        ExtensionString {
+            get => StrGet(this.ptr + 2, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 2, 0, "UTF-16")
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -76,35 +164,25 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_GrowthRate}
      */
-    AbsoluteGrowthInContainers {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    GrowthRate{
+        get {
+            if(!this.HasProp("__GrowthRate"))
+                this.__GrowthRate := %this.__Class%._GrowthRate(this.ptr + 16)
+            return this.__GrowthRate
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_LogTail}
      */
-    RelativeGrowthPercentage {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MinimumAvailablePercentage {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MinimumAvailableContainers {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    LogTail{
+        get {
+            if(!this.HasProp("__LogTail"))
+                this.__LogTail := %this.__Class%._LogTail(this.ptr + 16)
+            return this.__LogTail
+        }
     }
 
     /**
@@ -124,19 +202,14 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_NewContainerPrefix}
      */
-    PrefixLengthInBytes {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
-
-    /**
-     * @type {String}
-     */
-    PrefixString {
-        get => StrGet(this.ptr + 18, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 18, 0, "UTF-16")
+    NewContainerPrefix{
+        get {
+            if(!this.HasProp("__NewContainerPrefix"))
+                this.__NewContainerPrefix := %this.__Class%._NewContainerPrefix(this.ptr + 16)
+            return this.__NewContainerPrefix
+        }
     }
 
     /**
@@ -148,18 +221,13 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_NewContainerExtension}
      */
-    ExtensionLengthInBytes {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
-
-    /**
-     * @type {String}
-     */
-    ExtensionString {
-        get => StrGet(this.ptr + 18, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 18, 0, "UTF-16")
+    NewContainerExtension{
+        get {
+            if(!this.HasProp("__NewContainerExtension"))
+                this.__NewContainerExtension := %this.__Class%._NewContainerExtension(this.ptr + 16)
+            return this.__NewContainerExtension
+        }
     }
 }

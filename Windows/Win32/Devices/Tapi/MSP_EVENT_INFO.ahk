@@ -40,174 +40,318 @@ class MSP_EVENT_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 8)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    class _MSP_ADDRESS_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Type {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<ITTerminal>}
+         */
+        pTerminal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _MSP_CALL_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Type {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Cause {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<ITStream>}
+         */
+        pStream {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<ITTerminal>}
+         */
+        pTerminal {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {HRESULT}
+         */
+        hrError {
+            get => NumGet(this, 24, "int")
+            set => NumPut("int", value, this, 24)
+        }
+    
+    }
+
+    class _MSP_TSP_DATA extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwBufferSize {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        pBuffer{
+            get {
+                if(!this.HasProp("__pBufferProxyArray"))
+                    this.__pBufferProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                return this.__pBufferProxyArray
+            }
+        }
+    
+    }
+
+    class _MSP_PRIVATE_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IDispatch>}
+         */
+        pEvent {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        lEventCode {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+    }
+
+    class _MSP_FILE_TERMINAL_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<ITTerminal>}
+         */
+        pParentFileTerminal {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<ITFileTrack>}
+         */
+        pFileTrack {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TerminalMediaState {
+            get => NumGet(this, 16, "int")
+            set => NumPut("int", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ftecEventCause {
+            get => NumGet(this, 20, "int")
+            set => NumPut("int", value, this, 20)
+        }
+    
+        /**
+         * @type {HRESULT}
+         */
+        hrErrorCode {
+            get => NumGet(this, 24, "int")
+            set => NumPut("int", value, this, 24)
+        }
+    
+    }
+
+    class _MSP_ASR_TERMINAL_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<ITTerminal>}
+         */
+        pASRTerminal {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {HRESULT}
+         */
+        hrErrorCode {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+    }
+
+    class _MSP_TTS_TERMINAL_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<ITTerminal>}
+         */
+        pTTSTerminal {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {HRESULT}
+         */
+        hrErrorCode {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+    }
+
+    class _MSP_TONE_TERMINAL_EVENT_INFO extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<ITTerminal>}
+         */
+        pToneTerminal {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {HRESULT}
+         */
+        hrErrorCode {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Pointer<ITTerminal>}
+     * @type {_MSP_ADDRESS_EVENT_INFO}
      */
-    pTerminal {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Cause {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
-
-    /**
-     * @type {Pointer<ITStream>}
-     */
-    pStream {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<ITTerminal>}
-     */
-    pTerminal1 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    hrError {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    pBuffer{
+    MSP_ADDRESS_EVENT_INFO{
         get {
-            if(!this.HasProp("__pBufferProxyArray"))
-                this.__pBufferProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
-            return this.__pBufferProxyArray
+            if(!this.HasProp("__MSP_ADDRESS_EVENT_INFO"))
+                this.__MSP_ADDRESS_EVENT_INFO := %this.__Class%._MSP_ADDRESS_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_ADDRESS_EVENT_INFO
         }
     }
 
     /**
-     * @type {Pointer<IDispatch>}
+     * @type {_MSP_CALL_EVENT_INFO}
      */
-    pEvent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    MSP_CALL_EVENT_INFO{
+        get {
+            if(!this.HasProp("__MSP_CALL_EVENT_INFO"))
+                this.__MSP_CALL_EVENT_INFO := %this.__Class%._MSP_CALL_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_CALL_EVENT_INFO
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_MSP_TSP_DATA}
      */
-    lEventCode {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    MSP_TSP_DATA{
+        get {
+            if(!this.HasProp("__MSP_TSP_DATA"))
+                this.__MSP_TSP_DATA := %this.__Class%._MSP_TSP_DATA(this.ptr + 16)
+            return this.__MSP_TSP_DATA
+        }
     }
 
     /**
-     * @type {Pointer<ITTerminal>}
+     * @type {_MSP_PRIVATE_EVENT_INFO}
      */
-    pParentFileTerminal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    MSP_PRIVATE_EVENT_INFO{
+        get {
+            if(!this.HasProp("__MSP_PRIVATE_EVENT_INFO"))
+                this.__MSP_PRIVATE_EVENT_INFO := %this.__Class%._MSP_PRIVATE_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_PRIVATE_EVENT_INFO
+        }
     }
 
     /**
-     * @type {Pointer<ITFileTrack>}
+     * @type {_MSP_FILE_TERMINAL_EVENT_INFO}
      */
-    pFileTrack {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    MSP_FILE_TERMINAL_EVENT_INFO{
+        get {
+            if(!this.HasProp("__MSP_FILE_TERMINAL_EVENT_INFO"))
+                this.__MSP_FILE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_FILE_TERMINAL_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_FILE_TERMINAL_EVENT_INFO
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_MSP_ASR_TERMINAL_EVENT_INFO}
      */
-    TerminalMediaState {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    MSP_ASR_TERMINAL_EVENT_INFO{
+        get {
+            if(!this.HasProp("__MSP_ASR_TERMINAL_EVENT_INFO"))
+                this.__MSP_ASR_TERMINAL_EVENT_INFO := %this.__Class%._MSP_ASR_TERMINAL_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_ASR_TERMINAL_EVENT_INFO
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_MSP_TTS_TERMINAL_EVENT_INFO}
      */
-    ftecEventCause {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    MSP_TTS_TERMINAL_EVENT_INFO{
+        get {
+            if(!this.HasProp("__MSP_TTS_TERMINAL_EVENT_INFO"))
+                this.__MSP_TTS_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TTS_TERMINAL_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_TTS_TERMINAL_EVENT_INFO
+        }
     }
 
     /**
-     * @type {HRESULT}
+     * @type {_MSP_TONE_TERMINAL_EVENT_INFO}
      */
-    hrErrorCode {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<ITTerminal>}
-     */
-    pASRTerminal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    hrErrorCode1 {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<ITTerminal>}
-     */
-    pTTSTerminal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    hrErrorCode12 {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<ITTerminal>}
-     */
-    pToneTerminal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    hrErrorCode123 {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    MSP_TONE_TERMINAL_EVENT_INFO{
+        get {
+            if(!this.HasProp("__MSP_TONE_TERMINAL_EVENT_INFO"))
+                this.__MSP_TONE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TONE_TERMINAL_EVENT_INFO(this.ptr + 16)
+            return this.__MSP_TONE_TERMINAL_EVENT_INFO
+        }
     }
 }

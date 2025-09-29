@@ -13,51 +13,101 @@ class SURFACEALIGNMENT extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    dwStartAlignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _Linear extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwStartAlignment {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwPitchAlignment {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwFlags {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwReserved2 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+    }
+
+    class _Rectangular extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwXAlignment {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwYAlignment {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwFlags {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwReserved2 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Linear}
      */
-    dwPitchAlignment {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Linear{
+        get {
+            if(!this.HasProp("__Linear"))
+                this.__Linear := %this.__Class%._Linear(this.ptr + 0)
+            return this.__Linear
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Rectangular}
      */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwXAlignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwYAlignment {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Rectangular{
+        get {
+            if(!this.HasProp("__Rectangular"))
+                this.__Rectangular := %this.__Class%._Rectangular(this.ptr + 0)
+            return this.__Rectangular
+        }
     }
 }

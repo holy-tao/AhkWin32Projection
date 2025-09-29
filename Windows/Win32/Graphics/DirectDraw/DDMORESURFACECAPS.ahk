@@ -12,6 +12,34 @@ class DDMORESURFACECAPS extends Win32Struct
 
     static packingSize => 8
 
+    class ExtendedHeapRestrictions extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {DDSCAPSEX}
+         */
+        ddsCapsEx{
+            get {
+                if(!this.HasProp("__ddsCapsEx"))
+                    this.__ddsCapsEx := DDSCAPSEX(this.ptr + 0)
+                return this.__ddsCapsEx
+            }
+        }
+    
+        /**
+         * @type {DDSCAPSEX}
+         */
+        ddsCapsExAlt{
+            get {
+                if(!this.HasProp("__ddsCapsExAlt"))
+                    this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 16)
+                return this.__ddsCapsExAlt
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -32,24 +60,13 @@ class DDMORESURFACECAPS extends Win32Struct
     }
 
     /**
-     * @type {DDSCAPSEX}
+     * @type {Array<ExtendedHeapRestrictions>}
      */
-    ddsCapsEx{
+    ddsExtendedHeapRestrictions{
         get {
-            if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 24)
-            return this.__ddsCapsEx
-        }
-    }
-
-    /**
-     * @type {DDSCAPSEX}
-     */
-    ddsCapsExAlt{
-        get {
-            if(!this.HasProp("__ddsCapsExAlt"))
-                this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 40)
-            return this.__ddsCapsExAlt
+            if(!this.HasProp("__ddsExtendedHeapRestrictionsProxyArray"))
+                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 24, 1, ExtendedHeapRestrictions, "")
+            return this.__ddsExtendedHeapRestrictionsProxyArray
         }
     }
 }

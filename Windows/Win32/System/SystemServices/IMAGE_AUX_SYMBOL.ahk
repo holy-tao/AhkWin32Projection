@@ -12,146 +12,273 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    TagIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _Sym extends Win32Struct {
+        static sizeof => 120
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        TagIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        class _LnSz extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 2
+    
+            /**
+             * @type {Integer}
+             */
+            Linenumber {
+                get => NumGet(this, 0, "ushort")
+                set => NumPut("ushort", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Size {
+                get => NumGet(this, 2, "ushort")
+                set => NumPut("ushort", value, this, 2)
+            }
+        
+        }
+    
+        /**
+         * @type {_LnSz}
+         */
+        LnSz{
+            get {
+                if(!this.HasProp("__LnSz"))
+                    this.__LnSz := %this.__Class%._LnSz(this.ptr + 4)
+                return this.__LnSz
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TotalSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        class _Function extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            PointerToLinenumber {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            PointerToNextFunction {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+        }
+    
+        class _Array extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 8
+    
+            /**
+             * @type {Array<UInt16>}
+             */
+            Dimension{
+                get {
+                    if(!this.HasProp("__DimensionProxyArray"))
+                        this.__DimensionProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")
+                    return this.__DimensionProxyArray
+                }
+            }
+        
+        }
+    
+        /**
+         * @type {_Function}
+         */
+        Function{
+            get {
+                if(!this.HasProp("__Function"))
+                    this.__Function := %this.__Class%._Function(this.ptr + 8)
+                return this.__Function
+            }
+        }
+    
+        /**
+         * @type {_Array}
+         */
+        Array{
+            get {
+                if(!this.HasProp("__Array"))
+                    this.__Array := %this.__Class%._Array(this.ptr + 8)
+                return this.__Array
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TvIndex {
+            get => NumGet(this, 16, "ushort")
+            set => NumPut("ushort", value, this, 16)
+        }
+    
+    }
+
+    class _File extends Win32Struct {
+        static sizeof => 120
+        static packingSize => 8
+
+        /**
+         * @type {Array<Byte>}
+         */
+        Name{
+            get {
+                if(!this.HasProp("__NameProxyArray"))
+                    this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 18, Primitive, "char")
+                return this.__NameProxyArray
+            }
+        }
+    
+    }
+
+    class _Section extends Win32Struct {
+        static sizeof => 120
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Length {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NumberOfRelocations {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NumberOfLinenumbers {
+            get => NumGet(this, 6, "ushort")
+            set => NumPut("ushort", value, this, 6)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CheckSum {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Number {
+            get => NumGet(this, 12, "short")
+            set => NumPut("short", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Selection {
+            get => NumGet(this, 14, "char")
+            set => NumPut("char", value, this, 14)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        bReserved {
+            get => NumGet(this, 15, "char")
+            set => NumPut("char", value, this, 15)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HighNumber {
+            get => NumGet(this, 16, "short")
+            set => NumPut("short", value, this, 16)
+        }
+    
+    }
+
+    class _CRC extends Win32Struct {
+        static sizeof => 120
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        crc {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        rgbReserved{
+            get {
+                if(!this.HasProp("__rgbReservedProxyArray"))
+                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 14, Primitive, "char")
+                return this.__rgbReservedProxyArray
+            }
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Sym}
      */
-    Linenumber {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TotalSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PointerToLinenumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PointerToNextFunction {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Array<UInt16>}
-     */
-    Dimension{
+    Sym{
         get {
-            if(!this.HasProp("__DimensionProxyArray"))
-                this.__DimensionProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "ushort")
-            return this.__DimensionProxyArray
+            if(!this.HasProp("__Sym"))
+                this.__Sym := %this.__Class%._Sym(this.ptr + 0)
+            return this.__Sym
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_File}
      */
-    TvIndex {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Name{
+    File{
         get {
-            if(!this.HasProp("__NameProxyArray"))
-                this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 18, Primitive, "char")
-            return this.__NameProxyArray
+            if(!this.HasProp("__File"))
+                this.__File := %this.__Class%._File(this.ptr + 0)
+            return this.__File
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Section}
      */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumberOfRelocations {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumberOfLinenumbers {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CheckSum {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Number {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Selection {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HighNumber {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
+    Section{
+        get {
+            if(!this.HasProp("__Section"))
+                this.__Section := %this.__Class%._Section(this.ptr + 0)
+            return this.__Section
+        }
     }
 
     /**
@@ -166,21 +293,13 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_CRC}
      */
-    crc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    rgbReserved{
+    CRC{
         get {
-            if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 14, Primitive, "char")
-            return this.__rgbReservedProxyArray
+            if(!this.HasProp("__CRC"))
+                this.__CRC := %this.__Class%._CRC(this.ptr + 0)
+            return this.__CRC
         }
     }
 }

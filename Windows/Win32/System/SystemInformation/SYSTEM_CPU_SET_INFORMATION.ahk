@@ -31,99 +31,116 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
         set => NumPut("int", value, this, 4)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _CpuSet extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Id {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Group {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LogicalProcessorIndex {
+            get => NumGet(this, 6, "char")
+            set => NumPut("char", value, this, 6)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CoreIndex {
+            get => NumGet(this, 7, "char")
+            set => NumPut("char", value, this, 7)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastLevelCacheIndex {
+            get => NumGet(this, 8, "char")
+            set => NumPut("char", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NumaNodeIndex {
+            get => NumGet(this, 9, "char")
+            set => NumPut("char", value, this, 9)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EfficiencyClass {
+            get => NumGet(this, 10, "char")
+            set => NumPut("char", value, this, 10)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AllFlags {
+            get => NumGet(this, 11, "char")
+            set => NumPut("char", value, this, 11)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Anonymous {
+            get => NumGet(this, 11, "char")
+            set => NumPut("char", value, this, 11)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SchedulingClass {
+            get => NumGet(this, 12, "char")
+            set => NumPut("char", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AllocationTag {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_CpuSet}
      */
-    Group {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LogicalProcessorIndex {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CoreIndex {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastLevelCacheIndex {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumaNodeIndex {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EfficiencyClass {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AllFlags {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Anonymous {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SchedulingClass {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AllocationTag {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    CpuSet{
+        get {
+            if(!this.HasProp("__CpuSet"))
+                this.__CpuSet := %this.__Class%._CpuSet(this.ptr + 8)
+            return this.__CpuSet
+        }
     }
 }

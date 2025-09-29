@@ -15,6 +15,28 @@ class IORING_HANDLE_REF extends Win32Struct
 
     static packingSize => 8
 
+    class HandleUnion extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        Handle {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Index {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * A value from the [IORING_REF_KIND](ne-ioringapi-ioring_ref_kind.md) enumeration specifying the kind of handle represented by the structure.
      * @type {Integer}
@@ -25,18 +47,14 @@ class IORING_HANDLE_REF extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * The handle to a file if the *Kind* value is IORING_REF_RAW.
+     * @type {HandleUnion}
      */
-    Handle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Index {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := %this.__Class%.HandleUnion(this.ptr + 8)
+            return this.__Handle
+        }
     }
 }

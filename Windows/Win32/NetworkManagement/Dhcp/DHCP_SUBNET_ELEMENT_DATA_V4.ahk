@@ -13,6 +13,52 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
 
     static packingSize => 8
 
+    class DHCP_SUBNET_ELEMENT_UNION_V4 extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<DHCP_IP_RANGE>}
+         */
+        IpRange {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DHCP_HOST_INFO>}
+         */
+        SecondaryHost {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DHCP_IP_RESERVATION_V4>}
+         */
+        ReservedIp {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DHCP_IP_RANGE>}
+         */
+        ExcludeIpRange {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<DHCP_IP_CLUSTER>}
+         */
+        IpUsedCluster {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type">DHCP_SUBNET_ELEMENT_TYPE</a> enumeration value describing the type of element in the subsequent field.
      * @type {Integer}
@@ -23,42 +69,14 @@ class DHCP_SUBNET_ELEMENT_DATA_V4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DHCP_IP_RANGE>}
+     * 
+     * @type {DHCP_SUBNET_ELEMENT_UNION_V4}
      */
-    IpRange {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DHCP_HOST_INFO>}
-     */
-    SecondaryHost {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DHCP_IP_RESERVATION_V4>}
-     */
-    ReservedIp {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DHCP_IP_RANGE>}
-     */
-    ExcludeIpRange {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DHCP_IP_CLUSTER>}
-     */
-    IpUsedCluster {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Element{
+        get {
+            if(!this.HasProp("__Element"))
+                this.__Element := %this.__Class%.DHCP_SUBNET_ELEMENT_UNION_V4(this.ptr + 8)
+            return this.__Element
+        }
     }
 }

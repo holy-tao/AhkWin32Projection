@@ -11,6 +11,36 @@ class AVIFIELDINDEX extends Win32Struct
 
     static packingSize => 8
 
+    class _avifieldindex_entry extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwOffsetField2 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -84,26 +114,13 @@ class AVIFIELDINDEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {Array<_avifieldindex_entry>}
      */
-    dwOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwOffsetField2 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+    aIndex{
+        get {
+            if(!this.HasProp("__aIndexProxyArray"))
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 1, _avifieldindex_entry, "")
+            return this.__aIndexProxyArray
+        }
     }
 }

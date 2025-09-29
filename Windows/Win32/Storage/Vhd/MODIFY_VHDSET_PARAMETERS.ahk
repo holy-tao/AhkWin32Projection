@@ -22,20 +22,45 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _SnapshotPath extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        SnapshotId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SnapshotFilePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    /**
+     * @type {_SnapshotPath}
+     */
+    SnapshotPath{
+        get {
+            if(!this.HasProp("__SnapshotPath"))
+                this.__SnapshotPath := %this.__Class%._SnapshotPath(this.ptr + 8)
+            return this.__SnapshotPath
+        }
+    }
+
     /**
      * @type {Pointer<Guid>}
      */
     SnapshotId {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    SnapshotFilePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
     }
 
     /**

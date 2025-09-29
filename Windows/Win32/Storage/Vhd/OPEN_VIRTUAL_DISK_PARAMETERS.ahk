@@ -54,6 +54,74 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _Version2 extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        GetInfoOnly {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadOnly {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ResiliencyGuid {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _Version3 extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        GetInfoOnly {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadOnly {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ResiliencyGuid {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        SnapshotId {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -63,34 +131,24 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version2}
      */
-    GetInfoOnly {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    Version2{
+        get {
+            if(!this.HasProp("__Version2"))
+                this.__Version2 := %this.__Class%._Version2(this.ptr + 4)
+            return this.__Version2
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version3}
      */
-    ReadOnly {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    ResiliencyGuid {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    SnapshotId {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+    Version3{
+        get {
+            if(!this.HasProp("__Version3"))
+                this.__Version3 := %this.__Class%._Version3(this.ptr + 4)
+            return this.__Version3
+        }
     }
 }

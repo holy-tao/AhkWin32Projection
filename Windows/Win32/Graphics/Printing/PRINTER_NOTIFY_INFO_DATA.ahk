@@ -251,6 +251,28 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
         set => NumPut("uint", value, this, 8)
     }
 
+    class _Data extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cbBuf {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        pBuf {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Array<UInt32>}
      */
@@ -263,18 +285,13 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Data}
      */
-    cbBuf {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pBuf {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Data{
+        get {
+            if(!this.HasProp("__Data"))
+                this.__Data := %this.__Class%._Data(this.ptr + 16)
+            return this.__Data
+        }
     }
 }

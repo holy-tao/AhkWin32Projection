@@ -24,6 +24,58 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _Constant extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RootParameterIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DestOffsetIn32BitValues {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Num32BitValuesToSet {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _IncrementingConstant extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RootParameterIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DestOffsetIn32BitValues {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -33,27 +85,14 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Constant}
      */
-    RootParameterIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DestOffsetIn32BitValues {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Num32BitValuesToSet {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Constant{
+        get {
+            if(!this.HasProp("__Constant"))
+                this.__Constant := %this.__Class%._Constant(this.ptr + 4)
+            return this.__Constant
+        }
     }
 
     /**
@@ -78,5 +117,16 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     UnorderedAccessView {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {_IncrementingConstant}
+     */
+    IncrementingConstant{
+        get {
+            if(!this.HasProp("__IncrementingConstant"))
+                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(this.ptr + 4)
+            return this.__IncrementingConstant
+        }
     }
 }

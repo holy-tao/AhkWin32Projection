@@ -11,36 +11,53 @@ class KSAUDIOMODULE_NOTIFICATION extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    DeviceId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    class _ProviderId extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        DeviceId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ClassId {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        InstanceId {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_ProviderId}
      */
-    ClassId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    InstanceId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    ProviderId{
+        get {
+            if(!this.HasProp("__ProviderId"))
+                this.__ProviderId := %this.__Class%._ProviderId(this.ptr + 0)
+            return this.__ProviderId
+        }
     }
 
     /**

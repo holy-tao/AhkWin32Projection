@@ -56,28 +56,97 @@ class WSACOMPLETION extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    hWnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _WindowMessage extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        hWnd {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        uMsg {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        context {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
+    class _Apc extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<OVERLAPPED>}
+         */
+        lpOverlapped {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
+         */
+        lpfnCompletionProc {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _Port extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<OVERLAPPED>}
+         */
+        lpOverlapped {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        hPort {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer}
+         */
+        Key {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_WindowMessage}
      */
-    uMsg {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    context {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    WindowMessage{
+        get {
+            if(!this.HasProp("__WindowMessage"))
+                this.__WindowMessage := %this.__Class%._WindowMessage(this.ptr + 8)
+            return this.__WindowMessage
+        }
     }
 
     /**
@@ -89,34 +158,24 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OVERLAPPED>}
+     * @type {_Apc}
      */
-    lpOverlapped {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Apc{
+        get {
+            if(!this.HasProp("__Apc"))
+                this.__Apc := %this.__Class%._Apc(this.ptr + 8)
+            return this.__Apc
+        }
     }
 
     /**
-     * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
+     * @type {_Port}
      */
-    lpfnCompletionProc {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    hPort {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Key {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Port{
+        get {
+            if(!this.HasProp("__Port"))
+                this.__Port := %this.__Class%._Port(this.ptr + 8)
+            return this.__Port
+        }
     }
 }

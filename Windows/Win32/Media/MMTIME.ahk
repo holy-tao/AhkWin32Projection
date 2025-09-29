@@ -19,6 +19,71 @@ class MMTIME extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
+    class _smpte extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        hour {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        min {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        sec {
+            get => NumGet(this, 2, "char")
+            set => NumPut("char", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        frame {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        fps {
+            get => NumGet(this, 4, "char")
+            set => NumPut("char", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dummy {
+            get => NumGet(this, 5, "char")
+            set => NumPut("char", value, this, 5)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        pad{
+            get {
+                if(!this.HasProp("__padProxyArray"))
+                    this.__padProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
+                return this.__padProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -52,61 +117,13 @@ class MMTIME extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_smpte}
      */
-    hour {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    min {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sec {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    frame {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    fps {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dummy {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    pad{
+    smpte{
         get {
-            if(!this.HasProp("__padProxyArray"))
-                this.__padProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
-            return this.__padProxyArray
+            if(!this.HasProp("__smpte"))
+                this.__smpte := %this.__Class%._smpte(this.ptr + 4)
+            return this.__smpte
         }
     }
 

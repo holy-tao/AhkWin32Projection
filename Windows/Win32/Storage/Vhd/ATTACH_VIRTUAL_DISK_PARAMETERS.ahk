@@ -25,6 +25,28 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _Version2 extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RestrictedOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RestrictedLength {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -34,18 +56,13 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version2}
      */
-    RestrictedOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RestrictedLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Version2{
+        get {
+            if(!this.HasProp("__Version2"))
+                this.__Version2 := %this.__Class%._Version2(this.ptr + 4)
+            return this.__Version2
+        }
     }
 }

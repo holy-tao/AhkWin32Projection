@@ -39,6 +39,216 @@ class SSVARIANT extends Win32Struct
         set => NumPut("uint", value, this, 8)
     }
 
+    class _NCharVal extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        sActualLength {
+            get => NumGet(this, 0, "short")
+            set => NumPut("short", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        sMaxLength {
+            get => NumGet(this, 2, "short")
+            set => NumPut("short", value, this, 2)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwchNCharVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        rgbReserved{
+            get {
+                if(!this.HasProp("__rgbReservedProxyArray"))
+                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "char")
+                return this.__rgbReservedProxyArray
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwReserved {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwchReserved {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+    }
+
+    class _CharVal extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        sActualLength {
+            get => NumGet(this, 0, "short")
+            set => NumPut("short", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        sMaxLength {
+            get => NumGet(this, 2, "short")
+            set => NumPut("short", value, this, 2)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pchCharVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        rgbReserved{
+            get {
+                if(!this.HasProp("__rgbReservedProxyArray"))
+                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "char")
+                return this.__rgbReservedProxyArray
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwReserved {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwchReserved {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+    }
+
+    class _BinaryVal extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        sActualLength {
+            get => NumGet(this, 0, "short")
+            set => NumPut("short", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        sMaxLength {
+            get => NumGet(this, 2, "short")
+            set => NumPut("short", value, this, 2)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        prgbBinaryVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwReserved {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+    }
+
+    class _UnknownType extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwActualLength {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        rgMetadata{
+            get {
+                if(!this.HasProp("__rgMetadataProxyArray"))
+                    this.__rgMetadataProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
+                return this.__rgMetadataProxyArray
+            }
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pUnknownData {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+    }
+
+    class _BLOBType extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {DBOBJECT}
+         */
+        dbobj{
+            get {
+                if(!this.HasProp("__dbobj"))
+                    this.__dbobj := DBOBJECT(this.ptr + 0)
+                return this.__dbobj
+            }
+        }
+    
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pUnk {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -99,62 +309,25 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_NCharVal}
      */
-    sActualLength {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sMaxLength {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwchNCharVal {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    rgbReserved{
+    NCharVal{
         get {
-            if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 28, 5, Primitive, "char")
-            return this.__rgbReservedProxyArray
+            if(!this.HasProp("__NCharVal"))
+                this.__NCharVal := %this.__Class%._NCharVal(this.ptr + 12)
+            return this.__NCharVal
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_CharVal}
      */
-    dwReserved {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwchReserved {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    pchCharVal {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+    CharVal{
+        get {
+            if(!this.HasProp("__CharVal"))
+                this.__CharVal := %this.__Class%._CharVal(this.ptr + 12)
+            return this.__CharVal
+        }
     }
 
     /**
@@ -188,19 +361,14 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {_BinaryVal}
      */
-    prgbBinaryVal {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwReserved12 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    BinaryVal{
+        get {
+            if(!this.HasProp("__BinaryVal"))
+                this.__BinaryVal := %this.__Class%._BinaryVal(this.ptr + 12)
+            return this.__BinaryVal
+        }
     }
 
     /**
@@ -215,48 +383,24 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_UnknownType}
      */
-    dwActualLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    rgMetadata{
+    UnknownType{
         get {
-            if(!this.HasProp("__rgMetadataProxyArray"))
-                this.__rgMetadataProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__rgMetadataProxyArray
+            if(!this.HasProp("__UnknownType"))
+                this.__UnknownType := %this.__Class%._UnknownType(this.ptr + 12)
+            return this.__UnknownType
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {_BLOBType}
      */
-    pUnknownData {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
-    }
-
-    /**
-     * @type {DBOBJECT}
-     */
-    dbobj{
+    BLOBType{
         get {
-            if(!this.HasProp("__dbobj"))
-                this.__dbobj := DBOBJECT(this.ptr + 12)
-            return this.__dbobj
+            if(!this.HasProp("__BLOBType"))
+                this.__BLOBType := %this.__Class%._BLOBType(this.ptr + 12)
+            return this.__BLOBType
         }
-    }
-
-    /**
-     * @type {Pointer<IUnknown>}
-     */
-    pUnk {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
     }
 }

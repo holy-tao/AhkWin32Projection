@@ -14,6 +14,55 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _DHCP_OPTION_SCOPE_UNION extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        DefaultScopeInfo {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        GlobalScopeInfo {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SubnetScopeInfo {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {DHCP_RESERVED_SCOPE}
+         */
+        ReservedScopeInfo{
+            get {
+                if(!this.HasProp("__ReservedScopeInfo"))
+                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(this.ptr + 0)
+                return this.__ReservedScopeInfo
+            }
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        MScopeInfo {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_option_scope_type">DHCP_OPTION_SCOPE_TYPE</a> enumeration value that defines the scope type of the associated DHCP options, and indicates which of the following fields in the union will be populated.
      * @type {Integer}
@@ -24,45 +73,14 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * 
+     * @type {_DHCP_OPTION_SCOPE_UNION}
      */
-    DefaultScopeInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    GlobalScopeInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SubnetScopeInfo {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {DHCP_RESERVED_SCOPE}
-     */
-    ReservedScopeInfo{
+    ScopeInfo{
         get {
-            if(!this.HasProp("__ReservedScopeInfo"))
-                this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(this.ptr + 8)
-            return this.__ReservedScopeInfo
+            if(!this.HasProp("__ScopeInfo"))
+                this.__ScopeInfo := %this.__Class%._DHCP_OPTION_SCOPE_UNION(this.ptr + 8)
+            return this.__ScopeInfo
         }
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    MScopeInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 }

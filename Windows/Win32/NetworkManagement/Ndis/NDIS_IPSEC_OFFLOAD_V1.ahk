@@ -11,44 +11,61 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    Encapsulation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _Supported extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Encapsulation {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AhEspCombined {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TransportTunnelCombined {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IPv4Options {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Supported}
      */
-    AhEspCombined {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TransportTunnelCombined {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IPv4Options {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    Supported{
+        get {
+            if(!this.HasProp("__Supported"))
+                this.__Supported := %this.__Class%._Supported(this.ptr + 0)
+            return this.__Supported
+        }
     }
 
     /**

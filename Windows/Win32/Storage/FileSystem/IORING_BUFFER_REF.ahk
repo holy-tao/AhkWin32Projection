@@ -16,6 +16,31 @@ class IORING_BUFFER_REF extends Win32Struct
 
     static packingSize => 8
 
+    class BufferUnion extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        Address {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {IORING_REGISTERED_BUFFER}
+         */
+        IndexAndOffset{
+            get {
+                if(!this.HasProp("__IndexAndOffset"))
+                    this.__IndexAndOffset := IORING_REGISTERED_BUFFER(this.ptr + 0)
+                return this.__IndexAndOffset
+            }
+        }
+    
+    }
+
     /**
      * A value from the [IORING_REF_KIND](ne-ioringapi-ioring_ref_kind.md) enumeration specifying the kind of buffer represented by the structure.
      * @type {Integer}
@@ -26,21 +51,14 @@ class IORING_BUFFER_REF extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * 
+     * @type {BufferUnion}
      */
-    Address {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {IORING_REGISTERED_BUFFER}
-     */
-    IndexAndOffset{
+    Buffer{
         get {
-            if(!this.HasProp("__IndexAndOffset"))
-                this.__IndexAndOffset := IORING_REGISTERED_BUFFER(this.ptr + 8)
-            return this.__IndexAndOffset
+            if(!this.HasProp("__Buffer"))
+                this.__Buffer := %this.__Class%.BufferUnion(this.ptr + 8)
+            return this.__Buffer
         }
     }
 }

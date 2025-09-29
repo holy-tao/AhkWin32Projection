@@ -13,12 +13,56 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
 
     static packingSize => 4
 
+    class _PostCreate extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        NotificationMask {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _FileRenamed extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        NotificationMask {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
-     * @type {Integer}
+     * 
+     * @type {_PostCreate}
      */
-    NotificationMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    PostCreate{
+        get {
+            if(!this.HasProp("__PostCreate"))
+                this.__PostCreate := %this.__Class%._PostCreate(this.ptr + 0)
+            return this.__PostCreate
+        }
+    }
+
+    /**
+     * 
+     * @type {_FileRenamed}
+     */
+    FileRenamed{
+        get {
+            if(!this.HasProp("__FileRenamed"))
+                this.__FileRenamed := %this.__Class%._FileRenamed(this.ptr + 0)
+            return this.__FileRenamed
+        }
     }
 
     /**

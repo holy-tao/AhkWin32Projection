@@ -22,139 +22,395 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    class _TransferData extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletionStatus {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        Buffer {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Offset {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Length {
+            get => NumGet(this, 24, "int64")
+            set => NumPut("int64", value, this, 24)
+        }
+    
+    }
+
+    class _RetrieveData extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        Buffer {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Offset {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Length {
+            get => NumGet(this, 24, "int64")
+            set => NumPut("int64", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReturnedLength {
+            get => NumGet(this, 32, "int64")
+            set => NumPut("int64", value, this, 32)
+        }
+    
+    }
+
+    class _AckData extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletionStatus {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Offset {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Length {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+    }
+
+    class _RestartHydration extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<CF_FS_METADATA>}
+         */
+        FsMetadata {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        FileIdentity {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FileIdentityLength {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _TransferPlaceholders extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletionStatus {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PlaceholderTotalCount {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<CF_PLACEHOLDER_CREATE_INFO>}
+         */
+        PlaceholderArray {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PlaceholderCount {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EntriesProcessed {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+    }
+
+    class _AckDehydrate extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletionStatus {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        FileIdentity {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FileIdentityLength {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+    }
+
+    class _AckRename extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletionStatus {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
+    class _AckDelete extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletionStatus {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_TransferData}
      */
-    CompletionStatus {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    TransferData{
+        get {
+            if(!this.HasProp("__TransferData"))
+                this.__TransferData := %this.__Class%._TransferData(this.ptr + 8)
+            return this.__TransferData
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_RetrieveData}
      */
-    Buffer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    RetrieveData{
+        get {
+            if(!this.HasProp("__RetrieveData"))
+                this.__RetrieveData := %this.__Class%._RetrieveData(this.ptr + 8)
+            return this.__RetrieveData
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_AckData}
      */
-    Offset {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+    AckData{
+        get {
+            if(!this.HasProp("__AckData"))
+                this.__AckData := %this.__Class%._AckData(this.ptr + 8)
+            return this.__AckData
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RestartHydration}
      */
-    Length {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
+    RestartHydration{
+        get {
+            if(!this.HasProp("__RestartHydration"))
+                this.__RestartHydration := %this.__Class%._RestartHydration(this.ptr + 8)
+            return this.__RestartHydration
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_TransferPlaceholders}
      */
-    ReturnedLength {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
+    TransferPlaceholders{
+        get {
+            if(!this.HasProp("__TransferPlaceholders"))
+                this.__TransferPlaceholders := %this.__Class%._TransferPlaceholders(this.ptr + 8)
+            return this.__TransferPlaceholders
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_AckDehydrate}
      */
-    Offset1 {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
+    AckDehydrate{
+        get {
+            if(!this.HasProp("__AckDehydrate"))
+                this.__AckDehydrate := %this.__Class%._AckDehydrate(this.ptr + 8)
+            return this.__AckDehydrate
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_AckRename}
      */
-    Length1 {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+    AckRename{
+        get {
+            if(!this.HasProp("__AckRename"))
+                this.__AckRename := %this.__Class%._AckRename(this.ptr + 8)
+            return this.__AckRename
+        }
     }
 
     /**
-     * @type {Pointer<CF_FS_METADATA>}
+     * @type {_AckDelete}
      */
-    FsMetadata {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    FileIdentity {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FileIdentityLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PlaceholderTotalCount {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<CF_PLACEHOLDER_CREATE_INFO>}
-     */
-    PlaceholderArray {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PlaceholderCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EntriesProcessed {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    FileIdentity1 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FileIdentityLength1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    AckDelete{
+        get {
+            if(!this.HasProp("__AckDelete"))
+                this.__AckDelete := %this.__Class%._AckDelete(this.ptr + 8)
+            return this.__AckDelete
+        }
     }
 }

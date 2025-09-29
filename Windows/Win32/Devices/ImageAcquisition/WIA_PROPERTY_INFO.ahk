@@ -27,140 +27,299 @@ class WIA_PROPERTY_INFO extends Win32Struct
         set => NumPut("ushort", value, this, 4)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Min {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    class _Range extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Min {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Nom {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Max {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Inc {
+            get => NumGet(this, 12, "int")
+            set => NumPut("int", value, this, 12)
+        }
+    
+    }
+
+    class _RangeFloat extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Float}
+         */
+        Min {
+            get => NumGet(this, 0, "double")
+            set => NumPut("double", value, this, 0)
+        }
+    
+        /**
+         * @type {Float}
+         */
+        Nom {
+            get => NumGet(this, 8, "double")
+            set => NumPut("double", value, this, 8)
+        }
+    
+        /**
+         * @type {Float}
+         */
+        Max {
+            get => NumGet(this, 16, "double")
+            set => NumPut("double", value, this, 16)
+        }
+    
+        /**
+         * @type {Float}
+         */
+        Inc {
+            get => NumGet(this, 24, "double")
+            set => NumPut("double", value, this, 24)
+        }
+    
+    }
+
+    class _List extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cNumList {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Nom {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pList {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _ListFloat extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cNumList {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Float}
+         */
+        Nom {
+            get => NumGet(this, 8, "double")
+            set => NumPut("double", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        pList {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
+    class _ListGuid extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cNumList {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        Nom {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        pList {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
+    class _ListBStr extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cNumList {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        Nom {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pList {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+    }
+
+    class _Flag extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Nom {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ValidBits {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Range}
      */
-    Nom {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    Range{
+        get {
+            if(!this.HasProp("__Range"))
+                this.__Range := %this.__Class%._Range(this.ptr + 8)
+            return this.__Range
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RangeFloat}
      */
-    Max {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    RangeFloat{
+        get {
+            if(!this.HasProp("__RangeFloat"))
+                this.__RangeFloat := %this.__Class%._RangeFloat(this.ptr + 8)
+            return this.__RangeFloat
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_List}
      */
-    Inc {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    List{
+        get {
+            if(!this.HasProp("__List"))
+                this.__List := %this.__Class%._List(this.ptr + 8)
+            return this.__List
+        }
     }
 
     /**
-     * @type {Float}
+     * @type {_ListFloat}
      */
-    Nom1 {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
+    ListFloat{
+        get {
+            if(!this.HasProp("__ListFloat"))
+                this.__ListFloat := %this.__Class%._ListFloat(this.ptr + 8)
+            return this.__ListFloat
+        }
     }
 
     /**
-     * @type {Float}
+     * @type {_ListGuid}
      */
-    Max1 {
-        get => NumGet(this, 24, "double")
-        set => NumPut("double", value, this, 24)
+    ListGuid{
+        get {
+            if(!this.HasProp("__ListGuid"))
+                this.__ListGuid := %this.__Class%._ListGuid(this.ptr + 8)
+            return this.__ListGuid
+        }
     }
 
     /**
-     * @type {Float}
+     * @type {_ListBStr}
      */
-    Inc1 {
-        get => NumGet(this, 32, "double")
-        set => NumPut("double", value, this, 32)
+    ListBStr{
+        get {
+            if(!this.HasProp("__ListBStr"))
+                this.__ListBStr := %this.__Class%._ListBStr(this.ptr + 8)
+            return this.__ListBStr
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flag}
      */
-    cNumList {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    pList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    Nom12 {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    pList1 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    Nom123 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    pList12 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    Nom1234 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pList123 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Nom12345 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ValidBits {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    Flag{
+        get {
+            if(!this.HasProp("__Flag"))
+                this.__Flag := %this.__Class%._Flag(this.ptr + 8)
+            return this.__Flag
+        }
     }
 
     /**

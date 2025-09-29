@@ -11,6 +11,50 @@ class DEBUG_VALUE extends Win32Struct
 
     static packingSize => 4
 
+    class _I64Parts32 extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LowPart {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HighPart {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _F128Parts64 extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        LowPart {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HighPart {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -167,27 +211,25 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_I64Parts32}
      */
-    LowPart {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    I64Parts32{
+        get {
+            if(!this.HasProp("__I64Parts32"))
+                this.__I64Parts32 := %this.__Class%._I64Parts32(this.ptr + 0)
+            return this.__I64Parts32
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_F128Parts64}
      */
-    HighPart {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HighPart1 {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    F128Parts64{
+        get {
+            if(!this.HasProp("__F128Parts64"))
+                this.__F128Parts64 := %this.__Class%._F128Parts64(this.ptr + 0)
+            return this.__F128Parts64
+        }
     }
 
     /**

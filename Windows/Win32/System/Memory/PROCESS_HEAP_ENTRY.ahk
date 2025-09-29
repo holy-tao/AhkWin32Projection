@@ -191,54 +191,88 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
         set => NumPut("ushort", value, this, 14)
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    hMem {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    class _Block extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        hMem {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        dwReserved{
+            get {
+                if(!this.HasProp("__dwReservedProxyArray"))
+                    this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "uint")
+                return this.__dwReservedProxyArray
+            }
+        }
+    
+    }
+
+    class _Region extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwCommittedSize {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwUnCommittedSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        lpFirstBlock {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        lpLastBlock {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {_Block}
      */
-    dwReserved{
+    Block{
         get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")
-            return this.__dwReservedProxyArray
+            if(!this.HasProp("__Block"))
+                this.__Block := %this.__Class%._Block(this.ptr + 16)
+            return this.__Block
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Region}
      */
-    dwCommittedSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwUnCommittedSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpFirstBlock {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpLastBlock {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    Region{
+        get {
+            if(!this.HasProp("__Region"))
+                this.__Region := %this.__Class%._Region(this.ptr + 16)
+            return this.__Region
+        }
     }
 }

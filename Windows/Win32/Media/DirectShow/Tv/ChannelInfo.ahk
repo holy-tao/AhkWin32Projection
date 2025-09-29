@@ -19,28 +19,45 @@ class ChannelInfo extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    lONID {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    class _DVB extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        lONID {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        lTSID {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        lSID {
+            get => NumGet(this, 8, "int")
+            set => NumPut("int", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_DVB}
      */
-    lTSID {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lSID {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    DVB{
+        get {
+            if(!this.HasProp("__DVB"))
+                this.__DVB := %this.__Class%._DVB(this.ptr + 8)
+            return this.__DVB
+        }
     }
 
     /**

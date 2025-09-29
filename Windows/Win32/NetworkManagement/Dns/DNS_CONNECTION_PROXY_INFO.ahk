@@ -43,59 +43,109 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         set => NumPut("int", value, this, 20)
     }
 
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwszServer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    class _DNS_CONNECTION_PROXY_INFO_CONFIG extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszServer {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszUsername {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszPassword {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszException {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszExtraInfo {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Port {
+            get => NumGet(this, 40, "ushort")
+            set => NumPut("ushort", value, this, 40)
+        }
+    
+    }
+
+    class _DNS_CONNECTION_PROXY_INFO_SCRIPT extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszScript {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszUsername {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        pwszPassword {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_DNS_CONNECTION_PROXY_INFO_CONFIG}
      */
-    pwszUsername {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    Config{
+        get {
+            if(!this.HasProp("__Config"))
+                this.__Config := %this.__Class%._DNS_CONNECTION_PROXY_INFO_CONFIG(this.ptr + 24)
+            return this.__Config
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_DNS_CONNECTION_PROXY_INFO_SCRIPT}
      */
-    pwszPassword {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwszException {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwszExtraInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Port {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    pwszScript {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Script{
+        get {
+            if(!this.HasProp("__Script"))
+                this.__Script := %this.__Class%._DNS_CONNECTION_PROXY_INFO_SCRIPT(this.ptr + 24)
+            return this.__Script
+        }
     }
 }

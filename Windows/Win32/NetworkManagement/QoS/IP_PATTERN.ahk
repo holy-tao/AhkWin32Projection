@@ -54,44 +54,78 @@ class IP_PATTERN extends Win32Struct
         set => NumPut("uint", value, this, 12)
     }
 
-    /**
-     * @type {Integer}
-     */
-    s_srcport {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+    class _S_un_ports extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        s_srcport {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        s_dstport {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+    }
+
+    class _S_un_icmp extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        s_type {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        s_code {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        filler {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_S_un_ports}
      */
-    s_dstport {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+    S_un_ports{
+        get {
+            if(!this.HasProp("__S_un_ports"))
+                this.__S_un_ports := %this.__Class%._S_un_ports(this.ptr + 16)
+            return this.__S_un_ports
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_S_un_icmp}
      */
-    s_type {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    s_code {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    filler {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+    S_un_icmp{
+        get {
+            if(!this.HasProp("__S_un_icmp"))
+                this.__S_un_icmp := %this.__Class%._S_un_icmp(this.ptr + 16)
+            return this.__S_un_icmp
+        }
     }
 
     /**

@@ -11,59 +11,247 @@ class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    Encapsulation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _IPv4Transmit extends Win32Struct {
+        static sizeof => 96
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Encapsulation {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpOptionsSupported {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpOptionsSupported {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpChecksum {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UdpChecksum {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpChecksum {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _IPv4Receive extends Win32Struct {
+        static sizeof => 96
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Encapsulation {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpOptionsSupported {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpOptionsSupported {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpChecksum {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UdpChecksum {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpChecksum {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _IPv6Transmit extends Win32Struct {
+        static sizeof => 96
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Encapsulation {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpExtensionHeadersSupported {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpOptionsSupported {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpChecksum {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UdpChecksum {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+    }
+
+    class _IPv6Receive extends Win32Struct {
+        static sizeof => 96
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Encapsulation {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IpExtensionHeadersSupported {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpOptionsSupported {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TcpChecksum {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UdpChecksum {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_IPv4Transmit}
      */
-    IpOptionsSupported {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    IPv4Transmit{
+        get {
+            if(!this.HasProp("__IPv4Transmit"))
+                this.__IPv4Transmit := %this.__Class%._IPv4Transmit(this.ptr + 0)
+            return this.__IPv4Transmit
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_IPv4Receive}
      */
-    TcpOptionsSupported {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    IPv4Receive{
+        get {
+            if(!this.HasProp("__IPv4Receive"))
+                this.__IPv4Receive := %this.__Class%._IPv4Receive(this.ptr + 24)
+            return this.__IPv4Receive
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_IPv6Transmit}
      */
-    TcpChecksum {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    IPv6Transmit{
+        get {
+            if(!this.HasProp("__IPv6Transmit"))
+                this.__IPv6Transmit := %this.__Class%._IPv6Transmit(this.ptr + 48)
+            return this.__IPv6Transmit
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_IPv6Receive}
      */
-    UdpChecksum {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IpChecksum {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IpExtensionHeadersSupported {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    IPv6Receive{
+        get {
+            if(!this.HasProp("__IPv6Receive"))
+                this.__IPv6Receive := %this.__Class%._IPv6Receive(this.ptr + 72)
+            return this.__IPv6Receive
+        }
     }
 }

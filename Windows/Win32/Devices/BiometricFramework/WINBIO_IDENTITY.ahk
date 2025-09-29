@@ -42,6 +42,31 @@ class WINBIO_IDENTITY extends Win32Struct
         set => NumPut("uint", value, this, 0)
     }
 
+    class _AccountSid extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Size {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Data{
+            get {
+                if(!this.HasProp("__DataProxyArray"))
+                    this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 68, Primitive, "char")
+                return this.__DataProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -67,21 +92,13 @@ class WINBIO_IDENTITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_AccountSid}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Data{
+    AccountSid{
         get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 68, Primitive, "char")
-            return this.__DataProxyArray
+            if(!this.HasProp("__AccountSid"))
+                this.__AccountSid := %this.__Class%._AccountSid(this.ptr + 4)
+            return this.__AccountSid
         }
     }
 

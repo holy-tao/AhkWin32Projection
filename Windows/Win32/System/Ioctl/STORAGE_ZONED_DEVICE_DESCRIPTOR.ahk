@@ -44,47 +44,81 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
         set => NumPut("uint", value, this, 12)
     }
 
-    /**
-     * @type {Integer}
-     */
-    MaxOpenZoneCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    class _SequentialRequiredZone extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        MaxOpenZoneCount {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UnrestrictedRead {
+            get => NumGet(this, 4, "char")
+            set => NumPut("char", value, this, 4)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Reserved{
+            get {
+                if(!this.HasProp("__ReservedProxyArray"))
+                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
+                return this.__ReservedProxyArray
+            }
+        }
+    
+    }
+
+    class _SequentialPreferredZone extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        OptimalOpenZoneCount {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_SequentialRequiredZone}
      */
-    UnrestrictedRead {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Reserved{
+    SequentialRequiredZone{
         get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
-            return this.__ReservedProxyArray
+            if(!this.HasProp("__SequentialRequiredZone"))
+                this.__SequentialRequiredZone := %this.__Class%._SequentialRequiredZone(this.ptr + 16)
+            return this.__SequentialRequiredZone
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SequentialPreferredZone}
      */
-    OptimalOpenZoneCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    SequentialPreferredZone{
+        get {
+            if(!this.HasProp("__SequentialPreferredZone"))
+                this.__SequentialPreferredZone := %this.__Class%._SequentialPreferredZone(this.ptr + 16)
+            return this.__SequentialPreferredZone
+        }
     }
 
     /**

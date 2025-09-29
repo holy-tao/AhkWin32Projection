@@ -35,63 +35,97 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
         set => NumPut("int", value, this, 8)
     }
 
-    /**
-     * @type {Integer}
-     */
-    SenseKey {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    class _ScsiSenseKey extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        SenseKey {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ASC {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ASCQ {
+            get => NumGet(this, 2, "char")
+            set => NumPut("char", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
+    }
+
+    class _NVDIMM_N extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        CriticalHealth {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        ModuleHealth{
+            get {
+                if(!this.HasProp("__ModuleHealthProxyArray"))
+                    this.__ModuleHealthProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
+                return this.__ModuleHealthProxyArray
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ErrorThresholdStatus {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ScsiSenseKey}
      */
-    ASC {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ASCQ {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CriticalHealth {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    ModuleHealth{
+    ScsiSenseKey{
         get {
-            if(!this.HasProp("__ModuleHealthProxyArray"))
-                this.__ModuleHealthProxyArray := Win32FixedArray(this.ptr + 13, 2, Primitive, "char")
-            return this.__ModuleHealthProxyArray
+            if(!this.HasProp("__ScsiSenseKey"))
+                this.__ScsiSenseKey := %this.__Class%._ScsiSenseKey(this.ptr + 12)
+            return this.__ScsiSenseKey
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_NVDIMM_N}
      */
-    ErrorThresholdStatus {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
+    NVDIMM_N{
+        get {
+            if(!this.HasProp("__NVDIMM_N"))
+                this.__NVDIMM_N := %this.__Class%._NVDIMM_N(this.ptr + 12)
+            return this.__NVDIMM_N
+        }
     }
 
     /**

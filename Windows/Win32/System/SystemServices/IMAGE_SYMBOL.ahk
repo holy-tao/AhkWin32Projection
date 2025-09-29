@@ -11,6 +11,28 @@ class IMAGE_SYMBOL extends Win32Struct
 
     static packingSize => 8
 
+    class _Name extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 2
+
+        /**
+         * @type {Integer}
+         */
+        Short {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Long {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
     /**
      * @type {Array<Byte>}
      */
@@ -23,19 +45,14 @@ class IMAGE_SYMBOL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Name}
      */
-    Short {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Long {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := %this.__Class%._Name(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**

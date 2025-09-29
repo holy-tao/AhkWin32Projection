@@ -35,75 +35,109 @@ class READER_SEL_REQUEST extends Win32Struct
         set => NumPut("int", value, this, 8)
     }
 
-    /**
-     * @type {Integer}
-     */
-    cbReaderNameOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    class _ReaderAndContainerParameter extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cbReaderNameOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cchReaderNameLength {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbContainerNameOffset {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cchContainerNameLength {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwDesiredCardModuleVersion {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwCspFlags {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
+    class _SerialNumberParameter extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cbSerialNumberOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        cbSerialNumberLength {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwDesiredCardModuleVersion {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ReaderAndContainerParameter}
      */
-    cchReaderNameLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    ReaderAndContainerParameter{
+        get {
+            if(!this.HasProp("__ReaderAndContainerParameter"))
+                this.__ReaderAndContainerParameter := %this.__Class%._ReaderAndContainerParameter(this.ptr + 16)
+            return this.__ReaderAndContainerParameter
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SerialNumberParameter}
      */
-    cbContainerNameOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cchContainerNameLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDesiredCardModuleVersion {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwCspFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbSerialNumberOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbSerialNumberLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDesiredCardModuleVersion1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    SerialNumberParameter{
+        get {
+            if(!this.HasProp("__SerialNumberParameter"))
+                this.__SerialNumberParameter := %this.__Class%._SerialNumberParameter(this.ptr + 16)
+            return this.__SerialNumberParameter
+        }
     }
 }

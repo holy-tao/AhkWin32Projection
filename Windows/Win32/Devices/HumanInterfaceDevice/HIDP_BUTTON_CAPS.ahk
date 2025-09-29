@@ -126,131 +126,165 @@ class HIDP_BUTTON_CAPS extends Win32Struct
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    UsageMin {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
+    class _Range extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        UsageMin {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UsageMax {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        StringMin {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        StringMax {
+            get => NumGet(this, 6, "ushort")
+            set => NumPut("ushort", value, this, 6)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DesignatorMin {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DesignatorMax {
+            get => NumGet(this, 10, "ushort")
+            set => NumPut("ushort", value, this, 10)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataIndexMin {
+            get => NumGet(this, 12, "ushort")
+            set => NumPut("ushort", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataIndexMax {
+            get => NumGet(this, 14, "ushort")
+            set => NumPut("ushort", value, this, 14)
+        }
+    
+    }
+
+    class _NotRange extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Usage {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved1 {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        StringIndex {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved2 {
+            get => NumGet(this, 6, "ushort")
+            set => NumPut("ushort", value, this, 6)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DesignatorIndex {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved3 {
+            get => NumGet(this, 10, "ushort")
+            set => NumPut("ushort", value, this, 10)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataIndex {
+            get => NumGet(this, 12, "ushort")
+            set => NumPut("ushort", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved4 {
+            get => NumGet(this, 14, "ushort")
+            set => NumPut("ushort", value, this, 14)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Range}
      */
-    UsageMax {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
+    Range{
+        get {
+            if(!this.HasProp("__Range"))
+                this.__Range := %this.__Class%._Range(this.ptr + 56)
+            return this.__Range
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_NotRange}
      */
-    StringMin {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StringMax {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DesignatorMin {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DesignatorMax {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataIndexMin {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataIndexMax {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Usage {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StringIndex {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved21 {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DesignatorIndex {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataIndex {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved4 {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
+    NotRange{
+        get {
+            if(!this.HasProp("__NotRange"))
+                this.__NotRange := %this.__Class%._NotRange(this.ptr + 56)
+            return this.__NotRange
+        }
     }
 }

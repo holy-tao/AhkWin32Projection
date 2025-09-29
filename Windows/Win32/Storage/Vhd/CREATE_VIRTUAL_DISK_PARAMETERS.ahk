@@ -53,180 +53,455 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    UniqueId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    class _Version1 extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        UniqueId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BlockSizeInBytes {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SectorSizeInBytes {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ParentPath {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourcePath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+    }
+
+    class _Version2 extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        UniqueId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BlockSizeInBytes {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SectorSizeInBytes {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PhysicalSectorSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ParentPath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourcePath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OpenFlags {
+            get => NumGet(this, 48, "int")
+            set => NumPut("int", value, this, 48)
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        ParentVirtualStorageType{
+            get {
+                if(!this.HasProp("__ParentVirtualStorageType"))
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 56)
+                return this.__ParentVirtualStorageType
+            }
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        SourceVirtualStorageType{
+            get {
+                if(!this.HasProp("__SourceVirtualStorageType"))
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 72)
+                return this.__SourceVirtualStorageType
+            }
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ResiliencyGuid {
+            get => NumGet(this, 88, "ptr")
+            set => NumPut("ptr", value, this, 88)
+        }
+    
+    }
+
+    class _Version3 extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        UniqueId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BlockSizeInBytes {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SectorSizeInBytes {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PhysicalSectorSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ParentPath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourcePath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OpenFlags {
+            get => NumGet(this, 48, "int")
+            set => NumPut("int", value, this, 48)
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        ParentVirtualStorageType{
+            get {
+                if(!this.HasProp("__ParentVirtualStorageType"))
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 56)
+                return this.__ParentVirtualStorageType
+            }
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        SourceVirtualStorageType{
+            get {
+                if(!this.HasProp("__SourceVirtualStorageType"))
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 72)
+                return this.__SourceVirtualStorageType
+            }
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ResiliencyGuid {
+            get => NumGet(this, 88, "ptr")
+            set => NumPut("ptr", value, this, 88)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourceLimitPath {
+            get => NumGet(this, 96, "ptr")
+            set => NumPut("ptr", value, this, 96)
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        BackingStorageType{
+            get {
+                if(!this.HasProp("__BackingStorageType"))
+                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 104)
+                return this.__BackingStorageType
+            }
+        }
+    
+    }
+
+    class _Version4 extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        UniqueId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BlockSizeInBytes {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SectorSizeInBytes {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PhysicalSectorSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ParentPath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourcePath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OpenFlags {
+            get => NumGet(this, 48, "int")
+            set => NumPut("int", value, this, 48)
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        ParentVirtualStorageType{
+            get {
+                if(!this.HasProp("__ParentVirtualStorageType"))
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 56)
+                return this.__ParentVirtualStorageType
+            }
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        SourceVirtualStorageType{
+            get {
+                if(!this.HasProp("__SourceVirtualStorageType"))
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 72)
+                return this.__SourceVirtualStorageType
+            }
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ResiliencyGuid {
+            get => NumGet(this, 88, "ptr")
+            set => NumPut("ptr", value, this, 88)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        SourceLimitPath {
+            get => NumGet(this, 96, "ptr")
+            set => NumPut("ptr", value, this, 96)
+        }
+    
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        BackingStorageType{
+            get {
+                if(!this.HasProp("__BackingStorageType"))
+                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 104)
+                return this.__BackingStorageType
+            }
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        PmemAddressAbstractionType {
+            get => NumGet(this, 120, "ptr")
+            set => NumPut("ptr", value, this, 120)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataAlignment {
+            get => NumGet(this, 128, "uint")
+            set => NumPut("uint", value, this, 128)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version1}
      */
-    MaximumSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BlockSizeInBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SectorSizeInBytes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ParentPath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    SourcePath {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PhysicalSectorSizeInBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ParentPath1 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    SourcePath1 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    OpenFlags {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
-
-    /**
-     * @type {VIRTUAL_STORAGE_TYPE}
-     */
-    ParentVirtualStorageType{
+    Version1{
         get {
-            if(!this.HasProp("__ParentVirtualStorageType"))
-                this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 64)
-            return this.__ParentVirtualStorageType
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+            return this.__Version1
         }
     }
 
     /**
-     * @type {VIRTUAL_STORAGE_TYPE}
+     * @type {_Version2}
      */
-    SourceVirtualStorageType{
+    Version2{
         get {
-            if(!this.HasProp("__SourceVirtualStorageType"))
-                this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 80)
-            return this.__SourceVirtualStorageType
+            if(!this.HasProp("__Version2"))
+                this.__Version2 := %this.__Class%._Version2(this.ptr + 8)
+            return this.__Version2
         }
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_Version3}
      */
-    ResiliencyGuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ParentPath12 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    SourcePath12 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    SourceLimitPath {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
-
-    /**
-     * @type {VIRTUAL_STORAGE_TYPE}
-     */
-    BackingStorageType{
+    Version3{
         get {
-            if(!this.HasProp("__BackingStorageType"))
-                this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 112)
-            return this.__BackingStorageType
+            if(!this.HasProp("__Version3"))
+                this.__Version3 := %this.__Class%._Version3(this.ptr + 8)
+            return this.__Version3
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {_Version4}
      */
-    ParentPath123 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    SourcePath123 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    PmemAddressAbstractionType {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataAlignment {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+    Version4{
+        get {
+            if(!this.HasProp("__Version4"))
+                this.__Version4 := %this.__Class%._Version4(this.ptr + 8)
+            return this.__Version4
+        }
     }
 }

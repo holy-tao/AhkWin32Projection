@@ -18,6 +18,23 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
 
     static packingSize => 8
 
+    class _GenericReparseBuffer extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Array<Byte>}
+         */
+        DataBuffer{
+            get {
+                if(!this.HasProp("__DataBufferProxyArray"))
+                    this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
+                return this.__DataBufferProxyArray
+            }
+        }
+    
+    }
+
     /**
      * The reparse point tag. This member identifies the structure of the user-defined reparse data. For more 
      *       information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/reparse-point-tags">Reparse Point Tags</a>.
@@ -61,13 +78,14 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * 
+     * @type {_GenericReparseBuffer}
      */
-    DataBuffer{
+    GenericReparseBuffer{
         get {
-            if(!this.HasProp("__DataBufferProxyArray"))
-                this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__DataBufferProxyArray
+            if(!this.HasProp("__GenericReparseBuffer"))
+                this.__GenericReparseBuffer := %this.__Class%._GenericReparseBuffer(this.ptr + 16)
+            return this.__GenericReparseBuffer
         }
     }
 }

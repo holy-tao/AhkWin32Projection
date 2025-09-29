@@ -13,36 +13,54 @@ class LINEAGENTGROUPENTRY extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    dwGroupID1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _GroupID extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwGroupID1 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwGroupID2 {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwGroupID3 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwGroupID4 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_GroupID}
      */
-    dwGroupID2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwGroupID3 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwGroupID4 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    GroupID{
+        get {
+            if(!this.HasProp("__GroupID"))
+                this.__GroupID := %this.__Class%._GroupID(this.ptr + 0)
+            return this.__GroupID
+        }
     }
 
     /**

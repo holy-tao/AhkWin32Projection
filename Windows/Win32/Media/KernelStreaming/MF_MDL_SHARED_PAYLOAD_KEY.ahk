@@ -11,28 +11,45 @@ class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    pHandle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _combined extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        pHandle {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        fHandle {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        uPayload {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_combined}
      */
-    fHandle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uPayload {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    combined{
+        get {
+            if(!this.HasProp("__combined"))
+                this.__combined := %this.__Class%._combined(this.ptr + 0)
+            return this.__combined
+        }
     }
 
     /**

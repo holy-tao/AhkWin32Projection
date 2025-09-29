@@ -12,6 +12,28 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
 
     static packingSize => 8
 
+    class _MaxFrameRate extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Numerator {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Denominator {
+            get => NumGet(this, 4, "int")
+            set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
     /**
      * @type {SIZE}
      */
@@ -24,19 +46,14 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     }
 
     /**
-     * @type {Integer}
+     * @type {_MaxFrameRate}
      */
-    Numerator {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Denominator {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    MaxFrameRate{
+        get {
+            if(!this.HasProp("__MaxFrameRate"))
+                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(this.ptr + 8)
+            return this.__MaxFrameRate
+        }
     }
 
     /**

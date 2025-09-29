@@ -11,6 +11,36 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
 
     static packingSize => 8
 
+    class _FHSS extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        uHopPattern {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        uHopSet {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        uDwellTime {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,26 +50,13 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FHSS}
      */
-    uHopPattern {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uHopSet {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uDwellTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    FHSS{
+        get {
+            if(!this.HasProp("__FHSS"))
+                this.__FHSS := %this.__Class%._FHSS(this.ptr + 0)
+            return this.__FHSS
+        }
     }
 }

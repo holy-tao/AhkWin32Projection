@@ -51,12 +51,43 @@ class CM_NOTIFY_FILTER extends Win32Struct
         set => NumPut("uint", value, this, 12)
     }
 
+    class _DeviceInterface extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        ClassGuid {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _DeviceInstance extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {String}
+         */
+        InstanceId {
+            get => StrGet(this.ptr + 0, 199, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 199, "UTF-16")
+        }
+    
+    }
+
     /**
-     * @type {Pointer<Guid>}
+     * @type {_DeviceInterface}
      */
-    ClassGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DeviceInterface{
+        get {
+            if(!this.HasProp("__DeviceInterface"))
+                this.__DeviceInterface := %this.__Class%._DeviceInterface(this.ptr + 16)
+            return this.__DeviceInterface
+        }
     }
 
     /**
@@ -68,11 +99,14 @@ class CM_NOTIFY_FILTER extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {_DeviceInstance}
      */
-    InstanceId {
-        get => StrGet(this.ptr + 16, 199, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 199, "UTF-16")
+    DeviceInstance{
+        get {
+            if(!this.HasProp("__DeviceInstance"))
+                this.__DeviceInstance := %this.__Class%._DeviceInstance(this.ptr + 16)
+            return this.__DeviceInstance
+        }
     }
 
     /**

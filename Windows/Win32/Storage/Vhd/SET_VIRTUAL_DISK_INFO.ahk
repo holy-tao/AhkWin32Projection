@@ -25,6 +25,50 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _ParentPathWithDepthInfo extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ChildDepth {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ParentFilePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _ParentLocator extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        LinkageId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        ParentFilePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Pointer<Char>}
      */
@@ -42,19 +86,14 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ParentPathWithDepthInfo}
      */
-    ChildDepth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ParentFilePath1 {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    ParentPathWithDepthInfo{
+        get {
+            if(!this.HasProp("__ParentPathWithDepthInfo"))
+                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(this.ptr + 4)
+            return this.__ParentPathWithDepthInfo
+        }
     }
 
     /**
@@ -82,18 +121,13 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_ParentLocator}
      */
-    LinkageId {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    ParentFilePath12 {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    ParentLocator{
+        get {
+            if(!this.HasProp("__ParentLocator"))
+                this.__ParentLocator := %this.__Class%._ParentLocator(this.ptr + 4)
+            return this.__ParentLocator
+        }
     }
 }

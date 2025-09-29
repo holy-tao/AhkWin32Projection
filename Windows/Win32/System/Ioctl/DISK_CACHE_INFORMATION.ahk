@@ -76,27 +76,77 @@ class DISK_CACHE_INFORMATION extends Win32Struct
         set => NumPut("char", value, this, 14)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Minimum {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+    class _ScalarPrefetch extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 6
+
+        /**
+         * @type {Integer}
+         */
+        Minimum {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Maximum {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaximumBlocks {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+    }
+
+    class _BlockPrefetch extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 6
+
+        /**
+         * @type {Integer}
+         */
+        Minimum {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Maximum {
+            get => NumGet(this, 2, "ushort")
+            set => NumPut("ushort", value, this, 2)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ScalarPrefetch}
      */
-    Maximum {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+    ScalarPrefetch{
+        get {
+            if(!this.HasProp("__ScalarPrefetch"))
+                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(this.ptr + 16)
+            return this.__ScalarPrefetch
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_BlockPrefetch}
      */
-    MaximumBlocks {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+    BlockPrefetch{
+        get {
+            if(!this.HasProp("__BlockPrefetch"))
+                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(this.ptr + 16)
+            return this.__BlockPrefetch
+        }
     }
 }

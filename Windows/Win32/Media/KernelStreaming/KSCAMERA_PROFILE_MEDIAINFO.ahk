@@ -11,36 +11,70 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    X {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _Resolution extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        X {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Y {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _MaxFrameRate extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Numerator {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Denominator {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Resolution}
      */
-    Y {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Resolution{
+        get {
+            if(!this.HasProp("__Resolution"))
+                this.__Resolution := %this.__Class%._Resolution(this.ptr + 0)
+            return this.__Resolution
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_MaxFrameRate}
      */
-    Numerator {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Denominator {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    MaxFrameRate{
+        get {
+            if(!this.HasProp("__MaxFrameRate"))
+                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(this.ptr + 8)
+            return this.__MaxFrameRate
+        }
     }
 
     /**

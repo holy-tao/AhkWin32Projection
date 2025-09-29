@@ -19,6 +19,28 @@ class PrintPropertyValue extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _propertyBlob extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        cbBuf {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        pBuf {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -52,18 +74,13 @@ class PrintPropertyValue extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_propertyBlob}
      */
-    cbBuf {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pBuf {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+    propertyBlob{
+        get {
+            if(!this.HasProp("__propertyBlob"))
+                this.__propertyBlob := %this.__Class%._propertyBlob(this.ptr + 4)
+            return this.__propertyBlob
+        }
     }
 }

@@ -42,6 +42,28 @@ class WINBIO_BIR_HEADER extends Win32Struct
 
     static packingSize => 8
 
+    class _ValidityPeriod extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        BeginDate {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EndDate {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+    }
+
     /**
      * Bitmask that specifies which fields in this structure are valid. For more information, see [**WINBIO\_BIR\_FIELD Constants**](winbio-bir-field-constants.md).
      * @type {Integer}
@@ -150,19 +172,15 @@ class WINBIO_BIR_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * The period for which the BIR is valid.
+     * @type {_ValidityPeriod}
      */
-    BeginDate {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EndDate {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
+    ValidityPeriod{
+        get {
+            if(!this.HasProp("__ValidityPeriod"))
+                this.__ValidityPeriod := %this.__Class%._ValidityPeriod(this.ptr + 24)
+            return this.__ValidityPeriod
+        }
     }
 
     /**

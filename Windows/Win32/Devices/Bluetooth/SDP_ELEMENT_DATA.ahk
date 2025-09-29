@@ -57,6 +57,94 @@ class SDP_ELEMENT_DATA extends Win32Struct
         set => NumPut("int", value, this, 4)
     }
 
+    class _string extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Byte>}
+         */
+        value {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        length {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _url extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Byte>}
+         */
+        value {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        length {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _sequence extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Byte>}
+         */
+        value {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        length {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _alternative extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Byte>}
+         */
+        value {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        length {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
     /**
      * @type {SDP_LARGE_INTEGER_16}
      */
@@ -176,18 +264,46 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {_string}
      */
-    value {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    string{
+        get {
+            if(!this.HasProp("__string"))
+                this.__string := %this.__Class%._string(this.ptr + 8)
+            return this.__string
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_url}
      */
-    length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    url{
+        get {
+            if(!this.HasProp("__url"))
+                this.__url := %this.__Class%._url(this.ptr + 8)
+            return this.__url
+        }
+    }
+
+    /**
+     * @type {_sequence}
+     */
+    sequence{
+        get {
+            if(!this.HasProp("__sequence"))
+                this.__sequence := %this.__Class%._sequence(this.ptr + 8)
+            return this.__sequence
+        }
+    }
+
+    /**
+     * @type {_alternative}
+     */
+    alternative{
+        get {
+            if(!this.HasProp("__alternative"))
+                this.__alternative := %this.__Class%._alternative(this.ptr + 8)
+            return this.__alternative
+        }
     }
 }

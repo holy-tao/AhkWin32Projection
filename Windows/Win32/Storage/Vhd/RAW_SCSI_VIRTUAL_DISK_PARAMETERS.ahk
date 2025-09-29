@@ -22,75 +22,92 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    RSVDHandle {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    class _Version1 extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RSVDHandle {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataIn {
+            get => NumGet(this, 4, "char")
+            set => NumPut("char", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CdbLength {
+            get => NumGet(this, 5, "char")
+            set => NumPut("char", value, this, 5)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SenseInfoLength {
+            get => NumGet(this, 6, "char")
+            set => NumPut("char", value, this, 6)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SrbFlags {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DataTransferLength {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Pointer<Void>}
+         */
+        DataBuffer {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        SenseInfo {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
+        }
+    
+        /**
+         * @type {Pointer<Byte>}
+         */
+        Cdb {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version1}
      */
-    DataIn {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CdbLength {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SenseInfoLength {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SrbFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataTransferLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    DataBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    SenseInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    Cdb {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    Version1{
+        get {
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+            return this.__Version1
+        }
     }
 }

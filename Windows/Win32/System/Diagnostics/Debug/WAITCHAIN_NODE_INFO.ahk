@@ -31,59 +31,93 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
         set => NumPut("int", value, this, 4)
     }
 
-    /**
-     * @type {String}
-     */
-    ObjectName {
-        get => StrGet(this.ptr + 8, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 127, "UTF-16")
+    class _LockObject extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {String}
+         */
+        ObjectName {
+            get => StrGet(this.ptr + 0, 127, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 127, "UTF-16")
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Timeout {
+            get => NumGet(this, 256, "int64")
+            set => NumPut("int64", value, this, 256)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Alertable {
+            get => NumGet(this, 264, "int")
+            set => NumPut("int", value, this, 264)
+        }
+    
+    }
+
+    class _ThreadObject extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ProcessId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ThreadId {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WaitTime {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ContextSwitches {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_LockObject}
      */
-    Timeout {
-        get => NumGet(this, 264, "int64")
-        set => NumPut("int64", value, this, 264)
+    LockObject{
+        get {
+            if(!this.HasProp("__LockObject"))
+                this.__LockObject := %this.__Class%._LockObject(this.ptr + 8)
+            return this.__LockObject
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ThreadObject}
      */
-    Alertable {
-        get => NumGet(this, 272, "int")
-        set => NumPut("int", value, this, 272)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ThreadId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    WaitTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ContextSwitches {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    ThreadObject{
+        get {
+            if(!this.HasProp("__ThreadObject"))
+                this.__ThreadObject := %this.__Class%._ThreadObject(this.ptr + 8)
+            return this.__ThreadObject
+        }
     }
 }

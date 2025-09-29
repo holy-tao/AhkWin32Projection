@@ -35,36 +35,122 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    IsReliableWriteEnabled {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    class _CharacteristicExtendedProperties extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        IsReliableWriteEnabled {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IsAuxiliariesWritable {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+    }
+
+    class _ClientCharacteristicConfiguration extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        IsSubscribeToNotification {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IsSubscribeToIndication {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+    }
+
+    class _CharacteristicFormat extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Format {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Exponent {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {BTH_LE_UUID}
+         */
+        Unit{
+            get {
+                if(!this.HasProp("__Unit"))
+                    this.__Unit := BTH_LE_UUID(this.ptr + 4)
+                return this.__Unit
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NameSpace {
+            get => NumGet(this, 8, "char")
+            set => NumPut("char", value, this, 8)
+        }
+    
+        /**
+         * @type {BTH_LE_UUID}
+         */
+        Description{
+            get {
+                if(!this.HasProp("__Description"))
+                    this.__Description := BTH_LE_UUID(this.ptr + 12)
+                return this.__Description
+            }
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_CharacteristicExtendedProperties}
      */
-    IsAuxiliariesWritable {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    CharacteristicExtendedProperties{
+        get {
+            if(!this.HasProp("__CharacteristicExtendedProperties"))
+                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(this.ptr + 8)
+            return this.__CharacteristicExtendedProperties
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ClientCharacteristicConfiguration}
      */
-    IsSubscribeToNotification {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IsSubscribeToIndication {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    ClientCharacteristicConfiguration{
+        get {
+            if(!this.HasProp("__ClientCharacteristicConfiguration"))
+                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(this.ptr + 8)
+            return this.__ClientCharacteristicConfiguration
+        }
     }
 
     /**
@@ -76,48 +162,13 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_CharacteristicFormat}
      */
-    Format {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Exponent {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
-
-    /**
-     * @type {BTH_LE_UUID}
-     */
-    Unit{
+    CharacteristicFormat{
         get {
-            if(!this.HasProp("__Unit"))
-                this.__Unit := BTH_LE_UUID(this.ptr + 12)
-            return this.__Unit
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NameSpace {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {BTH_LE_UUID}
-     */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := BTH_LE_UUID(this.ptr + 20)
-            return this.__Description
+            if(!this.HasProp("__CharacteristicFormat"))
+                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(this.ptr + 8)
+            return this.__CharacteristicFormat
         }
     }
 

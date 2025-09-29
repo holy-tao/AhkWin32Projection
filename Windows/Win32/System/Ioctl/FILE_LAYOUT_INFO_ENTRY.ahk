@@ -11,44 +11,61 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    CreationTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    class _BasicInformation extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        CreationTime {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastAccessTime {
+            get => NumGet(this, 8, "int64")
+            set => NumPut("int64", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastWriteTime {
+            get => NumGet(this, 16, "int64")
+            set => NumPut("int64", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ChangeTime {
+            get => NumGet(this, 24, "int64")
+            set => NumPut("int64", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FileAttributes {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_BasicInformation}
      */
-    LastAccessTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastWriteTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ChangeTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FileAttributes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    BasicInformation{
+        get {
+            if(!this.HasProp("__BasicInformation"))
+                this.__BasicInformation := %this.__Class%._BasicInformation(this.ptr + 0)
+            return this.__BasicInformation
+        }
     }
 
     /**

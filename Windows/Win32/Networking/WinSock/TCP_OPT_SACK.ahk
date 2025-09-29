@@ -11,6 +11,28 @@ class TCP_OPT_SACK extends Win32Struct
 
     static packingSize => 8
 
+    class tcp_opt_sack_block extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Left {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Right {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -28,18 +50,13 @@ class TCP_OPT_SACK extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {Array<tcp_opt_sack_block>}
      */
-    Left {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Right {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Block{
+        get {
+            if(!this.HasProp("__BlockProxyArray"))
+                this.__BlockProxyArray := Win32FixedArray(this.ptr + 8, 1, tcp_opt_sack_block, "")
+            return this.__BlockProxyArray
+        }
     }
 }

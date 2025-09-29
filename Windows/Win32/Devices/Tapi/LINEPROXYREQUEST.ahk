@@ -93,300 +93,787 @@ class LINEPROXYREQUEST extends Win32Struct
         set => NumPut("uint", value, this, 24)
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwAddressID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    class _SetAgentGroup extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTGROUPLIST}
+         */
+        GroupList{
+            get {
+                if(!this.HasProp("__GroupList"))
+                    this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 8)
+                return this.__GroupList
+            }
+        }
+    
+    }
+
+    class _SetAgentState extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentState {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwNextAgentState {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _SetAgentActivity extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwActivityID {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _GetAgentCaps extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTCAPS}
+         */
+        AgentCaps{
+            get {
+                if(!this.HasProp("__AgentCaps"))
+                    this.__AgentCaps := LINEAGENTCAPS(this.ptr + 8)
+                return this.__AgentCaps
+            }
+        }
+    
+    }
+
+    class _GetAgentStatus extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTSTATUS}
+         */
+        AgentStatus{
+            get {
+                if(!this.HasProp("__AgentStatus"))
+                    this.__AgentStatus := LINEAGENTSTATUS(this.ptr + 8)
+                return this.__AgentStatus
+            }
+        }
+    
+    }
+
+    class _AgentSpecific extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentExtensionIDIndex {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwSize {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Params{
+            get {
+                if(!this.HasProp("__ParamsProxyArray"))
+                    this.__ParamsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                return this.__ParamsProxyArray
+            }
+        }
+    
+    }
+
+    class _GetAgentActivityList extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTACTIVITYLIST}
+         */
+        ActivityList{
+            get {
+                if(!this.HasProp("__ActivityList"))
+                    this.__ActivityList := LINEAGENTACTIVITYLIST(this.ptr + 8)
+                return this.__ActivityList
+            }
+        }
+    
+    }
+
+    class _GetAgentGroupList extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwAddressID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTGROUPLIST}
+         */
+        GroupList{
+            get {
+                if(!this.HasProp("__GroupList"))
+                    this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 8)
+                return this.__GroupList
+            }
+        }
+    
+    }
+
+    class _CreateAgent extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgent {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentIDSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentIDOffset {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentPINSize {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentPINOffset {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+    }
+
+    class _SetAgentStateEx extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgent {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentState {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwNextAgentState {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _SetAgentMeasurementPeriod extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgent {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwMeasurementPeriod {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _GetAgentInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgent {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTINFO}
+         */
+        AgentInfo{
+            get {
+                if(!this.HasProp("__AgentInfo"))
+                    this.__AgentInfo := LINEAGENTINFO(this.ptr + 8)
+                return this.__AgentInfo
+            }
+        }
+    
+    }
+
+    class _CreateAgentSession extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgentSession {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentPINSize {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentPINOffset {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        hAgent {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        GroupID {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwWorkingAddressID {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _GetAgentSessionList extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgent {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTSESSIONLIST}
+         */
+        SessionList{
+            get {
+                if(!this.HasProp("__SessionList"))
+                    this.__SessionList := LINEAGENTSESSIONLIST(this.ptr + 8)
+                return this.__SessionList
+            }
+        }
+    
+    }
+
+    class _GetAgentSessionInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgentSession {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEAGENTSESSIONINFO}
+         */
+        SessionInfo{
+            get {
+                if(!this.HasProp("__SessionInfo"))
+                    this.__SessionInfo := LINEAGENTSESSIONINFO(this.ptr + 8)
+                return this.__SessionInfo
+            }
+        }
+    
+    }
+
+    class _SetAgentSessionState extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        hAgentSession {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwAgentSessionState {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwNextAgentSessionState {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+    }
+
+    class _GetQueueList extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Guid>}
+         */
+        GroupID {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEQUEUELIST}
+         */
+        QueueList{
+            get {
+                if(!this.HasProp("__QueueList"))
+                    this.__QueueList := LINEQUEUELIST(this.ptr + 8)
+                return this.__QueueList
+            }
+        }
+    
+    }
+
+    class _SetQueueMeasurementPeriod extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwQueueID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwMeasurementPeriod {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+    }
+
+    class _GetQueueInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwQueueID {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {LINEQUEUEINFO}
+         */
+        QueueInfo{
+            get {
+                if(!this.HasProp("__QueueInfo"))
+                    this.__QueueInfo := LINEQUEUEINFO(this.ptr + 8)
+                return this.__QueueInfo
+            }
+        }
+    
+    }
+
+    class _GetGroupList extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {LINEAGENTGROUPLIST}
+         */
+        GroupList{
+            get {
+                if(!this.HasProp("__GroupList"))
+                    this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 0)
+                return this.__GroupList
+            }
+        }
+    
     }
 
     /**
-     * @type {LINEAGENTGROUPLIST}
+     * @type {_SetAgentGroup}
      */
-    GroupList{
+    SetAgentGroup{
         get {
-            if(!this.HasProp("__GroupList"))
-                this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 40)
-            return this.__GroupList
+            if(!this.HasProp("__SetAgentGroup"))
+                this.__SetAgentGroup := %this.__Class%._SetAgentGroup(this.ptr + 32)
+            return this.__SetAgentGroup
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SetAgentState}
      */
-    dwAgentState {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwNextAgentState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwActivityID {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {LINEAGENTCAPS}
-     */
-    AgentCaps{
+    SetAgentState{
         get {
-            if(!this.HasProp("__AgentCaps"))
-                this.__AgentCaps := LINEAGENTCAPS(this.ptr + 40)
-            return this.__AgentCaps
+            if(!this.HasProp("__SetAgentState"))
+                this.__SetAgentState := %this.__Class%._SetAgentState(this.ptr + 32)
+            return this.__SetAgentState
         }
     }
 
     /**
-     * @type {LINEAGENTSTATUS}
+     * @type {_SetAgentActivity}
      */
-    AgentStatus{
+    SetAgentActivity{
         get {
-            if(!this.HasProp("__AgentStatus"))
-                this.__AgentStatus := LINEAGENTSTATUS(this.ptr + 40)
-            return this.__AgentStatus
+            if(!this.HasProp("__SetAgentActivity"))
+                this.__SetAgentActivity := %this.__Class%._SetAgentActivity(this.ptr + 32)
+            return this.__SetAgentActivity
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_GetAgentCaps}
      */
-    dwAgentExtensionIDIndex {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSize1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Params{
+    GetAgentCaps{
         get {
-            if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
-            return this.__ParamsProxyArray
+            if(!this.HasProp("__GetAgentCaps"))
+                this.__GetAgentCaps := %this.__Class%._GetAgentCaps(this.ptr + 32)
+            return this.__GetAgentCaps
         }
     }
 
     /**
-     * @type {LINEAGENTACTIVITYLIST}
+     * @type {_GetAgentStatus}
      */
-    ActivityList{
+    GetAgentStatus{
         get {
-            if(!this.HasProp("__ActivityList"))
-                this.__ActivityList := LINEAGENTACTIVITYLIST(this.ptr + 40)
-            return this.__ActivityList
+            if(!this.HasProp("__GetAgentStatus"))
+                this.__GetAgentStatus := %this.__Class%._GetAgentStatus(this.ptr + 32)
+            return this.__GetAgentStatus
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_AgentSpecific}
      */
-    hAgent {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentIDSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentIDOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentPINSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentPINOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMeasurementPeriod {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {LINEAGENTINFO}
-     */
-    AgentInfo{
+    AgentSpecific{
         get {
-            if(!this.HasProp("__AgentInfo"))
-                this.__AgentInfo := LINEAGENTINFO(this.ptr + 40)
-            return this.__AgentInfo
+            if(!this.HasProp("__AgentSpecific"))
+                this.__AgentSpecific := %this.__Class%._AgentSpecific(this.ptr + 32)
+            return this.__AgentSpecific
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_GetAgentActivityList}
      */
-    hAgentSession {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentPINSize1 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwAgentPINOffset1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hAgent1 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    GroupID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwWorkingAddressID {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {LINEAGENTSESSIONLIST}
-     */
-    SessionList{
+    GetAgentActivityList{
         get {
-            if(!this.HasProp("__SessionList"))
-                this.__SessionList := LINEAGENTSESSIONLIST(this.ptr + 40)
-            return this.__SessionList
+            if(!this.HasProp("__GetAgentActivityList"))
+                this.__GetAgentActivityList := %this.__Class%._GetAgentActivityList(this.ptr + 32)
+            return this.__GetAgentActivityList
         }
     }
 
     /**
-     * @type {LINEAGENTSESSIONINFO}
+     * @type {_GetAgentGroupList}
      */
-    SessionInfo{
+    GetAgentGroupList{
         get {
-            if(!this.HasProp("__SessionInfo"))
-                this.__SessionInfo := LINEAGENTSESSIONINFO(this.ptr + 40)
-            return this.__SessionInfo
+            if(!this.HasProp("__GetAgentGroupList"))
+                this.__GetAgentGroupList := %this.__Class%._GetAgentGroupList(this.ptr + 32)
+            return this.__GetAgentGroupList
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_CreateAgent}
      */
-    dwAgentSessionState {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwNextAgentSessionState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    GroupID1 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {LINEQUEUELIST}
-     */
-    QueueList{
+    CreateAgent{
         get {
-            if(!this.HasProp("__QueueList"))
-                this.__QueueList := LINEQUEUELIST(this.ptr + 40)
-            return this.__QueueList
+            if(!this.HasProp("__CreateAgent"))
+                this.__CreateAgent := %this.__Class%._CreateAgent(this.ptr + 32)
+            return this.__CreateAgent
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_SetAgentStateEx}
      */
-    dwQueueID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {LINEQUEUEINFO}
-     */
-    QueueInfo{
+    SetAgentStateEx{
         get {
-            if(!this.HasProp("__QueueInfo"))
-                this.__QueueInfo := LINEQUEUEINFO(this.ptr + 40)
-            return this.__QueueInfo
+            if(!this.HasProp("__SetAgentStateEx"))
+                this.__SetAgentStateEx := %this.__Class%._SetAgentStateEx(this.ptr + 32)
+            return this.__SetAgentStateEx
         }
     }
 
     /**
-     * @type {LINEAGENTGROUPLIST}
+     * @type {_SetAgentMeasurementPeriod}
      */
-    GroupList1{
+    SetAgentMeasurementPeriod{
         get {
-            if(!this.HasProp("__GroupList1"))
-                this.__GroupList1 := LINEAGENTGROUPLIST(this.ptr + 32)
-            return this.__GroupList1
+            if(!this.HasProp("__SetAgentMeasurementPeriod"))
+                this.__SetAgentMeasurementPeriod := %this.__Class%._SetAgentMeasurementPeriod(this.ptr + 32)
+            return this.__SetAgentMeasurementPeriod
+        }
+    }
+
+    /**
+     * @type {_GetAgentInfo}
+     */
+    GetAgentInfo{
+        get {
+            if(!this.HasProp("__GetAgentInfo"))
+                this.__GetAgentInfo := %this.__Class%._GetAgentInfo(this.ptr + 32)
+            return this.__GetAgentInfo
+        }
+    }
+
+    /**
+     * @type {_CreateAgentSession}
+     */
+    CreateAgentSession{
+        get {
+            if(!this.HasProp("__CreateAgentSession"))
+                this.__CreateAgentSession := %this.__Class%._CreateAgentSession(this.ptr + 32)
+            return this.__CreateAgentSession
+        }
+    }
+
+    /**
+     * @type {_GetAgentSessionList}
+     */
+    GetAgentSessionList{
+        get {
+            if(!this.HasProp("__GetAgentSessionList"))
+                this.__GetAgentSessionList := %this.__Class%._GetAgentSessionList(this.ptr + 32)
+            return this.__GetAgentSessionList
+        }
+    }
+
+    /**
+     * @type {_GetAgentSessionInfo}
+     */
+    GetAgentSessionInfo{
+        get {
+            if(!this.HasProp("__GetAgentSessionInfo"))
+                this.__GetAgentSessionInfo := %this.__Class%._GetAgentSessionInfo(this.ptr + 32)
+            return this.__GetAgentSessionInfo
+        }
+    }
+
+    /**
+     * @type {_SetAgentSessionState}
+     */
+    SetAgentSessionState{
+        get {
+            if(!this.HasProp("__SetAgentSessionState"))
+                this.__SetAgentSessionState := %this.__Class%._SetAgentSessionState(this.ptr + 32)
+            return this.__SetAgentSessionState
+        }
+    }
+
+    /**
+     * @type {_GetQueueList}
+     */
+    GetQueueList{
+        get {
+            if(!this.HasProp("__GetQueueList"))
+                this.__GetQueueList := %this.__Class%._GetQueueList(this.ptr + 32)
+            return this.__GetQueueList
+        }
+    }
+
+    /**
+     * @type {_SetQueueMeasurementPeriod}
+     */
+    SetQueueMeasurementPeriod{
+        get {
+            if(!this.HasProp("__SetQueueMeasurementPeriod"))
+                this.__SetQueueMeasurementPeriod := %this.__Class%._SetQueueMeasurementPeriod(this.ptr + 32)
+            return this.__SetQueueMeasurementPeriod
+        }
+    }
+
+    /**
+     * @type {_GetQueueInfo}
+     */
+    GetQueueInfo{
+        get {
+            if(!this.HasProp("__GetQueueInfo"))
+                this.__GetQueueInfo := %this.__Class%._GetQueueInfo(this.ptr + 32)
+            return this.__GetQueueInfo
+        }
+    }
+
+    /**
+     * @type {_GetGroupList}
+     */
+    GetGroupList{
+        get {
+            if(!this.HasProp("__GetGroupList"))
+                this.__GetGroupList := %this.__Class%._GetGroupList(this.ptr + 32)
+            return this.__GetGroupList
         }
     }
 }

@@ -28,38 +28,55 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    /**
-     * @type {KSCAMERA_PROFILE_INFO}
-     */
-    Info{
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := KSCAMERA_PROFILE_INFO(this.ptr + 8)
-            return this.__Info
+    class _Camera extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {KSCAMERA_PROFILE_INFO}
+         */
+        Info{
+            get {
+                if(!this.HasProp("__Info"))
+                    this.__Info := KSCAMERA_PROFILE_INFO(this.ptr + 0)
+                return this.__Info
+            }
         }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ConcurrencyCount {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+    
+        /**
+         * @type {Pointer<KSCAMERA_PROFILE_CONCURRENCYINFO>}
+         */
+        Concurrency {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Camera}
      */
-    Reserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ConcurrencyCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Pointer<KSCAMERA_PROFILE_CONCURRENCYINFO>}
-     */
-    Concurrency {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    Camera{
+        get {
+            if(!this.HasProp("__Camera"))
+                this.__Camera := %this.__Class%._Camera(this.ptr + 8)
+            return this.__Camera
+        }
     }
 }

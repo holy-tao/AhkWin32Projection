@@ -17,6 +17,60 @@ class MIXERLINEA extends Win32Struct
 
     static packingSize => 8
 
+    class _Target extends Win32Struct {
+        static sizeof => 208
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwType {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        dwDeviceID {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wMid {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wPid {
+            get => NumGet(this, 10, "ushort")
+            set => NumPut("ushort", value, this, 10)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        vDriverVersion {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {String}
+         */
+        szPname {
+            get => StrGet(this.ptr + 16, 31, "UTF-16")
+            set => StrPut(value, this.ptr + 16, 31, "UTF-16")
+        }
+    
+    }
+
     /**
      * Size, in bytes, of the <b>MIXERLINE</b> structure. This member must be initialized before calling the <a href="https://docs.microsoft.com/previous-versions/dd757303(v=vs.85)">mixerGetLineInfo</a> function. The size specified in this member must be large enough to contain the <b>MIXERLINE</b> structure. When <b>mixerGetLineInfo</b> returns, this member contains the actual size of the information returned. The returned information will not exceed the requested size.
      * @type {Integer}
@@ -178,50 +232,14 @@ class MIXERLINEA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * Target media information.
+     * @type {_Target}
      */
-    dwType {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDeviceID {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wMid {
-        get => NumGet(this, 136, "ushort")
-        set => NumPut("ushort", value, this, 136)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wPid {
-        get => NumGet(this, 138, "ushort")
-        set => NumPut("ushort", value, this, 138)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    vDriverVersion {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
-
-    /**
-     * @type {String}
-     */
-    szPname {
-        get => StrGet(this.ptr + 144, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 31, "UTF-16")
+    Target{
+        get {
+            if(!this.HasProp("__Target"))
+                this.__Target := %this.__Class%._Target(this.ptr + 128)
+            return this.__Target
+        }
     }
 }

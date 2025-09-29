@@ -15,6 +15,42 @@ class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct
 
     static packingSize => 8
 
+    class DHCP_OPTION_SCOPE_UNION6 extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Void>}
+         */
+        DefaultScopeInfo {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {DHCP_IPV6_ADDRESS}
+         */
+        SubnetScopeInfo{
+            get {
+                if(!this.HasProp("__SubnetScopeInfo"))
+                    this.__SubnetScopeInfo := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                return this.__SubnetScopeInfo
+            }
+        }
+    
+        /**
+         * @type {DHCP_RESERVED_SCOPE6}
+         */
+        ReservedScopeInfo{
+            get {
+                if(!this.HasProp("__ReservedScopeInfo"))
+                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE6(this.ptr + 0)
+                return this.__ReservedScopeInfo
+            }
+        }
+    
+    }
+
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_option_scope_type6">DHCP_OPTION_SCOPE_TYPE6</a> enumeration value that indicates the type of the DHCP option. This value is used as the selector for the union arms listed in the following fields.
      * @type {Integer}
@@ -25,32 +61,14 @@ class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * 
+     * @type {DHCP_OPTION_SCOPE_UNION6}
      */
-    DefaultScopeInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {DHCP_IPV6_ADDRESS}
-     */
-    SubnetScopeInfo{
+    ScopeInfo{
         get {
-            if(!this.HasProp("__SubnetScopeInfo"))
-                this.__SubnetScopeInfo := DHCP_IPV6_ADDRESS(this.ptr + 8)
-            return this.__SubnetScopeInfo
-        }
-    }
-
-    /**
-     * @type {DHCP_RESERVED_SCOPE6}
-     */
-    ReservedScopeInfo{
-        get {
-            if(!this.HasProp("__ReservedScopeInfo"))
-                this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE6(this.ptr + 8)
-            return this.__ReservedScopeInfo
+            if(!this.HasProp("__ScopeInfo"))
+                this.__ScopeInfo := %this.__Class%.DHCP_OPTION_SCOPE_UNION6(this.ptr + 8)
+            return this.__ScopeInfo
         }
     }
 }

@@ -36,20 +36,37 @@ class NET_ADDRESS_INFO extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {String}
-     */
-    Address {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
+    class _NamedAddress extends Win32Struct {
+        static sizeof => 26
+        static packingSize => 8
+
+        /**
+         * @type {String}
+         */
+        Address {
+            get => StrGet(this.ptr + 0, 255, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 255, "UTF-16")
+        }
+    
+        /**
+         * @type {String}
+         */
+        Port {
+            get => StrGet(this.ptr + 512, 5, "UTF-16")
+            set => StrPut(value, this.ptr + 512, 5, "UTF-16")
+        }
+    
     }
 
     /**
-     * @type {String}
+     * @type {_NamedAddress}
      */
-    Port {
-        get => StrGet(this.ptr + 520, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 5, "UTF-16")
+    NamedAddress{
+        get {
+            if(!this.HasProp("__NamedAddress"))
+                this.__NamedAddress := %this.__Class%._NamedAddress(this.ptr + 8)
+            return this.__NamedAddress
+        }
     }
 
     /**

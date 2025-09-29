@@ -27,99 +27,133 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    /**
-     * @type {Integer}
-     */
-    Flags1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _MiniFilter extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FrameID {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NumberOfInstances {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterNameLength {
+            get => NumGet(this, 12, "ushort")
+            set => NumPut("ushort", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterNameBufferOffset {
+            get => NumGet(this, 14, "ushort")
+            set => NumPut("ushort", value, this, 14)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterAltitudeLength {
+            get => NumGet(this, 16, "ushort")
+            set => NumPut("ushort", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterAltitudeBufferOffset {
+            get => NumGet(this, 18, "ushort")
+            set => NumPut("ushort", value, this, 18)
+        }
+    
+    }
+
+    class _LegacyFilter extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterNameLength {
+            get => NumGet(this, 4, "ushort")
+            set => NumPut("ushort", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterNameBufferOffset {
+            get => NumGet(this, 6, "ushort")
+            set => NumPut("ushort", value, this, 6)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterAltitudeLength {
+            get => NumGet(this, 8, "ushort")
+            set => NumPut("ushort", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterAltitudeBufferOffset {
+            get => NumGet(this, 10, "ushort")
+            set => NumPut("ushort", value, this, 10)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_MiniFilter}
      */
-    FrameID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    MiniFilter{
+        get {
+            if(!this.HasProp("__MiniFilter"))
+                this.__MiniFilter := %this.__Class%._MiniFilter(this.ptr + 8)
+            return this.__MiniFilter
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_LegacyFilter}
      */
-    NumberOfInstances {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterNameLength {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterNameBufferOffset {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterAltitudeLength {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterAltitudeBufferOffset {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags12 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterNameLength1 {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterNameBufferOffset1 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterAltitudeLength1 {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterAltitudeBufferOffset1 {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+    LegacyFilter{
+        get {
+            if(!this.HasProp("__LegacyFilter"))
+                this.__LegacyFilter := %this.__Class%._LegacyFilter(this.ptr + 8)
+            return this.__LegacyFilter
+        }
     }
 }

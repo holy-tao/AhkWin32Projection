@@ -14,6 +14,23 @@ class WS_SECURITY_PROPERTY_CONSTRAINT extends Win32Struct
 
     static packingSize => 8
 
+    class _out extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {WS_SECURITY_PROPERTY}
+         */
+        securityProperty{
+            get {
+                if(!this.HasProp("__securityProperty"))
+                    this.__securityProperty := WS_SECURITY_PROPERTY(this.ptr + 0)
+                return this.__securityProperty
+            }
+        }
+    
+    }
+
     /**
      * The id of the security property.  The following security
      *                     property constraints may be specified:
@@ -163,13 +180,15 @@ class WS_SECURITY_PROPERTY_CONSTRAINT extends Win32Struct
     }
 
     /**
-     * @type {WS_SECURITY_PROPERTY}
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
+     *                     entire contents of this structure will be filled out.
+     * @type {_out}
      */
-    securityProperty{
+    out{
         get {
-            if(!this.HasProp("__securityProperty"))
-                this.__securityProperty := WS_SECURITY_PROPERTY(this.ptr + 24)
-            return this.__securityProperty
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(this.ptr + 24)
+            return this.__out
         }
     }
 }

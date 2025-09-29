@@ -111,28 +111,143 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    ullOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    class _cp extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ullOffset {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Guid>}
+         */
+        volumeId {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
+        }
+    
+    }
+
+    class _cv extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pVolumeUnk {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _bvp extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pVolumeUnk {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _cl extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pLunUnk {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _ct extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pTargetUnk {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _cpg extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pPortalGroupUnk {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
+    class _cvd extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<IUnknown>}
+         */
+        pVDiskUnk {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {_cp}
      */
-    volumeId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    cp{
+        get {
+            if(!this.HasProp("__cp"))
+                this.__cp := %this.__Class%._cp(this.ptr + 8)
+            return this.__cp
+        }
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {_cv}
      */
-    pVolumeUnk {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    cv{
+        get {
+            if(!this.HasProp("__cv"))
+                this.__cv := %this.__Class%._cv(this.ptr + 8)
+            return this.__cv
+        }
+    }
+
+    /**
+     * @type {_bvp}
+     */
+    bvp{
+        get {
+            if(!this.HasProp("__bvp"))
+                this.__bvp := %this.__Class%._bvp(this.ptr + 8)
+            return this.__bvp
+        }
     }
 
     /**
@@ -144,34 +259,46 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {_cl}
      */
-    pLunUnk {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    cl{
+        get {
+            if(!this.HasProp("__cl"))
+                this.__cl := %this.__Class%._cl(this.ptr + 8)
+            return this.__cl
+        }
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {_ct}
      */
-    pTargetUnk {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ct{
+        get {
+            if(!this.HasProp("__ct"))
+                this.__ct := %this.__Class%._ct(this.ptr + 8)
+            return this.__ct
+        }
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {_cpg}
      */
-    pPortalGroupUnk {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    cpg{
+        get {
+            if(!this.HasProp("__cpg"))
+                this.__cpg := %this.__Class%._cpg(this.ptr + 8)
+            return this.__cpg
+        }
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {_cvd}
      */
-    pVDiskUnk {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    cvd{
+        get {
+            if(!this.HasProp("__cvd"))
+                this.__cvd := %this.__Class%._cvd(this.ptr + 8)
+            return this.__cvd
+        }
     }
 }

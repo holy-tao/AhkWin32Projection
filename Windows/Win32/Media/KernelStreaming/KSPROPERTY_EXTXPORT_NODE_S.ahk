@@ -26,6 +26,69 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
         }
     }
 
+    class _Timecode extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        frame {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        second {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        minute {
+            get => NumGet(this, 2, "char")
+            set => NumPut("char", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        hour {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
+    }
+
+    class _RawAVC extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        PayloadSize {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        Payload{
+            get {
+                if(!this.HasProp("__PayloadProxyArray"))
+                    this.__PayloadProxyArray := Win32FixedArray(this.ptr + 4, 512, Primitive, "char")
+                return this.__PayloadProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -73,35 +136,14 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Timecode}
      */
-    frame {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    second {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    minute {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    hour {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
+    Timecode{
+        get {
+            if(!this.HasProp("__Timecode"))
+                this.__Timecode := %this.__Class%._Timecode(this.ptr + 16)
+            return this.__Timecode
+        }
     }
 
     /**
@@ -121,21 +163,13 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_RawAVC}
      */
-    PayloadSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Payload{
+    RawAVC{
         get {
-            if(!this.HasProp("__PayloadProxyArray"))
-                this.__PayloadProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
-            return this.__PayloadProxyArray
+            if(!this.HasProp("__RawAVC"))
+                this.__RawAVC := %this.__Class%._RawAVC(this.ptr + 16)
+            return this.__RawAVC
         }
     }
 }

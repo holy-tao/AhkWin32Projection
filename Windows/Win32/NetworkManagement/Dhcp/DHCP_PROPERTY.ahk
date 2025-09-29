@@ -12,6 +12,55 @@ class DHCP_PROPERTY extends Win32Struct
 
     static packingSize => 8
 
+    class _DHCP_PROPERTY_VALUE_UNION extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ByteValue {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WordValue {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DWordValue {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Char>}
+         */
+        StringValue {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {DHCP_BINARY_DATA}
+         */
+        BinaryValue{
+            get {
+                if(!this.HasProp("__BinaryValue"))
+                    this.__BinaryValue := DHCP_BINARY_DATA(this.ptr + 0)
+                return this.__BinaryValue
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -29,45 +78,13 @@ class DHCP_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_DHCP_PROPERTY_VALUE_UNION}
      */
-    ByteValue {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    WordValue {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DWordValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Char>}
-     */
-    StringValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {DHCP_BINARY_DATA}
-     */
-    BinaryValue{
+    Value{
         get {
-            if(!this.HasProp("__BinaryValue"))
-                this.__BinaryValue := DHCP_BINARY_DATA(this.ptr + 8)
-            return this.__BinaryValue
+            if(!this.HasProp("__Value"))
+                this.__Value := %this.__Class%._DHCP_PROPERTY_VALUE_UNION(this.ptr + 8)
+            return this.__Value
         }
     }
 }
