@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-#Include ../CStyleArray.ahk
+;#Include ../CStyleArray.ahk
 #Include ./Yunit/Yunit.ahk
 #Include ./YunitExtensions/Assert.ahk
 #Include ../Windows/Win32/Foundation/RECT.ahk
