@@ -1,0 +1,28 @@
+{
+  "problemMatcher": [
+    {
+        "owner": "ahk-validate-warning",
+        "severity": "warning",
+        "pattern": [
+            {
+                "regexp": ".*AhkWin32Projection[\\\\](.*\\.ahk) \\((\\d+)\\) : ==> Warning: ((?:.*)(?:\\r?\\n\\s+Specifically: .*)?)$",
+                "file": 1,
+                "line": 2,
+                "message": 3
+            }
+        ]
+    },
+    {
+        "owner": "ahk-validate-error",
+        "severity": "error",
+        "pattern": [
+            {
+                "regexp": ".*AhkWin32Projection[\\\\](.*\\.ahk) \\((\\d+)\\) : ==> (?!Warning:)((?:.*)(?:\\r?\\n\\s+Specifically: .*)?)$",
+                "file": 1,
+                "line": 2,
+                "message": 3
+            }
+        ]
+    }
+  ]
+}
