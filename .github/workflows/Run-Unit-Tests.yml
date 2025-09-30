@@ -45,12 +45,16 @@ jobs:
             Write-Output "Found changed AHK files:"
             $changed | ForEach-Object { Write-Output " - $_" }
 
-            ./Tests/ValidateAhkFiles.ps1 -AhkExePath "$PWD/autohotkey/AutoHotkey64.exe" -Files $changed
+            ./Tests/ValidateAhkFiles.ps1 -AhkExePath "$PWD/autohotkey/AutoHotkey64.exe" -Files $changed 2>&1 | Tee-Object -FilePath Tests/validation.log
           }
           else {
             Write-Output "No changed AHK files to validate."
             exit 0
           }
+
+          Write-Output "Done! Generating summary report..."
+          ./Tests/AhkValidationMarkdownReport.ps1 -LogPath Tests/validation.log -OutPath Tests/validation-results.md
+          Write-Output "Done!"
 
       - name: Run Unit Tests
         working-directory: Tests
