@@ -319,8 +319,13 @@ class TOKEN_INFORMATION_CLASS{
     static TokenIsAppSilo => 48
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static TokenLoggingInformation => 49
+
+    /**
      * The maximum value for this enumeration.
      * @type {Integer (Int32)}
      */
-    static MaxTokenInfoClass => 49
+    static MaxTokenInfoClass => 50
 }

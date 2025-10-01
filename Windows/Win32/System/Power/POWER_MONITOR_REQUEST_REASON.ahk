@@ -284,5 +284,20 @@ class POWER_MONITOR_REQUEST_REASON{
     /**
      * @type {Integer (Int32)}
      */
-    static MonitorRequestReasonMax => 55
+    static MonitorRequestReasonAusterityBatteryDrain => 55
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MonitorRequestReasonDozeRestrictedStandby => 56
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MonitorRequestReasonSmartRestrictedStandby => 57
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MonitorRequestReasonMax => 58
 }

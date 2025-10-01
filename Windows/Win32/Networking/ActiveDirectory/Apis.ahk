@@ -701,6 +701,11 @@ class ActiveDirectory {
     /**
      * @type {Integer (UInt32)}
      */
+    static DS_DIRECTORY_SERVICE_13_REQUIRED => 33554432
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DS_RETURN_DNS_NAME => 1073741824
 
     /**
@@ -792,6 +797,11 @@ class ActiveDirectory {
      * @type {Integer (UInt32)}
      */
     static DS_KEY_LIST_FLAG => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DS_DS_13_FLAG => 262144
 
     /**
      * @type {Integer (UInt32)}
@@ -1077,6 +1087,11 @@ class ActiveDirectory {
      * @type {Integer (UInt32)}
      */
     static DS_BEHAVIOR_WIN2016 => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DS_BEHAVIOR_WIN2025 => 10
 
     /**
      * @type {Integer (UInt32)}
@@ -2192,6 +2207,21 @@ class ActiveDirectory {
      * @type {String}
      */
     static GUID_PRIVILEGED_ACCESS_MANAGEMENT_OPTIONAL_FEATURE_W => "73e843ece8cc4046b4ab07ffe4ab5bcd"
+
+    /**
+     * @type {String}
+     */
+    static GUID_DATABASE_32K_PAGES_OPTIONAL_FEATURE_A => "c62a9852731e4f75ae2473ae2775aab8"
+
+    /**
+     * @type {String}
+     */
+    static GUID_DATABASE_32K_PAGES_OPTIONAL_FEATURE_W => "c62a9852731e4f75ae2473ae2775aab8"
+
+    /**
+     * @type {String}
+     */
+    static GUID_DATABASE_32K_PAGES_OPTIONAL_FEATURE_BYTE => "Æ*\u0098Rs\u001eOu®$s®'uª¸"
 
     /**
      * @type {String}

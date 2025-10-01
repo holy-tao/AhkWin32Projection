@@ -106,6 +106,11 @@ class Ioctl {
     /**
      * @type {String}
      */
+    static GUID_DEVINTERFACE_HIDDEN_DISK => "{7fccc86c-228a-40ad-8a58-f590af7bfdce}"
+
+    /**
+     * @type {String}
+     */
     static GUID_DEVINTERFACE_SERVICE_VOLUME => "{6ead3d82-25ec-46bc-b7fd-c1f0df8f5037}"
 
     /**
@@ -566,7 +571,17 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static STORAGE_CRYPTO_CAPABILITY_VERSION_2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static STORAGE_CRYPTO_DESCRIPTOR_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_CRYPTO_DESCRIPTOR_VERSION_2 => 2
 
     /**
      * @type {Integer (UInt32)}
@@ -602,6 +617,11 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static STORAGE_TIER_FLAG_SMR => 16777216
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT_VERSION => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -957,6 +977,16 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static STORAGE_HW_FIRMWARE_REQUEST_FLAG_FIRST_SEGMENT => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_FIRMWARE_REQUEST_FLAG_SWITCH_TO_FIRMWARE_WITHOUT_RESET => 268435456
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_FIRMWARE_REQUEST_FLAG_REPLACE_AND_SWITCH_UPON_RESET => 536870912
 
     /**
      * @type {Integer (UInt32)}
@@ -1512,6 +1542,26 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static FILE_DEVICE_SOUNDWIRE => 97
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILE_DEVICE_FABRIC_NVME => 98
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILE_DEVICE_SVM => 99
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILE_DEVICE_HARDWARE_ACCELERATOR => 100
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILE_DEVICE_I3C => 101
 
     /**
      * @type {Integer (UInt32)}
@@ -3816,6 +3866,26 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static FSCTL_REFS_SET_ROLLBACK_PROTECTION_INFO => 590992
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_REFS_QUERY_ROLLBACK_PROTECTION_INFO => 590996
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_FILE_SOV_CHECK_RANGE => 591000
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_CASCADES_REFS_SET_FILE_REMOTE => 591004
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static GET_VOLUME_BITMAP_FLAG_MASK_METADATA => 1
 
     /**
@@ -4112,6 +4182,16 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static ENCRYPTED_DATA_INFO_SPARSE_FILE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ENCRYPTED_DATA_INFO_SPARSE_DATA => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ENCRYPTED_DATA_INFO_4K_SPARSE_UNIT => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -4931,7 +5011,12 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
-    static CHECKSUM_TYPE_FIRST_UNUSED_TYPE => 5
+    static CHECKSUM_TYPE_XXH64 => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CHECKSUM_TYPE_FIRST_UNUSED_TYPE => 6
 
     /**
      * @type {Integer (UInt32)}

@@ -43,4 +43,14 @@ class D3D12_RAYTRACING_INSTANCE_FLAGS{
      * @type {Integer (Int32)}
      */
     static D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_NON_OPAQUE => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_RAYTRACING_INSTANCE_FLAG_FORCE_OMM_2_STATE => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_RAYTRACING_INSTANCE_FLAG_DISABLE_OMMS => 32
 }

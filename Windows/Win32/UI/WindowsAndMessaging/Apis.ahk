@@ -111,6 +111,11 @@ class WindowsAndMessaging {
     /**
      * @type {String}
      */
+    static GUID_IO_VOLUME_PREPARE_DELETE => "{ac0707fb-4a9a-4c81-9e2e-385b79a8fd28}"
+
+    /**
+     * @type {String}
+     */
     static GUID_IO_VOLUME_UNIQUE_ID_CHANGE => "{af39da42-6622-41f5-970b-139d092fa3d9}"
 
     /**
@@ -277,6 +282,11 @@ class WindowsAndMessaging {
      * @type {Integer (UInt32)}
      */
     static __WARNING_INVALID_PARAM_VALUE_1 => 6387
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static __WARNING_UNSAFE_STRING_FUNCTION => 25025
 
     /**
      * @type {Integer (UInt32)}
@@ -687,6 +697,11 @@ class WindowsAndMessaging {
      * @type {Integer (UInt32)}
      */
     static MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SB_MIN => 0
 
     /**
      * @type {Integer (UInt32)}
@@ -3004,6 +3019,11 @@ class WindowsAndMessaging {
     static PW_RENDERFULLCONTENT => 2
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static SWP_NONE => 0
+
+    /**
      * @type {Integer (Int32)}
      */
     static HWND_TOP => 0
@@ -3277,6 +3297,66 @@ class WindowsAndMessaging {
      * @type {Integer (UInt32)}
      */
     static SM_CARETBLINKINGENABLED => 8194
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_GET_ITEM_INFO => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_GET_ITEM_DATA => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_GET_SUBMENU => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_INSERT_MENU => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_INSERT_ITEM => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_DELETE_MENU => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_SET_ITEM_INFO => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_ENABLE_ITEM => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_CHECK_ITEM => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_SET_DEFAULT_ITEM => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_SET_ITEM_DATA => 1024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MENU_SET_SUBMENU => 2048
 
     /**
      * @type {Integer (UInt32)}
@@ -6796,6 +6876,16 @@ class WindowsAndMessaging {
     /**
      * @type {Integer (UInt32)}
      */
+    static TOUCHPAD_PARAMETERS_LATEST_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TOUCHPAD_PARAMETERS_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static GF_BEGIN => 1
 
     /**
@@ -6857,6 +6947,11 @@ class WindowsAndMessaging {
      * @type {Integer (UInt32)}
      */
     static WM_TOOLTIPDISMISS => 837
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INVALID_MONITOR_TOPOLOGY_ID => 0
 
     /**
      * @type {Integer (Int32)}
@@ -13410,6 +13505,31 @@ class WindowsAndMessaging {
         A_LastError := 0
 
         result := DllCall("USER32.dll\IsCharLowerA", "char", ch, "int")
+        if(A_LastError)
+            throw OSError()
+
+        return result
+    }
+
+    /**
+     * 
+     * @remarks
+     * > [!NOTE]
+     * > The winuser.h header defines IsCharLower as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * @param {Integer} ch Type: <b>TCHAR</b>
+     * 
+     * The character to be tested.
+     * @returns {Integer} Type: <b>BOOL</b>
+     * 
+     * If the character is lowercase, the return value is nonzero.
+     * 
+     * If the character is not lowercase, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ischarlowerw
+     */
+    static IsCharLowerW(ch) {
+        A_LastError := 0
+
+        result := DllCall("USER32.dll\IsCharLowerW", "char", ch, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30403,6 +30523,34 @@ class WindowsAndMessaging {
     }
 
     /**
+     * Determines whether the specified window is arranged (that is, whether it's snapped).
+     * @remarks
+     * At this time, this function does not have an associated header file or library file. Your application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (`User32.dll`) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
+     * 
+     * A snapped window (see [Snap your windows](https://support.microsoft.com/windows/snap-your-windows-885a9b1e-a983-a3b1-16cd-c531795e6241)) is considered to be arranged. You should treat arrange as a window state similar to maximize. Arranged, maximize, and minimize are mutually exclusive states. An arranged window can be restored to its original size and position. Restoring a window from minimize can make a window arranged if the window was arranged before it was minimized. When calling [GetWindowPlacement](/windows/win32/api/winuser/nf-winuser-getwindowplacement), keep in mind that the *showCmd* member on the returned [WINDOWPLACEMENT](/windows/win32/api/winuser/ns-winuser-windowplacement) can have a value of **SW_SHOWNORMAL** even if the window is arranged.
+     * @param {Pointer<Void>} hwnd Type: **HWND**
+     * 
+     * A handle to the window to be tested.
+     * @returns {Integer} Type: **BOOL**
+     * 
+     * A nonzero value if the window is arranged; otherwise, zero.
+     * @see https://learn.microsoft.com/windows/win32/winmsg/winuser/nf-winuser-iswindowarranged
+     */
+    static IsWindowArranged(hwnd) {
+        result := DllCall("USER32.dll\IsWindowArranged", "ptr", hwnd, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    static GetCurrentMonitorTopologyId() {
+        result := DllCall("USER32.dll\GetCurrentMonitorTopologyId", "uint")
+        return result
+    }
+
+    /**
      * Creates a new resource indexer for the specified paths of the root of the project files and the extension DLL.
      * @param {Pointer<Char>} projectRoot The path of the root folder to use for the project for the files to be produced, in string form. This path is used to determine file paths relative to the package that contains them. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {Pointer<Char>} extensionDllPath The full path to an extension dynamic-link library (DLL) that is Microsoft-signed and implements the ext-ms-win-mrmcorer-environment-l1 API set. This path determines the file path from where the extension DLL for the modern resource technology (MRT) environment is loaded. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
@@ -31145,25 +31293,6 @@ class WindowsAndMessaging {
         if(result != 0)
             throw OSError(result)
 
-        return result
-    }
-
-    /**
-     * Determines whether the specified window is arranged (that is, whether it's snapped).
-     * @remarks
-     * At this time, this function does not have an associated header file or library file. Your application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (`User32.dll`) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
-     * 
-     * A snapped window (see [Snap your windows](https://support.microsoft.com/windows/snap-your-windows-885a9b1e-a983-a3b1-16cd-c531795e6241)) is considered to be arranged. You should treat arrange as a window state similar to maximize. Arranged, maximize, and minimize are mutually exclusive states. An arranged window can be restored to its original size and position. Restoring a window from minimize can make a window arranged if the window was arranged before it was minimized. When calling [GetWindowPlacement](/windows/win32/api/winuser/nf-winuser-getwindowplacement), keep in mind that the *showCmd* member on the returned [WINDOWPLACEMENT](/windows/win32/api/winuser/ns-winuser-windowplacement) can have a value of **SW_SHOWNORMAL** even if the window is arranged.
-     * @param {Pointer<Void>} hwnd Type: **HWND**
-     * 
-     * A handle to the window to be tested.
-     * @returns {Integer} Type: **BOOL**
-     * 
-     * A nonzero value if the window is arranged; otherwise, zero.
-     * @see https://learn.microsoft.com/windows/win32/winmsg/winuser/nf-winuser-iswindowarranged
-     */
-    static IsWindowArranged(hwnd) {
-        result := DllCall("USER32.dll\IsWindowArranged", "ptr", hwnd, "int")
         return result
     }
 

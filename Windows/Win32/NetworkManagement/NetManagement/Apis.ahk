@@ -2596,6 +2596,11 @@ class NetManagement {
     /**
      * @type {String}
      */
+    static DELEGATED_MANAGED_SERVICE_ACCOUNT_PASSWORD => "_SA_{F8262F4C-499B-4770-88B4-A75C91D0D8E9}"
+
+    /**
+     * @type {String}
+     */
     static ServiceAccountPasswordGUID => "{262e99c9-6160-4871-acec-4e61736b6f21}"
 
     /**
@@ -4437,26 +4442,6 @@ class NetManagement {
      * @type {Integer (UInt32)}
      */
     static NETLOG_NetlogonRpcBacklogLimitFailure => 5837
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NETLOG_NetlogonRpcSigningClient => 5838
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NETLOG_NetlogonRpcSigningTrust => 5839
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NETLOG_NetlogonRc4Allowed => 5840
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NETLOG_NetlogonRc4Denied => 5841
 
     /**
      * @type {Integer (UInt32)}
@@ -6851,7 +6836,7 @@ class NetManagement {
     /**
      * @type {Integer (Int32)}
      */
-    static EVENT_NBT_CREATE_DEVICE => -1073737513
+    static EVENT_NBT_CREATE_DEVICE => 1073746135
 
     /**
      * @type {Integer (Int32)}
@@ -7512,6 +7497,26 @@ class NetManagement {
      * @type {Integer (Int32)}
      */
     static EVENT_BROWSER_NOT_STARTED_IPX_CONFIG_MISMATCH => -1073733788
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static EVENT_BROWSER_REMOTE_MAILSLOTS_ENABLED => -2147475611
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static EVENT_BROWSER_REMOTE_MAILSLOTS_DISABLED => 1073749862
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static EVENT_BROWSER_REMOTE_MAILSLOTS_ENABLED_BY_POLICY => -2147475609
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static EVENT_BROWSER_REMOTE_MAILSLOTS_DISABLED_BY_POLICY => 1073749864
 
     /**
      * @type {Integer (Int32)}
@@ -9652,6 +9657,16 @@ class NetManagement {
      * @type {String}
      */
     static SERVICE_LM20_KDC => "kdc"
+
+    /**
+     * @type {String}
+     */
+    static SERVICE_LOCALKDC => "localkdc"
+
+    /**
+     * @type {String}
+     */
+    static SERVICE_LM20_LOCALKDC => "localkdc"
 
     /**
      * @type {String}
@@ -15087,6 +15102,22 @@ class NetManagement {
         AccountName := AccountName is String? StrPtr(AccountName) : AccountName
 
         result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "int*", IsService, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} ServerName 
+     * @param {Pointer<Char>} AccountName 
+     * @param {Pointer<Int32>} IsService 
+     * @param {Pointer<Int32>} AccountType 
+     * @returns {Integer} 
+     */
+    static NetIsServiceAccount2(ServerName, AccountName, IsService, AccountType) {
+        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
+        AccountName := AccountName is String? StrPtr(AccountName) : AccountName
+
+        result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, "int*", IsService, "int*", AccountType, "int")
         return result
     }
 

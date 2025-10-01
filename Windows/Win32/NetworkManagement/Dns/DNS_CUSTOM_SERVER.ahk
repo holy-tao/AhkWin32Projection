@@ -49,7 +49,15 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     /**
      * @type {Pointer<Char>}
      */
-    Anonymous1 {
+    pwszTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Pointer<Char>}
+     */
+    pwszHostname {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }

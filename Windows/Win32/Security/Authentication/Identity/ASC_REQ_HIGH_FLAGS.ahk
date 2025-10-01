@@ -10,4 +10,9 @@ class ASC_REQ_HIGH_FLAGS{
      * @type {Integer (UInt64)}
      */
     static ASC_REQ_MESSAGES => 4294967296
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ASC_REQ_EXPLICIT_SESSION => 68719476736
 }

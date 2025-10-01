@@ -2956,6 +2956,16 @@ class KernelStreaming {
     /**
      * @type {Integer (UInt64)}
      */
+    static KSCAMERA_EXTENDEDPROP_FRAMERATE_THROTTLE_OFF => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static KSCAMERA_EXTENDEDPROP_FRAMERATE_THROTTLE_ON => 1
+
+    /**
+     * @type {Integer (UInt64)}
+     */
     static KSCAMERAPROFILE_FLAGS_VIDEOSTABLIZATION => 1
 
     /**
@@ -3092,6 +3102,16 @@ class KernelStreaming {
      * @type {Integer (UInt32)}
      */
     static KSPROPERTY_AUDIO_BUFFER_DURATION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AUDIOLOOPBACK_TAPPOINT_CAPS_PREVOLUMEMUTE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AUDIOLOOPBACK_TAPPOINT_CAPS_POSTVOLUMEMUTE => 2
 
     /**
      * @type {Integer (UInt32)}

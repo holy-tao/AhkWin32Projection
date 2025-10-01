@@ -206,6 +206,11 @@ class Communication {
     /**
      * @type {Integer (UInt32)}
      */
+    static MDM_MASK_HDLCPPP_AUTH => 56
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MDM_HDLCPPP_AUTH_DEFAULT => 0
 
     /**
@@ -232,6 +237,11 @@ class Communication {
      * @type {Integer (UInt32)}
      */
     static MDM_SHIFT_HDLCPPP_ML => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MDM_MASK_HDLCPPP_ML => 192
 
     /**
      * @type {Integer (UInt32)}
@@ -277,6 +287,11 @@ class Communication {
      * @type {Integer (UInt32)}
      */
     static MDM_SHIFT_V120_ML => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MDM_MASK_V120_ML => 192
 
     /**
      * @type {Integer (UInt32)}
@@ -412,6 +427,11 @@ class Communication {
      * @type {Integer (UInt32)}
      */
     static MDM_SHIFT_AUTO_ML => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MDM_MASK_AUTO_ML => 192
 
     /**
      * @type {Integer (UInt32)}

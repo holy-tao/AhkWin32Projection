@@ -35,6 +35,11 @@ class NVME_STATUS_TYPES{
     static NVME_STATUS_TYPE_MEDIA_ERROR => 2
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_TYPE_PATH_RELATED => 3
+
+    /**
      * Indicates a vendor specific status code.
      * @type {Integer (Int32)}
      */

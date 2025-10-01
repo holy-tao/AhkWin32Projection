@@ -520,4 +520,14 @@ class UJoiningGroup{
      * @type {Integer (Int32)}
      */
     static U_JG_HANIFI_ROHINGYA_PA => 101
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static U_JG_THIN_YEH => 102
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static U_JG_VERTICAL_TAIL => 103
 }

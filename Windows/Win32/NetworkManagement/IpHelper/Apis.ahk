@@ -1521,6 +1521,16 @@ class IpHelper {
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_SETTING_DOT => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_SETTING_DOT_PROFILE => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_ENABLE_DOH => 1
 
     /**
@@ -1546,7 +1556,47 @@ class IpHelper {
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_ENCRYPTION_POLICY_NOT_CONFIGURED => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_ENCRYPTION_POLICY_DISABLE => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_ENCRYPTION_POLICY_AUTO => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_ENCRYPTION_POLICY_REQUIRED => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_ENABLE_DDR => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_ENABLE_DOT => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_POLICY_BLOCK => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOH_POLICY_BLOCK => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_ENABLE_DNR => 1024
 
     /**
      * @type {Integer (UInt32)}
@@ -1581,12 +1631,57 @@ class IpHelper {
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_DOH_SERVER_SETTINGS_MAKE_DDR_NON_BLOCKING => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_SERVER_SETTINGS_ENABLE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_SERVER_SETTINGS_FALLBACK_TO_UDP => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_AUTO_UPGRADE_SERVER => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_SERVER_SETTINGS_ENABLE_AUTO => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_SERVER_SETTINGS_ENABLE_DDR => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DOT_SERVER_SETTINGS_MAKE_DDR_NON_BLOCKING => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_DDR_ADAPTER_ENABLE_DOH => 1
 
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_DDR_ADAPTER_ENABLE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_DDR_ADAPTER_ENABLE_UDP_FALLBACK => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_DDR_ADAPTER_MAKE_DDR_NON_BLOCKING => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -16329,6 +16424,66 @@ class IpHelper {
      */
     static NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
         result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
+     * @returns {Integer} 
+     */
+    static CreateFlVirtualInterface(Row) {
+        result := DllCall("IPHLPAPI.DLL\CreateFlVirtualInterface", "ptr", Row, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
+     * @returns {Integer} 
+     */
+    static DeleteFlVirtualInterface(Row) {
+        result := DllCall("IPHLPAPI.DLL\DeleteFlVirtualInterface", "ptr", Row, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static InitializeFlVirtualInterfaceEntry(Row) {
+        DllCall("IPHLPAPI.DLL\InitializeFlVirtualInterfaceEntry", "ptr", Row)
+    }
+
+    /**
+     * 
+     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
+     * @returns {Integer} 
+     */
+    static SetFlVirtualInterface(Row) {
+        result := DllCall("IPHLPAPI.DLL\SetFlVirtualInterface", "ptr", Row, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_ROW>} Row 
+     * @returns {Integer} 
+     */
+    static GetFlVirtualInterface(Row) {
+        result := DllCall("IPHLPAPI.DLL\GetFlVirtualInterface", "ptr", Row, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Family 
+     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_TABLE>} Table 
+     * @returns {Integer} 
+     */
+    static GetFlVirtualInterfaceTable(Family, Table) {
+        result := DllCall("IPHLPAPI.DLL\GetFlVirtualInterfaceTable", "ushort", Family, "ptr", Table, "uint")
         return result
     }
 

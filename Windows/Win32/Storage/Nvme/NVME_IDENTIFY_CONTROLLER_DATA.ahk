@@ -245,13 +245,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Bits 0:7 of the **OAES** structure are reserved.
      * @type {Array<Byte>}
      */
-    Reserved0_1{
+    Reserved1{
         get {
-            if(!this.HasProp("__Reserved0_1ProxyArray"))
-                this.__Reserved0_1ProxyArray := Win32FixedArray(this.ptr + 134, 106, Primitive, "char")
-            return this.__Reserved0_1ProxyArray
+            if(!this.HasProp("__Reserved1ProxyArray"))
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 134, 106, Primitive, "char")
+            return this.__Reserved1ProxyArray
         }
     }
 
@@ -262,9 +263,33 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     ReservedForManagement{
         get {
             if(!this.HasProp("__ReservedForManagementProxyArray"))
-                this.__ReservedForManagementProxyArray := Win32FixedArray(this.ptr + 240, 16, Primitive, "char")
+                this.__ReservedForManagementProxyArray := Win32FixedArray(this.ptr + 240, 13, Primitive, "char")
             return this.__ReservedForManagementProxyArray
         }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NVMSR {
+        get => NumGet(this, 253, "char")
+        set => NumPut("char", value, this, 253)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    VWCI {
+        get => NumGet(this, 254, "char")
+        set => NumPut("char", value, this, 254)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MEC {
+        get => NumGet(this, 255, "char")
+        set => NumPut("char", value, this, 255)
     }
 
     /**
@@ -596,14 +621,45 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * Bits 0:7 of the **OAES** structure are reserved.
+     * @type {Integer}
+     */
+    DomainId {
+        get => NumGet(this, 356, "ushort")
+        set => NumPut("ushort", value, this, 356)
+    }
+
+    /**
+     * 
      * @type {Array<Byte>}
      */
-    Reserved1{
+    Reserved2{
         get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 356, 156, Primitive, "char")
-            return this.__Reserved1ProxyArray
+            if(!this.HasProp("__Reserved2ProxyArray"))
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 358, 10, Primitive, "char")
+            return this.__Reserved2ProxyArray
+        }
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    MEGCAP{
+        get {
+            if(!this.HasProp("__MEGCAPProxyArray"))
+                this.__MEGCAPProxyArray := Win32FixedArray(this.ptr + 368, 16, Primitive, "char")
+            return this.__MEGCAPProxyArray
+        }
+    }
+
+    /**
+     * A reserved field.
+     * @type {Array<Byte>}
+     */
+    Reserved3{
+        get {
+            if(!this.HasProp("__Reserved3ProxyArray"))
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 384, 128, Primitive, "char")
+            return this.__Reserved3ProxyArray
         }
     }
 
@@ -743,15 +799,11 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Integer}
      */
-    Reserved4{
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 534, 2, Primitive, "char")
-            return this.__Reserved4ProxyArray
-        }
+    CopyDescFormats {
+        get => NumGet(this, 534, "ushort")
+        set => NumPut("ushort", value, this, 534)
     }
 
     /**
@@ -772,13 +824,32 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * @type {Array<Byte>}
+     */
+    MAXDNA{
+        get {
+            if(!this.HasProp("__MAXDNAProxyArray"))
+                this.__MAXDNAProxyArray := Win32FixedArray(this.ptr + 544, 16, Primitive, "char")
+            return this.__MAXDNAProxyArray
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MAXCNA {
+        get => NumGet(this, 560, "uint")
+        set => NumPut("uint", value, this, 560)
+    }
+
+    /**
      * Bytes 704:2047 are reserved for I/O Command Set Attributes.
      * @type {Array<Byte>}
      */
     Reserved6{
         get {
             if(!this.HasProp("__Reserved6ProxyArray"))
-                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 544, 224, Primitive, "char")
+                this.__Reserved6ProxyArray := Win32FixedArray(this.ptr + 564, 204, Primitive, "char")
             return this.__Reserved6ProxyArray
         }
     }
@@ -806,12 +877,60 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    IOCCSZ {
+        get => NumGet(this, 1792, "uint")
+        set => NumPut("uint", value, this, 1792)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IORCSZ {
+        get => NumGet(this, 1796, "uint")
+        set => NumPut("uint", value, this, 1796)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ICDOFF {
+        get => NumGet(this, 1800, "ushort")
+        set => NumPut("ushort", value, this, 1800)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FCATT {
+        get => NumGet(this, 1802, "char")
+        set => NumPut("char", value, this, 1802)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MSDBD {
+        get => NumGet(this, 1803, "char")
+        set => NumPut("char", value, this, 1803)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OFCS {
+        get => NumGet(this, 1804, "ushort")
+        set => NumPut("ushort", value, this, 1804)
+    }
+
+    /**
      * @type {Array<Byte>}
      */
     Reserved8{
         get {
             if(!this.HasProp("__Reserved8ProxyArray"))
-                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1792, 256, Primitive, "char")
+                this.__Reserved8ProxyArray := Win32FixedArray(this.ptr + 1806, 242, Primitive, "char")
             return this.__Reserved8ProxyArray
         }
     }

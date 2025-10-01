@@ -8007,8 +8007,13 @@ class D3D11_MESSAGE_ID{
     static D3D11_MESSAGE_ID_TRACKED_WORKLOAD_DISJOINT_FAILURE => 3146283
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static D3D11_MESSAGE_ID_DEVICE_DRAW_RESOURCE_FORMAT_AND_WRITE_MASK_MISMATCH => 3146284
+
+    /**
      * 
      * @type {Integer (Int32)}
      */
-    static D3D11_MESSAGE_ID_D3D11_5_MESSAGES_END => 3146284
+    static D3D11_MESSAGE_ID_D3D11_5_MESSAGES_END => 3146285
 }

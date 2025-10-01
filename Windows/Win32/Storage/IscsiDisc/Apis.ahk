@@ -611,6 +611,16 @@ class IscsiDisc {
     /**
      * @type {Integer (UInt32)}
      */
+    static FIRMWARE_REQUEST_FLAG_SWITCH_TO_FIRMWARE_WITHOUT_RESET => 268435456
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FIRMWARE_REQUEST_FLAG_REPLACE_AND_SWITCH_UPON_RESET => 536870912
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FIRMWARE_REQUEST_FLAG_REPLACE_EXISTING_IMAGE => 1073741824
 
     /**

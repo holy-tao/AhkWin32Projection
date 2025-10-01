@@ -1183,15 +1183,15 @@ class Performance {
      * @param {Pointer<Byte>} szNewCtrFilePath 
      * @param {Pointer<Byte>} szNewHlpFilePath 
      * @param {Pointer<Byte>} szLanguageID 
-     * @param {Pointer} dwFlags 
+     * @param {Pointer} dwModes 
      * @returns {Integer} 
      */
-    static UpdatePerfNameFilesA(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dwFlags) {
+    static UpdatePerfNameFilesA(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dwModes) {
         szNewCtrFilePath := szNewCtrFilePath is String? StrPtr(szNewCtrFilePath) : szNewCtrFilePath
         szNewHlpFilePath := szNewHlpFilePath is String? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
         szLanguageID := szLanguageID is String? StrPtr(szLanguageID) : szLanguageID
 
-        result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwFlags, "uint")
+        result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwModes, "uint")
         return result
     }
 
@@ -1200,15 +1200,15 @@ class Performance {
      * @param {Pointer<Char>} szNewCtrFilePath 
      * @param {Pointer<Char>} szNewHlpFilePath 
      * @param {Pointer<Char>} szLanguageID 
-     * @param {Pointer} dwFlags 
+     * @param {Pointer} dwModes 
      * @returns {Integer} 
      */
-    static UpdatePerfNameFilesW(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dwFlags) {
+    static UpdatePerfNameFilesW(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dwModes) {
         szNewCtrFilePath := szNewCtrFilePath is String? StrPtr(szNewCtrFilePath) : szNewCtrFilePath
         szNewHlpFilePath := szNewHlpFilePath is String? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
         szLanguageID := szLanguageID is String? StrPtr(szLanguageID) : szLanguageID
 
-        result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwFlags, "uint")
+        result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwModes, "uint")
         return result
     }
 

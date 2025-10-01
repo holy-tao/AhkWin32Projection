@@ -11,7 +11,7 @@
  */
 class JET_COMMIT_ID extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -30,15 +30,15 @@ class JET_COMMIT_ID extends Win32Struct
      * @type {Integer}
      */
     reserved {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     commitId {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
+        get => NumGet(this, 40, "int64")
+        set => NumPut("int64", value, this, 40)
     }
 }

@@ -5812,8 +5812,33 @@ class D3D12_MESSAGE_ID{
     static D3D12_MESSAGE_ID_DIFFERENT_DESCRIPTOR_HEAP_SET_AFTER_ROOT_SIGNATURE_WITH_DIRECTLY_INDEXED_FLAG => 1420
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_APPLICATION_SPECIFIC_DRIVER_STATE_NOT_SUPPORTED => 1421
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_RENDER_TARGET_OR_DEPTH_STENCIL_RESOUCE_NOT_INITIALIZED => 1422
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_BYTECODE_VALIDATION_ERROR => 1423
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_FENCE_ZERO_WAIT => 1424
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_NON_COMMON_RESOURCE_IN_COPY_QUEUE => 1425
+
+    /**
      * 
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_ID_D3D12_MESSAGES_END => 1421
+    static D3D12_MESSAGE_ID_D3D12_MESSAGES_END => 1426
 }

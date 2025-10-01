@@ -1936,6 +1936,7 @@ class ColorSystem {
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolordirectorya
+     * @deprecated
      */
     static GetColorDirectoryA(pMachineName, pBuffer, pdwSize) {
         pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
@@ -1957,6 +1958,7 @@ class ColorSystem {
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolordirectoryw
+     * @deprecated
      */
     static GetColorDirectoryW(pMachineName, pBuffer, pdwSize) {
         pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
@@ -3482,6 +3484,23 @@ class ColorSystem {
      */
     static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID, scope) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", scope, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} scope 
+     * @param {Pointer} targetAdapterID 
+     * @param {Integer} sourceID 
+     * @param {Integer} capsType 
+     * @param {Pointer<Void>} outputCapabilities 
+     * @returns {HRESULT} 
+     */
+    static ColorProfileGetDeviceCapabilities(scope, targetAdapterID, sourceID, capsType, outputCapabilities) {
+        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, "ptr", outputCapabilities, "int")
         if(result != 0)
             throw OSError(result)
 

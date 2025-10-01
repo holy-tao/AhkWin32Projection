@@ -76,4 +76,12 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS extends Win32Struct
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
+
+    /**
+     * @type {Pointer<D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC>}
+     */
+    pOpacityMicromapArrayDesc {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
 }

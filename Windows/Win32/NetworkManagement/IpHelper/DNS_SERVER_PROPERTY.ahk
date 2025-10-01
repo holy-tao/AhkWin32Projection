@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_SERVER_PROPERTY_TYPES.ahk
 
 /**
  * Describes a DNS server property, which is set in the [**DNS_INTERFACE_SETTINGS3**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) structure, and configured through the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function.
@@ -11,7 +12,7 @@
  */
 class DNS_SERVER_PROPERTY extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -52,10 +53,13 @@ class DNS_SERVER_PROPERTY extends Win32Struct
      * Type: **[DNS_SERVER_PROPERTY_TYPES](ns-netioapi-dns_server_property_types.md)**
      * 
      * If the *Type* member is set to **DnsServerDohProperty**, then the **DNS_SERVER_PROPERTY_TYPES::DohSettings** field must point to a valid **DNS_DOH_SERVER_SETTINGS** object.
-     * @type {Pointer<TypeHandle>}
+     * @type {DNS_SERVER_PROPERTY_TYPES}
      */
-    Property {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Property{
+        get {
+            if(!this.HasProp("__Property"))
+                this.__Property := DNS_SERVER_PROPERTY_TYPES(this.ptr + 16)
+            return this.__Property
+        }
     }
 }

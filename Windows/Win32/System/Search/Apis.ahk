@@ -15791,6 +15791,11 @@ class Search {
     /**
      * @type {Integer (Int32)}
      */
+    static PRTH_E_TRANSACTION_FAILED => -2147216858
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static CMDLINE_E_UNEXPECTED => -2147216127
 
     /**
@@ -17052,6 +17057,11 @@ class Search {
      * @type {Integer (Int32)}
      */
     static CI_E_PROTECTED_CATALOG_NON_INTERACTIVE_USER => -1073473481
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FILTER_E_NO_IMAGE_FRAMES => -2147215602
 
     /**
      * @type {Integer (Int32)}

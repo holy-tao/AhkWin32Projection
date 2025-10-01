@@ -44,5 +44,15 @@ class UNumberSignDisplay{
     /**
      * @type {Integer (Int32)}
      */
-    static UNUM_SIGN_COUNT => 7
+    static UNUM_SIGN_NEGATIVE => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_SIGN_ACCOUNTING_NEGATIVE => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_SIGN_COUNT => 9
 }

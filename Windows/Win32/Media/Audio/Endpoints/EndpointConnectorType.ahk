@@ -29,5 +29,10 @@ class EndpointConnectorType{
     /**
      * @type {Integer (Int32)}
      */
-    static eConnectorCount => 4
+    static eLoopbackConnectorPostVolume => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static eConnectorCount => 5
 }

@@ -586,6 +586,31 @@ class UpdateAgent {
     /**
      * @type {Integer (Int32)}
      */
+    static WU_E_STANDBY_ACTIVITY_NOT_ALLOWED => -2145124249
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_COULD_NOT_EVALUATE_PROPERTY => -2145124248
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_SERVICE_UNEXPECTED_EXIT => -2145124247
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_ACCESS_DENIED_CALLER_IDENTITY => -2145124246
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_SERVICE_REENABLE_ACCESS_DENIED => -2145124245
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WU_E_UNEXPECTED => -2145120257
 
     /**
@@ -842,6 +867,11 @@ class UpdateAgent {
      * @type {Integer (Int32)}
      */
     static WU_E_PT_LOAD_SHEDDING => -2145107923
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_PT_CLIENT_ENFORCED_LOAD_SHEDDING => -2145107922
 
     /**
      * @type {Integer (Int32)}
@@ -1696,6 +1726,16 @@ class UpdateAgent {
     /**
      * @type {Integer (Int32)}
      */
+    static WU_E_UH_UA_SESSION_INFO_VERSION_NOT_SUPPORTED => -2145116123
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_UH_RESERVICING_REQUIRED_BASELINE => -2145116122
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WU_E_UH_UNEXPECTED => -2145112065
 
     /**
@@ -1837,6 +1877,11 @@ class UpdateAgent {
      * @type {Integer (Int32)}
      */
     static WU_E_DM_DOSVC_REQUIRED => -2145099746
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_DM_DOWNLOADTYPE_CONFLICT => -2145099745
 
     /**
      * @type {Integer (Int32)}
@@ -2357,6 +2402,16 @@ class UpdateAgent {
      * @type {Integer (Int32)}
      */
     static WU_E_TRUST_PROVIDER_UNKNOWN => -2145078524
+
+    /**
+     * @type {String}
+     */
+    static c_szUpdatePropertyName_ContainsUpdateBootstrapper => "ContainsUpdateBootstrapper"
+
+    /**
+     * @type {String}
+     */
+    static c_szUpdatePropertyName_DoesUpdateRequireReboot => "DoesUpdateRequireReboot"
 ;@endregion Constants
 
 ;@region Methods

@@ -296,4 +296,9 @@ class D3D12_AUTO_BREADCRUMB_OP{
      * @type {Integer (Int32)}
      */
     static D3D12_AUTO_BREADCRUMB_OP_SETPROGRAM => 48
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_AUTO_BREADCRUMB_OP_PROCESSFRAMES2 => 52
 }

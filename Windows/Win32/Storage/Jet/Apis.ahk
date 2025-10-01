@@ -46,6 +46,51 @@ class Jet {
     /**
      * @type {Integer (UInt32)}
      */
+    static JET_efvUseEngineDefault => 1073741825
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvUsePersistedFormat => 1073741826
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvAllowHigherPersistedFormat => 1090519040
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvWindows19H1Rtm => 8920
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvWindows10v2004 => 9180
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvWindowsServer2022 => 9360
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvWindows11v21H2 => 9400
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvWindows11v22H2 => 9480
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_efvWindows11v23H2 => 9600
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static JET_bitDefragmentBatchStart => 1
 
     /**
@@ -1016,6 +1061,11 @@ class Jet {
     /**
      * @type {Integer (UInt32)}
      */
+    static JET_paramEngineFormatVersion => 194
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static JET_paramUseFlushForWriteDurability => 214
 
     /**
@@ -1036,7 +1086,17 @@ class Jet {
     /**
      * @type {Integer (UInt32)}
      */
-    static JET_paramMaxValueInvalid => 218
+    static JET_paramEnableBlockCache => 218
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_paramTraceFlags => 223
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_paramMaxValueInvalid => 232
 
     /**
      * @type {Integer (UInt32)}
@@ -1842,6 +1902,11 @@ class Jet {
      * @type {Integer (UInt32)}
      */
     static JET_bitTTDotNetGuid => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_bitTTMaterializeBBT => 512
 
     /**
      * @type {Integer (UInt32)}
@@ -2749,6 +2814,16 @@ class Jet {
     static JET_errNodeCorrupted => -358
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errBBTNodeCorrupted => -364
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errBBTBuffCorrupted => -365
+
+    /**
      * @type {Integer (UInt32)}
      */
     static JET_wrnSeparateLongValue => 406
@@ -3282,6 +3357,16 @@ class Jet {
      * @type {Integer (Int32)}
      */
     static JET_errDbTimeBeyondMaxRequired => -625
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errLogOperationInconsistentWithDatabase => -626
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errInsertKeyOutOfOrder => -627
 
     /**
      * @type {Integer (Int32)}
@@ -4466,6 +4551,16 @@ class Jet {
     /**
      * @type {Integer (Int32)}
      */
+    static JET_errSetAutoIncrementTooHigh => -1624
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errAutoIncrementNotSet => -1625
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static JET_errTooManySorts => -1701
 
     /**
@@ -4697,6 +4792,16 @@ class Jet {
      * @type {Integer (Int32)}
      */
     static JET_errFileCompressed => -4005
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errClientSpaceBegin => -10000
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errClientSpaceEnd => -11999
 
     /**
      * @type {Integer (UInt32)}
@@ -7729,14 +7834,12 @@ class Jet {
 
     /**
      * Learn more about: JetFreeBuffer Function
-     * @param {Pointer<Byte>} pbBuf 
+     * @param {Pointer<SByte>} pbBuf 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetfreebuffer-function
      */
     static JetFreeBuffer(pbBuf) {
-        pbBuf := pbBuf is String? StrPtr(pbBuf) : pbBuf
-
-        result := DllCall("ESENT.dll\JetFreeBuffer", "ptr", pbBuf, "int")
+        result := DllCall("ESENT.dll\JetFreeBuffer", "char*", pbBuf, "int")
         return result
     }
 

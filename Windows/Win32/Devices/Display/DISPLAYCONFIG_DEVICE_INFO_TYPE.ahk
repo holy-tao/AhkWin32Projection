@@ -87,4 +87,24 @@ class DISPLAYCONFIG_DEVICE_INFO_TYPE{
      * @type {Integer (Int32)}
      */
     static DISPLAYCONFIG_DEVICE_INFO_SET_MONITOR_SPECIALIZATION => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DISPLAYCONFIG_DEVICE_INFO_SET_RESERVED1 => 14
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DISPLAYCONFIG_DEVICE_INFO_GET_ADVANCED_COLOR_INFO_2 => 15
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DISPLAYCONFIG_DEVICE_INFO_SET_HDR_STATE => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DISPLAYCONFIG_DEVICE_INFO_SET_WCG_STATE => 17
 }

@@ -85,18 +85,24 @@ class JET_COLUMNBASE_W extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<UInt16>}
      */
-    szBaseTableName {
-        get => StrGet(this.ptr + 28, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 255, "UTF-16")
+    szBaseTableName{
+        get {
+            if(!this.HasProp("__szBaseTableNameProxyArray"))
+                this.__szBaseTableNameProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
+            return this.__szBaseTableNameProxyArray
+        }
     }
 
     /**
-     * @type {String}
+     * @type {Array<UInt16>}
      */
-    szBaseColumnName {
-        get => StrGet(this.ptr + 540, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 540, 255, "UTF-16")
+    szBaseColumnName{
+        get {
+            if(!this.HasProp("__szBaseColumnNameProxyArray"))
+                this.__szBaseColumnNameProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")
+            return this.__szBaseColumnNameProxyArray
+        }
     }
 }

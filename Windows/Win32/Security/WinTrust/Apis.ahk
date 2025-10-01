@@ -36,7 +36,17 @@ class WinTrust {
     /**
      * @type {Integer (UInt32)}
      */
+    static WTD_CHOICE_DETACHED_SIG => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WTD_PROV_FLAGS_MASK => 65535
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WTD_USE_LOCAL_MACHINE_CERTS => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -72,6 +82,16 @@ class WinTrust {
      * @type {Integer (UInt32)}
      */
     static WSS_OUTPUT_FLAG_MASK => 3758096384
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINTRUST_DETACHED_SIG_CHOICE_HANDLE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINTRUST_DETACHED_SIG_CHOICE_BLOB => 2
 
     /**
      * @type {Integer (UInt32)}
@@ -507,6 +527,56 @@ class WinTrust {
      * @type {String}
      */
     static SPC_ENCRYPTED_DIGEST_RETRY_COUNT_OBJID => "1.3.6.1.4.1.311.2.6.2"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_INTERNAL_NAME => "1.3.6.1.4.1.311.2.7.1"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_FILE_VERSION => "1.3.6.1.4.1.311.2.7.2"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_FILE_DESCRIPTION => "1.3.6.1.4.1.311.2.7.3"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_PRODUCT => "1.3.6.1.4.1.311.2.7.4"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_PRODUCT_VERSION => "1.3.6.1.4.1.311.2.7.5"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_ORIGINAL_FILENAME => "1.3.6.1.4.1.311.2.7.6"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_LANGUAGE => "1.3.6.1.4.1.311.2.7.7"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_AUTHOR => "1.3.6.1.4.1.311.2.7.8"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_PUBLISH_TIME => "1.3.6.1.4.1.311.2.7.9"
+
+    /**
+     * @type {String}
+     */
+    static szOID_SIGNED_ATTRIBUTE_SOURCE_URL => "1.3.6.1.4.1.311.2.7.10"
 
     /**
      * @type {String}

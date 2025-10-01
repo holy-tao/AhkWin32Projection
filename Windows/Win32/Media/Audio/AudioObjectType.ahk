@@ -121,4 +121,14 @@ class AudioObjectType{
      * @type {Integer (Int32)}
      */
     static AudioObjectType_BackCenter => 131072
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static AudioObjectType_StereoLeft => 262144
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static AudioObjectType_StereoRight => 524288
 }

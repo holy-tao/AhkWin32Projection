@@ -2299,7 +2299,7 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
-    static ERROR_INVALID_CONFIG_VALUE => 479
+    static ERROR_MEMORY_DECOMPRESSION_FAILURE => 479
 
     /**
      * @type {Integer (UInt32)}
@@ -2480,6 +2480,21 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_VOLUME_UPGRADE_DISABLED_TILL_OS_DOWNGRADE_EXPIRED => 518
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_INVALID_CONFIG_VALUE => 519
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_MEMORY_DECOMPRESSION_HW_ERROR => 520
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_VOLUME_ROLLBACK_DETECTED => 521
 
     /**
      * @type {Integer (UInt32)}
@@ -6724,6 +6739,11 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_REMOTE_MAILSLOTS_DEPRECATED => 3025
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_REQUEST_PAUSED => 3050
 
     /**
@@ -6830,6 +6850,26 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_VRF_VOLATILE_SETTINGS_CONFLICT => 3087
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CAR_LKD_IN_PROGRESS => 3088
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_DIF_ZERO_SIZE_INFORMATION => 3187
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_DIF_DRIVER_PLUGIN_MISMATCH => 3188
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_DIF_DRIVER_THUNKS_NOT_ALLOWED => 3189
 
     /**
      * @type {Integer (UInt32)}
@@ -7545,6 +7585,11 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_SYSTEM_INTEGRITY_REPUTATION_EXPLICIT_DENY_FILE => 4582
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_SYSTEM_INTEGRITY_WHQL_NOT_SATISFIED => 4583
 
     /**
      * @type {Integer (UInt32)}
@@ -8664,12 +8709,57 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_PDE_ENCRYPTION_UNAVAILABLE_FAILURE => 6024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_PDE_DECRYPTION_UNAVAILABLE_FAILURE => 6025
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_PDE_DECRYPTION_UNAVAILABLE => 6026
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_NO_BROWSER_SERVERS_FOUND => 6118
 
     /**
      * @type {Integer (UInt32)}
      */
     static ERROR_CLUSTER_OBJECT_IS_CLUSTER_SET_VM => 6250
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CNU_TEMPLATE_ALREADY_EXISTS => 6251
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CNU_TEMPLATE_NAME_NOT_FOUND => 6252
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CNU_RUN_NAME_NOT_FOUND => 6253
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CNU_RUN_ALREADY_IN_PROGRESS => 6254
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CNU_RUN_NOT_IN_PROGRESS => 6255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_CNU_NOT_READY => 6256
 
     /**
      * @type {Integer (UInt32)}
@@ -9345,6 +9435,11 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_TRANSACTION_NOT_ENLISTED => 6855
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_ENLISTMENT_NOT_INITIALIZED => 6856
 
     /**
      * @type {Integer (UInt32)}
@@ -11695,6 +11790,21 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_LAPS_ENCRYPTION_REQUIRES_2016_DFL => 8657
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_LAPS_PROCESS_TERMINATED => 8658
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_DS_JET_RECORD_TOO_BIG => 8659
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_DS_REPLICA_PAGE_SIZE_MISMATCH => 8660
 
     /**
      * @type {Integer (UInt32)}
@@ -14939,6 +15049,26 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_SERVICE_BLOCKED_BY_SYSPREP_IN_PROGRESS => 15673
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_UNSUPPORTED_ARM32_PACKAGE_REQUIRES_REMEDIAITON => 15674
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_UUP_PRODUCT_NOT_APPLICABLE => 15675
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_BLOCKED_BY_PENDING_PACKAGE_REMOVAL => 15676
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static APPMODEL_ERROR_NO_PACKAGE => 15700
 
     /**
@@ -15304,6 +15434,11 @@ class WIN32_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static ERROR_NDIS_DOT11_AP_RADIO_RESTRICTION => 2150899721
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ERROR_NDIS_INDICATION_REQUIRED => 3407873
 
     /**
@@ -15600,6 +15735,16 @@ class WIN32_ERROR{
      * @type {Integer (UInt32)}
      */
     static ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY_MIRRORING => 3224699013
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_HV_VTL_ALREADY_ENABLED => 3224699014
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ERROR_HV_SPDM_REQUEST => 3224699016
 
     /**
      * @type {Integer (UInt32)}

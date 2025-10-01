@@ -1366,12 +1366,22 @@ class WinSock {
     /**
      * @type {Integer (UInt32)}
      */
+    static ADDRINFOEX_VERSION_7 => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static AI_DNS_SERVER_TYPE_UDP => 1
 
     /**
      * @type {Integer (UInt32)}
      */
     static AI_DNS_SERVER_TYPE_DOH => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AI_DNS_SERVER_TYPE_DOT => 3
 
     /**
      * @type {Integer (UInt32)}
@@ -1387,6 +1397,11 @@ class WinSock {
      * @type {Integer (UInt32)}
      */
     static AI_DNS_RESPONSE_HOSTFILE => 2
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static AI_EXTRA_DNSSEC_REQUIRED => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -3711,6 +3726,11 @@ class WinSock {
     /**
      * @type {Integer (UInt32)}
      */
+    static LUP_RESERVED_UNUSED => 524288
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static LUP_ADDRCONFIG => 1048576
 
     /**
@@ -5466,6 +5486,11 @@ class WinSock {
     /**
      * @type {Integer (UInt32)}
      */
+    static TH_MAX_LEN => 60
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static TH_FIN => 1
 
     /**
@@ -5542,6 +5567,11 @@ class WinSock {
      * @type {Integer (UInt32)}
      */
     static TH_OPT_FASTOPEN => 34
+
+    /**
+     * @type {String}
+     */
+    static NMR_REG_KEY_PATH => "\Registry\Machine\System\CurrentControlSet\Control\NMR\providers"
 
     /**
      * @type {Integer (Int32)}

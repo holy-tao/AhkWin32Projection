@@ -32,6 +32,31 @@ class Memory {
      * @type {Integer (UInt32)}
      */
     static MEHC_PATROL_SCRUBBER_PRESENT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WIN32_MEMORY_NUMA_PERFORMANCE_ALL_TARGET_NODE => 4294967295
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WIN32_MEMORY_NUMA_PERFORMANCE_READ_LATENCY => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WIN32_MEMORY_NUMA_PERFORMANCE_READ_BANDWIDTH => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WIN32_MEMORY_NUMA_PERFORMANCE_WRITE_LATENCY => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WIN32_MEMORY_NUMA_PERFORMANCE_WRITE_BANDWIDTH => 8
 ;@endregion Constants
 
 ;@region Methods
@@ -4607,6 +4632,29 @@ class Memory {
      */
     static QueryPartitionInformation(Partition, PartitionInformationClass, PartitionInformation, PartitionInformationLength) {
         result := DllCall("api-ms-win-core-memory-l1-1-8.dll\QueryPartitionInformation", "ptr", Partition, "int", PartitionInformationClass, "ptr", PartitionInformation, "uint", PartitionInformationLength, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} TargetNodeNumber 
+     * @param {Pointer<UInt32>} InitiatorNodeNumber 
+     * @returns {Integer} 
+     */
+    static GetMemoryNumaClosestInitiatorNode(TargetNodeNumber, InitiatorNodeNumber) {
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaClosestInitiatorNode", "uint", TargetNodeNumber, "uint*", InitiatorNodeNumber, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} NodeNumber 
+     * @param {Integer} DataType 
+     * @param {Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>} PerfInfo 
+     * @returns {Integer} 
+     */
+    static GetMemoryNumaPerformanceInformation(NodeNumber, DataType, PerfInfo) {
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, "ptr", PerfInfo, "int")
         return result
     }
 

@@ -58,4 +58,9 @@ class NVME_ASYNC_EVENT_NOTICE_CODES{
      * @type {Integer (Int32)}
      */
     static NVME_ASYNC_NOTICE_ZONE_DESCRIPTOR_CHANGED => 239
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_ASYNC_NOTICE_DISCOVERY_LOG_PAGE_CHANGED => 240
 }

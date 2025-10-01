@@ -60,4 +60,29 @@ class DXC_OUT_KIND{
      * @type {Integer (Int32)}
      */
     static DXC_OUT_EXTRA_OUTPUTS => 10
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_REMARKS => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_TIME_REPORT => 12
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_TIME_TRACE => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_LAST => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXC_OUT_NUM_ENUMS => 14
 }

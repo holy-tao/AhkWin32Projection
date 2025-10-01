@@ -24,5 +24,10 @@ class GdiplusStartupParams{
     /**
      * @type {Integer (Int32)}
      */
+    static GdiplusStartupReserved0 => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static GdiplusStartupTransparencyMask => -16777216
 }

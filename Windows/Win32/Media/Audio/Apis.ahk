@@ -391,6 +391,11 @@ class Audio {
     /**
      * @type {Integer (Int32)}
      */
+    static AUDCLNT_E_POST_VOLUME_LOOPBACK_UNSUPPORTED => -2004287421
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static AUDCLNT_S_BUFFER_EMPTY => 143196161
 
     /**

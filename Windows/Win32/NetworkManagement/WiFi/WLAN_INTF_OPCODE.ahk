@@ -138,6 +138,16 @@ class WLAN_INTF_OPCODE{
     static wlan_intf_opcode_secondary_sta_synchronized_connections => 18
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static wlan_intf_opcode_realtime_connection_quality => 19
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static wlan_intf_opcode_qos_info => 20
+
+    /**
      * Not used.
      * @type {Integer (Int32)}
      */

@@ -551,7 +551,27 @@ class SystemInformation {
     /**
      * @type {Integer (UInt32)}
      */
-    static WDK_NTDDI_VERSION => 167772172
+    static NTDDI_WIN10_CU => 167772173
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NTDDI_WIN11_ZN => 167772174
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NTDDI_WIN11_GA => 167772175
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NTDDI_WIN11_GE => 167772176
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WDK_NTDDI_VERSION => 167772176
 
     /**
      * @type {Integer (UInt32)}
@@ -571,7 +591,7 @@ class SystemInformation {
     /**
      * @type {Integer (UInt32)}
      */
-    static NTDDI_VERSION => 167772172
+    static NTDDI_VERSION => 167772176
 
     /**
      * @type {Integer (UInt32)}

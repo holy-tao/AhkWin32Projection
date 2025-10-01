@@ -13,7 +13,7 @@ class JET_RSTMAP_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<SByte>}
      */
     szDatabaseName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class JET_RSTMAP_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<SByte>}
      */
     szNewDatabaseName {
         get => NumGet(this, 8, "ptr")

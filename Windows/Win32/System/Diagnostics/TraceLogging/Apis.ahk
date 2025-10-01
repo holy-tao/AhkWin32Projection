@@ -351,11 +351,6 @@ class TraceLogging {
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_category_Network => 7
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static MSG_category_Printers => 3
 
     /**
@@ -376,12 +371,12 @@ class TraceLogging {
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_channel_Application => 256
+    static MSG_category_Network => 7
 
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_channel_ProviderMetadata => -1879048189
+    static MSG_channel_Application => 256
 
     /**
      * @type {Integer (Int32)}
@@ -396,17 +391,22 @@ class TraceLogging {
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_channel_TraceClassic => -1879048191
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_channel_TraceLogging => -1879048190
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static MSG_keyword_AnyKeyword => 268435456
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_keyword_ResponseTime => 268435505
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_keyword_WDIDiag => 268435507
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_keyword_SQM => 268435508
 
     /**
      * @type {Integer (Int32)}
@@ -421,57 +421,27 @@ class TraceLogging {
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_keyword_Classic => 268435512
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static MSG_keyword_CorrelationHint => 268435511
 
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_keyword_ResponseTime => 268435505
+    static MSG_keyword_Classic => 268435512
 
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_keyword_SQM => 268435508
+    static MSG_opcode_Info => 805306368
 
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_keyword_WDIDiag => 268435507
+    static MSG_opcode_Start => 805371904
 
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_level_Critical => 1342177281
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_level_Error => 1342177282
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_level_Informational => 1342177284
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_level_LogAlways => 1342177280
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_level_Verbose => 1342177285
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_level_Warning => 1342177283
+    static MSG_opcode_Stop => 805437440
 
     /**
      * @type {Integer (Int32)}
@@ -491,16 +461,6 @@ class TraceLogging {
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_opcode_Info => 805306368
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_opcode_Receive => 821035008
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static MSG_opcode_Reply => 805699584
 
     /**
@@ -511,27 +471,67 @@ class TraceLogging {
     /**
      * @type {Integer (Int32)}
      */
-    static MSG_opcode_Send => 805896192
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_opcode_Start => 805371904
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static MSG_opcode_Stop => 805437440
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static MSG_opcode_Suspend => 805830656
 
     /**
      * @type {Integer (Int32)}
      */
+    static MSG_opcode_Send => 805896192
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_opcode_Receive => 821035008
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_level_LogAlways => 1342177280
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_level_Critical => 1342177281
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_level_Error => 1342177282
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_level_Warning => 1342177283
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_level_Informational => 1342177284
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_level_Verbose => 1342177285
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static MSG_task_None => 1879048192
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_channel_TraceClassic => -1879048191
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_channel_TraceLogging => -1879048190
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MSG_channel_ProviderMetadata => -1879048189
 ;@endregion Constants
 
 ;@region Methods

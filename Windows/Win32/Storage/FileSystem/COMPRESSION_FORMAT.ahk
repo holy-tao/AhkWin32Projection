@@ -35,4 +35,19 @@ class COMPRESSION_FORMAT{
      * @type {Integer (UInt16)}
      */
     static COMPRESSION_FORMAT_XP10 => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static COMPRESSION_FORMAT_LZ4 => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static COMPRESSION_FORMAT_DEFLATE => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static COMPRESSION_FORMAT_ZLIB => 8
 }

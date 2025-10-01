@@ -60,4 +60,9 @@ class SETUPSCANFILEQUEUE_FLAGS{
      * @type {Integer (UInt32)}
      */
     static SPQ_SCAN_ACTIVATE_DRP => 1024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SPQ_SCAN_USE_OEM_CATALOGS => 2048
 }

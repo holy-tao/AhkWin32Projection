@@ -11,6 +11,11 @@
 class NVME_LOG_PAGES{
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_SUPPORTED_LOG_PAGES => 0
+
+    /**
      * The Error Information log page that contains extended error information for a command that completed with an error or reported an error that is not specific to a particular command.
  * 
  * The information contained in the Error Information log page is defined in the [NVME_ERROR_INFO_LOG](ns-nvme-nvme_error_info_log.md) structure.
@@ -109,6 +114,46 @@ class NVME_LOG_PAGES{
      * @type {Integer (Int32)}
      */
     static NVME_LOG_PAGE_ENDURANCE_GROUP_EVENT_AGGREGATE => 15
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_MEDIA_UNIT_STATUS => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_SUPPORTED_CAPACITY_CONFIGURATION_LIST => 17
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_FEATURE_IDENTIFIERS_SUPPORTED_AND_EFFECTS => 18
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS => 19
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_COMMAND_AND_FEATURE_LOCKDOWN => 20
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_BOOT_PARTITON => 21
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_ROTATIONAL_MEDIA_INFORMATION => 22
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_LOG_PAGE_DISCOVERY => 112
 
     /**
      * The Reservation Notification log page that is created whenever an unmasked reservation notification occurs on any namespace that may be accessed by the controller.

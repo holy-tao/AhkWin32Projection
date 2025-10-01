@@ -201,6 +201,16 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static BCRYPT_PKCS11_RSA_AES_WRAP_KEY_BLOB => "PKCS11RsaAesWrapBlob"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_PKCS11_RSA_AES_WRAP_BLOB_MAGIC => 1464877394
+
+    /**
+     * @type {String}
+     */
     static BCRYPT_OBJECT_LENGTH => "ObjectLength"
 
     /**
@@ -282,6 +292,16 @@ class Cryptography {
      * @type {String}
      */
     static BCRYPT_AUTH_TAG_LENGTH => "AuthTagLength"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_FUNCTION_NAME_STRING => "FunctionNameString"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_CUSTOMIZATION_STRING => "CustomizationString"
 
     /**
      * @type {String}
@@ -377,6 +397,11 @@ class Cryptography {
      * @type {String}
      */
     static BCRYPT_CHAIN_MODE_GCM => "ChainingModeGCM"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_CHAIN_MODE_KWP => "ChainingModeKWP"
 
     /**
      * @type {Integer (UInt32)}
@@ -487,6 +512,11 @@ class Cryptography {
      * @type {String}
      */
     static SSL_ECCPUBLIC_BLOB => "SSLECCPUBLICBLOB"
+
+    /**
+     * @type {String}
+     */
+    static TLS_13_PRE_SHARED_KEY => "TLS13PRESHAREDKEY"
 
     /**
      * @type {Integer (UInt32)}
@@ -1124,6 +1154,41 @@ class Cryptography {
     static BCRYPT_CHACHA20_POLY1305_ALGORITHM => "CHACHA20_POLY1305"
 
     /**
+     * @type {String}
+     */
+    static BCRYPT_SHA3_256_ALGORITHM => "SHA3-256"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SHA3_384_ALGORITHM => "SHA3-384"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_SHA3_512_ALGORITHM => "SHA3-512"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_CSHAKE128_ALGORITHM => "CSHAKE128"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_CSHAKE256_ALGORITHM => "CSHAKE256"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_KMAC128_ALGORITHM => "KMAC128"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_KMAC256_ALGORITHM => "KMAC256"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static BCRYPT_KEY_DERIVATION_INTERFACE => 7
@@ -1426,12 +1491,72 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static BCRYPT_SHA3_256_ALG_HANDLE => 945
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_SHA3_384_ALG_HANDLE => 961
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_SHA3_512_ALG_HANDLE => 977
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_HMAC_SHA3_256_ALG_HANDLE => 993
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_HMAC_SHA3_384_ALG_HANDLE => 1009
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_HMAC_SHA3_512_ALG_HANDLE => 1025
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_CSHAKE128_ALG_HANDLE => 1041
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_CSHAKE256_ALG_HANDLE => 1057
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_KMAC128_ALG_HANDLE => 1073
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_KMAC256_ALG_HANDLE => 1089
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_AES_KWP_ALG_HANDLE => 1105
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static BCRYPT_CAPI_AES_FLAG => 16
 
     /**
      * @type {Integer (UInt32)}
      */
     static BCRYPT_MULTI_FLAG => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_HASH_DONT_RESET_FLAG => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -2341,11 +2466,6 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
-    static NCRYPTBUFFER_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS => 54
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static NCRYPTBUFFER_ECC_CURVE_NAME => 60
 
     /**
@@ -2391,6 +2511,46 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPTBUFFER_ATTESTATION_STATEMENT_SIGNATURE_HASH => 90
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_ATTESTATION_STATEMENT_SIGNATURE_PADDING_SCHEME => 91
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_ATTESTATION_STATEMENT_SIGNATURE_PADDING_ALGO => 92
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_ATTESTATION_STATEMENT_SIGNATURE_PADDING_SALT_SIZE => 93
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_ATTESTATION_STATEMENT_SIGNATURE_PADDING_SALT => 93
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_ATTESTATION_STATEMENT_NONCE => 49
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_VBS_ATTESTATION_STATEMENT_ROOT_DETAILS => 94
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPTBUFFER_VBS_ATTESTATION_STATEMENT_IDENTITY_DETAILS => 95
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_CIPHER_NO_PADDING_FLAG => 0
 
     /**
@@ -2426,17 +2586,27 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
-    static NCRYPT_CLAIM_WEB_AUTH_SUBJECT_ONLY => 258
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static NCRYPT_CLAIM_AUTHORITY_AND_SUBJECT => 3
 
     /**
      * @type {Integer (UInt32)}
      */
-    static NCRYPT_CLAIM_VSM_KEY_ATTESTATION_STATEMENT => 4
+    static NCRYPT_CLAIM_VBS_KEY_ATTESTATION_STATEMENT => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_CLAIM_VBS_ROOT => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_CLAIM_VBS_IDENTITY => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_CLAIM_WEB_AUTH_SUBJECT_ONLY => 258
 
     /**
      * @type {Integer (UInt32)}
@@ -2451,12 +2621,42 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPT_CLAIM_WEB_AUTH_SUBJECT_ONLY_V2 => 259
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_ISOLATED_KEY_FLAG_CREATED_IN_ISOLATION => 1
 
     /**
      * @type {Integer (UInt32)}
      */
     static NCRYPT_ISOLATED_KEY_FLAG_IMPORT_ONLY => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_ISOLATED_KEY_FLAG_PER_BOOT_KEY => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_FLAG_CREATED_IN_ISOLATION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_FLAG_IMPORT_ONLY => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_FLAG_PER_BOOT_KEY => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_FLAG_IMPORT_EPHEMERAL_ONLY => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -2471,22 +2671,7 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
-    static NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_V0 => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_V0 => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION => 0
+    static NCRYPT_VBS_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION => 0
 
     /**
      * @type {Integer (UInt32)}
@@ -2497,6 +2682,66 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_ROOT_ATTESTATION_HEADER_V0 => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_ROOT_ATTESTATION_HEADER_CURRENT_VERSION => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static VBS_ROOT_ATTESTATION_HEADER_MAGIC => 1212371542
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_IDENTITY_ATTESTATION_PADDING_V0 => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_IDENTITY_ATTESTATION_PADDING_CURRENT_VERSION => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_IDENTITY_ATTESTATION_HEADER_V0 => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_IDENTITY_ATTESTATION_HEADER_CURRENT_VERSION => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static VBS_IDENTITY_ATTESTATION_HEADER_MAGIC => 1212369238
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_ATTESTATION_STATEMENT_V1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_ATTESTATION_STATEMENT_V2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static VBS_KEY_ATTESTATION_STATEMENT_MAGIC => 1396788054
 
     /**
      * @type {Integer (UInt32)}
@@ -2576,6 +2821,26 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPT_PREFER_VBS_FLAG => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_REQUIRE_VBS_FLAG => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_USE_VBS_PER_BOOT_KEY_FLAG => 262144
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_VBS_RETURN_CLAIM_DETAILS_FLAG => 1048576
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_KEY_DERIVATION_OPERATION => 64
 
     /**
@@ -2592,6 +2857,11 @@ class Cryptography {
      * @type {String}
      */
     static NCRYPT_NAME_PROPERTY => "Name"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_EPHEMERAL_NAME_PROPERTY => "Ephemeral Name"
 
     /**
      * @type {String}
@@ -2817,6 +3087,31 @@ class Cryptography {
      * @type {String}
      */
     static NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY => "SmartCardDismissUITimeoutSeconds"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_VBS_ROOT_PUB_PROPERTY => "VBS_ROOT_PUB"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_CERTIFICATE_FROM_NVRAM_PROPERTY => "KeyCertificateFromTpmNvram"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PKCS11_KWP_AES_KEY_BITS_PROPERTY => "Pkcs11AesKeyBits"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PKCS11_KWP_OAEP_HASH_ALGO_PROPERTY => "Pkcs11OaepHashAlgorithm"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PKCS11_KWP_OAEP_LABEL_PROPERTY => "Pkcs11OaepLabel"
 
     /**
      * @type {String}
@@ -3206,6 +3501,11 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPT_ALLOW_PKCS11_RSA_AES_EXPORT_FLAG => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_IMPL_HARDWARE_FLAG => 1
 
     /**
@@ -3246,7 +3546,22 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPT_ALLOW_KEY_ENVELOPE_FLAG => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_ALLOW_KEY_IMPORT_FLAG => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_ALLOW_KEY_ATTESTATION_FLAG => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_ALLOW_KEY_IMPORT_EPHEMERAL_FLAG => 32
 
     /**
      * @type {Integer (UInt32)}
@@ -3382,6 +3697,16 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static NCRYPT_TPM_LOADABLE_KEY_BLOB_MAGIC => 1297371211
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_TPM_PERSISTENT_KEY_BLOB => "PcpTpmPersistentKeyBlob"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_TPM_PERSISTENT_KEY_BLOB_MAGIC => 1297371211
 
     /**
      * @type {String}
@@ -6526,12 +6851,17 @@ class Cryptography {
     /**
      * @type {Integer (Int32)}
      */
-    static X509_EXTENSIONS => 5
+    static X509_NAME_VALUE => 6
 
     /**
      * @type {Integer (Int32)}
      */
-    static X509_NAME_VALUE => 6
+    static X509_PUBLIC_KEY_INFO => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static X509_EXTENSIONS => 5
 
     /**
      * @type {Integer (Int32)}
@@ -6541,7 +6871,12 @@ class Cryptography {
     /**
      * @type {Integer (Int32)}
      */
-    static X509_PUBLIC_KEY_INFO => 8
+    static WINCRYPT_X509_EXTENSIONS => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WINCRYPT_X509_NAME => 7
 
     /**
      * @type {Integer (Int32)}
@@ -6871,6 +7206,16 @@ class Cryptography {
     /**
      * @type {Integer (Int32)}
      */
+    static OCSP_BASIC_SIGNED_RESPONSE => 68
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static OCSP_BASIC_RESPONSE => 69
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static OCSP_REQUEST => 66
 
     /**
@@ -6881,12 +7226,12 @@ class Cryptography {
     /**
      * @type {Integer (Int32)}
      */
-    static OCSP_BASIC_SIGNED_RESPONSE => 68
+    static WINCRYPT_OCSP_REQUEST => 66
 
     /**
      * @type {Integer (Int32)}
      */
-    static OCSP_BASIC_RESPONSE => 69
+    static WINCRYPT_OCSP_RESPONSE => 67
 
     /**
      * @type {Integer (Int32)}
@@ -6972,6 +7317,11 @@ class Cryptography {
      * @type {Integer (Int32)}
      */
     static PKCS7_SIGNER_INFO => 500
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WINCRYPT_PKCS7_SIGNER_INFO => 500
 
     /**
      * @type {Integer (Int32)}
@@ -7702,6 +8052,16 @@ class Cryptography {
      * @type {String}
      */
     static szOID_SYNC_ROOT_CTL_EXT => "1.3.6.1.4.1.311.10.3.50"
+
+    /**
+     * @type {String}
+     */
+    static szOID_FLIGHT_CTL_EXT => "1.3.6.1.4.1.311.10.3.51"
+
+    /**
+     * @type {String}
+     */
+    static szOID_CERT_LOG_LIST_EXT => "1.3.6.1.4.1.311.10.3.52"
 
     /**
      * @type {String}
@@ -10316,7 +10676,12 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
-    static CERT_FIRST_RESERVED_PROP_ID => 129
+    static CERT_SHA1_SHA256_HASH_PROP_ID => 129
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_FIRST_RESERVED_PROP_ID => 130
 
     /**
      * @type {Integer (UInt32)}
@@ -10357,6 +10722,11 @@ class Cryptography {
      * @type {String}
      */
     static szOID_CERT_MD5_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.4"
+
+    /**
+     * @type {String}
+     */
+    static szOID_CERT_SHA256_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.107"
 
     /**
      * @type {String}
@@ -11347,6 +11717,16 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static CERT_COMPARE_HAS_PRIVATE_KEY => 21
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_COMPARE_SHA256_HASH => 22
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_COMPARE_SHA1_SHA256_HASH => 23
 
     /**
      * @type {Integer (UInt32)}
@@ -12561,6 +12941,36 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static CERT_CHAIN_MIN_WEAK_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME => "MinWeakRsaPubKeyBitLength"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_MIN_WEAK_RSA_PUB_KEY_BIT_LENGTH_DEFAULT => 2047
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_MIN_WEAK_RSA_PUB_KEY_BIT_LENGTH_DISABLE => 4294967295
+
+    /**
+     * @type {String}
+     */
+    static CERT_CHAIN_MIN_TELEMETRY_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME => "MinTelemetryRsaPubKeyBitLength"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_MIN_TELEMETRY_RSA_PUB_KEY_BIT_LENGTH_DEFAULT => 2047
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_MIN_TELEMETRY_RSA_PUB_KEY_BIT_LENGTH_DISABLE => 4294967295
+
+    /**
+     * @type {String}
+     */
     static CERT_CHAIN_WEAK_RSA_PUB_KEY_TIME_VALUE_NAME => "WeakRsaPubKeyTime"
 
     /**
@@ -13251,6 +13661,16 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static CERT_TRUST_HAS_MIN_TELEMETRY_RSA => 4194304
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_TRUST_HAS_MIN_WEAK_RSA => 8388608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CERT_TRUST_IS_PARTIAL_CHAIN => 65536
 
     /**
@@ -13569,6 +13989,11 @@ class Cryptography {
     static CERT_CHAIN_POLICY_SSL_KEY_PIN => 12
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT => 13
+
+    /**
      * @type {Integer (UInt32)}
      */
     static SSL_F12_ERROR_TEXT_LENGTH => 256
@@ -13647,6 +14072,156 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static CERT_CHAIN_POLICY_SSL_KEY_PIN_MISMATCH_WARNING => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_UNDECODABLE_SCT_EXTENSION => -112
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_UNRETRIEVABLE_SCT_EXTENSION => -111
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_MISSING_SCT_EXTENSION => -110
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_INVALID_ISSUER_CERT => -101
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_INVALID_SUBJECT_CERT => -100
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_CANNOT_VALIDATE_SCT => -50
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_SCT_VALIDATION_STATUS_INSUFFICIENT => -4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_SCT_VALIDATION_STATUS_UNKNOWN_VERSION => -3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_SCT_VALIDATION_STATUS_UNKNOWN_LOG => -2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CERT_CHAIN_POLICY_CT_ERROR_SCT_VALIDATION_STATUS_INVALID => -1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_SUCCESS_SCT_VALIDIDATION_STATUS_VALID => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_OUT_OF_MEMORY => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_BEFORE_CODE_SIGNING_CT_LOGGING => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_NOT_THIRD_PARTY_CERT => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_EXPIRED_ROOT_CTL => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_INVALID_CHAIN_CONTEXT => 50
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_NOT_SUPPORTED_CA => 51
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_MISSING_ROOT_CTL => 52
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_MISSING_CT_EXT => 60
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_INVALID_CT_EXT => 61
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_UNABLE_TO_DECODE_EXT => 62
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_UNABLE_TO_DECODE_PARAMETERS => 70
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_INVALID_TEMP_FILE => 80
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_CANNOT_CREATE_TEMP_FILE => 81
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_CANNOT_WRITE_TEMP_FILE => 82
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_CANNOT_LOAD_CTLOG_STORE_FILE => 83
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_FAILED_INIT => 90
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_HASHING_ERROR => 200
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_INVALID_STR => 201
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_CHAIN_POLICY_CT_WARNING_CANNOT_CREATE_POLICY => 300
 
     /**
      * @type {Integer (UInt32)}
@@ -13757,6 +14332,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static PKCS12_IMPORT_RESERVED_MASK => 4294901760
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PKCS12_NAMED_NO_PERSIST_KEY => 131072
 
     /**
      * @type {Integer (UInt32)}

@@ -103,10 +103,15 @@ class MFVideoPrimaries{
     static MFVideoPrimaries_ACES => 12
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoPrimaries_Display_P3 => 13
+
+    /**
      * Reserved.
      * @type {Integer (Int32)}
      */
-    static MFVideoPrimaries_Last => 13
+    static MFVideoPrimaries_Last => 14
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.

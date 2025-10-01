@@ -61,6 +61,11 @@ class Sip {
     /**
      * @type {Integer (UInt32)}
      */
+    static MSSIP_ADDINFO_DETACHEDSIG => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MSSIP_ADDINFO_NONMSSIP => 500
 
     /**

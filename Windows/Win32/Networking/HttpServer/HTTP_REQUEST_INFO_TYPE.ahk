@@ -64,4 +64,14 @@ class HTTP_REQUEST_INFO_TYPE{
      * @type {Integer (Int32)}
      */
     static HttpRequestInfoTypeTcpInfoV1 => 9
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestInfoTypeQuicStatsV2 => 10
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestInfoTypeTcpInfoV2 => 11
 }

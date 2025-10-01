@@ -221,13 +221,21 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    FixedProtocolReturnData2 {
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
+    }
+
+    /**
      * Reserved for future use.
      * @type {Array<UInt32>}
      */
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 68, 3, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 72, 2, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }

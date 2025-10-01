@@ -146,10 +146,20 @@ class MFVideoTransferFunction{
     static MFVideoTransFunc_10_rel => 17
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransFunc_BT1361_ECG => 18
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransFunc_SMPTE428 => 19
+
+    /**
      * Reserved.
      * @type {Integer (Int32)}
      */
-    static MFVideoTransFunc_Last => 18
+    static MFVideoTransFunc_Last => 20
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.

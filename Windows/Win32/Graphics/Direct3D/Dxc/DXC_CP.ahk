@@ -20,4 +20,14 @@ class DXC_CP{
      * @type {Integer (UInt32)}
      */
     static DXC_CP_UTF8 => 65001
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DXC_CP_UTF32 => 12000
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DXC_CP_WIDE => 1200
 }

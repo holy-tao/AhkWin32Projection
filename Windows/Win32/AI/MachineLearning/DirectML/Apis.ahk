@@ -11,7 +11,7 @@ class DirectML {
     /**
      * @type {Integer (UInt32)}
      */
-    static DML_TARGET_VERSION => 20480
+    static DML_TARGET_VERSION => 25088
 
     /**
      * @type {Integer (UInt32)}

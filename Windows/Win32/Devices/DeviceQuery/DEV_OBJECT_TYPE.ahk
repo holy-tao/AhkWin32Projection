@@ -65,4 +65,9 @@ class DEV_OBJECT_TYPE{
      * @type {Integer (Int32)}
      */
     static DevObjectTypeDevicePanel => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DevObjectTypeAEPProtocol => 12
 }

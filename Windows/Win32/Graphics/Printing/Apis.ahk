@@ -26,6 +26,16 @@ class Printing {
     /**
      * @type {Integer (UInt32)}
      */
+    static USB_PRINT_IPP_COMPAT_ID => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static USB_PRINT_IPP_FAXOUT => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static USBPRINT_IOCTL_INDEX => 0
 
     /**
@@ -92,6 +102,11 @@ class Printing {
      * @type {Integer (UInt32)}
      */
     static IOCTL_USBPRINT_CYCLE_PORT => 2228320
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_USBPRINT_GET_MFG_MDL_ID => 2228324
 
     /**
      * @type {Integer (UInt32)}
@@ -2984,6 +2999,11 @@ class Printing {
     static XPS_FP_PRINTDEVICECAPABILITIES => "PrintDeviceCapabilities"
 
     /**
+     * @type {String}
+     */
+    static XPS_FP_FAX_JOB_PROPERTIES => "JobFaxProperties"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static MXDC_ESCAPE => 4122
@@ -3492,6 +3512,21 @@ class Printing {
      * @type {Integer (UInt32)}
      */
     static PDEV_USE_TRUE_COLOR_TYPE => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PDEV_ADJUST_GRAPHICS_RESOLUTION_TYPE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PDEV_ADJUST_IMAGEABLE_ORIGIN_AREA_TYPE => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PDEV_ADJUST_PHYSICAL_PAPER_SIZE_TYPE => 16
 
     /**
      * @type {Integer (UInt32)}
@@ -4241,7 +4276,27 @@ class Printing {
     /**
      * @type {Integer (UInt32)}
      */
+    static DONT_SEND_EXTRA_PAGES_FOR_DUPLEX => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static RIGHT_THEN_DOWN => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DOWN_THEN_RIGHT => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LEFT_THEN_DOWN => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DOWN_THEN_LEFT => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -4736,6 +4791,11 @@ class Printing {
     /**
      * @type {Integer (UInt32)}
      */
+    static JOB_CONTROL_PENDING_ON_DEVICE => 11
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static JOB_STATUS_PAUSED => 1
 
     /**
@@ -4991,6 +5051,21 @@ class Printing {
     /**
      * @type {Integer (UInt32)}
      */
+    static PPCAPS_DOWN_THEN_RIGHT => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PPCAPS_LEFT_THEN_DOWN => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PPCAPS_DOWN_THEN_LEFT => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static PPCAPS_BORDER_PRINT => 1
 
     /**
@@ -5002,6 +5077,11 @@ class Printing {
      * @type {Integer (UInt32)}
      */
     static PPCAPS_REVERSE_PAGES_FOR_REVERSE_DUPLEX => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PPCAPS_DONT_SEND_EXTRA_PAGES_FOR_DUPLEX => 2
 
     /**
      * @type {Integer (UInt32)}
@@ -6247,6 +6327,11 @@ class Printing {
      * @type {String}
      */
     static SPLDS_VERSION_NUMBER => "versionNumber"
+
+    /**
+     * @type {String}
+     */
+    static SPLDS_PRINT_IPP_COMPRESSION_SUPPORTED => "ippCompressionSupported"
 
     /**
      * @type {String}
@@ -13432,6 +13517,56 @@ class Printing {
         pszName := pszName is String? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} hNotify 
+     * @returns {HRESULT} 
+     */
+    static RouterUnregisterForPrintAsyncNotifications(hNotify) {
+        result := DllCall("SPOOLSS.dll\RouterUnregisterForPrintAsyncNotifications", "ptr", hNotify, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} pName 
+     * @param {Pointer<Guid>} pNotificationType 
+     * @param {Integer} eNotifyFilter 
+     * @param {Integer} eConversationStyle 
+     * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback 
+     * @param {Pointer<IPrintAsyncNotifyChannel>} ppIAsynchNotification 
+     * @returns {HRESULT} 
+     */
+    static RouterCreatePrintAsyncNotificationChannel(pName, pNotificationType, eNotifyFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
+        pName := pName is String? StrPtr(pName) : pName
+
+        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} pPrinter 
+     * @param {Pointer<Guid>} riid 
+     * @param {Pointer<Void>} ppv 
+     * @returns {HRESULT} 
+     */
+    static RouterGetPrintClassObject(pPrinter, riid, ppv) {
+        pPrinter := pPrinter is String? StrPtr(pPrinter) : pPrinter
+
+        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
             throw OSError(result)
 

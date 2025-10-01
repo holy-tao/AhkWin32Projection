@@ -274,6 +274,11 @@ class Power {
     static GUID_DEVINTERFACE_THERMAL_MANAGER => "{927ec093-69a4-4bc0-bd02-711664714463}"
 
     /**
+     * @type {String}
+     */
+    static GUID_DEVINTERFACE_POWER_LIMIT => "{8f366301-091e-4056-b92f-958b27625fce}"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static BATTERY_UNKNOWN_CAPACITY => 4294967295
@@ -567,6 +572,11 @@ class Power {
      * @type {Integer (UInt32)}
      */
     static THERMAL_DEVICE_INTERFACE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static POWER_LIMIT_INTERFACE_VERSION => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -2069,6 +2079,46 @@ class Power {
      */
     static PowerSettingAccessCheck(AccessFlags, PowerGuid) {
         result := DllCall("POWRPROF.dll\PowerSettingAccessCheck", "int", AccessFlags, "ptr", PowerGuid, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Guid>} PowerModeGuid 
+     * @returns {Integer} 
+     */
+    static PowerGetUserConfiguredACPowerMode(PowerModeGuid) {
+        result := DllCall("POWRPROF.dll\PowerGetUserConfiguredACPowerMode", "ptr", PowerModeGuid, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Guid>} PowerModeGuid 
+     * @returns {Integer} 
+     */
+    static PowerGetUserConfiguredDCPowerMode(PowerModeGuid) {
+        result := DllCall("POWRPROF.dll\PowerGetUserConfiguredDCPowerMode", "ptr", PowerModeGuid, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Guid>} PowerModeGuid 
+     * @returns {Integer} 
+     */
+    static PowerSetUserConfiguredACPowerMode(PowerModeGuid) {
+        result := DllCall("POWRPROF.dll\PowerSetUserConfiguredACPowerMode", "ptr", PowerModeGuid, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Guid>} PowerModeGuid 
+     * @returns {Integer} 
+     */
+    static PowerSetUserConfiguredDCPowerMode(PowerModeGuid) {
+        result := DllCall("POWRPROF.dll\PowerSetUserConfiguredDCPowerMode", "ptr", PowerModeGuid, "uint")
         return result
     }
 

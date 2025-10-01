@@ -109,22 +109,27 @@ class MENUPARTS{
     /**
      * @type {Integer (Int32)}
      */
-    static MENU_SYSTEMCLOSE_HCHOT => 22
+    static MENU_POPUPSUBMENUHCHOT => 21
 
     /**
      * @type {Integer (Int32)}
      */
-    static MENU_SYSTEMMAXIMIZE_HCHOT => 23
+    static MENU_SYSTEMCLOSEHCHOT => 22
 
     /**
      * @type {Integer (Int32)}
      */
-    static MENU_SYSTEMMINIMIZE_HCHOT => 24
+    static MENU_SYSTEMMAXIMIZEHCHOT => 23
 
     /**
      * @type {Integer (Int32)}
      */
-    static MENU_SYSTEMRESTORE_HCHOT => 25
+    static MENU_SYSTEMMINIMIZEHCHOT => 24
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MENU_SYSTEMRESTOREHCHOT => 25
 
     /**
      * @type {Integer (Int32)}
@@ -134,7 +139,7 @@ class MENUPARTS{
     /**
      * @type {Integer (Int32)}
      */
-    static MENU_POPUPITEM_FOCUSABLE => 27
+    static MENU_POPUPITEMFOCUSABLE => 27
 
     /**
      * @type {Integer (Int32)}

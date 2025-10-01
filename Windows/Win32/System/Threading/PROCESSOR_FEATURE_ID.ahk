@@ -235,4 +235,84 @@ class PROCESSOR_FEATURE_ID{
      * @type {Integer (UInt32)}
      */
     static PF_ARM_V83_LRCPC_INSTRUCTIONS_AVAILABLE => 45
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_INSTRUCTIONS_AVAILABLE => 46
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE2_INSTRUCTIONS_AVAILABLE => 47
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE2_1_INSTRUCTIONS_AVAILABLE => 48
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_AES_INSTRUCTIONS_AVAILABLE => 49
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_PMULL128_INSTRUCTIONS_AVAILABLE => 50
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_BITPERM_INSTRUCTIONS_AVAILABLE => 51
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_BF16_INSTRUCTIONS_AVAILABLE => 52
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_EBF16_INSTRUCTIONS_AVAILABLE => 53
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_B16B16_INSTRUCTIONS_AVAILABLE => 54
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_SHA3_INSTRUCTIONS_AVAILABLE => 55
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_SM4_INSTRUCTIONS_AVAILABLE => 56
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_I8MM_INSTRUCTIONS_AVAILABLE => 57
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_F32MM_INSTRUCTIONS_AVAILABLE => 58
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_ARM_SVE_F64MM_INSTRUCTIONS_AVAILABLE => 59
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_BMI2_INSTRUCTIONS_AVAILABLE => 60
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_MOVDIR64B_INSTRUCTION_AVAILABLE => 61
 }

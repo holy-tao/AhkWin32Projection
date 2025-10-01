@@ -45,4 +45,9 @@ class UFieldCategory{
      * @type {Integer (Int32)}
      */
     static UFIELD_CATEGORY_DATE_INTERVAL_SPAN => 4101
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UFIELD_CATEGORY_NUMBER_RANGE_SPAN => 4098
 }

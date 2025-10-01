@@ -6,6 +6,7 @@
 #Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION.ahk
 #Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2.ahk
 #Include .\AUDIO_MICROPHONE_BOOST_NOTIFICATION.ahk
+#Include .\AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION.ahk
 
 /**
  * Represents a notification for a change to an APO endpoint or system effects.
@@ -93,6 +94,17 @@ class APO_NOTIFICATION extends Win32Struct
             if(!this.HasProp("__audioMicrophoneBoostChange"))
                 this.__audioMicrophoneBoostChange := AUDIO_MICROPHONE_BOOST_NOTIFICATION(this.ptr + 4)
             return this.__audioMicrophoneBoostChange
+        }
+    }
+
+    /**
+     * @type {AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION}
+     */
+    audioEnvironmentChange{
+        get {
+            if(!this.HasProp("__audioEnvironmentChange"))
+                this.__audioEnvironmentChange := AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION(this.ptr + 4)
+            return this.__audioEnvironmentChange
         }
     }
 }

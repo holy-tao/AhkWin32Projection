@@ -9,7 +9,7 @@ class SCRUB_DATA_INPUT extends Win32Struct
 {
     static sizeof => 1232
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -47,12 +47,28 @@ class SCRUB_DATA_INPUT extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    StartingByteOffset {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ByteCount {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
      * @type {Array<UInt32>}
      */
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 28, 41, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 36, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_BYTE_RANGE.ahk
+#Include .\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.
@@ -139,6 +140,23 @@ class HTTP_DATA_CHUNK extends Win32Struct
     
     }
 
+    class _FromWinHttpFastForwarding extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {HTTP_WINHTTP_FAST_FORWARDING_DATA}
+         */
+        WhFastForwardingData{
+            get {
+                if(!this.HasProp("__WhFastForwardingData"))
+                    this.__WhFastForwardingData := HTTP_WINHTTP_FAST_FORWARDING_DATA(this.ptr + 0)
+                return this.__WhFastForwardingData
+            }
+        }
+    
+    }
+
     /**
      * @type {_FromMemory}
      */
@@ -191,6 +209,17 @@ class HTTP_DATA_CHUNK extends Win32Struct
             if(!this.HasProp("__Trailers"))
                 this.__Trailers := %this.__Class%._Trailers(this.ptr + 8)
             return this.__Trailers
+        }
+    }
+
+    /**
+     * @type {_FromWinHttpFastForwarding}
+     */
+    FromWinHttpFastForwarding{
+        get {
+            if(!this.HasProp("__FromWinHttpFastForwarding"))
+                this.__FromWinHttpFastForwarding := %this.__Class%._FromWinHttpFastForwarding(this.ptr + 8)
+            return this.__FromWinHttpFastForwarding
         }
     }
 }

@@ -629,6 +629,11 @@ class CLCTL_CODES{
     /**
      * @type {Integer (Int32)}
      */
+    static CLCTL_GET_NODE_NETWORK_CONNECTIVITY => 797
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static CLCTL_STORAGE_GET_AVAILABLE_DISKS_EX2_INT => 8161
 
     /**

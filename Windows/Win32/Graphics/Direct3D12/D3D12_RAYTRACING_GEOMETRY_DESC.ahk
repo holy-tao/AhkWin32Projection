@@ -3,6 +3,7 @@
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
 #Include .\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk
 #Include .\D3D12_RAYTRACING_GEOMETRY_AABBS_DESC.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC.ahk
 
 /**
  * Describes a set of geometry that is used in the D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS structure to provide input data to a raytracing acceleration structure build operation.
@@ -12,7 +13,7 @@
  */
 class D3D12_RAYTRACING_GEOMETRY_DESC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -53,6 +54,17 @@ class D3D12_RAYTRACING_GEOMETRY_DESC extends Win32Struct
             if(!this.HasProp("__AABBs"))
                 this.__AABBs := D3D12_RAYTRACING_GEOMETRY_AABBS_DESC(this.ptr + 8)
             return this.__AABBs
+        }
+    }
+
+    /**
+     * @type {D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC}
+     */
+    OmmTriangles{
+        get {
+            if(!this.HasProp("__OmmTriangles"))
+                this.__OmmTriangles := D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC(this.ptr + 8)
+            return this.__OmmTriangles
         }
     }
 }

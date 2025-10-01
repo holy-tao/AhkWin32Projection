@@ -9,7 +9,7 @@
  */
 class CREATE_CLUSTER_CONFIG extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -111,5 +111,29 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     managementPointResType {
         get => NumGet(this, 56, "int")
         set => NumPut("int", value, this, 56)
+    }
+
+    /**
+     * @type {Pointer<Char>}
+     */
+    pszUserName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
+    }
+
+    /**
+     * @type {Pointer<Char>}
+     */
+    pszPassword {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
+    }
+
+    /**
+     * @type {Pointer<Char>}
+     */
+    pszDomain {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

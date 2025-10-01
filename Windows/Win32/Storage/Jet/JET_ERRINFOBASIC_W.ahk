@@ -55,10 +55,13 @@ class JET_ERRINFOBASIC_W extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<UInt16>}
      */
-    rgszSourceFile {
-        get => StrGet(this.ptr + 24, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 63, "UTF-16")
+    rgszSourceFile{
+        get {
+            if(!this.HasProp("__rgszSourceFileProxyArray"))
+                this.__rgszSourceFileProxyArray := Win32FixedArray(this.ptr + 24, 64, Primitive, "ushort")
+            return this.__rgszSourceFileProxyArray
+        }
     }
 }

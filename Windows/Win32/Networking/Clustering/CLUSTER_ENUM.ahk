@@ -45,6 +45,11 @@ class CLUSTER_ENUM{
     static CLUSTER_ENUM_NETINTERFACE => 32
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static CLUSTER_ENUM_CAPACITY_NODE => 268435456
+
+    /**
      * The cluster shared volumes (CSV) in the cluster.
  * 
  * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not supported before 

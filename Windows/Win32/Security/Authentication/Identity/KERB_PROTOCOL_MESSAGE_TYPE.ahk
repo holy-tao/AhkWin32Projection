@@ -266,4 +266,14 @@ class KERB_PROTOCOL_MESSAGE_TYPE{
      * @type {Integer (Int32)}
      */
     static KerbPrintCloudKerberosDebugMessage => 36
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static KerbNetworkTicketLogonMessage => 37
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static KerbNlChangeMachinePasswordMessage => 38
 }

@@ -2076,6 +2076,56 @@ class Direct3D11 {
     /**
      * @type {String}
      */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MONOCHROME => "{0685b993-3d8c-43a0-8b28-d74c2d6899a4}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MONOCHROME10 => "{142a1d0f-69dd-4ec9-8591-b12ffcb91a29}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12 => "{1a72925f-0c2c-4f15-96fb-b17d1473603f}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_422 => "{0bac4fe5-1532-4429-a854-f84de04953db}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12_422 => "{55bcac81-f311-4093-a7d0-1cbc0b849bee}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN_444 => "{4008018f-f537-4b36-98cf-61af8a2c1a33}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_EXT => "{9cc55490-e37c-4932-8684-4920f9f6409c}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN10_444 => "{0dabeffa-4458-4602-bc03-0795659d617c}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN12_444 => "{9798634d-fe9d-48e5-b4da-dbec45b3df01}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_HEVC_VLD_MAIN16 => "{a4fbdbb0-a113-482b-a232-635cc0697f6d}"
+
+    /**
+     * @type {String}
+     */
     static D3D11_DECODER_PROFILE_VP9_VLD_PROFILE0 => "{463707f8-a1d0-4585-876d-83aa6d60b89e}"
 
     /**
@@ -2112,6 +2162,41 @@ class Direct3D11 {
      * @type {String}
      */
     static D3D11_DECODER_PROFILE_AV1_VLD_12BIT_PROFILE2_420 => "{2d80bed6-9cac-4835-9e91-327bbc4f9ee8}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_420 => "{725cb506-0c29-43c4-9440-8e9397903a04}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_422 => "{5b77b9cd-1a35-4c30-9fd8-ef4b60c035dd}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_444 => "{d95161f9-0d44-47e6-bcf5-1bfbfb268f97}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_MJPEG_VLD_4444 => "{c91748d5-fd18-4aca-9db3-3a6634ab547d}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_JPEG_VLD_420 => "{cf782c83-bef5-4a2c-87cb-6019e7b175ac}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_JPEG_VLD_422 => "{f04df417-eee2-4067-a778-f35c15ab9721}"
+
+    /**
+     * @type {String}
+     */
+    static D3D11_DECODER_PROFILE_JPEG_VLD_444 => "{4cd00e17-89ba-48ef-b9f9-edcb82713f65}"
 
     /**
      * @type {String}

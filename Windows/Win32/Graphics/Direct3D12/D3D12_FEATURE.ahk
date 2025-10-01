@@ -270,4 +270,14 @@ class D3D12_FEATURE{
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS21 => 53
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_FEATURE_APPLICATION_SPECIFIC_DRIVER_STATE => 56
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_FEATURE_BYTECODE_BYPASS_HASH_SUPPORTED => 57
 }

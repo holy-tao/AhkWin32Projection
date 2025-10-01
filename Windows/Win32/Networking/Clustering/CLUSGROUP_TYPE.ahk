@@ -190,6 +190,26 @@ class CLUSGROUP_TYPE{
     static ClusGroupTypeCoreSddc => 123
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static ClusGroupTypeUserManager => 124
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ClusGroupTypeKeyValueStoreManager => 125
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ClusGroupTypeHcsVirtualMachine => 126
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ClusGroupTypeMetaVirtualMachine => 127
+
+    /**
      * An unknown cluster group type.
      * @type {Integer (Int32)}
      */

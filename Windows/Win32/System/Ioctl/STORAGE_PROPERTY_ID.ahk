@@ -241,4 +241,19 @@ class STORAGE_PROPERTY_ID{
      * @type {Integer (Int32)}
      */
     static StorageFruIdProperty => 65
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorageStackProperty => 66
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorageAdapterProtocolSpecificPropertyEx => 67
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static StorageDeviceProtocolSpecificPropertyEx => 68
 }

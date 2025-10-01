@@ -46,6 +46,11 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static EXPERIMENTAL_WEBAUTHN_API_VERSION_8 => 1008
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WEBAUTHN_API_CURRENT_VERSION => 7
 
     /**
@@ -202,6 +207,11 @@ class WindowsWebServices {
      * @type {Integer (UInt32)}
      */
     static WEBAUTHN_CREDENTIAL_DETAILS_VERSION_2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CREDENTIAL_DETAILS_VERSION_3 => 1003
 
     /**
      * @type {Integer (UInt32)}
@@ -391,6 +401,11 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static EXPERIMENTAL_WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_VERSION_8 => 1008
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS_CURRENT_VERSION => 7
 
     /**
@@ -531,6 +546,11 @@ class WindowsWebServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static EXPERIMENTAL_WEBAUTHN_CREDENTIAL_ATTESTATION_VERSION_7 => 1007
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WEBAUTHN_CREDENTIAL_ATTESTATION_CURRENT_VERSION => 6
 
     /**
@@ -612,6 +632,56 @@ class WindowsWebServices {
      * @type {Integer (UInt32)}
      */
     static WEBAUTHN_ASSERTION_CURRENT_VERSION => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS_CURRENT_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY_CURRENT_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION_CURRENT_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST_CURRENT_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST_VERSION_1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST_CURRENT_VERSION => 1
 
     /**
      * @type {Integer (Int32)}

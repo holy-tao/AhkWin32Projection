@@ -686,7 +686,7 @@ class CERTENROLL_PROPERTYID{
      * Not supported.
      * @type {Integer (Int32)}
      */
-    static XCN_CERT_FIRST_RESERVED_PROP_ID => 129
+    static XCN_CERT_FIRST_RESERVED_PROP_ID => 130
 
     /**
      * Not supported.

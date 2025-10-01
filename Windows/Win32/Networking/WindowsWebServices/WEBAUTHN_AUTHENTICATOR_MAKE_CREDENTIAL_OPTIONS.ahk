@@ -13,7 +13,7 @@
  */
 class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -188,5 +188,13 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     pbJsonExt {
         get => NumGet(this, 120, "ptr")
         set => NumPut("ptr", value, this, 120)
+    }
+
+    /**
+     * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
+     */
+    EXPERIMENTAL_pPRFGlobalEval {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

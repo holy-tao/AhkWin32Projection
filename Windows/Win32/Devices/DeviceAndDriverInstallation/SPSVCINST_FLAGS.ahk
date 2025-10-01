@@ -95,4 +95,9 @@ class SPSVCINST_FLAGS{
      * @type {Integer (UInt32)}
      */
     static SPSVCINST_NOCLOBBER_FAILUREACTIONS => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SPSVCINST_NOCLOBBER_BOOTFLAGS => 262144
 }

@@ -31,312 +31,342 @@ class Dns {
     /**
      * @type {Integer (UInt32)}
      */
-    static IP6_ADDRESS_STRING_LENGTH => 65
+    static DNS_TYPE_ZERO => 0
 
     /**
      * @type {Integer (UInt32)}
      */
-    static IP6_ADDRESS_STRING_BUFFER_LENGTH => 65
+    static DNS_TYPE_A => 1
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_ADDRESS_STRING_LENGTH => 65
+    static DNS_TYPE_NS => 2
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_PORT_HOST_ORDER => 53
+    static DNS_TYPE_MD => 3
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_PORT_NET_ORDER => 13568
+    static DNS_TYPE_MF => 4
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RFC_MAX_UDP_PACKET_LENGTH => 512
+    static DNS_TYPE_CNAME => 5
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_NAME_LENGTH => 255
+    static DNS_TYPE_SOA => 6
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_LABEL_LENGTH => 63
+    static DNS_TYPE_MB => 7
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_NAME_BUFFER_LENGTH => 256
+    static DNS_TYPE_MG => 8
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_LABEL_BUFFER_LENGTH => 64
+    static DNS_TYPE_MR => 9
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_IP4_REVERSE_NAME_LENGTH => 31
+    static DNS_TYPE_NULL => 10
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_IP6_REVERSE_NAME_LENGTH => 75
+    static DNS_TYPE_WKS => 11
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_REVERSE_NAME_LENGTH => 75
+    static DNS_TYPE_PTR => 12
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_IP4_REVERSE_NAME_BUFFER_LENGTH => 31
+    static DNS_TYPE_HINFO => 13
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_IP6_REVERSE_NAME_BUFFER_LENGTH => 75
+    static DNS_TYPE_MINFO => 14
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_REVERSE_NAME_BUFFER_LENGTH => 75
+    static DNS_TYPE_MX => 15
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_MAX_TEXT_STRING_LENGTH => 255
+    static DNS_TYPE_TEXT => 16
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_COMPRESSED_QUESTION_NAME => 49164
+    static DNS_TYPE_RP => 17
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_OPCODE_QUERY => 0
+    static DNS_TYPE_AFSDB => 18
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_OPCODE_IQUERY => 1
+    static DNS_TYPE_X25 => 19
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_OPCODE_SERVER_STATUS => 2
+    static DNS_TYPE_ISDN => 20
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_OPCODE_UNKNOWN => 3
+    static DNS_TYPE_RT => 21
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_OPCODE_NOTIFY => 4
+    static DNS_TYPE_NSAP => 22
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_OPCODE_UPDATE => 5
+    static DNS_TYPE_NSAPPTR => 23
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NOERROR => 0
+    static DNS_TYPE_SIG => 24
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_FORMERR => 1
+    static DNS_TYPE_KEY => 25
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_SERVFAIL => 2
+    static DNS_TYPE_PX => 26
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NXDOMAIN => 3
+    static DNS_TYPE_GPOS => 27
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NOTIMPL => 4
+    static DNS_TYPE_AAAA => 28
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_REFUSED => 5
+    static DNS_TYPE_LOC => 29
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_YXDOMAIN => 6
+    static DNS_TYPE_NXT => 30
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_YXRRSET => 7
+    static DNS_TYPE_EID => 31
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NXRRSET => 8
+    static DNS_TYPE_NIMLOC => 32
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NOTAUTH => 9
+    static DNS_TYPE_SRV => 33
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NOTZONE => 10
+    static DNS_TYPE_ATMA => 34
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_MAX => 15
+    static DNS_TYPE_NAPTR => 35
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_BADVERS => 16
+    static DNS_TYPE_KX => 36
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_BADSIG => 16
+    static DNS_TYPE_CERT => 37
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_BADKEY => 17
+    static DNS_TYPE_A6 => 38
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_BADTIME => 18
+    static DNS_TYPE_DNAME => 39
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NO_ERROR => 0
+    static DNS_TYPE_SINK => 40
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_FORMAT_ERROR => 1
+    static DNS_TYPE_OPT => 41
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_SERVER_FAILURE => 2
+    static DNS_TYPE_DS => 43
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NAME_ERROR => 3
+    static DNS_TYPE_RRSIG => 46
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCODE_NOT_IMPLEMENTED => 4
+    static DNS_TYPE_NSEC => 47
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_INTERNET => 1
+    static DNS_TYPE_DNSKEY => 48
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_CSNET => 2
+    static DNS_TYPE_DHCID => 49
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_CHAOS => 3
+    static DNS_TYPE_NSEC3 => 50
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_HESIOD => 4
+    static DNS_TYPE_NSEC3PARAM => 51
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_NONE => 254
+    static DNS_TYPE_TLSA => 52
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_ALL => 255
+    static DNS_TYPE_SVCB => 64
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_ANY => 255
+    static DNS_TYPE_HTTPS => 65
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_CLASS_UNICAST_RESPONSE => 32768
+    static DNS_TYPE_UINFO => 100
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_INTERNET => 256
+    static DNS_TYPE_UID => 101
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_CSNET => 512
+    static DNS_TYPE_GID => 102
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_CHAOS => 768
+    static DNS_TYPE_UNSPEC => 103
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_HESIOD => 1024
+    static DNS_TYPE_ADDRS => 248
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_NONE => 65024
+    static DNS_TYPE_TKEY => 249
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_ALL => 65280
+    static DNS_TYPE_TSIG => 250
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_ANY => 65280
+    static DNS_TYPE_IXFR => 251
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_UNICAST_RESPONSE => 128
+    static DNS_TYPE_AXFR => 252
 
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_RCLASS_MDNS_CACHE_FLUSH => 128
+    static DNS_TYPE_MAILB => 253
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_TYPE_MAILA => 254
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_TYPE_ALL => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_TYPE_ANY => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_TYPE_WINS => 65281
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_TYPE_WINSR => 65282
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_TYPE_NBSTAT => 65282
 
     /**
      * @type {Integer (UInt32)}
@@ -936,21 +966,6 @@ class Dns {
     /**
      * @type {Integer (UInt32)}
      */
-    static DNS_WINS_FLAG_SCOPE => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DNS_WINS_FLAG_LOCAL => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DNS_CONFIG_FLAG_ALLOC => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static DDR_MAX_IP_HINTS => 4
 
     /**
@@ -1006,6 +1021,31 @@ class Dns {
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_RFC_MAX_UDP_PACKET_LENGTH => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_NAME_LENGTH => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_LABEL_LENGTH => 63
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_NAME_BUFFER_LENGTH => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_LABEL_BUFFER_LENGTH => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_CUSTOM_SERVER_TYPE_UDP => 1
 
     /**
@@ -1016,7 +1056,327 @@ class Dns {
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_CUSTOM_SERVER_TYPE_DOT => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_CUSTOM_SERVER_UDP_FALLBACK => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CUSTOM_SERVER_UPGRADE_FROM_WELL_KNOWN_SERVERS => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IP6_ADDRESS_STRING_LENGTH => 65
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IP6_ADDRESS_STRING_BUFFER_LENGTH => 65
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_ADDRESS_STRING_LENGTH => 65
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_PORT_HOST_ORDER => 53
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_PORT_NET_ORDER => 13568
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INTERNET_DEFAULT_DNS_PORT => 53
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INTERNET_DEFAULT_DOT_PORT => 853
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_IP4_REVERSE_NAME_LENGTH => 31
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_IP6_REVERSE_NAME_LENGTH => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_REVERSE_NAME_LENGTH => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_IP4_REVERSE_NAME_BUFFER_LENGTH => 31
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_IP6_REVERSE_NAME_BUFFER_LENGTH => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_REVERSE_NAME_BUFFER_LENGTH => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_MAX_TEXT_STRING_LENGTH => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_COMPRESSED_QUESTION_NAME => 49164
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_OPCODE_QUERY => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_OPCODE_IQUERY => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_OPCODE_SERVER_STATUS => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_OPCODE_UNKNOWN => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_OPCODE_NOTIFY => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_OPCODE_UPDATE => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NOERROR => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_FORMERR => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_SERVFAIL => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NXDOMAIN => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NOTIMPL => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_REFUSED => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_YXDOMAIN => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_YXRRSET => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NXRRSET => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NOTAUTH => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NOTZONE => 10
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_MAX => 15
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_BADVERS => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_BADSIG => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_BADKEY => 17
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_BADTIME => 18
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NO_ERROR => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_FORMAT_ERROR => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_SERVER_FAILURE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NAME_ERROR => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCODE_NOT_IMPLEMENTED => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_INTERNET => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_CSNET => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_CHAOS => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_HESIOD => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_NONE => 254
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_ALL => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_ANY => 255
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CLASS_UNICAST_RESPONSE => 32768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_INTERNET => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_CSNET => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_CHAOS => 768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_HESIOD => 1024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_NONE => 65024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_ALL => 65280
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_ANY => 65280
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_UNICAST_RESPONSE => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_RCLASS_MDNS_CACHE_FLUSH => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_WINS_FLAG_SCOPE => 2147483648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_WINS_FLAG_LOCAL => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_CONFIG_FLAG_ALLOC => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -1047,6 +1407,11 @@ class Dns {
      * @type {Integer (UInt32)}
      */
     static DNS_PROTOCOL_DOH => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_PROTOCOL_DOT => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -1395,6 +1760,18 @@ class Dns {
      */
     static DnsFree(pData, FreeType) {
         DllCall("DNSAPI.dll\DnsFree", "ptr", pData, "int", FreeType)
+    }
+
+    /**
+     * 
+     * @param {Pointer<DNS_RECORDA>} pRecord 
+     * @param {Integer} ullFlags 
+     * @param {Pointer<Int32>} pfFlat 
+     * @returns {Integer} 
+     */
+    static DnsIsFlatRecord(pRecord, ullFlags, pfFlat) {
+        result := DllCall("DNSAPI.dll\DnsIsFlatRecord", "ptr", pRecord, "uint", ullFlags, "int*", pfFlat, "int")
+        return result
     }
 
     /**

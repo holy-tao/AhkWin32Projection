@@ -58,7 +58,15 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     /**
      * @type {Pointer<Char>}
      */
-    Anonymous {
+    ai_template {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
+    }
+
+    /**
+     * @type {Pointer<Char>}
+     */
+    ai_hostname {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }

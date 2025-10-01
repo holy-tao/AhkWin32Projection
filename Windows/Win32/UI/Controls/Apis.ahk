@@ -17473,31 +17473,6 @@ class Controls {
     }
 
     /**
-     * 
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines IsCharLower as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} ch Type: <b>TCHAR</b>
-     * 
-     * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
-     * 
-     * If the character is lowercase, the return value is nonzero.
-     * 
-     * If the character is not lowercase, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ischarlowerw
-     */
-    static IsCharLowerW(ch) {
-        A_LastError := 0
-
-        result := DllCall("USER32.dll\IsCharLowerW", "char", ch, "int")
-        if(A_LastError)
-            throw OSError()
-
-        return result
-    }
-
-    /**
      * Configures the pointer injection device for the calling application, and initializes the maximum number of simultaneous pointers that the app can inject.
      * @param {Integer} pointerType The pointer injection device type. Must be either <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">PT_TOUCH</a> or <b>PT_PEN</b>.
      * @param {Integer} maxCount The maximum number of contacts. 
@@ -17519,17 +17494,6 @@ class Controls {
             throw OSError()
 
         return result
-    }
-
-    /**
-     * Destroys the specified pointer injection device.
-     * @param {Pointer<Void>} device A handle to the pointer injection device.
-     * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroysyntheticpointerdevice
-     * @since windows10.0.17763
-     */
-    static DestroySyntheticPointerDevice(device) {
-        DllCall("USER32.dll\DestroySyntheticPointerDevice", "ptr", device)
     }
 
     /**

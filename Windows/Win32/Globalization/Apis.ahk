@@ -17177,6 +17177,17 @@ class Globalization {
 
     /**
      * 
+     * @param {Pointer<IntPtr>} cnv 
+     * @param {Pointer<Int32>} status 
+     * @returns {Pointer<IntPtr>} 
+     */
+    static ucnv_clone(cnv, status) {
+        result := DllCall("icu.dll\ucnv_clone", "ptr*", cnv, "int*", status, "CDecl ptr*")
+        return result
+    }
+
+    /**
+     * 
      * @param {Pointer<IntPtr>} converter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -17989,6 +18000,18 @@ class Globalization {
      */
     static u_hasBinaryProperty(c, which) {
         result := DllCall("icuuc.dll\u_hasBinaryProperty", "int", c, "int", which, "CDecl char")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<UInt16>} s 
+     * @param {Integer} length 
+     * @param {Integer} which 
+     * @returns {Integer} 
+     */
+    static u_stringHasBinaryProperty(s, length, which) {
+        result := DllCall("icu.dll\u_stringHasBinaryProperty", "ushort*", s, "int", length, "int", which, "CDecl char")
         return result
     }
 
@@ -19635,6 +19658,17 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} set 
+     * @param {Pointer<UInt16>} str 
+     * @param {Integer} length 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static uset_removeAllCodePoints(set, str, length) {
+        DllCall("icu.dll\uset_removeAllCodePoints", "ptr*", set, "ushort*", str, "int", length, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
      * @param {Pointer<IntPtr>} removeSet 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -19651,6 +19685,28 @@ class Globalization {
      */
     static uset_retain(set, start, end) {
         DllCall("icuuc.dll\uset_retain", "ptr*", set, "int", start, "int", end, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @param {Pointer<UInt16>} str 
+     * @param {Integer} length 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static uset_retainString(set, str, length) {
+        DllCall("icu.dll\uset_retainString", "ptr*", set, "ushort*", str, "int", length, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @param {Pointer<UInt16>} str 
+     * @param {Integer} length 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static uset_retainAllCodePoints(set, str, length) {
+        DllCall("icu.dll\uset_retainAllCodePoints", "ptr*", set, "ushort*", str, "int", length, "CDecl ")
     }
 
     /**
@@ -19679,6 +19735,39 @@ class Globalization {
      */
     static uset_complement(set) {
         DllCall("icuuc.dll\uset_complement", "ptr*", set, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @param {Integer} start 
+     * @param {Integer} end 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static uset_complementRange(set, start, end) {
+        DllCall("icu.dll\uset_complementRange", "ptr*", set, "int", start, "int", end, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @param {Pointer<UInt16>} str 
+     * @param {Integer} length 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static uset_complementString(set, str, length) {
+        DllCall("icu.dll\uset_complementString", "ptr*", set, "ushort*", str, "int", length, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @param {Pointer<UInt16>} str 
+     * @param {Integer} length 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static uset_complementAllCodePoints(set, str, length) {
+        DllCall("icu.dll\uset_complementAllCodePoints", "ptr*", set, "ushort*", str, "int", length, "CDecl ")
     }
 
     /**
@@ -19726,6 +19815,16 @@ class Globalization {
      */
     static uset_isEmpty(set) {
         result := DllCall("icuuc.dll\uset_isEmpty", "ptr*", set, "CDecl char")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @returns {Integer} 
+     */
+    static uset_hasStrings(set) {
+        result := DllCall("icu.dll\uset_hasStrings", "ptr*", set, "CDecl char")
         return result
     }
 
@@ -19793,6 +19892,16 @@ class Globalization {
      */
     static uset_size(set) {
         result := DllCall("icuuc.dll\uset_size", "ptr*", set, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} set 
+     * @returns {Integer} 
+     */
+    static uset_getRangeCount(set) {
+        result := DllCall("icu.dll\uset_getRangeCount", "ptr*", set, "CDecl int")
         return result
     }
 
@@ -21645,6 +21754,17 @@ class Globalization {
     /**
      * 
      * @param {Pointer<IntPtr>} bi 
+     * @param {Pointer<Int32>} status 
+     * @returns {Pointer<IntPtr>} 
+     */
+    static ubrk_clone(bi, status) {
+        result := DllCall("icu.dll\ubrk_clone", "ptr*", bi, "int*", status, "CDecl ptr*")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} bi 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_close(bi) {
@@ -22400,6 +22520,20 @@ class Globalization {
 
     /**
      * 
+     * @param {Pointer<Void>} cal 
+     * @param {Integer} nonExistingTimeOpt 
+     * @param {Integer} duplicatedTimeOpt 
+     * @param {Pointer<Int32>} rawOffset 
+     * @param {Pointer<Int32>} dstOffset 
+     * @param {Pointer<Int32>} status 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static ucal_getTimeZoneOffsetFromLocal(cal, nonExistingTimeOpt, duplicatedTimeOpt, rawOffset, dstOffset, status) {
+        DllCall("icu.dll\ucal_getTimeZoneOffsetFromLocal", "ptr", cal, "int", nonExistingTimeOpt, "int", duplicatedTimeOpt, "int*", rawOffset, "int*", dstOffset, "int*", status, "CDecl ")
+    }
+
+    /**
+     * 
      * @param {Pointer<Byte>} loc 
      * @param {Pointer<Int32>} status 
      * @returns {Pointer<IntPtr>} 
@@ -22854,6 +22988,17 @@ class Globalization {
      */
     static ucol_safeClone(coll, stackBuffer, pBufferSize, status) {
         result := DllCall("icuin.dll\ucol_safeClone", "ptr*", coll, "ptr", stackBuffer, "int*", pBufferSize, "int*", status, "CDecl ptr*")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} coll 
+     * @param {Pointer<Int32>} status 
+     * @returns {Pointer<IntPtr>} 
+     */
+    static ucol_clone(coll, status) {
+        result := DllCall("icu.dll\ucol_clone", "ptr*", coll, "int*", status, "CDecl ptr*")
         return result
     }
 
@@ -23606,6 +23751,42 @@ class Globalization {
      */
     static udtitvfmt_format(formatter, fromDate, toDate, result, resultCapacity, position, status) {
         result := DllCall("icuin.dll\udtitvfmt_format", "ptr*", formatter, "double", fromDate, "double", toDate, "ushort*", result, "int", resultCapacity, "ptr", position, "int*", status, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} formatter 
+     * @param {Float} fromDate 
+     * @param {Float} toDate 
+     * @param {Pointer<IntPtr>} result 
+     * @param {Pointer<Int32>} status 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static udtitvfmt_formatToResult(formatter, fromDate, toDate, result, status) {
+        DllCall("icu.dll\udtitvfmt_formatToResult", "ptr*", formatter, "double", fromDate, "double", toDate, "ptr*", result, "int*", status, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} formatter 
+     * @param {Integer} value 
+     * @param {Pointer<Int32>} status 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static udtitvfmt_setContext(formatter, value, status) {
+        DllCall("icu.dll\udtitvfmt_setContext", "ptr*", formatter, "int", value, "int*", status, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} formatter 
+     * @param {Integer} type 
+     * @param {Pointer<Int32>} status 
+     * @returns {Integer} 
+     */
+    static udtitvfmt_getContext(formatter, type, status) {
+        result := DllCall("icu.dll\udtitvfmt_getContext", "ptr*", formatter, "int", type, "int*", status, "CDecl int")
         return result
     }
 
@@ -25269,6 +25450,17 @@ class Globalization {
 
     /**
      * 
+     * @param {Pointer<Void>} dtpg 
+     * @param {Pointer<Int32>} pErrorCode 
+     * @returns {Integer} 
+     */
+    static udatpg_getDefaultHourCycle(dtpg, pErrorCode) {
+        result := DllCall("icu.dll\udatpg_getDefaultHourCycle", "ptr", dtpg, "int*", pErrorCode, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
      * @param {Pointer<UInt16>} skeleton 
      * @param {Integer} skeletonLen 
      * @param {Pointer<Byte>} locale 
@@ -25396,6 +25588,21 @@ class Globalization {
 
     /**
      * 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Byte>} dest 
+     * @param {Integer} destCapacity 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Integer} 
+     */
+    static unumf_resultToDecimalNumber(uresult, dest, destCapacity, ec) {
+        dest := dest is String? StrPtr(dest) : dest
+
+        result := DllCall("icu.dll\unumf_resultToDecimalNumber", "ptr*", uresult, "ptr", dest, "int", destCapacity, "int*", ec, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
      * @param {Pointer<IntPtr>} uformatter 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -25410,6 +25617,135 @@ class Globalization {
      */
     static unumf_closeResult(uresult) {
         DllCall("icu.dll\unumf_closeResult", "ptr*", uresult, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<UInt16>} skeleton 
+     * @param {Integer} skeletonLen 
+     * @param {Integer} collapse 
+     * @param {Integer} identityFallback 
+     * @param {Pointer<Byte>} locale 
+     * @param {Pointer<UParseError>} perror 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Pointer<IntPtr>} 
+     */
+    static unumrf_openForSkeletonWithCollapseAndIdentityFallback(skeleton, skeletonLen, collapse, identityFallback, locale, perror, ec) {
+        locale := locale is String? StrPtr(locale) : locale
+
+        result := DllCall("icu.dll\unumrf_openForSkeletonWithCollapseAndIdentityFallback", "ushort*", skeleton, "int", skeletonLen, "int", collapse, "int", identityFallback, "ptr", locale, "ptr", perror, "int*", ec, "CDecl ptr*")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Pointer<IntPtr>} 
+     */
+    static unumrf_openResult(ec) {
+        result := DllCall("icu.dll\unumrf_openResult", "int*", ec, "CDecl ptr*")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uformatter 
+     * @param {Float} first 
+     * @param {Float} second 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Int32>} ec 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static unumrf_formatDoubleRange(uformatter, first, second, uresult, ec) {
+        DllCall("icu.dll\unumrf_formatDoubleRange", "ptr*", uformatter, "double", first, "double", second, "ptr*", uresult, "int*", ec, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uformatter 
+     * @param {Pointer<Byte>} first 
+     * @param {Integer} firstLen 
+     * @param {Pointer<Byte>} second 
+     * @param {Integer} secondLen 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Int32>} ec 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static unumrf_formatDecimalRange(uformatter, first, firstLen, second, secondLen, uresult, ec) {
+        first := first is String? StrPtr(first) : first
+        second := second is String? StrPtr(second) : second
+
+        DllCall("icu.dll\unumrf_formatDecimalRange", "ptr*", uformatter, "ptr", first, "int", firstLen, "ptr", second, "int", secondLen, "ptr*", uresult, "int*", ec, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Pointer<IntPtr>} 
+     */
+    static unumrf_resultAsValue(uresult, ec) {
+        result := DllCall("icu.dll\unumrf_resultAsValue", "ptr*", uresult, "int*", ec, "CDecl ptr*")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Integer} 
+     */
+    static unumrf_resultGetIdentityResult(uresult, ec) {
+        result := DllCall("icu.dll\unumrf_resultGetIdentityResult", "ptr*", uresult, "int*", ec, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Byte>} dest 
+     * @param {Integer} destCapacity 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Integer} 
+     */
+    static unumrf_resultGetFirstDecimalNumber(uresult, dest, destCapacity, ec) {
+        dest := dest is String? StrPtr(dest) : dest
+
+        result := DllCall("icu.dll\unumrf_resultGetFirstDecimalNumber", "ptr*", uresult, "ptr", dest, "int", destCapacity, "int*", ec, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uresult 
+     * @param {Pointer<Byte>} dest 
+     * @param {Integer} destCapacity 
+     * @param {Pointer<Int32>} ec 
+     * @returns {Integer} 
+     */
+    static unumrf_resultGetSecondDecimalNumber(uresult, dest, destCapacity, ec) {
+        dest := dest is String? StrPtr(dest) : dest
+
+        result := DllCall("icu.dll\unumrf_resultGetSecondDecimalNumber", "ptr*", uresult, "ptr", dest, "int", destCapacity, "int*", ec, "CDecl int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uformatter 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static unumrf_close(uformatter) {
+        DllCall("icu.dll\unumrf_close", "ptr*", uformatter, "CDecl ")
+    }
+
+    /**
+     * 
+     * @param {Pointer<IntPtr>} uresult 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static unumrf_closeResult(uresult) {
+        DllCall("icu.dll\unumrf_closeResult", "ptr*", uresult, "CDecl ")
     }
 
     /**

@@ -29,6 +29,11 @@ class NVME_ASYNC_EVENT_TYPES{
     static NVME_ASYNC_EVENT_TYPE_NOTICE => 2
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_ASYNC_EVENT_TYPE_IMMEDIATE => 3
+
+    /**
      * An I/O Command Set event. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_IO_COMMAND_SET_STATUS_CODES** enumeration.
      * @type {Integer (Int32)}
      */

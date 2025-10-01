@@ -113,4 +113,19 @@ class eAVEncH264VLevel{
      * @type {Integer (Int32)}
      */
     static eAVEncH264VLevel5_2 => 52
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static eAVEncH264VLevel6 => 60
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static eAVEncH264VLevel6_1 => 61
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static eAVEncH264VLevel6_2 => 62
 }

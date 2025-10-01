@@ -265,6 +265,21 @@ class NVME_STATUS_COMMAND_SPECIFIC_CODES{
     /**
      * @type {Integer (Int32)}
      */
+    static NVME_STATUS_INSUFFICIENT_CAPACITY => 38
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_NAMESPACE_ATTACHMENT_LIMIT_EXCEEDED => 39
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_PROHIBITION_NOT_SUPPORTED => 40
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static NVME_IO_COMMAND_SET_NOT_SUPPORTED => 41
 
     /**

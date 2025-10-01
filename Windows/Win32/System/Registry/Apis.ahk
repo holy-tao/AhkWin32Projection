@@ -84,6 +84,16 @@ class Registry {
     static REG_SECURE_CONNECTION => 1
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static REG_ALLOW_TRANSPORT_FALLBACK => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static REG_ALLOW_UNSECURE_CONNECTION => 4
+
+    /**
      * @type {String}
      */
     static REGSTR_KEY_CLASS => "Class"

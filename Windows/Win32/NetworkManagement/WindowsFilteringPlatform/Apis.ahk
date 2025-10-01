@@ -166,6 +166,11 @@ class WindowsFilteringPlatform {
     /**
      * @type {Integer (UInt32)}
      */
+    static FWPM_FILTER_FLAG_RESERVED2 => 16384
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FWPM_NET_EVENT_FLAG_IP_PROTOCOL_SET => 1
 
     /**
@@ -302,6 +307,11 @@ class WindowsFilteringPlatform {
      * @type {Integer (UInt32)}
      */
     static FWPS_FILTER_FLAG_RESERVED1 => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FWPS_FILTER_FLAG_RESERVED2 => 256
 
     /**
      * @type {Integer (UInt32)}
@@ -1631,6 +1641,11 @@ class WindowsFilteringPlatform {
     /**
      * @type {String}
      */
+    static FWPM_CONDITION_ALE_PACKAGE_FAMILY_NAME => "{81bc78fb-f28d-4886-a604-6acc261f261b}"
+
+    /**
+     * @type {String}
+     */
     static FWPM_CONDITION_INTERFACE_MAC_ADDRESS => "{f6e63dce-1f4b-4c6b-b6ef-1165e71f8ee7}"
 
     /**
@@ -2137,6 +2152,11 @@ class WindowsFilteringPlatform {
      * @type {String}
      */
     static FWPM_CONDITION_IP_REMOTE_ADDRESS_V6 => "{246e1d8c-8bee-4018-9b98-31d4582f3361}"
+
+    /**
+     * @type {String}
+     */
+    static FWPM_CONDITION_RPC_OPNUM => "{d58efb76-aab7-4148-a87e-9581134129b9}"
 
     /**
      * @type {String}
@@ -16142,6 +16162,33 @@ class WindowsFilteringPlatform {
      */
     static FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} engineHandle 
+     * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} connectionPolicy 
+     * @param {Integer} ipVersion 
+     * @param {Integer} weight 
+     * @param {Integer} numFilterConditions 
+     * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
+     * @param {Pointer<Void>} sd 
+     * @returns {Integer} 
+     */
+    static FwpmConnectionPolicyAdd0(engineHandle, connectionPolicy, ipVersion, weight, numFilterConditions, filterConditions, sd) {
+        result := DllCall("fwpuclnt.dll\FwpmConnectionPolicyAdd0", "ptr", engineHandle, "ptr", connectionPolicy, "int", ipVersion, "uint", weight, "uint", numFilterConditions, "ptr", filterConditions, "ptr", sd, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} engineHandle 
+     * @param {Pointer<Guid>} key 
+     * @returns {Integer} 
+     */
+    static FwpmConnectionPolicyDeleteByKey0(engineHandle, key) {
+        result := DllCall("fwpuclnt.dll\FwpmConnectionPolicyDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 

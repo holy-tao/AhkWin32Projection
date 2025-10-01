@@ -25,4 +25,9 @@ class D3D12_DEBUG_DEVICE_PARAMETER_TYPE{
      * @type {Integer (Int32)}
      */
     static D3D12_DEBUG_DEVICE_PARAMETER_GPU_SLOWDOWN_PERFORMANCE_FACTOR => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_DEBUG_DEVICE_PARAMETER_BYTECODE_VALIDATION_MODE => 3
 }

@@ -202,6 +202,36 @@ class NVME_STATUS_GENERIC_COMMAND_CODES{
     /**
      * @type {Integer (Int32)}
      */
+    static NVME_STATUS_COMMAND_NOT_SUPPORTED_FOR_QUEUE_IN_CMB => 31
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_NAMESPACE_IS_WRITE_PROTECTED => 32
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_COMMAND_INTERRUPTED => 33
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_TRANSIENT_TRANSPORT_ERROR => 34
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_COMMAND_PROHIBITED_BY_LOCKDOWN => 35
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_STATUS_ADMIN_COMMAND_MEDIA_NOT_READY => 36
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static NVME_STATUS_DIRECTIVE_TYPE_INVALID => 112
 
     /**

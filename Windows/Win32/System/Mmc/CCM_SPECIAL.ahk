@@ -30,4 +30,9 @@ class CCM_SPECIAL{
      * @type {Integer (Int32)}
      */
     static CCM_SPECIAL_TESTONLY => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CCM_SPECIAL_ELEVATION_ICON => 32
 }

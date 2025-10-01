@@ -5002,6 +5002,19 @@ class BiometricFramework {
     }
 
     /**
+     * 
+     * @param {Pointer<Byte>} Value 
+     * @returns {HRESULT} 
+     */
+    static WinBioIsESSCapable(Value) {
+        result := DllCall("winbio.dll\WinBioIsESSCapable", "char*", Value, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Acquires window focus.
      * @remarks
      * The Windows Biometric Framework uses window focus to arbitrate among multiple sessions connected to  the system pool.

@@ -17,7 +17,7 @@
  */
 class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -199,5 +199,13 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     pbUnsignedExtensionOutputs {
         get => NumGet(this, 136, "ptr")
         set => NumPut("ptr", value, this, 136)
+    }
+
+    /**
+     * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
+     */
+    EXPERIMENTAL_pHmacSecret {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 }

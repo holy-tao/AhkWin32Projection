@@ -671,6 +671,16 @@ class Authorization {
     /**
      * @type {String}
      */
+    static SDDL_USER_MODE_HARDWARE_OPERATORS => "HO"
+
+    /**
+     * @type {String}
+     */
+    static SDDL_OPENSSH_USERS => "SH"
+
+    /**
+     * @type {String}
+     */
     static SDDL_ML_LOW => "LW"
 
     /**

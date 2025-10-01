@@ -3416,6 +3416,16 @@ class Bluetooth {
     /**
      * @type {Integer (UInt32)}
      */
+    static BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_TOUCHPAD => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BTH_LE_GAP_APPEARANCE_HID_SUBCATEGORY_PRESENTATION_REMOTE => 10
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static BTH_LE_GAP_APPEARANCE_RUNNING_WALKING_SENSOR_SUBCATEGORY_IN_SHOE => 1
 
     /**

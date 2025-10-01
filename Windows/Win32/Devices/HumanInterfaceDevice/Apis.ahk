@@ -816,42 +816,27 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_GENERIC => 1
+    static HID_USAGE_PAGE_ARCADE => 145
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_SIMULATION => 2
+    static HID_USAGE_PAGE_ALPHANUMERIC => 20
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_VR => 3
+    static HID_USAGE_PAGE_BARCODE_SCANNER => 140
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_SPORT => 4
+    static HID_USAGE_PAGE_BATTERY_SYSTEM => 133
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_GAME => 5
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_PAGE_GENERIC_DEVICE => 6
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_PAGE_KEYBOARD => 7
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_PAGE_LED => 8
+    static HID_USAGE_PAGE_BRAILLE_DISPLAY => 65
 
     /**
      * @type {Integer (UInt16)}
@@ -861,12 +846,7 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_ORDINAL => 10
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_PAGE_TELEPHONY => 11
+    static HID_USAGE_PAGE_CAMERA_CONTROL => 144
 
     /**
      * @type {Integer (UInt16)}
@@ -881,27 +861,47 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_PAGE_EYE_AND_HEAD_TRACKERS => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_FIDO_ALLIANCE => 61904
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_GAME => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_GAMING_DEVICE => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_GENERIC => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_GENERIC_DEVICE => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_PAGE_HAPTICS => 14
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_PID => 15
+    static HID_USAGE_PAGE_KEYBOARD => 7
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_UNICODE => 16
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_PAGE_ALPHANUMERIC => 20
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_PAGE_SENSOR => 32
+    static HID_USAGE_PAGE_LED => 8
 
     /**
      * @type {Integer (UInt16)}
@@ -911,7 +911,42 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_BARCODE_SCANNER => 140
+    static HID_USAGE_PAGE_MAGNETIC_STRIPE_READER => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_MEDICAL_INSTRUMENT => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_MICROSOFT_BLUETOOTH_HANDSFREE => 65523
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_MONITOR => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_MONITOR_ENUMERATED => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_ORDINAL => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_PID => 15
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_POWER => 132
 
     /**
      * @type {Integer (UInt16)}
@@ -921,22 +956,42 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_MAGNETIC_STRIPE_READER => 142
+    static HID_USAGE_PAGE_SENSOR => 32
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_CAMERA_CONTROL => 144
+    static HID_USAGE_PAGE_SIMULATION => 2
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_ARCADE => 145
+    static HID_USAGE_PAGE_SOC => 17
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_PAGE_MICROSOFT_BLUETOOTH_HANDSFREE => 65523
+    static HID_USAGE_PAGE_SPORT => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_TELEPHONY => 11
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_UNICODE => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_VESA_VIRTUAL_CONTROLS => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PAGE_VR => 3
 
     /**
      * @type {Integer (UInt16)}
@@ -947,6 +1002,5291 @@ class HumanInterfaceDevice {
      * @type {Integer (UInt16)}
      */
     static HID_USAGE_PAGE_VENDOR_DEFINED_END => 65535
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_UNDEFINED => 0
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_GENERAL_PURPOSE_IO_CARD => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DOOR => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_WATCHDOG_TIMER => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_GENERAL_PURPOSE_ANALOG_INPUT_STATE => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_GENERAL_PURPOSE_DIGITAL_INPUT_STATE => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_GENERAL_PURPOSE_OPTICAL_INPUT_STATE => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_GENERAL_PURPOSE_DIGITAL_OUTPUT_STATE => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_NUMBER_OF_COIN_DOORS => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DRAWER_DROP_COUNT => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DRAWER_START => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DRAWER_SERVICE => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DRAWER_TILT => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DOOR_TEST => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DOOR_LOCKOUT => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_WATCHDOG_TIMEOUT => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_WATCHDOG_ACTION => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_WATCHDOG_REBOOT => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_WATCHDOG_RESTART => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_ALARM_INPUT => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_COIN_DOOR_COUNTER => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_IO_DIRECTION_MAPPING => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_SET_IO_DIRECTION_MAPPING => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_EXTENDED_OPTICAL_INPUT_STATE => 73
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_PIN_PAD_INPUT_STATE => 74
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_PIN_PAD_STATUS => 75
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_PIN_PAD_OUTPUT => 76
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ARCADE_PIN_PAD_COMMAND => 77
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ALPHANUMERIC_DISPLAY => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BITMAPPED_DISPLAY => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_ATTRIBUTES_REPORT => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ASCII_CHARACTER_SET => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DATA_READ_BACK => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_FONT_READ_BACK => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_CONTROL_REPORT => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CLEAR_DISPLAY => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_ENABLE => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_DELAY => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_ENABLE => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_VERTICAL_SCROLL => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_HORIZONTAL_SCROLL => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHARACTER_REPORT => 43
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_DATA => 44
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_STATUS => 45
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_STATUS_NOT_READY => 46
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_STATUS_READY => 47
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ERR_NOT_A_LOADABLE_CHARACTER => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ERR_FONT_DATA_CANNOT_BE_READ => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CURSOR_POSITION_REPORT => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ROW => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_COLUMN => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ROWS => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_COLUMNS => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CURSOR_PIXEL_POSITIONING => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CURSOR_MODE => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CURSOR_ENABLE => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CURSOR_BLINK => 58
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_FONT_REPORT => 59
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_FONT_DATA => 60
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_WIDTH => 61
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_HEIGHT => 62
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_SPACING_HORIZONTAL => 63
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_SPACING_VERTICAL => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_UNICODE_CHAR_SET => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_FONT_7_SEGMENT => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_7_SEGMENT_DIRECT_MAP => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_FONT_14_SEGMENT => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_14_SEGMENT_DIRECT_MAP => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_BRIGHTNESS => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_CONTRAST => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHARACTER_ATTRIBUTE => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ATTRIBUTE_READBACK => 73
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_ATTRIBUTE_DATA => 74
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_ATTR_ENHANCE => 75
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_ATTR_UNDERLINE => 76
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHAR_ATTR_BLINK => 77
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_X => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_Y => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_MAX_BLIT_SIZE => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BIT_DEPTH_FORMAT => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_ORIENTATION => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_PALETTE_REPORT => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_PALETTE_DATA_SIZE => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_PALETTE_DATA_OFFSET => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_PALETTE_DATA => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BLIT_REPORT => 138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X1 => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y1 => 140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X2 => 141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y2 => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_BLIT_DATA => 143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_ID => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_SIDE => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET1 => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET2 => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_REPORT => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_SOFT_KEYS => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_DISPLAY_DATA_EXTENSIONS => 204
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHARACTER_MAPPING => 207
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_UNICODE_EQUIVALENT => 221
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_CHARACTER_PAGE_MAPPING => 223
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_ALPHANUMERIC_REQUEST_REPORT => 255
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BARCODE_BADGE_READER => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BARCODE_SCANNER => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DUMB_BAR_CODE_SCANNER => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CORDLESS_SCANNER_BASE => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BAR_CODE_SCANNER_CRADLE => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ATTRIBUTE_REPORT => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SETTINGS_REPORT => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SCANNED_DATA_REPORT => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_RAW_SCANNED_DATA_REPORT => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_REPORT => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_STATUS_REPORT => 21
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCEAN_CONTROL_REPORT => 22
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_23_LABEL_CONTROL_REPORT => 23
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_39_CONTROL_REPORT => 24
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_INTERLEAVED_2_OF_5_CONTROL_REPORT => 25
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_STANDARD_2_OF_5_CONTROL_REPORT => 26
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MSI_PLESSEY_CONTROL_REPORT => 27
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODABAR_CONTROL_REPORT => 28
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_128_CONTROL_REPORT => 29
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MISC_1D_CONTROL_REPORT => 30
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_2D_CONTROL_REPORT => 31
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_AIMINGPOINTER_MODE => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BAR_CODE_PRESENT_SENSOR => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CLASS_1A_LASER => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CLASS_2_LASER => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_HEATER_PRESENT => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CONTACT_SCANNER => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ELECTRONIC_ARTICLE_SURVEILLANCE_NOTIFICATION => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CONSTANT_ELECTRONIC_ARTICLE_SURVEILLANCE => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ERROR_INDICATION => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_FIXED_BEEPER => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_DECODE_INDICATION => 58
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_HANDS_FREE_SCANNING => 59
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_INTRINSICALLY_SAFE => 60
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_KLASSE_EINS_LASER => 61
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_LONG_RANGE_SCANNER => 62
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MIRROR_SPEED_CONTROL => 63
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_NOT_ON_FILE_INDICATION => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PROGRAMMABLE_BEEPER => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGERLESS => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_WAND => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_WATER_RESISTANT => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MULTIRANGE_SCANNER => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PROXIMITY_SENSOR => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_FRAGMENT_DECODING => 77
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SCANNER_READ_CONFIDENCE => 78
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DATA_PREFIX => 79
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PREFIX_AIMI => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PREFIX_NONE => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PREFIX_PROPRIETARY => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ACTIVE_TIME => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_AIMING_LASER_PATTERN => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BAR_CODE_PRESENT => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BEEPER_STATE => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_LASER_ON_TIME => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_LASER_STATE => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_LOCKOUT_TIME => 91
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MOTOR_STATE => 92
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MOTOR_TIMEOUT => 93
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_POWER_ON_RESET_SCANNER => 94
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PREVENT_READ_OF_BARCODES => 95
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_INITIATE_BARCODE_READ => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_STATE => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_MODE => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_MODE_BLINKING_LASER_ON => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_MODE_CONTINUOUS_LASER_ON => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_MODE_LASER_ON_WHILE_PULLED => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIGGER_MODE_LASER_STAYS_ON_AFTER_RELEASE => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_COMMIT_PARAMETERS_TO_NVM => 109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PARAMETER_SCANNING => 110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PARAMETERS_CHANGED => 111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SET_PARAMETER_DEFAULT_VALUES => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SCANNER_IN_CRADLE => 117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SCANNER_IN_RANGE => 118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_AIM_DURATION => 122
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_LAMP_DURATION => 123
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_LAMP_INTENSITY => 124
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_LED => 125
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_TONE_FREQUENCY => 126
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_TONE_LENGTH => 127
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_TONE_VOLUME => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_NO_READ_MESSAGE => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_NOT_ON_FILE_VOLUME => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_POWERUP_BEEP => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SOUND_ERROR_BEEP => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SOUND_GOOD_READ_BEEP => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SOUND_NOT_ON_FILE_BEEP => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GOOD_READ_WHEN_TO_WRITE => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GRWTI_AFTER_DECODE => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GRWTI_BEEPLAMP_AFTER_TRANSMIT => 138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_GRWTI_NO_BEEPLAMP_USE_AT_ALL => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BOOKLAND_EAN => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CONVERT_EAN_8_TO_13_TYPE => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CONVERT_UPC_A_TO_EAN13 => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CONVERT_UPCE_TO_A => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN13 => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN8 => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN99_128_MANDATORY => 151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN99_P5128_OPTIONAL => 152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ENABLE_EAN_TWO_LABEL => 153
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCEAN => 154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCEAN_COUPON_CODE => 155
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCEAN_PERIODICALS => 156
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCA => 157
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCA_WITH_128_MANDATORY => 158
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCA_WITH_128_OPTIONAL => 159
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCA_WITH_P5_OPTIONAL => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCE => 161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UPCE1 => 162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL => 169
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL_AUTODISCRIMINATE_2 => 170
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL_ONLY_DECODE_WITH_2 => 171
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL_IGNORE_2 => 172
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL_AUTODISCRIMINATE_5 => 173
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL_ONLY_DECODE_WITH_5 => 174
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PERIODICAL_IGNORE_5 => 175
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DISABLE_PRICE => 177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_ENABLE_4_DIGIT_PRICE => 178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_ENABLE_5_DIGIT_PRICE => 179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_ENABLE_EUROPEAN_4_DIGIT_PRICE => 180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_ENABLE_EUROPEAN_5_DIGIT_PRICE => 181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_TWO_LABEL => 183
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_THREE_LABEL => 184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_8_FLAG_DIGIT_1 => 185
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_8_FLAG_DIGIT_2 => 186
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_8_FLAG_DIGIT_3 => 187
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_13_FLAG_DIGIT_1 => 188
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_13_FLAG_DIGIT_2 => 189
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_EAN_13_FLAG_DIGIT_3 => 190
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ADD_EAN_23_LABEL_DEFINITION => 191
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CLEAR_ALL_EAN_23_LABEL_DEFINITIONS => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODABAR => 195
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_128 => 196
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_39 => 199
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_93 => 200
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_FULL_ASCII_CONVERSION => 201
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_INTERLEAVED_2_OF_5 => 202
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ITALIAN_PHARMACY_CODE => 203
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MSIPLESSEY => 204
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_STANDARD_2_OF_5_IATA => 205
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_STANDARD_2_OF_5 => 206
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRANSMIT_STARTSTOP => 211
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRIOPTIC => 212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_UCCEAN128 => 213
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT => 214
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_DISABLE => 215
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_ENABLE_INTERLEAVED_2_OF_5_OPCC => 216
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_ENABLE_INTERLEAVED_2_OF_5_USS => 217
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_ENABLE_STANDARD_2_OF_5_OPCC => 218
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_ENABLE_STANDARD_2_OF_5_USS => 219
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_ENABLE_ONE_MSI_PLESSEY => 220
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_ENABLE_TWO_MSI_PLESSEY => 221
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_CODABAR_ENABLE => 222
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHECK_DIGIT_CODE_39_ENABLE => 223
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_TRANSMIT_CHECK_DIGIT => 240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DISABLE_CHECK_DIGIT_TRANSMIT => 241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ENABLE_CHECK_DIGIT_TRANSMIT => 242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SYMBOLOGY_IDENTIFIER_1 => 251
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SYMBOLOGY_IDENTIFIER_2 => 252
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SYMBOLOGY_IDENTIFIER_3 => 253
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DECODED_DATA => 254
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DECODE_DATA_CONTINUED => 255
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BAR_SPACE_DATA => 256
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SCANNER_DATA_ACCURACY => 257
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_RAW_DATA_POLARITY => 258
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_POLARITY_INVERTED_BAR_CODE => 259
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_POLARITY_NORMAL_BAR_CODE => 260
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MINIMUM_LENGTH_TO_DECODE => 262
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MAXIMUM_LENGTH_TO_DECODE => 263
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DISCRETE_LENGTH_TO_DECODE_1 => 264
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DISCRETE_LENGTH_TO_DECODE_2 => 265
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DATA_LENGTH_METHOD => 266
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DL_METHOD_READ_ANY => 267
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DL_METHOD_CHECK_IN_RANGE => 268
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DL_METHOD_CHECK_FOR_DISCRETE => 269
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_AZTEC_CODE => 272
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_BC412 => 273
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CHANNEL_CODE => 274
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_16 => 275
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_32 => 276
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_49 => 277
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_CODE_ONE => 278
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_COLORCODE => 279
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_DATA_MATRIX => 280
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MAXICODE => 281
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_MICROPDF => 282
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_PDF417 => 283
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_POSICODE => 284
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_QR_CODE => 285
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_SUPERCODE => 286
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_ULTRACODE => 287
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_USD5_SLUG_CODE => 288
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BARCODE_SCANNER_VERICODE => 289
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_BATTERY_MODE => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_BATTERY_STATUS => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_ALARM_WARNING => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_CHARGER_MODE => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_CHARGER_STATUS => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_CHARGER_SPEC_INFO => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_SELECTOR_STATE => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_SELECTOR_PRESETS => 8
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_SELECTOR_INFO => 9
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OPTIONAL_MFG_FUNCTION_1 => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OPTIONAL_MFG_FUNCTION_2 => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OPTIONAL_MFG_FUNCTION_3 => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OPTIONAL_MFG_FUNCTION_4 => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OPTIONAL_MFG_FUNCTION_5 => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CONNECTION_TO_SM_BUS => 21
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OUTPUT_CONNECTION => 22
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CHARGER_CONNECTION => 23
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_BATTERY_INSERTION => 24
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_USE_NEXT => 25
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_OK_TO_USE => 26
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_BATTERY_SUPPORTED => 27
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SELECTOR_REVISION => 28
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CHARGING_INDICATOR => 29
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_MANUFACTURER_ACCESS => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_REMAINING_CAPACITY_LIMIT => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_REMAINING_TIME_LIMIT => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AT_RATE => 43
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CAPACITY_MODE => 44
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_BROADCAST_TO_CHARGER => 45
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_PRIMARY_BATTERY => 46
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CHARGE_CONTROLLER => 47
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_TERMINATE_CHARGE => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_TERMINATE_DISCHARGE => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_BELOW_REMAINING_CAPACITY_LIMIT => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_REMAINING_TIME_LIMIT_EXPIRED => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CHARGING => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_DISCHARGING => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_FULLY_CHARGED => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_FULLY_DISCHARGED => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CONDITIONING_FLAG => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AT_RATE_OK => 73
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SMART_BATTERY_ERROR_CODE => 74
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_NEED_REPLACEMENT => 75
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AT_RATE_TIME_TO_FULL => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AT_RATE_TIME_TO_EMPTY => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AVERAGE_CURRENT => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_MAX_ERROR => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_RELATIVE_STATE_OF_CHARGE => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_ABSOLUTE_STATE_OF_CHARGE => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_REMAINING_CAPACITY => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_FULL_CHARGE_CAPACITY => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_RUN_TIME_TO_EMPTY => 104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AVERAGE_TIME_TO_EMPTY => 105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AVERAGE_TIME_TO_FULL => 106
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CYCLE_COUNT => 107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_BATTERY_PACK_MODEL_LEVEL => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_INTERNAL_CHARGE_CONTROLLER => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_PRIMARY_BATTERY_SUPPORT => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_DESIGN_CAPACITY => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SPECIFICATION_INFO => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_MANUFACTURE_DATE => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_SERIAL_NUMBER => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_IMANUFACTURER_NAME => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_IDEVICE_NAME => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_IDEVICE_CHEMISTRY => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_MANUFACTURER_DATA => 138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_RECHARGABLE => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_WARNING_CAPACITY_LIMIT => 140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CAPACITY_GRANULARITY_1 => 141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CAPACITY_GRANULARITY_2 => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_IOEM_INFORMATION => 143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_INHIBIT_CHARGE => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_ENABLE_POLLING => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_RESET_TO_ZERO => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_AC_PRESENT => 208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_BATTERY_PRESENT => 209
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_POWER_FAIL => 210
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_ALARM_INHIBITED => 211
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_THERMISTOR_UNDER_RANGE => 212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_THERMISTOR_HOT => 213
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_THERMISTOR_COLD => 214
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_THERMISTOR_OVER_RANGE => 215
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_VOLTAGE_OUT_OF_RANGE => 216
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CURRENT_OUT_OF_RANGE => 217
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CURRENT_NOT_REGULATED => 218
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_VOLTAGE_NOT_REGULATED => 219
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_MASTER_MODE => 220
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CHARGER_SELECTOR_SUPPORT => 240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_CHARGER_SPEC => 241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_LEVEL_2 => 242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BATTERY_SYSTEM_LEVEL_3 => 243
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_DISPLAY => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_ROW => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_8_DOT_BRAILLE_CELL => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_6_DOT_BRAILLE_CELL => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_NUMBER_OF_BRAILLE_CELLS => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_SCREEN_READER_CONTROL => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_SCREEN_READER_IDENTIFIER => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_ROUTER_SET_1 => 250
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_ROUTER_SET_2 => 251
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_ROUTER_SET_3 => 252
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_ROUTER_KEY => 256
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_ROW_ROUTER_KEY => 257
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_BUTTONS => 512
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_1 => 513
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_2 => 514
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_3 => 515
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_4 => 516
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_5 => 517
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_6 => 518
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_7 => 519
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_DOT_8 => 520
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_SPACE => 521
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_LEFT_SPACE => 522
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_KEYBOARD_RIGHT_SPACE => 523
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_FACE_CONTROLS => 524
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_LEFT_CONTROLS => 525
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_RIGHT_CONTROLS => 526
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_TOP_CONTROLS => 527
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_JOYSTICK_CENTER => 528
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_JOYSTICK_UP => 529
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_JOYSTICK_DOWN => 530
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_JOYSTICK_LEFT => 531
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_JOYSTICK_RIGHT => 532
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_DPAD_CENTER => 533
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_DPAD_UP => 534
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_DPAD_DOWN => 535
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_DPAD_LEFT => 536
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_DPAD_RIGHT => 537
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_PAN_LEFT => 538
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_PAN_RIGHT => 539
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_ROCKER_UP => 540
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_ROCKER_DOWN => 541
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_BRAILLE_DISPLAY_BRAILLE_ROCKER_PRESS => 542
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CAMERA_AUTO_FOCUS => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CAMERA_SHUTTER => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMERCTRL => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_NUMERIC_KEY_PAD => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PROGRAMMABLE_BUTTONS => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MICROPHONE => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_HEADPHONE => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GRAPHIC_EQUALIZER => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_10 => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_100 => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AMPM => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_POWER => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_RESET => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SLEEP => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SLEEP_AFTER => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SLEEP_MODE => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ILLUMINATION => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FUNCTION_BUTTONS => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_PICK => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_UP => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_DOWN => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_LEFT => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_RIGHT => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_ESCAPE => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_VALUE_INCREASE => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MENU_VALUE_DECREASE => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DATA_ON_SCREEN => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CLOSED_CAPTION => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CLOSED_CAPTION_SELECT => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VCRTV => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BROADCAST_MODE => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SNAPSHOT => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_STILL => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PICTUREINPICTURE_TOGGLE => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PICTUREINPICTURE_SWAP => 104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_RED_MENU_BUTTON => 105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GREEN_MENU_BUTTON => 106
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BLUE_MENU_BUTTON => 107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_YELLOW_MENU_BUTTON => 108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ASPECT => 109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_3D_MODE_SELECT => 110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_BRIGHTNESS_INCREMENT => 111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_BRIGHTNESS_DECREMENT => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_BRIGHTNESS => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_BACKLIGHT_TOGGLE => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_SET_BRIGHTNESS_TO_MINIMUM => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_SET_BRIGHTNESS_TO_MAXIMUM => 116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DISPLAY_SET_AUTO_BRIGHTNESS => 117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CAMERA_ACCESS_ENABLED => 118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CAMERA_ACCESS_DISABLED => 119
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CAMERA_ACCESS_TOGGLE => 120
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BRIGHTNESS_INCREMENT => 121
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BRIGHTNESS_DECREMENT => 122
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT_SET_LEVEL => 123
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT_OOC => 124
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT_SET_MINIMUM => 125
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT_SET_MAXIMUM => 126
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_BACKLIGHT_AUTO => 127
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SELECTION => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ASSIGN_SELECTION => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MODE_STEP => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_RECALL_LAST => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ENTER_CHANNEL => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ORDER_MOVIE => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECTION => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_COMPUTER => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_TV => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_WWW => 138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_DVD => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_TELEPHONE => 140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_PROGRAM_GUIDE => 141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_VIDEO_PHONE => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_GAMES => 143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_MESSAGES => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_CD => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_VCR => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_TUNER => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_QUIT => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_HELP => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_TAPE => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_CABLE => 151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_SATELLITE => 152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_SECURITY => 153
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_HOME => 154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_CALL => 155
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_INCREMENT => 156
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_DECREMENT => 157
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDIA_SELECT_SAP => 158
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VCR_PLUS => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ONCE => 161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DAILY => 162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_WEEKLY => 163
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MONTHLY => 164
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PLAY => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PAUSE => 177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_RECORD => 178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FAST_FORWARD => 179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_REWIND => 180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SCAN_NEXT_TRACK => 181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SCAN_PREV_TRACK => 182
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_STOP => 183
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_EJECT => 184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_RANDOM_PLAY => 185
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SELECT_DISC => 186
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ENTER_DISC => 187
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_REPEAT => 188
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TRACKING => 189
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TRACK_NORMAL => 190
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SLOW_TRACKING => 191
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FRAME_FORWARD => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FRAME_BACK => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MARK => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CLEAR_MARK => 195
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_REPEAT_FROM_MARK => 196
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_RETURN_TO_MARK => 197
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SEARCH_MARK_FORWARD => 198
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SEARCH_MARK_BACKWARDS => 199
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_COUNTER_RESET => 200
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SHOW_COUNTER => 201
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TRACKING_INCREMENT => 202
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TRACKING_DECREMENT => 203
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_STOPEJECT => 204
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PLAY_PAUSE => 205
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PLAYSKIP => 206
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VOICE_COMMAND => 207
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_OPEN_GAMEBAR => 208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_RECORD => 209
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_RECORD_CLIP => 210
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_SCREENSHOT => 211
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_INDICATOR => 212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_MICROPHONE => 213
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_CAMERA => 214
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_BROADCAST => 215
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_START_OR_STOP_VOICE_DICTATION_SESSION => 216
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_INVOKEDISMISS_EMOJI_PICKER => 217
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VOLUME => 224
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BALANCE => 225
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MUTE => 226
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BASS => 227
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TREBLE => 228
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BASS_BOOST => 229
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SURROUND_MODE => 230
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_LOUDNESS => 231
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MPX => 232
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VOLUME_INCREMENT => 233
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VOLUME_DECREMENT => 234
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SPEED_SELECT => 240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PLAYBACK_SPEED => 241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_STANDARD_PLAY => 242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_LONG_PLAY => 243
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_EXTENDED_PLAY => 244
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SLOW => 245
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FAN_ENABLE => 256
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FAN_SPEED => 257
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_LIGHT_ENABLE => 258
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_LIGHT_ILLUMINATION_LEVEL => 259
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CLIMATE_CONTROL_ENABLE => 260
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ROOM_TEMPERATURE => 261
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SECURITY_ENABLE => 262
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_FIRE_ALARM => 263
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_POLICE_ALARM => 264
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PROXIMITY => 265
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MOTION => 266
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_DURESS_ALARM => 267
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_HOLDUP_ALARM => 268
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_MEDICAL_ALARM => 269
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BALANCE_RIGHT => 336
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BALANCE_LEFT => 337
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BASS_INCREMENT => 338
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_BASS_DECREMENT => 339
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TREBLE_INCREMENT => 340
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_TREBLE_DECREMENT => 341
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SPEAKER_SYSTEM => 352
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_LEFT => 353
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_RIGHT => 354
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_CENTER => 355
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_FRONT => 356
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_CENTER_FRONT => 357
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_SIDE => 358
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_SURROUND => 359
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_LOW_FREQUENCY_ENHANCEMENT => 360
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_TOP => 361
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CHANNEL_UNKNOWN => 362
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SUBCHANNEL => 368
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SUBCHANNEL_INCREMENT => 369
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_SUBCHANNEL_DECREMENT => 370
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ALTERNATE_AUDIO_INCREMENT => 371
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_ALTERNATE_AUDIO_DECREMENT => 372
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_APPLICATION_LAUNCH_BUTTONS => 384
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_LAUNCH_BUTTON_CONFIGURATION_TOOL => 385
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_PROGRAMMABLE_BUTTON_CONFIGURATION => 386
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CONFIGURATION => 387
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_WORD_PROCESSOR => 388
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_TEXT_EDITOR => 389
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_SPREADSHEET => 390
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_GRAPHICS_EDITOR => 391
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_PRESENTATION_APP => 392
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_DATABASE_APP => 393
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_EMAIL => 394
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_NEWSREADER => 395
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_VOICEMAIL => 396
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CONTACTSADDRESS_BOOK => 397
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CALENDARSCHEDULE => 398
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_TASKPROJECT_MANAGER => 399
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_LOGJOURNALTIMECARD => 400
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CHECKBOOKFINANCE => 401
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CALCULATOR => 402
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_AV_CAPTUREPLAYBACK => 403
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_BROWSER => 404
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_LANWAN_BROWSER => 405
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_INTERNET_BROWSER => 406
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_REMOTE_NETWORKINGISP_CONNECT => 407
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_NETWORK_CONFERENCE => 408
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_NETWORK_CHAT => 409
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_TELEPHONYDIALER => 410
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_LOGON => 411
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_LOGOFF => 412
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_LOGONLOGOFF => 413
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_TERMINAL_LOCKSCREENSAVER => 414
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CONTROL_PANEL => 415
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_COMMAND_LINE_PROCESSORRUN => 416
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_PROCESSTASK_MANAGER => 417
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_SELECT_TASKAPPLICATION => 418
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_NEXT_TASKAPPLICATION => 419
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_PREVIOUS_TASKAPPLICATION => 420
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_PREEMPTIVE_HALT_TASKAPPLICATION => 421
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_INTEGRATED_HELP_CENTER => 422
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_DOCUMENTS => 423
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_THESAURUS => 424
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_DICTIONARY => 425
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_DESKTOP => 426
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_SPELL_CHECK => 427
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_GRAMMAR_CHECK => 428
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_WIRELESS_STATUS => 429
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_KEYBOARD_LAYOUT => 430
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_VIRUS_PROTECTION => 431
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_ENCRYPTION => 432
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_SCREEN_SAVER => 433
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_ALARMS => 434
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CLOCK => 435
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_FILE_BROWSER => 436
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_POWER_STATUS => 437
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_IMAGE_BROWSER => 438
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_AUDIO_BROWSER => 439
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_MOVIE_BROWSER => 440
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_DIGITAL_RIGHTS_MANAGER => 441
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_DIGITAL_WALLET => 442
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_INSTANT_MESSAGING => 444
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_OEM_FEATURES_TIPSTUTORIAL_BROWSER => 445
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_OEM_HELP => 446
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_ONLINE_COMMUNITY => 447
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_ENTERTAINMENT_CONTENT_BROWSER => 448
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_ONLINE_SHOPPING_BROWSER => 449
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_SMARTCARD_INFORMATIONHELP => 450
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_MARKET_MONITORFINANCE_BROWSER => 451
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CUSTOMIZED_CORPORATE_NEWS_BROWSER => 452
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_ONLINE_ACTIVITY_BROWSER => 453
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_SEARCH => 454
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_AUDIO_PLAYER => 455
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_MESSAGE_STATUS => 456
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CONTACT_SYNC => 457
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_NAVIGATION => 458
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AL_CONTEXTAWARE_DESKTOP_ASSISTANT => 459
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_GENERIC_GUI_APPLICATION_CONTROLS => 512
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NEW => 513
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_OPEN => 514
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_CLOSE => 515
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_EXIT => 516
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_MAXIMIZE => 517
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_MINIMIZE => 518
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SAVE => 519
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PRINT => 520
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PROPERTIES => 521
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_UNDO => 538
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_COPY => 539
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_CUT => 540
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PASTE => 541
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_ALL => 542
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FIND => 543
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FIND_AND_REPLACE => 544
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SEARCH => 545
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_GOTO => 546
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_HOME => 547
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_BACK => 548
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FORWARD => 549
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_STOP => 550
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_REFRESH => 551
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PREVIOUS => 552
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NEXT => 553
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_BOOKMARKS => 554
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_HISTORY => 555
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SUBSCRIPTIONS => 556
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ZOOM_IN => 557
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ZOOM_OUT => 558
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ZOOM => 559
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FULL_SCREEN_VIEW => 560
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NORMAL_VIEW => 561
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_VIEW_TOGGLE => 562
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SCROLL_UP => 563
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SCROLL_DOWN => 564
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SCROLL => 565
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PAN_LEFT => 566
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PAN_RIGHT => 567
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PAN => 568
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NEW_WINDOW => 569
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_TILE_HORIZONTALLY => 570
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_TILE_VERTICALLY => 571
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FORMAT => 572
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_EDIT => 573
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_BOLD => 574
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ITALICS => 575
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_UNDERLINE => 576
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_STRIKETHROUGH => 577
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SUBSCRIPT => 578
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SUPERSCRIPT => 579
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ALL_CAPS => 580
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ROTATE => 581
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_RESIZE => 582
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FLIP_HORIZONTAL => 583
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FLIP_VERTICAL => 584
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_MIRROR_HORIZONTAL => 585
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_MIRROR_VERTICAL => 586
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FONT_SELECT => 587
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FONT_COLOR => 588
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FONT_SIZE => 589
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_LEFT => 590
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_CENTER_H => 591
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_RIGHT => 592
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_BLOCK_H => 593
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_TOP => 594
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_CENTER_V => 595
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_BOTTOM => 596
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_JUSTIFY_BLOCK_V => 597
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INDENT_DECREASE => 598
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INDENT_INCREASE => 599
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NUMBERED_LIST => 600
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_RESTART_NUMBERING => 601
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_BULLETED_LIST => 602
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PROMOTE => 603
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DEMOTE => 604
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_YES => 605
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NO => 606
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_CANCEL => 607
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_CATALOG => 608
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_BUYCHECKOUT => 609
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ADD_TO_CART => 610
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_EXPAND => 611
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_EXPAND_ALL => 612
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_COLLAPSE => 613
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_COLLAPSE_ALL => 614
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PRINT_PREVIEW => 615
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PASTE_SPECIAL => 616
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_MODE => 617
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DELETE => 618
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_LOCK => 619
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_UNLOCK => 620
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_PROTECT => 621
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_UNPROTECT => 622
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ATTACH_COMMENT => 623
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DELETE_COMMENT => 624
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_VIEW_COMMENT => 625
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_WORD => 626
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_SENTENCE => 627
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_PARAGRAPH => 628
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_COLUMN => 629
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_ROW => 630
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_TABLE => 631
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_OBJECT => 632
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_REDOREPEAT => 633
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SORT => 634
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SORT_ASCENDING => 635
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SORT_DESCENDING => 636
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FILTER => 637
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SET_CLOCK => 638
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_VIEW_CLOCK => 639
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SELECT_TIME_ZONE => 640
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_EDIT_TIME_ZONES => 641
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SET_ALARM => 642
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_CLEAR_ALARM => 643
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SNOOZE_ALARM => 644
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_RESET_ALARM => 645
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SYNCHRONIZE => 646
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SENDRECEIVE => 647
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SEND_TO => 648
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_REPLY => 649
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_REPLY_ALL => 650
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_FORWARD_MSG => 651
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SEND => 652
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_ATTACH_FILE => 653
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_UPLOAD => 654
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DOWNLOAD_SAVE_TARGET_AS => 655
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SET_BORDERS => 656
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_ROW => 657
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_COLUMN => 658
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_FILE => 659
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_PICTURE => 660
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_OBJECT => 661
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_INSERT_SYMBOL => 662
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SAVE_AND_CLOSE => 663
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_RENAME => 664
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_MERGE => 665
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SPLIT => 666
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DISRIBUTE_HORIZONTALLY => 667
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DISTRIBUTE_VERTICALLY => 668
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NEXT_KEYBOARD_LAYOUT_SELECT => 669
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_NAVIGATION_GUIDANCE => 670
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DESKTOP_SHOW_ALL_WINDOWS => 671
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SOFT_KEY_LEFT => 672
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_SOFT_KEY_RIGHT => 673
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_DESKTOP_SHOW_ALL_APPLICATIONS => 674
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_AC_IDLE_KEEP_ALIVE => 688
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_EXTENDED_KEYBOARD_ATTRIBUTES_COLLECTION => 704
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_FORM_FACTOR => 705
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_KEY_TYPE => 706
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_PHYSICAL_LAYOUT => 707
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_VENDOR_SPECIFIC_KEYBOARD_PHYSICAL_LAYOUT => 708
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_IETF_LANGUAGE_TAG_INDEX => 709
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_IMPLEMENTED_KEYBOARD_INPUT_ASSIST_CONTROLS => 710
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_INPUT_ASSIST_PREVIOUS => 711
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_INPUT_ASSIST_NEXT => 712
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_INPUT_ASSIST_PREVIOUS_GROUP => 713
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_INPUT_ASSIST_NEXT_GROUP => 714
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_INPUT_ASSIST_ACCEPT => 715
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_KEYBOARD_INPUT_ASSIST_CANCEL => 716
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PRIVACY_SCREEN_TOGGLE => 720
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PRIVACY_SCREEN_LEVEL_DECREMENT => 721
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PRIVACY_SCREEN_LEVEL_INCREMENT => 722
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PRIVACY_SCREEN_LEVEL_MINIMUM => 723
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_PRIVACY_SCREEN_LEVEL_MAXIMUM => 724
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_EDITED => 1280
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_ADDED => 1281
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_RECORD_ACTIVE => 1282
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_INDEX => 1283
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_NICKNAME => 1284
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_FIRST_NAME => 1285
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_LAST_NAME => 1286
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_FULL_NAME => 1287
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_PHONE_NUMBER_PERSONAL => 1288
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_PHONE_NUMBER_BUSINESS => 1289
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_PHONE_NUMBER_MOBILE => 1290
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_PHONE_NUMBER_PAGER => 1291
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_PHONE_NUMBER_FAX => 1292
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_PHONE_NUMBER_OTHER => 1293
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_EMAIL_PERSONAL => 1294
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_EMAIL_BUSINESS => 1295
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_EMAIL_OTHER => 1296
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_EMAIL_MAIN => 1297
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_SPEED_DIAL_NUMBER => 1298
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_STATUS_FLAG => 1299
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_CONSUMER_CONTACT_MISC => 1300
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DIGITIZER => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PEN => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_LIGHT_PEN => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TOUCH_SCREEN => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TOUCH_PAD => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_WHITE_BOARD => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_COORD_MEASURING => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_3D_DIGITIZER => 8
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_STEREO_PLOTTER => 9
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ARTICULATED_ARM => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ARMATURE => 11
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_MULTI_POINT => 12
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_FREE_SPACE_WAND => 13
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DEVICE_CONFIGURATION => 14
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_HEAT_MAP => 15
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_STYLUS => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PUCK => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_FINGER => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DEVICE_SETTINGS => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CHARACTER_GESTURE => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TIP_PRESSURE => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_BARREL_PRESSURE => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_IN_RANGE => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TOUCH => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_UNTOUCH => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TAP => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_QUALITY => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DATA_VALID => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_INDEX => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TABLET_FUNC_KEYS => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PROG_CHANGE_KEYS => 58
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_BATTERY_STRENGTH => 59
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_INVERT => 60
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_X_TILT => 61
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_Y_TILT => 62
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_AZIMUTH => 63
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ALTITUDE => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TWIST => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TIP_SWITCH => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SECONDARY_TIP_SWITCH => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_BARREL_SWITCH => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ERASER => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TABLET_PICK => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TOUCH_VALID => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_WIDTH => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_HEIGHT => 73
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CONTACT_IDENTIFIER => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DEVICE_MODE => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DEVICE_IDENTIFIER => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CONTACT_COUNT => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CONTACT_COUNT_MAXIMUM => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SCAN_TIME => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SURFACE_SWITCH => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_BUTTON_SWITCH => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PAD_TYPE => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SECONDARY_BARREL_SWITCH => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_SERIAL => 91
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PREFERRED_COLOR => 92
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PREFERRED_COLOR_IS_LOCKED => 93
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PREFERRED_LINE_WIDTH => 94
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PREFERRED_LINE_WIDTH_IS_LOCKED => 95
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_LATENCY_MODE => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_GESTURE_CHARACTER_QUALITY => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CHARACTER_GESTURE_DATA_LENGTH => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CHARACTER_GESTURE_DATA => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_GESTURE_CHARACTER_ENCODING => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_UTF8_CHARACTER_GESTURE_ENCODING => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_UTF16_LITTLE_ENDIAN_CHARACTER_GESTURE_ENCODING => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_UTF16_BIG_ENDIAN_CHARACTER_GESTURE_ENCODING => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_UTF32_LITTLE_ENDIAN_CHARACTER_GESTURE_ENCODING => 104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_UTF32_BIG_ENDIAN_CHARACTER_GESTURE_ENCODING => 105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VENDOR_ID => 106
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VERSION => 107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_HEAT_MAP_FRAME_DATA => 108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_GESTURE_CHARACTER_ENABLE => 109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_SERIAL_PART2 => 110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_NO_PREFERRED_COLOR => 111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PREFERRED_LINE_STYLE => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PREFERRED_LINE_STYLE_IS_LOCKED => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_INK => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_PENCIL => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_HIGHLIGHTER => 116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_CHISEL_MARKER => 117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_BRUSH => 118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_NO_PREFERENCE => 119
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DIGITIZER_DIAGNOSTIC => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DIGITIZER_ERROR => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ERR_NORMAL_STATUS => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ERR_TRANSDUCERS_EXCEEDED => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ERR_FULL_TRANS_FEATURES_UNAVAILABLE => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_ERR_CHARGE_LOW => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_SOFTWARE_INFO => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_VENDOR => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_PRODUCT => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_DEVICE_SUPPORTED_PROTOCOLS => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_SUPPORTED_PROTOCOLS => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_NO_PROTOCOL => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_WACOM_AES_PROTOCOL => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_USI_PROTOCOL => 151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_MICROSOFT_PEN_PROTOCOL => 152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SUPPORTED_REPORT_RATES => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_REPORT_RATE => 161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_CONNECTED => 162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SWITCH_DISABLED => 163
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_SWITCH_UNIMPLEMENTED => 164
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_SWITCHES => 165
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_TRANSDUCER_INDEX_SELECTOR => 166
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_DIGITIZER_BUTTON_PRESS_THRESHOLD => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_EYE_TRACKER => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_HEAD_TRACKER => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_TRACKING_DATA => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_CAPABILITIES => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_CONFIGURATION => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_STATUS => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_CONTROL => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_SENSOR_TIMESTAMP => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_POSITION_X => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_POSITION_Y => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_POSITION_Z => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_GAZE_POINT => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_LEFT_EYE_POSITION => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_RIGHT_EYE_POSITION => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_HEAD_POSITION => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_HEAD_DIRECTION_POINT => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_ROTATION_ABOUT_X_AXIS => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_ROTATION_ABOUT_Y_AXIS => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_ROTATION_ABOUT_Z_AXIS => 43
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_TRACKER_QUALITY => 256
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_MINIMUM_TRACKING_DISTANCE => 257
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_OPTIMUM_TRACKING_DISTANCE => 258
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_MAXIMUM_TRACKING_DISTANCE => 259
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_MAXIMUM_SCREEN_PLANE_WIDTH => 260
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_MAXIMUM_SCREEN_PLANE_HEIGHT => 261
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_DISPLAY_MANUFACTURER_ID => 512
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_DISPLAY_PRODUCT_ID => 513
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_DISPLAY_SERIAL_NUMBER => 514
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_DISPLAY_MANUFACTURER_DATE => 515
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_CALIBRATED_SCREEN_WIDTH => 516
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_CALIBRATED_SCREEN_HEIGHT => 517
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_SAMPLING_FREQUENCY => 768
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_CONFIGURATION_STATUS => 769
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_EYE_AND_HEAD_TRACKERS_DEVICE_MODE_REQUEST => 1024
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_FIDO_ALLIANCE_U2F_AUTHENTICATOR_DEVICE => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_FIDO_ALLIANCE_INPUT_REPORT_DATA => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_FIDO_ALLIANCE_OUTPUT_REPORT_DATA => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_3D_GAME_CONTROLLER => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_PINBALL_DEVICE => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_DEVICE => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_POV => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_TURN_RIGHT_LEFT => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_PITCH_FORWARD_BACK => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_ROLL_RIGHT_LEFT => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_MOVE_RIGHT_LEFT => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_MOVE_FORWARD_BACK => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_MOVE_UP_DOWN => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_LEAN_RIGHT_LEFT => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_LEAN_FORWARD_BACK => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_POV_HEIGHT => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_FLIPPER => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_SECONDARY_FLIPPER => 43
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_BUMP => 44
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_NEW_GAME => 45
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_SHOOT_BALL => 46
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_PLAYER => 47
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_BOLT => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_CLIP => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_SELECTOR => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_SINGLE_SHOT => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_BURST => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_AUTOMATIC => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GUN_SAFETY => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GAMEPAD_FIRE_JUMP => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_GAMEPAD_TRIGGER => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GAME_FORMFITTING_GAMEPAD => 58
 
     /**
      * @type {Integer (UInt16)}
@@ -991,6 +6331,21 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_GENERIC_WATER_COOLING_DEVICE => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_COMPUTER_CHASSIS_DEVICE => 11
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_WIRELESS_RADIO_CONTROLS => 12
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_GENERIC_PORTABLE_DEVICE_CONTROL => 13
 
     /**
@@ -1001,12 +6356,27 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_GENERIC_COUNTED_BUFFER => 58
+    static HID_USAGE_GENERIC_SPATIAL_CONTROLLER => 15
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_GENERIC_SYSTEM_CTL => 128
+    static HID_USAGE_GENERIC_ASSISTIVE_CONTROL => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_DOCK => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_CALL_STATE_MANAGEMENT_CONTROL => 19
 
     /**
      * @type {Integer (UInt16)}
@@ -1057,6 +6427,11 @@ class HumanInterfaceDevice {
      * @type {Integer (UInt16)}
      */
     static HID_USAGE_GENERIC_HATSWITCH => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_COUNTED_BUFFER => 58
 
     /**
      * @type {Integer (UInt16)}
@@ -1122,6 +6497,31 @@ class HumanInterfaceDevice {
      * @type {Integer (UInt16)}
      */
     static HID_USAGE_GENERIC_RESOLUTION_MULTIPLIER => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_QX => 73
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_QY => 74
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_QZ => 75
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_QW => 76
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_SYSTEM_CTL => 128
 
     /**
      * @type {Integer (UInt16)}
@@ -1221,6 +6621,21 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_GENERIC_INDEX_TRIGGER => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_PALM_TRIGGER => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_THUMBSTICK => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_GENERIC_SYSCTL_FN => 151
 
     /**
@@ -1237,6 +6652,11 @@ class HumanInterfaceDevice {
      * @type {Integer (UInt16)}
      */
     static HID_USAGE_GENERIC_SYSCTL_DISMISS_NOTIFICATION => 154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_SYSTEM_DO_NOT_DISTURB => 155
 
     /**
      * @type {Integer (UInt16)}
@@ -1286,6 +6706,16 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_GENERIC_SYSCTL_MICROPHONE_MUTE => 169
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_SYSCTL_ACCESSIBILITY_BINDING => 170
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_GENERIC_SYSCTL_DISP_INVERT => 176
 
     /**
@@ -1326,6 +6756,51 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_GENERIC_SENSOR_ZONE => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_RPM => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_COOLANT_LEVEL => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_COOLANT_CRITICAL_LEVEL => 195
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_COOLANT_PUMP => 196
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_CHASSIS_ENCLOSURE => 197
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_WIRELESS_RADIO_BUTTON => 198
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_WIRELESS_RADIO_LED => 199
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_WIRELESS_RADIO_SLIDER_SWITCH => 200
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_GENERIC_SYSTEM_DISPLAY_ROTATION_LOCK_BUTTON => 201
 
     /**
@@ -1341,627 +6816,57 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_FLIGHT_SIMULATION_DEVICE => 1
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_UNIQUE_ID => 208
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_AUTOMOBILE_SIMULATION_DEVICE => 2
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_VENDOR_ID => 209
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_TANK_SIMULATION_DEVICE => 3
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_PRIMARY_USAGE_PAGE => 210
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_SPACESHIP_SIMULATION_DEVICE => 4
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_PRIMARY_USAGE_ID => 211
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_SUBMARINE_SIMULATION_DEVICE => 5
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_DOCKING_STATE => 212
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_SAILING_SIMULATION_DEVICE => 6
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_DISPLAY_OCCLUSION => 213
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_MOTORCYCLE_SIMULATION_DEVICE => 7
+    static HID_USAGE_GENERIC_DOCKABLE_DEVICE_OBJECT_TYPE => 214
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_SPORTS_SIMULATION_DEVICE => 8
+    static HID_USAGE_GENERIC_CALL_ACTIVE_LED => 224
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_AIRPLANE_SIMULATION_DEVICE => 9
+    static HID_USAGE_GENERIC_CALL_MUTE_TOGGLE => 225
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_HELICOPTER_SIMULATION_DEVICE => 10
+    static HID_USAGE_GENERIC_CALL_MUTE_LED => 226
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_SIMULATION_MAGIC_CARPET_SIMULATION_DEVICE => 11
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_BICYCLE_SIMULATION_DEVICE => 12
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_FLIGHT_CONTROL_STICK => 32
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_FLIGHT_STICK => 33
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_CYCLIC_CONTROL => 34
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_CYCLIC_TRIM => 35
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_FLIGHT_YOKE => 36
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_TRACK_CONTROL => 37
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_AILERON => 176
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_AILERON_TRIM => 177
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_ANTI_TORQUE_CONTROL => 178
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_AUTOPIOLOT_ENABLE => 179
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_CHAFF_RELEASE => 180
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_COLLECTIVE_CONTROL => 181
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_DIVE_BRAKE => 182
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_ELECTRONIC_COUNTERMEASURES => 183
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_ELEVATOR => 184
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_ELEVATOR_TRIM => 185
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_RUDDER => 186
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_THROTTLE => 187
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_FLIGHT_COMMUNICATIONS => 188
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_FLARE_RELEASE => 189
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_LANDING_GEAR => 190
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_TOE_BRAKE => 191
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_TRIGGER => 192
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_WEAPONS_ARM => 193
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_WEAPONS_SELECT => 194
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_WING_FLAPS => 195
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_ACCELLERATOR => 196
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_BRAKE => 197
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_CLUTCH => 198
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_SHIFTER => 199
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_STEERING => 200
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_TURRET_DIRECTION => 201
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_BARREL_ELEVATION => 202
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_DIVE_PLANE => 203
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_BALLAST => 204
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_BICYCLE_CRANK => 205
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_HANDLE_BARS => 206
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_FRONT_BRAKE => 207
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SIMULATION_REAR_BRAKE => 208
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_BELT => 1
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_BODY_SUIT => 2
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_FLEXOR => 3
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_GLOVE => 4
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_HEAD_TRACKER => 5
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_HEAD_MOUNTED_DISPLAY => 6
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_HAND_TRACKER => 7
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_OCULOMETER => 8
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_VEST => 9
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_ANIMATRONIC_DEVICE => 10
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_STEREO_ENABLE => 32
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_VR_DISPLAY_ENABLE => 33
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_BASEBALL_BAT => 1
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_GOLF_CLUB => 2
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_ROWING_MACHINE => 3
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_TREADMILL => 4
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_STICK_TYPE => 56
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_OAR => 48
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_SLOPE => 49
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_RATE => 50
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_STICK_SPEED => 51
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_STICK_FACE_ANGLE => 52
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_HEEL_TOE => 53
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_FOLLOW_THROUGH => 54
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_TEMPO => 55
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_HEIGHT => 57
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_PUTTER => 80
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_1_IRON => 81
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_2_IRON => 82
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_3_IRON => 83
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_4_IRON => 84
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_5_IRON => 85
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_6_IRON => 86
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_7_IRON => 87
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_8_IRON => 88
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_9_IRON => 89
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_10_IRON => 90
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_11_IRON => 91
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_SAND_WEDGE => 92
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_LOFT_WEDGE => 93
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_POWER_WEDGE => 94
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_1_WOOD => 95
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_3_WOOD => 96
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_5_WOOD => 97
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_7_WOOD => 98
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_SPORT_9_WOOD => 99
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_3D_GAME_CONTROLLER => 1
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_PINBALL_DEVICE => 2
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_DEVICE => 3
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_POINT_OF_VIEW => 32
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_SELECTOR => 50
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GAMEPAD_FIRE_JUMP => 55
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GAMEPAD_TRIGGER => 57
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_TURN_RIGHT_LEFT => 33
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_PITCH_FORWARD_BACK => 34
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_ROLL_RIGHT_LEFT => 35
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_MOVE_RIGHT_LEFT => 36
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_MOVE_FORWARD_BACK => 37
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_MOVE_UP_DOWN => 38
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_LEAN_RIGHT_LEFT => 39
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_LEAN_FORWARD_BACK => 40
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_POV_HEIGHT => 41
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_FLIPPER => 42
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_SECONDARY_FLIPPER => 43
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_BUMP => 44
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_NEW_GAME => 45
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_SHOOT_BALL => 46
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_PLAYER => 47
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_BOLT => 48
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_CLIP => 49
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_SINGLE_SHOT => 51
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_BURST => 52
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_AUTOMATIC => 53
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_GAME_GUN_SAFETY => 54
+    static HID_USAGE_GENERIC_DEVICE_BACKGROUNDNONUSER_CONTROLS => 1
 
     /**
      * @type {Integer (UInt16)}
@@ -2001,6 +6906,231 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_GENERIC_DEVICE_SEQUENCE_ID => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_SEQUENCE_ID_RESET => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_RF_SIGNAL_STRENGTH => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_SOFTWARE_VERSION => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_PROTOCOL_VERSION => 43
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_HARDWARE_VERSION => 44
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_MAJOR => 45
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_MINOR => 46
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_REVISION => 47
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_HANDEDNESS => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_EITHER_HAND => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_LEFT_HAND => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_RIGHT_HAND => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_BOTH_HANDS => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_GRIP_POSE_OFFSET => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_GENERIC_DEVICE_POINTER_POSE_OFFSET => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_SIMPLE_CONTROLLER => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_LIST => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_DURATION_LIST => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_AUTO_TRIGGER => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_MANUAL_TRIGGER => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_AUTO_ASSOCIATED_CONTROL => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_INTENSITY => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_REPEAT_COUNT => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_RETRIGGER_PERIOD => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_VENDOR_PAGE => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_VENDOR_ID => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_CUTOFF_TIME => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_NONE => 4097
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_STOP => 4098
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_CLICK => 4099
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_BUZZ => 4100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_RUMBLE => 4101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_PRESS => 4102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_RELEASE => 4103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_HOVER => 4104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_SUCCESS => 4105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_ERROR => 4106
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_INK_CONTINUOUS => 4107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_PENCIL_CONTINUOUS => 4108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_MARKER_CONTINUOUS => 4109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_CHISEL_MARKER_CONTINUOUS => 4110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_BRUSH_CONTINUOUS => 4111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_ERASER_CONTINUOUS => 4112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_HAPTICS_WAVEFORM_SPARKLE_CONTINUOUS => 4113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_KEYBOARD_NOEVENT => 0
 
     /**
@@ -2026,6 +7156,126 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_KEYBOARD_bB => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_cC => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_dD => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_eE => 8
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_fF => 9
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_gG => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_hH => 11
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_iI => 12
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_jJ => 13
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_kK => 14
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_lL => 15
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_mM => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_nN => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_oO => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_pP => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_qQ => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_rR => 21
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_sS => 22
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_tT => 23
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_uU => 24
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_vV => 25
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_wW => 26
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_xX => 27
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_yY => 28
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_KEYBOARD_zZ => 29
 
     /**
@@ -2036,57 +7286,132 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_KEYBOARD_TWO_AND_AT => 31
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_THREE_AND_HASH => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_FOUR_AND_DOLLAR => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_FIVE_AND_PERCENT => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_SIX_AND_CARET => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_SEVEN_AND_AMPERSAND => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_EIGHT_AND_STAR => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_NINE_AND_LEFT_BRACKET => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_KEYBOARD_ZERO => 39
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_LCTRL => 224
+    static HID_USAGE_KEYBOARD_RETURN => 40
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_LSHFT => 225
+    static HID_USAGE_KEYBOARD_ESCAPE => 41
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_LALT => 226
+    static HID_USAGE_KEYBOARD_DELETE => 42
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_LGUI => 227
+    static HID_USAGE_KEYBOARD_TAB => 43
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_RCTRL => 228
+    static HID_USAGE_KEYBOARD_SPACEBAR => 44
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_RSHFT => 229
+    static HID_USAGE_KEYBOARD_DASH_AND_UNDERSCORE => 45
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_RALT => 230
+    static HID_USAGE_KEYBOARD_EQUALS_AND_PLUS => 46
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_RGUI => 231
+    static HID_USAGE_KEYBOARD_LEFT_BRACE => 47
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_SCROLL_LOCK => 71
+    static HID_USAGE_KEYBOARD_RIGHT_BRACE => 48
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_NUM_LOCK => 83
+    static HID_USAGE_KEYBOARD_BACKSLASH_AND_PIPE => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_NONUS_HASH_AND_TILDE => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_SEMICOLON_AND_COLON => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LEFT_APOS_AND_DOUBLE => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_GRAVE_ACCENT_AND_TILDE => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_COMMA_AND_LESSTHAN => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_PERIOD_AND_GREATERTHAN => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_FORWARDSLASH_AND_QUESTIONMARK => 56
 
     /**
      * @type {Integer (UInt16)}
@@ -2156,6 +7481,176 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
+    static HID_USAGE_KEYBOARD_PRINT_SCREEN => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_SCROLL_LOCK => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_PAUSE => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INSERT => 73
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_HOME => 74
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_PAGEUP => 75
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_DELETE_FORWARD => 76
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_END => 77
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_PAGEDOWN => 78
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_RIGHTARROW => 79
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LEFTARROW => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_DOWNARROW => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_UPARROW => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_NUM_LOCK => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_FORWARDSLASH => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_STAR => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_DASH => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_PLUS => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_ENTER => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_ONE_AND_END => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_TWO_AND_DOWN_ARROW => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_THREE_AND_PAGEDN => 91
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_FOUR_AND_LEFT_ARROW => 92
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_FIVE => 93
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_SIX_AND_RIGHT_ARROW => 94
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_SEVEN_AND_HOME => 95
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_EIGHT_AND_UP_ARROW => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_NINE_AND_PAGEUP => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_ZERO_AND_INSERT => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_PERIOD_AND_DELETE => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_NONUS_BACKSLASH_AND_PIPE => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_APPLICATION => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_POWER => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_EQUALS => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
     static HID_USAGE_KEYBOARD_F13 => 104
 
     /**
@@ -2216,37 +7711,517 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_RETURN => 40
+    static HID_USAGE_KEYBOARD_EXECUTE => 116
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_ESCAPE => 41
+    static HID_USAGE_KEYBOARD_HELP => 117
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_DELETE => 42
+    static HID_USAGE_KEYBOARD_MENU => 118
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_PRINT_SCREEN => 70
+    static HID_USAGE_KEYBOARD_SELECT => 119
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_DELETE_FORWARD => 76
+    static HID_USAGE_KEYBOARD_STOP => 120
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_KEYPAD_1_AND_END => 89
+    static HID_USAGE_KEYBOARD_AGAIN => 121
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_KEYBOARD_KEYPAD_0_AND_INSERT => 98
+    static HID_USAGE_KEYBOARD_UNDO => 122
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CUT => 123
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_COPY => 124
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_PASTE => 125
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_FIND => 126
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_MUTE => 127
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_VOLUME_UP => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_VOLUME_DOWN => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LOCKING_CAPS_LOCK => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LOCKING_NUM_LOCK => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LOCKING_SCROLL_LOCK => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_COMMA => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_EQUAL_SIGN => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL1 => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL2 => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL3 => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL4 => 138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL5 => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL6 => 140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL7 => 141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL8 => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_INTERNATIONAL9 => 143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG1 => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG2 => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG3 => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG4 => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG5 => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG6 => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG7 => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG8 => 151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LANG9 => 152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_ALTERNATE_ERASE => 153
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_SYSREQ_ATTENTION => 154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CANCEL => 155
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CLEAR => 156
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_PRIOR => 157
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_RETURN_NO_ENTER => 158
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_SEPARATOR => 159
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_OUT => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_OPER => 161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CLEAR_AGAIN => 162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CRSEL_PROPS => 163
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_EXSEL => 164
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_DOUBLE_0 => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_TRIPLE_0 => 177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_THOUSANDS_SEPARATOR => 178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_DECIMAL_SEPARATOR => 179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CURRENCY_UNIT => 180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_CURRENCY_SUBUNIT => 181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_LEFT_BRACKET => 182
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_RIGHT_BRACKET => 183
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_LEFT_BRACE => 184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_RIGHT_BRACE => 185
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_TAB => 186
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_BACKSPACE => 187
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_A => 188
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_B => 189
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_C => 190
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_D => 191
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_E => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_F => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_XOR => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_CARET => 195
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_PERCENTAGE => 196
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_LESS => 197
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_GREATER => 198
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_AMPERSAND => 199
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_DOUBLE_AMPERSAND => 200
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_BAR => 201
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_DOUBLE_BAR => 202
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_COLON => 203
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_HASH => 204
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_SPACE => 205
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_AT => 206
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_BANG => 207
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_STORE => 208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_RECALL => 209
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_CLEAR => 210
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_ADD => 211
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_SUBTRACT => 212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_MULTIPLY => 213
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_MEMORY_DIVIDE => 214
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_PLUS_MINUS => 215
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_CLEAR => 216
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_CLEAR_ENTRY => 217
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_BINARY => 218
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_OCTAL => 219
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_DECIMAL => 220
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_KEYPAD_HEXADECIMAL => 221
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LCTRL => 224
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LSHFT => 225
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LALT => 226
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_LGUI => 227
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_RCTRL => 228
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_RSHFT => 229
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_RALT => 230
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_KEYBOARD_RGUI => 231
 
     /**
      * @type {Integer (UInt16)}
@@ -2636,1067 +8611,97 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_PHONE => 1
+    static HID_USAGE_LED_INDICATOR_BLUE => 78
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_ANSWERING_MACHINE => 2
+    static HID_USAGE_LED_INDICATOR_ORANGE => 79
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_MESSAGE_CONTROLS => 3
+    static HID_USAGE_LED_GOOD_STATUS => 80
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_HANDSET => 4
+    static HID_USAGE_LED_WARNING_STATUS => 81
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_HEADSET => 5
+    static HID_USAGE_LED_RGB_LED => 82
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_KEYPAD => 6
+    static HID_USAGE_LED_RED_LED_CHANNEL => 83
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_PROGRAMMABLE_BUTTON => 7
+    static HID_USAGE_LED_BLUE_LED_CHANNEL => 84
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_REDIAL => 36
+    static HID_USAGE_LED_GREEN_LED_CHANNEL => 85
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_TRANSFER => 37
+    static HID_USAGE_LED_LED_INTENSITY => 86
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_DROP => 38
+    static HID_USAGE_LED_SYSTEM_MICROPHONE_MUTE => 87
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_LINE => 42
+    static HID_USAGE_LED_PLAYER_INDICATOR => 96
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_RING_ENABLE => 45
+    static HID_USAGE_LED_PLAYER_1 => 97
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_SEND => 49
+    static HID_USAGE_LED_PLAYER_2 => 98
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_KEYPAD_0 => 176
+    static HID_USAGE_LED_PLAYER_3 => 99
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_KEYPAD_D => 191
+    static HID_USAGE_LED_PLAYER_4 => 100
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_TELEPHONY_HOST_AVAILABLE => 241
+    static HID_USAGE_LED_PLAYER_5 => 101
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_CONSUMERCTRL => 1
+    static HID_USAGE_LED_PLAYER_6 => 102
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_CONSUMER_CHANNEL_INCREMENT => 156
+    static HID_USAGE_LED_PLAYER_7 => 103
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_CONSUMER_CHANNEL_DECREMENT => 157
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_PLAY => 176
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_PAUSE => 177
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_RECORD => 178
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_FAST_FORWARD => 179
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_REWIND => 180
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_SCAN_NEXT_TRACK => 181
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_SCAN_PREV_TRACK => 182
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_STOP => 183
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_PLAY_PAUSE => 205
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_OPEN_GAMEBAR => 208
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_RECORD => 209
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_RECORD_CLIP => 210
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_SCREENSHOT => 211
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_INDICATOR => 212
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_MICROPHONE => 213
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_CAMERA => 214
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_GAMEDVR_TOGGLE_BROADCAST => 215
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_VOLUME => 224
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_BALANCE => 225
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_MUTE => 226
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_BASS => 227
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_TREBLE => 228
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_BASS_BOOST => 229
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_SURROUND_MODE => 230
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_LOUDNESS => 231
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_MPX => 232
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_VOLUME_INCREMENT => 233
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_VOLUME_DECREMENT => 234
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_BASS_INCREMENT => 338
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_BASS_DECREMENT => 339
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_TREBLE_INCREMENT => 340
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_TREBLE_DECREMENT => 341
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AL_CONFIGURATION => 387
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AL_EMAIL => 394
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AL_CALCULATOR => 402
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AL_BROWSER => 404
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AL_SEARCH => 454
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_SEARCH => 545
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_GOTO => 546
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_HOME => 547
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_BACK => 548
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_FORWARD => 549
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_STOP => 550
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_REFRESH => 551
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_PREVIOUS => 552
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_NEXT => 553
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_BOOKMARKS => 554
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_AC_PAN => 568
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_EXTENDED_KEYBOARD_ATTRIBUTES_COLLECTION => 704
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_KEYBOARD_FORM_FACTOR => 705
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_KEYBOARD_KEY_TYPE => 706
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_KEYBOARD_PHYSICAL_LAYOUT => 707
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_VENDOR_SPECIFIC_KEYBOARD_PHYSICAL_LAYOUT => 708
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_KEYBOARD_IETF_LANGUAGE_TAG_INDEX => 709
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_CONSUMER_IMPLEMENTED_KEYBOARD_INPUT_ASSIST_CONTROLS => 710
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_DIGITIZER => 1
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_PEN => 2
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_LIGHT_PEN => 3
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TOUCH_SCREEN => 4
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TOUCH_PAD => 5
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_WHITE_BOARD => 6
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_COORD_MEASURING => 7
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_3D_DIGITIZER => 8
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_STEREO_PLOTTER => 9
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_ARTICULATED_ARM => 10
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_ARMATURE => 11
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_MULTI_POINT => 12
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_FREE_SPACE_WAND => 13
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_HEAT_MAP => 15
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_STYLUS => 32
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_PUCK => 33
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_FINGER => 34
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TABLET_FUNC_KEYS => 57
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_PROG_CHANGE_KEYS => 58
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TIP_PRESSURE => 48
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_BARREL_PRESSURE => 49
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_IN_RANGE => 50
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TOUCH => 51
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_UNTOUCH => 52
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TAP => 53
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_QUALITY => 54
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_DATA_VALID => 55
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TRANSDUCER_INDEX => 56
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_BATTERY_STRENGTH => 59
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_INVERT => 60
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_X_TILT => 61
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_Y_TILT => 62
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_AZIMUTH => 63
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_ALTITUDE => 64
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TWIST => 65
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TIP_SWITCH => 66
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_SECONDARY_TIP_SWITCH => 67
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_BARREL_SWITCH => 68
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_ERASER => 69
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TABLET_PICK => 70
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TRANSDUCER_SERIAL => 91
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VENDOR_ID => 106
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_HEAT_MAP_PROTOCOL_VERSION => 107
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_HEAT_MAP_FRAME_DATA => 108
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TRANSDUCER_SERIAL_PART2 => 110
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TRANSDUCER_VENDOR => 145
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TRANSDUCER_PRODUCT => 146
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_DIGITIZER_TRANSDUCER_CONNECTED => 162
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_SIMPLE_CONTROLLER => 1
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_LIST => 16
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_DURATION_LIST => 17
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_AUTO_TRIGGER => 32
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_MANUAL_TRIGGER => 33
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_AUTO_ASSOCIATED_CONTROL => 34
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_INTENSITY => 35
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_REPEAT_COUNT => 36
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_RETRIGGER_PERIOD => 37
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_VENDOR_PAGE => 38
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_VENDOR_ID => 39
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_CUTOFF_TIME => 40
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_BEGIN => 4096
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_STOP => 4097
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_NULL => 4098
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_CLICK => 4099
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_BUZZ => 4100
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_RUMBLE => 4101
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_PRESS => 4102
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_RELEASE => 4103
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_END => 8191
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_VENDOR_BEGIN => 8192
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_HAPTICS_WAVEFORM_VENDOR_END => 12287
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ALPHANUMERIC_DISPLAY => 1
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BITMAPPED_DISPLAY => 2
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_ATTRIBUTES_REPORT => 32
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_CONTROL_REPORT => 36
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHARACTER_REPORT => 43
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_STATUS => 45
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CURSOR_POSITION_REPORT => 50
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_FONT_REPORT => 59
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_FONT_DATA => 60
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHARACTER_ATTRIBUTE => 72
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_PALETTE_REPORT => 133
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_PALETTE_DATA => 136
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BLIT_REPORT => 138
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BLIT_DATA => 143
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON => 144
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ASCII_CHARACTER_SET => 33
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DATA_READ_BACK => 34
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_FONT_READ_BACK => 35
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CLEAR_DISPLAY => 37
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_ENABLE => 38
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_DELAY => 39
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SCREEN_SAVER_ENABLE => 40
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_VERTICAL_SCROLL => 41
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_HORIZONTAL_SCROLL => 42
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_DATA => 44
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_STATUS_NOT_READY => 46
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_STATUS_READY => 47
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ERR_NOT_A_LOADABLE_CHARACTER => 48
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ERR_FONT_DATA_CANNOT_BE_READ => 49
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ROW => 51
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_COLUMN => 52
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ROWS => 53
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_COLUMNS => 54
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CURSOR_PIXEL_POSITIONING => 55
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CURSOR_MODE => 56
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CURSOR_ENABLE => 57
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CURSOR_BLINK => 58
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_WIDTH => 61
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_HEIGHT => 62
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_SPACING_HORIZONTAL => 63
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_SPACING_VERTICAL => 64
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_UNICODE_CHAR_SET => 65
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_FONT_7_SEGMENT => 66
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_7_SEGMENT_DIRECT_MAP => 67
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_FONT_14_SEGMENT => 68
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_14_SEGMENT_DIRECT_MAP => 69
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_BRIGHTNESS => 70
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_CONTRAST => 71
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ATTRIBUTE_READBACK => 73
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_ATTRIBUTE_DATA => 74
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_ATTR_ENHANCE => 75
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_ATTR_UNDERLINE => 76
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_CHAR_ATTR_BLINK => 77
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_X => 128
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BITMAP_SIZE_Y => 129
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BIT_DEPTH_FORMAT => 131
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_DISPLAY_ORIENTATION => 132
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_PALETTE_DATA_SIZE => 134
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_PALETTE_DATA_OFFSET => 135
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X1 => 139
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y1 => 140
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_X2 => 141
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_BLIT_RECTANGLE_Y2 => 142
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_ID => 145
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_SIDE => 146
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET1 => 147
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_OFFSET2 => 148
-
-    /**
-     * @type {Integer (UInt16)}
-     */
-    static HID_USAGE_ALPHANUMERIC_SOFT_BUTTON_REPORT => 149
+    static HID_USAGE_LED_PLAYER_8 => 104
 
     /**
      * @type {Integer (UInt16)}
@@ -3866,22 +8871,5997 @@ class HumanInterfaceDevice {
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_CAMERA_AUTO_FOCUS => 32
+    static HID_USAGE_MAGNETIC_STRIPE_READER_MSR_DEVICE_READONLY => 1
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_CAMERA_SHUTTER => 33
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_1_LENGTH => 17
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_MS_BTH_HF_DIALNUMBER => 33
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_2_LENGTH => 18
 
     /**
      * @type {Integer (UInt16)}
      */
-    static HID_USAGE_MS_BTH_HF_DIALMEMORY => 34
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_3_LENGTH => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_JIS_LENGTH => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_DATA => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_1_DATA => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_2_DATA => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_3_DATA => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MAGNETIC_STRIPE_READER_TRACK_JIS_DATA => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_MEDICAL_ULTRASOUND => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_VCRACQUISITION => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_FREEZETHAW => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_CLIP_STORE => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_UPDATE => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_NEXT => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SAVE => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_PRINT => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_MICROPHONE_ENABLE => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_CINE => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_TRANSMIT_POWER => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_VOLUME => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_FOCUS => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_DEPTH => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SOFT_STEP__PRIMARY => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SOFT_STEP__SECONDARY => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_DEPTH_GAIN_COMPENSATION => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_ZOOM_SELECT => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_ZOOM_ADJUST => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SPECTRAL_DOPPLER_MODE_SELECT => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SPECTRAL_DOPPLER_ADJUST => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_COLOR_DOPPLER_MODE_SELECT => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_COLOR_DOPPLER_ADJUST => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_MOTION_MODE_SELECT => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_MOTION_MODE_ADJUST => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_2D_MODE_SELECT => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_2D_MODE_ADJUST => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SOFT_CONTROL_SELECT => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MEDICAL_INSTRUMENT_SOFT_CONTROL_ADJUST => 161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MICROSOFT_BLUETOOTH_HANDSFREE_GENERAL => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MICROSOFT_BLUETOOTH_HANDSFREE_DIAL_NUMBER => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MICROSOFT_BLUETOOTH_HANDSFREE_DIAL_MEMORY => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MICROSOFT_BLUETOOTH_HANDSFREE_CALL_SETUP => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MONITOR_MONITOR_CONTROL => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MONITOR_EDID_INFORMATION => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MONITOR_VDIF_INFORMATION => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_MONITOR_VESA_VERSION => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PHYSICAL_INPUT_DEVICE => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_NORMAL => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_EFFECT_REPORT => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_EFFECT_BLOCK_INDEX => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PARAMETER_BLOCK_OFFSET => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ROM_FLAG => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_EFFECT_TYPE => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_CONSTANT => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_RAMP => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_CUSTOM => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_SQUARE => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_SINE => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_TRIANGLE => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_SAWTOOTH_UP => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_SAWTOOTH_DOWN => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_SPRING => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_DAMPER => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_INERTIA => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ET_FRICTION => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DURATION => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SAMPLE_PERIOD => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_GAIN => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_TRIGGER_BUTTON => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_TRIGGER_REPEAT_INTERVAL => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_AXES_ENABLE => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DIRECTION_ENABLE => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DIRECTION => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_TYPE_SPECIFIC_BLOCK_OFFSET => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_TYPE => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_ENVELOPE_REPORT => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ATTACK_LEVEL => 91
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ATTACK_TIME => 92
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_FADE_LEVEL => 93
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_FADE_TIME => 94
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_CONDITION_REPORT => 95
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_CP_OFFSET => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_POSITIVE_COEFFICIENT => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_NEGATIVE_COEFFICIENT => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_POSITIVE_SATURATION => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_NEGATIVE_SATURATION => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DEAD_BAND => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DOWNLOAD_FORCE_SAMPLE => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ISOCH_CUSTOMFORCE_ENABLE => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_CUSTOM_FORCE_DATA_REPORT => 104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_CUSTOM_FORCE_DATA => 105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_CUSTOM_FORCE_VENDOR_DEFINED_DATA => 106
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_CUSTOM_FORCE_REPORT => 107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_CUSTOM_FORCE_DATA_OFFSET => 108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SAMPLE_COUNT => 109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_PERIODIC_REPORT => 110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_OFFSET => 111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_MAGNITUDE => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PHASE => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PERIOD => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_CONSTANT_FORCE_REPORT => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SET_RAMP_FORCE_REPORT => 116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_RAMP_START => 117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_RAMP_END => 118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_EFFECT_OPERATION_REPORT => 119
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_EFFECT_OPERATION => 120
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_OP_EFFECT_START => 121
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_OP_EFFECT_START_SOLO => 122
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_OP_EFFECT_STOP => 123
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_LOOP_COUNT => 124
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DEVICE_GAIN_REPORT => 125
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DEVICE_GAIN => 126
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_POOL_REPORT => 127
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_RAM_POOL_SIZE => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ROM_POOL_SIZE => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ROM_EFFECT_BLOCK_COUNT => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SIMULTANEOUS_EFFECTS_MAX => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_POOL_ALIGNMENT => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PARAMETER_BLOCK_MOVE_REPORT => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_MOVE_SOURCE => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_MOVE_DESTINATION => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_MOVE_LENGTH => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_LOAD_REPORT => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_LOAD_STATUS => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_LOAD_SUCCESS => 140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_LOAD_FULL => 141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_LOAD_ERROR => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_HANDLE => 143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_BLOCK_FREE_REPORT => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_TYPE_SPECIFIC_BLOCK_HANDLE => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_STATE_REPORT => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_EFFECT_PLAYING => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PID_DEVICE_CONTROL_REPORT => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DEVICE_CONTROL => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DC_ENABLE_ACTUATORS => 151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DC_DISABLE_ACTUATORS => 152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DC_STOP_ALL_EFFECTS => 153
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DC_DEVICE_RESET => 154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DC_DEVICE_PAUSE => 155
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DC_DEVICE_CONTINUE => 156
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DEVICE_PAUSED => 159
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ACTUATORS_ENABLED => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SAFETY_SWITCH => 164
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ACTUATOR_OVERRIDE_SWITCH => 165
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_ACTUATOR_POWER => 166
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_START_DELAY => 167
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_PARAMETER_BLOCK_SIZE => 168
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_DEVICE_MANAGED_POOL => 169
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_SHARED_PARAMETER_BLOCKS => 170
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_CREATE_NEW_EFFECT => 171
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_PID_RAMPOOL_AVAILABLE => 172
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_INAME => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_PRESENT_STATUS => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CHANGED_STATUS => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_UPS => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_POWER_SUPPLY => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BATTERY_SYSTEM => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BATTERY_SYSTEM_ID => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BATTERY => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BATTERY_ID => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CHARGER => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CHARGER_ID => 21
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_POWER_CONVERTER => 22
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_POWER_CONVERTER_ID => 23
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OUTLET_SYSTEM => 24
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OUTLET_SYSTEM_ID => 25
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_INPUT => 26
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_INPUT_ID => 27
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OUTPUT => 28
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OUTPUT_ID => 29
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_FLOW => 30
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_FLOW_ID => 31
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OUTLET => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OUTLET_ID => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_GANG => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_GANG_ID => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_POWER_SUMMARY => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_POWER_SUMMARY_ID => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_VOLTAGE => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CURRENT => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_FREQUENCY => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_APPARENT_POWER => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_ACTIVE_POWER => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_PERCENT_LOAD => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_TEMPERATURE => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_HUMIDITY => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BAD_COUNT => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_VOLTAGE => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_CURRENT => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_FREQUENCY => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_APPARENT_POWER => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_ACTIVE_POWER => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_PERCENT_LOAD => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_TEMPERATURE => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_CONFIG_HUMIDITY => 71
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_SWITCH_ON_CONTROL => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_SWITCH_OFF_CONTROL => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_TOGGLE_CONTROL => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_LOW_VOLTAGE_TRANSFER => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_HIGH_VOLTAGE_TRANSFER => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_DELAY_BEFORE_REBOOT => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_DELAY_BEFORE_STARTUP => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_DELAY_BEFORE_SHUTDOWN => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_TEST => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_MODULE_RESET => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_AUDIBLE_ALARM_CONTROL => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_PRESENT => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_GOOD => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_INTERNAL_FAILURE => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_VOLTAG_OUT_OF_RANGE => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_FREQUENCY_OUT_OF_RANGE => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OVERLOAD => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OVER_CHARGED => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_OVER_TEMPERATURE => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_SHUTDOWN_REQUESTED => 104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_SHUTDOWN_IMMINENT => 105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_SWITCH_ONOFF => 107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_SWITCHABLE => 108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_USED => 109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BOOST => 110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_BUCK => 111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_INITIALIZED => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_TESTED => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_AWAITING_POWER => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_COMMUNICATION_LOST => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_IMANUFACTURER => 253
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_IPRODUCT => 254
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_POWER_ISERIALNUMBER => 255
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALES => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_DEVICE => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_I_METRIC => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_II_METRIC => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_III_METRIC => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_IIIL_METRIC => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_IV_METRIC => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_III_ENGLISH => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_IIIL_ENGLISH => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_IV_ENGLISH => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CLASS_GENERIC => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_ATTRIBUTE_REPORT => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_CONTROL_REPORT => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_DATA_REPORT => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_REPORT => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_WEIGHT_LIMIT_REPORT => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATISTICS_REPORT => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_DATA_WEIGHT => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_DATA_SCALING => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_MILLIGRAM => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_GRAM => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_KILOGRAM => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_CARATS => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_TAELS => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_GRAINS => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_PENNYWEIGHTS => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_METRIC_TON => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_AVOIR_TON => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_TROY_OUNCE => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_OUNCE => 91
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_WEIGHT_UNIT_POUND => 92
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_CALIBRATION_COUNT => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_REZERO_COUNT => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_FAULT => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_STABLE_AT_CENTER_OF_ZERO => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_IN_MOTION => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_WEIGHT_STABLE => 116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_UNDER_ZERO => 117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_OVER_WEIGHT_LIMIT => 118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_REQUIRES_CALIBRATION => 119
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_SCALE_STATUS_REQUIRES_REZEROING => 120
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_ZERO_SCALE => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_WEIGHING_DEVICE_ENFORCED_ZERO_RETURN => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_HUMAN_PRESENCE => 17
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_HUMAN_PROXIMITY => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_HUMAN_TOUCH => 19
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_BLOOD_PRESSURE => 20
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_BODY_TEMPERATURE => 21
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_HEART_RATE => 22
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_HEART_RATE_VARIABILITY => 23
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_PERIPHERAL_OXYGEN_SATURATION => 24
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_BIOMETRIC_RESPIRATORY_RATE => 25
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_CAPACITANCE => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_CURRENT => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_POWER => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_INDUCTANCE => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_RESISTANCE => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_VOLTAGE => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_POTENTIOMETER => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_FREQUENCY => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ELECTRICAL_PERIOD => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_ATMOSPHERIC_PRESSURE => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_HUMIDITY => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_TEMPERATURE => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_WIND_DIRECTION => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_WIND_SPEED => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_AIR_QUALITY => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_HEAT_INDEX => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_SURFACE_TEMPERATURE => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_VOLATILE_ORGANIC_COMPOUNDS => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_OBJECT_PRESENCE => 58
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ENVIRONMENTAL_OBJECT_PROXIMITY => 59
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LIGHT => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LIGHT_AMBIENT_LIGHT => 65
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LIGHT_CONSUMER_INFRARED => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LIGHT_INFRARED_LIGHT => 67
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LIGHT_VISIBLE_LIGHT => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LIGHT_ULTRAVIOLET_LIGHT => 69
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_BROADCAST => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_DEAD_RECKONING => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_GPS_GLOBAL_POSITIONING_SYSTEM => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_LOOKUP => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_OTHER => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_STATIC => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_LOCATION_TRIANGULATION => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_BOOLEAN_SWITCH => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_BOOLEAN_SWITCH_ARRAY => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_MULTIVALUE_SWITCH => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_FORCE => 100
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_PRESSURE => 101
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_STRAIN => 102
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_WEIGHT => 103
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_HAPTIC_VIBRATOR => 104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MECHANICAL_HALL_EFFECT_SWITCH => 105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_ACCELEROMETER_1D => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_ACCELEROMETER_2D => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_ACCELEROMETER_3D => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_GYROMETER_1D => 116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_GYROMETER_2D => 117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_GYROMETER_3D => 118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_MOTION_DETECTOR => 119
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_SPEEDOMETER => 120
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_ACCELEROMETER => 121
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_GYROMETER => 122
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_GRAVITY_VECTOR => 123
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MOTION_LINEAR_ACCELEROMETER => 124
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION => 128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_COMPASS_1D => 129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_COMPASS_2D => 130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_COMPASS_3D => 131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_INCLINOMETER_1D => 132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_INCLINOMETER_2D => 133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_INCLINOMETER_3D => 134
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_DISTANCE_1D => 135
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_DISTANCE_2D => 136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_DISTANCE_3D => 137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_DEVICE_ORIENTATION => 138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_COMPASS => 139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_INCLINOMETER => 140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_DISTANCE => 141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_RELATIVE_ORIENTATION => 142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_SIMPLE_ORIENTATION => 143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SCANNER => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SCANNER_BARCODE => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SCANNER_RFID => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SCANNER_NFC => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_TIME => 160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_TIME_ALARM_TIMER => 161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_TIME_REAL_TIME_CLOCK => 162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PERSONAL_ACTIVITY => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PERSONAL_ACTIVITY_ACTIVITY_DETECTION => 177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PERSONAL_ACTIVITY_DEVICE_POSITION => 178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PERSONAL_ACTIVITY_FLOOR_TRACKER => 179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PERSONAL_ACTIVITY_PEDOMETER => 180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PERSONAL_ACTIVITY_STEP_DETECTION => 181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_EXTENDED => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_EXTENDED_GEOMAGNETIC_ORIENTATION => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ORIENTATION_EXTENDED_MAGNETOMETER => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE => 208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE_CHASSIS_FLIP_GESTURE => 209
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE_HINGE_FOLD_GESTURE => 210
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_OTHER => 224
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_OTHER_CUSTOM => 225
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_OTHER_GENERIC => 226
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_OTHER_GENERIC_ENUMERATOR => 227
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_OTHER_HINGE_ANGLE => 228
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_1 => 240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_2 => 241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_3 => 242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_4 => 243
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_5 => 244
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_6 => 245
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_7 => 246
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_8 => 247
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_9 => 248
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_10 => 249
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_11 => 250
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_12 => 251
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_13 => 252
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_14 => 253
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_15 => 254
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VENDOR_RESERVED_16 => 255
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EVENT => 512
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EVENT_SENSOR_STATE => 513
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EVENT_SENSOR_EVENT => 514
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY => 768
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_FRIENDLY_NAME => 769
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_PERSISTENT_UNIQUE_ID => 770
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_STATUS => 771
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MINIMUM_REPORT_INTERVAL => 772
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_MANUFACTURER => 773
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_MODEL => 774
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_SERIAL_NUMBER => 775
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_DESCRIPTION => 776
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_CONNECTION_TYPE => 777
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SENSOR_DEVICE_PATH => 778
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_HARDWARE_REVISION => 779
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_FIRMWARE_VERSION => 780
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_RELEASE_DATE => 781
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_REPORT_INTERVAL => 782
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CHANGE_SENSITIVITY_ABSOLUTE => 783
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CHANGE_SENSITIVITY_PERCENT_OF_RANGE => 784
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CHANGE_SENSITIVITY_PERCENT_RELATIVE => 785
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_ACCURACY => 786
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_RESOLUTION => 787
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MAXIMUM => 788
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MINIMUM => 789
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_REPORTING_STATE => 790
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SAMPLING_RATE => 791
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_RESPONSE_CURVE => 792
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_POWER_STATE => 793
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MAXIMUM_FIFO_EVENTS => 794
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_REPORT_LATENCY => 795
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_FLUSH_FIFO_EVENTS => 796
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MAXIMUM_POWER_CONSUMPTION => 797
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_IS_PRIMARY => 798
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_HUMAN_PRESENCE_DETECTION_TYPE => 799
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_LOCATION => 1024
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ALTITUDE_ANTENNA_SEA_LEVEL => 1026
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DIFFERENTIAL_REFERENCE_STATION_ID => 1027
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ALTITUDE_ELLIPSOID_ERROR => 1028
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ALTITUDE_ELLIPSOID => 1029
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ALTITUDE_SEA_LEVEL_ERROR => 1030
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ALTITUDE_SEA_LEVEL => 1031
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DIFFERENTIAL_GPS_DATA_AGE => 1032
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ERROR_RADIUS => 1033
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_FIX_QUALITY => 1034
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_FIX_TYPE => 1035
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GEOIDAL_SEPARATION => 1036
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GPS_OPERATION_MODE => 1037
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GPS_SELECTION_MODE => 1038
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GPS_STATUS => 1039
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_POSITION_DILUTION_OF_PRECISION => 1040
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HORIZONTAL_DILUTION_OF_PRECISION => 1041
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_VERTICAL_DILUTION_OF_PRECISION => 1042
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_LATITUDE => 1043
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_LONGITUDE => 1044
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TRUE_HEADING => 1045
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETIC_HEADING => 1046
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETIC_VARIATION => 1047
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SPEED => 1048
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_IN_VIEW => 1049
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_IN_VIEW_AZIMUTH => 1050
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_IN_VIEW_ELEVATION => 1051
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_IN_VIEW_IDS => 1052
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_IN_VIEW_PRNS => 1053
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_IN_VIEW_SN_RATIOS => 1054
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_USED_COUNT => 1055
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SATELLITES_USED_PRNS => 1056
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_NMEA_SENTENCE => 1057
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ADDRESS_LINE_1 => 1058
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ADDRESS_LINE_2 => 1059
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CITY => 1060
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_STATE_OR_PROVINCE => 1061
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_COUNTRY_OR_REGION => 1062
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_POSTAL_CODE => 1063
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_LOCATION => 1066
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_LOCATION_DESIRED_ACCURACY => 1067
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ENVIRONMENTAL => 1072
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ATMOSPHERIC_PRESSURE => 1073
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_RELATIVE_HUMIDITY => 1075
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TEMPERATURE => 1076
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_WIND_DIRECTION => 1077
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_WIND_SPEED => 1078
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_AIR_QUALITY_INDEX => 1079
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_EQUIVALENT_CO2 => 1080
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_VOLATILE_ORGANIC_COMPOUND_CONCENTRATION => 1081
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_OBJECT_PRESENCE => 1082
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_OBJECT_PROXIMITY_RANGE => 1083
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_OBJECT_PROXIMITY_OUT_OF_RANGE => 1084
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_ENVIRONMENTAL => 1088
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_REFERENCE_PRESSURE => 1089
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MOTION => 1104
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MOTION_STATE => 1105
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ACCELERATION => 1106
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ACCELERATION_AXIS_X => 1107
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ACCELERATION_AXIS_Y => 1108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ACCELERATION_AXIS_Z => 1109
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_VELOCITY => 1110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_VELOCITY_ABOUT_X_AXIS => 1111
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_VELOCITY_ABOUT_Y_AXIS => 1112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_VELOCITY_ABOUT_Z_AXIS => 1113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_POSITION => 1114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_POSITION_ABOUT_X_AXIS => 1115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_POSITION_ABOUT_Y_AXIS => 1116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ANGULAR_POSITION_ABOUT_Z_AXIS => 1117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MOTION_SPEED => 1118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MOTION_INTENSITY => 1119
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ORIENTATION => 1136
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING => 1137
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_X_AXIS => 1138
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_Y_AXIS => 1139
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_Z_AXIS => 1140
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_COMPENSATED_MAGNETIC_NORTH => 1141
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_COMPENSATED_TRUE_NORTH => 1142
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_MAGNETIC_NORTH => 1143
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEADING_TRUE_NORTH => 1144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DISTANCE => 1145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DISTANCE_X_AXIS => 1146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DISTANCE_Y_AXIS => 1147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DISTANCE_Z_AXIS => 1148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DISTANCE_OUTOFRANGE => 1149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TILT => 1150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TILT_X_AXIS => 1151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TILT_Y_AXIS => 1152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TILT_Z_AXIS => 1153
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ROTATION_MATRIX => 1154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_QUATERNION => 1155
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETIC_FLUX => 1156
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETIC_FLUX_X_AXIS => 1157
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETIC_FLUX_Y_AXIS => 1158
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETIC_FLUX_Z_AXIS => 1159
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MAGNETOMETER_ACCURACY => 1160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SIMPLE_ORIENTATION_DIRECTION => 1161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MECHANICAL => 1168
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BOOLEAN_SWITCH_STATE => 1169
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BOOLEAN_SWITCH_ARRAY_STATES => 1170
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MULTIVALUE_SWITCH_VALUE => 1171
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_FORCE => 1172
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ABSOLUTE_PRESSURE => 1173
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GAUGE_PRESSURE => 1174
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_STRAIN => 1175
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_WEIGHT => 1176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MECHANICAL => 1184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_VIBRATION_STATE => 1185
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_FORWARD_VIBRATION_SPEED => 1186
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_BACKWARD_VIBRATION_SPEED => 1187
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BIOMETRIC => 1200
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_PRESENCE => 1201
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_PROXIMITY_RANGE => 1202
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_PROXIMITY_OUT_OF_RANGE => 1203
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_TOUCH_STATE => 1204
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BLOOD_PRESSURE => 1205
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BLOOD_PRESSURE_DIASTOLIC => 1206
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BLOOD_PRESSURE_SYSTOLIC => 1207
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEART_RATE => 1208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_RESTING_HEART_RATE => 1209
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HEARTBEAT_INTERVAL => 1210
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_RESPIRATORY_RATE => 1211
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SPO2 => 1212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_ATTENTION_DETECTED => 1213
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_HEAD_AZIMUTH => 1214
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_HEAD_ALTITUDE => 1215
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_HEAD_ROLL => 1216
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_HEAD_PITCH => 1217
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_HEAD_YAW => 1218
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HUMAN_CORRELATION_ID => 1219
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_LIGHT => 1232
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ILLUMINANCE => 1233
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_COLOR_TEMPERATURE => 1234
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CHROMATICITY => 1235
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CHROMATICITY_X => 1236
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CHROMATICITY_Y => 1237
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CONSUMER_IR_SENTENCE_RECEIVE => 1238
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_INFRARED_LIGHT => 1239
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_RED_LIGHT => 1240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GREEN_LIGHT => 1241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_BLUE_LIGHT => 1242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ULTRAVIOLET_A_LIGHT => 1243
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ULTRAVIOLET_B_LIGHT => 1244
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ULTRAVIOLET_INDEX => 1245
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_NEAR_INFRARED_LIGHT => 1246
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_LIGHT => 1247
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CONSUMER_IR_SENTENCE_SEND => 1248
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_AUTO_BRIGHTNESS_PREFERRED => 1250
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_AUTO_COLOR_PREFERRED => 1251
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SCANNER => 1264
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_RFID_TAG_40_BIT => 1265
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_NFC_SENTENCE_RECEIVE => 1266
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SCANNER => 1272
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_NFC_SENTENCE_SEND => 1273
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ELECTRICAL => 1280
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CAPACITANCE => 1281
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CURRENT => 1282
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ELECTRICAL_POWER => 1283
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_INDUCTANCE => 1284
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_RESISTANCE => 1285
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_VOLTAGE => 1286
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_FREQUENCY => 1287
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_PERIOD => 1288
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_PERCENT_OF_RANGE => 1289
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TIME => 1312
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_YEAR => 1313
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MONTH => 1314
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DAY => 1315
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DAY_OF_WEEK => 1316
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HOUR => 1317
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MINUTE => 1318
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_SECOND => 1319
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_MILLISECOND => 1320
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TIMESTAMP => 1321
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_JULIAN_DAY_OF_YEAR => 1322
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_TIME_SINCE_SYSTEM_BOOT => 1323
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_TIME => 1328
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_TIME_ZONE_OFFSET_FROM_UTC => 1329
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_TIME_ZONE_NAME => 1330
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_DAYLIGHT_SAVINGS_TIME_OBSERVED => 1331
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_TIME_TRIM_ADJUSTMENT => 1332
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_ARM_ALARM => 1333
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM => 1344
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_USAGE => 1345
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_BOOLEAN_ARRAY => 1346
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE => 1347
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_1 => 1348
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_2 => 1349
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_3 => 1350
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_4 => 1351
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_5 => 1352
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_6 => 1353
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_7 => 1354
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_8 => 1355
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_9 => 1356
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_10 => 1357
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_11 => 1358
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_12 => 1359
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_13 => 1360
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_14 => 1361
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_15 => 1362
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_16 => 1363
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_17 => 1364
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_18 => 1365
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_19 => 1366
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_20 => 1367
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_21 => 1368
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_22 => 1369
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_23 => 1370
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_24 => 1371
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_25 => 1372
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_26 => 1373
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_27 => 1374
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_VALUE_28 => 1375
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC => 1376
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_GUID_OR_PROPERTYKEY => 1377
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_CATEGORY_GUID => 1378
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_TYPE_GUID => 1379
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_EVENT_PROPERTYKEY => 1380
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_PROPERTY_PROPERTYKEY => 1381
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_DATA_FIELD_PROPERTYKEY => 1382
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_EVENT => 1383
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_PROPERTY => 1384
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_DATA_FIELD => 1385
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ENUMERATOR_TABLE_ROW_INDEX => 1386
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ENUMERATOR_TABLE_ROW_COUNT => 1387
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_GUID_OR_PROPERTYKEY_KIND => 1388
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_GUID => 1389
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_PROPERTYKEY => 1390
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_TOP_LEVEL_COLLECTION_ID => 1391
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_REPORT_ID => 1392
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_REPORT_ITEM_POSITION_INDEX => 1393
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_FIRMWARE_VARTYPE => 1394
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_UNIT_OF_MEASURE => 1395
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_UNIT_EXPONENT => 1396
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_REPORT_SIZE => 1397
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GENERIC_REPORT_COUNT => 1398
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_GENERIC => 1408
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_ENUMERATOR_TABLE_ROW_INDEX => 1409
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_ENUMERATOR_TABLE_ROW_COUNT => 1410
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_PERSONAL_ACTIVITY => 1424
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ACTIVITY_TYPE => 1425
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_ACTIVITY_STATE => 1426
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_DEVICE_POSITION => 1427
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_STEP_COUNT => 1428
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_STEP_COUNT_RESET => 1429
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_STEP_DURATION => 1430
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_STEP_TYPE => 1431
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_MINIMUM_ACTIVITY_DETECTION_INTERVAL => 1440
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SUPPORTED_ACTIVITY_TYPES => 1441
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SUBSCRIBED_ACTIVITY_TYPES => 1442
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SUPPORTED_STEP_TYPES => 1443
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_SUBSCRIBED_STEP_TYPES => 1444
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_FLOOR_HEIGHT => 1445
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_CUSTOM_TYPE_ID => 1456
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM => 1472
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_1 => 1473
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_2 => 1474
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_3 => 1475
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_4 => 1476
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_5 => 1477
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_6 => 1478
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_7 => 1479
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_8 => 1480
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_9 => 1481
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_10 => 1482
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_11 => 1483
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_12 => 1484
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_13 => 1485
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_14 => 1486
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_15 => 1487
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_PROPERTY_CUSTOM_VALUE_16 => 1488
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HINGE => 1504
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HINGE_ANGLE => 1505
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GESTURE_SENSOR => 1520
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_GESTURE_STATE => 1521
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HINGE_FOLD_INITIAL_ANGLE => 1522
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HINGE_FOLD_FINAL_ANGLE => 1523
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HINGE_FOLD_CONTRIBUTING_PANEL => 1524
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DATA_FIELD_HINGE_FOLD_TYPE => 1525
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_UNDEFINED => 2048
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_READY => 2049
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_NOT_AVAILABLE => 2050
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_NO_DATA => 2051
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_INITIALIZING => 2052
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_ACCESS_DENIED => 2053
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_STATE_ERROR => 2054
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_UNKNOWN => 2064
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_STATE_CHANGED => 2065
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_PROPERTY_CHANGED => 2066
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_DATA_UPDATED => 2067
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_POLL_RESPONSE => 2068
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_CHANGE_SENSITIVITY => 2069
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_RANGE_MAXIMUM_REACHED => 2070
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_RANGE_MINIMUM_REACHED => 2071
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_HIGH_THRESHOLD_CROSS_UPWARD => 2072
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_HIGH_THRESHOLD_CROSS_DOWNWARD => 2073
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_LOW_THRESHOLD_CROSS_UPWARD => 2074
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_LOW_THRESHOLD_CROSS_DOWNWARD => 2075
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_ZERO_THRESHOLD_CROSS_UPWARD => 2076
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_ZERO_THRESHOLD_CROSS_DOWNWARD => 2077
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_PERIOD_EXCEEDED => 2078
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_FREQUENCY_EXCEEDED => 2079
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SENSOR_EVENT_COMPLEX_TRIGGER => 2080
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_CONNECTION_TYPE_PC_INTEGRATED => 2096
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_CONNECTION_TYPE_PC_ATTACHED => 2097
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_CONNECTION_TYPE_PC_EXTERNAL => 2098
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_REPORT_NO_EVENTS => 2112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_REPORT_ALL_EVENTS => 2113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_REPORT_THRESHOLD_EVENTS => 2114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_WAKE_ON_NO_EVENTS => 2115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_WAKE_ON_ALL_EVENTS => 2116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_WAKE_ON_THRESHOLD_EVENTS => 2117
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_REPORTING_STATE_ANYTIME_SEL => 2118
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_POWER_STATE_UNDEFINED => 2128
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_POWER_STATE_D0_FULL_POWER => 2129
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_POWER_STATE_D1_LOW_POWER => 2130
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_POWER_STATE_D2_STANDBY_POWER_WITH_WAKEUP => 2131
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_POWER_STATE_D3_SLEEP_WITH_WAKEUP => 2132
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_POWER_STATE_D4_POWER_OFF => 2133
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACCURACY_DEFAULT => 2144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACCURACY_HIGH => 2145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACCURACY_MEDIUM => 2146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACCURACY_LOW => 2147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_QUALITY_NO_FIX => 2160
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_QUALITY_GPS => 2161
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_QUALITY_DGPS => 2162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_NO_FIX => 2176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_GPS_SPS_MODE_FIX_VALID => 2177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_DGPS_SPS_MODE_FIX_VALID => 2178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_GPS_PPS_MODE_FIX_VALID => 2179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_REAL_TIME_KINEMATIC => 2180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_FLOAT_RTK => 2181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_ESTIMATED_DEAD_RECKONED => 2182
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_MANUAL_INPUT_MODE => 2183
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_FIX_TYPE_SIMULATOR_MODE => 2184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_OPERATION_MODE_MANUAL => 2192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_OPERATION_MODE_AUTOMATIC => 2193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_SELECTION_MODE_AUTONOMOUS => 2208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_SELECTION_MODE_DGPS => 2209
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_SELECTION_MODE_ESTIMATED_DEAD_RECKONED => 2210
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_SELECTION_MODE_MANUAL_INPUT => 2211
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_SELECTION_MODE_SIMULATOR => 2212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_SELECTION_MODE_DATA_NOT_VALID => 2213
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_STATUS_DATA_VALID => 2224
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GPS_STATUS_DATA_NOT_VALID => 2225
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_SUNDAY => 2240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_MONDAY => 2241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_TUESDAY => 2242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_WEDNESDAY => 2243
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_THURSDAY => 2244
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_FRIDAY => 2245
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DAY_OF_WEEK_SATURDAY => 2246
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_KIND_CATEGORY => 2256
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_KIND_TYPE => 2257
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_KIND_EVENT => 2258
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_KIND_PROPERTY => 2259
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_KIND_DATA_FIELD => 2260
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MAGNETOMETER_ACCURACY_LOW => 2272
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MAGNETOMETER_ACCURACY_MEDIUM => 2273
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MAGNETOMETER_ACCURACY_HIGH => 2274
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SIMPLE_ORIENTATION_DIRECTION_NOT_ROTATED => 2288
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SIMPLE_ORIENTATION_DIRECTION_ROTATED_90_DEGREES_CCW => 2289
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SIMPLE_ORIENTATION_DIRECTION_ROTATED_180_DEGREES_CCW => 2290
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SIMPLE_ORIENTATION_DIRECTION_ROTATED_270_DEGREES_CCW => 2291
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SIMPLE_ORIENTATION_DIRECTION_FACE_UP => 2292
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_SIMPLE_ORIENTATION_DIRECTION_FACE_DOWN => 2293
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_NULL => 2304
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_BOOL => 2305
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_UI1 => 2306
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_I1 => 2307
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_UI2 => 2308
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_I2 => 2309
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_UI4 => 2310
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_I4 => 2311
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_UI8 => 2312
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_I8 => 2313
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_R4 => 2314
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_R8 => 2315
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_WSTR => 2316
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_STR => 2317
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_CLSID => 2318
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_VECTOR_VT_UI1 => 2319
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E0 => 2320
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E1 => 2321
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E2 => 2322
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E3 => 2323
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E4 => 2324
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E5 => 2325
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E6 => 2326
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E7 => 2327
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E8 => 2328
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16E9 => 2329
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16EA => 2330
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16EB => 2331
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16EC => 2332
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16ED => 2333
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16EE => 2334
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F16EF => 2335
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E0 => 2336
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E1 => 2337
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E2 => 2338
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E3 => 2339
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E4 => 2340
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E5 => 2341
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E6 => 2342
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E7 => 2343
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E8 => 2344
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32E9 => 2345
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32EA => 2346
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32EB => 2347
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32EC => 2348
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32ED => 2349
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32EE => 2350
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_VT_F32EF => 2351
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_UNKNOWN => 2352
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_STATIONARY => 2353
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_FIDGETING => 2354
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_WALKING => 2355
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_RUNNING => 2356
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_IN_VEHICLE => 2357
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_BIKING => 2358
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_TYPE_IDLE => 2359
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_NOT_SPECIFIED => 2368
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_LUX => 2369
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREES_KELVIN => 2370
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREES_CELSIUS => 2371
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_PASCAL => 2372
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_NEWTON => 2373
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_METERSSECOND => 2374
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_KILOGRAM => 2375
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_METER => 2376
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_METERSSECONDSECOND => 2377
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_FARAD => 2378
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_AMPERE => 2379
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_WATT => 2380
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_HENRY => 2381
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_OHM => 2382
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_VOLT => 2383
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_HERTZ => 2384
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_BAR => 2385
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREES_ANTICLOCKWISE => 2386
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREES_CLOCKWISE => 2387
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREES => 2388
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREESSECOND => 2389
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_DEGREESSECONDSECOND => 2390
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_KNOT => 2391
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_PERCENT => 2392
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_SECOND => 2393
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_MILLISECOND => 2394
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_G => 2395
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_BYTES => 2396
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_MILLIGAUSS => 2397
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_UNIT_BITS => 2398
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_STATE_NO_STATE_CHANGE => 2400
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_STATE_START_ACTIVITY => 2401
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_ACTIVITY_STATE_END_ACTIVITY => 2402
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_0 => 2416
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_1 => 2417
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_2 => 2418
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_3 => 2419
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_4 => 2420
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_5 => 2421
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_6 => 2422
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_7 => 2423
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_8 => 2424
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_9 => 2425
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_A => 2426
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_B => 2427
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_C => 2428
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_D => 2429
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_E => 2430
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_EXPONENT_F => 2431
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DEVICE_POSITION_UNKNOWN => 2432
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DEVICE_POSITION_UNCHANGED => 2433
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DEVICE_POSITION_ON_DESK => 2434
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DEVICE_POSITION_IN_HAND => 2435
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DEVICE_POSITION_MOVING_IN_BAG => 2436
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_DEVICE_POSITION_STATIONARY_IN_BAG => 2437
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_STEP_TYPE_UNKNOWN => 2448
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_STEP_TYPE_WALKING => 2449
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_STEP_TYPE_RUNNING => 2450
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE_STATE_UNKNOWN => 2464
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE_STATE_STARTED => 2465
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE_STATE_COMPLETED => 2466
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_GESTURE_STATE_CANCELLED => 2467
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_CONTRIBUTING_PANEL_UNKNOWN => 2480
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_CONTRIBUTING_PANEL_PANEL_1 => 2481
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_CONTRIBUTING_PANEL_PANEL_2 => 2482
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_CONTRIBUTING_PANEL_BOTH => 2483
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_TYPE_UNKNOWN => 2484
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_TYPE_INCREASING => 2485
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HINGE_FOLD_TYPE_DECREASING => 2486
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HUMAN_PRESENCE_DETECTION_TYPE_VENDORDEFINED_NONBIOMETRIC => 2496
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HUMAN_PRESENCE_DETECTION_TYPE_VENDORDEFINED_BIOMETRIC => 2497
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HUMAN_PRESENCE_DETECTION_TYPE_FACIAL_BIOMETRIC => 2498
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_HUMAN_PRESENCE_DETECTION_TYPE_AUDIO_BIOMETRIC => 2499
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_CHANGE_SENSITIVITY_ABSOLUTE => 4096
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_MAXIMUM => 8192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_MINIMUM => 12288
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_ACCURACY => 16384
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_RESOLUTION => 20480
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_THRESHOLD_HIGH => 24576
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_THRESHOLD_LOW => 28672
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_CALIBRATION_OFFSET => 32768
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_CALIBRATION_MULTIPLIER => 36864
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_REPORT_INTERVAL => 40960
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_FREQUENCY_MAX => 45056
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_PERIOD_MAX => 49152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_CHANGE_SENSITIVITY_PERCENT_OF_RANGE => 53248
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_CHANGE_SENSITIVITY_PERCENT_RELATIVE => 57344
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SENSORS_MODIFIER_VENDOR_RESERVED => 61440
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FLIGHT_SIMULATION_DEVICE => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_AUTOMOBILE_SIMULATION_DEVICE => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_TANK_SIMULATION_DEVICE => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_SPACESHIP_SIMULATION_DEVICE => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_SUBMARINE_SIMULATION_DEVICE => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_SAILING_SIMULATION_DEVICE => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_MOTORCYCLE_SIMULATION_DEVICE => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_SPORTS_SIMULATION_DEVICE => 8
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_AIRPLANE_SIMULATION_DEVICE => 9
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_HELICOPTER_SIMULATION_DEVICE => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_MAGIC_CARPET_SIMULATION_DEVICE => 11
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_BICYCLE_SIMULATION_DEVICE => 12
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FLIGHT_CONTROL_STICK => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FLIGHT_STICK => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_CYCLIC_CONTROL => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_CYCLIC_TRIM => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FLIGHT_YOKE => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_TRACK_CONTROL => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_AILERON => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_AILERON_TRIM => 177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_ANTI_TORQUE_CONTROL => 178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_AUTOPIOLOT_ENABLE => 179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_CHAFF_RELEASE => 180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_COLLECTIVE_CONTROL => 181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_DIVE_BRAKE => 182
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_ELECTRONIC_COUNTERMEASURES => 183
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_ELEVATOR => 184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_ELEVATOR_TRIM => 185
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_RUDDER => 186
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_THROTTLE => 187
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FLIGHT_COMMUNICATIONS => 188
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FLARE_RELEASE => 189
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_LANDING_GEAR => 190
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_TOE_BRAKE => 191
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_TRIGGER => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_WEAPONS_ARM => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_WEAPONS_SELECT => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_WING_FLAPS => 195
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_ACCELERATOR => 196
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_BRAKE => 197
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_CLUTCH => 198
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_SHIFTER => 199
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_STEERING => 200
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_TURRET_DIRECTION => 201
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_BARREL_ELEVATION => 202
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_DIVE_PLANE => 203
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_BALLAST => 204
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_BICYCLE_CRANK => 205
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_HANDLE_BARS => 206
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_FRONT_BRAKE => 207
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SIMULATION_REAR_BRAKE => 208
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_SOC_CONTROL => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FIRMWARE_TRANSFER => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FIRMWARE_FILE_ID => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_OFFSET_IN_BYTES => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_TRANSFER_SIZE_MAX_IN_BYTES => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_PAYLOAD => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_PAYLOAD_SIZE_IN_BYTES => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_PAYLOAD_CONTAINS_LAST_BYTES => 8
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_TRANSFER_STOP => 9
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SOC_FILE_TRANSFER_TILL_END => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_BASEBALL_BAT => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_GOLF_CLUB => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_ROWING_MACHINE => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_TREADMILL => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_OAR => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_SLOPE => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_RATE => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_STICK_SPEED => 51
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_STICK_FACE_ANGLE => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_HEEL_TOE => 53
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_FOLLOW_THROUGH => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_TEMPO => 55
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_STICK_TYPE => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_HEIGHT => 57
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_PUTTER => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_1_IRON => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_2_IRON => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_3_IRON => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_4_IRON => 84
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_5_IRON => 85
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_6_IRON => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_7_IRON => 87
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_8_IRON => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_9_IRON => 89
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_10_IRON => 90
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_11_IRON => 91
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_SAND_WEDGE => 92
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_LOFT_WEDGE => 93
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_POWER_WEDGE => 94
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_1_WOOD => 95
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_3_WOOD => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_5_WOOD => 97
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_7_WOOD => 98
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_SPORT_9_WOOD => 99
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ANSWERING_MACHINE => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_MESSAGE_CONTROLS => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HANDSET => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HEADSET => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_KEYPAD => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PROGRAMMABLE_BUTTON => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOOK_SWITCH => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_FLASH => 33
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_FEATURE => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOLD => 35
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_REDIAL => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_TRANSFER => 37
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_DROP => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PARK => 39
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_FORWARD_CALLS => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ALTERNATE_FUNCTION => 41
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_LINE => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_SPEAKER_PHONE => 43
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_CONFERENCE => 44
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_RING_ENABLE => 45
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_RING_SELECT => 46
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_MUTE => 47
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_CALLER_ID => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_SEND => 49
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_SPEED_DIAL => 80
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_STORE_NUMBER => 81
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_RECALL_NUMBER => 82
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_DIRECTORY => 83
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_VOICE_MAIL => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_SCREEN_CALLS => 113
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_DO_NOT_DISTURB => 114
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_MESSAGE => 115
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ANSWER_ONOFF => 116
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_INSIDE_DIAL_TONE => 144
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_OUTSIDE_DIAL_TONE => 145
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_INSIDE_RING_TONE => 146
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_OUTSIDE_RING_TONE => 147
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PRIORITY_RING_TONE => 148
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_INSIDE_RINGBACK => 149
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PRIORITY_RINGBACK => 150
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_LINE_BUSY_TONE => 151
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_REORDER_TONE => 152
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_CALL_WAITING_TONE => 153
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_CONFIRMATION_TONE_1 => 154
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_CONFIRMATION_TONE_2 => 155
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_TONES_OFF => 156
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_OUTSIDE_RINGBACK => 157
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_RINGER => 158
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_0 => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_1 => 177
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_2 => 178
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_3 => 179
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_4 => 180
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_5 => 181
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_6 => 182
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_7 => 183
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_8 => 184
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_9 => 185
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_STAR => 186
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_POUND => 187
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_A => 188
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_B => 189
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_C => 190
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_KEY_D => 191
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_CALL_HISTORY_KEY => 192
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_CALLER_ID_KEY => 193
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_SETTINGS_KEY => 194
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOST_CONTROL => 240
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOST_AVAILABLE => 241
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOST_CALL_ACTIVE => 242
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ACTIVATE_HANDSET_AUDIO => 243
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_RING_TYPE => 244
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_REDIALABLE_PHONE_NUMBER => 245
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_STOP_RING_TONE => 248
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PSTN_RING_TONE => 249
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOST_RING_TONE => 250
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ALERT_SOUND_ERROR => 251
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ALERT_SOUND_CONFIRM => 252
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ALERT_SOUND_NOTIFICATION => 253
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_SILENT_RING => 254
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_EMAIL_MESSAGE_WAITING => 264
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_VOICEMAIL_MESSAGE_WAITING => 265
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HOST_HOLD => 266
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_INCOMING_CALL_HISTORY_COUNT => 272
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_OUTGOING_CALL_HISTORY_COUNT => 273
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_INCOMING_CALL_HISTORY => 274
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_OUTGOING_CALL_HISTORY => 275
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_LOCALE => 276
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_TIME_SECOND => 320
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_TIME_MINUTE => 321
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_TIME_HOUR => 322
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_DATE_DAY => 323
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_DATE_MONTH => 324
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_PHONE_DATE_YEAR => 325
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_HANDSET_NICKNAME => 326
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_ADDRESS_BOOK_ID => 327
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_CALL_DURATION => 330
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_TELEPHONY_DUAL_MODE_PHONE => 331
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_DEGAUSS => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_BRIGHTNESS => 16
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_CONTRAST => 18
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_RED_VIDEO_GAIN => 22
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_GREEN_VIDEO_GAIN => 24
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_BLUE_VIDEO_GAIN => 26
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_FOCUS => 28
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_POSITION => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_SIZE => 34
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_PINCUSHION => 36
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_PINCUSHION_BALANCE => 38
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_MISCONVERGENCE => 40
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_LINEARITY => 42
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_LINEARITY_BALANCE => 44
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_POSITION => 48
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_SIZE => 50
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_PINCUSHION => 52
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_PINCUSHION_BALANCE => 54
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_MISCONVERGENCE => 56
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_LINEARITY => 58
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_LINEARITY_BALANCE => 60
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_PARALLELOGRAM_DISTORTION_KEY_BALANCE => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_TRAPEZOIDAL_DISTORTION_KEY => 66
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_TILT_ROTATION => 68
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_TOP_CORNER_DISTORTION_CONTROL => 70
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_TOP_CORNER_DISTORTION_BALANCE => 72
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_BOTTOM_CORNER_DISTORTION_CONTROL => 74
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_BOTTOM_CORNER_DISTORTION_BALANCE => 76
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_MOIRE => 86
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_MOIRE => 88
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_INPUT_LEVEL_SELECT => 94
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_INPUT_SOURCE_SELECT => 96
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_RED_VIDEO_BLACK_LEVEL => 108
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_GREEN_VIDEO_BLACK_LEVEL => 110
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_BLUE_VIDEO_BLACK_LEVEL => 112
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_AUTO_SIZE_CENTER => 162
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_POLARITY_HORIZONTAL_SYNCHRONIZATION => 164
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_POLARITY_VERTICAL_SYNCHRONIZATION => 166
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_SYNCHRONIZATION_TYPE => 168
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_SCREEN_ORIENTATION => 170
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_HORIZONTAL_FREQUENCY => 172
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_VERTICAL_FREQUENCY => 174
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_SETTINGS => 176
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_ON_SCREEN_DISPLAY => 202
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VESA_VIRTUAL_CONTROLS_STEREO_MODE => 212
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_BELT => 1
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_BODY_SUIT => 2
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_FLEXOR => 3
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_GLOVE => 4
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_HEAD_TRACKER => 5
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_HEAD_MOUNTED_DISPLAY => 6
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_HAND_TRACKER => 7
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_OCULOMETER => 8
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_VEST => 9
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_ANIMATRONIC_DEVICE => 10
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_STEREO_ENABLE => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static HID_USAGE_VR_DISPLAY_ENABLE => 33
 
     /**
      * @type {String}

@@ -15,4 +15,14 @@ class READ_EVENT_LOG_READ_FLAGS{
      * @type {Integer (UInt32)}
      */
     static EVENTLOG_SEQUENTIAL_READ => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EVENTLOG_FORWARDS_READ => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EVENTLOG_BACKWARDS_READ => 8
 }

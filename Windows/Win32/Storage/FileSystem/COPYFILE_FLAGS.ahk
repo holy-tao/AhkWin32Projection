@@ -100,4 +100,9 @@ class COPYFILE_FLAGS{
      * @type {Integer (UInt32)}
      */
     static COPY_FILE_ENABLE_SPARSE_COPY => 536870912
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static COPY_FILE_DISABLE_SPARSE_COPY => 2147483648
 }

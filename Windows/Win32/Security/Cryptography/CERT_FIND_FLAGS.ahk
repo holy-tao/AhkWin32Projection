@@ -129,6 +129,16 @@ class CERT_FIND_FLAGS{
     /**
      * @type {Integer (UInt32)}
      */
+    static CERT_FIND_SHA256_HASH => 1441792
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CERT_FIND_SHA1_SHA256_HASH => 1507328
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CERT_FIND_SUBJECT_STR_A => 458759
 
     /**

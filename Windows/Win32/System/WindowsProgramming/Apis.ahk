@@ -109,6 +109,16 @@ class WindowsProgramming {
     static WLDP_CANEXECUTEFILE_FN => "WldpCanExecuteFile"
 
     /**
+     * @type {String}
+     */
+    static WLDP_CANEXECUTEFILEFROMDETACHEDSIGNATURE_FN => "WldpCanExecuteFileFromDetachedSignature"
+
+    /**
+     * @type {String}
+     */
+    static WLDP_QUERYSECURITYPOLICY_FN => "WldpQuerySecurityPolicy"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static WLDP_LOCKDOWN_UNDEFINED => 0
@@ -1517,76 +1527,6 @@ class WindowsProgramming {
      * @type {Integer (UInt32)}
      */
     static PROTECTION_LEVEL_SAME => 4294967295
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROC_THREAD_ATTRIBUTE_NUMBER => 65535
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROC_THREAD_ATTRIBUTE_THREAD => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROC_THREAD_ATTRIBUTE_INPUT => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROC_THREAD_ATTRIBUTE_ADDITIVE => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_CHILD_PROCESS_RESTRICTED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_CHILD_PROCESS_OVERRIDE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -8934,6 +8874,24 @@ class WindowsProgramming {
     }
 
     /**
+     * 
+     * @param {Pointer<UNICODE_STRING>} providerName 
+     * @param {Pointer<UNICODE_STRING>} keyName 
+     * @param {Pointer<UNICODE_STRING>} valueName 
+     * @param {Pointer<Int32>} valueType 
+     * @param {Pointer} valueAddress 
+     * @param {Pointer<UInt32>} valueSize 
+     * @returns {HRESULT} 
+     */
+    static WldpQuerySecurityPolicy(providerName, keyName, valueName, valueType, valueAddress, valueSize) {
+        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", valueName, "int*", valueType, "ptr", valueAddress, "uint*", valueSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Sets an on-disk .NET CRL Dynamic Code trustable for .NET.
      * @param {Pointer<Void>} fileHandle Handle to a on-disk dynamic code file.
      * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
@@ -8980,6 +8938,20 @@ class WindowsProgramming {
     }
 
     /**
+     * Retrieves the current Windows secure mode. Windows can be in locked mode, unlocked normal mode, or trial mode.
+     * @param {Pointer<Int32>} lockdownMode On success, returns a [**PWLDP\_WINDOWS\_LOCKDOWN\_MODE**](ne-wldp-wldp_windows_lockdown_mode.md) that indicates the secure mode for the current Windows 10 device.
+     * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
+     */
+    static WldpQueryWindowsLockdownMode(lockdownMode) {
+        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", "int*", lockdownMode, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * 
      * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
      * @param {Integer} informationLength 
@@ -8988,6 +8960,128 @@ class WindowsProgramming {
      */
     static WldpQueryDeviceSecurityInformation(information, informationLength, returnLength) {
         result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, "uint*", returnLength, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} LockdownRestriction 
+     * @returns {HRESULT} 
+     */
+    static WldpQueryWindowsLockdownRestriction(LockdownRestriction) {
+        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownRestriction", "int*", LockdownRestriction, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} LockdownRestriction 
+     * @returns {HRESULT} 
+     */
+    static WldpSetWindowsLockdownRestriction(LockdownRestriction) {
+        result := DllCall("Wldp.dll\WldpSetWindowsLockdownRestriction", "int", LockdownRestriction, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} PackageFamilyName 
+     * @param {Integer} PackageVersion 
+     * @returns {HRESULT} 
+     */
+    static WldpIsAppApprovedByPolicy(PackageFamilyName, PackageVersion) {
+        PackageFamilyName := PackageFamilyName is String? StrPtr(PackageFamilyName) : PackageFamilyName
+
+        result := DllCall("Wldp.dll\WldpIsAppApprovedByPolicy", "ptr", PackageFamilyName, "uint", PackageVersion, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Setting 
+     * @param {Pointer<Int32>} Enabled 
+     * @returns {HRESULT} 
+     */
+    static WldpQueryPolicySettingEnabled(Setting, Enabled) {
+        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled", "int", Setting, "int*", Enabled, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} SettingString 
+     * @param {Pointer<Int32>} Enabled 
+     * @returns {HRESULT} 
+     */
+    static WldpQueryPolicySettingEnabled2(SettingString, Enabled) {
+        SettingString := SettingString is String? StrPtr(SettingString) : SettingString
+
+        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled2", "ptr", SettingString, "int*", Enabled, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} IsProductionConfiguration 
+     * @returns {HRESULT} 
+     */
+    static WldpIsWcosProductionConfiguration(IsProductionConfiguration) {
+        result := DllCall("Wldp.dll\WldpIsWcosProductionConfiguration", "int*", IsProductionConfiguration, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    static WldpResetWcosProductionConfiguration() {
+        result := DllCall("Wldp.dll\WldpResetWcosProductionConfiguration", "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} IsProductionConfiguration 
+     * @returns {HRESULT} 
+     */
+    static WldpIsProductionConfiguration(IsProductionConfiguration) {
+        result := DllCall("Wldp.dll\WldpIsProductionConfiguration", "int*", IsProductionConfiguration, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    static WldpResetProductionConfiguration() {
+        result := DllCall("Wldp.dll\WldpResetProductionConfiguration", "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9079,6 +9173,86 @@ class WindowsProgramming {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
         result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Guid>} host 
+     * @param {Integer} options 
+     * @param {Pointer<Void>} contentFileHandle 
+     * @param {Pointer<Void>} signatureFileHandle 
+     * @param {Pointer<Char>} auditInfo 
+     * @param {Pointer<Int32>} result 
+     * @returns {HRESULT} 
+     */
+    static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo, result) {
+        auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
+
+        result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} id 
+     * @param {Pointer<Char>} setting 
+     * @param {Pointer<Int32>} result 
+     * @returns {HRESULT} 
+     */
+    static WldpGetApplicationSettingBoolean(id, setting, result) {
+        id := id is String? StrPtr(id) : id
+        setting := setting is String? StrPtr(setting) : setting
+
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} id 
+     * @param {Pointer<Char>} setting 
+     * @param {Pointer} dataCount 
+     * @param {Pointer<UIntPtr>} requiredCount 
+     * @param {Pointer<Char>} result 
+     * @returns {HRESULT} 
+     */
+    static WldpGetApplicationSettingStringList(id, setting, dataCount, requiredCount, result) {
+        id := id is String? StrPtr(id) : id
+        setting := setting is String? StrPtr(setting) : setting
+        result := result is String? StrPtr(result) : result
+
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", requiredCount, "ptr", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} id 
+     * @param {Pointer<Char>} setting 
+     * @param {Pointer} dataCount 
+     * @param {Pointer<UIntPtr>} requiredCount 
+     * @param {Pointer<Char>} result 
+     * @returns {HRESULT} 
+     */
+    static WldpGetApplicationSettingStringSet(id, setting, dataCount, requiredCount, result) {
+        id := id is String? StrPtr(id) : id
+        setting := setting is String? StrPtr(setting) : setting
+        result := result is String? StrPtr(result) : result
+
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", requiredCount, "ptr", result, "int")
         if(result != 0)
             throw OSError(result)
 

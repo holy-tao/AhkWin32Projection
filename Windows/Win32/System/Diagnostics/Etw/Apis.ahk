@@ -446,6 +446,11 @@ class Etw {
     /**
      * @type {String}
      */
+    static LastBranchRecordProviderGuid => "{99134383-5248-43fc-834b-529454e75df3}"
+
+    /**
+     * @type {String}
+     */
     static KERNEL_LOGGER_NAMEW => "NT Kernel Logger"
 
     /**
@@ -1376,6 +1381,11 @@ class Etw {
     /**
      * @type {Integer (UInt64)}
      */
+    static SYSTEM_CPU_KW_DOMAIN_CHANGE => 8
+
+    /**
+     * @type {Integer (UInt64)}
+     */
     static SYSTEM_HYPERVISOR_KW_PROFILE => 1
 
     /**
@@ -1472,6 +1482,16 @@ class Etw {
      * @type {Integer (UInt64)}
      */
     static SYSTEM_IO_KW_NETWORK => 512
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_IO_KW_FILE_INIT => 1024
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_IO_KW_TIMER => 2048
 
     /**
      * @type {Integer (UInt64)}
@@ -1771,6 +1791,36 @@ class Etw {
     /**
      * @type {Integer (UInt64)}
      */
+    static SYSTEM_SCHEDULER_KW_SCHEDULE_THREAD => 2048
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_SCHEDULER_KW_READY_QUEUE => 4096
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_SCHEDULER_KW_CPU_PARTITION => 8192
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_SCHEDULER_KW_THREAD_FEEDBACK_READ => 16384
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_SCHEDULER_KW_WORKLOAD_CLASS_UPDATE => 32768
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static SYSTEM_SCHEDULER_KW_AUTOBOOST => 65536
+
+    /**
+     * @type {Integer (UInt64)}
+     */
     static SYSTEM_SYSCALL_KW_GENERAL => 1
 
     /**
@@ -1787,6 +1837,11 @@ class Etw {
      * @type {Integer (UInt32)}
      */
     static SYSTEM_MEMORY_POOL_FILTER_ID => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static _typedef_TRACELOGGER_HANDLE => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -1977,6 +2032,16 @@ class Etw {
      * @type {Integer (UInt32)}
      */
     static TRACE_PROVIDER_FLAG_PRE_ENABLE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TRACE_LBR_EVENT_OPCODE => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TRACE_LBR_MAXIMUM_EVENTS => 4
 
     /**
      * @type {String}
@@ -2448,11 +2513,7 @@ class Etw {
      * You do not use this function to start a global logger session (deprecated). For
      * details on starting a global logger session, see
      * [Configuring and Starting the Global Logger Session](/windows/win32/etw/configuring-and-starting-the-global-logger-session).
-     * @param {Pointer<UInt64>} TraceHandle Receives the handle to the event tracing session for subsequent use with APIs
-     * such as [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracew).
-     * 
-     * Do not use this handle if the function fails. Do not compare the session handle
-     * to INVALID_HANDLE_VALUE. The session handle is 0 if the handle is not valid.
+     * @param {Pointer<UInt64>} TraceId 
      * @param {Pointer<Char>} InstanceName Null-terminated string that contains the name of the event tracing session. The
      * session name is limited to 1,024 characters, is case-insensitive, and must be
      * unique.
@@ -2588,10 +2649,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-starttracew
      * @since windows5.0
      */
-    static StartTraceW(TraceHandle, InstanceName, Properties) {
+    static StartTraceW(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StartTraceW", "uint*", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StartTraceW", "uint*", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -2618,11 +2679,7 @@ class Etw {
      * You do not use this function to start a global logger session (deprecated). For
      * details on starting a global logger session, see
      * [Configuring and Starting the Global Logger Session](/windows/win32/etw/configuring-and-starting-the-global-logger-session).
-     * @param {Pointer<UInt64>} TraceHandle Receives the handle to the event tracing session for subsequent use with APIs
-     * such as [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracea).
-     * 
-     * Do not use this handle if the function fails. Do not compare the session handle
-     * to INVALID_HANDLE_VALUE. The session handle is 0 if the handle is not valid.
+     * @param {Pointer<UInt64>} TraceId 
      * @param {Pointer<Byte>} InstanceName Null-terminated string that contains the name of the event tracing session. The
      * session name is limited to 1,024 characters, is case-insensitive, and must be
      * unique.
@@ -2758,10 +2815,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-starttracea
      * @since windows5.0
      */
-    static StartTraceA(TraceHandle, InstanceName, Properties) {
+    static StartTraceA(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StartTraceA", "uint*", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StartTraceA", "uint*", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -2790,10 +2847,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to the event tracing session to be stopped, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew).
+     * @param {Integer} TraceId 
      * @param {Pointer<Char>} InstanceName Name of the event tracing session to be stopped, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -2848,10 +2902,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-stoptracew
      * @since windows5.0
      */
-    static StopTraceW(TraceHandle, InstanceName, Properties) {
+    static StopTraceW(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -2880,10 +2934,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to the event tracing session to be stopped, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea).
+     * @param {Integer} TraceId 
      * @param {Pointer<Byte>} InstanceName Name of the event tracing session to be stopped, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -2938,10 +2989,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-stoptracea
      * @since windows5.0
      */
-    static StopTraceA(TraceHandle, InstanceName, Properties) {
+    static StopTraceA(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -2962,10 +3013,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to the event tracing session to be queried, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew).
+     * @param {Integer} TraceId 
      * @param {Pointer<Char>} InstanceName Name of the event tracing session to be queried, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -3028,10 +3076,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-querytracew
      * @since windows5.0
      */
-    static QueryTraceW(TraceHandle, InstanceName, Properties) {
+    static QueryTraceW(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3052,10 +3100,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to the event tracing session to be queried, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea).
+     * @param {Integer} TraceId 
      * @param {Pointer<Byte>} InstanceName Name of the event tracing session to be queried, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -3118,10 +3163,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-querytracea
      * @since windows5.0
      */
-    static QueryTraceA(TraceHandle, InstanceName, Properties) {
+    static QueryTraceA(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3178,10 +3223,7 @@ class Etw {
      * 
      * To obtain the property settings and session statistics for an event tracing
      * session, call the [ControlTrace](/windows/desktop/ETW/controltrace) function.
-     * @param {Integer} TraceHandle Handle to the event tracing session to be updated, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew).
+     * @param {Integer} TraceId 
      * @param {Pointer<Char>} InstanceName Name of the event tracing session to be updated, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -3231,10 +3273,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-updatetracew
      * @since windows5.0
      */
-    static UpdateTraceW(TraceHandle, InstanceName, Properties) {
+    static UpdateTraceW(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3291,10 +3333,7 @@ class Etw {
      * 
      * To obtain the property settings and session statistics for an event tracing
      * session, call the [ControlTrace](/windows/desktop/ETW/controltrace) function.
-     * @param {Integer} TraceHandle Handle to the event tracing session to be updated, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea).
+     * @param {Integer} TraceId 
      * @param {Pointer<Byte>} InstanceName Name of the event tracing session to be updated, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -3344,10 +3383,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-updatetracea
      * @since windows5.0
      */
-    static UpdateTraceA(TraceHandle, InstanceName, Properties) {
+    static UpdateTraceA(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3378,10 +3417,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to the event tracing session to be flushed, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew).
+     * @param {Integer} TraceId 
      * @param {Pointer<Char>} InstanceName Name of the event tracing session to be flushed, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -3432,10 +3468,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-flushtracew
      * @since windows5.1.2600
      */
-    static FlushTraceW(TraceHandle, InstanceName, Properties) {
+    static FlushTraceW(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3466,10 +3502,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to the event tracing session to be flushed, or 0. You must specify a
-     * non-zero _TraceHandle_ if _InstanceName_ is **NULL**. This parameter will be
-     * used only if _InstanceName_ is **NULL**. The handle is returned by the
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea).
+     * @param {Integer} TraceId 
      * @param {Pointer<Byte>} InstanceName Name of the event tracing session to be flushed, or **NULL**. You must specify
      * _InstanceName_ if _TraceHandle_ is 0.
      * 
@@ -3520,10 +3553,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-flushtracea
      * @since windows5.1.2600
      */
-    static FlushTraceA(TraceHandle, InstanceName, Properties) {
+    static FlushTraceA(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint")
+        result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3546,15 +3579,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to an event tracing session, or 0. You must specify a non-zero
-     * _TraceHandle_ if _InstanceName_ is **NULL**. ETW ignores the handle if
-     * _InstanceName_ is not **NULL**.
-     * 
-     * The [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracew) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use **ControlTrace** to query the trace properties based on the
-     * trace's name and then get the handle from the **Wnode.HistoricalContext** field
-     * of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @param {Pointer<Char>} InstanceName Name of an event tracing session, or **NULL**. You must specify _InstanceName_
      * if _TraceHandle_ is 0.
      * 
@@ -3689,10 +3714,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-controltracew
      * @since windows5.0
      */
-    static ControlTraceW(TraceHandle, InstanceName, Properties, ControlCode) {
+    static ControlTraceW(TraceId, InstanceName, Properties, ControlCode) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
+        result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
         return result
     }
 
@@ -3715,15 +3740,7 @@ class Etw {
      * > mismatches that result in compilation or runtime errors. For more information,
      * > see
      * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} TraceHandle Handle to an event tracing session, or 0. You must specify a non-zero
-     * _SessionHandle_ if _SessionName_ is **NULL**. ETW ignores the handle if
-     * _SessionName_ is not **NULL**.
-     * 
-     * The [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use **ControlTrace** to query the trace properties based on the
-     * trace's name and then get the handle from the **Wnode.HistoricalContext** field
-     * of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @param {Pointer<Byte>} InstanceName Name of an event tracing session, or **NULL**. You must specify _InstanceName_
      * if _TraceHandle_ is 0.
      * 
@@ -3853,10 +3870,10 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-controltracea
      * @since windows5.0
      */
-    static ControlTraceA(TraceHandle, InstanceName, Properties, ControlCode) {
+    static ControlTraceA(TraceId, InstanceName, Properties, ControlCode) {
         InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceHandle, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
+        result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
         return result
     }
 
@@ -4047,13 +4064,7 @@ class Etw {
      * `WINMETA_LEVEL` constants are defined in _winmeta.h_.
      * @param {Pointer<Guid>} ControlGuid The control GUID (provider ID) of the event provider that you want to enable or
      * disable.
-     * @param {Integer} TraceHandle Handle of the event tracing session for which you are configuring the provider.
-     * The [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use
-     * [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracew) to query
-     * the trace properties based on the trace's name and then get the handle from the
-     * **Wnode.HistoricalContext** field of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @returns {Integer} If the function is successful, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -4095,8 +4106,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-enabletrace
      * @since windows5.0
      */
-    static EnableTrace(Enable, EnableFlag, EnableLevel, ControlGuid, TraceHandle) {
-        result := DllCall("ADVAPI32.dll\EnableTrace", "uint", Enable, "uint", EnableFlag, "uint", EnableLevel, "ptr", ControlGuid, "uint", TraceHandle, "uint")
+    static EnableTrace(Enable, EnableFlag, EnableLevel, ControlGuid, TraceId) {
+        result := DllCall("ADVAPI32.dll\EnableTrace", "uint", Enable, "uint", EnableFlag, "uint", EnableLevel, "ptr", ControlGuid, "uint", TraceId, "uint")
         return result
     }
 
@@ -4195,13 +4206,7 @@ class Etw {
      * > if a trace consumer session is stopped, ETW will invoke **EnableCallback**
      * > even though there was no corresponding call to **EnableTrace**. In such cases,
      * > **EnableTrace** will be invoked with _SourceId_ set to **GUID_NULL**.
-     * @param {Integer} TraceHandle Handle of the event tracing session for which you are configuring the provider.
-     * The [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use
-     * [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracew) to query
-     * the trace properties based on the trace's name and then get the handle from the
-     * **Wnode.HistoricalContext** field of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @param {Integer} IsEnabled Set to 1 to enable receiving events from the provider or to adjust the settings
      * used when receiving events from the provider (e.g. to change level and
      * keywords). Set to 0 to disable receiving events from the provider.
@@ -4297,8 +4302,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-enabletraceex
      * @since windows6.0.6000
      */
-    static EnableTraceEx(ProviderId, SourceId, TraceHandle, IsEnabled, Level, MatchAnyKeyword, MatchAllKeyword, EnableProperty, EnableFilterDesc) {
-        result := DllCall("ADVAPI32.dll\EnableTraceEx", "ptr", ProviderId, "ptr", SourceId, "uint", TraceHandle, "uint", IsEnabled, "char", Level, "uint", MatchAnyKeyword, "uint", MatchAllKeyword, "uint", EnableProperty, "ptr", EnableFilterDesc, "uint")
+    static EnableTraceEx(ProviderId, SourceId, TraceId, IsEnabled, Level, MatchAnyKeyword, MatchAllKeyword, EnableProperty, EnableFilterDesc) {
+        result := DllCall("ADVAPI32.dll\EnableTraceEx", "ptr", ProviderId, "ptr", SourceId, "uint", TraceId, "uint", IsEnabled, "char", Level, "uint", MatchAnyKeyword, "uint", MatchAllKeyword, "uint", EnableProperty, "ptr", EnableFilterDesc, "uint")
         return result
     }
 
@@ -4574,13 +4579,7 @@ class Etw {
      *   level and [GetTraceEnableFlags](/windows/desktop/ETW/gettraceenableflags) to
      *   get the enable flag.
      * - The other parameter are not used.
-     * @param {Integer} TraceHandle Handle of the event tracing session for which you are configuring the provider.
-     * The [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use
-     * [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracew) to query
-     * the trace properties based on the trace's name and then get the handle from the
-     * **Wnode.HistoricalContext** field of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @param {Pointer<Guid>} ProviderId The provider ID (control GUID) of the event provider that you want to configure.
      * @param {Integer} ControlCode You can specify one of the following control codes:
      * 
@@ -4674,8 +4673,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-enabletraceex2
      * @since windows6.1
      */
-    static EnableTraceEx2(TraceHandle, ProviderId, ControlCode, Level, MatchAnyKeyword, MatchAllKeyword, Timeout, EnableParameters) {
-        result := DllCall("ADVAPI32.dll\EnableTraceEx2", "uint", TraceHandle, "ptr", ProviderId, "uint", ControlCode, "char", Level, "uint", MatchAnyKeyword, "uint", MatchAllKeyword, "uint", Timeout, "ptr", EnableParameters, "uint")
+    static EnableTraceEx2(TraceId, ProviderId, ControlCode, Level, MatchAnyKeyword, MatchAllKeyword, Timeout, EnableParameters) {
+        result := DllCall("ADVAPI32.dll\EnableTraceEx2", "uint", TraceId, "ptr", ProviderId, "uint", ControlCode, "char", Level, "uint", MatchAnyKeyword, "uint", MatchAllKeyword, "uint", Timeout, "ptr", EnableParameters, "uint")
         return result
     }
 
@@ -4763,13 +4762,7 @@ class Etw {
      * `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management`.
      * This should only be done for temporary diagnosis purposes because it increases
      * memory usage of the system.
-     * @param {Integer} SessionHandle Handle of the event tracing session to be configured. The
-     * [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use
-     * [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracew) to query
-     * the trace properties based on the trace's name and then get the handle from the
-     * **Wnode.HistoricalContext** field of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @param {Integer} InformationClass The information class to enable or disable. The information that the class
      * captures is included in the extended data section of the event. For a list of
      * information classes that you can enable, see the
@@ -4802,8 +4795,8 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-tracesetinformation
      * @since windows6.1
      */
-    static TraceSetInformation(SessionHandle, InformationClass, TraceInformation, InformationLength) {
-        result := DllCall("ADVAPI32.dll\TraceSetInformation", "uint", SessionHandle, "int", InformationClass, "ptr", TraceInformation, "uint", InformationLength, "uint")
+    static TraceSetInformation(TraceId, InformationClass, TraceInformation, InformationLength) {
+        result := DllCall("ADVAPI32.dll\TraceSetInformation", "uint", TraceId, "int", InformationClass, "ptr", TraceInformation, "uint", InformationLength, "uint")
         return result
     }
 
@@ -4813,13 +4806,7 @@ class Etw {
      * The **TraceQueryInformation** function queries event tracing session settings
      * from a trace session. Call this function after calling
      * [StartTrace](/windows/desktop/ETW/starttrace).
-     * @param {Integer} SessionHandle Handle of the event tracing session for which you are collecting information.
-     * The [StartTrace](/windows/win32/api/evntrace/nf-evntrace-starttracea) function
-     * returns this handle when a new trace is started. To obtain the handle of an
-     * existing trace, use
-     * [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracew) to query
-     * the trace properties based on the trace's name and then get the handle from the
-     * **Wnode.HistoricalContext** field of the returned `EVENT_TRACE_PROPERTIES` data.
+     * @param {Integer} TraceId 
      * @param {Integer} InformationClass The information class to query. The information that the class captures is
      * included in the extended data section of the event. For a list of information
      * classes that you can query, see the
@@ -4859,8 +4846,21 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-tracequeryinformation
      * @since windows8.0
      */
-    static TraceQueryInformation(SessionHandle, InformationClass, TraceInformation, InformationLength, ReturnLength) {
-        result := DllCall("ADVAPI32.dll\TraceQueryInformation", "uint", SessionHandle, "int", InformationClass, "ptr", TraceInformation, "uint", InformationLength, "uint*", ReturnLength, "uint")
+    static TraceQueryInformation(TraceId, InformationClass, TraceInformation, InformationLength, ReturnLength) {
+        result := DllCall("ADVAPI32.dll\TraceQueryInformation", "uint", TraceId, "int", InformationClass, "ptr", TraceInformation, "uint", InformationLength, "uint*", ReturnLength, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} TraceId 
+     * @param {Integer} LbrConfiguration 
+     * @param {Pointer<CLASSIC_EVENT_ID>} Events 
+     * @param {Integer} EventCount 
+     * @returns {Integer} 
+     */
+    static TraceConfigureLastBranchRecord(TraceId, LbrConfiguration, Events, EventCount) {
+        result := DllCall("ADVAPI32.dll\TraceConfigureLastBranchRecord", "uint", TraceId, "int", LbrConfiguration, "ptr", Events, "uint", EventCount, "uint")
         return result
     }
 

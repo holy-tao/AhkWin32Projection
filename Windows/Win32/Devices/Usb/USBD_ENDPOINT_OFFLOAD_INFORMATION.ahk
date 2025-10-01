@@ -7,7 +7,7 @@
  */
 class USBD_ENDPOINT_OFFLOAD_INFORMATION extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -203,5 +203,53 @@ class USBD_ENDPOINT_OFFLOAD_INFORMATION extends Win32Struct
     EventRingInitialCycleBit {
         get => NumGet(this, 80, "uint")
         set => NumPut("uint", value, this, 80)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ClientTransferRingSegmentPAIn {
+        get => NumGet(this, 88, "int64")
+        set => NumPut("int64", value, this, 88)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    ClientTransferRingSizeIn {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ClientDataBufferPAIn {
+        get => NumGet(this, 104, "int64")
+        set => NumPut("int64", value, this, 104)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    ClientDataBufferSizeIn {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ClientDataBufferLAOut {
+        get => NumGet(this, 120, "int64")
+        set => NumPut("int64", value, this, 120)
+    }
+
+    /**
+     * @type {Pointer<Void>}
+     */
+    ClientDataBufferVAOut {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

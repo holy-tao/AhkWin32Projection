@@ -9,6 +9,7 @@
 #Include .\NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS.ahk
 #Include .\NVME_CONTROLLER_MEMORY_BUFFER_LOCATION.ahk
 #Include .\NVME_CONTROLLER_MEMORY_BUFFER_SIZE.ahk
+#Include .\NVME_CONTROLLER_READY_TIMEOUTS.ahk
 
 /**
  * Specifies the register map for the controller.
@@ -221,6 +222,36 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     }
 
     /**
+     * @type {Array<UInt32>}
+     */
+    Reserved1{
+        get {
+            if(!this.HasProp("__Reserved1ProxyArray"))
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 120, 9, Primitive, "uint")
+            return this.__Reserved1ProxyArray
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NSSD {
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
+    }
+
+    /**
+     * @type {NVME_CONTROLLER_READY_TIMEOUTS}
+     */
+    CRTO{
+        get {
+            if(!this.HasProp("__CRTO"))
+                this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(this.ptr + 160)
+            return this.__CRTO
+        }
+    }
+
+    /**
      * Offset 40h to EFFh is reserved.
      * 
      * All reserved registers and all reserved bits within registers are read-only and return `0h` when read, however, software should not rely on `0h` being returned.
@@ -229,7 +260,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 120, 944, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 168, 933, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }
@@ -243,7 +274,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3896, 64, Primitive, "uint")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3900, 64, Primitive, "uint")
             return this.__Reserved3ProxyArray
         }
     }
@@ -255,7 +286,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Doorbells{
         get {
             if(!this.HasProp("__DoorbellsProxyArray"))
-                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4152, 1, Primitive, "uint")
+                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4156, 1, Primitive, "uint")
             return this.__DoorbellsProxyArray
         }
     }

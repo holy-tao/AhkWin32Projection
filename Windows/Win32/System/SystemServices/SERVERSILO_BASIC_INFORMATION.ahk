@@ -7,7 +7,7 @@
  */
 class SERVERSILO_BASIC_INFORMATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -38,7 +38,7 @@ class SERVERSILO_BASIC_INFORMATION extends Win32Struct
     /**
      * @type {Integer}
      */
-    IsDownlevelContainer {
+    Reserved {
         get => NumGet(this, 12, "char")
         set => NumPut("char", value, this, 12)
     }
@@ -57,5 +57,21 @@ class SERVERSILO_BASIC_INFORMATION extends Win32Struct
     HostApiSetSchema {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ContainerBuildNumber {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    HostBuildNumber {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

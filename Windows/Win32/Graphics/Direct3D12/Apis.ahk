@@ -1386,7 +1386,7 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
-    static D3D12_PREVIEW_SDK_VERSION => 714
+    static D3D12_PREVIEW_SDK_VERSION => 717
 
     /**
      * @type {Integer (UInt32)}
@@ -1726,7 +1726,7 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
-    static D3D12_SDK_VERSION => 614
+    static D3D12_SDK_VERSION => 616
 
     /**
      * @type {Integer (UInt32)}
@@ -1991,6 +1991,16 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
+    static D3D12_TIGHT_ALIGNMENT_MIN_COMMITTED_RESOURCE_ALIGNEMNT => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_TIGHT_ALIGNMENT_MIN_PLACED_RESOURCE_ALIGNEMNT => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static D3D12_TILED_RESOURCE_TILE_SIZE_IN_BYTES => 65536
 
     /**
@@ -2161,6 +2171,11 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
+    static LUID_DEFINED => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static D3D12_SHADER_COMPONENT_MAPPING_MASK => 7
 
     /**
@@ -2204,11 +2219,6 @@ class Direct3D12 {
     static D3D12_ANISOTROPIC_FILTERING_BIT => 64
 
     /**
-     * @type {Integer (UInt32)}
-     */
-    static LUID_DEFINED => 1
-
-    /**
      * @type {String}
      */
     static D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED => "{62b0084e-c70e-4daa-a109-30ff8d5a0482}"
@@ -2237,6 +2247,11 @@ class Direct3D12 {
      * @type {String}
      */
     static CLSID_D3D12DeviceFactory => "{114863bf-c386-4aee-b39d-8f0bbb062955}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_D3D12DSRDeviceFactory => "{bb6dd27e-94a9-41a6-9f1b-133772172428}"
 
     /**
      * @type {Integer (UInt32)}
@@ -2387,6 +2402,11 @@ class Direct3D12 {
      * @type {String}
      */
     static D3D12TiledResourceTier4 => "{c9c4725f-a81a-4f56-8c5b-c51039d694fb}"
+
+    /**
+     * @type {String}
+     */
+    static D3D12GPUUploadHeapsOnUnsupportedOS => "{45dc51f3-767f-4588-b206-0baa2b16fbae}"
 ;@endregion Constants
 
 ;@region Methods

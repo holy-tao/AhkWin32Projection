@@ -331,6 +331,16 @@ class Dhcp {
     /**
      * @type {Integer (UInt32)}
      */
+    static OPTION_IPV6_ONLY_PREFERRED => 108
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static OPTION_DNR => 162
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static OPTION_MSFT_IE_PROXY => 252
 
     /**
@@ -1622,6 +1632,11 @@ class Dhcp {
      * @type {Integer (UInt32)}
      */
     static DHCPV6_OPTION_NISP_DOMAIN_NAME => 30
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DHCPV6_OPTION_DNR => 144
 ;@endregion Constants
 
 ;@region Methods

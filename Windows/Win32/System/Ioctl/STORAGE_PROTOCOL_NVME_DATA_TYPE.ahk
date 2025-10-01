@@ -44,4 +44,14 @@ class STORAGE_PROTOCOL_NVME_DATA_TYPE{
      * @type {Integer (Int32)}
      */
     static NVMeDataTypeFeature => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVMeDataTypeLogPageEx => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVMeDataTypeFeatureEx => 5
 }

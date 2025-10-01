@@ -110,4 +110,9 @@ class PROC_THREAD_ATTRIBUTE_NUM{
      * @type {Integer (UInt32)}
      */
     static ProcThreadAttributeTrustedApp => 29
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ProcThreadAttributeSveVectorLength => 30
 }

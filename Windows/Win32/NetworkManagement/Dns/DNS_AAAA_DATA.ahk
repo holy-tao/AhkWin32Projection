@@ -14,7 +14,7 @@
  */
 class DNS_AAAA_DATA extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 48
 
     static packingSize => 8
 

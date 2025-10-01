@@ -7,7 +7,7 @@
  */
 class TRANSPORT_INFO extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
     static packingSize => 4
 
@@ -25,5 +25,37 @@ class TRANSPORT_INFO extends Win32Struct
     SkipCertificateCheck {
         get => NumGet(this, 4, "char")
         set => NumPut("char", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TcpPort {
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    QuicPort {
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RdmaPort {
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

@@ -186,6 +186,876 @@ class Threading {
     /**
      * @type {Integer (UInt32)}
      */
+    static PROC_THREAD_ATTRIBUTE_NUMBER => 65535
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROC_THREAD_ATTRIBUTE_THREAD => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROC_THREAD_ATTRIBUTE_INPUT => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROC_THREAD_ATTRIBUTE_ADDITIVE => 262144
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_MASK => 768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_DEFER => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_OFF => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON_REQ_RELOCS => 768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_MASK => 12288
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_ALWAYS_ON => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_ALWAYS_OFF => 8192
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_RESERVED => 12288
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_MASK => 196608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_DEFER => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_ON => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_OFF => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_RESERVED => 196608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_MASK => 3145728
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_DEFER => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_ON => 1048576
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_OFF => 2097152
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_RESERVED => 3145728
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_MASK => 50331648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_DEFER => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_ALWAYS_ON => 16777216
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_ALWAYS_OFF => 33554432
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_RESERVED => 50331648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_MASK => 805306368
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_ALWAYS_ON => 268435456
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_ALWAYS_OFF => 536870912
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_RESERVED => 805306368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_MASK => 12884901888
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_ON => 4294967296
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_OFF => 8589934592
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_RESERVED => 12884901888
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_MASK => 206158430208
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON => 68719476736
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_OFF => 137438953472
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON_ALLOW_OPT_OUT => 206158430208
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_MASK => 3298534883328
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_ALWAYS_ON => 1099511627776
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_ALWAYS_OFF => 2199023255552
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_EXPORT_SUPPRESSION => 3298534883328
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_MASK => 52776558133248
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_ON => 17592186044416
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_OFF => 35184372088832
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALLOW_STORE => 52776558133248
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_MASK => 844424930131968
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_ALWAYS_ON => 281474976710656
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_ALWAYS_OFF => 562949953421312
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_AUDIT_NONSYSTEM_FONTS => 844424930131968
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_MASK => 13510798882111488
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_ALWAYS_ON => 4503599627370496
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_ALWAYS_OFF => 9007199254740992
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_RESERVED => 13510798882111488
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_MASK => 216172782113783808
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_ALWAYS_ON => 72057594037927936
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_ALWAYS_OFF => 144115188075855872
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_RESERVED => 216172782113783808
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_MASK => 3458764513820540928
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_ALWAYS_ON => 1152921504606846976
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_ALWAYS_OFF => 2305843009213693952
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_RESERVED => 3458764513820540928
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_MASK => 48
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_ON => 16
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_OFF => 32
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_AUDIT => 48
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_MASK => 768
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_ON => 256
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_OFF => 512
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_RESERVED => 768
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_MASK => 12288
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_ALWAYS_ON => 4096
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_ALWAYS_OFF => 8192
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_NOINHERIT => 12288
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_MASK => 196608
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_ON => 65536
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_OFF => 131072
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_RESERVED => 196608
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_MASK => 3145728
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_ON => 1048576
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_OFF => 2097152
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_RESERVED => 3145728
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_MASK => 50331648
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_ALWAYS_ON => 16777216
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_ALWAYS_OFF => 33554432
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_RESERVED => 50331648
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_MASK => 805306368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_ON => 268435456
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_OFF => 536870912
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_STRICT_MODE => 805306368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_MASK => 12884901888
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON => 4294967296
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_OFF => 8589934592
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE => 12884901888
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_MASK => 206158430208
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_ON => 68719476736
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_OFF => 137438953472
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_NON_EHCONT => 206158430208
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_MASK => 3298534883328
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_ON => 1099511627776
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_OFF => 2199023255552
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_RESERVED => 3298534883328
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_MASK => 52776558133248
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_ALWAYS_ON => 17592186044416
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_ALWAYS_OFF => 35184372088832
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_RESERVED => 52776558133248
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_MASK => 844424930131968
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_ALWAYS_ON => 281474976710656
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_ALWAYS_OFF => 562949953421312
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_RESERVED => 844424930131968
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_MASK => 13510798882111488
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_ALWAYS_ON => 4503599627370496
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_ALWAYS_OFF => 9007199254740992
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_RESERVED => 13510798882111488
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_MASK => 216172782113783808
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_ALWAYS_ON => 72057594037927936
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_ALWAYS_OFF => 144115188075855872
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_RESERVED => 216172782113783808
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_CHILD_PROCESS_RESTRICTED => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_CHILD_PROCESS_OVERRIDE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE => 4
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_MASK => 805306368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_ON => 268435456
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_OFF => 536870912
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_RESERVED => 805306368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_MASK => 12884901888
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON => 4294967296
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_OFF => 8589934592
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_RESERVED => 12884901888
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_MASK => 206158430208
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_ON => 68719476736
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_OFF => 137438953472
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_RESERVED => 206158430208
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_MASK => 3298534883328
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER => 0
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_ON => 1099511627776
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_OFF => 2199023255552
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_RESERVED => 3298534883328
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static PROC_THREAD_ATTRIBUTE_PARENT_PROCESS => 131072
 
     /**
@@ -565,6 +1435,16 @@ class Threading {
      */
     static IsThreadAFiber() {
         result := DllCall("KERNEL32.dll\IsThreadAFiber", "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwTlsIndex 
+     * @returns {Pointer<Void>} 
+     */
+    static FlsGetValue2(dwTlsIndex) {
+        result := DllCall("KERNEL32.dll\FlsGetValue2", "uint", dwTlsIndex)
         return result
     }
 
@@ -7911,6 +8791,16 @@ class Threading {
         if(result != 0)
             throw OSError(result)
 
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwTlsIndex 
+     * @returns {Pointer<Void>} 
+     */
+    static TlsGetValue2(dwTlsIndex) {
+        result := DllCall("KERNEL32.dll\TlsGetValue2", "uint", dwTlsIndex)
         return result
     }
 

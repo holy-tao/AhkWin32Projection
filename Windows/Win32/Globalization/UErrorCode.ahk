@@ -214,6 +214,11 @@ class UErrorCode{
     /**
      * @type {Integer (Int32)}
      */
+    static U_INPUT_TOO_LONG_ERROR => 31
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static U_BAD_VARIABLE_DEFINITION => 65536
 
     /**

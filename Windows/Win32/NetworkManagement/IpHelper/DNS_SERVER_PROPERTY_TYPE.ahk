@@ -21,4 +21,9 @@ class DNS_SERVER_PROPERTY_TYPE{
      * @type {Integer (Int32)}
      */
     static DnsServerDohProperty => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DnsServerDotProperty => 2
 }

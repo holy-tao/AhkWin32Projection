@@ -133,10 +133,15 @@ class STORAGE_BUS_TYPE{
     static BusTypeUfs => 19
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static BusTypeNvmeof => 20
+
+    /**
      * 
      * @type {Integer (Int32)}
      */
-    static BusTypeMax => 20
+    static BusTypeMax => 21
 
     /**
      * 

@@ -549,6 +549,11 @@ class EnhancedStorage {
     static SHARINGSTATUS_PRIVATE => 2
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGEPROVIDERCUSTOM_ICON_PHONE => 0
+
+    /**
      * @type {String}
      */
     static STORAGE_PROVIDER_SHARE_STATUS_PRIVATE => "Private"
@@ -1054,6 +1059,16 @@ class EnhancedStorage {
     static PHOTO_WHITEBALANCE_MANUAL => 1
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MATCH_KIND_LEXICAL => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MATCH_KIND_SEMANTIC => 2
+
+    /**
      * @type {Integer (UInt32)}
      */
     static HOMEGROUPING_UNSPECIFIED => 0
@@ -1077,6 +1092,11 @@ class EnhancedStorage {
      * @type {Integer (UInt32)}
      */
     static HOMEGROUPING_RECOMMENDATIONS => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HOMEGROUPING_SHARED => 5
 
     /**
      * @type {String}

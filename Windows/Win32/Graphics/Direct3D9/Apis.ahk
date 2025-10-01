@@ -1926,6 +1926,11 @@ class Direct3D9 {
     /**
      * @type {Integer (UInt32)}
      */
+    static D3DSHADER_INSTRUCTION_PREDICATED => 268435456
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static D3DSP_DCL_USAGE_SHIFT => 0
 
     /**

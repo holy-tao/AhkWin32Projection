@@ -30,9 +30,20 @@ class XSTATE_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved1 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Flags {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
+    }
+
+    /**
+     * @type {Array<Byte>}
+     */
+    Reserved0{
+        get {
+            if(!this.HasProp("__Reserved0ProxyArray"))
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
+            return this.__Reserved0ProxyArray
+        }
     }
 
     /**

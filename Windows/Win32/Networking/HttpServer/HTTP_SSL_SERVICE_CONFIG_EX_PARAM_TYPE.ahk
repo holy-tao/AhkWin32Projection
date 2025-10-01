@@ -39,5 +39,10 @@ class HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE{
     /**
      * @type {Integer (Int32)}
      */
-    static ExParamTypeMax => 6
+    static ExParamTypeCertConfig => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ExParamTypeMax => 7
 }

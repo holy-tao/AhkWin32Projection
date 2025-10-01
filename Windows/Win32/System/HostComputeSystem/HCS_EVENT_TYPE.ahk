@@ -66,5 +66,10 @@ class HCS_EVENT_TYPE{
     /**
      * @type {Integer (Int32)}
      */
+    static HcsEventGroupLiveMigration => -2147483645
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static HcsEventGroupOperationInfo => -1073741823
 }
