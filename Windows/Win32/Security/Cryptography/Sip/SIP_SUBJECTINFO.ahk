@@ -255,6 +255,14 @@ class SIP_SUBJECTINFO extends Win32Struct
     }
 
     /**
+     * @type {Pointer<MS_ADDINFO_DETACHEDSIG>}
+     */
+    psDetachedSig {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
+    }
+
+    /**
      * A pointer to SIP-specific data.
      * @type {Pointer<Void>}
      */

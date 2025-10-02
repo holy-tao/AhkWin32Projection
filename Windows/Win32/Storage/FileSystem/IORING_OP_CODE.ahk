@@ -57,4 +57,14 @@ class IORING_OP_CODE{
      * @type {Integer (Int32)}
      */
     static IORING_OP_FLUSH => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static IORING_OP_READ_SCATTER => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static IORING_OP_WRITE_GATHER => 8
 }

@@ -2044,6 +2044,11 @@ class BUGCHECK_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static SECURE_KERNEL_HIBERNATE_ERROR => 370
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static COREMSGCALL_INTERNAL_ERROR => 371
 
     /**
@@ -2055,6 +2060,11 @@ class BUGCHECK_ERROR{
      * @type {Integer (UInt32)}
      */
     static PREVIOUS_FATAL_ABNORMAL_RESET_ERROR => 373
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_STACK_FATAL_ERROR => 374
 
     /**
      * @type {Integer (UInt32)}
@@ -2564,12 +2574,72 @@ class BUGCHECK_ERROR{
     /**
      * @type {Integer (UInt32)}
      */
+    static APPLICATION_HANG_KERNEL_LIVEDUMP => 501
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MISALIGNED_POINTER_PARAMETER => 502
 
     /**
      * @type {Integer (UInt32)}
      */
     static MSSECCORE_ASSERTION_FAILURE => 503
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INVALID_MINIMAL_PROCESS_STATE => 504
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PREVIOUS_MODE_MISMATCH => 505
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SMB_SRV_REQUEST_VALIDATION_FAILURE => 506
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOMMU_INTERRUPT_REMAPPING_FAULT => 507
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WIN32K_CALLOUT_UNREGISTER_FAILED => 508
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HAL_SPE_INTERNAL_ERROR => 509
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SMB_CLIENT_REQUEST_VALIDATION_FAILURE => 510
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CPU_SCHEDULER_INTERNAL_ERROR => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PROCESS_TERMINATE_LIKELY_DEADLOCK => 513
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static UNEXPECTED_CODEPATH => 514
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INVALID_EXTENSION_STATE => 515
 
     /**
      * @type {Integer (UInt32)}
@@ -2600,6 +2670,11 @@ class BUGCHECK_ERROR{
      * @type {Integer (UInt32)}
      */
     static XBOX_SHUTDOWN_WATCHDOG_TIMEOUT => 859
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static XBOX_CANNOT_MANAGE_PARTITION_MEMORY => 861
 
     /**
      * @type {Integer (UInt32)}

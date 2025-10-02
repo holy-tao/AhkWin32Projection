@@ -846,7 +846,52 @@ class WinHttp {
     /**
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_LAST_OPTION => 196
+    static WINHTTP_OPTION_QUIC_STATS_V2 => 200
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_QUIC_STREAM_STATS => 202
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_USE_LOOKASIDE => 203
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_ERROR_LOG_GUID => 204
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_ENABLE_FAST_FORWARDING => 205
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_FAST_FORWARDING_RESPONSE_DATA => 206
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_UPGRADE_TO_PROTOCOL => 207
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_CONNECTION_STATS_V2 => 208
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_OPTION_FAST_FORWARDING_RESPONSE_STATUS => 209
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_LAST_OPTION => 209
 
     /**
      * @type {Integer (UInt32)}
@@ -1087,6 +1132,11 @@ class WinHttp {
      * @type {Integer (UInt32)}
      */
     static WINHTTP_HANDLE_TYPE_WEBSOCKET => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_HANDLE_TYPE_PROTOCOL => 6
 
     /**
      * @type {Integer (UInt32)}
@@ -2101,6 +2151,11 @@ class WinHttp {
     /**
      * @type {Integer (UInt32)}
      */
+    static ICU_INCLUDE_DEFAULT_PORT => 32768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ICU_ESCAPE_AUTHORITY => 8192
 
     /**
@@ -2436,7 +2491,12 @@ class WinHttp {
     /**
      * @type {Integer (UInt32)}
      */
-    static WINHTTP_ERROR_LAST => 12192
+    static ERROR_WINHTTP_FAST_FORWARDING_NOT_SUPPORTED => 12193
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_ERROR_LAST => 12193
 
     /**
      * @type {Integer (UInt32)}
@@ -2807,6 +2867,61 @@ class WinHttp {
      * @type {Integer (UInt32)}
      */
     static WINHTTP_FEATURE_REVERT_IMPERSONATION_SERVER_CERT => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_DISABLE_GLOBAL_POOLING => 76
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_GET_PROXY_SETTINGS_EX => 77
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_SESSION_SCH_CRED => 78
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_QUIC_STATS_V2 => 79
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_URL_INCLUDE_DEFAULT_PORT => 80
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_QUIC_STREAM_STATS => 81
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_USE_LOOKASIDE => 82
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_ERROR_LOG_GUID => 83
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_UPGRADE_TO_PROTOCOL => 88
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_CONNECTION_STATS_V2 => 89
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WINHTTP_FEATURE_FAST_FORWARD_RESPONSE => 90
 ;@endregion Constants
 
 ;@region Methods
@@ -7724,6 +7839,44 @@ class WinHttp {
      */
     static WinHttpWebSocketQueryCloseStatus(hWebSocket, pusStatus, pvReason, dwReasonLength, pdwReasonLengthConsumed) {
         result := DllCall("WINHTTP.dll\WinHttpWebSocketQueryCloseStatus", "ptr", hWebSocket, "ushort*", pusStatus, "ptr", pvReason, "uint", dwReasonLength, "uint*", pdwReasonLengthConsumed, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} hRequest 
+     * @param {Pointer} dwContext 
+     * @returns {Pointer<Void>} 
+     */
+    static WinHttpProtocolCompleteUpgrade(hRequest, dwContext) {
+        result := DllCall("WINHTTP.dll\WinHttpProtocolCompleteUpgrade", "ptr", hRequest, "ptr", dwContext)
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} ProtocolHandle 
+     * @param {Integer} Flags 
+     * @param {Pointer<Void>} pvBuffer 
+     * @param {Integer} dwBufferLength 
+     * @returns {Integer} 
+     */
+    static WinHttpProtocolSend(ProtocolHandle, Flags, pvBuffer, dwBufferLength) {
+        result := DllCall("WINHTTP.dll\WinHttpProtocolSend", "ptr", ProtocolHandle, "uint", Flags, "ptr", pvBuffer, "uint", dwBufferLength, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} ProtocolHandle 
+     * @param {Integer} Flags 
+     * @param {Pointer} pvBuffer 
+     * @param {Integer} dwBufferLength 
+     * @param {Pointer<UInt32>} pdwBytesRead 
+     * @returns {Integer} 
+     */
+    static WinHttpProtocolReceive(ProtocolHandle, Flags, pvBuffer, dwBufferLength, pdwBytesRead) {
+        result := DllCall("WINHTTP.dll\WinHttpProtocolReceive", "ptr", ProtocolHandle, "uint", Flags, "ptr", pvBuffer, "uint", dwBufferLength, "uint*", pdwBytesRead, "uint")
         return result
     }
 

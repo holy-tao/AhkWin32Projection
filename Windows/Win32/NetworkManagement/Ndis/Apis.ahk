@@ -4946,6 +4946,11 @@ class Ndis {
     /**
      * @type {Integer (UInt32)}
      */
+    static NDIS_OFFLOAD_PARAMETERS_REVISION_6 => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NDIS_OFFLOAD_PARAMETERS_SKIP_REGISTRY_UPDATE => 1
 
     /**
@@ -5102,6 +5107,11 @@ class Ndis {
      * @type {Integer (UInt32)}
      */
     static NDIS_OFFLOAD_REVISION_7 => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NDIS_OFFLOAD_REVISION_8 => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -5296,6 +5306,16 @@ class Ndis {
     /**
      * @type {Integer (UInt32)}
      */
+    static NDIS_WLAN_WAKE_ON_INCOMING_ACTION_FRAME_SUPPORTED => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NDIS_WLAN_WAKE_ON_CLIENT_DRIVER_DIAGNOSTIC_SUPPORTED => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NDIS_WWAN_WAKE_ON_REGISTER_STATE_SUPPORTED => 1
 
     /**
@@ -5412,6 +5432,16 @@ class Ndis {
      * @type {Integer (UInt32)}
      */
     static NDIS_WLAN_WAKE_ON_4WAY_HANDSHAKE_REQUEST_ENABLED => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NDIS_WLAN_WAKE_ON_INCOMING_ACTION_FRAME_ENABLED => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NDIS_WLAN_WAKE_ON_CLIENT_DRIVER_DIAGNOSTIC_ENABLED => 32
 
     /**
      * @type {Integer (UInt32)}
@@ -7991,6 +8021,11 @@ class Ndis {
     /**
      * @type {Integer (UInt32)}
      */
+    static OID_QUIC_CONNECTION_ENCRYPTION => 4227924501
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NdisHashFunctionToeplitz => 1
 
     /**
@@ -8137,6 +8172,16 @@ class Ndis {
      * @type {Integer (UInt32)}
      */
     static NDIS_OBJECT_TYPE_OID_REQUEST => 150
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NDIS_SUPPORT_NDIS689 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NDIS_SUPPORT_NDIS688 => 1
 
     /**
      * @type {Integer (UInt32)}

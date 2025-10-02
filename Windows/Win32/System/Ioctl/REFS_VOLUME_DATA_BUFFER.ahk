@@ -151,12 +151,28 @@ class REFS_VOLUME_DATA_BUFFER extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    DriverMajorVersion {
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DriverMinorVersion {
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
+    }
+
+    /**
      * @type {Array<Int64>}
      */
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 88, 8, Primitive, "int64")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 96, 7, Primitive, "int64")
             return this.__ReservedProxyArray
         }
     }

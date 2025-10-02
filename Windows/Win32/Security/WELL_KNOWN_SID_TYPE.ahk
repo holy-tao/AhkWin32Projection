@@ -759,4 +759,14 @@ class WELL_KNOWN_SID_TYPE{
      * @type {Integer (Int32)}
      */
     static WinBuiltinDeviceOwnersSid => 119
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WinBuiltinUserModeHardwareOperatorsSid => 120
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WinBuiltinOpenSSHUsersSid => 121
 }

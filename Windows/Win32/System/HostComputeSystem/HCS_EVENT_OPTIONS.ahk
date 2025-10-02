@@ -22,4 +22,9 @@ class HCS_EVENT_OPTIONS{
      * @type {Integer (Int32)}
      */
     static HcsEventOptionEnableVmLifecycle => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsEventOptionEnableLiveMigrationEvents => 4
 }

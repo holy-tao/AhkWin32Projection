@@ -581,6 +581,11 @@ class Usb {
     /**
      * @type {Integer (UInt32)}
      */
+    static USB_GET_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION => 289
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static USB_RESERVED_USER_BASE => 1024
 
     /**
@@ -2159,6 +2164,36 @@ class Usb {
     static URB_OPEN_STATIC_STREAMS_VERSION_100 => 256
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static USB4_MAX_DEPTH => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static USB4_CONFIGURATION_REGISTERS_DW_LENGTH => 60
+
+    /**
+     * @type {String}
+     */
+    static USB4_HRD_DEBUG_INTERFACE => "{981fca05-60d3-4bb3-898e-497c580c4fb3}"
+
+    /**
+     * @type {String}
+     */
+    static USB4_HRD_DEBUG_INTERFACE_REFERENCE_STRING => "\DEBUGINTERFACE"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static USB4_HRD_DEBUG_FUNCTION_READ_CONFIGURATION_SPACE => 1131
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE => 6295980
+
+    /**
      * @type {String}
      */
     static KREGUSBFNENUMPATH => "\Registry\Machine\SYSTEM\CurrentControlSet\Control\USBFN\"
@@ -2542,6 +2577,11 @@ class Usb {
      * @type {Integer (UInt32)}
      */
     static IOCTL_USB_GET_DEVICE_CHARACTERISTICS => 2229376
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_USB_GET_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION => 2229380
 
     /**
      * @type {Integer (UInt32)}

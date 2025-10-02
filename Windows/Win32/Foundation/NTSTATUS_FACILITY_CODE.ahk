@@ -284,5 +284,20 @@ class NTSTATUS_FACILITY_CODE{
     /**
      * @type {Integer (UInt32)}
      */
-    static FACILITY_MAXIMUM_VALUE => 237
+    static FACILITY_UNIONFS => 237
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FACILITY_PLATFORM_RUNTIME_MECHANISM => 238
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FACILITY_WIN_ACCEL => 239
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FACILITY_MAXIMUM_VALUE => 240
 }

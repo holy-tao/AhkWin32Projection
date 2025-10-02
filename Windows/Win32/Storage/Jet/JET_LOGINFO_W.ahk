@@ -37,11 +37,14 @@ class JET_LOGINFO_W extends Win32Struct
     }
 
     /**
-     * @type {String}
+     * @type {Array<UInt16>}
      */
-    szBaseName {
-        get => StrGet(this.ptr + 12, 3, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 3, "UTF-16")
+    szBaseName{
+        get {
+            if(!this.HasProp("__szBaseNameProxyArray"))
+                this.__szBaseNameProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "ushort")
+            return this.__szBaseNameProxyArray
+        }
     }
 
     /**

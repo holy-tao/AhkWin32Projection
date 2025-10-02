@@ -89,20 +89,15 @@ class RTL_SYSTEM_GLOBAL_DATA_ID{
     /**
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdQpcShift => 16
+    static GlobalDataIdQpcBypassEnabled => 16
 
     /**
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdQpcBypassEnabled => 17
+    static GlobalDataIdQpcData => 17
 
     /**
      * @type {Integer (Int32)}
      */
-    static GlobalDataIdQpcData => 18
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GlobalDataIdQpcBias => 19
+    static GlobalDataIdQpcBias => 18
 }

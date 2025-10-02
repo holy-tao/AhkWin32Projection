@@ -26,4 +26,9 @@ class D3D12_RAYTRACING_TIER{
      * @type {Integer (Int32)}
      */
     static D3D12_RAYTRACING_TIER_1_1 => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_RAYTRACING_TIER_1_2 => 12
 }

@@ -180,6 +180,11 @@ class POWER_DATA_ACCESSOR{
     static ACCESS_OVERLAY_SCHEME => 26
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static ACCESS_POWER_MODE => 26
+
+    /**
      * 
      * @type {Integer (Int32)}
      */

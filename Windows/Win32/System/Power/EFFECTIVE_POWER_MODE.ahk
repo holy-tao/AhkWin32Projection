@@ -15,6 +15,11 @@ class EFFECTIVE_POWER_MODE{
     static EffectivePowerModeBatterySaver => 0
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static EffectivePowerModeEnergySaverHighSavings => 0
+
+    /**
      * The system is in the better battery effective power mode. 
  * 
  * <div class="alert"><b>Note</b>  For systems using the legacy high performance overlay, this effective power mode will never be used.</div>
@@ -22,6 +27,11 @@ class EFFECTIVE_POWER_MODE{
      * @type {Integer (Int32)}
      */
     static EffectivePowerModeBetterBattery => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static EffectivePowerModeEnergySaverStandard => 1
 
     /**
      * The system is in the balanced effective power mode.

@@ -391,6 +391,16 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static SECBUFFER_APP_SESSION_STATE => 31
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SECBUFFER_SESSION_TICKET => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SECBUFFER_ATTRMASK => 4026531840
 
     /**
@@ -492,6 +502,11 @@ class Identity {
      * @type {Integer (UInt32)}
      */
     static SECPKG_CRED_PROCESS_POLICY_ONLY => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SECPKG_CRED_KERB_ANCHOR_DS_VERSION => 64
 
     /**
      * @type {Integer (UInt32)}
@@ -644,6 +659,16 @@ class Identity {
     static ISC_RET_NO_POST_HANDSHAKE_AUTH => 17179869184
 
     /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_RET_REUSE_SESSION_TICKETS => 34359738368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_RET_EXPLICIT_SESSION => 68719476736
+
+    /**
      * @type {Integer (UInt32)}
      */
     static ASC_RET_DELEGATE => 1
@@ -769,6 +794,16 @@ class Identity {
     static ASC_RET_MESSAGES => 4294967296
 
     /**
+     * @type {Integer (UInt64)}
+     */
+    static ASC_RET_REUSE_SESSION_TICKETS => 34359738368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ASC_RET_EXPLICIT_SESSION => 68719476736
+
+    /**
      * @type {Integer (UInt32)}
      */
     static SECPKG_CRED_ATTR_NAMES => 1
@@ -782,6 +817,11 @@ class Identity {
      * @type {Integer (UInt32)}
      */
     static SECPKG_CRED_ATTR_KDC_PROXY_SETTINGS => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SECPKG_CRED_ATTR_KDC_NETWORK_SETTINGS => 3
 
     /**
      * @type {Integer (UInt32)}
@@ -801,7 +841,32 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static KDC_NETWORK_SETTINGS_V2 => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static KDC_PROXY_SETTINGS_FLAGS_FORCEPROXY => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KDC_NETWORK_SETTINGS_FLAGS_FORCEPROXY => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KDC_NETWORK_SETTINGS_FLAGS_CONFIGURE_PROXY => 2147483648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KDC_NETWORK_SETTINGS_FLAGS_CONFIGURE_DISCOVERY => 1073741824
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KDC_NETWORK_DISCOVERY_FLAGS_DS13_REQUIRED => 2147483648
 
     /**
      * @type {Integer (UInt32)}
@@ -1939,6 +2004,31 @@ class Identity {
     static MAX_USER_RECORDS => 1000
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static versionbyte => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static versionbyte_length => 1
+
+    /**
+     * @type {String}
+     */
+    static LSAD_AES_256_ALG => "AEAD-AES-256-CBC-HMAC-SHA512"
+
+    /**
+     * @type {String}
+     */
+    static LSAD_AES256_ENC_KEY_STRING => "Microsoft LSAD encryption key AEAD-AES-256-CBC-HMAC-SHA512 16"
+
+    /**
+     * @type {String}
+     */
+    static LSAD_AES256_MAC_KEY_STRING => "Microsoft LSAD MAC key AEAD-AES-256-CBC-HMAC-SHA512 16"
+
+    /**
      * @type {String}
      */
     static Audit_System_SecurityStateChange => "{0cce9210-69ae-11d9-bed3-505054503030}"
@@ -2614,6 +2704,16 @@ class Identity {
     static KERB_ETYPE_AES256_CTS_HMAC_SHA1_96 => 18
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static KERB_ETYPE_AES128_CTS_HMAC_SHA256 => 19
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KERB_ETYPE_AES256_CTS_HMAC_SHA384 => 20
+
+    /**
      * @type {Integer (Int32)}
      */
     static KERB_ETYPE_RC4_PLAIN2 => -129
@@ -3207,6 +3307,11 @@ class Identity {
      * @type {Integer (UInt32)}
      */
     static KERB_REFRESH_SCCRED_GETTGT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KERB_REQUEST_CRED_LOCAL_ACCOUNT => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -4057,6 +4162,16 @@ class Identity {
      * @type {Integer (UInt32)}
      */
     static SCH_CREDENTIALS_VERSION => 5
+
+    /**
+     * @type {String}
+     */
+    static SCHANNEL_RSA_PSS_PADDING_ALGORITHM => "SCH_RSA_PSS_PAD"
+
+    /**
+     * @type {String}
+     */
+    static SCHANNEL_RSA_PKCS_PADDING_ALGORITHM => "SCH_RSA_PKCS_PAD"
 
     /**
      * @type {Integer (UInt32)}
@@ -4911,6 +5026,11 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static USER_SHADOW_ACCOUNT => 4194304
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SAM_DAYS_PER_WEEK => 7
 
     /**
@@ -4927,6 +5047,21 @@ class Identity {
      * @type {Integer (UInt32)}
      */
     static CYPHER_BLOCK_LENGTH => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NETLOGON_TARGET_INFO_TYPE_NTLM => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NETLOGON_TARGET_INFO_TYPE_KERBEROS => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MSV1_0_KERBEROS_LOGON => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -6312,6 +6447,36 @@ class Identity {
      * @type {Integer (Int32)}
      */
     static SL_E_VL_AD_SCHEMA_VERSION_NOT_SUPPORTED => -1073418109
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SL_E_SLP_MSOA_BAD_FORMAT => -1073418096
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SL_E_SLP_MSOA_BAD_DATA_HEADER => -1073418095
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SL_E_SLP_MSOA_INVALID_DATA_LENGTH => -1073418094
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SL_E_SLP_MSOA_INVALID_PRODUCT_KEY => -1073418093
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SL_E_INCOMPLETE_OR_OLD_DISM_BINARIES => -1073418092
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SL_E_SLP_MSOA_PRODUCT_KEY_MISMATCH => -1073418091
 
     /**
      * @type {Integer (Int32)}
@@ -13566,6 +13731,47 @@ class Identity {
             throw OSError(result)
 
         return result
+    }
+
+    /**
+     * 
+     * @param {Pointer} lpIpAddress 
+     * @param {Integer} cchIpAddress 
+     * @param {Pointer<Int32>} FreeCallContext 
+     * @returns {HRESULT} 
+     */
+    static SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress, FreeCallContext) {
+        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, "int*", FreeCallContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer} lpIpAddress 
+     * @param {Integer} cchIpAddress 
+     * @param {Pointer<Char>} TargetName 
+     * @param {Pointer<Int32>} FreeCallContext 
+     * @returns {HRESULT} 
+     */
+    static SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName, FreeCallContext) {
+        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+
+        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", FreeCallContext, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static SecFreeCallContext() {
+        DllCall("SspiCli.dll\SecFreeCallContext")
     }
 
     /**

@@ -27,4 +27,49 @@ class DXCoreAdapterState{
      * @type {Integer (UInt32)}
      */
     static AdapterMemoryBudget => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterMemoryUsageBytes => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterMemoryUsageByProcessBytes => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterEngineRunningTimeMicroseconds => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterEngineRunningTimeByProcessMicroseconds => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterTemperatureCelsius => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterInUseProcessCount => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterInUseProcessSet => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterEngineFrequencyHertz => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterMemoryFrequencyHertz => 10
 }

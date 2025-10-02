@@ -556,16 +556,6 @@ class FileSystem {
     /**
      * @type {String}
      */
-    static PARTITION_LEGACY_BL_GUID => "{424ca0e2-7cb2-4fb9-8143-c52a99398bc6}"
-
-    /**
-     * @type {String}
-     */
-    static PARTITION_LEGACY_BL_GUID_BACKUP => "{424c3e6c-d79f-49cb-935d-36d71467a288}"
-
-    /**
-     * @type {String}
-     */
     static PARTITION_MAIN_OS_GUID => "{57434f53-8f45-405e-8a23-186d8a4330d3}"
 
     /**
@@ -26533,6 +26523,82 @@ class FileSystem {
     }
 
     /**
+     * 
+     * @param {Pointer<Void>} ioRing 
+     * @param {Pointer} fileRef 
+     * @param {Integer} segmentCount 
+     * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
+     * @param {Integer} numberOfBytesToRead 
+     * @param {Integer} fileOffset 
+     * @param {Pointer} userData 
+     * @param {Integer} sqeFlags 
+     * @returns {HRESULT} 
+     */
+    static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+        result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} ioRing 
+     * @param {Pointer} fileRef 
+     * @param {Integer} segmentCount 
+     * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
+     * @param {Integer} numberOfBytesToWrite 
+     * @param {Integer} fileOffset 
+     * @param {Integer} writeFlags 
+     * @param {Pointer} userData 
+     * @param {Integer} sqeFlags 
+     * @returns {HRESULT} 
+     */
+    static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+        result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} virtualPath 
+     * @param {Pointer<Char>} backingPath 
+     * @param {Integer} createBindLinkFlags 
+     * @param {Integer} exceptionCount 
+     * @param {Pointer<Char>} exceptionPaths 
+     * @returns {HRESULT} 
+     */
+    static CreateBindLink(virtualPath, backingPath, createBindLinkFlags, exceptionCount, exceptionPaths) {
+        virtualPath := virtualPath is String? StrPtr(virtualPath) : virtualPath
+        backingPath := backingPath is String? StrPtr(backingPath) : backingPath
+
+        result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, "int", createBindLinkFlags, "uint", exceptionCount, "ptr", exceptionPaths, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} virtualPath 
+     * @returns {HRESULT} 
+     */
+    static RemoveBindLink(virtualPath) {
+        virtualPath := virtualPath is String? StrPtr(virtualPath) : virtualPath
+
+        result := DllCall("BINDFLTAPI.dll\RemoveBindLink", "ptr", virtualPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Enables or disables file system redirection for the calling thread.
      * @remarks
      * This function is useful for 32-bit applications that want to gain access to the native system32 directory. By
@@ -42927,6 +42993,21 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} FileName 
+     * @param {Integer} FileInformationClass 
+     * @param {Pointer} FileInfoBuffer 
+     * @param {Integer} FileInfoBufferSize 
+     * @returns {Integer} 
+     */
+    static GetFileInformationByName(FileName, FileInformationClass, FileInfoBuffer, FileInfoBufferSize) {
+        FileName := FileName is String? StrPtr(FileName) : FileName
+
+        result := DllCall("KERNEL32.dll\GetFileInformationByName", "ptr", FileName, "int", FileInformationClass, "ptr", FileInfoBuffer, "uint", FileInfoBufferSize, "int")
         return result
     }
 

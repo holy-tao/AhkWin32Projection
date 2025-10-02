@@ -136,951 +136,6 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
-    static class_NULL => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_SESSION => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_SESSION_GROUP => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_RSVP_HOP => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_INTEGRITY => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_TIME_VALUES => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_ERROR_SPEC => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_SCOPE => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_STYLE => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_FLOWSPEC => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_IS_FLOWSPEC => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_FILTER_SPEC => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_SENDER_TEMPLATE => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_SENDER_TSPEC => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_ADSPEC => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_POLICY_DATA => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_CONFIRM => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static class_MAX => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_SESSION_ipv4 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_SESSION_ipv4GPI => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static SESSFLG_E_Police => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_RSVP_HOP_ipv4 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static Opt_Share_mask => 24
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static Opt_Distinct => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static Opt_Shared => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static Opt_SndSel_mask => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static Opt_Wildcard => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static Opt_Explicit => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_STYLE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_FILTER_SPEC_ipv4 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_FILTER_SPEC_ipv4GPI => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_SENDER_TEMPLATE_ipv4 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_SENDER_TEMPLATE_ipv4GPI => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_SCOPE_list_ipv4 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_ERROR_SPEC_ipv4 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERROR_SPECF_InPlace => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERROR_SPECF_NotGuilty => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERR_FORWARD_OK => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERR_Usage_globl => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERR_Usage_local => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERR_Usage_serv => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERR_global_mask => 4095
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_POLICY_DATA => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GENERAL_INFO => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static GUARANTEED_SERV => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PREDICTIVE_SERV => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CONTROLLED_DELAY_SERV => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static CONTROLLED_LOAD_SERV => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static QUALITATIVE_SERV => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INTSERV_VERS_MASK => 240
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INTSERV_VERSION0 => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ISSH_BREAK_BIT => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ISPH_FLG_INV => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_SENDER_TSPEC => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_FLOWSPEC_Intserv0 => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ctype_ADSPEC_INTSERV => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_PATH => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_RESV => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_PATH_ERR => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_RESV_ERR => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_PATH_TEAR => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_RESV_TEAR => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_NONE => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Nonev => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_ADMISSION => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Other => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_DelayBnd => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Bandwidth => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_MTU => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Flow_Rate => 32769
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Bucket_szie => 32770
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Peak_Rate => 32771
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Min_Policied_size => 32772
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_POLICY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_NO_MORE_INFO => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_UNSUPPORTED_CREDENTIAL_TYPE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_INSUFFICIENT_PRIVILEGES => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_EXPIRED_CREDENTIALS => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_IDENTITY_CHANGED => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_UNKNOWN => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_DEF_FLOW_COUNT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_GRP_FLOW_COUNT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_USER_FLOW_COUNT => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_UNAUTH_USER_FLOW_COUNT => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_DEF_FLOW_COUNT => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_GRP_FLOW_COUNT => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_USER_FLOW_COUNT => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_UNAUTH_USER_FLOW_COUNT => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_DEF_FLOW_DURATION => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_GRP_FLOW_DURATION => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_USER_FLOW_DURATION => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_UNAUTH_USER_FLOW_DURATION => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_DEF_FLOW_DURATION => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_GRP_FLOW_DURATION => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_USER_FLOW_DURATION => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_UNAUTH_USER_FLOW_DURATION => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_DEF_FLOW_RATE => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_GRP_FLOW_RATE => 18
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_USER_FLOW_RATE => 19
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_UNAUTH_USER_FLOW_RATE => 20
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_DEF_FLOW_RATE => 21
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_GRP_FLOW_RATE => 22
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_USER_FLOW_RATE => 23
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_UNAUTH_USER_FLOW_RATE => 24
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_DEF_PEAK_RATE => 25
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_GRP_PEAK_RATE => 26
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_USER_PEAK_RATE => 27
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_UNAUTH_USER_PEAK_RATE => 28
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_DEF_PEAK_RATE => 29
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_GRP_PEAK_RATE => 30
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_USER_PEAK_RATE => 31
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_UNAUTH_USER_PEAK_RATE => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_DEF_SUM_FLOW_RATE => 33
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_GRP_SUM_FLOW_RATE => 34
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_USER_SUM_FLOW_RATE => 35
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_UNAUTH_USER_SUM_FLOW_RATE => 36
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_DEF_SUM_FLOW_RATE => 37
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_GRP_SUM_FLOW_RATE => 38
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_USER_SUM_FLOW_RATE => 39
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_UNAUTH_USER_SUM_FLOW_RATE => 40
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_DEF_SUM_PEAK_RATE => 41
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_GRP_SUM_PEAK_RATE => 42
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_USER_SUM_PEAK_RATE => 43
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_GLOBAL_UNAUTH_USER_SUM_PEAK_RATE => 44
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_DEF_SUM_PEAK_RATE => 45
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_GRP_SUM_PEAK_RATE => 46
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_USER_SUM_PEAK_RATE => 47
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_SUBNET_UNAUTH_USER_SUM_PEAK_RATE => 48
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_UNKNOWN_USER => 49
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_NO_PRIVILEGES => 50
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_EXPIRED_USER_TOKEN => 51
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_NO_RESOURCES => 52
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_PRE_EMPTED => 53
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_USER_CHANGED => 54
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_NO_ACCEPTS => 55
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_NO_MEMORY => 56
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static POLICY_ERRV_CRAZY_FLOWSPEC => 57
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_NO_PATH => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_NO_SENDER => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_BAD_STYLE => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_UNKNOWN_STYLE => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_BAD_DSTPORT => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_BAD_SNDPORT => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_AMBIG_FILTER => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_PREEMPTED => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_UNKN_OBJ_CLASS => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_UNKNOWN_CTYPE => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_API_ERROR => 20
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_TC_ERROR => 21
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Conflict_Serv => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_No_Serv => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Crazy_Flowspec => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_Crazy_Tspec => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_TC_SYS_ERROR => 22
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Err_RSVP_SYS_ERROR => 23
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_MEMORY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RSVP_Erv_API => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_PE_USER_IDENTITY => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_PE_APP_IDENTITY => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ERROR_NO_MORE_INFO => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static UNSUPPORTED_CREDENTIAL_TYPE => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INSUFFICIENT_PRIVILEGES => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EXPIRED_CREDENTIAL => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static IDENTITY_CHANGED => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_OK => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INV_LPM_HANDLE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_TIME_OUT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INV_REQ_HANDLE => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static DUP_RESULTS => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static INV_RESULTS => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_PE_ALL_TYPES => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_API_VERSION_1 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static PCM_VERSION_1 => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPV_RESERVED => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPV_MIN_PRIORITY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPV_MAX_PRIORITY => 65280
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPV_DROP_MSG => 65533
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPV_DONT_CARE => 65534
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPV_REJECT => 65535
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FORCE_IMMEDIATE_REFRESH => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_RESULT_READY => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static LPM_RESULT_DEFER => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RCVD_PATH_TEAR => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RCVD_RESV_TEAR => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static ADM_CTRL_FAILED => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static STATE_TIMEOUT => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static FLOW_DURATION => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RESOURCES_ALLOCATED => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RESOURCES_MODIFIED => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static CURRENT_TCI_VERSION => 2
 
     /**
@@ -1926,6 +981,556 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEV_AMD_NO_ACTION => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_BASE_2 => 33280
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_SPL_TABLE_ROM => 33281
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_BL_STAGE_1 => 33282
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_KEYDB => 33283
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_SPL_TABLE_FW => 33284
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_BL_STAGE_2 => 33285
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_L0_SEC_POL => 33286
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMFW0 => 33287
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MP2_CONFIG => 33288
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MP2_FW => 33289
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_1 => 33290
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_2 => 33291
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_3 => 33292
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_4 => 33293
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_5 => 33294
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_6 => 33295
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_7 => 33296
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_8 => 33297
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_9 => 33298
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_10 => 33299
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_11 => 33300
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_12 => 33301
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_13 => 33302
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_14 => 33303
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_15 => 33304
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_16 => 33305
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_17 => 33306
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_18 => 33307
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_19 => 33308
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_20 => 33309
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_21 => 33310
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_22 => 33311
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_23 => 33312
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_24 => 33313
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_25 => 33314
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_26 => 33315
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_27 => 33316
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_28 => 33317
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_29 => 33318
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_30 => 33319
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_31 => 33320
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_32 => 33321
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_33 => 33322
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_34 => 33323
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_35 => 33324
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_36 => 33325
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_37 => 33326
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_38 => 33327
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_39 => 33328
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_40 => 33329
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_41 => 33330
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_42 => 33331
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_43 => 33332
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_44 => 33333
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_45 => 33334
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_46 => 33335
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_47 => 33336
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_48 => 33337
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MID_SMU => 33338
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PM_FW1 => 33339
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_1 => 33340
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_2 => 33341
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_3 => 33342
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_4 => 33343
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_5 => 33344
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_6 => 33345
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_7 => 33346
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_8 => 33347
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_9 => 33348
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_VBL_10 => 33349
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_L1_SEC_POL => 33350
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_IP_DISCOVERY => 33351
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_SYS_DRV => 33352
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_TOS => 33353
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_TOS_KEYDB => 33354
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_ABL_TOC => 33355
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU1_DATA => 33356
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU2_DATA => 33357
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU1 => 33358
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU2 => 33359
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MPIO_FW => 33360
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MP5 => 33361
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MPCCX => 33362
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_GMI3 => 33363
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_TPMLITE => 33364
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_SPIROM_CONFIG => 33365
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB_TOC => 33366
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB0 => 33367
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB1 => 33368
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB2 => 33369
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB3 => 33370
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB4 => 33371
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB5 => 33372
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB6 => 33373
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB7 => 33374
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB8 => 33375
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB9 => 33376
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB10 => 33377
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB11 => 33378
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB12 => 33379
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB13 => 33380
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB14 => 33381
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_DF_RIB15 => 33382
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_SECURE_DEBUG_UNLOCK => 33383
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_BL_END => 33535
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_FTPM_DRV => 33536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRTM_DRV => 33537
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_AGESA_DRV => 33538
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_END => 33791
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEVENTTYPE_NONMEASURED => 2147483648
 
     /**
@@ -2002,6 +1607,11 @@ class QoS {
      * @type {Integer (UInt32)}
      */
     static SIPAERROR_INTERNALFAILURE => 196611
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAERROR_HYPERVISORFAILURE => 196613
 
     /**
      * @type {Integer (UInt32)}
@@ -2226,6 +1836,41 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEVENT_SI_POLICY_SIGNER => 327729
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_SI_POLICY_UPDATE_SIGNER => 327730
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_VOLUME_CHECKPOINT_RECORD_CHECKSUM => 327731
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_ROLLBACK_PROTECTION_FROZEN_VOLUME_CHECKSUM => 327732
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_ROLLBACK_PROTECTION_USER_PAYLOAD_HASH => 327733
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_ROLLBACK_PROTECTION_VERIFICATION_SUCCEEDED => 327734
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_ROLLBACK_PROTECTION_VOLUME_FIRST_EVER_MOUNT => 327735
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEVENT_NOAUTHORITY => 393217
 
     /**
@@ -2291,7 +1936,7 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
-    static SIPAEVENT_MODULE_HSP => 458764
+    static SIPAEVENT_MODULE_PLUTON => 458764
 
     /**
      * @type {Integer (UInt32)}
@@ -2601,52 +2246,17 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
-    static MAX_HSP_UPGRADE_FILENAME_LENGTH => 64
+    static MAX_PLUTON_UPGRADE_FILENAME_LENGTH => 64
 
     /**
      * @type {Integer (UInt32)}
      */
-    static WBCL_MAX_HSP_UPGRADE_HASH_LEN => 64
+    static WBCL_MAX_PLUTON_UPGRADE_HASH_LEN => 64
 
     /**
      * @type {Integer (UInt32)}
      */
     static WBCL_HASH_LEN_SHA1 => 20
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static IS_GUAR_RSPEC => 130
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GUAR_ADSPARM_C => 131
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GUAR_ADSPARM_D => 132
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GUAR_ADSPARM_Ctot => 133
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GUAR_ADSPARM_Dtot => 134
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GUAR_ADSPARM_Csum => 135
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static GUAR_ADSPARM_Dsum => 136
 ;@endregion Constants
 
 ;@region Methods

@@ -90,4 +90,14 @@ class IMAGE_DLL_CHARACTERISTICS{
      * @type {Integer (UInt16)}
      */
     static IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_2 => 32
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static IMAGE_DLLCHARACTERISTICS_EX_FORWARD_CFI_COMPAT => 64
+
+    /**
+     * @type {Integer (UInt16)}
+     */
+    static IMAGE_DLLCHARACTERISTICS_EX_HOTPATCH_COMPATIBLE => 128
 }

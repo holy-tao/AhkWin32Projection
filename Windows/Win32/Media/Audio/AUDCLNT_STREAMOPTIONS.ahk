@@ -38,4 +38,9 @@ class AUDCLNT_STREAMOPTIONS{
      * @type {Integer (Int32)}
      */
     static AUDCLNT_STREAMOPTIONS_AMBISONICS => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static AUDCLNT_STREAMOPTIONS_POST_VOLUME_LOOPBACK => 8
 }

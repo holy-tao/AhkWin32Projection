@@ -1626,6 +1626,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_EMULATION_FLOAT_EXCEPTION => 1073741882
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static DBG_REPLY_LATER => 1073807361
 
     /**
@@ -1922,6 +1927,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_RECOVERABLE_BUGCHECK => -2147483596
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PTE_CHANGE_NOT_COMPLETED => -2147483595
 
     /**
      * @type {Integer (Int32)}
@@ -6511,12 +6521,27 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static STATUS_VOLUME_UPGRADE_NOT_NEEDED => -1073740583
+    static STATUS_PDE_ENCRYPTION_UNAVAILABLE_FAILURE => -1073740586
 
     /**
      * @type {Integer (Int32)}
      */
-    static STATUS_VOLUME_UPGRADE_PENDING => -1073740582
+    static STATUS_PDE_DECRYPTION_UNAVAILABLE_FAILURE => -1073740585
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PDE_DECRYPTION_UNAVAILABLE => -1073740584
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VOLUME_UPGRADE_NOT_NEEDED => 1073743065
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VOLUME_UPGRADE_PENDING => 1073743066
 
     /**
      * @type {Integer (Int32)}
@@ -6546,7 +6571,22 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static STATUS_INVALID_CONFIG_VALUE => -1073740576
+    static STATUS_MEMORY_DECOMPRESSION_FAILURE => -1073740576
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_INVALID_CONFIG_VALUE => -1073740575
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_MEMORY_DECOMPRESSION_HW_ERROR => -1073740574
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VOLUME_ROLLBACK_DETECTED => -1073740573
 
     /**
      * @type {Integer (Int32)}
@@ -7126,6 +7166,26 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_CAR_LKD_IN_PROGRESS => -1073738736
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_DIF_ZERO_SIZE_INFORMATION => -1073738637
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_DIF_DRIVER_PLUGIN_MISMATCH => -1073738636
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_DIF_DRIVER_THUNKS_NOT_ALLOWED => -1073738635
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_DIF_IOCALLBACK_NOT_REPLACED => -1073738634
 
     /**
@@ -7322,6 +7382,21 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_LAPS_ENCRYPTION_REQUIRES_2016_DFL => -1073700722
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_LAPS_PROCESS_TERMINATED => -2147442545
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_DS_JET_RECORD_TOO_BIG => -1073700720
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_DS_REPLICA_PAGE_SIZE_MISMATCH => -1073700719
 
     /**
      * @type {Integer (Int32)}
@@ -7712,6 +7787,66 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_FILE_SNAP_INVALID_PARAMETER => -1073679099
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_CANNOT_CROSS_UNION => -1058209791
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_CANNOT_EXIT_UNION => -1058209790
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_CANNOT_PRESERVE_LINK => -1058209789
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_INVALID_TOMBSTONE_STATE => -1058209788
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_LAYERS_PRESENT => -1058209787
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_NESTED_LAYER => -1058209786
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_UNION_DUPLICATE_ID => -1058209785
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_INACTIVE_UNION => -1058209784
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_TOO_MANY_LAYERS => -1058209783
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_TOO_LATE => -1058209782
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_NESTED_UNION => -1058209781
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_NESTED_UNION_NOT_ALLOWED => -1058209780
 
     /**
      * @type {Integer (Int32)}
@@ -9631,6 +9766,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_ENLISTMENT_NOT_INITIALIZED => -1072103326
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_LOG_SECTOR_INVALID => -1072037887
 
     /**
@@ -10037,6 +10177,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_GRAPHICS_MPO_ALLOCATION_UNPINNED => -1071775720
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_GRAPHICS_SETDISPLAYMODE_REQUIRED => -1071775719
 
     /**
      * @type {Integer (Int32)}
@@ -10906,6 +11051,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_GRAPHICS_UNKNOWN_BIOS_FRAME_BUFFER_NOT_FOUND => -1071774208
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_GRAPHICS_UEFI_FRAME_BUFFER_NOT_FOUND => -1071774207
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_FVE_LOCKED_VOLUME => -1071579136
 
     /**
@@ -11222,6 +11377,71 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_FVE_METADATA_FULL => -1071579068
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_SUSPEND_PROTECTION_NOT_ALLOWED => -1071579067
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_DATUM_PARTIALLY_INVALID => -1071579066
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_DATASET_TPM_DATUMS_INCONSISTENT => -1071579065
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_SECURE_BOOT_BINDINGS_OUT_OF_SYNC => -1071579064
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_SECURE_BOOT_BINDING_DATA_OUT_OF_SYNC => -1071579063
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_ORPHANED_TPM_BINDING_DATUM => -1071579062
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_BAD_TPM_DATUM_ASSOCIATION => -1071579061
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_FINAL_TPM_PCR_VALUES_MATCH => -1071579060
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_MATCHING_PCRS_TPM_FAILURE => -1071579059
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_GENERAL_TPM_FAILURE => -1071579058
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_TPM_NONEXISTENT => -1071579057
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_NO_PCR_BOOT_LOCK_BOUNDARY => -1071579056
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_PCR_BOOT_LOCK_BOUNDARY => -1071579055
 
     /**
      * @type {Integer (Int32)}
@@ -11812,6 +12032,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_NDIS_DOT11_AP_BAND_NOT_ALLOWED => -1071439864
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_NDIS_DOT11_AP_RADIO_RESTRICTION => -1071439863
 
     /**
      * @type {Integer (Int32)}
@@ -12961,6 +13186,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_DRTM_ENVIRONMENT_UNSAFE => -1071034368
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_DRTM_NO_DIRECT_AUTH_FOR_CURRENT_MLE => -1071034367
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_HV_INVALID_HYPERCALL_CODE => -1070268414
 
     /**
@@ -13242,6 +13477,16 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY_MIRRORING => -1070268283
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_HV_VTL_ALREADY_ENABLED => -1070268282
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_HV_SPDM_REQUEST => -1070268280
 
     /**
      * @type {Integer (Int32)}
@@ -14616,6 +14861,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_SYSTEM_INTEGRITY_WHQL_NOT_SATISFIED => -1058471922
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_NO_APPLICABLE_APP_LICENSES_FOUND => -1058406399
 
     /**
@@ -14687,6 +14937,21 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_HDAUDIO_NULL_LINKED_LIST_ENTRY => -1069285371
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SOUNDWIRE_COMMAND_ABORTED => -1069285370
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SOUNDWIRE_COMMAND_IGNORED => -1069285369
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SOUNDWIRE_COMMAND_FAILED => -1069285368
 
     /**
      * @type {Integer (Int32)}
@@ -15006,6 +15271,31 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_REMOTE_MAILSLOTS_DEPRECATED => -1067646971
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SMB_GUEST_LOGON_BLOCKED_SIGNING_REQUIRED => -1067646970
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SMB_GUEST_ENCRYPTION_NOT_SUPPORTED => -1067646969
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SMB_ENCRYPTION_NOT_SUPPORTED_BY_PEER => -1067646968
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_SMB_TLS_ACCESS_DENIED => -1067646967
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_SECCORE_INVALID_COMMAND => -1058537472
 
     /**
@@ -15126,6 +15416,81 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_QUIC_STREAM_LIMIT_REACHED => -1071382520
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_ALPN_IN_USE => -1071382519
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_UNEXPECTED_MESSAGE => -1071382262
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_BAD_CERTIFICATE => -1071382230
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_UNSUPPORTED_CERTIFICATE => -1071382229
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_CERTIFICATE_REVOKED => -1071382228
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_CERTIFICATE_EXPIRED => -1071382227
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_CERTIFICATE_UNKNOWN => -1071382226
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_ILLEGAL_PARAMETER => -1071382225
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_UNKNOWN_CA => -1071382224
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_ACCESS_DENIED => -1071382223
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_INSUFFICIENT_SECURITY => -1071382201
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_INTERNAL_ERROR => -1071382192
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_USER_CANCELED => -1071382182
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_QUIC_TLS_CERTIFICATE_REQUIRED => -1071382156
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_IORING_REQUIRED_FLAG_NOT_SUPPORTED => -1069154303
 
     /**
@@ -15162,6 +15527,76 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_IORING_COMPLETION_QUEUE_TOO_FULL => -1069154296
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_HANDLER_NOT_FOUND => -1058143744
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_CONCURRENT_OPERATION => -1058143742
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_MODULE_UPDATE_PENDING => -1058143741
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_MODULE_LOCKED => -1058143740
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_INCOMPATIBLE_VERSION => -1058143739
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_MODULE_MISMATCH => -1058143738
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_MODULE_NOT_FOUND => -1058143737
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_MISSING_EXPORT => -1058143736
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_MODULE_LOCKED => -1058143735
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_BAD_SIGNATURE => -1058143734
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_UPDATE_VERSION_MISMATCH => -1058143733
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_MODULE_UNLOCKED => -1058143732
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_PRM_INTERFACE_INACCESSIBLE => -1058143731
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_ACCELERATOR_SUBMISSION_QUEUE_FULL => -1058078719
 
     /**
      * @type {Integer (UInt32)}
@@ -19246,6 +19681,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static NTE_VBS_UNAVAILABLE => -2146893767
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NTE_VBS_CANNOT_DECRYPT_KEY => -2146893766
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static SEC_E_INSUFFICIENT_MEMORY => -2146893056
 
     /**
@@ -19702,6 +20147,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static SEC_E_INSUFFICIENT_BUFFERS => -2146892949
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SEC_I_INVALID_SESSION_STATE => -2146892948
 
     /**
      * @type {Integer (Int32)}
@@ -22771,6 +23221,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static ERROR_GRAPHICS_SETDISPLAYMODE_REQUIRED => -1071243239
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static ERROR_GRAPHICS_NO_VIDEO_MEMORY => -1071243008
 
     /**
@@ -23672,6 +24127,16 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static ERROR_GRAPHICS_SESSION_TYPE_CHANGE_IN_PROGRESS => -1071249944
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_GRAPHICS_UNKNOWN_BIOS_FRAME_BUFFER_NOT_FOUND => -1071241728
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_GRAPHICS_UEFI_FRAME_BUFFER_NOT_FOUND => -1071241727
 
     /**
      * @type {Integer (Int32)}
@@ -25066,6 +25531,31 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static TPMAPI_E_INVALID_TAG => -2144796368
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TPMAPI_E_INVALID_STRUCT_SIZE => -2144796367
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TPMAPI_E_AUTH_CHAIN_ERROR => -2144796366
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TPMAPI_E_COUNTER_CORRUPTED => -2144796365
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TPMAPI_E_INVALID_ALGORITHM => -2144796364
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static TBSIMP_E_BUFFER_TOO_SMALL => -2144796160
 
     /**
@@ -25422,6 +25912,16 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static TPM_E_ZERO_EXHAUST_ENABLED => -2144795392
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DRTM_E_ENVIRONMENT_UNSAFE => -2144795391
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DRTM_E_NO_DIRECT_AUTH_FOR_CURRENT_MLE => -2144795390
 
     /**
      * @type {Integer (Int32)}
@@ -26691,6 +27191,116 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static FVE_E_DISCOVERY_VOLUME_NOT_SUPPORTED => -2144272147
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_EXCEED_LIMIT_RP => -2144272146
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_NO_BACKUP_ACCOUNT => -2144272145
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_SUSPEND_PROTECTION_NOT_ALLOWED => -2144272144
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_CANNOT_PREDICT_PCR7 => -2144272143
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_ENTRY_ALREADY_EXISTS => -2144272142
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_ENTRY_NOT_FOUND => -2144272141
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_DATUM_PARTIALLY_INVALID => -2144272140
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_DATASET_TPM_DATUMS_INCONSISTENT => -2144272139
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_SECURE_BOOT_BINDINGS_OUT_OF_SYNC => -2144272138
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_SECURE_BOOT_BINDING_DATA_OUT_OF_SYNC => -2144272137
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_ORPHANED_TPM_BINDING_DATUM => -2144272136
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_BAD_TPM_DATUM_ASSOCIATION => -2144272135
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_FINAL_TPM_PCR_VALUES_MATCH => -2144272134
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_MATCHING_PCRS_TPM_FAILURE => -2144272133
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_BACKUP_CACHE_NOT_ALLOCATED => -2144272132
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_MSA_BACKUP_CACHE_NOT_ALLOCATED => -2144272131
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_AD_BACKUP_CACHE_NOT_ALLOCATED => -2144272130
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_GENERAL_TPM_FAILURE => -2144272129
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_TPM_NONEXISTENT => -2144272128
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_NO_PCR_BOOT_LOCK_BOUNDARY => -1070530303
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_PCR_BOOT_LOCK_BOUNDARY => -1070530302
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static FWP_E_CALLOUT_NOT_FOUND => -2144206847
 
     /**
@@ -27482,6 +28092,76 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static ERROR_DM_OPERATION_LIMIT_EXCEEDED => -1070135808
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_CLIENT_NAME_REQUIRED => -1070135552
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MODIFY_VTL2_SETTINGS_CONFLICT => -1070135551
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_VTL2_NOT_AVAILABLE => -1070135550
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_IN_PROGRESS => -1070135296
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_INVALID_PROTOCOL_RESPONSE => -1070135295
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_SAVE_FAILURE => -1070135294
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_RESTORE_FAILURE => -1070135293
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_NO_SAVED_STATE => -1070135292
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_INVALID_SAVE_NOTIFICATION_RECEIVED => -1070135291
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_INVALID_RESTORE_REQUEST_RECEIVED => -1070135290
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_INVALID_RESTORE_NOTIFICATION_RECEIVED => -1070135289
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_NO_IGVM_FILE => -1070135288
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_RELOAD_UNSUPPORTED => -1070135287
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static VM_E_MANAGEMENT_VTL_PROTOCOL_ESTABLISHMENT_TIMEOUT => -1070135286
 
     /**
      * @type {Integer (Int32)}
@@ -28817,6 +29497,21 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static E_HDAUDIO_NULL_LINKED_LIST_ENTRY => -2140798971
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static E_SOUNDWIRE_COMMAND_ABORTED => -2140798970
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static E_SOUNDWIRE_COMMAND_IGNORED => -2140798969
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static E_SOUNDWIRE_COMMAND_FAILED => -2140798968
 
     /**
      * @type {Integer (Int32)}
@@ -31331,6 +32026,31 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static ERROR_SMB_GUEST_LOGON_BLOCKED_SIGNING_REQUIRED => -1067646973
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_SMB_GUEST_ENCRYPTION_NOT_SUPPORTED => -1067646972
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_SMB_ENCRYPTION_NOT_SUPPORTED_BY_PEER => -1067646971
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_SMB_CERT_NO_PRIVATE_KEY => -1067646970
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_SMB_TLS_ACCESS_DENIED => -1067646969
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WININET_E_OUT_OF_HANDLES => -2147012895
 
     /**
@@ -32631,6 +33351,81 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static ERROR_QUIC_STREAM_LIMIT_REACHED => -2143223800
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_ALPN_IN_USE => -2143223799
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_UNEXPECTED_MESSAGE => -2143223542
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_BAD_CERTIFICATE => -2143223510
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_UNSUPPORTED_CERTIFICATE => -2143223509
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_CERTIFICATE_REVOKED => -2143223508
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_CERTIFICATE_EXPIRED => -2143223507
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_CERTIFICATE_UNKNOWN => -2143223506
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_ILLEGAL_PARAMETER => -2143223505
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_UNKNOWN_CA => -2143223504
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_ACCESS_DENIED => -2143223503
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_INSUFFICIENT_SECURITY => -2143223481
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_INTERNAL_ERROR => -2143223472
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_USER_CANCELED => -2143223462
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_QUIC_TLS_CERTIFICATE_REQUIRED => -2143223436
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static IORING_E_REQUIRED_FLAG_NOT_SUPPORTED => -2142896127
 
     /**
@@ -32667,6 +33462,136 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static IORING_E_COMPLETION_QUEUE_TOO_FULL => -2142896120
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_CANNOT_CROSS_UNION => -1994063871
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_CANNOT_EXIT_UNION => -1994063870
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_CANNOT_PRESERVE_LINK => -1994063869
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_INVALID_TOMBSTONE_STATE => -1994063868
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_LAYERS_PRESENT => -1994063867
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_NESTED_LAYER => -1994063866
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_UNION_DUPLICATE_ID => -1994063865
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_INACTIVE_UNION => -1994063864
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_TOO_MANY_LAYERS => -1994063863
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_TOO_LATE => -1994063862
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_NESTED_UNION => -1994063861
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNIONFS_E_NESTED_UNION_NOT_ALLOWED => -1994063860
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_HANDLER_NOT_FOUND => -920256000
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_CONCURRENT_OPERATION => -920255998
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_MODULE_UPDATE_PENDING => -920255997
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_MODULE_LOCKED => -920255996
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_INCOMPATIBLE_VERSION => -920255995
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_MODULE_MISMATCH => -920255994
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_MODULE_NOT_FOUND => -920255993
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_MISSING_EXPORT => -920255992
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_MODULE_LOCKED => -920255991
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_BAD_SIGNATURE => -920255990
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_UPDATE_VERSION_MISMATCH => -920255989
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_MODULE_UNLOCKED => -920255988
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_PRM_INTERFACE_INACCESSIBLE => -920255987
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ERROR_ACCELERATOR_SUBMISSION_QUEUE_FULL => -920190976
 
     /**
      * @type {Integer (Int32)}

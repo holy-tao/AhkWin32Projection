@@ -2911,6 +2911,16 @@ class MediaFoundation {
     /**
      * @type {String}
      */
+    static MFSampleExtension_SpatialLayerId => "{b7aabc7b-2396-457a-879e-623bfab6e0ac}"
+
+    /**
+     * @type {String}
+     */
+    static MFSampleExtension_TemporalLayerId => "{b3c1fcd2-b331-4376-b974-ad647769b2b0}"
+
+    /**
+     * @type {String}
+     */
     static MFSampleExtension_PhotoThumbnail => "{74bbc85c-c8bb-42dc-b586-da17ffd35dcc}"
 
     /**
@@ -3716,6 +3726,16 @@ class MediaFoundation {
     /**
      * @type {String}
      */
+    static MFAudioFormat_MPEGH => "{7c13c441-ebf8-4931-b678-800b19242236}"
+
+    /**
+     * @type {String}
+     */
+    static MFAudioFormat_MPEGH_ES => "{19ee97fe-1be0-4255-a876-e99f53a42ae3}"
+
+    /**
+     * @type {String}
+     */
     static MFAudioFormat_Vorbis => "{8d2fd10b-5841-4a6b-8905-588fec1aded9}"
 
     /**
@@ -4132,6 +4152,16 @@ class MediaFoundation {
      * @type {String}
      */
     static MF_MT_SPATIAL_AUDIO_DATA_PRESENT => "{6842f6e7-d43e-4ebb-9c9c-c96f41784863}"
+
+    /**
+     * @type {String}
+     */
+    static MF_MT_SPATIAL_AUDIO_IS_PREVIRTUALIZED => "{4eacab51-ffe5-421a-a2a7-8b7409a1cac4}"
+
+    /**
+     * @type {String}
+     */
+    static MF_MT_MPEGH_AUDIO_PROFILE_LEVEL_INDICATION => "{51267a39-dd0c-4bb9-a7bd-9173ad4b131c}"
 
     /**
      * @type {String}
@@ -4742,6 +4772,11 @@ class MediaFoundation {
      * @type {String}
      */
     static MF_PD_ADAPTIVE_STREAMING => "{ea0d5d97-29f9-488b-ae6b-7d6b4136112b}"
+
+    /**
+     * @type {String}
+     */
+    static MF_SD_SUPPORTS_PROTECTED_CODEC_SWITCH => "{8fb6b117-862e-4b31-8dab-5e0a434caef0}"
 
     /**
      * @type {Integer (UInt32)}
@@ -7319,6 +7354,16 @@ class MediaFoundation {
     static MF_E_MEDIA_EXTENSION_PACKAGE_LICENSE_INVALID => -1072843853
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MF_E_MEDIA_EXTENSION_PACKAGE_BAD_STATUS => -1072843852
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MF_E_CAMERA_PRIVACY_NOT_ALLOWED => -1072842856
+
+    /**
      * @type {Integer (UInt32)}
      */
     static MF_INDEX_SIZE_ERR => 2154823681
@@ -7516,6 +7561,16 @@ class MediaFoundation {
     /**
      * @type {String}
      */
+    static MFT_AUDIO_DECODER_AUDIO_ENDPOINT_FORMFACTOR => "{8d574310-909a-433a-ace7-eee74719f901}"
+
+    /**
+     * @type {String}
+     */
+    static MFT_AUDIO_DECODER_AUDIO_ENDPOINT_IS_DIGITAL_STEREO_ONLY => "{26e5a90d-4ad1-4f8c-b8af-adf14d2178f1}"
+
+    /**
+     * @type {String}
+     */
     static MF_DMFT_FRAME_BUFFER_INFO => "{396ce1c9-67a9-454c-8797-95a45799d804}"
 
     /**
@@ -7602,6 +7657,16 @@ class MediaFoundation {
      * @type {String}
      */
     static MFT_DECODER_QUALITY_MANAGEMENT_RECOVERY_WITHOUT_ARTIFACTS => "{d8980deb-0a48-425f-8623-611db41d3810}"
+
+    /**
+     * @type {String}
+     */
+    static MFT_DECODER_OPERATING_POINT => "{a1230334-55d4-4d97-82a7-26d3e6456725}"
+
+    /**
+     * @type {String}
+     */
+    static MFT_DECODER_AUTOMATIC_SOFTWARE_FALLBACK => "{41f34f53-1bf6-49ed-b95d-02d2a1d7115a}"
 
     /**
      * @type {String}
@@ -7727,6 +7792,16 @@ class MediaFoundation {
      * @type {String}
      */
     static MFT_USING_HARDWARE_DRM => "{34faa77d-d79e-4957-b8ce-362b2684996c}"
+
+    /**
+     * @type {String}
+     */
+    static MF_ACOUSTIC_ECHO_CANCELLATION_CONTROL_SERVICE => "{7f6c3b29-2d12-4f6f-ac05-c1a89b8d5288}"
+
+    /**
+     * @type {String}
+     */
+    static MF_AUDIO_EFFECTS_MANAGER_SERVICE => "{1f541943-d5df-455e-a2e5-7d64d3bbbdb5}"
 
     /**
      * @type {String}
@@ -9421,6 +9496,26 @@ class MediaFoundation {
     /**
      * @type {String}
      */
+    static CLSID_FaceDetectionMFT => "{c1e565e2-f2de-4537-9612-2f30a160eb5c}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_FrameServerClassFactory => "{9a93092c-9cdc-49b8-8349-cbcf3145fe0a}"
+
+    /**
+     * @type {String}
+     */
+    static MF_CAMERASOURCE_PROVIDE_SELECTED_PROFILE_ON_START => "{a9b46058-82f2-4e5c-bf6e-25b4b09f22ed}"
+
+    /**
+     * @type {String}
+     */
+    static MF_DEVSOURCE_ATTRIBUTE_FRAMESERVER_SHARE_MODE => "{44d1a9bc-2999-4238-ae43-0730ceb2ab1b}"
+
+    /**
+     * @type {String}
+     */
     static MF_PD_ASF_FILEPROPERTIES_FILE_ID => "{3de649b4-d76d-4e66-9ec9-78120fb4c7e3}"
 
     /**
@@ -9931,6 +10026,11 @@ class MediaFoundation {
     /**
      * @type {String}
      */
+    static MF_MT_D3D12_RESOURCE_DIMENSION => "{5f772624-16ca-4b89-9651-5ddf769f8ab8}"
+
+    /**
+     * @type {String}
+     */
     static MF_SA_D3D12_HEAP_FLAGS => "{496b3266-d28f-4f8c-93a7-4a596b1a31a1}"
 
     /**
@@ -9942,6 +10042,11 @@ class MediaFoundation {
      * @type {String}
      */
     static MF_SA_D3D12_CLEAR_VALUE => "{86ba9a39-0526-495d-9ab5-54ec9fad6fc3}"
+
+    /**
+     * @type {String}
+     */
+    static MF_SA_D3D12_AWARE => "{77f0bacb-17a8-4a50-9a7d-a5cc09d39d44}"
 
     /**
      * @type {String}
@@ -10217,6 +10322,11 @@ class MediaFoundation {
      * @type {String}
      */
     static MF_SOURCE_READER_D3D11_BIND_FLAGS => "{33f3197b-f73a-4e14-8d85-0e4c4368788d}"
+
+    /**
+     * @type {String}
+     */
+    static MF_SOURCE_READER_PASSTHROUGH_MODE => "{043ff126-fe2c-4708-a09b-da2ab435ced9}"
 
     /**
      * @type {String}
@@ -16064,6 +16174,23 @@ class MediaFoundation {
     }
 
     /**
+     * 
+     * @param {Pointer<Guid>} riid 
+     * @param {Pointer<IUnknown>} punkDevice 
+     * @param {Pointer<IMFMediaType>} pMediaType 
+     * @param {Integer} uSubresource 
+     * @param {Pointer<IMFMediaBuffer>} ppBuffer 
+     * @returns {HRESULT} 
+     */
+    static MFCreateDXGICrossAdapterBuffer(riid, punkDevice, pMediaType, uSubresource, ppBuffer) {
+        result := DllCall("MFPlat.DLL\MFCreateDXGICrossAdapterBuffer", "ptr", riid, "ptr", punkDevice, "ptr", pMediaType, "uint", uSubresource, "ptr", ppBuffer, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Creates an object that allocates video samples that are compatible with Microsoft DirectX Graphics Infrastructure (DXGI).
      * @remarks
      * This function creates an allocator for DXGI video surfaces. The buffers created by this allocator expose the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgibuffer">IMFDXGIBuffer</a> interface. To create an allocator for Microsoft Direct3D 9 video surfaces, call <a href="https://docs.microsoft.com/windows/desktop/api/evr/nc-evr-mfcreatevideosampleallocator">MFCreateVideoSampleAllocator</a>.
@@ -16093,6 +16220,20 @@ class MediaFoundation {
      */
     static MFCreateDXGIDeviceManager(resetToken, ppDeviceManager) {
         result := DllCall("MFPlat.dll\MFCreateDXGIDeviceManager", "uint*", resetToken, "ptr", ppDeviceManager, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IUnknown>} pDeviceManager 
+     * @param {Pointer<Int32>} mode 
+     * @returns {HRESULT} 
+     */
+    static MFGetDXGIDeviceManageMode(pDeviceManager, mode) {
+        result := DllCall("MFPlat.DLL\MFGetDXGIDeviceManageMode", "ptr", pDeviceManager, "int*", mode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18144,23 +18285,6 @@ class MediaFoundation {
     }
 
     /**
-     * Initializes a media type from an MFVIDEOFORMAT structure.
-     * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to initialize. To create the uninitialized media type object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
-     * @param {Pointer} pMFVF Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure that describes the media type. The caller must fill in the structure members before calling this function.
-     * @param {Integer} cbBufSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure, in bytes.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfinitmediatypefrommfvideoformat
-     * @since windows6.0.6000
-     */
-    static MFInitMediaTypeFromMFVideoFormat(pMFType, pMFVF, cbBufSize) {
-        result := DllCall("MFPlat.dll\MFInitMediaTypeFromMFVideoFormat", "ptr", pMFType, "ptr", pMFVF, "uint", cbBufSize, "int")
-        if(result != 0)
-            throw OSError(result)
-
-        return result
-    }
-
-    /**
      * Initializes a media type from a WAVEFORMATEX structure.
      * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to initialize. To create the uninitialized media type object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
      * @param {Pointer} pWaveFormat Pointer to a <b>WAVEFORMATEX</b> structure that describes the media type. The caller must fill in the structure members before calling this function.
@@ -18189,6 +18313,23 @@ class MediaFoundation {
      */
     static MFInitMediaTypeFromWaveFormatEx(pMFType, pWaveFormat, cbBufSize) {
         result := DllCall("MFPlat.dll\MFInitMediaTypeFromWaveFormatEx", "ptr", pMFType, "ptr", pWaveFormat, "uint", cbBufSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Initializes a media type from an MFVIDEOFORMAT structure.
+     * @param {Pointer<IMFMediaType>} pMFType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to initialize. To create the uninitialized media type object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
+     * @param {Pointer} pMFVF Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure that describes the media type. The caller must fill in the structure members before calling this function.
+     * @param {Integer} cbBufSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure, in bytes.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfinitmediatypefrommfvideoformat
+     * @since windows6.0.6000
+     */
+    static MFInitMediaTypeFromMFVideoFormat(pMFType, pMFVF, cbBufSize) {
+        result := DllCall("MFPlat.dll\MFInitMediaTypeFromMFVideoFormat", "ptr", pMFType, "ptr", pMFVF, "uint", cbBufSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18432,6 +18573,35 @@ class MediaFoundation {
     }
 
     /**
+     * Calculates the minimum surface stride for a video format.
+     * @remarks
+     * This function calculates the minimum stride needed to hold the image in memory. Use this function if you are allocating buffers in system memory. Surfaces allocated in video memory might require a larger stride, depending on the graphics card.
+     *       
+     * 
+     * If you are working with a DirectX surface buffer, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a> method to find the surface stride.
+     *       
+     * 
+     * For planar YUV formats, this function returns the stride for the Y plane. Depending on the format, the chroma planes might have a different stride.
+     *       
+     * 
+     * <div class="alert"><b>Note</b>  Prior to Windows 7, this function was exported from evr.dll. Starting in Windows 7, this function is exported from mfplat.dll, and evr.dll exports a stub function that calls into mfplat.dll. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-headers-and-libraries">Library Changes in Windows 7</a>.</div>
+     * <div> </div>
+     * @param {Integer} format FOURCC code or <b>D3DFORMAT</b> value that specifies the video format. If you have a video subtype GUID, you can use the first <b>DWORD</b> of the subtype.
+     * @param {Integer} dwWidth Width of the image, in pixels.
+     * @param {Pointer<Int32>} pStride Receives the minimum surface stride, in pixels.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetstrideforbitmapinfoheader
+     * @since windows6.0.6000
+     */
+    static MFGetStrideForBitmapInfoHeader(format, dwWidth, pStride) {
+        result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, "int*", pStride, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Creates a video media type from an MFVIDEOFORMAT structure.
      * @remarks
      * Instead of using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure to initialize a video media type, you can call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a> and set the media type attributes directly.
@@ -18548,35 +18718,6 @@ class MediaFoundation {
      */
     static MFCreateVideoMediaTypeFromBitMapInfoHeader(pbmihBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, qwFramesPerSecondNumerator, qwFramesPerSecondDenominator, dwMaxBitRate, ppIVideoMediaType) {
         result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeader", "ptr", pbmihBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, "int", InterlaceMode, "uint", VideoFlags, "uint", qwFramesPerSecondNumerator, "uint", qwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr", ppIVideoMediaType, "int")
-        if(result != 0)
-            throw OSError(result)
-
-        return result
-    }
-
-    /**
-     * Calculates the minimum surface stride for a video format.
-     * @remarks
-     * This function calculates the minimum stride needed to hold the image in memory. Use this function if you are allocating buffers in system memory. Surfaces allocated in video memory might require a larger stride, depending on the graphics card.
-     *       
-     * 
-     * If you are working with a DirectX surface buffer, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a> method to find the surface stride.
-     *       
-     * 
-     * For planar YUV formats, this function returns the stride for the Y plane. Depending on the format, the chroma planes might have a different stride.
-     *       
-     * 
-     * <div class="alert"><b>Note</b>  Prior to Windows 7, this function was exported from evr.dll. Starting in Windows 7, this function is exported from mfplat.dll, and evr.dll exports a stub function that calls into mfplat.dll. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-headers-and-libraries">Library Changes in Windows 7</a>.</div>
-     * <div> </div>
-     * @param {Integer} format FOURCC code or <b>D3DFORMAT</b> value that specifies the video format. If you have a video subtype GUID, you can use the first <b>DWORD</b> of the subtype.
-     * @param {Integer} dwWidth Width of the image, in pixels.
-     * @param {Pointer<Int32>} pStride Receives the minimum surface stride, in pixels.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfgetstrideforbitmapinfoheader
-     * @since windows6.0.6000
-     */
-    static MFGetStrideForBitmapInfoHeader(format, dwWidth, pStride) {
-        result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, "int*", pStride, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -229,6 +229,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreateincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateIncident(helperClassName, celt, attributes, handle) {
@@ -316,6 +317,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewinsockincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateWinSockIncident(sock, host, port, appId, userId, handle) {
@@ -392,6 +394,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewebincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateWebIncident(url, handle) {
@@ -473,6 +476,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewebincidentex
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateWebIncidentEx(url, useWinHTTP, moduleName, handle) {
@@ -549,6 +553,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatesharingincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateSharingIncident(UNCPath, handle) {
@@ -629,6 +634,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatednsincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateDNSIncident(hostname, queryType, handle) {
@@ -701,6 +707,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreateconnectivityincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCreateConnectivityIncident(handle) {
@@ -776,6 +783,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatenetconnectionincident
+     * @deprecated
      * @since windows8.0
      */
     static NdfCreateNetConnectionIncident(handle, id) {
@@ -842,6 +850,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatepnrpincident
+     * @deprecated
      * @since windows6.1
      */
     static NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId, handle) {
@@ -922,6 +931,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreategroupingincident
+     * @deprecated
      * @since windows6.1
      */
     static NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Addresses, appId, handle) {
@@ -979,6 +989,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfexecutediagnosis
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfExecuteDiagnosis(handle, hwnd) {
@@ -1016,6 +1027,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcloseincident
+     * @deprecated
      * @since windows6.0.6000
      */
     static NdfCloseIncident(handle) {
@@ -1151,6 +1163,7 @@ class NetworkDiagnosticsFramework {
      * </tr>
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfdiagnoseincident
+     * @deprecated
      * @since windows6.1
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
@@ -1234,6 +1247,7 @@ class NetworkDiagnosticsFramework {
      * 
      * Other failure codes are returned if the repair failed to execute. In that case, the client can call <b>NdfRepairIncident</b> again with a different repair.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfrepairincident
+     * @deprecated
      * @since windows6.1
      */
     static NdfRepairIncident(Handle, RepairEx, dwWait) {
@@ -1281,6 +1295,7 @@ class NetworkDiagnosticsFramework {
      * 
      *  Any result other than S_OK should be interpreted as an error.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcancelincident
+     * @deprecated
      * @since windows6.1
      */
     static NdfCancelIncident(Handle) {
@@ -1328,6 +1343,7 @@ class NetworkDiagnosticsFramework {
      * 
      *  Any result other than S_OK should be interpreted as an error.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfgettracefile
+     * @deprecated
      * @since windows6.1
      */
     static NdfGetTraceFile(Handle, TraceFileLocation) {

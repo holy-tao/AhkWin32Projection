@@ -52,4 +52,24 @@ class HTTP_REQUEST_PROPERTY{
      * @type {Integer (Int32)}
      */
     static HttpRequestPropertyQuicApiTimings => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyQuicStatsV2 => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyQuicStreamStats => 9
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyTcpInfoV2 => 10
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpRequestPropertyTlsClientHello => 11
 }

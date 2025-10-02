@@ -34,5 +34,5 @@ class JOB_OBJECT_CPU_RATE_CONTROL{
     /**
      * @type {Integer (UInt32)}
      */
-    static JOB_OBJECT_CPU_RATE_CONTROL_VALID_FLAGS => 31
+    static JOB_OBJECT_CPU_RATE_CONTROL_VALID_FLAGS => 63
 }

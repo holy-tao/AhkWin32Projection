@@ -289,8 +289,13 @@ class TRACE_QUERY_INFO_CLASS{
     static TracePmcSessionInformation => 27
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static TraceContextRegisterInfo => 28
+
+    /**
      * Marks the last value in the enumeration. Do not use.
      * @type {Integer (Int32)}
      */
-    static MaxTraceSetInfoClass => 28
+    static MaxTraceSetInfoClass => 29
 }

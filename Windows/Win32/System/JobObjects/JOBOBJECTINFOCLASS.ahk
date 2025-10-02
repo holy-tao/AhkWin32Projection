@@ -254,5 +254,15 @@ class JOBOBJECTINFOCLASS{
     /**
      * @type {Integer (Int32)}
      */
-    static MaxJobObjectInfoClass => 50
+    static JobObjectReserved28Information => 50
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JobObjectNetworkAccountingInformation => 51
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MaxJobObjectInfoClass => 52
 }

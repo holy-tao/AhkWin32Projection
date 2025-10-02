@@ -228,5 +228,15 @@ class NVME_FEATURES{
     /**
      * @type {Integer (Int32)}
      */
-    static NVME_FEATURE_PLP_HEALTH_MONITOR => 197
+    static NVME_FEATURE_LATENCY_MONITOR => 197
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_FEATURE_PLP_HEALTH_CHECK_INTERVAL => 198
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_FEATURE_DSSD_POWER_STATE => 199
 }

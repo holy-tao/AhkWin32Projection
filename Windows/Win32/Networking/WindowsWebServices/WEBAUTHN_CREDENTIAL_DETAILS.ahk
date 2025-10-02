@@ -11,7 +11,7 @@
  */
 class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -75,5 +75,29 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     bBackedUp {
         get => NumGet(this, 36, "int")
         set => NumPut("int", value, this, 36)
+    }
+
+    /**
+     * @type {Pointer<Char>}
+     */
+    EXPERIMENTAL_pwszAuthenticatorName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EXPERIMENTAL_cbAuthenticatorLogo {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * @type {Pointer<Byte>}
+     */
+    EXPERIMENTAL_pbAuthenticatorLogo {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

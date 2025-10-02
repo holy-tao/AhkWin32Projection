@@ -271,6 +271,16 @@ class WiFi {
     /**
      * @type {Integer (UInt32)}
      */
+    static RSNA_OUI_PREFIX => 11276032
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WPA_OUI_PREFIX => 15880192
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DOT11_RATE_SET_MAX_LENGTH => 126
 
     /**

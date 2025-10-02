@@ -244,4 +244,9 @@ class D3D11_RESOURCE_MISC_FLAG{
      * @type {Integer (Int32)}
      */
     static D3D11_RESOURCE_MISC_SHARED_EXCLUSIVE_WRITER => 2097152
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D11_RESOURCE_MISC_NO_SHADER_ACCESS => 4194304
 }

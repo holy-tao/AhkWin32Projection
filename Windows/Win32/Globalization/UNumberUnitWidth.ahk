@@ -29,10 +29,20 @@ class UNumberUnitWidth{
     /**
      * @type {Integer (Int32)}
      */
-    static UNUM_UNIT_WIDTH_HIDDEN => 4
+    static UNUM_UNIT_WIDTH_FORMAL => 4
 
     /**
      * @type {Integer (Int32)}
      */
-    static UNUM_UNIT_WIDTH_COUNT => 5
+    static UNUM_UNIT_WIDTH_VARIANT => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_UNIT_WIDTH_HIDDEN => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_UNIT_WIDTH_COUNT => 7
 }

@@ -636,6 +636,41 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static PRODUCT_VALIDATION => 204
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRODUCT_IOTENTERPRISESK => 205
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRODUCT_IOTENTERPRISEK => 206
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRODUCT_IOTENTERPRISESEVAL => 207
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRODUCT_AZURE_SERVER_AGENTBRIDGE => 208
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRODUCT_AZURE_SERVER_NANOHOST => 209
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PRODUCT_WNC => 210
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static PRODUCT_AZURESTACKHCI_SERVER_CORE => 406
 
     /**
@@ -2706,6 +2741,11 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static XSTATE_CONTEXT_FLAG_LOOKASIDE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static PF_TEMPORAL_LEVEL_1 => 1
 
     /**
@@ -2831,7 +2871,7 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static ARM64_MULT_INTRINSICS_SUPPORTED => 1
+    static _ARM64_MULT_INTRINS_SUPPORTED => 0
 
     /**
      * @type {Integer (UInt32)}
@@ -3301,7 +3341,27 @@ class SystemServices {
     /**
      * @type {Integer (Int32)}
      */
+    static SECURITY_UNIQUIFIED_SERVICE_BASE_RID => 97
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static SECURITY_VIRTUALACCOUNT_ID_RID_COUNT => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SECURITY_EDGE_CLOUD_INFRASTRUCTURE_SERVICE_ID_BASE_RID => 98
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SECURITY_RESTRICTED_SERVICES_BASE_RID => 99
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SECURITY_RESTRICTED_SERVICES_RID_COUNT => 6
 
     /**
      * @type {Integer (Int32)}
@@ -3481,6 +3541,16 @@ class SystemServices {
     /**
      * @type {Integer (Int32)}
      */
+    static DOMAIN_GROUP_RID_FOREST_TRUSTS => 528
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DOMAIN_GROUP_RID_EXTERNAL_TRUSTS => 529
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static DOMAIN_ALIAS_RID_ADMINS => 544
 
     /**
@@ -3647,6 +3717,16 @@ class SystemServices {
      * @type {Integer (Int32)}
      */
     static DOMAIN_ALIAS_RID_DEVICE_OWNERS => 583
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DOMAIN_ALIAS_RID_USER_MODE_HARDWARE_OPERATORS => 584
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DOMAIN_ALIAS_RID_OPENSSH_USERS => 585
 
     /**
      * @type {Integer (Int32)}
@@ -4356,6 +4436,16 @@ class SystemServices {
     /**
      * @type {String}
      */
+    static SE_APP_SILO_PROMPT_FOR_ACCESS_CAPABILITY => "isolatedWin32-promptForAccess"
+
+    /**
+     * @type {String}
+     */
+    static SE_APP_SILO_ACCESS_TO_PUBLISHER_DIRECTORY_CAPABILITY => "isolatedWin32-accessToPublisherDirectory"
+
+    /**
+     * @type {String}
+     */
     static SE_APP_SILO_PRINT_CAPABILITY => "isolatedWin32-print"
 
     /**
@@ -4696,6 +4786,11 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static JOB_OBJECT_CPU_RATE_CONTROL_PER_PROCESSOR_CAPS => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MEMORY_PARTITION_QUERY_ACCESS => 1
 
     /**
@@ -4936,6 +5031,16 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static XSTATE_ARM64_SVE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static XSTATE_FIRST_NON_LEGACY_FEATURE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static XSTATE_COMPACTION_ENABLE => 63
 
     /**
@@ -5071,11 +5176,6 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
-    static MEM_EXTENDED_PARAMETER_IMAGE_NO_HPAT => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
     static MEM_EXTENDED_PARAMETER_TYPE_BITS => 8
 
     /**
@@ -5087,6 +5187,11 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static WRITE_WATCH_FLAG_RESET => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static VM_PREFETCH_TO_WORKING_SET => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -5356,6 +5461,31 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static LX_FILE_METADATA_HAS_UID => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LX_FILE_METADATA_HAS_GID => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LX_FILE_METADATA_HAS_MODE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LX_FILE_METADATA_HAS_DEVICE_ID => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LX_FILE_CASE_SENSITIVE_DIR => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FILE_CS_FLAG_CASE_SENSITIVE_DIR => 1
 
     /**
@@ -5372,6 +5502,11 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static FLUSH_FLAGS_FILE_DATA_SYNC_ONLY => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FLUSH_FLAGS_FLUSH_AND_PURGE => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -5604,6 +5739,11 @@ class SystemServices {
     static IO_REPARSE_TAG_AF_UNIX => 2147483683
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static IO_REPARSE_TAG_STORAGE_SYNC_FOLDER => -1879048153
+
+    /**
      * @type {Integer (UInt32)}
      */
     static IO_REPARSE_TAG_WCI_LINK => 2684354599
@@ -5727,6 +5867,26 @@ class SystemServices {
      * @type {String}
      */
     static GUID_ACTIVE_POWERSCHEME => "{31f9f286-5084-42fe-b720-2b0264993763}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_POWER_MODE_BEST_EFFICIENCY => "{961cc777-2547-4f9d-8174-7d86181b8a7a}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_POWER_MODE_NONE => "{00000000-0000-0000-0000-000000000000}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_POWER_MODE_PERFORMANCE => "{3af9b8d9-7c97-431d-ad78-34a8bfea439f}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_POWER_MODE_BEST_PERFORMANCE => "{ded574b5-45a0-4f42-8737-46345c09c238}"
 
     /**
      * @type {String}
@@ -5946,6 +6106,16 @@ class SystemServices {
     /**
      * @type {String}
      */
+    static GUID_STANDBY_BUDGET_REFRESH_COUNT => "{aca8648e-c4b1-4baa-8cce-9390ad647f8c}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_STANDBY_BUDGET_REFRESH_INTERVAL => "{61f45dfe-1919-4180-bb46-8cc70e0b38f1}"
+
+    /**
+     * @type {String}
+     */
     static GUID_STANDBY_RESERVE_GRACE_PERIOD => "{c763ee92-71e8-4127-84eb-f6ed043a3e3d}"
 
     /**
@@ -6002,6 +6172,11 @@ class SystemServices {
      * @type {String}
      */
     static GUID_POWER_SAVING_STATUS => "{e00958c0-c213-4ace-ac77-fecced2eeea5}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_ENERGY_SAVER_STATUS => "{550e8400-e29b-41d4-a716-446655440000}"
 
     /**
      * @type {String}
@@ -6676,6 +6851,16 @@ class SystemServices {
     /**
      * @type {String}
      */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP => "{4b70f900-cdd9-4e66-aa26-ae8417f98173}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP_1 => "{4b70f900-cdd9-4e66-aa26-ae8417f98174}"
+
+    /**
+     * @type {String}
+     */
     static GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK => "{616cdaa5-695e-4545-97ad-97dc2d1bdd88}"
 
     /**
@@ -6736,7 +6921,22 @@ class SystemServices {
     /**
      * @type {String}
      */
+    static GUID_PROCESSOR_RESTRICTION_COUNT => "{1a98ad09-af22-42ca-8e61-f0a5802c270a}"
+
+    /**
+     * @type {String}
+     */
     static GUID_PROCESSOR_DISTRIBUTE_UTILITY => "{e0007330-f589-42ed-a401-5ddb10e785d3}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_RESOURCE_PRIORITY => "{603fe9ce-8d01-4b48-a968-1d706c28fd5c}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_RESOURCE_PRIORITY_1 => "{603fe9ce-8d01-4b48-a968-1d706c28fd5d}"
 
     /**
      * @type {String}
@@ -6752,6 +6952,31 @@ class SystemServices {
      * @type {String}
      */
     static GUID_PROCESSOR_HETERO_INCREASE_TIME => "{4009efa7-e72d-4cba-9edf-91084ea8cbc3}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_DECREASE_TIME => "{6ff13aeb-7897-4356-9999-dd9930af065f}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_INCREASE_TIME => "{64fcee6b-5b1f-45a4-a76a-19b2c36ee290}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_EFFICIENCY_THRESHOLD => "{69439b22-221b-4830-bd34-f7bcece24583}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_HYBRID_THRESHOLD => "{6788488b-1b90-4d11-8fa7-973e470dff47}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PROCESSOR_HETERO_CONTAINMENT_POLICY => "{60fbe21b-efd9-49f2-b066-8674d8e9f423}"
 
     /**
      * @type {String}
@@ -9401,6 +9626,16 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static IMAGE_DYNAMIC_RELOCATION_ARM64_KERNEL_IMPORT_CALL_TRANSFER => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_DYNAMIC_RELOCATION_IMPORT_CONTROL_TRANSFER => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static IMAGE_FUNCTION_OVERRIDE_INVALID => 0
 
     /**
@@ -9421,12 +9656,37 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static IMAGE_HOT_PATCH_INFO_FLAG_PATCHORDERCRITICAL => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_HOT_PATCH_INFO_FLAG_HOTSWAP => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static IMAGE_HOT_PATCH_BASE_OBLIGATORY => 1
 
     /**
      * @type {Integer (UInt32)}
      */
     static IMAGE_HOT_PATCH_BASE_CAN_ROLL_BACK => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_HOT_PATCH_BASE_MACHINE_I386 => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_HOT_PATCH_BASE_MACHINE_ARM64 => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_HOT_PATCH_BASE_MACHINE_AMD64 => 16
 
     /**
      * @type {Integer (UInt32)}
@@ -10126,6 +10386,36 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static FAST_FAIL_ASAN_ERROR => 71
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FAST_FAIL_CLR_EXCEPTION_AOT => 72
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FAST_FAIL_POINTER_AUTH_INVALID_RETURN_ADDRESS => 73
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FAST_FAIL_INVALID_THREAD_STATE => 74
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FAST_FAIL_CORRUPT_WOW64_STATE => 75
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FAST_FAIL_INVALID_EXTENDED_STATE => 76
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FAST_FAIL_INVALID_FAST_FAIL_CODE => 4294967295
 
     /**
@@ -10427,16 +10717,6 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static DLL_PROCESS_DETACH => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EVENTLOG_FORWARDS_READ => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static EVENTLOG_BACKWARDS_READ => 8
 
     /**
      * @type {Integer (UInt32)}

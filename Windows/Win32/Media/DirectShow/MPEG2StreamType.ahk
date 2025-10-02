@@ -174,6 +174,16 @@ class MPEG2StreamType{
     /**
      * @type {Integer (Int32)}
      */
+    static MPEG_H_AUDIO => 45
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MPEG_H_AUDIO_MS => 46
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static ISO_IEC_USER_PRIVATE => 128
 
     /**

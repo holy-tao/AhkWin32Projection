@@ -145,4 +145,14 @@ class UDateFormatSymbolType{
      * @type {Integer (Int32)}
      */
     static UDAT_ZODIAC_NAMES_NARROW => 27
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UDAT_NARROW_QUARTERS => 28
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UDAT_STANDALONE_NARROW_QUARTERS => 29
 }

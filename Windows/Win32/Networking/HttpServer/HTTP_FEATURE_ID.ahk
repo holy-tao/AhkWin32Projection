@@ -42,7 +42,42 @@ class HTTP_FEATURE_ID{
     /**
      * @type {Integer (Int32)}
      */
-    static HttpFeatureLast => 5
+    static HttpFeatureTlsSessionTickets => 5
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureDisableTlsSessionId => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureTlsDualCerts => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureAutomaticChunkedEncoding => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureDedicatedReqQueueDelegationType => 9
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureFastForwardResponse => 10
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureCacheTlsClientHello => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpFeatureLast => 12
 
     /**
      * Specifies the maximum number of supported features.

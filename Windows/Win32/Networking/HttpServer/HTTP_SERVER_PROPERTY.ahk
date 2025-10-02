@@ -104,4 +104,9 @@ class HTTP_SERVER_PROPERTY{
      * @type {Integer (Int32)}
      */
     static HttpServerDelegationProperty => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HttpServerFastForwardingProperty => 18
 }

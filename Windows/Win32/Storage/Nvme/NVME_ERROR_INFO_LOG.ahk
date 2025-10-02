@@ -100,13 +100,21 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    TRTYPE {
+        get => NumGet(this, 37, "char")
+        set => NumPut("char", value, this, 37)
+    }
+
+    /**
      * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 37, 3, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -121,13 +129,21 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    TransportTypeSpecificInfo {
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
+    }
+
+    /**
      * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 48, 24, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 50, 22, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }

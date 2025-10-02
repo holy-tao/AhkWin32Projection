@@ -29,9 +29,19 @@ class Display {
     static GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL => "{1ad9e4f0-f88d-4360-bab9-4c2d55e564cd}"
 
     /**
+     * @type {String}
+     */
+    static GUID_DEVINTERFACE_DISPLAYMUX => "{93c33929-3180-46d3-8aab-008c84ad1e6e}"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static INDIRECT_DISPLAY_INFO_FLAGS_CREATED_IDDCX_ADAPTER => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INDIRECT_DISPLAY_INFO_FLAGS_SUPPORT_FP16 => 2
 
     /**
      * @type {String}
@@ -834,6 +844,11 @@ class Display {
     static GUID_MONITOR_OVERRIDE_PSEUDO_SPECIALIZED => "{f196c02f-f86f-4f9a-aa15-e9cebdfe3b96}"
 
     /**
+     * @type {String}
+     */
+    static GUID_MONITOR_OVERRIDE_TEST_SPECIALIZED => "{0457e531-3cb9-4a07-83c1-a79146c64db3}"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static FD_ERROR => 4294967295
@@ -1112,6 +1127,11 @@ class Display {
      * @type {Integer (UInt32)}
      */
     static FM_SEL_REGULAR => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FM_SEL_USE_TYPO_METRICS => 128
 
     /**
      * @type {Integer (UInt32)}

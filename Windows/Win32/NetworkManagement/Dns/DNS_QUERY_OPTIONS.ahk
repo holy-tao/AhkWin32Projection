@@ -9,6 +9,11 @@ class DNS_QUERY_OPTIONS{
     /**
      * @type {Integer (UInt32)}
      */
+    static DNS_QUERY_PARSE_ALL_RECORDS => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DNS_QUERY_STANDARD => 0
 
     /**
@@ -110,6 +115,11 @@ class DNS_QUERY_OPTIONS{
      * @type {Integer (UInt32)}
      */
     static DNS_QUERY_DNSSEC_CHECKING_DISABLED => 33554432
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DNS_QUERY_DNSSEC_REQUIRED => 67108864
 
     /**
      * @type {Integer (UInt32)}

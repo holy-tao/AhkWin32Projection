@@ -14,5 +14,10 @@ class COPYFILE2_V2_FLAGS{
     /**
      * @type {Integer (UInt32)}
      */
-    static COPY_FILE2_V2_VALID_FLAGS => 1
+    static COPY_FILE2_V2_DISABLE_BLOCK_CLONING => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static COPY_FILE2_V2_VALID_FLAGS => 3
 }

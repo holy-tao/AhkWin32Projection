@@ -601,6 +601,11 @@ class Certificates {
     /**
      * @type {Integer (UInt32)}
      */
+    static CR_IN_PRESIGN => 134217728
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CR_DISP_REVOKED => 6
 
     /**
@@ -907,6 +912,31 @@ class Certificates {
      * @type {Integer (UInt32)}
      */
     static CR_PROP_SUBJECTTEMPLATE_OIDS => 45
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CR_PROP_CRLPARTITIONCOUNT => 46
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CR_PROP_PARTITIONED_BASECRL => 47
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CR_PROP_PARTITIONED_DELTACRL => 48
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CR_PROP_PARTITIONED_BASECRLPUBLISHSTATUS => 49
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CR_PROP_PARTITIONED_DELTACRLPUBLISHSTATUS => 50
 
     /**
      * @type {Integer (UInt32)}
@@ -1382,6 +1412,21 @@ class Certificates {
      * @type {String}
      */
     static wszREGCACERTPUBLICATIONURLS => "CACertPublicationURLs"
+
+    /**
+     * @type {String}
+     */
+    static wszREGCRLMAXPARTITIONS => "CRLMaxPartitions"
+
+    /**
+     * @type {String}
+     */
+    static wszREGCRLSUSPENDEDPARTITIONS => "CRLSuspendedPartitions"
+
+    /**
+     * @type {String}
+     */
+    static wszREGCRLCURRENTPARTITION => "CRLCurrentPartition"
 
     /**
      * @type {String}
@@ -1911,6 +1956,16 @@ class Certificates {
     /**
      * @type {Integer (UInt32)}
      */
+    static CRLF_ENABLE_CRL_PARTITION => 4194304
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CRLF_PARTITION_ZERO_EXCLUSIVE => 8388608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static KRAF_ENABLEFOREIGN => 1
 
     /**
@@ -1992,6 +2047,11 @@ class Certificates {
      * @type {Integer (UInt32)}
      */
     static IF_ENABLEADMINASAUDITOR => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IF_ENABLEPRESIGNSUPPORT => 8192
 
     /**
      * @type {Integer (UInt32)}
@@ -3486,6 +3546,31 @@ class Certificates {
     /**
      * @type {String}
      */
+    static CONFIGURATION_STATUS_PARENT_REG_PATH => "Software\Microsoft\ADCS"
+
+    /**
+     * @type {String}
+     */
+    static CONFIGURATION_STATUS_REG_VALUE_NAME => "ConfigurationStatus"
+
+    /**
+     * @type {String}
+     */
+    static CONFIGURATION_REG_EPTOKENCHECKVALUE => "EPTokenCheckValue"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EP_TOKENCHECK_DEFAULT_VALUE => 2
+
+    /**
+     * @type {String}
+     */
+    static CONFIGURATION_REG_DISABLE_HTTPSONLY => "DisableHTTPSOnly"
+
+    /**
+     * @type {String}
+     */
     static wszPROPDISTINGUISHEDNAME => "DistinguishedName"
 
     /**
@@ -3722,6 +3807,11 @@ class Certificates {
      * @type {String}
      */
     static wszPROPRAWPRECERTIFICATE => "RawPrecertificate"
+
+    /**
+     * @type {String}
+     */
+    static wszPROPCRLPARTITIONINDEX => "CRLPartitionIndex"
 
     /**
      * @type {String}

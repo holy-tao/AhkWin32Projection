@@ -53,4 +53,9 @@ class APO_NOTIFICATION_TYPE{
      * @type {Integer (Int32)}
      */
     static APO_NOTIFICATION_TYPE_MICROPHONE_BOOST => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static APO_NOTIFICATION_TYPE_AUDIO_ENVIRONMENT_STATE_CHANGE => 7
 }

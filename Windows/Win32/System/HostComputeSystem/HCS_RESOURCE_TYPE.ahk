@@ -20,4 +20,14 @@ class HCS_RESOURCE_TYPE{
      * @type {Integer (Int32)}
      */
     static HcsResourceTypeJob => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsResourceTypeComObject => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsResourceTypeSocket => 4
 }

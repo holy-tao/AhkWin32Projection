@@ -249,6 +249,11 @@ class HttpServer {
     static HTTP_LOG_FIELD_FAULT_CODE => 2147483648
 
     /**
+     * @type {Integer (UInt64)}
+     */
+    static HTTP_LOG_FIELD_EXT_FAULT_CODE_EXT => 1
+
+    /**
      * @type {Integer (UInt32)}
      */
     static HTTP_LOGGING_FLAG_LOCAL_TIME_ROLLOVER => 1
@@ -326,6 +331,11 @@ class HttpServer {
     /**
      * @type {Integer (UInt32)}
      */
+    static HTTP_SEND_RESPONSE_FLAG_AUTOMATIC_CHUNKING => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static HTTP_FLUSH_RESPONSE_FLAG_RECURSIVE => 1
 
     /**
@@ -391,6 +401,16 @@ class HttpServer {
     /**
      * @type {Integer (UInt32)}
      */
+    static HTTP_REQUEST_FLAG_FAST_FORWARDING_ALLOWED => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_REQUEST_FLAG_FAST_FORWARDING_RESPONSE_ALLOWED => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static HTTP_RESPONSE_FLAG_MULTIPLE_ENCODINGS_AVAILABLE => 1
 
     /**
@@ -402,6 +422,16 @@ class HttpServer {
      * @type {Integer (UInt32)}
      */
     static HTTP_RESPONSE_INFO_FLAGS_PRESERVE_ORDER => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_SSL_CERT_SHA_HASH_LENGTH => 20
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_SSL_CERT_STORE_NAME_LENGTH => 128
 
     /**
      * @type {Integer (UInt32)}
@@ -477,6 +507,11 @@ class HttpServer {
      * @type {Integer (UInt32)}
      */
     static HTTP_SERVICE_CONFIG_SSL_FLAG_DISABLE_SESSION_ID => 16384
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HTTP_SERVICE_CONFIG_SSL_FLAG_ENABLE_CACHE_CLIENT_HELLO => 32768
 
     /**
      * @type {Integer (UInt32)}

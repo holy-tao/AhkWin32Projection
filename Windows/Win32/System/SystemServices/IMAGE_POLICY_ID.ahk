@@ -69,5 +69,15 @@ class IMAGE_POLICY_ID{
     /**
      * @type {Integer (Int32)}
      */
-    static ImagePolicyIdMaximum => 12
+    static ImagePolicyIdCapabilityOverridable => 12
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ImagePolicyIdTrustletIdOverridable => 13
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ImagePolicyIdMaximum => 14
 }

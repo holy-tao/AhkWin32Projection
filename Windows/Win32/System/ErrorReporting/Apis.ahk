@@ -146,6 +146,11 @@ class ErrorReporting {
     /**
      * @type {Integer (UInt32)}
      */
+    static WER_DUMP_AUX_PROMOTE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WER_MAX_REGISTERED_ENTRIES => 512
 
     /**

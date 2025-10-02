@@ -1996,6 +1996,11 @@ class Shell {
     /**
      * @type {String}
      */
+    static FOLDERTYPEID_VersionControl => "{69f1e26b-ec64-4280-bc83-f1eb887ec35a}"
+
+    /**
+     * @type {String}
+     */
     static SYNCMGR_OBJECTID_Icon => "{6dbc85c3-5d07-4c72-a777-7fec78072c06}"
 
     /**
@@ -7337,6 +7342,11 @@ class Shell {
      * @type {Integer (Int32)}
      */
     static COPYENGINE_S_PENDING_DELETE => 2555920
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static COPYENGINE_S_PENDING_BATCH_COPY => 2555921
 
     /**
      * @type {Integer (Int32)}

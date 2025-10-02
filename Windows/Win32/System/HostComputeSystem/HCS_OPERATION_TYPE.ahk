@@ -92,4 +92,24 @@ class HCS_OPERATION_TYPE{
      * @type {Integer (Int32)}
      */
     static HcsOperationTypeCrash => 15
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsOperationTypeLiveMigration => 19
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsOperationTypeReserved1 => 16
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsOperationTypeReserved2 => 17
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HcsOperationTypeReserved3 => 18
 }

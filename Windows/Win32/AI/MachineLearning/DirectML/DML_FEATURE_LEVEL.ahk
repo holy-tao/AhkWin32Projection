@@ -59,4 +59,29 @@ class DML_FEATURE_LEVEL{
      * @type {Integer (Int32)}
      */
     static DML_FEATURE_LEVEL_5_0 => 20480
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_5_1 => 20736
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_5_2 => 20992
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_6_0 => 24576
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_6_1 => 24832
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_FEATURE_LEVEL_6_2 => 25088
 }

@@ -31,4 +31,9 @@ class PROCESSOR_CACHE_TYPE{
      * @type {Integer (Int32)}
      */
     static CacheTrace => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CacheUnknown => 4
 }

@@ -25,4 +25,9 @@ class CHUNKSTATE{
      * @type {Integer (Int32)}
      */
     static CHUNK_FILTER_OWNED_VALUE => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CHUNK_IMAGE => 8
 }

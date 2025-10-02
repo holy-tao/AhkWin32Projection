@@ -15,8 +15,13 @@ class MSA_INFO_LEVEL{
     static MsaInfoLevel0 => 0
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MsaInfoLevel1 => 1
+
+    /**
      * The maximum level.
      * @type {Integer (Int32)}
      */
-    static MsaInfoLevelMax => 1
+    static MsaInfoLevelMax => 2
 }

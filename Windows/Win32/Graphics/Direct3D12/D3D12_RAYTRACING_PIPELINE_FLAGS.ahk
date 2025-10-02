@@ -27,4 +27,9 @@ class D3D12_RAYTRACING_PIPELINE_FLAGS{
      * @type {Integer (Int32)}
      */
     static D3D12_RAYTRACING_PIPELINE_FLAG_SKIP_PROCEDURAL_PRIMITIVES => 512
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_RAYTRACING_PIPELINE_FLAG_ALLOW_OPACITY_MICROMAPS => 1024
 }

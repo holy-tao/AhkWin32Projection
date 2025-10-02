@@ -40,4 +40,9 @@ class NETLOGON_LOGON_INFO_CLASS{
      * @type {Integer (Int32)}
      */
     static NetlogonServiceTransitiveInformation => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NetlogonTicketLogonInformation => 8
 }

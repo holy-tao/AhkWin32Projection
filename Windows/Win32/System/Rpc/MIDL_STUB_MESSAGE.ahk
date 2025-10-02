@@ -668,10 +668,9 @@ class MIDL_STUB_MESSAGE extends Win32Struct
     }
 
     /**
-     * Reserved.
-     * @type {Pointer}
+     * @type {Pointer<Byte>}
      */
-    Reserved51_3 {
+    pFullPtrFormat {
         get => NumGet(this, 376, "ptr")
         set => NumPut("ptr", value, this, 376)
     }

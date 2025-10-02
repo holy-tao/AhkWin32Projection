@@ -19,4 +19,9 @@ class DML_GRAPH_NODE_TYPE{
      * @type {Integer (Int32)}
      */
     static DML_GRAPH_NODE_TYPE_OPERATOR => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DML_GRAPH_NODE_TYPE_CONSTANT => 2
 }

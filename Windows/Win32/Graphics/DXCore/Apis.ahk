@@ -27,6 +27,36 @@ class DXCore {
      * @type {String}
      */
     static DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE => "{248e2800-a793-4724-abaa-23a6de1be090}"
+
+    /**
+     * @type {String}
+     */
+    static DXCORE_ADAPTER_ATTRIBUTE_D3D12_GENERIC_ML => "{b71b0d41-1088-422f-a27c-0250b7d3a988}"
+
+    /**
+     * @type {String}
+     */
+    static DXCORE_ADAPTER_ATTRIBUTE_D3D12_GENERIC_MEDIA => "{8eb2c848-82f6-4b49-aa87-aecfcf0174c6}"
+
+    /**
+     * @type {String}
+     */
+    static DXCORE_HARDWARE_TYPE_ATTRIBUTE_GPU => "{b69eb219-3ded-4464-979f-a00bd4687006}"
+
+    /**
+     * @type {String}
+     */
+    static DXCORE_HARDWARE_TYPE_ATTRIBUTE_COMPUTE_ACCELERATOR => "{e0b195da-58ef-4a22-90f1-1f28169cab8d}"
+
+    /**
+     * @type {String}
+     */
+    static DXCORE_HARDWARE_TYPE_ATTRIBUTE_NPU => "{d46140c4-add7-451b-9e56-06fe8c3b58ed}"
+
+    /**
+     * @type {String}
+     */
+    static DXCORE_HARDWARE_TYPE_ATTRIBUTE_MEDIA_ACCELERATOR => "{66bdb96a-050b-44c7-a4fd-d144ce0ab443}"
 ;@endregion Constants
 
 ;@region Methods

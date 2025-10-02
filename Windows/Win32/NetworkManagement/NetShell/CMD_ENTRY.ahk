@@ -15,7 +15,7 @@
  */
 class CMD_ENTRY extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -74,13 +74,5 @@ class CMD_ENTRY extends Win32Struct
     pOsVersionCheck {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<PFN_CUSTOM_HELP>}
-     */
-    pfnCustomHelpFn {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
     }
 }

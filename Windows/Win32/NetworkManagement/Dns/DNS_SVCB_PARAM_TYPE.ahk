@@ -49,10 +49,5 @@ class DNS_SVCB_PARAM_TYPE{
     /**
      * @type {Integer (Int32)}
      */
-    static DnsSvcbParamDohPathQuad9 => 65380
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static DnsSvcbParamDohPathOpenDns => 65432
 }

@@ -125,8 +125,16 @@ class XSTATE_CONFIGURATION extends Win32Struct
     /**
      * @type {Integer}
      */
-    Spare {
-        get => NumGet(this, 836, "uint")
-        set => NumPut("uint", value, this, 836)
+    MaxSveVectorLength {
+        get => NumGet(this, 836, "ushort")
+        set => NumPut("ushort", value, this, 836)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Spare1 {
+        get => NumGet(this, 838, "ushort")
+        set => NumPut("ushort", value, this, 838)
     }
 }

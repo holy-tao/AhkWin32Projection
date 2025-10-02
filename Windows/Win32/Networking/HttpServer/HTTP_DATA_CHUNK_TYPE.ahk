@@ -43,8 +43,13 @@ class HTTP_DATA_CHUNK_TYPE{
     static HttpDataChunkTrailers => 4
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static HttpDataChunkFromWinHttpFastForwarding => 5
+
+    /**
      * 
      * @type {Integer (Int32)}
      */
-    static HttpDataChunkMaximum => 5
+    static HttpDataChunkMaximum => 6
 }

@@ -1,0 +1,51 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include .\POINTER_INFO.ahk
+#Include ..\..\..\Foundation\RECT.ahk
+#Include .\POINTER_TOUCH_INFO.ahk
+#Include .\POINTER_PEN_INFO.ahk
+
+/**
+ * Contains information about the pointer input type.
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_type_info
+ * @namespace Windows.Win32.UI.Input.Pointer
+ * @version v4.0.30319
+ */
+class POINTER_TYPE_INFO extends Win32Struct
+{
+    static sizeof => 128
+
+    static packingSize => 8
+
+    /**
+     * The pointer input device.
+     * @type {Integer}
+     */
+    type {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
+    }
+
+    /**
+     * @type {POINTER_TOUCH_INFO}
+     */
+    touchInfo{
+        get {
+            if(!this.HasProp("__touchInfo"))
+                this.__touchInfo := POINTER_TOUCH_INFO(this.ptr + 8)
+            return this.__touchInfo
+        }
+    }
+
+    /**
+     * @type {POINTER_PEN_INFO}
+     */
+    penInfo{
+        get {
+            if(!this.HasProp("__penInfo"))
+                this.__penInfo := POINTER_PEN_INFO(this.ptr + 8)
+            return this.__penInfo
+        }
+    }
+}

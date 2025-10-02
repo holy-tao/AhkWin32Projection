@@ -3,6 +3,7 @@
 #Include .\NVME_COMMAND_DWORD0.ahk
 #Include .\NVME_CDW10_IDENTIFY.ahk
 #Include .\NVME_CDW11_IDENTIFY.ahk
+#Include .\NVME_CDW14_IDENTIFY.ahk
 #Include .\NVME_CDW10_ABORT.ahk
 #Include .\NVME_CDW10_GET_FEATURES.ahk
 #Include .\NVME_CDW11_FEATURE_NUMBER_OF_QUEUES.ahk
@@ -34,9 +35,14 @@
 #Include .\NVME_CDW15_FEATURE_HOST_MEMORY_BUFFER.ahk
 #Include .\NVME_CDW15_FEATURES.ahk
 #Include .\NVME_CDW10_GET_LOG_PAGE.ahk
+#Include .\NVME_CDW10_GET_LOG_PAGE_V121.ahk
 #Include .\NVME_CDW10_GET_LOG_PAGE_V13.ahk
+#Include .\NVME_CDW10_GET_LOG_PAGE_V20.ahk
 #Include .\NVME_CDW11_GET_LOG_PAGE.ahk
+#Include .\NVME_CDW12_GET_LOG_PAGE.ahk
+#Include .\NVME_CDW13_GET_LOG_PAGE.ahk
 #Include .\NVME_CDW14_GET_LOG_PAGE.ahk
+#Include .\NVME_CDW14_GET_LOG_PAGE_V20.ahk
 #Include .\NVME_CDW10_CREATE_IO_QUEUE.ahk
 #Include .\NVME_CDW11_CREATE_IO_CQ.ahk
 #Include .\NVME_CDW11_CREATE_IO_SQ.ahk
@@ -65,6 +71,7 @@
 #Include .\NVME_CDW13_ZONE_MANAGEMENT_RECEIVE.ahk
 #Include .\NVME_CDW12_ZONE_APPEND.ahk
 #Include .\NVME_CDW15_ZONE_APPEND.ahk
+#Include .\NVME_CDW10_DEVICE_SELF_TEST.ahk
 
 /**
  * Contains the parameters for all commands in the Admin Command and NVM Command sets.
@@ -131,7 +138,6 @@ class NVME_COMMAND extends Win32Struct
     }
 
     /**
-     * A [NVME_PRP_ENTRY](ns-nvme-nvme_prp_entry.md) structure that contains the first PRP entry for the command or a PRP List pointer depending on the command.
      * @type {Integer}
      */
     PRP1 {
@@ -140,22 +146,22 @@ class NVME_COMMAND extends Win32Struct
     }
 
     /**
-     * This field is reserved if the data transfer does not cross a memory page boundary. Otherwise, it contains a [NVME_PRP_ENTRY](ns-nvme-nvme_prp_entry.md) structure that:
-     * 
-     * 1. Specifies the Page Base Address of the second memory page if the data transfer crosses exactly one memory page boundary. For example, in one of the following situations:
-     * 
-     *    - The command data transfer length is equal in size to one memory page and the offset portion of the Page Base Address and Offset (**PBAO**) field of **PRP1** is non-zero.
-     *    - The Offset portion of the **PBAO** field of **PRP1** is equal to zero and the command data transfer length is greater than one memory page and less than or equal to two memory pages in size.
-     * 
-     * 2. Is a PRP List pointer if the data transfer crosses more than one memory page boundary. For example, in one of the following situations:
-     * 
-     *    - The command data transfer length is greater than or equal to two memory pages in size but the offset portion of the **PBAO** field of **PRP1** is non-zero.
-     *    - The command data transfer length is equal in size to more than two memory pages and the Offset portion of the **PBAO** field of **PRP1** is equal to zero.
      * @type {Integer}
      */
     PRP2 {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Array<UInt64>}
+     */
+    SGL1{
+        get {
+            if(!this.HasProp("__SGL1ProxyArray"))
+                this.__SGL1ProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")
+            return this.__SGL1ProxyArray
+        }
     }
 
     class _GENERAL extends Win32Struct {
@@ -260,6 +266,17 @@ class NVME_COMMAND extends Win32Struct
         CDW14 {
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
+        }
+    
+        /**
+         * @type {NVME_CDW14_IDENTIFY}
+         */
+        CDW14_V20{
+            get {
+                if(!this.HasProp("__CDW14_V20"))
+                    this.__CDW14_V20 := NVME_CDW14_IDENTIFY(this.ptr + 28)
+                return this.__CDW14_V20
+            }
         }
     
         /**
@@ -477,6 +494,17 @@ class NVME_COMMAND extends Win32Struct
         }
     
         /**
+         * @type {NVME_CDW10_GET_LOG_PAGE_V121}
+         */
+        CDW10_V121{
+            get {
+                if(!this.HasProp("__CDW10_V121"))
+                    this.__CDW10_V121 := NVME_CDW10_GET_LOG_PAGE_V121(this.ptr + 0)
+                return this.__CDW10_V121
+            }
+        }
+    
+        /**
          * @type {NVME_CDW10_GET_LOG_PAGE_V13}
          */
         CDW10_V13{
@@ -484,6 +512,17 @@ class NVME_COMMAND extends Win32Struct
                 if(!this.HasProp("__CDW10_V13"))
                     this.__CDW10_V13 := NVME_CDW10_GET_LOG_PAGE_V13(this.ptr + 0)
                 return this.__CDW10_V13
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW10_GET_LOG_PAGE_V20}
+         */
+        CDW10_V20{
+            get {
+                if(!this.HasProp("__CDW10_V20"))
+                    this.__CDW10_V20 := NVME_CDW10_GET_LOG_PAGE_V20(this.ptr + 0)
+                return this.__CDW10_V20
             }
         }
     
@@ -499,19 +538,25 @@ class NVME_COMMAND extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NVME_CDW12_GET_LOG_PAGE}
          */
-        CDW12 {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
+        CDW12{
+            get {
+                if(!this.HasProp("__CDW12"))
+                    this.__CDW12 := NVME_CDW12_GET_LOG_PAGE(this.ptr + 16)
+                return this.__CDW12
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {NVME_CDW13_GET_LOG_PAGE}
          */
-        CDW13 {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
+        CDW13{
+            get {
+                if(!this.HasProp("__CDW13"))
+                    this.__CDW13 := NVME_CDW13_GET_LOG_PAGE(this.ptr + 24)
+                return this.__CDW13
+            }
         }
     
         /**
@@ -520,8 +565,19 @@ class NVME_COMMAND extends Win32Struct
         CDW14{
             get {
                 if(!this.HasProp("__CDW14"))
-                    this.__CDW14 := NVME_CDW14_GET_LOG_PAGE(this.ptr + 24)
+                    this.__CDW14 := NVME_CDW14_GET_LOG_PAGE(this.ptr + 32)
                 return this.__CDW14
+            }
+        }
+    
+        /**
+         * @type {NVME_CDW14_GET_LOG_PAGE_V20}
+         */
+        CDW14_V20{
+            get {
+                if(!this.HasProp("__CDW14_V20"))
+                    this.__CDW14_V20 := NVME_CDW14_GET_LOG_PAGE_V20(this.ptr + 32)
+                return this.__CDW14_V20
             }
         }
     
@@ -529,8 +585,8 @@ class NVME_COMMAND extends Win32Struct
          * @type {Integer}
          */
         CDW15 {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
+            get => NumGet(this, 40, "uint")
+            set => NumPut("uint", value, this, 40)
         }
     
     }
@@ -1621,6 +1677,117 @@ class NVME_COMMAND extends Win32Struct
     
     }
 
+    class _DEVICESELFTEST extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {NVME_CDW10_DEVICE_SELF_TEST}
+         */
+        CDW10{
+            get {
+                if(!this.HasProp("__CDW10"))
+                    this.__CDW10 := NVME_CDW10_DEVICE_SELF_TEST(this.ptr + 0)
+                return this.__CDW10
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW11 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+    
+    }
+
+    class _VENDORSPECIFIC extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        NDT {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NDM {
+            get => NumGet(this, 4, "uint")
+            set => NumPut("uint", value, this, 4)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW12 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW13 {
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW14 {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CDW15 {
+            get => NumGet(this, 20, "uint")
+            set => NumPut("uint", value, this, 20)
+        }
+    
+    }
+
     /**
      * @type {_GENERAL}
      */
@@ -1893,6 +2060,28 @@ class NVME_COMMAND extends Win32Struct
             if(!this.HasProp("__ZONEAPPEND"))
                 this.__ZONEAPPEND := %this.__Class%._ZONEAPPEND(this.ptr + 48)
             return this.__ZONEAPPEND
+        }
+    }
+
+    /**
+     * @type {_DEVICESELFTEST}
+     */
+    DEVICESELFTEST{
+        get {
+            if(!this.HasProp("__DEVICESELFTEST"))
+                this.__DEVICESELFTEST := %this.__Class%._DEVICESELFTEST(this.ptr + 48)
+            return this.__DEVICESELFTEST
+        }
+    }
+
+    /**
+     * @type {_VENDORSPECIFIC}
+     */
+    VENDORSPECIFIC{
+        get {
+            if(!this.HasProp("__VENDORSPECIFIC"))
+                this.__VENDORSPECIFIC := %this.__Class%._VENDORSPECIFIC(this.ptr + 48)
+            return this.__VENDORSPECIFIC
         }
     }
 }

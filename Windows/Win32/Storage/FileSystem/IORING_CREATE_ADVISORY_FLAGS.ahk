@@ -15,4 +15,9 @@ class IORING_CREATE_ADVISORY_FLAGS{
      * @type {Integer (Int32)}
      */
     static IORING_CREATE_ADVISORY_FLAGS_NONE => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static IORING_CREATE_SKIP_BUILDER_PARAM_CHECKS => 1
 }

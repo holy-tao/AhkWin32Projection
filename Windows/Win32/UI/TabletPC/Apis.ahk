@@ -2116,6 +2116,90 @@ class TabletPC {
     }
 
     /**
+     * Retrieves a packet description that contains the packet properties the recognizer uses.
+     * @remarks
+     * Typically, recognizers use the (x, y) coordinate properties and ignore the others. If you save the ink to a file for recognition at a later time, use the preferred packet description to only save those properties that the recognizer uses.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
+     * @param {Pointer<PACKET_DESCRIPTION>} pPacketDescription Describes the content of the packets the recognizer uses. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-packet_description">PACKET_DESCRIPTION</a> structure.
+     * 
+     * To retrieve the packet description, initialize the packet description with zeroes and call the <b>GetPreferredPacketDescription</b> function. The function populates the property and button counts, which you use to allocate space for the pPacketProperties and pguidButtons members of the <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-packet_description">PACKET_DESCRIPTION</a> structure. Call the function again to populate the rest of the packet description.
+     * 
+     * The pguidButtons member of the <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-packet_description">PACKET_DESCRIPTION</a> structure may be zero when <b>GetPreferredPacketDescription</b> returns. This means the packets have no button data, so this member does not have any pguidButtons allocated. In this case, the calling function should leave the pointer <b>NULL</b>.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pPacketDescription</i> buffer is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getpreferredpacketdescription
+     * @since windows5.1.2600
+     */
+    static GetPreferredPacketDescription(hrec, pPacketDescription) {
+        result := DllCall("inkobjcore.dll\GetPreferredPacketDescription", "ptr", hrec, "ptr", pPacketDescription, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Returns the ranges of Unicode points that the recognizer supports.
      * @remarks
      * This function is optional.
@@ -2428,6 +2512,39 @@ class TabletPC {
     }
 
     /**
+     * This function is obsolete and need not be implemented by custom application recognizers.
+     * @param {Pointer<Void>} hrcalt N/A
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroyalternate
+     * @since windows5.1.2600
+     */
+    static DestroyAlternate(hrcalt) {
+        result := DllCall("inkobjcore.dll\DestroyAlternate", "ptr", hrcalt, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Sets the recognition guide to use for boxed or lined input. You must call this function before you add strokes to the context.
      * @remarks
      * Guide boxes are numbered based on the <i>iIntex</i> value.
@@ -2520,6 +2637,85 @@ class TabletPC {
     }
 
     /**
+     * Retrieves the guide used for boxed, lined, or freeform input.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<RECO_GUIDE>} pGuide A guide used for boxed, lined, or freeform input. For guide details, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_guide">RECO_GUIDE</a> structure.
+     * @param {Pointer<UInt32>} piIndex Index value of the first box or line in the context.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The context does not contain a guide.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getguide
+     * @since windows5.1.2600
+     */
+    static GetGuide(hrc, pGuide, piIndex) {
+        result := DllCall("inkobjcore.dll\GetGuide", "ptr", hrc, "ptr", pGuide, "uint*", piIndex, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Stops the recognizer from processing ink because a stroke has been added or deleted.
      * @remarks
      * The <b>AdviseInkChange</b> function signals that there will be additional calls to the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function. This enables any recognition already in progress to stop at any convenient point. Recognition completion is one such point, so <b>AdviseInkChange</b> can safely do nothing.
@@ -2593,6 +2789,134 @@ class TabletPC {
     }
 
     /**
+     * Specifies character Autocomplete mode for character or word recognition.You cannot turn off character Autocomplete after it is set.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Integer} iMode The following table lists the possible character Autocomplete modes.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>The character Autocomplete mode.</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CAC_FULL"></a><a id="cac_full"></a><dl>
+     * <dt><b>CAC_FULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Recognition occurs as if all strokes have been completed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CAC_PREFIX"></a><a id="cac_prefix"></a><dl>
+     * <dt><b>CAC_PREFIX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Recognition occurs on partial input. The order of the strokes must conform to the rules of the language.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CAC_RANDOM"></a><a id="cac_random"></a><dl>
+     * <dt><b>CAC_RANDOM</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Recognition occurs on partial input. The order of the strokes can be arbitrary.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified mode is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The recognizer does not support this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Either you have not called the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setguide">SetGuide</a> function before calling this function, or the guide has more than one box.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The context is invalid or one of the parameters is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_OUT_OF_ORDER_CALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Attempted to set guide when there was already some ink in the reco context, or, in the case of recognizers of East Asian characters, <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setguide">SetGuide</a> was called previously.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setcacmode
+     * @since windows5.1.2600
+     */
+    static SetCACMode(hrc, iMode) {
+        result := DllCall("inkobjcore.dll\SetCACMode", "ptr", hrc, "int", iMode, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Indicates that no more ink will be added to the context.You cannot add strokes to the context after calling this function.
      * @remarks
      * The recognition results you receive after calling this function may be different from previous recognition results that were based on partial ink input.
@@ -2659,6 +2983,141 @@ class TabletPC {
      */
     static EndInkInput(hrc) {
         result := DllCall("inkobjcore.dll\EndInkInput", "ptr", hrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Creates a recognizer context that contains the same settings as the original. The new recognizer context does not include the ink or recognition results of the original.
+     * @remarks
+     * The settings  for this context include the recognition guide, character Autocomplete mode, and any factoids that improve the recognition results. An example of a factoid may include whether the ink is a phone number, a name, or a URL. The TextContext and Wordlists are preserved in the new context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} pCloneHrc The new recognizer context.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pCloneHrc</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to allocate memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
+     * @since windows5.1.2600
+     */
+    static CloneContext(hrc, pCloneHrc) {
+        result := DllCall("inkobjcore.dll\CloneContext", "ptr", hrc, "ptr", pCloneHrc, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Deletes the current ink and recognition results from the context.The current settings of the recognizer context are preserved.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-resetcontext
+     * @since windows5.1.2600
+     */
+    static ResetContext(hrc) {
+        result := DllCall("inkobjcore.dll\ResetContext", "ptr", hrc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3254,6 +3713,102 @@ class TabletPC {
     }
 
     /**
+     * Retrieves a list of Unicode point ranges enabled on the context. If you do not call the SetEnabledUnicodeRanges function to specify the enabled ranges, this function returns the recognizer's default Unicode point ranges.
+     * @remarks
+     * This function is optional.
+     * 
+     * Some recognizers do not support enabling and disabling specific Unicode points, but may still include the <b>GetEnabledUnicodeRanges</b> function. For such recognizers the <b>GetEnabledUnicodeRanges</b> function returns the same ranges as the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function.
+     * 
+     * Microsoft gesture recognizers use Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<UInt32>} pcRanges On input, the number of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures the <i>pcr</i> buffer can contain. On output, the number of ranges the <i>pcr</i> buffer contains.
+     * @param {Pointer<CHARACTER_RANGE>} pcr An array of CHARACTER_RANGE structures. Each structure contains a range of Unicode points enabled on the context. The order of the array is arbitrary. To determine the size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pcr</i> buffer is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getenabledunicoderanges
+     * @since windows5.1.2600
+     */
+    static GetEnabledUnicodeRanges(hrc, pcRanges, pcr) {
+        result := DllCall("inkobjcore.dll\GetEnabledUnicodeRanges", "ptr", hrc, "uint*", pcRanges, "ptr", pcr, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Enables one or more Unicode point ranges on the context.
      * @remarks
      * The <b>SetEnabledUnicodeRanges</b> function is optional.
@@ -3334,6 +3889,290 @@ class TabletPC {
      */
     static SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
         result := DllCall("inkobjcore.dll\SetEnabledUnicodeRanges", "ptr", hrc, "uint", cRanges, "ptr", pcr, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Retrieves a list of properties the recognizer supports.
+     * @remarks
+     * This function is optional.
+     * 
+     * When Microsoft recognition engines are called with the <i>pcProperties</i> parameter set to a value larger than the required value, it does not result in an error. Instead, the engine automatically changes the size to the required value for the recognizer.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<UInt32>} pcProperties On input, the size, in bytes, the <i>pPropertyGUIDS</i> buffer can be. On output, the size, in bytes, the <i>pPropertyGUIDS</i> buffer is.
+     * @param {Pointer<Guid>} pPropertyGUIDS The user-allocated buffer to contain a list of properties the recognizer supports. To determine the size of the buffer, set <i>pPropertyGUIDS</i> to <b>NULL</b>; use the size (<i>pcProperties</i>) to allocate <i>pPropertyGUIDS</i>. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ppPropertyGUIDS</i> buffer is too small.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpropertylist
+     * @since windows5.1.2600
+     */
+    static GetContextPropertyList(hrc, pcProperties, pPropertyGUIDS) {
+        result := DllCall("inkobjcore.dll\GetContextPropertyList", "ptr", hrc, "uint*", pcProperties, "ptr", pPropertyGUIDS, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Returns a specified property value from the recognizer context.
+     * @remarks
+     * This function is optional.
+     * 
+     * You can use the <b>GetContextPropertyValue</b> function to get information that the recognizer is returning to the caller. This enables a customized recognizer to have modes and settings, and to return data that is unique to that recognizer.
+     * 
+     * In the Microsoft recognizers, calling the <b>GetContextPropertyValue</b> function with the <i>pcbSize</i> parameter set to a value larger than required does not result in an incorrect return value. Instead, the code automatically changes the size to the required value for the current GUID.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<Guid>} pGuid The property to retrieve. Specify a predefined property globally unique identifier (GUID) or application-defined GUID. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
+     * @param {Pointer<UInt32>} pcbSize On input, the size, in bytes, the <i>pProperty </i> buffer can be. On output, the size, in bytes, the <i>pProperty</i> buffer is.
+     * @param {Pointer<Byte>} pProperty The user allocated buffer to contain the property value. To determine the size of the buffer, set <i>pProperty</i> to <b>NULL</b>; use the size to allocate <i>pProperty</i>.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_UNINITIALIZED_PROPERTY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property has not been set by the context. This may occur if the property is set only in certain circumstances, or if the property is to be set only after an event that has not yet occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INVALID_PROPERTY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The recognizer does not support the property.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pProperty</i> buffer is too small.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpropertyvalue
+     * @since windows5.1.2600
+     */
+    static GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
+        result := DllCall("inkobjcore.dll\GetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint*", pcbSize, "char*", pProperty, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Adds a property to the recognizer context.If a property already exists, its value is modified.
+     * @remarks
+     * The <b>SetContextPropertyValue</b> function is optional.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<Guid>} pGuid The property to set. Specify a predefined property globally unique identifier (GUID) or application-defined property GUID. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
+     * @param {Integer} cbSize The size, in bytes, of the <i>pProperty</i> buffer.
+     * @param {Pointer<Byte>} pProperty The buffer that contains the property value.
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pGUID</i> is invalid or <i>cbSize</i> has been set to a very large, invalid value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INVALID_PROPERTY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pGUID</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>cbSize</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Returned when an attempt is made to set a property value when it has already been enabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setcontextpropertyvalue
+     * @since windows5.1.2600
+     */
+    static SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
+        result := DllCall("inkobjcore.dll\SetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint", cbSize, "char*", pProperty, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3531,6 +4370,22 @@ class TabletPC {
      */
     static SetWordList(hrc, hwl) {
         result := DllCall("inkobjcore.dll\SetWordList", "ptr", hrc, "ptr", hwl, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * Gets the context preference flags.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
+     * @param {Pointer<UInt32>} pdwContextPreferenceFlags The handle to the context preference flags.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
+     * @since windows5.1.2600
+     */
+    static GetContextPreferenceFlags(hrc, pdwContextPreferenceFlags) {
+        result := DllCall("inkobjcore.dll\GetContextPreferenceFlags", "ptr", hrc, "uint*", pdwContextPreferenceFlags, "int")
         if(result != 0)
             throw OSError(result)
 

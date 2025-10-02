@@ -159,4 +159,9 @@ class D3D11_FEATURE{
      * @type {Integer (Int32)}
      */
     static D3D11_FEATURE_DISPLAYABLE => 20
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D11_FEATURE_D3D11_OPTIONS6 => 21
 }

@@ -5,6 +5,7 @@
 /**
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
+ * @deprecated
  */
 class EVENTSFORLOGFILE extends Win32Struct
 {

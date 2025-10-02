@@ -2150,6 +2150,30 @@ class Appx {
     }
 
     /**
+     * 
+     * @param {Pointer<Void>} user 
+     * @param {Pointer<Char>} packageFamilyName 
+     * @param {Pointer} minVersion 
+     * @param {Integer} packageDependencyProcessorArchitectures 
+     * @param {Integer} lifetimeKind 
+     * @param {Pointer<Char>} lifetimeArtifact 
+     * @param {Integer} options 
+     * @param {Pointer<FILETIME>} lifetimeExpiration 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @returns {HRESULT} 
+     */
+    static TryCreatePackageDependency2(user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, lifetimeExpiration, packageDependencyId) {
+        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        lifetimeArtifact := lifetimeArtifact is String? StrPtr(lifetimeArtifact) : lifetimeArtifact
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\TryCreatePackageDependency2", "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int", packageDependencyProcessorArchitectures, "int", lifetimeKind, "ptr", lifetimeArtifact, "int", options, "ptr", lifetimeExpiration, "ptr", packageDependencyId, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Deletes the install-time reference for the framework package dependency you created earlier by using the TryCreatePackageDependency method. This method informs the OS that it is safe to remove the framework package if no other apps have a dependency on it.
      * @remarks
      * Removing a package dependency is typically done when an app is uninstalled. A package dependency is implicitly removed if its lifetime artifact (specified via the *lifetimeArtifact* parameter of the [TryCreatePackageDependency](nf-appmodel-trycreatepackagedependency.md) function) is deleted. Package dependencies that are not referenced by other packages are elegible to be removed.
@@ -2220,6 +2244,25 @@ class Appx {
     }
 
     /**
+     * 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Integer} rank 
+     * @param {Integer} options 
+     * @param {Pointer<Void>} packageDependencyContext 
+     * @param {Pointer<Char>} packageFullName 
+     * @returns {HRESULT} 
+     */
+    static AddPackageDependency2(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
+        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, "int", rank, "int", options, "ptr", packageDependencyContext, "ptr", packageFullName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Removes a resolved package dependency from the current process' package graph (that is, a run-time reference for a framework package dependency that was added by using the AddPackageDependency function).
      * @remarks
      * This function does not unload loaded resources such as DLLs. After removing a package dependency, any files loaded from the package can continue
@@ -2270,6 +2313,22 @@ class Appx {
     }
 
     /**
+     * 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Pointer<Char>} packageFullName 
+     * @returns {HRESULT} 
+     */
+    static GetResolvedPackageFullNameForPackageDependency2(packageDependencyId, packageFullName) {
+        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetResolvedPackageFullNameForPackageDependency2", "ptr", packageDependencyId, "ptr", packageFullName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Returns the package dependency for the specified context handle.
      * @param {Pointer<Void>} packageDependencyContext Type: <b>PACKAGEDEPENDENCY_CONTEXT</b>
      * 
@@ -2296,6 +2355,63 @@ class Appx {
      */
     static GetPackageGraphRevisionId() {
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-6.dll\GetPackageGraphRevisionId", "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<FindPackageDependencyCriteria>} findPackageDependencyCriteria 
+     * @param {Pointer<UInt32>} packageDependencyIdsCount 
+     * @param {Pointer<Char>} packageDependencyIds 
+     * @returns {HRESULT} 
+     */
+    static FindPackageDependency(findPackageDependencyCriteria, packageDependencyIdsCount, packageDependencyIds) {
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\FindPackageDependency", "ptr", findPackageDependencyCriteria, "uint*", packageDependencyIdsCount, "ptr", packageDependencyIds, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Pointer<Void>} user 
+     * @param {Pointer<Char>} packageFamilyName 
+     * @param {Pointer<PACKAGE_VERSION>} minVersion 
+     * @param {Pointer<Int32>} packageDependencyProcessorArchitectures 
+     * @param {Pointer<Int32>} lifetimeKind 
+     * @param {Pointer<Char>} lifetimeArtifact 
+     * @param {Pointer<Int32>} options 
+     * @param {Pointer<FILETIME>} lifetimeExpiration 
+     * @returns {HRESULT} 
+     */
+    static GetPackageDependencyInformation(packageDependencyId, user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, lifetimeExpiration) {
+        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetPackageDependencyInformation", "ptr", packageDependencyId, "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int*", packageDependencyProcessorArchitectures, "int*", lifetimeKind, "ptr", lifetimeArtifact, "int*", options, "ptr", lifetimeExpiration, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Pointer<Void>} user 
+     * @param {Integer} scopeIsSystem 
+     * @param {Pointer<UInt32>} processIdsCount 
+     * @param {Pointer<UInt32>} processIds 
+     * @returns {HRESULT} 
+     */
+    static GetProcessesUsingPackageDependency(packageDependencyId, user, scopeIsSystem, processIdsCount, processIds) {
+        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "ptr", processIds, "int")
+        if(result != 0)
+            throw OSError(result)
+
         return result
     }
 

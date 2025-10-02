@@ -20,4 +20,9 @@ class UCurrNameStyle{
      * @type {Integer (Int32)}
      */
     static UCURR_NARROW_SYMBOL_NAME => 2
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UCURR_VARIANT_SYMBOL_NAME => 3
 }

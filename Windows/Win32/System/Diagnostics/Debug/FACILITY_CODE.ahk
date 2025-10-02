@@ -764,6 +764,21 @@ class FACILITY_CODE{
     /**
      * @type {Integer (UInt32)}
      */
+    static FACILITY_USERMODE_UNIONFS => 2341
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FACILITY_USERMODE_PRM => 2342
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FACILITY_USERMODE_WIN_ACCEL => 2343
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FACILITY_PIX => 2748
 
     /**

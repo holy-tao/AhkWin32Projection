@@ -74,4 +74,24 @@ class D3D12_VIDEO_ENCODER_VALIDATION_FLAGS{
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_DATA_NOT_SUPPORTED => 4096
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_QPMAP_NOT_SUPPORTED => 8192
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_DIRTY_REGIONS_NOT_SUPPORTED => 16384
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_MOTION_SEARCH_NOT_SUPPORTED => 32768
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_VALIDATION_FLAG_FRAME_ANALYSIS_NOT_SUPPORTED => 65536
 }

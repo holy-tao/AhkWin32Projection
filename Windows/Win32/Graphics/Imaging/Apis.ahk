@@ -166,6 +166,16 @@ class Imaging {
     /**
      * @type {String}
      */
+    static CLSID_WICJpegXLDecoder => "{fc6ceece-aef5-4a23-96ec-5984ffb486d9}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_WICJpegXLEncoder => "{0e4ecd3b-1ba6-4636-8198-56c73040964a}"
+
+    /**
+     * @type {String}
+     */
     static GUID_ContainerFormatBmp => "{0af1d87e-fcfe-4188-bdeb-a7906471cbe3}"
 
     /**
@@ -222,6 +232,11 @@ class Imaging {
      * @type {String}
      */
     static GUID_ContainerFormatRaw => "{fe99ce60-f19c-433c-a3ae-00acefa9ca21}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_ContainerFormatJpegXL => "{fec14e3f-427a-4736-aae6-27ed84f69322}"
 
     /**
      * @type {String}
@@ -387,6 +402,16 @@ class Imaging {
      * @type {String}
      */
     static GUID_WICPixelFormat8bppAlpha => "{e6cd0116-eeba-4161-aa85-27dd9fb3a895}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_WICPixelFormat8bppDepth => "{4c9c9f45-1d89-4e31-9bc7-69343a0dca69}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_WICPixelFormat8bppGain => "{a884022a-af13-4c16-b746-619bf618b878}"
 
     /**
      * @type {String}
@@ -1111,6 +1136,16 @@ class Imaging {
     /**
      * @type {String}
      */
+    static GUID_MetadataFormatJpegXLAnim => "{501c2e24-7a7d-42b2-93c7-b4f45bcc92f7}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_MetadataFormatJpegXLAnimFrame => "{958ecc2c-36cb-4af9-9ea8-0b74baccfd3e}"
+
+    /**
+     * @type {String}
+     */
     static CLSID_WICUnknownMetadataReader => "{699745c2-5066-4b82-a8e3-d40478dbec8c}"
 
     /**
@@ -1506,12 +1541,37 @@ class Imaging {
     /**
      * @type {String}
      */
+    static CLSID_WICHeifHDRMetadataWriter => "{b83135a2-8e7e-485e-a533-f93621dd93c8}"
+
+    /**
+     * @type {String}
+     */
     static CLSID_WICWebpAnimMetadataReader => "{076f9911-a348-465c-a807-a252f3f2d3de}"
 
     /**
      * @type {String}
      */
     static CLSID_WICWebpAnmfMetadataReader => "{85a10b03-c9f6-439f-be5e-c0fbef67807c}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_WICJpegXLAnimMetadataReader => "{bf8b6eb0-37e2-4ed8-8289-be9ae31d9f03}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_WICJpegXLAnimMetadataWriter => "{39d01345-432b-44e6-afd6-f606d20a5571}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_WICJpegXLAnimFrameMetadataReader => "{9cdf50a8-8770-4fe6-aef2-d06e2c01744f}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_WICJpegXLAnimFrameMetadataWriter => "{d1ce58a8-06e0-4b6f-8fc1-577560bd5ad9}"
 ;@endregion Constants
 
 ;@region Methods

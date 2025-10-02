@@ -126,4 +126,19 @@ class DXCoreAdapterProperty{
      * @type {Integer (UInt32)}
      */
     static HardwareIDParts => 14
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PhysicalAdapterCount => 15
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterEngineCount => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static AdapterEngineName => 17
 }

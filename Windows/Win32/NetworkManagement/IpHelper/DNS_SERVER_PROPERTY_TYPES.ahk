@@ -11,7 +11,7 @@
  */
 class DNS_SERVER_PROPERTY_TYPES extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
     static packingSize => 8
 
@@ -20,6 +20,14 @@ class DNS_SERVER_PROPERTY_TYPES extends Win32Struct
      * @type {Pointer<DNS_DOH_SERVER_SETTINGS>}
      */
     DohSettings {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
+    }
+
+    /**
+     * @type {Pointer<DNS_DOT_SERVER_SETTINGS>}
+     */
+    DotSettings {
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
     }

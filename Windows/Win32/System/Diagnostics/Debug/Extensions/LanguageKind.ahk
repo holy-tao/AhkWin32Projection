@@ -25,4 +25,9 @@ class LanguageKind{
      * @type {Integer (Int32)}
      */
     static LanguageAssembly => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static LanguageRust => 4
 }

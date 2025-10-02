@@ -251,6 +251,11 @@ class Extensions {
     /**
      * @type {Integer (UInt32)}
      */
+    static DEBUG_REQUEST_SET_PARENT_HWND => 40
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DEBUG_SRCFILE_SYMBOL_TOKEN => 0
 
     /**

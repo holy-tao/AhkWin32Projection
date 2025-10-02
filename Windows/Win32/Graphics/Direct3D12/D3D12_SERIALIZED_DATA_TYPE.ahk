@@ -13,4 +13,9 @@ class D3D12_SERIALIZED_DATA_TYPE{
      * @type {Integer (Int32)}
      */
     static D3D12_SERIALIZED_DATA_RAYTRACING_ACCELERATION_STRUCTURE => 0
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_SERIALIZED_DATA_APPLICATION_SPECIFIC_DRIVER_STATE => 1
 }

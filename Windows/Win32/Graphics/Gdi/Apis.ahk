@@ -2646,6 +2646,11 @@ class Gdi {
     /**
      * @type {Integer (UInt32)}
      */
+    static DISPLAYCONFIG_PATH_BOOST_REFRESH_RATE => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DISPLAYCONFIG_PATH_VALID_FLAGS => 29
 
     /**
@@ -15813,18 +15818,18 @@ class Gdi {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<RECT>} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
+     * @param {Pointer<Void>} hdc 
+     * @param {Pointer<RECT>} lprc 
+     * @param {Integer} uType 
+     * @param {Integer} uState 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawframecontrol
      * @since windows5.0
      */
-    static DrawFrameControl(param0, param1, param2, param3) {
-        result := DllCall("USER32.dll\DrawFrameControl", "ptr", param0, "ptr", param1, "uint", param2, "uint", param3, "int")
+    static DrawFrameControl(hdc, lprc, uType, uState) {
+        result := DllCall("USER32.dll\DrawFrameControl", "ptr", hdc, "ptr", lprc, "uint", uType, "uint", uState, "int")
         return result
     }
 

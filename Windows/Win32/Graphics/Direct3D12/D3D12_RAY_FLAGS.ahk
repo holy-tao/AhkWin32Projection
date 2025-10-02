@@ -95,4 +95,9 @@ class D3D12_RAY_FLAGS{
      * @type {Integer (Int32)}
      */
     static D3D12_RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES => 512
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_RAY_FLAG_FORCE_OMM_2_STATE => 1024
 }

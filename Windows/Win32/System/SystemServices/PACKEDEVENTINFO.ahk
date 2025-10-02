@@ -4,6 +4,7 @@
 /**
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
+ * @deprecated
  */
 class PACKEDEVENTINFO extends Win32Struct
 {

@@ -49,10 +49,45 @@ class MFVideoTransferMatrix{
     static MFVideoTransferMatrix_BT2020_12 => 5
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_Identity => 6
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_FCC47 => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_YCgCo => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_SMPTE2085 => 9
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_Chroma => 10
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_Chroma_const => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MFVideoTransferMatrix_ICtCp => 12
+
+    /**
      * Reserved.
      * @type {Integer (Int32)}
      */
-    static MFVideoTransferMatrix_Last => 6
+    static MFVideoTransferMatrix_Last => 13
 
     /**
      * Reserved. This member forces the enumeration type to compile as a <b>DWORD</b> value.

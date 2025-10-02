@@ -92,12 +92,28 @@ class SCRUB_DATA_OUTPUT extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    NextStartingByteOffset {
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ValidDataLength {
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
+    }
+
+    /**
      * @type {Array<UInt32>}
      */
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 60, 9, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 4, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -19,4 +19,9 @@ class D3D12_RAYTRACING_GEOMETRY_TYPE{
      * @type {Integer (Int32)}
      */
     static D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS => 1
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_RAYTRACING_GEOMETRY_TYPE_OMM_TRIANGLES => 2
 }

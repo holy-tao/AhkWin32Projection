@@ -15,4 +15,14 @@ class MLOperatorEdgeType{
      * @type {Integer (UInt32)}
      */
     static Tensor => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SequenceTensor => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static Primitive => 3
 }

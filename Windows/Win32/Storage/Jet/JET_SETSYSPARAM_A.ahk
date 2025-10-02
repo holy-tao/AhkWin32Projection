@@ -29,7 +29,7 @@ class JET_SETSYSPARAM_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<SByte>}
      */
     sz {
         get => NumGet(this, 16, "ptr")

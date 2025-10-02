@@ -3606,7 +3606,12 @@ class Rras {
     /**
      * @type {Integer (UInt32)}
      */
-    static RASBASEEND => 877
+    static ERROR_WINHTTP_AUTO_PROXY_SERVICE => 878
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static RASBASEEND => 878
 ;@endregion Constants
 
 ;@region Methods

@@ -7,7 +7,7 @@
  */
 class IMAGE_HOT_PATCH_INFO extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 36
 
     static packingSize => 4
 
@@ -65,5 +65,21 @@ class IMAGE_HOT_PATCH_INFO extends Win32Struct
     ExtraPatchSize {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MinSequenceNumber {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

@@ -5,6 +5,7 @@
 #Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk
 #Include .\HTTP_ERROR_HEADERS_PARAM.ahk
 #Include .\HTTP_TLS_SESSION_TICKET_KEYS_PARAM.ahk
+#Include .\HTTP_CERT_CONFIG_PARAM.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
@@ -92,6 +93,17 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
             if(!this.HasProp("__HttpTlsSessionTicketKeysParam"))
                 this.__HttpTlsSessionTicketKeysParam := HTTP_TLS_SESSION_TICKET_KEYS_PARAM(this.ptr + 16)
             return this.__HttpTlsSessionTicketKeysParam
+        }
+    }
+
+    /**
+     * @type {HTTP_CERT_CONFIG_PARAM}
+     */
+    HttpCertConfigParam{
+        get {
+            if(!this.HasProp("__HttpCertConfigParam"))
+                this.__HttpCertConfigParam := HTTP_CERT_CONFIG_PARAM(this.ptr + 16)
+            return this.__HttpCertConfigParam
         }
     }
 }

@@ -13,7 +13,7 @@ class JET_USERDEFINEDDEFAULT_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<SByte>}
      */
     szCallback {
         get => NumGet(this, 0, "ptr")
@@ -37,7 +37,7 @@ class JET_USERDEFINEDDEFAULT_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<SByte>}
      */
     szDependantColumns {
         get => NumGet(this, 24, "ptr")

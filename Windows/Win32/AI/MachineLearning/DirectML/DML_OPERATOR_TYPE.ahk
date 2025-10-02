@@ -914,4 +914,46 @@ class DML_OPERATOR_TYPE{
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ROI_ALIGN1 => 149
+
+    /**
+     * Indicates the operator described by the [DML_ROI_ALIGN_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_roi_align_grad_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_ROI_ALIGN_GRAD => 150
+
+    /**
+     * Indicates the operator described by the [DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_batch_normalization_training_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_BATCH_NORMALIZATION_TRAINING => 151
+
+    /**
+     * Indicates the operator described by the [DML_BATCH_NORMALIZATION_TRAINING_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_batch_normalization_training_grad_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_BATCH_NORMALIZATION_TRAINING_GRAD => 152
+
+    /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_clip1_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_ELEMENT_WISE_CLIP1 => 153
+
+    /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_clip_grad1_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_ELEMENT_WISE_CLIP_GRAD1 => 154
+
+    /**
+     * Indicates the operator described by the [DML_PADDING1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_padding1_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_PADDING1 => 155
+
+    /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_NEGATE_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_negate_operator_desc) structure.
+     * @type {Integer (Int32)}
+     */
+    static DML_OPERATOR_ELEMENT_WISE_NEGATE => 156
 }

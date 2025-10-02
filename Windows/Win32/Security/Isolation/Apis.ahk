@@ -47,6 +47,7 @@ class Isolation {
      * @param {Pointer<Void>} Reserved 
      * @param {Pointer<Int32>} isProcessInWDAGContainer 
      * @returns {HRESULT} 
+     * @deprecated
      */
     static IsProcessInWDAGContainer(Reserved, isProcessInWDAGContainer) {
         result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", "ptr", Reserved, "int*", isProcessInWDAGContainer, "int")
@@ -60,6 +61,7 @@ class Isolation {
      * 
      * @param {Pointer<Int32>} isProcessInIsolatedContainer 
      * @returns {HRESULT} 
+     * @deprecated
      */
     static IsProcessInIsolatedContainer(isProcessInIsolatedContainer) {
         result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", isProcessInIsolatedContainer, "int")

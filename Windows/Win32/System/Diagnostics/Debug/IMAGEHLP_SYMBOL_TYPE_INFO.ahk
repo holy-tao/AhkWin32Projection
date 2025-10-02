@@ -290,8 +290,28 @@ class IMAGEHLP_SYMBOL_TYPE_INFO{
     static TI_GET_OBJECTPOINTERTYPE => 34
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static TI_GET_DISCRIMINATEDUNION_TAG_TYPEID => 35
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TI_GET_DISCRIMINATEDUNION_TAG_OFFSET => 36
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TI_GET_DISCRIMINATEDUNION_TAG_RANGESCOUNT => 37
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static TI_GET_DISCRIMINATEDUNION_TAG_RANGES => 38
+
+    /**
      * 
      * @type {Integer (Int32)}
      */
-    static IMAGEHLP_SYMBOL_TYPE_INFO_MAX => 35
+    static IMAGEHLP_SYMBOL_TYPE_INFO_MAX => 39
 }

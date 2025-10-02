@@ -212,6 +212,11 @@ class Dxgi {
      * @type {Integer (Int32)}
      */
     static DXGI_ERROR_MPO_UNPINNED => -2005270428
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DXGI_ERROR_SETDISPLAYMODE_REQUIRED => -2005270427
 ;@endregion Constants
 
 ;@region Methods

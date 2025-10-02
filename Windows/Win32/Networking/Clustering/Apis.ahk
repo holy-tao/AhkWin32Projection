@@ -131,12 +131,37 @@ class Clustering {
     /**
      * @type {Integer (UInt32)}
      */
+    static FE_22H2_UPGRADE_VERSION => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CA_UPGRADE_VERSION => 1
 
     /**
      * @type {Integer (UInt32)}
      */
     static NI_UPGRADE_VERSION => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CU_UPGRADE_VERSION => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ZN_UPGRADE_VERSION => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static GA_UPGRADE_VERSION => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static GE_UPGRADE_VERSION => 6
 
     /**
      * @type {Integer (UInt32)}
@@ -186,7 +211,22 @@ class Clustering {
     /**
      * @type {Integer (UInt32)}
      */
-    static CLUSAPI_VERSION => 2572
+    static CLUSAPI_VERSION_CU => 3075
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CLUSAPI_VERSION_ZN => 3076
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CLUSAPI_VERSION_GA => 3077
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CLUSAPI_VERSION => 3077
 
     /**
      * @type {Integer (UInt32)}
@@ -1176,6 +1216,11 @@ class Clustering {
     /**
      * @type {String}
      */
+    static CLUS_RESTYPE_NAME_KEY_VALUE_STORE => "Key Value Store"
+
+    /**
+     * @type {String}
+     */
     static CLUSREG_NAME_CLUS_DESC => "Description"
 
     /**
@@ -1456,6 +1501,21 @@ class Clustering {
     /**
      * @type {String}
      */
+    static CLUSREG_NAME_MAX_PARALLEL_MIGRATIONS => "MaximumParallelMigrations"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_ACCELERATED_NETWORKING_ENABLED => "AcceleratedNetworkingEnabled"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_ACCELERATED_NETWORKING_NODE_RESERVE => "AcceleratedNetworkingNodeReserve"
+
+    /**
+     * @type {String}
+     */
     static CLUSREG_NAME_SAME_SUBNET_DELAY => "SameSubnetDelay"
 
     /**
@@ -1592,6 +1652,21 @@ class Clustering {
      * @type {String}
      */
     static CLUSREG_NAME_NODE_UNIQUEID => "UniqueID"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_NODE_DRAIN_ERROR_CODE => "DrainErrorCode"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_NODE_FAILBACK_STATUS => "NodeFailbackStatus"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_NODE_HYPERTHREADING_ENABLED => "HyperthreadingEnabled"
 
     /**
      * @type {String}
@@ -2082,6 +2157,11 @@ class Clustering {
      * @type {String}
      */
     static CLUSREG_NAME_AFFINITYRULE_ENABLED => "Enabled"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_AFFINITYRULE_SOFTANTIAFFINITY => "SoftAntiAffinity"
 
     /**
      * @type {String}
@@ -2827,6 +2907,21 @@ class Clustering {
      * @type {String}
      */
     static CLUS_NAME_RES_TYPE_LOG_MULTIPLE => "LogSizeMultiple"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_KEYVALUESTORE_NAME => "KeyValueStores"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_KEYVALUESTORE_MANAGERNAME => "ManagerName"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_KEYVALUESTORE_MANAGERPATH => "ManagerPath"
 
     /**
      * @type {Integer (UInt32)}
@@ -13319,6 +13414,19 @@ class Clustering {
      */
     static RemoveClusterNameAccount(hCluster, bDeleteComputerObjects) {
         result := DllCall("CLUSAPI.dll\RemoveClusterNameAccount", "ptr", hCluster, "int", bDeleteComputerObjects, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer} hCluster 
+     * @param {Pointer<REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG>} pConfig 
+     * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
+     * @param {Pointer<Void>} pvCallbackArg 
+     * @returns {Integer} 
+     */
+    static RepairClusterNameAccount(hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
+        result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "uint")
         return result
     }
 

@@ -180,8 +180,13 @@ class DWMWINDOWATTRIBUTE{
     static DWMWA_SYSTEMBACKDROP_TYPE => 38
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static DWMWA_REDIRECTIONBITMAP_ALPHA => 39
+
+    /**
      * The maximum recognized <b>DWMWINDOWATTRIBUTE</b> value, used for validation purposes.
      * @type {Integer (Int32)}
      */
-    static DWMWA_LAST => 39
+    static DWMWA_LAST => 40
 }

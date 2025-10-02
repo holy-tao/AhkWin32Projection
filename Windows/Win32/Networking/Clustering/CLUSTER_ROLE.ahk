@@ -199,4 +199,9 @@ class CLUSTER_ROLE{
      * @type {Integer (Int32)}
      */
     static ClusterRoleVirtualMachineReplicaBroker => 31
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ClusterRoleKeyValueStore => 32
 }

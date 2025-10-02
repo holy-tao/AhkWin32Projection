@@ -229,10 +229,25 @@ class KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY{
     /**
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_END => 44
+    static KSPROPERTY_CAMERACONTROL_EXTENDED_FRAMERATE_THROTTLE => 44
 
     /**
      * @type {Integer (Int32)}
      */
-    static KSPROPERTY_CAMERACONTROL_EXTENDED_END2 => 44
+    static KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW2_CONFIGCAPS => 45
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW2 => 46
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static KSPROPERTY_CAMERACONTROL_EXTENDED_END => 47
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static KSPROPERTY_CAMERACONTROL_EXTENDED_END2 => 47
 }

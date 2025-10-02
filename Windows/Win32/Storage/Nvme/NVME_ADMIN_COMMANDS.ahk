@@ -107,6 +107,11 @@ class NVME_ADMIN_COMMANDS{
     static NVME_ADMIN_COMMAND_NAMESPACE_ATTACHMENT => 21
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static NVME_ADMIN_COMMAND_KEEP_ALIVE => 24
+
+    /**
      * The Directive Send command.
      * @type {Integer (Int32)}
      */

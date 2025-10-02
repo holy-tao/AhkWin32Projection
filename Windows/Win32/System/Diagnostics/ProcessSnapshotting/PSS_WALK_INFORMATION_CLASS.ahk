@@ -31,4 +31,9 @@ class PSS_WALK_INFORMATION_CLASS{
      * @type {Integer (Int32)}
      */
     static PSS_WALK_THREADS => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PSS_WALK_THREAD_NAME => 4
 }

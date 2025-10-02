@@ -54,5 +54,10 @@ class WER_FILE_TYPE{
     /**
      * @type {Integer (Int32)}
      */
-    static WerFileTypeMax => 10
+    static WerFileTypeAuxiliaryHeapDump => 10
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WerFileTypeMax => 11
 }

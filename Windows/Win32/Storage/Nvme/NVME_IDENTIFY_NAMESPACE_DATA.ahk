@@ -13,7 +13,7 @@
  */
 class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
 {
-    static sizeof => 4168
+    static sizeof => 4360
 
     static packingSize => 8
 
@@ -429,19 +429,8 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     LBAF{
         get {
             if(!this.HasProp("__LBAFProxyArray"))
-                this.__LBAFProxyArray := Win32FixedArray(this.ptr + 136, 16, NVME_LBA_FORMAT, "")
+                this.__LBAFProxyArray := Win32FixedArray(this.ptr + 136, 64, NVME_LBA_FORMAT, "")
             return this.__LBAFProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Byte>}
-     */
-    Reserved4{
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 264, 192, Primitive, "char")
-            return this.__Reserved4ProxyArray
         }
     }
 
@@ -452,7 +441,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     VS{
         get {
             if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 456, 3712, Primitive, "char")
+                this.__VSProxyArray := Win32FixedArray(this.ptr + 648, 3712, Primitive, "char")
             return this.__VSProxyArray
         }
     }

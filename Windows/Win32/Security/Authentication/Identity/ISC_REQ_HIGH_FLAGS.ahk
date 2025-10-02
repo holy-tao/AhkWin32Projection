@@ -20,4 +20,14 @@ class ISC_REQ_HIGH_FLAGS{
      * @type {Integer (UInt64)}
      */
     static ISC_REQ_NO_POST_HANDSHAKE_AUTH => 17179869184
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_REQ_REUSE_SESSION_TICKETS => 34359738368
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ISC_REQ_EXPLICIT_SESSION => 68719476736
 }

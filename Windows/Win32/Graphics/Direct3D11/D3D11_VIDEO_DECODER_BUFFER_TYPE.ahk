@@ -61,4 +61,9 @@ class D3D11_VIDEO_DECODER_BUFFER_TYPE{
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_DECODER_BUFFER_FILM_GRAIN => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D11_VIDEO_DECODER_BUFFER_HUFFMAN_TABLE => 9
 }

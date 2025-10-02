@@ -321,6 +321,11 @@ class Debug {
     /**
      * @type {Integer (UInt32)}
      */
+    static SYMFLAG_COMPLEX => 67108864
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SYMFLAG_RESET => 2147483648
 
     /**
@@ -1286,6 +1291,16 @@ class Debug {
     /**
      * @type {Integer (UInt32)}
      */
+    static MINIDUMP_SYSMEMINFO1_PERF_MDLPAGESALLOCATED_PFNDATABASECOMMITTEDPAGES => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MINIDUMP_SYSMEMINFO1_PERF_SYSTEMPAGETABLECOMMITTEDPAGES_CONTIGUOUSPAGESALLOCATED => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MINIDUMP_PROCESS_VM_COUNTERS => 1
 
     /**
@@ -1377,6 +1392,11 @@ class Debug {
      * @type {Integer (UInt32)}
      */
     static WHEA_ERROR_SOURCE_FLAG_DEFAULTSOURCE => 2147483648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHEA_ERR_SRC_OVERRIDE_FLAG => 1073741824
 
     /**
      * @type {Integer (UInt32)}
@@ -1647,6 +1667,16 @@ class Debug {
      * @type {Integer (UInt32)}
      */
     static WHEA_ROW_FAIL_CHECK_THRESHOLD => 19
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHEA_DISABLE_PRM_ADDRESS_TRANSLATION => 20
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHEA_ENABLE_BATCHED_ROW_OFFLINE => 21
 
     /**
      * @type {Integer (UInt32)}
@@ -6047,6 +6077,16 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} pHwnd 
+     * @returns {Integer} 
+     */
+    static SymGetParentWindow(pHwnd) {
+        result := DllCall("dbghelp.dll\SymGetParentWindow", "ptr", pHwnd, "int")
         return result
     }
 

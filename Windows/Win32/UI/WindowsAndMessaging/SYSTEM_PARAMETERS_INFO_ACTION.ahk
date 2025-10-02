@@ -744,6 +744,16 @@ class SYSTEM_PARAMETERS_INFO_ACTION{
     /**
      * @type {Integer (UInt32)}
      */
+    static SPI_GETTOUCHPADPARAMETERS => 174
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SPI_SETTOUCHPADPARAMETERS => 175
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SPI_GETACTIVEWINDOWTRACKING => 4096
 
     /**

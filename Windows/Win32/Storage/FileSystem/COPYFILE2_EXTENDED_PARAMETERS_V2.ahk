@@ -76,12 +76,28 @@ class COPYFILE2_EXTENDED_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
+     * @type {Pointer<LPPROGRESS_ROUTINE>}
+     */
+    pProgressRoutineOld {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
+    }
+
+    /**
+     * @type {Pointer<COPYFILE2_CREATE_OPLOCK_KEYS>}
+     */
+    SourceOplockKeys {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
      * @type {Array<Void>}
      */
     reserved{
         get {
             if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "ptr")
+                this.__reservedProxyArray := Win32FixedArray(this.ptr + 64, 6, Primitive, "ptr")
             return this.__reservedProxyArray
         }
     }

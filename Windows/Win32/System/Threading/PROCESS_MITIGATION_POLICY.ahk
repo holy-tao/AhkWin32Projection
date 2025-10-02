@@ -125,13 +125,8 @@ class PROCESS_MITIGATION_POLICY{
     static ProcessSEHOPPolicy => 18
 
     /**
-     * @type {Integer (Int32)}
-     */
-    static ProcessActivationContextTrustPolicy => 19
-
-    /**
      * Ends the enumeration.
      * @type {Integer (Int32)}
      */
-    static MaxProcessMitigationPolicy => 20
+    static MaxProcessMitigationPolicy => 19
 }

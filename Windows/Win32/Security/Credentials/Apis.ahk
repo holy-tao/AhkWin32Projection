@@ -646,12 +646,32 @@ class Credentials {
     /**
      * @type {Integer (UInt32)}
      */
+    static CREDUIWIN_USE_V2 => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CREDUIWIN_IGNORE_CLOUDAUTHORITY_NAME => 262144
 
     /**
      * @type {Integer (UInt32)}
      */
     static CREDUIWIN_DOWNLEVEL_HELLO_AS_SMART_CARD => 2147483648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BACK_BUTTON_IDENTIFY_AUTH_PACKAGE => 3402629121
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CREDUI_FOOTER_LINK_AUTHPACKAGE_ID => 212664322
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CREDUI_PICKERSCREEN_AUTHPACKAGE_ID => 212664323
 
     /**
      * @type {Integer (UInt32)}

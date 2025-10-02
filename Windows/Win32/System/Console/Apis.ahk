@@ -284,6 +284,20 @@ class Console {
     }
 
     /**
+     * 
+     * @param {Pointer<ALLOC_CONSOLE_OPTIONS>} options 
+     * @param {Pointer<Int32>} result 
+     * @returns {HRESULT} 
+     */
+    static AllocConsoleWithOptions(options, result) {
+        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, "int*", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * See reference information about the FreeConsole function, which detaches the calling process from its console.
      * @remarks
      * A process can be attached to at most one console. A process can use the **FreeConsole** function to detach itself from its console. If other processes share the console, the console is not destroyed, but the process that called **FreeConsole** cannot refer to it. A console is closed when the last process attached to it terminates or calls **FreeConsole**. After a process calls **FreeConsole**, it can call the [**AllocConsole**](allocconsole.md) function to create a new console or [**AttachConsole**](attachconsole.md) to attach to another console.
@@ -839,6 +853,19 @@ class Console {
      */
     static ClosePseudoConsole(hPC) {
         DllCall("KERNEL32.dll\ClosePseudoConsole", "ptr", hPC)
+    }
+
+    /**
+     * 
+     * @param {Pointer} hPC 
+     * @returns {HRESULT} 
+     */
+    static ReleasePseudoConsole(hPC) {
+        result := DllCall("KERNEL32.dll\ReleasePseudoConsole", "ptr", hPC, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
     }
 
     /**

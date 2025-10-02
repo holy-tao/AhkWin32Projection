@@ -100,12 +100,20 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    ProtocolDataSubValue6 {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
+    }
+
+    /**
      * @type {Array<UInt32>}
      */
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 44, 5, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

@@ -181,6 +181,11 @@ class Com {
     /**
      * @type {Integer (UInt32)}
      */
+    static APPIDREGFLAGS_RESERVED10 => 32768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DCOMSCM_ACTIVATION_USE_ALL_AUTHNSERVICES => 1
 
     /**

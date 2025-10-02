@@ -108,6 +108,14 @@ class WINTRUST_DATA extends Win32Struct
     }
 
     /**
+     * @type {Pointer<WINTRUST_DETACHED_SIG_INFO>}
+     */
+    pDetachedSig {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
      * 
      * @type {Integer}
      */

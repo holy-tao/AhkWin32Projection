@@ -1788,6 +1788,24 @@ class Environment {
     }
 
     /**
+     * 
+     * @param {Pointer} DataToEncrypt 
+     * @param {Integer} DataToEncryptSize 
+     * @param {Pointer<TRUSTLET_BINDING_DATA>} TrustletBindingData 
+     * @param {Pointer} EncryptedData 
+     * @param {Integer} BufferSize 
+     * @param {Pointer<UInt32>} EncryptedDataSize 
+     * @returns {HRESULT} 
+     */
+    static EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize, EncryptedDataSize) {
+        result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "ptr", TrustletBindingData, "ptr", EncryptedData, "uint", BufferSize, "uint*", EncryptedDataSize, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
      * Gets information about the currently executing enclave.
      * @remarks
      * <b>EnclaveGetEnclaveInformation</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
@@ -1802,6 +1820,15 @@ class Environment {
         if(result != 0)
             throw OSError(result)
 
+        return result
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    static EnclaveUsesAttestedKeys() {
+        result := DllCall("vertdll.dll\EnclaveUsesAttestedKeys", "char")
         return result
     }
 

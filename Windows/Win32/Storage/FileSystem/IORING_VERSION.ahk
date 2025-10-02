@@ -31,4 +31,9 @@ class IORING_VERSION{
      * @type {Integer (Int32)}
      */
     static IORING_VERSION_3 => 300
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static IORING_VERSION_4 => 400
 }

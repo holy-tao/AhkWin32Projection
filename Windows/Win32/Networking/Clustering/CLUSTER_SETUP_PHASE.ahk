@@ -129,6 +129,11 @@ class CLUSTER_SETUP_PHASE{
     static ClusterSetupPhaseNodeUp => 302
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static ClusterSetupPhaseApplyNetworkATCIntents => 303
+
+    /**
      * Move group to another node.
      * @type {Integer (Int32)}
      */
@@ -169,6 +174,16 @@ class CLUSTER_SETUP_PHASE{
      * @type {Integer (Int32)}
      */
     static ClusterSetupPhaseCoreGroupCleanup => 406
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ClusterSetupPhaseRepairCNOAccount => 500
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static ClusterSetupPhaseRepairDNSPermissions => 501
 
     /**
      * Return failed resource to pre-clustered state.

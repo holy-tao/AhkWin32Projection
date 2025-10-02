@@ -45,4 +45,19 @@ class UNumberFormatRoundingMode{
      * @type {Integer (Int32)}
      */
     static UNUM_ROUND_UNNECESSARY => 7
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_ROUND_HALF_ODD => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_ROUND_HALF_CEILING => 9
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UNUM_ROUND_HALF_FLOOR => 10
 }

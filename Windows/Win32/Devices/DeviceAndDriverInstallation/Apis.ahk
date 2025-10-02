@@ -271,6 +271,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {String}
      */
+    static GUID_DEVCLASS_AUDIOPROCESSINGOBJECT => "{5989fce8-9cd0-467d-8a6a-5419e31529d4}"
+
+    /**
+     * @type {String}
+     */
     static GUID_DEVCLASS_AVC => "{c06ff265-ae09-48f0-812c-16753d7cba83}"
 
     /**
@@ -387,6 +392,11 @@ class DeviceAndDriverInstallation {
      * @type {String}
      */
     static GUID_DEVCLASS_HOLOGRAPHIC => "{d612553d-06b1-49ca-8938-e39ef80eb16f}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_DEVCLASS_I3C => "{13cfe1b1-6b17-424c-ac3f-16ace8733898}"
 
     /**
      * @type {String}
@@ -3591,6 +3601,16 @@ class DeviceAndDriverInstallation {
     /**
      * @type {String}
      */
+    static SZ_KEY_ADDCOMSERVER => "AddComServer"
+
+    /**
+     * @type {String}
+     */
+    static SZ_KEY_ADDCOMCLASS => "AddComClass"
+
+    /**
+     * @type {String}
+     */
     static SZ_KEY_ADDCHANNEL => "AddChannel"
 
     /**
@@ -3627,6 +3647,11 @@ class DeviceAndDriverInstallation {
      * @type {String}
      */
     static SZ_KEY_FILTERPOSITION => "FilterPosition"
+
+    /**
+     * @type {String}
+     */
+    static SZ_KEY_ADDCOMPONENT => "AddComponent"
 
     /**
      * @type {String}
@@ -3936,6 +3961,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {String}
      */
+    static INFSTR_KEY_BOOTFLAGS => "BootFlags"
+
+    /**
+     * @type {String}
+     */
     static INFSTR_KEY_TRIGGER_TYPE => "TriggerType"
 
     /**
@@ -3987,6 +4017,41 @@ class DeviceAndDriverInstallation {
      * @type {String}
      */
     static INFSTR_KEY_PARAMETER_FILE => "ParameterFile"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COM_SERVER_TYPE => "ServerType"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COM_SERVER_BINARY => "ServerBinary"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COM_SERVER_BINARY_WOW64 => "ServerBinaryWow64"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COM_SERVER_ADD_COM_CLASS => "AddComClass"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COM_CLASS_THREADING_MODEL => "ThreadingModel"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COM_CLASS_DESCRIPTION => "Description"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_KEY_COMPONENTIDS => "ComponentIds"
 
     /**
      * @type {String}
@@ -4311,7 +4376,17 @@ class DeviceAndDriverInstallation {
     /**
      * @type {String}
      */
+    static INFSTR_SUBKEY_COM => "COM"
+
+    /**
+     * @type {String}
+     */
     static INFSTR_SUBKEY_FILTERS => "Filters"
+
+    /**
+     * @type {String}
+     */
+    static INFSTR_SUBKEY_COMPONENTS => "Components"
 
     /**
      * @type {String}
@@ -4666,6 +4741,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {String}
      */
+    static GUID_KERNEL_SOFT_RESTART_PRE_COMPLETE => "{af855082-530b-4a85-b5a6-120b63089451}"
+
+    /**
+     * @type {String}
+     */
     static GUID_BUS_INTERFACE_STANDARD => "{496b8280-6f25-11d0-beaf-08002be2092f}"
 
     /**
@@ -4797,6 +4877,16 @@ class DeviceAndDriverInstallation {
      * @type {String}
      */
     static GUID_THERMAL_COOLING_INTERFACE => "{ecbe47a8-c498-4bb9-bd70-e867e0940d22}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_PCI_LINK_CONFIG_INTERFACE => "{67593984-7cc0-4760-8d01-cbffd2d080f7}"
+
+    /**
+     * @type {String}
+     */
+    static GUID_POWER_LIMIT_INTERFACE => "{3b96f4f2-ce49-44d1-91f8-652b8121e93a}"
 
     /**
      * @type {String}
