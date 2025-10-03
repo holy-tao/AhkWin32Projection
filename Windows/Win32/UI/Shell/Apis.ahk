@@ -8046,7 +8046,7 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/shell/fileiconinit
      */
     static FileIconInit(fRestoreCache) {
-        result := DllCall("SHELL32.dll\FileIconInit", "int", fRestoreCache, "int")
+        result := DllCall("SHELL32.dll\#660", "int", fRestoreCache, "int")
         return result
     }
 
