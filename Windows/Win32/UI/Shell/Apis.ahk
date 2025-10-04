@@ -8046,7 +8046,22 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/shell/fileiconinit
      */
     static FileIconInit(fRestoreCache) {
-        result := DllCall("SHELL32.dll\FileIconInit", "int", fRestoreCache, "int")
+        ; This method's EntryPoint is an ordinal, so we need to load the dll manually
+        hModule := DllCall("GetModuleHandleW", "str", "SHELL32.dll", "ptr")
+        if(!(wasLoaded := hModule != 0))
+            hModule := DllCall("LoadLibraryW","str", "SHELL32.dll", "ptr")
+        if(hModule == 0)
+            throw OSError()
+
+        procAddr := DllCall("GetProcAddress", "ptr", hModule, "uint64", 660, "ptr")
+        if(procAddr == 0)
+            throw OSError()
+
+        result := DllCall(procAddr, "int", fRestoreCache, "int")
+
+        if(!wasLoaded)
+            DllCall("FreeLibraryW", "ptr", hModule)
+
         return result
     }
 
