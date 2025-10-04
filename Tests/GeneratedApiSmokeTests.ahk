@@ -10,6 +10,8 @@
 #include ../Windows/Win32/System/Memory/Apis.ahk
 #Include ../Windows/Win32/Networking/WinSock/Apis.ahk
 #Include ../Windows/Win32/System/Com/Urlmon/Apis.ahk
+#Include ../Windows/Win32/Security/Authentication/Identity/Apis.ahk
+#Include ../Windows/Win32/UI/Shell/Apis.ahk
 
 class GeneratedApiSmokeTests {
 
@@ -111,6 +113,58 @@ class GeneratedApiSmokeTests {
 
         ; AHK has no native support for unsigned 64-bit ints so this might not actually be positive
         Yunit.Assert(memSize != 0)  
+    }
+
+    /**
+     * Smoke tests for a few cases where the entry point for a method is not equal to its
+     * name. Note RtlEncryptMemory and RtlDecryptMemory are deprecated
+     * 
+     * https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute.entrypoint?view=net-9.0
+     */
+    class EntryPointDiffersFromName {
+        /**
+         * Test for a method with an alternative entry point where the alternative is a name
+         */
+        AltName_EntryPoint_Works(){
+            testBuf := Buffer(8, 0)
+            result := Identity.RtlGenRandom(testBuf, testBuf.size)
+
+            Yunit.Assert(result == true)
+            Yunit.Assert(NumGet(testBuf, "Int") != 0)
+        }
+
+        /**
+         * Test for a method with an alternative entry point where the alternative is
+         * an ordinal
+         */
+        Ordinal_EntryPoint_Works(){
+            result := Shell.FileIconInit(true)
+
+            Yunit.Assert(result == true)
+        }
+
+        /**
+         * Shell32 is not in AHK's standard dll list, but Windows loads it for all GUI processes
+         * early in their lifecycles. Since all AHK processes are GUI processes, they'll all have
+         * the dll and we can't use FileIconInit as a test case. Unfortunately it's the only API
+         * exported by ordinal in the metadata, so this is a no-op for now
+         */         
+        Ordinal_EntryPoint_WithLibraryUnloaded_UnloadsItAfter(){
+            ;? Maybe in the future
+        }
+
+        Ordinal_EntryPoint_WithLibraryAlreadyLoaded_DoesNotUnloadIt(){
+            hModuleBefore := DllCall("LoadLibraryW", "str", "shell32.dll", "ptr")
+
+            this.Ordinal_EntryPoint_Works()
+
+            ; This is an imperfect test because other tests could be using Shell32. But without reading the
+            ; PEB, it's the best we've got
+            ; https://stackoverflow.com/questions/3553231/how-to-check-dlls-reference-count-how-to-know-where-the-dll-was-loaded
+            hModuleAfter := DllCall("GetModuleHandleW", "str", "shell32.dll", "ptr")
+            Yunit.Assert(hModuleAfter == hModuleBefore, 
+                Format("Expected Shell32.dll to be loaded at 0x{1:0X}, but it exists at 0x{1:0X}", hModuleBefore, hModuleAfter))
+        }
     }
 }
 
