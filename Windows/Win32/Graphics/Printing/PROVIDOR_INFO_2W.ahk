@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PROVIDOR\_INFO\_2 structure appends a print provider to the print provider order list.
@@ -19,13 +18,10 @@ class PROVIDOR_INFO_2W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the print provider.
-     * @type {PWSTR}
+     * @type {Pointer<Char>}
      */
-    pOrder{
-        get {
-            if(!this.HasProp("__pOrder"))
-                this.__pOrder := PWSTR(this.ptr + 0)
-            return this.__pOrder
-        }
+    pOrder {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

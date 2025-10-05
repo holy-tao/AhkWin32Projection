@@ -9,7 +9,7 @@
  */
 class KSNODEPROPERTY_AUDIO_3D_LISTENER extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -30,13 +30,5 @@ class KSNODEPROPERTY_AUDIO_3D_LISTENER extends Win32Struct
     ListenerId {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
     }
 }

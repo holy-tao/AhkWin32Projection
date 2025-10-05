@@ -9,22 +9,30 @@
  */
 class DXVA_VideoSample2 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 200
 
     static packingSize => 8
 
     /**
      * @type {Integer}
      */
-    rtStart {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    Size {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
     }
 
     /**
      * @type {Integer}
      */
-    rtEnd {
+    Reserved {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    rtStart {
         get => NumGet(this, 8, "int64")
         set => NumPut("int64", value, this, 8)
     }
@@ -32,25 +40,33 @@ class DXVA_VideoSample2 extends Win32Struct
     /**
      * @type {Integer}
      */
+    rtEnd {
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
     SampleFormat {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     SampleFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     lpDDSSrcSurface {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -59,7 +75,7 @@ class DXVA_VideoSample2 extends Win32Struct
     rcSrc{
         get {
             if(!this.HasProp("__rcSrc"))
-                this.__rcSrc := RECT(this.ptr + 32)
+                this.__rcSrc := RECT(this.ptr + 40)
             return this.__rcSrc
         }
     }
@@ -70,7 +86,7 @@ class DXVA_VideoSample2 extends Win32Struct
     rcDst{
         get {
             if(!this.HasProp("__rcDst"))
-                this.__rcDst := RECT(this.ptr + 48)
+                this.__rcDst := RECT(this.ptr + 56)
             return this.__rcDst
         }
     }
@@ -81,7 +97,7 @@ class DXVA_VideoSample2 extends Win32Struct
     Palette{
         get {
             if(!this.HasProp("__PaletteProxyArray"))
-                this.__PaletteProxyArray := Win32FixedArray(this.ptr + 64, 16, DXVA_AYUVsample2, "")
+                this.__PaletteProxyArray := Win32FixedArray(this.ptr + 72, 16, DXVA_AYUVsample2, "")
             return this.__PaletteProxyArray
         }
     }

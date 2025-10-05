@@ -78,4 +78,12 @@ class KSSTREAM_HEADER extends Win32Struct
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
+    }
 }

@@ -18,8 +18,8 @@ class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL extends Win32Struct
      * @type {Integer}
      */
     _bitfield1 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
     }
 
     /**

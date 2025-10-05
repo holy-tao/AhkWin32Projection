@@ -15,7 +15,7 @@
  */
 class PERF_OBJECT_TYPE extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -65,11 +65,11 @@ class PERF_OBJECT_TYPE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {Integer}
      */
     ObjectNameTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -79,17 +79,17 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     ObjectHelpTitleIndex {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {Integer}
      */
     ObjectHelpTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -97,8 +97,8 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     DetailLevel {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -106,8 +106,8 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     NumCounters {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -115,8 +115,8 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     DefaultCounter {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -124,8 +124,8 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     NumInstances {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -133,8 +133,8 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     CodePage {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -144,8 +144,8 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     PerfTime {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
+        get => NumGet(this, 48, "int64")
+        set => NumPut("int64", value, this, 48)
     }
 
     /**
@@ -155,7 +155,7 @@ class PERF_OBJECT_TYPE extends Win32Struct
      * @type {Integer}
      */
     PerfFreq {
-        get => NumGet(this, 72, "int64")
-        set => NumPut("int64", value, this, 72)
+        get => NumGet(this, 56, "int64")
+        set => NumPut("int64", value, this, 56)
     }
 }

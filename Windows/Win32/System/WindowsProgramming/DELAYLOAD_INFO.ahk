@@ -29,7 +29,7 @@ class DELAYLOAD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IMAGE_THUNK_DATA32>}
+     * @type {Pointer<IMAGE_THUNK_DATA64>}
      */
     ThunkAddress {
         get => NumGet(this, 16, "ptr")

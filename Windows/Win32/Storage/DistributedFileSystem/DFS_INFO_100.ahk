@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a comment associated with a Distributed File System (DFS) root or link.
@@ -21,13 +20,10 @@ class DFS_INFO_100 extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the comment associated with the specified DFS 
      *       root or link. The comment is associated with the DFS namespace root or link and not with a specific DFS root 
      *       target or link target.
-     * @type {PWSTR}
+     * @type {Pointer<Char>}
      */
-    Comment{
-        get {
-            if(!this.HasProp("__Comment"))
-                this.__Comment := PWSTR(this.ptr + 0)
-            return this.__Comment
-        }
+    Comment {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

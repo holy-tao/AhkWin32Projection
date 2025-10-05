@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a specific Remote Desktop Services server. (ANSI)
@@ -20,13 +19,10 @@ class WTS_SERVER_INFOA extends Win32Struct
 
     /**
      * Name of the server.
-     * @type {PSTR}
+     * @type {Pointer<Byte>}
      */
-    pServerName{
-        get {
-            if(!this.HasProp("__pServerName"))
-                this.__pServerName := PSTR(this.ptr + 0)
-            return this.__pServerName
-        }
+    pServerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

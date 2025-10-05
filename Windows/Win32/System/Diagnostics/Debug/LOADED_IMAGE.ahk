@@ -54,7 +54,7 @@ class LOADED_IMAGE extends Win32Struct
     /**
      * A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32">IMAGE_NT_HEADERS</a> structure.
-     * @type {Pointer<IMAGE_NT_HEADERS32>}
+     * @type {Pointer<IMAGE_NT_HEADERS64>}
      */
     FileHeader {
         get => NumGet(this, 24, "ptr")

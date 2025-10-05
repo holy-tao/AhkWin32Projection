@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Holds virtual address (VA) clone information returned by PssQuerySnapshot.
@@ -18,13 +17,10 @@ class PSS_VA_CLONE_INFORMATION extends Win32Struct
 
     /**
      * A handle to the VA clone process.
-     * @type {HANDLE}
+     * @type {Pointer<Void>}
      */
-    VaCloneHandle{
-        get {
-            if(!this.HasProp("__VaCloneHandle"))
-                this.__VaCloneHandle := HANDLE(this.ptr + 0)
-            return this.__VaCloneHandle
-        }
+    VaCloneHandle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -7,7 +7,7 @@
  */
 class XSTATE_CONTEXT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -55,26 +55,10 @@ class XSTATE_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
      * @type {Pointer<Void>}
      */
     Buffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides the property value of a BITS file.
@@ -17,13 +16,10 @@ class BITS_FILE_PROPERTY_VALUE extends Win32Struct
     /**
      * This value is used when using the property ID 
      *       enum value <b>BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS</b>.
-     * @type {PWSTR}
+     * @type {Pointer<Char>}
      */
-    String{
-        get {
-            if(!this.HasProp("__String"))
-                this.__String := PWSTR(this.ptr + 0)
-            return this.__String
-        }
+    String {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

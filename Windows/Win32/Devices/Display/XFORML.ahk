@@ -17,55 +17,55 @@ class XFORML extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eM11 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => NumGet(this, 0, "float")
+        set => NumPut("float", value, this, 0)
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eM12 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 4, "float")
+        set => NumPut("float", value, this, 4)
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eM21 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 8, "float")
+        set => NumPut("float", value, this, 8)
     }
 
     /**
      * Are the four <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-floatobj">FLOATOBJ</a> elements that comprise a 2x2 row-major matrix. The <b>eM11</b> member specifies the matrix element at row 1, column 1, the <b>eM12</b> member specifies the matrix element at row 1, column2, and so on.
-     * @type {Integer}
+     * @type {Float}
      */
     eM22 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 12, "float")
+        set => NumPut("float", value, this, 12)
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eDx {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 16, "float")
+        set => NumPut("float", value, this, 16)
     }
 
     /**
      * Are the x- and y-translation components of the transform.
-     * @type {Integer}
+     * @type {Float}
      */
     eDy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 20, "float")
+        set => NumPut("float", value, this, 20)
     }
 }

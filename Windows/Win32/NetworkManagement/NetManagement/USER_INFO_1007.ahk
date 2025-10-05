@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1007 structure contains a comment associated with a user network account. This information level is valid only when you call the NetUserSetInfo function.
@@ -17,13 +16,10 @@ class USER_INFO_1007 extends Win32Struct
     /**
      * Pointer to a Unicode string that contains a comment to associate with the user account specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
+     * @type {Pointer<Char>}
      */
-    usri1007_comment{
-        get {
-            if(!this.HasProp("__usri1007_comment"))
-                this.__usri1007_comment := PWSTR(this.ptr + 0)
-            return this.__usri1007_comment
-        }
+    usri1007_comment {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -57,11 +57,11 @@ class LINEATTRS extends Win32Struct
      * Specifies a FLOATL that sets the limit as a multiple of the line width that a miter join is allowed to extend from its inside corner to its outer vertex. This prevents very long spikes from occurring when lines of a path meet at very small angles. If the miter limit is exceeded, a bevel join should be used instead. For a description of the FLOATL data type, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
      * 
      * This member is used only by geometric wide lines.
-     * @type {Integer}
+     * @type {Float}
      */
     eMiterLimit {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 24, "float")
+        set => NumPut("float", value, this, 24)
     }
 
     /**

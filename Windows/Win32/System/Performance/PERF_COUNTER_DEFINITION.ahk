@@ -13,9 +13,9 @@
  */
 class PERF_COUNTER_DEFINITION extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes.
@@ -41,11 +41,11 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {Integer}
      */
     CounterNameTitle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -57,17 +57,17 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
      * @type {Integer}
      */
     CounterHelpTitleIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {Integer}
      */
     CounterHelpTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -75,8 +75,8 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
      * @type {Integer}
      */
     DefaultScale {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -84,8 +84,8 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
      * @type {Integer}
      */
     DetailLevel {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -93,8 +93,8 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
      * @type {Integer}
      */
     CounterType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -104,8 +104,8 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
      * @type {Integer}
      */
     CounterSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -116,7 +116,7 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
      * @type {Integer}
      */
     CounterOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

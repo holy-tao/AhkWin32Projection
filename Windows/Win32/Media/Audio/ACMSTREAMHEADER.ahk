@@ -11,7 +11,7 @@
  */
 class ACMSTREAMHEADER extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -158,7 +158,7 @@ class ACMSTREAMHEADER extends Win32Struct
     dwReservedDriver{
         get {
             if(!this.HasProp("__dwReservedDriverProxyArray"))
-                this.__dwReservedDriverProxyArray := Win32FixedArray(this.ptr + 64, 10, Primitive, "uint")
+                this.__dwReservedDriverProxyArray := Win32FixedArray(this.ptr + 64, 15, Primitive, "uint")
             return this.__dwReservedDriverProxyArray
         }
     }

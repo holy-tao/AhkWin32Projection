@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The UNIVERSAL_NAME_INFO structure contains information about the UNC form of a universal name. It is used by the NPGetUniversalName function. (ANSI)
@@ -20,13 +19,10 @@ class UNIVERSAL_NAME_INFOA extends Win32Struct
 
     /**
      * If the provider supports a universal name, it will return that here.
-     * @type {PSTR}
+     * @type {Pointer<Byte>}
      */
-    lpUniversalName{
-        get {
-            if(!this.HasProp("__lpUniversalName"))
-                this.__lpUniversalName := PSTR(this.ptr + 0)
-            return this.__lpUniversalName
-        }
+    lpUniversalName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

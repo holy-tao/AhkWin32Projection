@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1014 structure contains the names of workstations from which the user can log on. This information level is valid only when you call the NetUserSetInfo function.
@@ -22,13 +21,10 @@ class USER_INFO_1014 extends Win32Struct
      * <b>NetUserSetInfo</b> function. 
      * 
      * As many as eight workstations can be specified; the names must be separated by commas. A null string indicates that there is no restriction.
-     * @type {PWSTR}
+     * @type {Pointer<Char>}
      */
-    usri1014_workstations{
-        get {
-            if(!this.HasProp("__usri1014_workstations"))
-                this.__usri1014_workstations := PWSTR(this.ptr + 0)
-            return this.__usri1014_workstations
-        }
+    usri1014_workstations {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

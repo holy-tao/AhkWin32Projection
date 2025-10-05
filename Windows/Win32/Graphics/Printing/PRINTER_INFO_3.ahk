@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * The PRINTER\_INFO\_3 structure specifies printer security information.
@@ -18,13 +17,10 @@ class PRINTER_INFO_3 extends Win32Struct
 
     /**
      * Pointer to a [**SECURITY\_DESCRIPTOR**](/windows/desktop/api/winnt/ns-winnt-security_descriptor) structure that specifies a printer's security information.
-     * @type {PSECURITY_DESCRIPTOR}
+     * @type {Pointer<Void>}
      */
-    pSecurityDescriptor{
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 0)
-            return this.__pSecurityDescriptor
-        }
+    pSecurityDescriptor {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

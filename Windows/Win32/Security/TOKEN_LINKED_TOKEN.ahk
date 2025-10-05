@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\HANDLE.ahk
 
 /**
  * Contains a handle to a token. This token is linked to the token being queried by the GetTokenInformation function or set by the SetTokenInformation function.
@@ -18,13 +17,10 @@ class TOKEN_LINKED_TOKEN extends Win32Struct
      * A handle to the linked token.
      * 
      * When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {HANDLE}
+     * @type {Pointer<Void>}
      */
-    LinkedToken{
-        get {
-            if(!this.HasProp("__LinkedToken"))
-                this.__LinkedToken := HANDLE(this.ptr + 0)
-            return this.__LinkedToken
-        }
+    LinkedToken {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

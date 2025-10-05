@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PORT\_INFO\_1 structure identifies a supported printer port.
@@ -17,13 +16,10 @@ class PORT_INFO_1A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that identifies a supported printer port (for example, "LPT1:").
-     * @type {PSTR}
+     * @type {Pointer<Byte>}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PSTR(this.ptr + 0)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -11,7 +11,7 @@
  */
 class NCB extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -390,7 +390,7 @@ class NCB extends Win32Struct
     ncb_reserve{
         get {
             if(!this.HasProp("__ncb_reserveProxyArray"))
-                this.__ncb_reserveProxyArray := Win32FixedArray(this.ptr + 66, 10, Primitive, "char")
+                this.__ncb_reserveProxyArray := Win32FixedArray(this.ptr + 66, 18, Primitive, "char")
             return this.__ncb_reserveProxyArray
         }
     }
@@ -402,7 +402,7 @@ class NCB extends Win32Struct
      * @type {Pointer<Void>}
      */
     ncb_event {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

@@ -17,37 +17,37 @@ class FD_XFORM extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eXX {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => NumGet(this, 0, "float")
+        set => NumPut("float", value, this, 0)
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eXY {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 4, "float")
+        set => NumPut("float", value, this, 4)
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {Float}
      */
     eYX {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 8, "float")
+        set => NumPut("float", value, this, 8)
     }
 
     /**
      * Are the four elements that comprise a 2x2 row-major matrix. <b>eXX</b> and <b>eXY</b> are the elements in the first row; <b>eYX</b> and <b>eYY</b> are the elements in the second row.
-     * @type {Integer}
+     * @type {Float}
      */
     eYY {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 12, "float")
+        set => NumPut("float", value, this, 12)
     }
 }

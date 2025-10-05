@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains a service description. (ANSI)
@@ -38,13 +37,10 @@ class SERVICE_DESCRIPTIONA extends Win32Struct
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {PSTR}
+     * @type {Pointer<Byte>}
      */
-    lpDescription{
-        get {
-            if(!this.HasProp("__lpDescription"))
-                this.__lpDescription := PSTR(this.ptr + 0)
-            return this.__lpDescription
-        }
+    lpDescription {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

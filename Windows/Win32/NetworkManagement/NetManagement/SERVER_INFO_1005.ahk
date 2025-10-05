@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_1005 structure contains a comment that describes the specified server.
@@ -18,13 +17,10 @@ class SERVER_INFO_1005 extends Win32Struct
      * Pointer to a string that contains a comment describing the server. The comment can be null.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
+     * @type {Pointer<Char>}
      */
-    sv1005_comment{
-        get {
-            if(!this.HasProp("__sv1005_comment"))
-                this.__sv1005_comment := PWSTR(this.ptr + 0)
-            return this.__sv1005_comment
-        }
+    sv1005_comment {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }
