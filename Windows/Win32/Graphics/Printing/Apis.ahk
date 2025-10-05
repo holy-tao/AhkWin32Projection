@@ -7354,7 +7354,7 @@ class Printing {
     static GetSpoolFileHandle(hPrinter) {
         A_LastError := 0
 
-        result := DllCall("winspool.drv\GetSpoolFileHandle", "ptr", hPrinter)
+        result := DllCall("winspool.drv\GetSpoolFileHandle", "ptr", hPrinter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7378,7 +7378,7 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/commitspooldata
      */
     static CommitSpoolData(hPrinter, hSpoolFile, cbCommit) {
-        result := DllCall("winspool.drv\CommitSpoolData", "ptr", hPrinter, "ptr", hSpoolFile, "uint", cbCommit)
+        result := DllCall("winspool.drv\CommitSpoolData", "ptr", hPrinter, "ptr", hSpoolFile, "uint", cbCommit, "ptr")
         return result
     }
 
@@ -7919,7 +7919,7 @@ class Printing {
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\AddPrinterA", "ptr", pName, "uint", Level, "char*", pPrinter)
+        result := DllCall("winspool.drv\AddPrinterA", "ptr", pName, "uint", Level, "char*", pPrinter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7997,7 +7997,7 @@ class Printing {
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\AddPrinterW", "ptr", pName, "uint", Level, "char*", pPrinter)
+        result := DllCall("winspool.drv\AddPrinterW", "ptr", pName, "uint", Level, "char*", pPrinter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11130,7 +11130,7 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/findfirstprinterchangenotification
      */
     static FindFirstPrinterChangeNotification(hPrinter, fdwFilter, fdwOptions, pPrinterNotifyOptions) {
-        result := DllCall("winspool.drv\FindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFilter, "uint", fdwOptions, "ptr", pPrinterNotifyOptions)
+        result := DllCall("winspool.drv\FindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFilter, "uint", fdwOptions, "ptr", pPrinterNotifyOptions, "ptr")
         return result
     }
 
@@ -12257,7 +12257,7 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/connecttoprinterdlg
      */
     static ConnectToPrinterDlg(hwnd, Flags) {
-        result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd, "uint", Flags)
+        result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd, "uint", Flags, "ptr")
         return result
     }
 
@@ -13584,7 +13584,7 @@ class Printing {
         pwszPrinterName := pwszPrinterName is String? StrPtr(pwszPrinterName) : pwszPrinterName
         pwszDocName := pwszDocName is String? StrPtr(pwszDocName) : pwszDocName
 
-        result := DllCall("GDI32.dll\GdiGetSpoolFileHandle", "ptr", pwszPrinterName, "ptr", pDevmode, "ptr", pwszDocName)
+        result := DllCall("GDI32.dll\GdiGetSpoolFileHandle", "ptr", pwszPrinterName, "ptr", pDevmode, "ptr", pwszDocName, "ptr")
         return result
     }
 
@@ -13614,7 +13614,7 @@ class Printing {
      * @returns {Pointer<Void>} 
      */
     static GdiGetDC(SpoolFileHandle) {
-        result := DllCall("GDI32.dll\GdiGetDC", "ptr", SpoolFileHandle)
+        result := DllCall("GDI32.dll\GdiGetDC", "ptr", SpoolFileHandle, "ptr")
         return result
     }
 
@@ -13626,7 +13626,7 @@ class Printing {
      * @returns {Pointer<Void>} 
      */
     static GdiGetPageHandle(SpoolFileHandle, Page, pdwPageType) {
-        result := DllCall("GDI32.dll\GdiGetPageHandle", "ptr", SpoolFileHandle, "uint", Page, "uint*", pdwPageType)
+        result := DllCall("GDI32.dll\GdiGetPageHandle", "ptr", SpoolFileHandle, "uint", Page, "uint*", pdwPageType, "ptr")
         return result
     }
 
@@ -13748,7 +13748,7 @@ class Printing {
      * @returns {Pointer<Void>} 
      */
     static CreatePrinterIC(hPrinter, pDevMode) {
-        result := DllCall("winspool.drv\CreatePrinterIC", "ptr", hPrinter, "ptr", pDevMode)
+        result := DllCall("winspool.drv\CreatePrinterIC", "ptr", hPrinter, "ptr", pDevMode, "ptr")
         return result
     }
 
@@ -13794,7 +13794,7 @@ class Printing {
      * @returns {Pointer<Void>} 
      */
     static RevertToPrinterSelf() {
-        result := DllCall("SPOOLSS.dll\RevertToPrinterSelf")
+        result := DllCall("SPOOLSS.dll\RevertToPrinterSelf", "ptr")
         return result
     }
 
@@ -13882,7 +13882,7 @@ class Printing {
      * @returns {Pointer<Void>} 
      */
     static RouterAllocBidiMem(NumBytes) {
-        result := DllCall("SPOOLSS.dll\RouterAllocBidiMem", "ptr", NumBytes)
+        result := DllCall("SPOOLSS.dll\RouterAllocBidiMem", "ptr", NumBytes, "ptr")
         return result
     }
 

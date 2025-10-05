@@ -4021,7 +4021,7 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static AllocADsMem(cb) {
-        result := DllCall("ACTIVEDS.dll\AllocADsMem", "uint", cb)
+        result := DllCall("ACTIVEDS.dll\AllocADsMem", "uint", cb, "ptr")
         return result
     }
 
@@ -4067,7 +4067,7 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static ReallocADsMem(pOldMem, cbOld, cbNew) {
-        result := DllCall("ACTIVEDS.dll\ReallocADsMem", "ptr", pOldMem, "uint", cbOld, "uint", cbNew)
+        result := DllCall("ACTIVEDS.dll\ReallocADsMem", "ptr", pOldMem, "uint", cbOld, "uint", cbNew, "ptr")
         return result
     }
 
@@ -4392,7 +4392,7 @@ class ActiveDirectory {
     static DsGetIcon(dwFlags, pszObjectClass, cxImage, cyImage) {
         pszObjectClass := pszObjectClass is String? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := DllCall("dsuiext.dll\DsGetIcon", "uint", dwFlags, "ptr", pszObjectClass, "int", cxImage, "int", cyImage)
+        result := DllCall("dsuiext.dll\DsGetIcon", "uint", dwFlags, "ptr", pszObjectClass, "int", cxImage, "int", cyImage, "ptr")
         return result
     }
 

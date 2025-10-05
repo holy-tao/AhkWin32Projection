@@ -57,7 +57,7 @@ class ToolHelp {
     static CreateToolhelp32Snapshot(dwFlags, th32ProcessID) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateToolhelp32Snapshot", "uint", dwFlags, "uint", th32ProcessID)
+        result := DllCall("KERNEL32.dll\CreateToolhelp32Snapshot", "uint", dwFlags, "uint", th32ProcessID, "ptr")
         if(A_LastError)
             throw OSError()
 

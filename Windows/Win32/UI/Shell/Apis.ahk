@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
+#Include ..\..\Foundation\Apis.ahk
+#Include ..\..\System\LibraryLoader\Apis.ahk
 /**
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -8047,20 +8049,12 @@ class Shell {
      */
     static FileIconInit(fRestoreCache) {
         ; This method's EntryPoint is an ordinal, so we need to load the dll manually
-        hModule := DllCall("GetModuleHandleW", "str", "SHELL32.dll", "ptr")
-        if(!(wasLoaded := hModule != 0))
-            hModule := DllCall("LoadLibraryW","str", "SHELL32.dll", "ptr")
-        if(hModule == 0)
-            throw OSError()
-
-        procAddr := DllCall("GetProcAddress", "ptr", hModule, "uint64", 660, "ptr")
-        if(procAddr == 0)
-            throw OSError()
+        hModule := LibraryLoader.LoadLibraryW("SHELL32.dll")
+        procAddr := LibraryLoader.GetProcAddress(hModule, 660)
 
         result := DllCall(procAddr, "int", fRestoreCache, "int")
 
-        if(!wasLoaded)
-            DllCall("FreeLibraryW", "ptr", hModule)
+        Foundation.FreeLibrary(hModule)
 
         return result
     }
@@ -10335,7 +10329,7 @@ class Shell {
      * @since windows5.0
      */
     static SHAlloc(cb) {
-        result := DllCall("SHELL32.dll\SHAlloc", "ptr", cb)
+        result := DllCall("SHELL32.dll\SHAlloc", "ptr", cb, "ptr")
         return result
     }
 
@@ -12699,7 +12693,7 @@ class Shell {
      * @since windows5.0
      */
     static SHChangeNotification_Lock(hChange, dwProcId, pppidl, plEvent) {
-        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, "ptr", pppidl, "int*", plEvent)
+        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, "ptr", pppidl, "int*", plEvent, "ptr")
         return result
     }
 
@@ -15443,7 +15437,7 @@ class Shell {
     static SHCreatePropSheetExtArray(hKey, pszSubKey, max_iface) {
         pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface)
+        result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
         return result
     }
 
@@ -16256,7 +16250,7 @@ class Shell {
         lpParameters := lpParameters is String? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
 
-        result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd)
+        result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         return result
     }
 
@@ -16529,7 +16523,7 @@ class Shell {
         lpParameters := lpParameters is String? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
 
-        result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd)
+        result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         return result
     }
 
@@ -16652,7 +16646,7 @@ class Shell {
         lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
         lpResult := lpResult is String? StrPtr(lpResult) : lpResult
 
-        result := DllCall("SHELL32.dll\FindExecutableA", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult)
+        result := DllCall("SHELL32.dll\FindExecutableA", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, "ptr")
         return result
     }
 
@@ -16775,7 +16769,7 @@ class Shell {
         lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
         lpResult := lpResult is String? StrPtr(lpResult) : lpResult
 
-        result := DllCall("SHELL32.dll\FindExecutableW", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult)
+        result := DllCall("SHELL32.dll\FindExecutableW", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, "ptr")
         return result
     }
 
@@ -16883,7 +16877,7 @@ class Shell {
     static DuplicateIcon(hIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon)
+        result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon, "ptr")
         return result
     }
 
@@ -16929,7 +16923,7 @@ class Shell {
 
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\ExtractAssociatedIconA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon)
+        result := DllCall("SHELL32.dll\ExtractAssociatedIconA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon, "ptr")
         return result
     }
 
@@ -16975,7 +16969,7 @@ class Shell {
 
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\ExtractAssociatedIconW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon)
+        result := DllCall("SHELL32.dll\ExtractAssociatedIconW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon, "ptr")
         return result
     }
 
@@ -17022,7 +17016,7 @@ class Shell {
 
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\ExtractAssociatedIconExA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId)
+        result := DllCall("SHELL32.dll\ExtractAssociatedIconExA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId, "ptr")
         return result
     }
 
@@ -17069,7 +17063,7 @@ class Shell {
 
         pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
 
-        result := DllCall("SHELL32.dll\ExtractAssociatedIconExW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId)
+        result := DllCall("SHELL32.dll\ExtractAssociatedIconExW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId, "ptr")
         return result
     }
 
@@ -17107,7 +17101,7 @@ class Shell {
 
         pszExeFileName := pszExeFileName is String? StrPtr(pszExeFileName) : pszExeFileName
 
-        result := DllCall("SHELL32.dll\ExtractIconA", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex)
+        result := DllCall("SHELL32.dll\ExtractIconA", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
         return result
     }
 
@@ -17145,7 +17139,7 @@ class Shell {
 
         pszExeFileName := pszExeFileName is String? StrPtr(pszExeFileName) : pszExeFileName
 
-        result := DllCall("SHELL32.dll\ExtractIconW", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex)
+        result := DllCall("SHELL32.dll\ExtractIconW", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
         return result
     }
 
@@ -27055,7 +27049,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegDuplicateHKey(hkey) {
-        result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey)
+        result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey, "ptr")
         return result
     }
 
@@ -31072,7 +31066,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHAllocShared(pvData, dwSize, dwProcessId) {
-        result := DllCall("SHLWAPI.dll\SHAllocShared", "ptr", pvData, "uint", dwSize, "uint", dwProcessId)
+        result := DllCall("SHLWAPI.dll\SHAllocShared", "ptr", pvData, "uint", dwSize, "uint", dwProcessId, "ptr")
         return result
     }
 
@@ -31115,7 +31109,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHLockShared(hData, dwProcessId) {
-        result := DllCall("SHLWAPI.dll\SHLockShared", "ptr", hData, "uint", dwProcessId)
+        result := DllCall("SHLWAPI.dll\SHLockShared", "ptr", hData, "uint", dwProcessId, "ptr")
         return result
     }
 
@@ -31603,7 +31597,7 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateShellPalette(hdc) {
-        result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc)
+        result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc, "ptr")
         return result
     }
 

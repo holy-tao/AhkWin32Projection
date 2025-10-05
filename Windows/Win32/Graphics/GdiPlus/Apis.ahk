@@ -1531,7 +1531,7 @@ class GdiPlus {
      * @returns {Pointer<Void>} 
      */
     static GdipAlloc(size) {
-        result := DllCall("gdiplus.dll\GdipAlloc", "ptr", size)
+        result := DllCall("gdiplus.dll\GdipAlloc", "ptr", size, "ptr")
         return result
     }
 
@@ -6690,7 +6690,7 @@ class GdiPlus {
      * @returns {Pointer<Void>} 
      */
     static GdipCreateHalftonePalette() {
-        result := DllCall("gdiplus.dll\GdipCreateHalftonePalette")
+        result := DllCall("gdiplus.dll\GdipCreateHalftonePalette", "ptr")
         return result
     }
 

@@ -1259,7 +1259,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftgregisteridleroutine
      */
     static FtgRegisterIdleRoutine(lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle) {
-        result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle)
+        result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ptr")
         return result
     }
 

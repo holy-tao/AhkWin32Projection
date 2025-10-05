@@ -1943,7 +1943,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenEventLogA", "ptr", lpUNCServerName, "ptr", lpSourceName)
+        result := DllCall("ADVAPI32.dll\OpenEventLogA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1973,7 +1973,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenEventLogW", "ptr", lpUNCServerName, "ptr", lpSourceName)
+        result := DllCall("ADVAPI32.dll\OpenEventLogW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2009,7 +2009,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterEventSourceA", "ptr", lpUNCServerName, "ptr", lpSourceName)
+        result := DllCall("ADVAPI32.dll\RegisterEventSourceA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2045,7 +2045,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterEventSourceW", "ptr", lpUNCServerName, "ptr", lpSourceName)
+        result := DllCall("ADVAPI32.dll\RegisterEventSourceW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2081,7 +2081,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenBackupEventLogA", "ptr", lpUNCServerName, "ptr", lpFileName)
+        result := DllCall("ADVAPI32.dll\OpenBackupEventLogA", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2117,7 +2117,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenBackupEventLogW", "ptr", lpUNCServerName, "ptr", lpFileName)
+        result := DllCall("ADVAPI32.dll\OpenBackupEventLogW", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 

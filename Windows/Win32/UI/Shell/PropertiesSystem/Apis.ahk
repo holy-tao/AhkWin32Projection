@@ -3727,7 +3727,7 @@ class PropertiesSystem {
         pszApp := pszApp is String? StrPtr(pszApp) : pszApp
         pszPIF := pszPIF is String? StrPtr(pszPIF) : pszPIF
 
-        result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, "uint", hInf, "uint", flOpt)
+        result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, "uint", hInf, "uint", flOpt, "ptr")
         return result
     }
 
@@ -3814,7 +3814,7 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static PifMgr_CloseProperties(hProps, flOpt) {
-        result := DllCall("SHELL32.dll\PifMgr_CloseProperties", "ptr", hProps, "uint", flOpt)
+        result := DllCall("SHELL32.dll\PifMgr_CloseProperties", "ptr", hProps, "uint", flOpt, "ptr")
         return result
     }
 

@@ -3100,7 +3100,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile)
+        result := DllCall("KERNEL32.dll\CreateFileA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4125,7 +4125,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile)
+        result := DllCall("KERNEL32.dll\CreateFileW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4915,7 +4915,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationA", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter)
+        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationA", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5021,7 +5021,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationW", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter)
+        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationW", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5204,7 +5204,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileA", "ptr", lpFileName, "ptr", lpFindFileData)
+        result := DllCall("KERNEL32.dll\FindFirstFileA", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5387,7 +5387,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileW", "ptr", lpFileName, "ptr", lpFindFileData)
+        result := DllCall("KERNEL32.dll\FindFirstFileW", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5649,7 +5649,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileExA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags)
+        result := DllCall("KERNEL32.dll\FindFirstFileExA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5911,7 +5911,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileExW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags)
+        result := DllCall("KERNEL32.dll\FindFirstFileExW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6011,7 +6011,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstVolumeW", "ptr", lpszVolumeName, "uint", cchBufferLength)
+        result := DllCall("KERNEL32.dll\FindFirstVolumeW", "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14831,7 +14831,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFile2", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams)
+        result := DllCall("KERNEL32.dll\CreateFile2", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15288,7 +15288,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstStreamW", "ptr", lpFileName, "int", InfoLevel, "ptr", lpFindStreamData, "uint", dwFlags)
+        result := DllCall("KERNEL32.dll\FindFirstStreamW", "ptr", lpFileName, "int", InfoLevel, "ptr", lpFindStreamData, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15667,7 +15667,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileNameW", "ptr", lpFileName, "uint", dwFlags, "uint*", StringLength, "ptr", LinkName)
+        result := DllCall("KERNEL32.dll\FindFirstFileNameW", "ptr", lpFileName, "uint", dwFlags, "uint*", StringLength, "ptr", LinkName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -17129,7 +17129,7 @@ class FileSystem {
     static CreateFileFromAppW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile)
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
         return result
     }
 
@@ -17166,7 +17166,7 @@ class FileSystem {
     static CreateFile2FromAppW(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams)
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
         return result
     }
 
@@ -17251,7 +17251,7 @@ class FileSystem {
 
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags)
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
         return result
     }
 
@@ -19338,7 +19338,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogFile", "ptr", pszLogFileName, "uint", fDesiredAccess, "uint", dwShareMode, "ptr", psaLogFile, "uint", fCreateDisposition, "uint", fFlagsAndAttributes)
+        result := DllCall("clfsw32.dll\CreateLogFile", "ptr", pszLogFileName, "uint", fDesiredAccess, "uint", dwShareMode, "ptr", psaLogFile, "uint", fCreateDisposition, "uint", fFlagsAndAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23654,7 +23654,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description)
+        result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23678,7 +23678,7 @@ class FileSystem {
     static OpenTransaction(dwDesiredAccess, TransactionId) {
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\OpenTransaction", "uint", dwDesiredAccess, "ptr", TransactionId)
+        result := DllCall("ktmw32.dll\OpenTransaction", "uint", dwDesiredAccess, "ptr", TransactionId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23897,7 +23897,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CreateTransactionManager", "ptr", lpTransactionAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength)
+        result := DllCall("ktmw32.dll\CreateTransactionManager", "ptr", lpTransactionAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23926,7 +23926,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\OpenTransactionManager", "ptr", LogFileName, "uint", DesiredAccess, "uint", OpenOptions)
+        result := DllCall("ktmw32.dll\OpenTransactionManager", "ptr", LogFileName, "uint", DesiredAccess, "uint", OpenOptions, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23951,7 +23951,7 @@ class FileSystem {
     static OpenTransactionManagerById(TransactionManagerId, DesiredAccess, OpenOptions) {
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\OpenTransactionManagerById", "ptr", TransactionManagerId, "uint", DesiredAccess, "uint", OpenOptions)
+        result := DllCall("ktmw32.dll\OpenTransactionManagerById", "ptr", TransactionManagerId, "uint", DesiredAccess, "uint", OpenOptions, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -24126,7 +24126,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CreateResourceManager", "ptr", lpResourceManagerAttributes, "ptr", ResourceManagerId, "uint", CreateOptions, "ptr", TmHandle, "ptr", Description)
+        result := DllCall("ktmw32.dll\CreateResourceManager", "ptr", lpResourceManagerAttributes, "ptr", ResourceManagerId, "uint", CreateOptions, "ptr", TmHandle, "ptr", Description, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -24151,7 +24151,7 @@ class FileSystem {
     static OpenResourceManager(dwDesiredAccess, TmHandle, ResourceManagerId) {
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\OpenResourceManager", "uint", dwDesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerId)
+        result := DllCall("ktmw32.dll\OpenResourceManager", "uint", dwDesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -24357,7 +24357,7 @@ class FileSystem {
     static CreateEnlistment(lpEnlistmentAttributes, ResourceManagerHandle, TransactionHandle, NotificationMask, CreateOptions, EnlistmentKey) {
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CreateEnlistment", "ptr", lpEnlistmentAttributes, "ptr", ResourceManagerHandle, "ptr", TransactionHandle, "uint", NotificationMask, "uint", CreateOptions, "ptr", EnlistmentKey)
+        result := DllCall("ktmw32.dll\CreateEnlistment", "ptr", lpEnlistmentAttributes, "ptr", ResourceManagerHandle, "ptr", TransactionHandle, "uint", NotificationMask, "uint", CreateOptions, "ptr", EnlistmentKey, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -24380,7 +24380,7 @@ class FileSystem {
     static OpenEnlistment(dwDesiredAccess, ResourceManagerHandle, EnlistmentId) {
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\OpenEnlistment", "uint", dwDesiredAccess, "ptr", ResourceManagerHandle, "ptr", EnlistmentId)
+        result := DllCall("ktmw32.dll\OpenEnlistment", "uint", dwDesiredAccess, "ptr", ResourceManagerHandle, "ptr", EnlistmentId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34156,7 +34156,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileTransactedA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, "uint*", pusMiniVersion, "ptr", lpExtendedParameter)
+        result := DllCall("KERNEL32.dll\CreateFileTransactedA", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, "uint*", pusMiniVersion, "ptr", lpExtendedParameter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34833,7 +34833,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileTransactedW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, "uint*", pusMiniVersion, "ptr", lpExtendedParameter)
+        result := DllCall("KERNEL32.dll\CreateFileTransactedW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr", hTransaction, "uint*", pusMiniVersion, "ptr", lpExtendedParameter, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34932,7 +34932,7 @@ class FileSystem {
     static ReOpenFile(hOriginalFile, dwDesiredAccess, dwShareMode, dwFlagsAndAttributes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReOpenFile", "ptr", hOriginalFile, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwFlagsAndAttributes)
+        result := DllCall("KERNEL32.dll\ReOpenFile", "ptr", hOriginalFile, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwFlagsAndAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -36569,7 +36569,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileTransactedA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction)
+        result := DllCall("KERNEL32.dll\FindFirstFileTransactedA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -36774,7 +36774,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileTransactedW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction)
+        result := DllCall("KERNEL32.dll\FindFirstFileTransactedW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -40562,7 +40562,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstStreamTransactedW", "ptr", lpFileName, "int", InfoLevel, "ptr", lpFindStreamData, "uint", dwFlags, "ptr", hTransaction)
+        result := DllCall("KERNEL32.dll\FindFirstStreamTransactedW", "ptr", lpFileName, "int", InfoLevel, "ptr", lpFindStreamData, "uint", dwFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -40661,7 +40661,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstFileNameTransactedW", "ptr", lpFileName, "uint", dwFlags, "uint*", StringLength, "ptr", LinkName, "ptr", hTransaction)
+        result := DllCall("KERNEL32.dll\FindFirstFileNameTransactedW", "ptr", lpFileName, "uint", dwFlags, "uint*", StringLength, "ptr", LinkName, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -41472,7 +41472,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstVolumeA", "ptr", lpszVolumeName, "uint", cchBufferLength)
+        result := DllCall("KERNEL32.dll\FindFirstVolumeA", "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -41688,7 +41688,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointA", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength)
+        result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointA", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -41805,7 +41805,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointW", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength)
+        result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointW", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -43286,7 +43286,7 @@ class FileSystem {
     static OpenFileById(hVolumeHint, lpFileId, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlagsAndAttributes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenFileById", "ptr", hVolumeHint, "ptr", lpFileId, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlagsAndAttributes)
+        result := DllCall("KERNEL32.dll\OpenFileById", "ptr", hVolumeHint, "ptr", lpFileId, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlagsAndAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 

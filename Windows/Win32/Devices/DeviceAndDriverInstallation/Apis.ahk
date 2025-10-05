@@ -5844,7 +5844,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupOpenInfFileW", "ptr", FileName, "ptr", InfClass, "uint", InfStyle, "uint*", ErrorLine)
+        result := DllCall("SETUPAPI.dll\SetupOpenInfFileW", "ptr", FileName, "ptr", InfClass, "uint", InfStyle, "uint*", ErrorLine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5887,7 +5887,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupOpenInfFileA", "ptr", FileName, "ptr", InfClass, "uint", InfStyle, "uint*", ErrorLine)
+        result := DllCall("SETUPAPI.dll\SetupOpenInfFileA", "ptr", FileName, "ptr", InfClass, "uint", InfStyle, "uint*", ErrorLine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5905,7 +5905,7 @@ class DeviceAndDriverInstallation {
     static SetupOpenMasterInf() {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupOpenMasterInf")
+        result := DllCall("SETUPAPI.dll\SetupOpenMasterInf", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8296,7 +8296,7 @@ class DeviceAndDriverInstallation {
     static SetupOpenFileQueue() {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupOpenFileQueue")
+        result := DllCall("SETUPAPI.dll\SetupOpenFileQueue", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10038,7 +10038,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupCreateDiskSpaceListA", "ptr", Reserved1, "uint", Reserved2, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupCreateDiskSpaceListA", "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10063,7 +10063,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupCreateDiskSpaceListW", "ptr", Reserved1, "uint", Reserved2, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupCreateDiskSpaceListW", "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10089,7 +10089,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDuplicateDiskSpaceListA", "ptr", DiskSpace, "ptr", Reserved1, "uint", Reserved2, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupDuplicateDiskSpaceListA", "ptr", DiskSpace, "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10115,7 +10115,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDuplicateDiskSpaceListW", "ptr", DiskSpace, "ptr", Reserved1, "uint", Reserved2, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupDuplicateDiskSpaceListW", "ptr", DiskSpace, "ptr", Reserved1, "uint", Reserved2, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10981,7 +10981,7 @@ class DeviceAndDriverInstallation {
     static SetupInitDefaultQueueCallback(OwnerWindow) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallback", "ptr", OwnerWindow)
+        result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallback", "ptr", OwnerWindow, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11012,7 +11012,7 @@ class DeviceAndDriverInstallation {
     static SetupInitDefaultQueueCallbackEx(OwnerWindow, AlternateProgressWindow, ProgressMessage) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallbackEx", "ptr", OwnerWindow, "ptr", AlternateProgressWindow, "uint", ProgressMessage, "uint", Reserved1, "ptr", Reserved2)
+        result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallbackEx", "ptr", OwnerWindow, "ptr", AlternateProgressWindow, "uint", ProgressMessage, "uint", Reserved1, "ptr", Reserved2, "ptr")
         return result
     }
 
@@ -12813,7 +12813,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupInitializeFileLogA", "ptr", LogFileName, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupInitializeFileLogA", "ptr", LogFileName, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12837,7 +12837,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupInitializeFileLogW", "ptr", LogFileName, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupInitializeFileLogW", "ptr", LogFileName, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16351,7 +16351,7 @@ class DeviceAndDriverInstallation {
     static SetupDiOpenClassRegKey(ClassGuid, samDesired) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKey", "ptr", ClassGuid, "uint", samDesired)
+        result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKey", "ptr", ClassGuid, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16393,7 +16393,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExA", "ptr", ClassGuid, "uint", samDesired, "uint", Flags, "ptr", MachineName, "ptr", Reserved)
+        result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExA", "ptr", ClassGuid, "uint", samDesired, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16435,7 +16435,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExW", "ptr", ClassGuid, "uint", samDesired, "uint", Flags, "ptr", MachineName, "ptr", Reserved)
+        result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExW", "ptr", ClassGuid, "uint", samDesired, "uint", Flags, "ptr", MachineName, "ptr", Reserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16477,7 +16477,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyA", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, "ptr", InfHandle, "ptr", InfSectionName)
+        result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyA", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, "ptr", InfHandle, "ptr", InfSectionName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16519,7 +16519,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyW", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, "ptr", InfHandle, "ptr", InfSectionName)
+        result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyW", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, "ptr", InfHandle, "ptr", InfSectionName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16544,7 +16544,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired)
+        result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInterfaceData, "uint", Reserved, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16614,7 +16614,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "ptr", InfHandle, "ptr", InfSectionName)
+        result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyA", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "ptr", InfHandle, "ptr", InfSectionName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16658,7 +16658,7 @@ class DeviceAndDriverInstallation {
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "ptr", InfHandle, "ptr", InfSectionName)
+        result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyW", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "ptr", InfHandle, "ptr", InfSectionName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16703,7 +16703,7 @@ class DeviceAndDriverInstallation {
     static SetupDiOpenDevRegKey(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, samDesired) {
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupDiOpenDevRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "uint", samDesired)
+        result := DllCall("SETUPAPI.dll\SetupDiOpenDevRegKey", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "uint", Scope, "uint", HwProfile, "uint", KeyType, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20446,7 +20446,7 @@ class DeviceAndDriverInstallation {
      * @returns {Pointer<Void>} 
      */
     static SetupDiGetWizardPage(DeviceInfoSet, DeviceInfoData, InstallWizardData, PageType, Flags) {
-        result := DllCall("SETUPAPI.dll\SetupDiGetWizardPage", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InstallWizardData, "uint", PageType, "uint", Flags)
+        result := DllCall("SETUPAPI.dll\SetupDiGetWizardPage", "ptr", DeviceInfoSet, "ptr", DeviceInfoData, "ptr", InstallWizardData, "uint", PageType, "uint", Flags, "ptr")
         return result
     }
 

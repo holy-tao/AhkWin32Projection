@@ -2095,7 +2095,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateServiceA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword)
+        result := DllCall("ADVAPI32.dll\CreateServiceA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2378,7 +2378,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateServiceW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword)
+        result := DllCall("ADVAPI32.dll\CreateServiceW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3330,7 +3330,7 @@ class Services {
     static LockServiceDatabase(hSCManager) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LockServiceDatabase", "ptr", hSCManager)
+        result := DllCall("ADVAPI32.dll\LockServiceDatabase", "ptr", hSCManager, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3454,7 +3454,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess)
+        result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3531,7 +3531,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess)
+        result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3623,7 +3623,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenServiceA", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess)
+        result := DllCall("ADVAPI32.dll\OpenServiceA", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3715,7 +3715,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenServiceW", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess)
+        result := DllCall("ADVAPI32.dll\OpenServiceW", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4542,7 +4542,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc)
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4619,7 +4619,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc)
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4699,7 +4699,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext)
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4779,7 +4779,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext)
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 

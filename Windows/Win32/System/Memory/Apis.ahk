@@ -115,7 +115,7 @@ class Memory {
     static HeapCreate(flOptions, dwInitialSize, dwMaximumSize) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapCreate", "uint", flOptions, "ptr", dwInitialSize, "ptr", dwMaximumSize)
+        result := DllCall("KERNEL32.dll\HeapCreate", "uint", flOptions, "ptr", dwInitialSize, "ptr", dwMaximumSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -201,7 +201,7 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapAlloc(hHeap, dwFlags, dwBytes) {
-        result := DllCall("KERNEL32.dll\HeapAlloc", "ptr", hHeap, "uint", dwFlags, "ptr", dwBytes)
+        result := DllCall("KERNEL32.dll\HeapAlloc", "ptr", hHeap, "uint", dwFlags, "ptr", dwBytes, "ptr")
         return result
     }
 
@@ -266,7 +266,7 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapReAlloc(hHeap, dwFlags, lpMem, dwBytes) {
-        result := DllCall("KERNEL32.dll\HeapReAlloc", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "ptr", dwBytes)
+        result := DllCall("KERNEL32.dll\HeapReAlloc", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "ptr", dwBytes, "ptr")
         return result
     }
 
@@ -424,7 +424,7 @@ class Memory {
     static GetProcessHeap() {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessHeap")
+        result := DllCall("KERNEL32.dll\GetProcessHeap", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -906,7 +906,7 @@ class Memory {
     static VirtualAlloc(lpAddress, dwSize, flAllocationType, flProtect) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualAlloc", "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect)
+        result := DllCall("KERNEL32.dll\VirtualAlloc", "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1123,7 +1123,7 @@ class Memory {
     static VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualAllocEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect)
+        result := DllCall("KERNEL32.dll\VirtualAllocEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1416,7 +1416,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileMappingW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName)
+        result := DllCall("KERNEL32.dll\CreateFileMappingW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1523,7 +1523,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenFileMappingW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName)
+        result := DllCall("KERNEL32.dll\OpenFileMappingW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1682,7 +1682,7 @@ class Memory {
     static MapViewOfFile(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapViewOfFile", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap)
+        result := DllCall("KERNEL32.dll\MapViewOfFile", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1845,7 +1845,7 @@ class Memory {
     static MapViewOfFileEx(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapViewOfFileEx", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr", lpBaseAddress)
+        result := DllCall("KERNEL32.dll\MapViewOfFileEx", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr", lpBaseAddress, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2504,7 +2504,7 @@ class Memory {
     static CreateMemoryResourceNotification(NotificationType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateMemoryResourceNotification", "int", NotificationType)
+        result := DllCall("KERNEL32.dll\CreateMemoryResourceNotification", "int", NotificationType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2922,7 +2922,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileMappingNumaW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred)
+        result := DllCall("KERNEL32.dll\CreateFileMappingNumaW", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3122,7 +3122,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileMappingFromApp", "ptr", hFile, "ptr", SecurityAttributes, "uint", PageProtection, "uint", MaximumSize, "ptr", Name)
+        result := DllCall("KERNEL32.dll\CreateFileMappingFromApp", "ptr", hFile, "ptr", SecurityAttributes, "uint", PageProtection, "uint", MaximumSize, "ptr", Name, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3165,7 +3165,7 @@ class Memory {
     static MapViewOfFileFromApp(hFileMappingObject, DesiredAccess, FileOffset, NumberOfBytesToMap) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapViewOfFileFromApp", "ptr", hFileMappingObject, "uint", DesiredAccess, "uint", FileOffset, "ptr", NumberOfBytesToMap)
+        result := DllCall("KERNEL32.dll\MapViewOfFileFromApp", "ptr", hFileMappingObject, "uint", DesiredAccess, "uint", FileOffset, "ptr", NumberOfBytesToMap, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3530,7 +3530,7 @@ class Memory {
     static VirtualAllocExNuma(hProcess, lpAddress, dwSize, flAllocationType, flProtect, nndPreferred) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualAllocExNuma", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "uint", nndPreferred)
+        result := DllCall("KERNEL32.dll\VirtualAllocExNuma", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "uint", nndPreferred, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3595,7 +3595,7 @@ class Memory {
      * @since windows8.0
      */
     static RegisterBadMemoryNotification(Callback) {
-        result := DllCall("KERNEL32.dll\RegisterBadMemoryNotification", "ptr", Callback)
+        result := DllCall("KERNEL32.dll\RegisterBadMemoryNotification", "ptr", Callback, "ptr")
         return result
     }
 
@@ -3815,7 +3815,7 @@ class Memory {
     static VirtualAllocFromApp(BaseAddress, Size, AllocationType, Protection) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", Protection)
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", Protection, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3946,7 +3946,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\OpenFileMappingFromApp", "uint", DesiredAccess, "int", InheritHandle, "ptr", Name)
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\OpenFileMappingFromApp", "uint", DesiredAccess, "int", InheritHandle, "ptr", Name, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4013,7 +4013,7 @@ class Memory {
     static MapViewOfFileNuma2(FileMappingHandle, ProcessHandle, Offset, BaseAddress, ViewSize, AllocationType, PageProtection, PreferredNode) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\MapViewOfFileNuma2", "ptr", FileMappingHandle, "ptr", ProcessHandle, "uint", Offset, "ptr", BaseAddress, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "uint", PreferredNode)
+        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\MapViewOfFileNuma2", "ptr", FileMappingHandle, "ptr", ProcessHandle, "uint", Offset, "ptr", BaseAddress, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "uint", PreferredNode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4156,7 +4156,7 @@ class Memory {
     static VirtualAlloc2(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount)
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4197,7 +4197,7 @@ class Memory {
     static MapViewOfFile3(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3", "ptr", FileMapping, "ptr", Process, "ptr", BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount)
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3", "ptr", FileMapping, "ptr", Process, "ptr", BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4299,7 +4299,7 @@ class Memory {
     static VirtualAlloc2FromApp(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount)
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4353,7 +4353,7 @@ class Memory {
     static MapViewOfFile3FromApp(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3FromApp", "ptr", FileMapping, "ptr", Process, "ptr", BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount)
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3FromApp", "ptr", FileMapping, "ptr", Process, "ptr", BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4588,7 +4588,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount)
+        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4618,7 +4618,7 @@ class Memory {
      * @returns {Pointer<Void>} 
      */
     static OpenDedicatedMemoryPartition(Partition, DedicatedMemoryTypeId, DesiredAccess, InheritHandle) {
-        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\OpenDedicatedMemoryPartition", "ptr", Partition, "uint", DedicatedMemoryTypeId, "uint", DesiredAccess, "int", InheritHandle)
+        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\OpenDedicatedMemoryPartition", "ptr", Partition, "uint", DedicatedMemoryTypeId, "uint", DesiredAccess, "int", InheritHandle, "ptr")
         return result
     }
 
@@ -4737,7 +4737,7 @@ class Memory {
     static GlobalAlloc(uFlags, dwBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalAlloc", "uint", uFlags, "ptr", dwBytes)
+        result := DllCall("KERNEL32.dll\GlobalAlloc", "uint", uFlags, "ptr", dwBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4814,7 +4814,7 @@ class Memory {
     static GlobalReAlloc(hMem, dwBytes, uFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalReAlloc", "ptr", hMem, "ptr", dwBytes, "uint", uFlags)
+        result := DllCall("KERNEL32.dll\GlobalReAlloc", "ptr", hMem, "ptr", dwBytes, "uint", uFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4915,7 +4915,7 @@ class Memory {
     static GlobalLock(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalLock", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalLock", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4969,7 +4969,7 @@ class Memory {
     static GlobalHandle(pMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalHandle", "ptr", pMem)
+        result := DllCall("KERNEL32.dll\GlobalHandle", "ptr", pMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5006,7 +5006,7 @@ class Memory {
     static LocalAlloc(uFlags, uBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalAlloc", "uint", uFlags, "ptr", uBytes)
+        result := DllCall("KERNEL32.dll\LocalAlloc", "uint", uFlags, "ptr", uBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5081,7 +5081,7 @@ class Memory {
     static LocalReAlloc(hMem, uBytes, uFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalReAlloc", "ptr", hMem, "ptr", uBytes, "uint", uFlags)
+        result := DllCall("KERNEL32.dll\LocalReAlloc", "ptr", hMem, "ptr", uBytes, "uint", uFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5116,7 +5116,7 @@ class Memory {
     static LocalLock(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalLock", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\LocalLock", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5142,7 +5142,7 @@ class Memory {
     static LocalHandle(pMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalHandle", "ptr", pMem)
+        result := DllCall("KERNEL32.dll\LocalHandle", "ptr", pMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5450,7 +5450,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileMappingA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName)
+        result := DllCall("KERNEL32.dll\CreateFileMappingA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5686,7 +5686,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateFileMappingNumaA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred)
+        result := DllCall("KERNEL32.dll\CreateFileMappingNumaA", "ptr", hFile, "ptr", lpFileMappingAttributes, "uint", flProtect, "uint", dwMaximumSizeHigh, "uint", dwMaximumSizeLow, "ptr", lpName, "uint", nndPreferred, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5793,7 +5793,7 @@ class Memory {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenFileMappingA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName)
+        result := DllCall("KERNEL32.dll\OpenFileMappingA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5979,7 +5979,7 @@ class Memory {
     static MapViewOfFileExNuma(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress, nndPreferred) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapViewOfFileExNuma", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr", lpBaseAddress, "uint", nndPreferred)
+        result := DllCall("KERNEL32.dll\MapViewOfFileExNuma", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr", lpBaseAddress, "uint", nndPreferred, "ptr")
         if(A_LastError)
             throw OSError()
 

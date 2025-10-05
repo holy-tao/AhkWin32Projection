@@ -3026,7 +3026,7 @@ class Ime {
         lpszIMEFileName := lpszIMEFileName is String? StrPtr(lpszIMEFileName) : lpszIMEFileName
         lpszLayoutText := lpszLayoutText is String? StrPtr(lpszLayoutText) : lpszLayoutText
 
-        result := DllCall("IMM32.dll\ImmInstallIMEA", "ptr", lpszIMEFileName, "ptr", lpszLayoutText)
+        result := DllCall("IMM32.dll\ImmInstallIMEA", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
         return result
     }
 
@@ -3051,7 +3051,7 @@ class Ime {
         lpszIMEFileName := lpszIMEFileName is String? StrPtr(lpszIMEFileName) : lpszIMEFileName
         lpszLayoutText := lpszLayoutText is String? StrPtr(lpszLayoutText) : lpszLayoutText
 
-        result := DllCall("IMM32.dll\ImmInstallIMEW", "ptr", lpszIMEFileName, "ptr", lpszLayoutText)
+        result := DllCall("IMM32.dll\ImmInstallIMEW", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
         return result
     }
 
@@ -3065,7 +3065,7 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetDefaultIMEWnd(param0) {
-        result := DllCall("IMM32.dll\ImmGetDefaultIMEWnd", "ptr", param0)
+        result := DllCall("IMM32.dll\ImmGetDefaultIMEWnd", "ptr", param0, "ptr")
         return result
     }
 
@@ -3323,7 +3323,7 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmCreateContext() {
-        result := DllCall("IMM32.dll\ImmCreateContext")
+        result := DllCall("IMM32.dll\ImmCreateContext", "ptr")
         return result
     }
 
@@ -3353,7 +3353,7 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetContext(param0) {
-        result := DllCall("IMM32.dll\ImmGetContext", "ptr", param0)
+        result := DllCall("IMM32.dll\ImmGetContext", "ptr", param0, "ptr")
         return result
     }
 
@@ -3381,7 +3381,7 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmAssociateContext(param0, param1) {
-        result := DllCall("IMM32.dll\ImmAssociateContext", "ptr", param0, "ptr", param1)
+        result := DllCall("IMM32.dll\ImmAssociateContext", "ptr", param0, "ptr", param1, "ptr")
         return result
     }
 
@@ -4704,7 +4704,7 @@ class Ime {
      * @returns {Pointer<Void>} 
      */
     static ImmCreateSoftKeyboard(param0, param1, param2, param3) {
-        result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", "uint", param0, "ptr", param1, "int", param2, "int", param3)
+        result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", "uint", param0, "ptr", param1, "int", param2, "int", param3, "ptr")
         return result
     }
 
@@ -4765,7 +4765,7 @@ class Ime {
      * @returns {Pointer<Void>} 
      */
     static ImmCreateIMCC(param0) {
-        result := DllCall("IMM32.dll\ImmCreateIMCC", "uint", param0)
+        result := DllCall("IMM32.dll\ImmCreateIMCC", "uint", param0, "ptr")
         return result
     }
 
@@ -4775,7 +4775,7 @@ class Ime {
      * @returns {Pointer<Void>} 
      */
     static ImmDestroyIMCC(param0) {
-        result := DllCall("IMM32.dll\ImmDestroyIMCC", "ptr", param0)
+        result := DllCall("IMM32.dll\ImmDestroyIMCC", "ptr", param0, "ptr")
         return result
     }
 
@@ -4785,7 +4785,7 @@ class Ime {
      * @returns {Pointer<Void>} 
      */
     static ImmLockIMCC(param0) {
-        result := DllCall("IMM32.dll\ImmLockIMCC", "ptr", param0)
+        result := DllCall("IMM32.dll\ImmLockIMCC", "ptr", param0, "ptr")
         return result
     }
 
@@ -4816,7 +4816,7 @@ class Ime {
      * @returns {Pointer<Void>} 
      */
     static ImmReSizeIMCC(param0, param1) {
-        result := DllCall("IMM32.dll\ImmReSizeIMCC", "ptr", param0, "uint", param1)
+        result := DllCall("IMM32.dll\ImmReSizeIMCC", "ptr", param0, "uint", param1, "ptr")
         return result
     }
 

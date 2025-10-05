@@ -584,7 +584,7 @@ class Com {
     static CoLoadLibrary(lpszLibName, bAutoFree) {
         lpszLibName := lpszLibName is String? StrPtr(lpszLibName) : lpszLibName
 
-        result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree)
+        result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree, "ptr")
         return result
     }
 
@@ -4996,7 +4996,7 @@ class Com {
      * @since windows5.0
      */
     static CoTaskMemAlloc(cb) {
-        result := DllCall("OLE32.dll\CoTaskMemAlloc", "ptr", cb)
+        result := DllCall("OLE32.dll\CoTaskMemAlloc", "ptr", cb, "ptr")
         return result
     }
 
@@ -5019,7 +5019,7 @@ class Com {
      * @since windows5.0
      */
     static CoTaskMemRealloc(pv, cb) {
-        result := DllCall("OLE32.dll\CoTaskMemRealloc", "ptr", pv, "ptr", cb)
+        result := DllCall("OLE32.dll\CoTaskMemRealloc", "ptr", pv, "ptr", cb, "ptr")
         return result
     }
 

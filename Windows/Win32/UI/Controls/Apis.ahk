@@ -10819,7 +10819,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static CreatePropertySheetPageA(constPropSheetPagePointer) {
-        result := DllCall("COMCTL32.dll\CreatePropertySheetPageA", "ptr", constPropSheetPagePointer)
+        result := DllCall("COMCTL32.dll\CreatePropertySheetPageA", "ptr", constPropSheetPagePointer, "ptr")
         return result
     }
 
@@ -10847,7 +10847,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static CreatePropertySheetPageW(constPropSheetPagePointer) {
-        result := DllCall("COMCTL32.dll\CreatePropertySheetPageW", "ptr", constPropSheetPagePointer)
+        result := DllCall("COMCTL32.dll\CreatePropertySheetPageW", "ptr", constPropSheetPagePointer, "ptr")
         return result
     }
 
@@ -11457,7 +11457,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_GetIcon(himl, i, flags) {
-        result := DllCall("COMCTL32.dll\ImageList_GetIcon", "ptr", himl, "int", i, "uint", flags)
+        result := DllCall("COMCTL32.dll\ImageList_GetIcon", "ptr", himl, "int", i, "uint", flags, "ptr")
         return result
     }
 
@@ -12199,7 +12199,7 @@ class Controls {
     static CreateToolbarEx(hwnd, ws, wID, nBitmaps, hBMInst, wBMID, lpButtons, iNumButtons, dxButton, dyButton, dxBitmap, dyBitmap, uStructSize) {
         A_LastError := 0
 
-        result := DllCall("COMCTL32.dll\CreateToolbarEx", "ptr", hwnd, "uint", ws, "uint", wID, "int", nBitmaps, "ptr", hBMInst, "ptr", wBMID, "ptr", lpButtons, "int", iNumButtons, "int", dxButton, "int", dyButton, "int", dxBitmap, "int", dyBitmap, "uint", uStructSize)
+        result := DllCall("COMCTL32.dll\CreateToolbarEx", "ptr", hwnd, "uint", ws, "uint", wID, "int", nBitmaps, "ptr", hBMInst, "ptr", wBMID, "ptr", lpButtons, "int", iNumButtons, "int", dxButton, "int", dyButton, "int", dxBitmap, "int", dyBitmap, "uint", uStructSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12254,7 +12254,7 @@ class Controls {
     static CreateMappedBitmap(hInstance, idBitmap, wFlags, lpColorMap, iNumMaps) {
         A_LastError := 0
 
-        result := DllCall("COMCTL32.dll\CreateMappedBitmap", "ptr", hInstance, "ptr", idBitmap, "uint", wFlags, "ptr", lpColorMap, "int", iNumMaps)
+        result := DllCall("COMCTL32.dll\CreateMappedBitmap", "ptr", hInstance, "ptr", idBitmap, "uint", wFlags, "ptr", lpColorMap, "int", iNumMaps, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12434,7 +12434,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("COMCTL32.dll\CreateStatusWindowA", "int", style, "ptr", lpszText, "ptr", hwndParent, "uint", wID)
+        result := DllCall("COMCTL32.dll\CreateStatusWindowA", "int", style, "ptr", lpszText, "ptr", hwndParent, "uint", wID, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12474,7 +12474,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("COMCTL32.dll\CreateStatusWindowW", "int", style, "ptr", lpszText, "ptr", hwndParent, "uint", wID)
+        result := DllCall("COMCTL32.dll\CreateStatusWindowW", "int", style, "ptr", lpszText, "ptr", hwndParent, "uint", wID, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12666,7 +12666,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static CreateUpDownControl(dwStyle, x, y, cx, cy, hParent, nID, hInst, hBuddy, nUpper, nLower, nPos) {
-        result := DllCall("COMCTL32.dll\CreateUpDownControl", "uint", dwStyle, "int", x, "int", y, "int", cx, "int", cy, "ptr", hParent, "int", nID, "ptr", hInst, "ptr", hBuddy, "int", nUpper, "int", nLower, "int", nPos)
+        result := DllCall("COMCTL32.dll\CreateUpDownControl", "uint", dwStyle, "int", x, "int", y, "int", cx, "int", cy, "ptr", hParent, "int", nID, "ptr", hInst, "ptr", hBuddy, "int", nUpper, "int", nLower, "int", nPos, "ptr")
         return result
     }
 
@@ -13209,7 +13209,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DSA_GetItemPtr(hdsa, i) {
-        result := DllCall("COMCTL32.dll\DSA_GetItemPtr", "ptr", hdsa, "int", i)
+        result := DllCall("COMCTL32.dll\DSA_GetItemPtr", "ptr", hdsa, "int", i, "ptr")
         return result
     }
 
@@ -13429,7 +13429,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DPA_DeletePtr(hdpa, i) {
-        result := DllCall("COMCTL32.dll\DPA_DeletePtr", "ptr", hdpa, "int", i)
+        result := DllCall("COMCTL32.dll\DPA_DeletePtr", "ptr", hdpa, "int", i, "ptr")
         return result
     }
 
@@ -13549,7 +13549,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static DPA_GetPtr(hdpa, i) {
-        result := DllCall("COMCTL32.dll\DPA_GetPtr", "ptr", hdpa, "ptr", i)
+        result := DllCall("COMCTL32.dll\DPA_GetPtr", "ptr", hdpa, "ptr", i, "ptr")
         return result
     }
 
@@ -15971,7 +15971,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetThemeSysColorBrush(hTheme, iColorId) {
-        result := DllCall("UxTheme.dll\GetThemeSysColorBrush", "ptr", hTheme, "int", iColorId)
+        result := DllCall("UxTheme.dll\GetThemeSysColorBrush", "ptr", hTheme, "int", iColorId, "ptr")
         return result
     }
 
@@ -17042,7 +17042,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetBufferedPaintTargetDC(hBufferedPaint) {
-        result := DllCall("UxTheme.dll\GetBufferedPaintTargetDC", "ptr", hBufferedPaint)
+        result := DllCall("UxTheme.dll\GetBufferedPaintTargetDC", "ptr", hBufferedPaint, "ptr")
         return result
     }
 
@@ -17058,7 +17058,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetBufferedPaintDC(hBufferedPaint) {
-        result := DllCall("UxTheme.dll\GetBufferedPaintDC", "ptr", hBufferedPaint)
+        result := DllCall("UxTheme.dll\GetBufferedPaintDC", "ptr", hBufferedPaint, "ptr")
         return result
     }
 
@@ -17489,7 +17489,7 @@ class Controls {
     static CreateSyntheticPointerDevice(pointerType, maxCount, mode) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateSyntheticPointerDevice", "int", pointerType, "uint", maxCount, "int", mode)
+        result := DllCall("USER32.dll\CreateSyntheticPointerDevice", "int", pointerType, "uint", maxCount, "int", mode, "ptr")
         if(A_LastError)
             throw OSError()
 

@@ -31,7 +31,7 @@ class WindowsNetworkVirtualization {
      * @since windowsserver2012
      */
     static WnvOpen() {
-        result := DllCall("wnvapi.dll\WnvOpen")
+        result := DllCall("wnvapi.dll\WnvOpen", "ptr")
         return result
     }
 

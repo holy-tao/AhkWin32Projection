@@ -1046,7 +1046,7 @@ class Communication {
      * @since windows10.0.16299
      */
     static OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
-        result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes)
+        result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes, "ptr")
         return result
     }
 

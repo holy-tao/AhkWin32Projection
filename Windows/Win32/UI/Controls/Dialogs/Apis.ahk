@@ -741,7 +741,7 @@ class Dialogs {
      * @since windows5.0
      */
     static FindTextA(param0) {
-        result := DllCall("COMDLG32.dll\FindTextA", "ptr", param0)
+        result := DllCall("COMDLG32.dll\FindTextA", "ptr", param0, "ptr")
         return result
     }
 
@@ -765,7 +765,7 @@ class Dialogs {
      * @since windows5.0
      */
     static FindTextW(param0) {
-        result := DllCall("COMDLG32.dll\FindTextW", "ptr", param0)
+        result := DllCall("COMDLG32.dll\FindTextW", "ptr", param0, "ptr")
         return result
     }
 
@@ -796,7 +796,7 @@ class Dialogs {
      * @since windows5.0
      */
     static ReplaceTextA(param0) {
-        result := DllCall("COMDLG32.dll\ReplaceTextA", "ptr", param0)
+        result := DllCall("COMDLG32.dll\ReplaceTextA", "ptr", param0, "ptr")
         return result
     }
 
@@ -827,7 +827,7 @@ class Dialogs {
      * @since windows5.0
      */
     static ReplaceTextW(param0) {
-        result := DllCall("COMDLG32.dll\ReplaceTextW", "ptr", param0)
+        result := DllCall("COMDLG32.dll\ReplaceTextW", "ptr", param0, "ptr")
         return result
     }
 

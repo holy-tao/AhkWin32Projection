@@ -4638,7 +4638,7 @@ class Display {
      * @since windows5.0
      */
     static BRUSHOBJ_pvAllocRbrush(pbo, cj) {
-        result := DllCall("GDI32.dll\BRUSHOBJ_pvAllocRbrush", "ptr", pbo, "uint", cj)
+        result := DllCall("GDI32.dll\BRUSHOBJ_pvAllocRbrush", "ptr", pbo, "uint", cj, "ptr")
         return result
     }
 
@@ -4654,7 +4654,7 @@ class Display {
      * @since windows5.0
      */
     static BRUSHOBJ_pvGetRbrush(pbo) {
-        result := DllCall("GDI32.dll\BRUSHOBJ_pvGetRbrush", "ptr", pbo)
+        result := DllCall("GDI32.dll\BRUSHOBJ_pvGetRbrush", "ptr", pbo, "ptr")
         return result
     }
 
@@ -4684,7 +4684,7 @@ class Display {
      * @since windows5.0
      */
     static BRUSHOBJ_hGetColorTransform(pbo) {
-        result := DllCall("GDI32.dll\BRUSHOBJ_hGetColorTransform", "ptr", pbo)
+        result := DllCall("GDI32.dll\BRUSHOBJ_hGetColorTransform", "ptr", pbo, "ptr")
         return result
     }
 
@@ -4921,7 +4921,7 @@ class Display {
      * @since windows5.0
      */
     static FONTOBJ_pvTrueTypeFontFile(pfo, pcjFile) {
-        result := DllCall("GDI32.dll\FONTOBJ_pvTrueTypeFontFile", "ptr", pfo, "uint*", pcjFile)
+        result := DllCall("GDI32.dll\FONTOBJ_pvTrueTypeFontFile", "ptr", pfo, "uint*", pcjFile, "ptr")
         return result
     }
 
@@ -5338,7 +5338,7 @@ class Display {
      * @since windows5.0
      */
     static XLATEOBJ_hGetColorTransform(pxlo) {
-        result := DllCall("GDI32.dll\XLATEOBJ_hGetColorTransform", "ptr", pxlo)
+        result := DllCall("GDI32.dll\XLATEOBJ_hGetColorTransform", "ptr", pxlo, "ptr")
         return result
     }
 
@@ -5364,7 +5364,7 @@ class Display {
      * @since windows5.0
      */
     static EngCreateBitmap(sizl, lWidth, iFormat, fl, pvBits) {
-        result := DllCall("GDI32.dll\EngCreateBitmap", "ptr", sizl, "int", lWidth, "uint", iFormat, "uint", fl, "ptr", pvBits)
+        result := DllCall("GDI32.dll\EngCreateBitmap", "ptr", sizl, "int", lWidth, "uint", iFormat, "uint", fl, "ptr", pvBits, "ptr")
         return result
     }
 
@@ -5380,7 +5380,7 @@ class Display {
      * @since windows5.0
      */
     static EngCreateDeviceSurface(dhsurf, sizl, iFormatCompat) {
-        result := DllCall("GDI32.dll\EngCreateDeviceSurface", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat)
+        result := DllCall("GDI32.dll\EngCreateDeviceSurface", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
         return result
     }
 
@@ -5396,7 +5396,7 @@ class Display {
      * @since windows5.0
      */
     static EngCreateDeviceBitmap(dhsurf, sizl, iFormatCompat) {
-        result := DllCall("GDI32.dll\EngCreateDeviceBitmap", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat)
+        result := DllCall("GDI32.dll\EngCreateDeviceBitmap", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
         return result
     }
 
@@ -5541,7 +5541,7 @@ class Display {
      * @since windows5.0
      */
     static EngCreatePalette(iMode, cColors, pulColors, flRed, flGreen, flBlue) {
-        result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, "uint*", pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue)
+        result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, "uint*", pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue, "ptr")
         return result
     }
 
@@ -6251,7 +6251,7 @@ class Display {
     static EngLoadModule(pwsz) {
         pwsz := pwsz is String? StrPtr(pwsz) : pwsz
 
-        result := DllCall("GDI32.dll\EngLoadModule", "ptr", pwsz)
+        result := DllCall("GDI32.dll\EngLoadModule", "ptr", pwsz, "ptr")
         return result
     }
 
@@ -6268,7 +6268,7 @@ class Display {
      * @since windows5.0
      */
     static EngFindResource(h, iName, iType, pulSize) {
-        result := DllCall("GDI32.dll\EngFindResource", "ptr", h, "int", iName, "int", iType, "uint*", pulSize)
+        result := DllCall("GDI32.dll\EngFindResource", "ptr", h, "int", iName, "int", iType, "uint*", pulSize, "ptr")
         return result
     }
 
@@ -6305,7 +6305,7 @@ class Display {
      * @since windows5.0
      */
     static EngCreateSemaphore() {
-        result := DllCall("GDI32.dll\EngCreateSemaphore")
+        result := DllCall("GDI32.dll\EngCreateSemaphore", "ptr")
         return result
     }
 

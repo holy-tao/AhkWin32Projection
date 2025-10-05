@@ -2625,7 +2625,7 @@ class InternetExplorer {
     static IECreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile)
+        result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
         return result
     }
 
@@ -2704,7 +2704,7 @@ class InternetExplorer {
     static IEFindFirstFile(lpFileName, lpFindFileData) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("Ieframe.dll\IEFindFirstFile", "ptr", lpFileName, "ptr", lpFindFileData)
+        result := DllCall("Ieframe.dll\IEFindFirstFile", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
         return result
     }
 

@@ -6412,7 +6412,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11628,7 +11628,7 @@ class Clustering {
     static GetClusterKey(hCluster, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11651,7 +11651,7 @@ class Clustering {
     static GetClusterGroupKey(hGroup, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11674,7 +11674,7 @@ class Clustering {
     static GetClusterResourceKey(hResource, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11697,7 +11697,7 @@ class Clustering {
     static GetClusterNodeKey(hNode, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11720,7 +11720,7 @@ class Clustering {
     static GetClusterNetworkKey(hNetwork, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11743,7 +11743,7 @@ class Clustering {
     static GetClusterNetInterfaceKey(hNetInterface, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired)
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15782,7 +15782,7 @@ class Clustering {
     static ResUtilGetEnvironmentWithNetName(hResource) {
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource)
+        result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource, "ptr")
         if(A_LastError)
             throw OSError()
 

@@ -9019,7 +9019,7 @@ class WindowsAndMessaging {
     static RegisterDeviceNotificationA(hRecipient, NotificationFilter, Flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterDeviceNotificationA", "ptr", hRecipient, "ptr", NotificationFilter, "uint", Flags)
+        result := DllCall("USER32.dll\RegisterDeviceNotificationA", "ptr", hRecipient, "ptr", NotificationFilter, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9086,7 +9086,7 @@ class WindowsAndMessaging {
     static RegisterDeviceNotificationW(hRecipient, NotificationFilter, Flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterDeviceNotificationW", "ptr", hRecipient, "ptr", NotificationFilter, "uint", Flags)
+        result := DllCall("USER32.dll\RegisterDeviceNotificationW", "ptr", hRecipient, "ptr", NotificationFilter, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10329,7 +10329,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateWindowExA", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, "ptr", lpParam)
+        result := DllCall("USER32.dll\CreateWindowExA", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, "ptr", lpParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10503,7 +10503,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateWindowExW", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, "ptr", lpParam)
+        result := DllCall("USER32.dll\CreateWindowExW", "uint", dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hMenu, "ptr", hInstance, "ptr", lpParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11211,7 +11211,7 @@ class WindowsAndMessaging {
     static BeginDeferWindowPos(nNumWindows) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BeginDeferWindowPos", "int", nNumWindows)
+        result := DllCall("USER32.dll\BeginDeferWindowPos", "int", nNumWindows, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11274,7 +11274,7 @@ class WindowsAndMessaging {
     static DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DeferWindowPos", "ptr", hWinPosInfo, "ptr", hWnd, "ptr", hWndInsertAfter, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags)
+        result := DllCall("USER32.dll\DeferWindowPos", "ptr", hWinPosInfo, "ptr", hWnd, "ptr", hWndInsertAfter, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11450,7 +11450,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogParamA", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam)
+        result := DllCall("USER32.dll\CreateDialogParamA", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11498,7 +11498,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogParamW", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam)
+        result := DllCall("USER32.dll\CreateDialogParamW", "ptr", hInstance, "ptr", lpTemplateName, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11557,7 +11557,7 @@ class WindowsAndMessaging {
     static CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogIndirectParamA", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam)
+        result := DllCall("USER32.dll\CreateDialogIndirectParamA", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11616,7 +11616,7 @@ class WindowsAndMessaging {
     static CreateDialogIndirectParamW(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateDialogIndirectParamW", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam)
+        result := DllCall("USER32.dll\CreateDialogIndirectParamW", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11886,7 +11886,7 @@ class WindowsAndMessaging {
     static GetDlgItem(hDlg, nIDDlgItem) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgItem", "ptr", hDlg, "int", nIDDlgItem)
+        result := DllCall("USER32.dll\GetDlgItem", "ptr", hDlg, "int", nIDDlgItem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12211,7 +12211,7 @@ class WindowsAndMessaging {
     static GetNextDlgGroupItem(hDlg, hCtl, bPrevious) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetNextDlgGroupItem", "ptr", hDlg, "ptr", hCtl, "int", bPrevious)
+        result := DllCall("USER32.dll\GetNextDlgGroupItem", "ptr", hDlg, "ptr", hCtl, "int", bPrevious, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12251,7 +12251,7 @@ class WindowsAndMessaging {
     static GetNextDlgTabItem(hDlg, hCtl, bPrevious) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetNextDlgTabItem", "ptr", hDlg, "ptr", hCtl, "int", bPrevious)
+        result := DllCall("USER32.dll\GetNextDlgTabItem", "ptr", hDlg, "ptr", hCtl, "int", bPrevious, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14051,7 +14051,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadAcceleratorsA", "ptr", hInstance, "ptr", lpTableName)
+        result := DllCall("USER32.dll\LoadAcceleratorsA", "ptr", hInstance, "ptr", lpTableName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14083,7 +14083,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadAcceleratorsW", "ptr", hInstance, "ptr", lpTableName)
+        result := DllCall("USER32.dll\LoadAcceleratorsW", "ptr", hInstance, "ptr", lpTableName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14109,7 +14109,7 @@ class WindowsAndMessaging {
     static CreateAcceleratorTableA(paccel, cAccel) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateAcceleratorTableA", "ptr", paccel, "int", cAccel)
+        result := DllCall("USER32.dll\CreateAcceleratorTableA", "ptr", paccel, "int", cAccel, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14135,7 +14135,7 @@ class WindowsAndMessaging {
     static CreateAcceleratorTableW(paccel, cAccel) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateAcceleratorTableW", "ptr", paccel, "int", cAccel)
+        result := DllCall("USER32.dll\CreateAcceleratorTableW", "ptr", paccel, "int", cAccel, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14509,7 +14509,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadMenuA", "ptr", hInstance, "ptr", lpMenuName)
+        result := DllCall("USER32.dll\LoadMenuA", "ptr", hInstance, "ptr", lpMenuName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14539,7 +14539,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadMenuW", "ptr", hInstance, "ptr", lpMenuName)
+        result := DllCall("USER32.dll\LoadMenuW", "ptr", hInstance, "ptr", lpMenuName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14571,7 +14571,7 @@ class WindowsAndMessaging {
     static LoadMenuIndirectA(lpMenuTemplate) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadMenuIndirectA", "ptr", lpMenuTemplate)
+        result := DllCall("USER32.dll\LoadMenuIndirectA", "ptr", lpMenuTemplate, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14603,7 +14603,7 @@ class WindowsAndMessaging {
     static LoadMenuIndirectW(lpMenuTemplate) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadMenuIndirectW", "ptr", lpMenuTemplate)
+        result := DllCall("USER32.dll\LoadMenuIndirectW", "ptr", lpMenuTemplate, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14624,7 +14624,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenu(hWnd) {
-        result := DllCall("USER32.dll\GetMenu", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetMenu", "ptr", hWnd, "ptr")
         return result
     }
 
@@ -15062,7 +15062,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetSystemMenu(hWnd, bRevert) {
-        result := DllCall("USER32.dll\GetSystemMenu", "ptr", hWnd, "int", bRevert)
+        result := DllCall("USER32.dll\GetSystemMenu", "ptr", hWnd, "int", bRevert, "ptr")
         return result
     }
 
@@ -15081,7 +15081,7 @@ class WindowsAndMessaging {
     static CreateMenu() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateMenu")
+        result := DllCall("USER32.dll\CreateMenu", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15105,7 +15105,7 @@ class WindowsAndMessaging {
     static CreatePopupMenu() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreatePopupMenu")
+        result := DllCall("USER32.dll\CreatePopupMenu", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15259,7 +15259,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetSubMenu(hMenu, nPos) {
-        result := DllCall("USER32.dll\GetSubMenu", "ptr", hMenu, "int", nPos)
+        result := DllCall("USER32.dll\GetSubMenu", "ptr", hMenu, "int", nPos, "ptr")
         return result
     }
 
@@ -17372,7 +17372,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetForegroundWindow() {
-        result := DllCall("USER32.dll\GetForegroundWindow")
+        result := DllCall("USER32.dll\GetForegroundWindow", "ptr")
         return result
     }
 
@@ -17834,7 +17834,7 @@ class WindowsAndMessaging {
     static GetPropA(hWnd, lpString) {
         lpString := lpString is String? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetPropA", "ptr", hWnd, "ptr", lpString)
+        result := DllCall("USER32.dll\GetPropA", "ptr", hWnd, "ptr", lpString, "ptr")
         return result
     }
 
@@ -17858,7 +17858,7 @@ class WindowsAndMessaging {
     static GetPropW(hWnd, lpString) {
         lpString := lpString is String? StrPtr(lpString) : lpString
 
-        result := DllCall("USER32.dll\GetPropW", "ptr", hWnd, "ptr", lpString)
+        result := DllCall("USER32.dll\GetPropW", "ptr", hWnd, "ptr", lpString, "ptr")
         return result
     }
 
@@ -17887,7 +17887,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemovePropA", "ptr", hWnd, "ptr", lpString)
+        result := DllCall("USER32.dll\RemovePropA", "ptr", hWnd, "ptr", lpString, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -17919,7 +17919,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemovePropW", "ptr", hWnd, "ptr", lpString)
+        result := DllCall("USER32.dll\RemovePropW", "ptr", hWnd, "ptr", lpString, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19493,7 +19493,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetCursor(hCursor) {
-        result := DllCall("USER32.dll\SetCursor", "ptr", hCursor)
+        result := DllCall("USER32.dll\SetCursor", "ptr", hCursor, "ptr")
         return result
     }
 
@@ -19586,7 +19586,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetCursor() {
-        result := DllCall("USER32.dll\GetCursor")
+        result := DllCall("USER32.dll\GetCursor", "ptr")
         return result
     }
 
@@ -19903,7 +19903,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static WindowFromPoint(Point) {
-        result := DllCall("USER32.dll\WindowFromPoint", "ptr", Point)
+        result := DllCall("USER32.dll\WindowFromPoint", "ptr", Point, "ptr")
         return result
     }
 
@@ -19921,7 +19921,7 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static WindowFromPhysicalPoint(Point) {
-        result := DllCall("USER32.dll\WindowFromPhysicalPoint", "ptr", Point)
+        result := DllCall("USER32.dll\WindowFromPhysicalPoint", "ptr", Point, "ptr")
         return result
     }
 
@@ -19960,7 +19960,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ChildWindowFromPoint(hWndParent, Point) {
-        result := DllCall("USER32.dll\ChildWindowFromPoint", "ptr", hWndParent, "ptr", Point)
+        result := DllCall("USER32.dll\ChildWindowFromPoint", "ptr", hWndParent, "ptr", Point, "ptr")
         return result
     }
 
@@ -20075,7 +20075,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ChildWindowFromPointEx(hwnd, pt, flags) {
-        result := DllCall("USER32.dll\ChildWindowFromPointEx", "ptr", hwnd, "ptr", pt, "uint", flags)
+        result := DllCall("USER32.dll\ChildWindowFromPointEx", "ptr", hwnd, "ptr", pt, "uint", flags, "ptr")
         return result
     }
 
@@ -20591,7 +20591,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDesktopWindow() {
-        result := DllCall("USER32.dll\GetDesktopWindow")
+        result := DllCall("USER32.dll\GetDesktopWindow", "ptr")
         return result
     }
 
@@ -20621,7 +20621,7 @@ class WindowsAndMessaging {
     static GetParent(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetParent", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetParent", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20687,7 +20687,7 @@ class WindowsAndMessaging {
     static SetParent(hWndChild, hWndNewParent) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetParent", "ptr", hWndChild, "ptr", hWndNewParent)
+        result := DllCall("USER32.dll\SetParent", "ptr", hWndChild, "ptr", hWndNewParent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20748,7 +20748,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\FindWindowA", "ptr", lpClassName, "ptr", lpWindowName)
+        result := DllCall("USER32.dll\FindWindowA", "ptr", lpClassName, "ptr", lpWindowName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20783,7 +20783,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\FindWindowW", "ptr", lpClassName, "ptr", lpWindowName)
+        result := DllCall("USER32.dll\FindWindowW", "ptr", lpClassName, "ptr", lpWindowName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20845,7 +20845,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\FindWindowExA", "ptr", hWndParent, "ptr", hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow)
+        result := DllCall("USER32.dll\FindWindowExA", "ptr", hWndParent, "ptr", hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20907,7 +20907,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\FindWindowExW", "ptr", hWndParent, "ptr", hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow)
+        result := DllCall("USER32.dll\FindWindowExW", "ptr", hWndParent, "ptr", hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20923,7 +20923,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetShellWindow() {
-        result := DllCall("USER32.dll\GetShellWindow")
+        result := DllCall("USER32.dll\GetShellWindow", "ptr")
         return result
     }
 
@@ -21181,7 +21181,7 @@ class WindowsAndMessaging {
     static GetTopWindow(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetTopWindow", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetTopWindow", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21249,7 +21249,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetLastActivePopup(hWnd) {
-        result := DllCall("USER32.dll\GetLastActivePopup", "ptr", hWnd)
+        result := DllCall("USER32.dll\GetLastActivePopup", "ptr", hWnd, "ptr")
         return result
     }
 
@@ -21270,7 +21270,7 @@ class WindowsAndMessaging {
     static GetWindow(hWnd, uCmd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetWindow", "ptr", hWnd, "uint", uCmd)
+        result := DllCall("USER32.dll\GetWindow", "ptr", hWnd, "uint", uCmd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21284,7 +21284,7 @@ class WindowsAndMessaging {
      * @returns {Pointer<Void>} 
      */
     static SetWindowsHookA(nFilterType, pfnFilterProc) {
-        result := DllCall("USER32.dll\SetWindowsHookA", "int", nFilterType, "ptr", pfnFilterProc)
+        result := DllCall("USER32.dll\SetWindowsHookA", "int", nFilterType, "ptr", pfnFilterProc, "ptr")
         return result
     }
 
@@ -21295,7 +21295,7 @@ class WindowsAndMessaging {
      * @returns {Pointer<Void>} 
      */
     static SetWindowsHookW(nFilterType, pfnFilterProc) {
-        result := DllCall("USER32.dll\SetWindowsHookW", "int", nFilterType, "ptr", pfnFilterProc)
+        result := DllCall("USER32.dll\SetWindowsHookW", "int", nFilterType, "ptr", pfnFilterProc, "ptr")
         return result
     }
 
@@ -21449,7 +21449,7 @@ class WindowsAndMessaging {
     static SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowsHookExA", "int", idHook, "ptr", lpfn, "ptr", hmod, "uint", dwThreadId)
+        result := DllCall("USER32.dll\SetWindowsHookExA", "int", idHook, "ptr", lpfn, "ptr", hmod, "uint", dwThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21595,7 +21595,7 @@ class WindowsAndMessaging {
     static SetWindowsHookExW(idHook, lpfn, hmod, dwThreadId) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowsHookExW", "int", idHook, "ptr", lpfn, "ptr", hmod, "uint", dwThreadId)
+        result := DllCall("USER32.dll\SetWindowsHookExW", "int", idHook, "ptr", lpfn, "ptr", hmod, "uint", dwThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21906,7 +21906,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadCursorA", "ptr", hInstance, "ptr", lpCursorName)
+        result := DllCall("USER32.dll\LoadCursorA", "ptr", hInstance, "ptr", lpCursorName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22124,7 +22124,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadCursorW", "ptr", hInstance, "ptr", lpCursorName)
+        result := DllCall("USER32.dll\LoadCursorW", "ptr", hInstance, "ptr", lpCursorName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22180,7 +22180,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadCursorFromFileA", "ptr", lpFileName)
+        result := DllCall("USER32.dll\LoadCursorFromFileA", "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22236,7 +22236,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadCursorFromFileW", "ptr", lpFileName)
+        result := DllCall("USER32.dll\LoadCursorFromFileW", "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22284,7 +22284,7 @@ class WindowsAndMessaging {
     static CreateCursor(hInst, xHotSpot, yHotSpot, nWidth, nHeight, pvANDPlane, pvXORPlane) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateCursor", "ptr", hInst, "int", xHotSpot, "int", yHotSpot, "int", nWidth, "int", nHeight, "ptr", pvANDPlane, "ptr", pvXORPlane)
+        result := DllCall("USER32.dll\CreateCursor", "ptr", hInst, "int", xHotSpot, "int", yHotSpot, "int", nWidth, "int", nHeight, "ptr", pvANDPlane, "ptr", pvXORPlane, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22389,7 +22389,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadIconA", "ptr", hInstance, "ptr", lpIconName)
+        result := DllCall("USER32.dll\LoadIconA", "ptr", hInstance, "ptr", lpIconName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22428,7 +22428,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadIconW", "ptr", hInstance, "ptr", lpIconName)
+        result := DllCall("USER32.dll\LoadIconW", "ptr", hInstance, "ptr", lpIconName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22657,7 +22657,7 @@ class WindowsAndMessaging {
     static CreateIcon(hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateIcon", "ptr", hInstance, "int", nWidth, "int", nHeight, "char", cPlanes, "char", cBitsPixel, "char*", lpbANDbits, "char*", lpbXORbits)
+        result := DllCall("USER32.dll\CreateIcon", "ptr", hInstance, "int", nWidth, "int", nHeight, "char", cPlanes, "char", cBitsPixel, "char*", lpbANDbits, "char*", lpbXORbits, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22807,7 +22807,7 @@ class WindowsAndMessaging {
     static CreateIconFromResource(presbits, dwResSize, fIcon, dwVer) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateIconFromResource", "ptr", presbits, "uint", dwResSize, "int", fIcon, "uint", dwVer)
+        result := DllCall("USER32.dll\CreateIconFromResource", "ptr", presbits, "uint", dwResSize, "int", fIcon, "uint", dwVer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22850,7 +22850,7 @@ class WindowsAndMessaging {
     static CreateIconFromResourceEx(presbits, dwResSize, fIcon, dwVer, cxDesired, cyDesired, Flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateIconFromResourceEx", "ptr", presbits, "uint", dwResSize, "int", fIcon, "uint", dwVer, "int", cxDesired, "int", cyDesired, "uint", Flags)
+        result := DllCall("USER32.dll\CreateIconFromResourceEx", "ptr", presbits, "uint", dwResSize, "int", fIcon, "uint", dwVer, "int", cxDesired, "int", cyDesired, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22956,7 +22956,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadImageA", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad)
+        result := DllCall("USER32.dll\LoadImageA", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23064,7 +23064,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadImageW", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad)
+        result := DllCall("USER32.dll\LoadImageW", "ptr", hInst, "ptr", name, "uint", type, "int", cx, "int", cy, "uint", fuLoad, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23125,7 +23125,7 @@ class WindowsAndMessaging {
     static CopyImage(h, type, cx, cy, flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CopyImage", "ptr", h, "uint", type, "int", cx, "int", cy, "uint", flags)
+        result := DllCall("USER32.dll\CopyImage", "ptr", h, "uint", type, "int", cx, "int", cy, "uint", flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23211,7 +23211,7 @@ class WindowsAndMessaging {
     static CreateIconIndirect(piconinfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateIconIndirect", "ptr", piconinfo)
+        result := DllCall("USER32.dll\CreateIconIndirect", "ptr", piconinfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23238,7 +23238,7 @@ class WindowsAndMessaging {
     static CopyIcon(hIcon) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CopyIcon", "ptr", hIcon)
+        result := DllCall("USER32.dll\CopyIcon", "ptr", hIcon, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23920,7 +23920,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam)
+        result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23974,7 +23974,7 @@ class WindowsAndMessaging {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam)
+        result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, "uint", dwStyle, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr", hWndParent, "ptr", hInstance, "ptr", lParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -30203,7 +30203,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetAncestor(hwnd, gaFlags) {
-        result := DllCall("USER32.dll\GetAncestor", "ptr", hwnd, "uint", gaFlags)
+        result := DllCall("USER32.dll\GetAncestor", "ptr", hwnd, "uint", gaFlags, "ptr")
         return result
     }
 
@@ -30224,7 +30224,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RealChildWindowFromPoint(hwndParent, ptParentClientCoords) {
-        result := DllCall("USER32.dll\RealChildWindowFromPoint", "ptr", hwndParent, "ptr", ptParentClientCoords)
+        result := DllCall("USER32.dll\RealChildWindowFromPoint", "ptr", hwndParent, "ptr", ptParentClientCoords, "ptr")
         return result
     }
 

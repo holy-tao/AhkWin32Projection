@@ -13612,7 +13612,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetServByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", proto, "ptr", buf, "int", buflen)
+        result := DllCall("WS2_32.dll\WSAAsyncGetServByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", proto, "ptr", buf, "int", buflen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13788,7 +13788,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetServByPort", "ptr", hWnd, "uint", wMsg, "int", port, "ptr", proto, "ptr", buf, "int", buflen)
+        result := DllCall("WS2_32.dll\WSAAsyncGetServByPort", "ptr", hWnd, "uint", wMsg, "int", port, "ptr", proto, "ptr", buf, "int", buflen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13960,7 +13960,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen)
+        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14130,7 +14130,7 @@ class WinSock {
     static WSAAsyncGetProtoByNumber(hWnd, wMsg, number, buf, buflen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByNumber", "ptr", hWnd, "uint", wMsg, "int", number, "ptr", buf, "int", buflen)
+        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByNumber", "ptr", hWnd, "uint", wMsg, "int", number, "ptr", buf, "int", buflen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14178,7 +14178,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetHostByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen)
+        result := DllCall("WS2_32.dll\WSAAsyncGetHostByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14225,7 +14225,7 @@ class WinSock {
     static WSAAsyncGetHostByAddr(hWnd, wMsg, addr, len, type, buf, buflen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetHostByAddr", "ptr", hWnd, "uint", wMsg, "ptr", addr, "int", len, "int", type, "ptr", buf, "int", buflen)
+        result := DllCall("WS2_32.dll\WSAAsyncGetHostByAddr", "ptr", hWnd, "uint", wMsg, "ptr", addr, "int", len, "int", type, "ptr", buf, "int", buflen, "ptr")
         if(A_LastError)
             throw OSError()
 

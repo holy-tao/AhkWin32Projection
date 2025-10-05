@@ -12405,7 +12405,7 @@ class Rpc {
      * @returns {Pointer<Void>} 
      */
     static I_RpcAllocate(Size) {
-        result := DllCall("RPCRT4.dll\I_RpcAllocate", "uint", Size)
+        result := DllCall("RPCRT4.dll\I_RpcAllocate", "uint", Size, "ptr")
         return result
     }
 
@@ -12454,7 +12454,7 @@ class Rpc {
      * @returns {Pointer<Void>} 
      */
     static I_RpcGetCurrentCallHandle() {
-        result := DllCall("RPCRT4.dll\I_RpcGetCurrentCallHandle")
+        result := DllCall("RPCRT4.dll\I_RpcGetCurrentCallHandle", "ptr")
         return result
     }
 
@@ -21151,7 +21151,7 @@ class Rpc {
      * @returns {Pointer<Void>} 
      */
     static NDRCContextBinding(CContext) {
-        result := DllCall("RPCRT4.dll\NDRCContextBinding", "ptr", CContext)
+        result := DllCall("RPCRT4.dll\NDRCContextBinding", "ptr", CContext, "ptr")
         return result
     }
 
@@ -23229,7 +23229,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSsAllocate(Size) {
-        result := DllCall("RPCRT4.dll\RpcSsAllocate", "ptr", Size)
+        result := DllCall("RPCRT4.dll\RpcSsAllocate", "ptr", Size, "ptr")
         return result
     }
 
@@ -23352,7 +23352,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSsGetThreadHandle() {
-        result := DllCall("RPCRT4.dll\RpcSsGetThreadHandle")
+        result := DllCall("RPCRT4.dll\RpcSsGetThreadHandle", "ptr")
         return result
     }
 
@@ -23505,7 +23505,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmAllocate(Size, pStatus) {
-        result := DllCall("RPCRT4.dll\RpcSmAllocate", "ptr", Size, "int*", pStatus)
+        result := DllCall("RPCRT4.dll\RpcSmAllocate", "ptr", Size, "int*", pStatus, "ptr")
         return result
     }
 
@@ -23806,7 +23806,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmGetThreadHandle(pStatus) {
-        result := DllCall("RPCRT4.dll\RpcSmGetThreadHandle", "int*", pStatus)
+        result := DllCall("RPCRT4.dll\RpcSmGetThreadHandle", "int*", pStatus, "ptr")
         return result
     }
 
@@ -23994,7 +23994,7 @@ class Rpc {
      * @returns {Pointer<Void>} 
      */
     static NdrRpcSmClientAllocate(Size) {
-        result := DllCall("RPCRT4.dll\NdrRpcSmClientAllocate", "ptr", Size)
+        result := DllCall("RPCRT4.dll\NdrRpcSmClientAllocate", "ptr", Size, "ptr")
         return result
     }
 
@@ -24013,7 +24013,7 @@ class Rpc {
      * @returns {Pointer<Void>} 
      */
     static NdrRpcSsDefaultAllocate(Size) {
-        result := DllCall("RPCRT4.dll\NdrRpcSsDefaultAllocate", "ptr", Size)
+        result := DllCall("RPCRT4.dll\NdrRpcSsDefaultAllocate", "ptr", Size, "ptr")
         return result
     }
 
@@ -24053,7 +24053,7 @@ class Rpc {
      * @returns {Pointer<Void>} 
      */
     static NdrAllocate(pStubMsg, Len) {
-        result := DllCall("RPCRT4.dll\NdrAllocate", "ptr", pStubMsg, "ptr", Len)
+        result := DllCall("RPCRT4.dll\NdrAllocate", "ptr", pStubMsg, "ptr", Len, "ptr")
         return result
     }
 
@@ -24080,7 +24080,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrOleAllocate(Size) {
-        result := DllCall("RPCRT4.dll\NdrOleAllocate", "ptr", Size)
+        result := DllCall("RPCRT4.dll\NdrOleAllocate", "ptr", Size, "ptr")
         return result
     }
 

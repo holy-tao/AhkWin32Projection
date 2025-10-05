@@ -2402,7 +2402,7 @@ class IpHelper {
     static IcmpCreateFile() {
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\IcmpCreateFile")
+        result := DllCall("IPHLPAPI.dll\IcmpCreateFile", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2429,7 +2429,7 @@ class IpHelper {
     static Icmp6CreateFile() {
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\Icmp6CreateFile")
+        result := DllCall("IPHLPAPI.dll\Icmp6CreateFile", "ptr")
         if(A_LastError)
             throw OSError()
 

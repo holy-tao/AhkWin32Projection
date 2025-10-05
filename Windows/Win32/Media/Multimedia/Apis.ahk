@@ -23404,7 +23404,7 @@ class Multimedia {
      * @returns {Pointer<Void>} 
      */
     static mciGetCreatorTask(mciId) {
-        result := DllCall("WINMM.dll\mciGetCreatorTask", "uint", mciId)
+        result := DllCall("WINMM.dll\mciGetCreatorTask", "uint", mciId, "ptr")
         return result
     }
 
@@ -23515,7 +23515,7 @@ class Multimedia {
         szDriverName := szDriverName is String? StrPtr(szDriverName) : szDriverName
         szSectionName := szSectionName is String? StrPtr(szSectionName) : szSectionName
 
-        result := DllCall("WINMM.dll\OpenDriver", "ptr", szDriverName, "ptr", szSectionName, "ptr", lParam2)
+        result := DllCall("WINMM.dll\OpenDriver", "ptr", szDriverName, "ptr", szSectionName, "ptr", lParam2, "ptr")
         return result
     }
 
@@ -23589,7 +23589,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrvGetModuleHandle(hDriver) {
-        result := DllCall("WINMM.dll\DrvGetModuleHandle", "ptr", hDriver)
+        result := DllCall("WINMM.dll\DrvGetModuleHandle", "ptr", hDriver, "ptr")
         return result
     }
 
@@ -23601,7 +23601,7 @@ class Multimedia {
      * @since windows5.0
      */
     static GetDriverModuleHandle(hDriver) {
-        result := DllCall("WINMM.dll\GetDriverModuleHandle", "ptr", hDriver)
+        result := DllCall("WINMM.dll\GetDriverModuleHandle", "ptr", hDriver, "ptr")
         return result
     }
 
@@ -24008,7 +24008,7 @@ class Multimedia {
     static mmioOpenA(pszFileName, pmmioinfo, fdwOpen) {
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("WINMM.dll\mmioOpenA", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen)
+        result := DllCall("WINMM.dll\mmioOpenA", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen, "ptr")
         return result
     }
 
@@ -24141,7 +24141,7 @@ class Multimedia {
     static mmioOpenW(pszFileName, pmmioinfo, fdwOpen) {
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("WINMM.dll\mmioOpenW", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen)
+        result := DllCall("WINMM.dll\mmioOpenW", "ptr", pszFileName, "ptr", pmmioinfo, "uint", fdwOpen, "ptr")
         return result
     }
 
@@ -25378,7 +25378,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICOpen(fccType, fccHandler, wMode) {
-        result := DllCall("MSVFW32.dll\ICOpen", "uint", fccType, "uint", fccHandler, "uint", wMode)
+        result := DllCall("MSVFW32.dll\ICOpen", "uint", fccType, "uint", fccHandler, "uint", wMode, "ptr")
         return result
     }
 
@@ -25426,7 +25426,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICOpenFunction(fccType, fccHandler, wMode, lpfnHandler) {
-        result := DllCall("MSVFW32.dll\ICOpenFunction", "uint", fccType, "uint", fccHandler, "uint", wMode, "ptr", lpfnHandler)
+        result := DllCall("MSVFW32.dll\ICOpenFunction", "uint", fccType, "uint", fccHandler, "uint", wMode, "ptr", lpfnHandler, "ptr")
         return result
     }
 
@@ -25732,7 +25732,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICLocate(fccType, fccHandler, lpbiIn, lpbiOut, wFlags) {
-        result := DllCall("MSVFW32.dll\ICLocate", "uint", fccType, "uint", fccHandler, "ptr", lpbiIn, "ptr", lpbiOut, "ushort", wFlags)
+        result := DllCall("MSVFW32.dll\ICLocate", "uint", fccType, "uint", fccHandler, "ptr", lpbiIn, "ptr", lpbiOut, "ushort", wFlags, "ptr")
         return result
     }
 
@@ -25749,7 +25749,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICGetDisplayFormat(hic, lpbiIn, lpbiOut, BitDepth, dx, dy) {
-        result := DllCall("MSVFW32.dll\ICGetDisplayFormat", "ptr", hic, "ptr", lpbiIn, "ptr", lpbiOut, "int", BitDepth, "int", dx, "int", dy)
+        result := DllCall("MSVFW32.dll\ICGetDisplayFormat", "ptr", hic, "ptr", lpbiIn, "ptr", lpbiOut, "int", BitDepth, "int", dx, "int", dy, "ptr")
         return result
     }
 
@@ -25769,7 +25769,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICImageCompress(hic, uiFlags, lpbiIn, lpBits, lpbiOut, lQuality, plSize) {
-        result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, "ptr", lpBits, "ptr", lpbiOut, "int", lQuality, "int*", plSize)
+        result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, "ptr", lpBits, "ptr", lpbiOut, "int", lQuality, "int*", plSize, "ptr")
         return result
     }
 
@@ -25787,7 +25787,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICImageDecompress(hic, uiFlags, lpbiIn, lpBits, lpbiOut) {
-        result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, "ptr", lpBits, "ptr", lpbiOut)
+        result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, "ptr", lpBits, "ptr", lpbiOut, "ptr")
         return result
     }
 
@@ -25895,7 +25895,7 @@ class Multimedia {
     static ICSeqCompressFrame(pc, lpBits, pfKey, plSize) {
         static uiFlags := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("MSVFW32.dll\ICSeqCompressFrame", "ptr", pc, "uint", uiFlags, "ptr", lpBits, "int*", pfKey, "int*", plSize)
+        result := DllCall("MSVFW32.dll\ICSeqCompressFrame", "ptr", pc, "uint", uiFlags, "ptr", lpBits, "int*", pfKey, "int*", plSize, "ptr")
         return result
     }
 
@@ -25948,7 +25948,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibGetBuffer(hdd, lpbi, dwSize, dwFlags) {
-        result := DllCall("MSVFW32.dll\DrawDibGetBuffer", "ptr", hdd, "ptr", lpbi, "uint", dwSize, "uint", dwFlags)
+        result := DllCall("MSVFW32.dll\DrawDibGetBuffer", "ptr", hdd, "ptr", lpbi, "uint", dwSize, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -25964,7 +25964,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibGetPalette(hdd) {
-        result := DllCall("MSVFW32.dll\DrawDibGetPalette", "ptr", hdd)
+        result := DllCall("MSVFW32.dll\DrawDibGetPalette", "ptr", hdd, "ptr")
         return result
     }
 
@@ -27298,7 +27298,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamGetFrame(pg, lPos) {
-        result := DllCall("AVIFIL32.dll\AVIStreamGetFrame", "ptr", pg, "int", lPos)
+        result := DllCall("AVIFIL32.dll\AVIStreamGetFrame", "ptr", pg, "int", lPos, "ptr")
         return result
     }
 
@@ -28469,7 +28469,7 @@ class Multimedia {
     static capCreateCaptureWindowA(lpszWindowName, dwStyle, x, y, nWidth, nHeight, hwndParent, nID) {
         lpszWindowName := lpszWindowName is String? StrPtr(lpszWindowName) : lpszWindowName
 
-        result := DllCall("AVICAP32.dll\capCreateCaptureWindowA", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID)
+        result := DllCall("AVICAP32.dll\capCreateCaptureWindowA", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID, "ptr")
         return result
     }
 
@@ -28523,7 +28523,7 @@ class Multimedia {
     static capCreateCaptureWindowW(lpszWindowName, dwStyle, x, y, nWidth, nHeight, hwndParent, nID) {
         lpszWindowName := lpszWindowName is String? StrPtr(lpszWindowName) : lpszWindowName
 
-        result := DllCall("AVICAP32.dll\capCreateCaptureWindowW", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID)
+        result := DllCall("AVICAP32.dll\capCreateCaptureWindowW", "ptr", lpszWindowName, "uint", dwStyle, "int", x, "int", y, "int", nWidth, "int", nHeight, "ptr", hwndParent, "int", nID, "ptr")
         return result
     }
 

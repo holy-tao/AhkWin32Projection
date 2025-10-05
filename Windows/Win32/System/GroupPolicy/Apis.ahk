@@ -583,7 +583,7 @@ class GroupPolicy {
     static EnterCriticalPolicySection(bMachine) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\EnterCriticalPolicySection", "int", bMachine)
+        result := DllCall("USERENV.dll\EnterCriticalPolicySection", "int", bMachine, "ptr")
         if(A_LastError)
             throw OSError()
 
