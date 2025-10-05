@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
+#Include ..\..\Foundation\Apis.ahk
+#Include ..\..\System\LibraryLoader\Apis.ahk
 /**
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -8047,20 +8049,12 @@ class Shell {
      */
     static FileIconInit(fRestoreCache) {
         ; This method's EntryPoint is an ordinal, so we need to load the dll manually
-        hModule := DllCall("GetModuleHandleW", "str", "SHELL32.dll", "ptr")
-        if(!(wasLoaded := hModule != 0))
-            hModule := DllCall("LoadLibraryW","str", "SHELL32.dll", "ptr")
-        if(hModule == 0)
-            throw OSError()
-
-        procAddr := DllCall("GetProcAddress", "ptr", hModule, "uint64", 660, "ptr")
-        if(procAddr == 0)
-            throw OSError()
+        hModule := LibraryLoader.LoadLibraryW("SHELL32.dll")
+        procAddr := LibraryLoader.GetProcAddress(hModule, 660)
 
         result := DllCall(procAddr, "int", fRestoreCache, "int")
 
-        if(!wasLoaded)
-            DllCall("FreeLibraryW", "ptr", hModule)
+        Foundation.FreeLibrary(hModule)
 
         return result
     }
