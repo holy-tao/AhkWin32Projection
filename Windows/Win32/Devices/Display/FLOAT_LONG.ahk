@@ -12,11 +12,11 @@ class FLOAT_LONG extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {Float}
      */
     e {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => NumGet(this, 0, "float")
+        set => NumPut("float", value, this, 0)
     }
 
     /**

@@ -8,7 +8,7 @@
  */
 class XSAVE_FORMAT extends Win32Struct
 {
-    static sizeof => 384
+    static sizeof => 320
 
     static packingSize => 8
 
@@ -133,7 +133,7 @@ class XSAVE_FORMAT extends Win32Struct
     XmmRegisters{
         get {
             if(!this.HasProp("__XmmRegistersProxyArray"))
-                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 96, 8, M128A, "")
+                this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 96, 16, M128A, "")
             return this.__XmmRegistersProxyArray
         }
     }
@@ -144,7 +144,7 @@ class XSAVE_FORMAT extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 160, 224, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 224, 96, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }

@@ -81,7 +81,7 @@ class FLOATING_SAVE_AREA extends Win32Struct
     /**
      * @type {Integer}
      */
-    Spare0 {
+    Cr0NpxState {
         get => NumGet(this, 108, "uint")
         set => NumPut("uint", value, this, 108)
     }

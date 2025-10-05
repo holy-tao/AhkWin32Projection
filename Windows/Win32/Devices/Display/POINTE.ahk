@@ -12,18 +12,18 @@ class POINTE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {Float}
      */
     x {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => NumGet(this, 0, "float")
+        set => NumPut("float", value, this, 0)
     }
 
     /**
-     * @type {Integer}
+     * @type {Float}
      */
     y {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 4, "float")
+        set => NumPut("float", value, this, 4)
     }
 }

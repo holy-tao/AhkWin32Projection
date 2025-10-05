@@ -22,7 +22,7 @@
  */
 class IFIMETRICS extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 200
 
     static packingSize => 8
 
@@ -709,5 +709,14 @@ class IFIMETRICS extends Win32Struct
                 this.__panose := PANOSE(this.ptr + 176)
             return this.__panose
         }
+    }
+
+    /**
+     * <i>This member is defined only if the _WIN64 constant is defined</i>. Its only purpose is to ensure that this structure is aligned correctly under the Itanium architecture.
+     * @type {Pointer<Void>}
+     */
+    Align {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 }

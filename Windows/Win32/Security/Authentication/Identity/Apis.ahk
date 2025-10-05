@@ -7277,7 +7277,7 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-rtlgenrandom
      */
     static RtlGenRandom(RandomBuffer, RandomBufferLength) {
-        result := DllCall("ADVAPI32.dll\RtlGenRandom", "ptr", RandomBuffer, "uint", RandomBufferLength, "char")
+        result := DllCall("ADVAPI32.dll\SystemFunction036", "ptr", RandomBuffer, "uint", RandomBufferLength, "char")
         return result
     }
 
@@ -7292,7 +7292,7 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-rtlencryptmemory
      */
     static RtlEncryptMemory(Memory, MemorySize, OptionFlags) {
-        result := DllCall("ADVAPI32.dll\RtlEncryptMemory", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
+        result := DllCall("ADVAPI32.dll\SystemFunction040", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
         return result
     }
 
@@ -7307,7 +7307,7 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-rtldecryptmemory
      */
     static RtlDecryptMemory(Memory, MemorySize, OptionFlags) {
-        result := DllCall("ADVAPI32.dll\RtlDecryptMemory", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
+        result := DllCall("ADVAPI32.dll\SystemFunction041", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
         return result
     }
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FLOATOBJ.ahk
 
 /**
  * The FLOATOBJ_XFORM structure describes an arbitrary linear two-dimensional transform, such as for geometric wide lines. (FLOATOBJ_XFORM)
@@ -12,79 +11,61 @@
  */
 class FLOATOBJ_XFORM extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
-     * @type {FLOATOBJ}
+     * @type {Float}
      */
-    eM11{
-        get {
-            if(!this.HasProp("__eM11"))
-                this.__eM11 := FLOATOBJ(this.ptr + 0)
-            return this.__eM11
-        }
+    eM11 {
+        get => NumGet(this, 0, "float")
+        set => NumPut("float", value, this, 0)
     }
 
     /**
      * 
-     * @type {FLOATOBJ}
+     * @type {Float}
      */
-    eM12{
-        get {
-            if(!this.HasProp("__eM12"))
-                this.__eM12 := FLOATOBJ(this.ptr + 8)
-            return this.__eM12
-        }
+    eM12 {
+        get => NumGet(this, 4, "float")
+        set => NumPut("float", value, this, 4)
     }
 
     /**
      * 
-     * @type {FLOATOBJ}
+     * @type {Float}
      */
-    eM21{
-        get {
-            if(!this.HasProp("__eM21"))
-                this.__eM21 := FLOATOBJ(this.ptr + 16)
-            return this.__eM21
-        }
+    eM21 {
+        get => NumGet(this, 8, "float")
+        set => NumPut("float", value, this, 8)
     }
 
     /**
      * Are the four <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-floatobj">FLOATOBJ</a> elements that comprise a 2x2 row-major matrix. The <b>eM11</b> member specifies the matrix element at row 1, column 1, the <b>eM12</b> member specifies the matrix element at row 1, column2, and so on.
-     * @type {FLOATOBJ}
+     * @type {Float}
      */
-    eM22{
-        get {
-            if(!this.HasProp("__eM22"))
-                this.__eM22 := FLOATOBJ(this.ptr + 24)
-            return this.__eM22
-        }
+    eM22 {
+        get => NumGet(this, 12, "float")
+        set => NumPut("float", value, this, 12)
     }
 
     /**
      * 
-     * @type {FLOATOBJ}
+     * @type {Float}
      */
-    eDx{
-        get {
-            if(!this.HasProp("__eDx"))
-                this.__eDx := FLOATOBJ(this.ptr + 32)
-            return this.__eDx
-        }
+    eDx {
+        get => NumGet(this, 16, "float")
+        set => NumPut("float", value, this, 16)
     }
 
     /**
      * Are the x- and y-translation components of the transform.
-     * @type {FLOATOBJ}
+     * @type {Float}
      */
-    eDy{
-        get {
-            if(!this.HasProp("__eDy"))
-                this.__eDy := FLOATOBJ(this.ptr + 40)
-            return this.__eDy
-        }
+    eDy {
+        get => NumGet(this, 20, "float")
+        set => NumPut("float", value, this, 20)
     }
 }

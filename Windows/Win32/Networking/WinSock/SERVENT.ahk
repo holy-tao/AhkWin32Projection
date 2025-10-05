@@ -32,20 +32,20 @@ class SERVENT extends Win32Struct
     }
 
     /**
-     * The port number at which the service can be contacted. Port numbers are returned in network byte order.
-     * @type {Integer}
-     */
-    s_port {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
-
-    /**
      * The name of the protocol to use when contacting the service.
      * @type {Pointer<Byte>}
      */
     s_proto {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * The port number at which the service can be contacted. Port numbers are returned in network byte order.
+     * @type {Integer}
+     */
+    s_port {
+        get => NumGet(this, 24, "short")
+        set => NumPut("short", value, this, 24)
     }
 }

@@ -26,4 +26,12 @@ class SLIST_HEADER extends Win32Struct
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
     }
+
+    /**
+     * @type {Pointer<_HeaderX64_e__Struct>}
+     */
+    HeaderX64 {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
+    }
 }

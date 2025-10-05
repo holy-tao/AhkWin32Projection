@@ -55,28 +55,6 @@ class WSADATA extends Win32Struct
     }
 
     /**
-     * Type: <b>char[WSADESCRIPTION_LEN+1]</b>
-     * 
-     * A <b>NULL</b>-terminated ASCII string into which the <i>Ws2_32.dll</i> copies a description of the Windows Sockets implementation. The text (up to 256 characters in length) can contain any characters except control and formatting characters. The most likely use that an application would have for this member is to display it (possibly truncated) in a status message.
-     * @type {String}
-     */
-    szDescription {
-        get => StrGet(this.ptr + 4, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 256, "UTF-16")
-    }
-
-    /**
-     * Type: <b>char[WSASYS_STATUS_LEN+1]</b>
-     * 
-     * A <b>NULL</b>-terminated ASCII string into which the <i>Ws2_32.dll</i> copies relevant status or configuration information. The <i>Ws2_32.dll</i> should use this parameter only if the information might be useful to the user or support staff. This member should not be considered as an extension of the <b>szDescription</b> parameter.
-     * @type {String}
-     */
-    szSystemStatus {
-        get => StrGet(this.ptr + 518, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 518, 128, "UTF-16")
-    }
-
-    /**
      * Type: <b>unsigned short</b>
      * 
      * The maximum number of sockets that may be opened. This member should be ignored for Windows Sockets version 2 and later. 
@@ -85,8 +63,8 @@ class WSADATA extends Win32Struct
      * @type {Integer}
      */
     iMaxSockets {
-        get => NumGet(this, 776, "ushort")
-        set => NumPut("ushort", value, this, 776)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 
     /**
@@ -99,8 +77,8 @@ class WSADATA extends Win32Struct
      * @type {Integer}
      */
     iMaxUdpDg {
-        get => NumGet(this, 778, "ushort")
-        set => NumPut("ushort", value, this, 778)
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
     }
 
     /**
@@ -113,7 +91,29 @@ class WSADATA extends Win32Struct
      * @type {Pointer<Byte>}
      */
     lpVendorInfo {
-        get => NumGet(this, 784, "ptr")
-        set => NumPut("ptr", value, this, 784)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
+    }
+
+    /**
+     * Type: <b>char[WSADESCRIPTION_LEN+1]</b>
+     * 
+     * A <b>NULL</b>-terminated ASCII string into which the <i>Ws2_32.dll</i> copies a description of the Windows Sockets implementation. The text (up to 256 characters in length) can contain any characters except control and formatting characters. The most likely use that an application would have for this member is to display it (possibly truncated) in a status message.
+     * @type {String}
+     */
+    szDescription {
+        get => StrGet(this.ptr + 16, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 256, "UTF-16")
+    }
+
+    /**
+     * Type: <b>char[WSASYS_STATUS_LEN+1]</b>
+     * 
+     * A <b>NULL</b>-terminated ASCII string into which the <i>Ws2_32.dll</i> copies relevant status or configuration information. The <i>Ws2_32.dll</i> should use this parameter only if the information might be useful to the user or support staff. This member should not be considered as an extension of the <b>szDescription</b> parameter.
+     * @type {String}
+     */
+    szSystemStatus {
+        get => StrGet(this.ptr + 530, 128, "UTF-16")
+        set => StrPut(value, this.ptr + 530, 128, "UTF-16")
     }
 }

@@ -70,6 +70,14 @@ class MEMORY_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
+     * @type {Integer}
+     */
+    PartitionId {
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
+    }
+
+    /**
      * The size of the region beginning at the base address in which all pages have identical attributes, in bytes.
      * @type {Pointer}
      */

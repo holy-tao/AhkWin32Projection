@@ -39,12 +39,4 @@ class KSNODEPROPERTY_AUDIO_PROPERTY extends Win32Struct
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }
