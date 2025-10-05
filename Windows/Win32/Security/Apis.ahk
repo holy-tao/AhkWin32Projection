@@ -3005,7 +3005,7 @@ class Security {
      * @since windows5.1.2600
      */
     static FreeSid(pSid) {
-        result := DllCall("ADVAPI32.dll\FreeSid", "ptr", pSid)
+        result := DllCall("ADVAPI32.dll\FreeSid", "ptr", pSid, "ptr")
         return result
     }
 

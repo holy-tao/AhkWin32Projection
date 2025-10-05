@@ -4014,7 +4014,7 @@ class Power {
     static PowerCreateRequest(Context) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", Context)
+        result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", Context, "ptr")
         if(A_LastError)
             throw OSError()
 

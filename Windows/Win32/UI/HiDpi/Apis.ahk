@@ -274,7 +274,7 @@ class HiDpi {
      * @since windows10.0.14393
      */
     static SetThreadDpiAwarenessContext(dpiContext) {
-        result := DllCall("USER32.dll\SetThreadDpiAwarenessContext", "ptr", dpiContext)
+        result := DllCall("USER32.dll\SetThreadDpiAwarenessContext", "ptr", dpiContext, "ptr")
         return result
     }
 
@@ -287,7 +287,7 @@ class HiDpi {
      * @since windows10.0.14393
      */
     static GetThreadDpiAwarenessContext() {
-        result := DllCall("USER32.dll\GetThreadDpiAwarenessContext")
+        result := DllCall("USER32.dll\GetThreadDpiAwarenessContext", "ptr")
         return result
     }
 
@@ -304,7 +304,7 @@ class HiDpi {
      * @since windows10.0.14393
      */
     static GetWindowDpiAwarenessContext(hwnd) {
-        result := DllCall("USER32.dll\GetWindowDpiAwarenessContext", "ptr", hwnd)
+        result := DllCall("USER32.dll\GetWindowDpiAwarenessContext", "ptr", hwnd, "ptr")
         return result
     }
 
@@ -502,7 +502,7 @@ class HiDpi {
      * @returns {Pointer<Void>} 
      */
     static GetDpiAwarenessContextForProcess(hProcess) {
-        result := DllCall("USER32.dll\GetDpiAwarenessContextForProcess", "ptr", hProcess)
+        result := DllCall("USER32.dll\GetDpiAwarenessContextForProcess", "ptr", hProcess, "ptr")
         return result
     }
 

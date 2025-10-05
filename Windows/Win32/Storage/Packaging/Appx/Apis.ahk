@@ -2610,7 +2610,7 @@ class Appx {
      * @returns {Pointer<Void>} 
      */
     static GetCurrentPackageVirtualizationContext() {
-        result := DllCall("KERNEL32.dll\GetCurrentPackageVirtualizationContext")
+        result := DllCall("KERNEL32.dll\GetCurrentPackageVirtualizationContext", "ptr")
         return result
     }
 

@@ -727,7 +727,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadKeyboardLayoutA", "ptr", pwszKLID, "uint", Flags)
+        result := DllCall("USER32.dll\LoadKeyboardLayoutA", "ptr", pwszKLID, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -768,7 +768,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\LoadKeyboardLayoutW", "ptr", pwszKLID, "uint", Flags)
+        result := DllCall("USER32.dll\LoadKeyboardLayoutW", "ptr", pwszKLID, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -802,7 +802,7 @@ class KeyboardAndMouse {
     static ActivateKeyboardLayout(hkl, Flags) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ActivateKeyboardLayout", "ptr", hkl, "uint", Flags)
+        result := DllCall("USER32.dll\ActivateKeyboardLayout", "ptr", hkl, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1066,7 +1066,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyboardLayout(idThread) {
-        result := DllCall("USER32.dll\GetKeyboardLayout", "uint", idThread)
+        result := DllCall("USER32.dll\GetKeyboardLayout", "uint", idThread, "ptr")
         return result
     }
 
@@ -1369,7 +1369,7 @@ class KeyboardAndMouse {
     static SetFocus(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetFocus", "ptr", hWnd)
+        result := DllCall("USER32.dll\SetFocus", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1389,7 +1389,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetActiveWindow() {
-        result := DllCall("USER32.dll\GetActiveWindow")
+        result := DllCall("USER32.dll\GetActiveWindow", "ptr")
         return result
     }
 
@@ -1409,7 +1409,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetFocus() {
-        result := DllCall("USER32.dll\GetFocus")
+        result := DllCall("USER32.dll\GetFocus", "ptr")
         return result
     }
 
@@ -2944,7 +2944,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetCapture() {
-        result := DllCall("USER32.dll\GetCapture")
+        result := DllCall("USER32.dll\GetCapture", "ptr")
         return result
     }
 
@@ -2968,7 +2968,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static SetCapture(hWnd) {
-        result := DllCall("USER32.dll\SetCapture", "ptr", hWnd)
+        result := DllCall("USER32.dll\SetCapture", "ptr", hWnd, "ptr")
         return result
     }
 
@@ -3088,7 +3088,7 @@ class KeyboardAndMouse {
     static SetActiveWindow(hWnd) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetActiveWindow", "ptr", hWnd)
+        result := DllCall("USER32.dll\SetActiveWindow", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 

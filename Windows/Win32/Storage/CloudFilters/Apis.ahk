@@ -467,7 +467,7 @@ class CloudFilters {
      * @since windows10.0.16299
      */
     static CfGetWin32HandleFromProtectedHandle(ProtectedHandle) {
-        result := DllCall("cldapi.dll\CfGetWin32HandleFromProtectedHandle", "ptr", ProtectedHandle)
+        result := DllCall("cldapi.dll\CfGetWin32HandleFromProtectedHandle", "ptr", ProtectedHandle, "ptr")
         return result
     }
 

@@ -33642,7 +33642,7 @@ class ApplicationInstallationAndServicing {
     static CreateActCtxA(pActCtx) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateActCtxA", "ptr", pActCtx)
+        result := DllCall("KERNEL32.dll\CreateActCtxA", "ptr", pActCtx, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -33678,7 +33678,7 @@ class ApplicationInstallationAndServicing {
     static CreateActCtxW(pActCtx) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateActCtxW", "ptr", pActCtx)
+        result := DllCall("KERNEL32.dll\CreateActCtxW", "ptr", pActCtx, "ptr")
         if(A_LastError)
             throw OSError()
 

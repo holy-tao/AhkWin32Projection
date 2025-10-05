@@ -3787,7 +3787,7 @@ class WinHttp {
 
         A_LastError := 0
 
-        result := DllCall("WINHTTP.dll\WinHttpOpen", "ptr", pszAgentW, "uint", dwAccessType, "ptr", pszProxyW, "ptr", pszProxyBypassW, "uint", dwFlags)
+        result := DllCall("WINHTTP.dll\WinHttpOpen", "ptr", pszAgentW, "uint", dwAccessType, "ptr", pszProxyW, "ptr", pszProxyBypassW, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4003,7 +4003,7 @@ class WinHttp {
 
         A_LastError := 0
 
-        result := DllCall("WINHTTP.dll\WinHttpConnect", "ptr", hSession, "ptr", pswzServerName, "ushort", nServerPort, "uint", dwReserved)
+        result := DllCall("WINHTTP.dll\WinHttpConnect", "ptr", hSession, "ptr", pswzServerName, "ushort", nServerPort, "uint", dwReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5034,7 +5034,7 @@ class WinHttp {
 
         A_LastError := 0
 
-        result := DllCall("WINHTTP.dll\WinHttpOpenRequest", "ptr", hConnect, "ptr", pwszVerb, "ptr", pwszObjectName, "ptr", pwszVersion, "ptr", pwszReferrer, "ptr", ppwszAcceptTypes, "uint", dwFlags)
+        result := DllCall("WINHTTP.dll\WinHttpOpenRequest", "ptr", hConnect, "ptr", pwszVerb, "ptr", pwszObjectName, "ptr", pwszVersion, "ptr", pwszReferrer, "ptr", ppwszAcceptTypes, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7501,7 +7501,7 @@ class WinHttp {
     static WinHttpWebSocketCompleteUpgrade(hRequest, pContext) {
         A_LastError := 0
 
-        result := DllCall("WINHTTP.dll\WinHttpWebSocketCompleteUpgrade", "ptr", hRequest, "ptr", pContext)
+        result := DllCall("WINHTTP.dll\WinHttpWebSocketCompleteUpgrade", "ptr", hRequest, "ptr", pContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7849,7 +7849,7 @@ class WinHttp {
      * @returns {Pointer<Void>} 
      */
     static WinHttpProtocolCompleteUpgrade(hRequest, dwContext) {
-        result := DllCall("WINHTTP.dll\WinHttpProtocolCompleteUpgrade", "ptr", hRequest, "ptr", dwContext)
+        result := DllCall("WINHTTP.dll\WinHttpProtocolCompleteUpgrade", "ptr", hRequest, "ptr", dwContext, "ptr")
         return result
     }
 

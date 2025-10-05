@@ -172,7 +172,7 @@ class UI {
     static CreateSecurityPage(psi) {
         A_LastError := 0
 
-        result := DllCall("ACLUI.dll\CreateSecurityPage", "ptr", psi)
+        result := DllCall("ACLUI.dll\CreateSecurityPage", "ptr", psi, "ptr")
         if(A_LastError)
             throw OSError()
 

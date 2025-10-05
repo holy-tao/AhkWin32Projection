@@ -35415,7 +35415,7 @@ class Foundation {
     static GlobalFree(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalFree", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalFree", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -35452,7 +35452,7 @@ class Foundation {
     static LocalFree(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalFree", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\LocalFree", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 

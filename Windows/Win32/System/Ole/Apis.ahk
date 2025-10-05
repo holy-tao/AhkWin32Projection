@@ -32475,7 +32475,7 @@ class Ole {
      * @since windows5.0
      */
     static OleDuplicateData(hSrc, cfFormat, uiFlags) {
-        result := DllCall("OLE32.dll\OleDuplicateData", "ptr", hSrc, "ushort", cfFormat, "uint", uiFlags)
+        result := DllCall("OLE32.dll\OleDuplicateData", "ptr", hSrc, "ushort", cfFormat, "uint", uiFlags, "ptr")
         return result
     }
 
@@ -33037,7 +33037,7 @@ class Ole {
     static OleGetIconOfFile(lpszPath, fUseFileAsLabel) {
         lpszPath := lpszPath is String? StrPtr(lpszPath) : lpszPath
 
-        result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel)
+        result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel, "ptr")
         return result
     }
 
@@ -33053,7 +33053,7 @@ class Ole {
     static OleGetIconOfClass(rclsid, lpszLabel, fUseTypeAsLabel) {
         lpszLabel := lpszLabel is String? StrPtr(lpszLabel) : lpszLabel
 
-        result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel)
+        result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel, "ptr")
         return result
     }
 
@@ -33079,7 +33079,7 @@ class Ole {
 
         A_LastError := 0
 
-        result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex)
+        result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34524,7 +34524,7 @@ class Ole {
      * @since windows5.0
      */
     static OleIconToCursor(hinstExe, hIcon) {
-        result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon)
+        result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon, "ptr")
         return result
     }
 

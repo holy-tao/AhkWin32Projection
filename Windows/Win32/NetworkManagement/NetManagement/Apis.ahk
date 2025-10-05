@@ -21394,7 +21394,7 @@ class NetManagement {
     static RouterLogRegisterA(lpszSource) {
         lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
 
-        result := DllCall("rtutils.dll\RouterLogRegisterA", "ptr", lpszSource)
+        result := DllCall("rtutils.dll\RouterLogRegisterA", "ptr", lpszSource, "ptr")
         return result
     }
 
@@ -21501,7 +21501,7 @@ class NetManagement {
     static RouterLogRegisterW(lpszSource) {
         lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
 
-        result := DllCall("rtutils.dll\RouterLogRegisterW", "ptr", lpszSource)
+        result := DllCall("rtutils.dll\RouterLogRegisterW", "ptr", lpszSource, "ptr")
         return result
     }
 

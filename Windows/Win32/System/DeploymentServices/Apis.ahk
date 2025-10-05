@@ -2340,7 +2340,7 @@ class DeploymentServices {
     static PxePacketAllocate(hProvider, hClientRequest, uSize) {
         A_LastError := 0
 
-        result := DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", hProvider, "ptr", hClientRequest, "uint", uSize)
+        result := DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", hProvider, "ptr", hClientRequest, "uint", uSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3204,7 +3204,7 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static WdsTransportServerAllocateBuffer(hProvider, ulBufferSize) {
-        result := DllCall("WDSMC.dll\WdsTransportServerAllocateBuffer", "ptr", hProvider, "uint", ulBufferSize)
+        result := DllCall("WDSMC.dll\WdsTransportServerAllocateBuffer", "ptr", hProvider, "uint", ulBufferSize, "ptr")
         return result
     }
 

@@ -704,7 +704,7 @@ class Pipes {
     static CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes)
+        result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
         return result
     }
 
@@ -1259,7 +1259,7 @@ class Pipes {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes)
+        result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 

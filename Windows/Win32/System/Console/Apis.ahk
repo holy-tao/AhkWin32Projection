@@ -1028,7 +1028,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlags, "ptr", lpScreenBufferData)
+        result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlags, "ptr", lpScreenBufferData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2257,7 +2257,7 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsolewindow
      */
     static GetConsoleWindow() {
-        result := DllCall("KERNEL32.dll\GetConsoleWindow")
+        result := DllCall("KERNEL32.dll\GetConsoleWindow", "ptr")
         return result
     }
 
@@ -2730,7 +2730,7 @@ class Console {
     static GetStdHandle(nStdHandle) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetStdHandle", "uint", nStdHandle)
+        result := DllCall("KERNEL32.dll\GetStdHandle", "uint", nStdHandle, "ptr")
         if(A_LastError)
             throw OSError()
 

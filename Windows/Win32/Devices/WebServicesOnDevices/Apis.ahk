@@ -1390,7 +1390,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDAllocateLinkedMemory(pParent, cbSize) {
-        result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", "ptr", pParent, "ptr", cbSize)
+        result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", "ptr", pParent, "ptr", cbSize, "ptr")
         return result
     }
 

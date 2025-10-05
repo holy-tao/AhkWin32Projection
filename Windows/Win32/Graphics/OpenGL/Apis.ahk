@@ -3815,7 +3815,7 @@ class OpenGL {
     static wglCreateContext(param0) {
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglCreateContext", "ptr", param0)
+        result := DllCall("OPENGL32.dll\wglCreateContext", "ptr", param0, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3841,7 +3841,7 @@ class OpenGL {
     static wglCreateLayerContext(param0, param1) {
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglCreateLayerContext", "ptr", param0, "int", param1)
+        result := DllCall("OPENGL32.dll\wglCreateLayerContext", "ptr", param0, "int", param1, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3880,7 +3880,7 @@ class OpenGL {
      * @since windows5.0
      */
     static wglGetCurrentContext() {
-        result := DllCall("OPENGL32.dll\wglGetCurrentContext")
+        result := DllCall("OPENGL32.dll\wglGetCurrentContext", "ptr")
         return result
     }
 
@@ -3893,7 +3893,7 @@ class OpenGL {
      * @since windows5.0
      */
     static wglGetCurrentDC() {
-        result := DllCall("OPENGL32.dll\wglGetCurrentDC")
+        result := DllCall("OPENGL32.dll\wglGetCurrentDC", "ptr")
         return result
     }
 

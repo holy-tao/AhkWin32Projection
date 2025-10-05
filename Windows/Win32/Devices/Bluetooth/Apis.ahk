@@ -4229,7 +4229,7 @@ class Bluetooth {
     static BluetoothFindFirstRadio(pbtfrp, phRadio) {
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothFindFirstRadio", "uint*", pbtfrp, "ptr", phRadio)
+        result := DllCall("BluetoothApis.dll\BluetoothFindFirstRadio", "uint*", pbtfrp, "ptr", phRadio, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4418,7 +4418,7 @@ class Bluetooth {
     static BluetoothFindFirstDevice(pbtsp, pbtdi) {
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothFindFirstDevice", "ptr", pbtsp, "ptr", pbtdi)
+        result := DllCall("BluetoothApis.dll\BluetoothFindFirstDevice", "ptr", pbtsp, "ptr", pbtdi, "ptr")
         if(A_LastError)
             throw OSError()
 

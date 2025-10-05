@@ -1528,7 +1528,7 @@ class RemoteDesktop {
     static WTSOpenServerW(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName)
+        result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName, "ptr")
         return result
     }
 
@@ -1556,7 +1556,7 @@ class RemoteDesktop {
     static WTSOpenServerA(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName)
+        result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName, "ptr")
         return result
     }
 
@@ -1585,7 +1585,7 @@ class RemoteDesktop {
     static WTSOpenServerExW(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName)
+        result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName, "ptr")
         return result
     }
 
@@ -1614,7 +1614,7 @@ class RemoteDesktop {
     static WTSOpenServerExA(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName)
+        result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName, "ptr")
         return result
     }
 
@@ -2539,7 +2539,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpen", "ptr", hServer, "uint", SessionId, "ptr", pVirtualName)
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpen", "ptr", hServer, "uint", SessionId, "ptr", pVirtualName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2579,7 +2579,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpenEx", "uint", SessionId, "ptr", pVirtualName, "uint", flags)
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpenEx", "uint", SessionId, "ptr", pVirtualName, "uint", flags, "ptr")
         if(A_LastError)
             throw OSError()
 

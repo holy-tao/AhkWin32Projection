@@ -124,7 +124,7 @@ class Catalog {
     static CryptCATOpen(pwszFileName, fdwOpenFlags, hProv, dwPublicVersion, dwEncodingType) {
         pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
 
-        result := DllCall("WINTRUST.dll\CryptCATOpen", "ptr", pwszFileName, "uint", fdwOpenFlags, "ptr", hProv, "uint", dwPublicVersion, "uint", dwEncodingType)
+        result := DllCall("WINTRUST.dll\CryptCATOpen", "ptr", pwszFileName, "uint", fdwOpenFlags, "ptr", hProv, "uint", dwPublicVersion, "uint", dwEncodingType, "ptr")
         return result
     }
 
@@ -160,7 +160,7 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATHandleFromStore(pCatStore) {
-        result := DllCall("WINTRUST.dll\CryptCATHandleFromStore", "ptr", pCatStore)
+        result := DllCall("WINTRUST.dll\CryptCATHandleFromStore", "ptr", pCatStore, "ptr")
         return result
     }
 

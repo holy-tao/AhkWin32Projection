@@ -19223,7 +19223,7 @@ class MediaFoundation {
     static MFHeapAlloc(nSize, dwFlags, pszFile, line, eat) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
-        result := DllCall("MFPlat.dll\MFHeapAlloc", "ptr", nSize, "uint", dwFlags, "ptr", pszFile, "int", line, "int", eat)
+        result := DllCall("MFPlat.dll\MFHeapAlloc", "ptr", nSize, "uint", dwFlags, "ptr", pszFile, "int", line, "int", eat, "ptr")
         return result
     }
 

@@ -534,7 +534,7 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetColorSpace(hdc) {
-        result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc)
+        result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc, "ptr")
         return result
     }
 
@@ -605,7 +605,7 @@ class ColorSystem {
      * @since windows5.0
      */
     static CreateColorSpaceA(lplcs) {
-        result := DllCall("GDI32.dll\CreateColorSpaceA", "ptr", lplcs)
+        result := DllCall("GDI32.dll\CreateColorSpaceA", "ptr", lplcs, "ptr")
         return result
     }
 
@@ -630,7 +630,7 @@ class ColorSystem {
      * @since windows5.0
      */
     static CreateColorSpaceW(lplcs) {
-        result := DllCall("GDI32.dll\CreateColorSpaceW", "ptr", lplcs)
+        result := DllCall("GDI32.dll\CreateColorSpaceW", "ptr", lplcs, "ptr")
         return result
     }
 
@@ -645,7 +645,7 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetColorSpace(hdc, hcs) {
-        result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs)
+        result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs, "ptr")
         return result
     }
 

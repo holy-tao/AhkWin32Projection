@@ -3383,7 +3383,7 @@ class WindowsProgramming {
      * @returns {Pointer<Void>} 
      */
     static GlobalWire(hMem) {
-        result := DllCall("KERNEL32.dll\GlobalWire", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalWire", "ptr", hMem, "ptr")
         return result
     }
 
@@ -3803,7 +3803,7 @@ class WindowsProgramming {
     static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName)
+        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         return result
     }
 
@@ -3839,7 +3839,7 @@ class WindowsProgramming {
     static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName)
+        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         return result
     }
 
@@ -7210,7 +7210,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static DCIOpenProvider() {
-        result := DllCall("DCIMAN32.dll\DCIOpenProvider")
+        result := DllCall("DCIMAN32.dll\DCIOpenProvider", "ptr")
         return result
     }
 
@@ -7302,7 +7302,7 @@ class WindowsProgramming {
      * @returns {Pointer<Void>} 
      */
     static WinWatchOpen(hwnd) {
-        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd)
+        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd, "ptr")
         return result
     }
 

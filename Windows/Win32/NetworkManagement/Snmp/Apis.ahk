@@ -806,7 +806,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilMemAlloc(nBytes) {
-        result := DllCall("snmpapi.dll\SnmpUtilMemAlloc", "uint", nBytes)
+        result := DllCall("snmpapi.dll\SnmpUtilMemAlloc", "uint", nBytes, "ptr")
         return result
     }
 
@@ -825,7 +825,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilMemReAlloc(pMem, nBytes) {
-        result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", "ptr", pMem, "uint", nBytes)
+        result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", "ptr", pMem, "uint", nBytes, "ptr")
         return result
     }
 
@@ -1046,7 +1046,7 @@ class Snmp {
 
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, "int", nTimeOut, "int", nRetries)
+        result := DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, "int", nTimeOut, "int", nRetries, "ptr")
         if(A_LastError)
             throw OSError()
 

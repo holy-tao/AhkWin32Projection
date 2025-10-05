@@ -1331,7 +1331,7 @@ class Environment {
     static CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError)
+        result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "ptr")
         if(A_LastError)
             throw OSError()
 

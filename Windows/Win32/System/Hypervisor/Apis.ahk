@@ -2034,7 +2034,7 @@ class Hypervisor {
      * @returns {Pointer<Void>} 
      */
     static GetSavedStateSymbolProviderHandle(vmSavedStateDumpHandle) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolProviderHandle", "ptr", vmSavedStateDumpHandle)
+        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolProviderHandle", "ptr", vmSavedStateDumpHandle, "ptr")
         return result
     }
 

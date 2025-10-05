@@ -7112,7 +7112,7 @@ class Credentials {
     static SCardAccessStartedEvent() {
         A_LastError := 0
 
-        result := DllCall("WinSCard.dll\SCardAccessStartedEvent")
+        result := DllCall("WinSCard.dll\SCardAccessStartedEvent", "ptr")
         if(A_LastError)
             throw OSError()
 

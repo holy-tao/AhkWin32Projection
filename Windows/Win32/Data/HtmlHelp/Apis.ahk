@@ -1263,7 +1263,7 @@ class HtmlHelp {
     static HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
-        result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData)
+        result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
         return result
     }
 
@@ -1300,7 +1300,7 @@ class HtmlHelp {
     static HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
-        result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData)
+        result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
         return result
     }
 
