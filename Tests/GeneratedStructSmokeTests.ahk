@@ -12,6 +12,8 @@
 #Include ../Windows/Win32/NetworkManagement/Ndis/NDIS_TCP_IP_CHECKSUM_OFFLOAD.ahk
 #Include ../Windows/Win32/NetworkManagement/QoS/CONTROL_SERVICE.ahk
 #Include ../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk
+#Include ../Windows/Win32/System/Kernel/SLIST_HEADER.ahk
+#Include ../Windows/Win32/System/Diagnostics/Debug/CONTEXT.ahk
 
 /**
  * Tests of generated source code
@@ -115,6 +117,39 @@ class GeneratedStructSmokeTests {
             test := DDMORESURFACECAPS()
 
             Yunit.Assert(test.ddsExtendedHeapRestrictions[1] is DDMORESURFACECAPS.ExtendedHeapRestrictions)
+        }
+
+        /**
+         * Regression test for https://github.com/holy-tao/AhkWin32Projection/issues/35
+         */
+        SLIST_HEADER_NeststedStruct_WithMultipleArchVariants_AreResolved()
+        {
+            test := SLIST_HEADER()
+
+            test.HeaderX64.depth := 42
+
+            Assert.HasProp(test, "HeaderX64", SLIST_HEADER._HeaderX64)
+            Yunit.Assert(test.HeaderX64._bitfield1 > 0, 
+                Format("Expected setting test.HeaderX64.depth to affect _bitfield1, but _bitfield1 is 0x{1:0X}", test.HeaderX64._bitfield1))
+        }
+
+        /**
+         * Regression test for https://github.com/holy-tao/AhkWin32Projection/issues/35
+         */
+        CONTEXT_NeststedStruct_WithMultipleArchVariants_AreResolved()
+        {
+            test := CONTEXT()
+            
+            test.Xmm0.Low := 128
+            test.Xmm0.High := 9999
+
+            Assert.HasProp(test, "Xmm0", M128A)
+            Assert.HasProp(test, "Xmm1", M128A)
+            Assert.HasProp(test, "Xmm2", M128A)
+            Assert.HasProp(test, "Xmm3", M128A)
+
+            Yunit.Assert((val := NumGet(test, 336, "uint")) == 128, Format("Expected 128 but got {1}", val))
+            Yunit.Assert((val := NumGet(test, 344, "uint")) == 9999, Format("Expected 9999 but got {1}", val))
         }
     }
 
