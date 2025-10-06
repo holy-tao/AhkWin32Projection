@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\M128A.ahk
+#Include .\XSAVE_FORMAT.ahk
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)
@@ -10,7 +11,7 @@
  */
 class CONTEXT extends Win32Struct
 {
-    static sizeof => 760
+    static sizeof => 832
 
     static packingSize => 8
 
@@ -319,261 +320,211 @@ class CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {XSAVE_FORMAT}
      */
-    X0 {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X1 {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X2 {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X3 {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X4 {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X5 {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X6 {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X7 {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X8 {
-        get => NumGet(this, 320, "uint")
-        set => NumPut("uint", value, this, 320)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X9 {
-        get => NumGet(this, 328, "uint")
-        set => NumPut("uint", value, this, 328)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X10 {
-        get => NumGet(this, 336, "uint")
-        set => NumPut("uint", value, this, 336)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X11 {
-        get => NumGet(this, 344, "uint")
-        set => NumPut("uint", value, this, 344)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X12 {
-        get => NumGet(this, 352, "uint")
-        set => NumPut("uint", value, this, 352)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X13 {
-        get => NumGet(this, 360, "uint")
-        set => NumPut("uint", value, this, 360)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X14 {
-        get => NumGet(this, 368, "uint")
-        set => NumPut("uint", value, this, 368)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X15 {
-        get => NumGet(this, 376, "uint")
-        set => NumPut("uint", value, this, 376)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X16 {
-        get => NumGet(this, 384, "uint")
-        set => NumPut("uint", value, this, 384)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X17 {
-        get => NumGet(this, 392, "uint")
-        set => NumPut("uint", value, this, 392)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X18 {
-        get => NumGet(this, 400, "uint")
-        set => NumPut("uint", value, this, 400)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X19 {
-        get => NumGet(this, 408, "uint")
-        set => NumPut("uint", value, this, 408)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X20 {
-        get => NumGet(this, 416, "uint")
-        set => NumPut("uint", value, this, 416)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X21 {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X22 {
-        get => NumGet(this, 432, "uint")
-        set => NumPut("uint", value, this, 432)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X23 {
-        get => NumGet(this, 440, "uint")
-        set => NumPut("uint", value, this, 440)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X24 {
-        get => NumGet(this, 448, "uint")
-        set => NumPut("uint", value, this, 448)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X25 {
-        get => NumGet(this, 456, "uint")
-        set => NumPut("uint", value, this, 456)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X26 {
-        get => NumGet(this, 464, "uint")
-        set => NumPut("uint", value, this, 464)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X27 {
-        get => NumGet(this, 472, "uint")
-        set => NumPut("uint", value, this, 472)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    X28 {
-        get => NumGet(this, 480, "uint")
-        set => NumPut("uint", value, this, 480)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Fp {
-        get => NumGet(this, 488, "uint")
-        set => NumPut("uint", value, this, 488)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Lr {
-        get => NumGet(this, 496, "uint")
-        set => NumPut("uint", value, this, 496)
-    }
-
-    /**
-     * @type {Array<UInt64>}
-     */
-    X{
+    FltSave{
         get {
-            if(!this.HasProp("__XProxyArray"))
-                this.__XProxyArray := Win32FixedArray(this.ptr + 256, 31, Primitive, "uint")
-            return this.__XProxyArray
+            if(!this.HasProp("__FltSave"))
+                this.__FltSave := XSAVE_FORMAT(this.ptr + 256)
+            return this.__FltSave
+        }
+    }
+
+    /**
+     * @type {Array<M128A>}
+     */
+    Header{
+        get {
+            if(!this.HasProp("__HeaderProxyArray"))
+                this.__HeaderProxyArray := Win32FixedArray(this.ptr + 256, 2, M128A, "")
+            return this.__HeaderProxyArray
+        }
+    }
+
+    /**
+     * @type {Array<M128A>}
+     */
+    Legacy{
+        get {
+            if(!this.HasProp("__LegacyProxyArray"))
+                this.__LegacyProxyArray := Win32FixedArray(this.ptr + 272, 8, M128A, "")
+            return this.__LegacyProxyArray
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm0{
+        get {
+            if(!this.HasProp("__Xmm0"))
+                this.__Xmm0 := M128A(this.ptr + 336)
+            return this.__Xmm0
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm1{
+        get {
+            if(!this.HasProp("__Xmm1"))
+                this.__Xmm1 := M128A(this.ptr + 352)
+            return this.__Xmm1
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm2{
+        get {
+            if(!this.HasProp("__Xmm2"))
+                this.__Xmm2 := M128A(this.ptr + 368)
+            return this.__Xmm2
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm3{
+        get {
+            if(!this.HasProp("__Xmm3"))
+                this.__Xmm3 := M128A(this.ptr + 384)
+            return this.__Xmm3
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm4{
+        get {
+            if(!this.HasProp("__Xmm4"))
+                this.__Xmm4 := M128A(this.ptr + 400)
+            return this.__Xmm4
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm5{
+        get {
+            if(!this.HasProp("__Xmm5"))
+                this.__Xmm5 := M128A(this.ptr + 416)
+            return this.__Xmm5
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm6{
+        get {
+            if(!this.HasProp("__Xmm6"))
+                this.__Xmm6 := M128A(this.ptr + 432)
+            return this.__Xmm6
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm7{
+        get {
+            if(!this.HasProp("__Xmm7"))
+                this.__Xmm7 := M128A(this.ptr + 448)
+            return this.__Xmm7
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm8{
+        get {
+            if(!this.HasProp("__Xmm8"))
+                this.__Xmm8 := M128A(this.ptr + 464)
+            return this.__Xmm8
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm9{
+        get {
+            if(!this.HasProp("__Xmm9"))
+                this.__Xmm9 := M128A(this.ptr + 480)
+            return this.__Xmm9
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm10{
+        get {
+            if(!this.HasProp("__Xmm10"))
+                this.__Xmm10 := M128A(this.ptr + 496)
+            return this.__Xmm10
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm11{
+        get {
+            if(!this.HasProp("__Xmm11"))
+                this.__Xmm11 := M128A(this.ptr + 512)
+            return this.__Xmm11
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm12{
+        get {
+            if(!this.HasProp("__Xmm12"))
+                this.__Xmm12 := M128A(this.ptr + 528)
+            return this.__Xmm12
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm13{
+        get {
+            if(!this.HasProp("__Xmm13"))
+                this.__Xmm13 := M128A(this.ptr + 544)
+            return this.__Xmm13
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm14{
+        get {
+            if(!this.HasProp("__Xmm14"))
+                this.__Xmm14 := M128A(this.ptr + 560)
+            return this.__Xmm14
+        }
+    }
+
+    /**
+     * @type {M128A}
+     */
+    Xmm15{
+        get {
+            if(!this.HasProp("__Xmm15"))
+                this.__Xmm15 := M128A(this.ptr + 576)
+            return this.__Xmm15
         }
     }
 
@@ -583,7 +534,7 @@ class CONTEXT extends Win32Struct
     VectorRegister{
         get {
             if(!this.HasProp("__VectorRegisterProxyArray"))
-                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 504, 26, M128A, "")
+                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 576, 26, M128A, "")
             return this.__VectorRegisterProxyArray
         }
     }
@@ -592,47 +543,47 @@ class CONTEXT extends Win32Struct
      * @type {Integer}
      */
     VectorControl {
-        get => NumGet(this, 712, "uint")
-        set => NumPut("uint", value, this, 712)
+        get => NumGet(this, 784, "uint")
+        set => NumPut("uint", value, this, 784)
     }
 
     /**
      * @type {Integer}
      */
     DebugControl {
-        get => NumGet(this, 720, "uint")
-        set => NumPut("uint", value, this, 720)
+        get => NumGet(this, 792, "uint")
+        set => NumPut("uint", value, this, 792)
     }
 
     /**
      * @type {Integer}
      */
     LastBranchToRip {
-        get => NumGet(this, 728, "uint")
-        set => NumPut("uint", value, this, 728)
+        get => NumGet(this, 800, "uint")
+        set => NumPut("uint", value, this, 800)
     }
 
     /**
      * @type {Integer}
      */
     LastBranchFromRip {
-        get => NumGet(this, 736, "uint")
-        set => NumPut("uint", value, this, 736)
+        get => NumGet(this, 808, "uint")
+        set => NumPut("uint", value, this, 808)
     }
 
     /**
      * @type {Integer}
      */
     LastExceptionToRip {
-        get => NumGet(this, 744, "uint")
-        set => NumPut("uint", value, this, 744)
+        get => NumGet(this, 816, "uint")
+        set => NumPut("uint", value, this, 816)
     }
 
     /**
      * @type {Integer}
      */
     LastExceptionFromRip {
-        get => NumGet(this, 752, "uint")
-        set => NumPut("uint", value, this, 752)
+        get => NumGet(this, 824, "uint")
+        set => NumPut("uint", value, this, 824)
     }
 }
