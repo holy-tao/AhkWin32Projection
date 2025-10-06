@@ -7,9 +7,69 @@
  */
 class SLIST_HEADER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
+
+    class _HeaderX64 extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Depth
+         * - Sequence
+         * @type {Integer}
+         */
+        _bitfield1 {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Depth {
+            get => (this._bitfield1 >> 0) & 0xFFFF
+            set => this._bitfield1 := ((value & 0xFFFF) << 0) | (this._bitfield1 & ~(0xFFFF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Sequence {
+            get => (this._bitfield1 >> 16) & 0xFFFFFFFFFFFF
+            set => this._bitfield1 := ((value & 0xFFFFFFFFFFFF) << 16) | (this._bitfield1 & ~(0xFFFFFFFFFFFF << 16))
+        }
+    
+        /**
+         * This bitfield backs the following members:
+         * - Reserved
+         * - NextEntry
+         * @type {Integer}
+         */
+        _bitfield2 {
+            get => NumGet(this, 8, "uint")
+            set => NumPut("uint", value, this, 8)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield2 >> 0) & 0xF
+            set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NextEntry {
+            get => (this._bitfield2 >> 4) & 0xFFFFFFFFFFFFFFF
+            set => this._bitfield2 := ((value & 0xFFFFFFFFFFFFFFF) << 4) | (this._bitfield2 & ~(0xFFFFFFFFFFFFFFF << 4))
+        }
+    
+    }
 
     /**
      * @type {Integer}
@@ -28,10 +88,13 @@ class SLIST_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_HeaderX64_e__Struct>}
+     * @type {_HeaderX64}
      */
-    HeaderX64 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    HeaderX64{
+        get {
+            if(!this.HasProp("__HeaderX64"))
+                this.__HeaderX64 := %this.__Class%._HeaderX64(this.ptr + 0)
+            return this.__HeaderX64
+        }
     }
 }
