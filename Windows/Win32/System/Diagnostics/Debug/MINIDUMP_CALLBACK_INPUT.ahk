@@ -21,7 +21,7 @@
  */
 class MINIDUMP_CALLBACK_INPUT extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 736
 
     static packingSize => 8
 
@@ -61,8 +61,8 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
      * @type {HRESULT}
      */
     Status {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -71,7 +71,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Thread{
         get {
             if(!this.HasProp("__Thread"))
-                this.__Thread := MINIDUMP_THREAD_CALLBACK(this.ptr + 20)
+                this.__Thread := MINIDUMP_THREAD_CALLBACK(this.ptr + 24)
             return this.__Thread
         }
     }
@@ -82,7 +82,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ThreadEx{
         get {
             if(!this.HasProp("__ThreadEx"))
-                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(this.ptr + 20)
+                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(this.ptr + 24)
             return this.__ThreadEx
         }
     }
@@ -93,7 +93,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Module{
         get {
             if(!this.HasProp("__Module"))
-                this.__Module := MINIDUMP_MODULE_CALLBACK(this.ptr + 20)
+                this.__Module := MINIDUMP_MODULE_CALLBACK(this.ptr + 24)
             return this.__Module
         }
     }
@@ -102,16 +102,16 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
      * @type {Integer}
      */
     IncludeThread {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     IncludeModule {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -120,7 +120,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Io{
         get {
             if(!this.HasProp("__Io"))
-                this.__Io := MINIDUMP_IO_CALLBACK(this.ptr + 20)
+                this.__Io := MINIDUMP_IO_CALLBACK(this.ptr + 24)
             return this.__Io
         }
     }
@@ -131,7 +131,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ReadMemoryFailure{
         get {
             if(!this.HasProp("__ReadMemoryFailure"))
-                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(this.ptr + 20)
+                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(this.ptr + 24)
             return this.__ReadMemoryFailure
         }
     }
@@ -140,16 +140,16 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
      * @type {Integer}
      */
     SecondaryFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     VmQuery {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -158,7 +158,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmPreRead{
         get {
             if(!this.HasProp("__VmPreRead"))
-                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(this.ptr + 20)
+                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(this.ptr + 24)
             return this.__VmPreRead
         }
     }
@@ -169,7 +169,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmPostRead{
         get {
             if(!this.HasProp("__VmPostRead"))
-                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(this.ptr + 20)
+                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(this.ptr + 24)
             return this.__VmPostRead
         }
     }

@@ -7,7 +7,7 @@
  */
 class INTERNET_CREDENTIALS extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 

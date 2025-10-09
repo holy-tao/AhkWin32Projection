@@ -12,7 +12,7 @@
  */
 class PSS_HANDLE_ENTRY extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -158,7 +158,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     }
 
     class _Process extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -220,7 +220,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     }
 
     class _Thread extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -290,7 +290,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     }
 
     class _Mutant extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -328,7 +328,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     }
 
     class _Event extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -350,7 +350,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     }
 
     class _Section extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -380,7 +380,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     }
 
     class _Semaphore extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 48
         static packingSize => 8
 
         /**

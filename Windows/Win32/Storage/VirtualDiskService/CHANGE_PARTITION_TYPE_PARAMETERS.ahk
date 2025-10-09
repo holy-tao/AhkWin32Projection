@@ -11,9 +11,9 @@
  */
 class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a> enumeration that describes the disk's partition style.
@@ -25,7 +25,7 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     }
 
     class _GptPartInfo extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -42,8 +42,8 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     MbrPartInfo {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -52,7 +52,7 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     GptPartInfo{
         get {
             if(!this.HasProp("__GptPartInfo"))
-                this.__GptPartInfo := %this.__Class%._GptPartInfo(this.ptr + 4)
+                this.__GptPartInfo := %this.__Class%._GptPartInfo(this.ptr + 8)
             return this.__GptPartInfo
         }
     }

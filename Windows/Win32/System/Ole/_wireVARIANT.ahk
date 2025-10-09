@@ -9,9 +9,9 @@
  */
 class _wireVARIANT extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

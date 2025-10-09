@@ -9,9 +9,9 @@
  */
 class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

@@ -12,7 +12,7 @@
  */
 class DDOVERLAYFX extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -65,16 +65,16 @@ class DDOVERLAYFX extends Win32Struct
      * @type {Integer}
      */
     dwAlphaDestConst {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Pointer<IDirectDrawSurface>}
      */
     lpDDSAlphaDest {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -82,24 +82,24 @@ class DDOVERLAYFX extends Win32Struct
      * @type {Integer}
      */
     dwAlphaSrcConstBitDepth {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     dwAlphaSrcConst {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer<IDirectDrawSurface>}
      */
     lpDDSAlphaSrc {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -109,7 +109,7 @@ class DDOVERLAYFX extends Win32Struct
     dckDestColorkey{
         get {
             if(!this.HasProp("__dckDestColorkey"))
-                this.__dckDestColorkey := DDCOLORKEY(this.ptr + 32)
+                this.__dckDestColorkey := DDCOLORKEY(this.ptr + 48)
             return this.__dckDestColorkey
         }
     }
@@ -121,7 +121,7 @@ class DDOVERLAYFX extends Win32Struct
     dckSrcColorkey{
         get {
             if(!this.HasProp("__dckSrcColorkey"))
-                this.__dckSrcColorkey := DDCOLORKEY(this.ptr + 40)
+                this.__dckSrcColorkey := DDCOLORKEY(this.ptr + 56)
             return this.__dckSrcColorkey
         }
     }
@@ -131,8 +131,8 @@ class DDOVERLAYFX extends Win32Struct
      * @type {Integer}
      */
     dwDDFX {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -140,7 +140,7 @@ class DDOVERLAYFX extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 }

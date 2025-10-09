@@ -10,7 +10,7 @@
  */
 class CATEGORIZATION extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -26,8 +26,8 @@ class CATEGORIZATION extends Win32Struct
      * @type {Integer}
      */
     cClusters {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -36,7 +36,7 @@ class CATEGORIZATION extends Win32Struct
     bucket{
         get {
             if(!this.HasProp("__bucket"))
-                this.__bucket := BUCKETCATEGORIZE(this.ptr + 4)
+                this.__bucket := BUCKETCATEGORIZE(this.ptr + 8)
             return this.__bucket
         }
     }
@@ -47,7 +47,7 @@ class CATEGORIZATION extends Win32Struct
     range{
         get {
             if(!this.HasProp("__range"))
-                this.__range := RANGECATEGORIZE(this.ptr + 4)
+                this.__range := RANGECATEGORIZE(this.ptr + 8)
             return this.__range
         }
     }
@@ -58,7 +58,7 @@ class CATEGORIZATION extends Win32Struct
     csColumns{
         get {
             if(!this.HasProp("__csColumns"))
-                this.__csColumns := COLUMNSET(this.ptr + 8)
+                this.__csColumns := COLUMNSET(this.ptr + 24)
             return this.__csColumns
         }
     }

@@ -10,7 +10,7 @@
  */
 class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 152
 
     static packingSize => 8
 

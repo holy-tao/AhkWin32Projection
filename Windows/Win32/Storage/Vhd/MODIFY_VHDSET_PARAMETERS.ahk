@@ -9,7 +9,7 @@
  */
 class MODIFY_VHDSET_PARAMETERS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -23,7 +23,7 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
     }
 
     class _SnapshotPath extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**

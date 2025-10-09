@@ -9,9 +9,9 @@
  */
 class EC_VARIANT extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -90,8 +90,8 @@ class EC_VARIANT extends Win32Struct
      * @type {Integer}
      */
     Count {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -99,7 +99,7 @@ class EC_VARIANT extends Win32Struct
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

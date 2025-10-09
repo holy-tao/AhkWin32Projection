@@ -12,7 +12,7 @@
  */
 class DD_UPDATEOVERLAYDATA extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -250,8 +250,8 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
      * @type {HRESULT}
      */
     ddRVal {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -259,7 +259,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
      * @type {Pointer<Void>}
      */
     UpdateOverlay {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 }

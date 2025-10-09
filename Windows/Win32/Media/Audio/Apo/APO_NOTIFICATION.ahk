@@ -21,9 +21,9 @@
  */
 class APO_NOTIFICATION extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 56
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * A value from the [APO_NOTIFICATION_TYPE](ne-audioengineextensionapo-apo_notification_type.md) enumeration specifying the type of change the notification represents.
@@ -40,7 +40,7 @@ class APO_NOTIFICATION extends Win32Struct
     audioEndpointVolumeChange{
         get {
             if(!this.HasProp("__audioEndpointVolumeChange"))
-                this.__audioEndpointVolumeChange := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(this.ptr + 4)
+                this.__audioEndpointVolumeChange := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(this.ptr + 8)
             return this.__audioEndpointVolumeChange
         }
     }
@@ -51,7 +51,7 @@ class APO_NOTIFICATION extends Win32Struct
     audioEndpointPropertyChange{
         get {
             if(!this.HasProp("__audioEndpointPropertyChange"))
-                this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(this.ptr + 4)
+                this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(this.ptr + 8)
             return this.__audioEndpointPropertyChange
         }
     }
@@ -62,7 +62,7 @@ class APO_NOTIFICATION extends Win32Struct
     audioSystemEffectsPropertyChange{
         get {
             if(!this.HasProp("__audioSystemEffectsPropertyChange"))
-                this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(this.ptr + 4)
+                this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(this.ptr + 8)
             return this.__audioSystemEffectsPropertyChange
         }
     }
@@ -73,7 +73,7 @@ class APO_NOTIFICATION extends Win32Struct
     audioEndpointVolumeChange2{
         get {
             if(!this.HasProp("__audioEndpointVolumeChange2"))
-                this.__audioEndpointVolumeChange2 := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(this.ptr + 4)
+                this.__audioEndpointVolumeChange2 := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(this.ptr + 8)
             return this.__audioEndpointVolumeChange2
         }
     }
@@ -82,8 +82,8 @@ class APO_NOTIFICATION extends Win32Struct
      * @type {Integer}
      */
     deviceOrientation {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -92,7 +92,7 @@ class APO_NOTIFICATION extends Win32Struct
     audioMicrophoneBoostChange{
         get {
             if(!this.HasProp("__audioMicrophoneBoostChange"))
-                this.__audioMicrophoneBoostChange := AUDIO_MICROPHONE_BOOST_NOTIFICATION(this.ptr + 4)
+                this.__audioMicrophoneBoostChange := AUDIO_MICROPHONE_BOOST_NOTIFICATION(this.ptr + 8)
             return this.__audioMicrophoneBoostChange
         }
     }
@@ -103,7 +103,7 @@ class APO_NOTIFICATION extends Win32Struct
     audioEnvironmentChange{
         get {
             if(!this.HasProp("__audioEnvironmentChange"))
-                this.__audioEnvironmentChange := AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION(this.ptr + 4)
+                this.__audioEnvironmentChange := AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION(this.ptr + 8)
             return this.__audioEnvironmentChange
         }
     }

@@ -143,7 +143,7 @@
  */
 class WINBIO_ASYNC_RESULT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 360
 
     static packingSize => 8
 
@@ -211,7 +211,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _Verify extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -233,7 +233,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _Identify extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -251,22 +251,22 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Integer}
          */
         SubFactor {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
+            get => NumGet(this, 80, "char")
+            set => NumPut("char", value, this, 80)
         }
     
         /**
          * @type {Integer}
          */
         RejectDetail {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
+            get => NumGet(this, 84, "uint")
+            set => NumPut("uint", value, this, 84)
         }
     
     }
 
     class _EnrollCommit extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -284,14 +284,14 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Integer}
          */
         IsNewTemplate {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
+            get => NumGet(this, 80, "char")
+            set => NumPut("char", value, this, 80)
         }
     
     }
 
     class _EnumEnrollments extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -309,22 +309,22 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Pointer}
          */
         SubFactorCount {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get => NumGet(this, 80, "ptr")
+            set => NumPut("ptr", value, this, 80)
         }
     
         /**
          * @type {Pointer<Byte>}
          */
         SubFactorArray {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+            get => NumGet(this, 88, "ptr")
+            set => NumPut("ptr", value, this, 88)
         }
     
     }
 
     class _CaptureSample extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -354,7 +354,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _DeleteTemplate extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -372,14 +372,14 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Integer}
          */
         SubFactor {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
+            get => NumGet(this, 80, "char")
+            set => NumPut("char", value, this, 80)
         }
     
     }
 
     class _GetProperty extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -413,30 +413,30 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Integer}
          */
         SubFactor {
-            get => NumGet(this, 16, "char")
-            set => NumPut("char", value, this, 16)
+            get => NumGet(this, 88, "char")
+            set => NumPut("char", value, this, 88)
         }
     
         /**
          * @type {Pointer}
          */
         PropertyBufferSize {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+            get => NumGet(this, 96, "ptr")
+            set => NumPut("ptr", value, this, 96)
         }
     
         /**
          * @type {Pointer<Void>}
          */
         PropertyBuffer {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+            get => NumGet(this, 104, "ptr")
+            set => NumPut("ptr", value, this, 104)
         }
     
     }
 
     class _SetProperty extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -470,30 +470,30 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Integer}
          */
         SubFactor {
-            get => NumGet(this, 16, "char")
-            set => NumPut("char", value, this, 16)
+            get => NumGet(this, 88, "char")
+            set => NumPut("char", value, this, 88)
         }
     
         /**
          * @type {Pointer}
          */
         PropertyBufferSize {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+            get => NumGet(this, 96, "ptr")
+            set => NumPut("ptr", value, this, 96)
         }
     
         /**
          * @type {Pointer<Void>}
          */
         PropertyBuffer {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+            get => NumGet(this, 104, "ptr")
+            set => NumPut("ptr", value, this, 104)
         }
     
     }
 
     class _GetEvent extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -510,7 +510,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _ControlUnit extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -580,7 +580,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _EnumServiceProviders extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -602,7 +602,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _EnumBiometricUnits extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -624,7 +624,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _EnumDatabases extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -646,7 +646,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _VerifyAndReleaseTicket extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -676,7 +676,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _IdentifyAndReleaseTicket extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -694,30 +694,30 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
          * @type {Integer}
          */
         SubFactor {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
+            get => NumGet(this, 80, "char")
+            set => NumPut("char", value, this, 80)
         }
     
         /**
          * @type {Integer}
          */
         RejectDetail {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
+            get => NumGet(this, 84, "uint")
+            set => NumPut("uint", value, this, 84)
         }
     
         /**
          * @type {Integer}
          */
         Ticket {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
+            get => NumGet(this, 88, "uint")
+            set => NumPut("uint", value, this, 88)
         }
     
     }
 
     class _MonitorPresence extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -747,7 +747,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _GetProtectionPolicy extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**
@@ -767,7 +767,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Policy{
             get {
                 if(!this.HasProp("__Policy"))
-                    this.__Policy := WINBIO_PROTECTION_POLICY(this.ptr + 8)
+                    this.__Policy := WINBIO_PROTECTION_POLICY(this.ptr + 80)
                 return this.__Policy
             }
         }
@@ -775,7 +775,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     class _NotifyUnitStatusChange extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 320
         static packingSize => 8
 
         /**

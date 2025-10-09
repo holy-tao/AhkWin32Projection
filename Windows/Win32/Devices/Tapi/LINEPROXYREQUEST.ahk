@@ -21,7 +21,7 @@
  */
 class LINEPROXYREQUEST extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -94,7 +94,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentGroup extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -119,7 +119,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentState extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -149,7 +149,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentActivity extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -171,7 +171,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentCaps extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -196,7 +196,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentStatus extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -221,7 +221,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _AgentSpecific extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -262,7 +262,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentActivityList extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -287,7 +287,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentGroupList extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -312,7 +312,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _CreateAgent extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -358,7 +358,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentStateEx extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -388,7 +388,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentMeasurementPeriod extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -410,7 +410,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentInfo extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -435,7 +435,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _CreateAgentSession extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -489,7 +489,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentSessionList extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -514,7 +514,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentSessionInfo extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -539,7 +539,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentSessionState extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -569,7 +569,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetQueueList extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -594,7 +594,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetQueueMeasurementPeriod extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -616,7 +616,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetQueueInfo extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -641,7 +641,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetGroupList extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 96
         static packingSize => 8
 
         /**

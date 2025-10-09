@@ -11,7 +11,7 @@
  */
 class RASCONNSTATUSW extends Win32Struct
 {
-    static sizeof => 592
+    static sizeof => 624
 
     static packingSize => 8
 
@@ -80,7 +80,7 @@ class RASCONNSTATUSW extends Win32Struct
     remoteEndPoint{
         get {
             if(!this.HasProp("__remoteEndPoint"))
-                this.__remoteEndPoint := RASTUNNELENDPOINT(this.ptr + 576)
+                this.__remoteEndPoint := RASTUNNELENDPOINT(this.ptr + 592)
             return this.__remoteEndPoint
         }
     }
@@ -89,7 +89,7 @@ class RASCONNSTATUSW extends Win32Struct
      * @type {Integer}
      */
     rasconnsubstate {
-        get => NumGet(this, 584, "int")
-        set => NumPut("int", value, this, 584)
+        get => NumGet(this, 616, "int")
+        set => NumPut("int", value, this, 616)
     }
 }

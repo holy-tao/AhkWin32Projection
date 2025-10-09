@@ -15,7 +15,7 @@
  */
 class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 {
-    static sizeof => 3768
+    static sizeof => 3776
 
     static packingSize => 8
 
@@ -571,7 +571,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientTimeZone{
         get {
             if(!this.HasProp("__ClientTimeZone"))
-                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(this.ptr + 3536)
+                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(this.ptr + 3544)
             return this.__ClientTimeZone
         }
     }
@@ -583,7 +583,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     WRdsListenerSettings{
         get {
             if(!this.HasProp("__WRdsListenerSettings"))
-                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(this.ptr + 3720)
+                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(this.ptr + 3728)
             return this.__WRdsListenerSettings
         }
     }
@@ -593,8 +593,8 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     EventLogActivityId {
-        get => NumGet(this, 3744, "ptr")
-        set => NumPut("ptr", value, this, 3744)
+        get => NumGet(this, 3752, "ptr")
+        set => NumPut("ptr", value, this, 3752)
     }
 
     /**
@@ -602,8 +602,8 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * @type {Integer}
      */
     ContextSize {
-        get => NumGet(this, 3752, "uint")
-        set => NumPut("uint", value, this, 3752)
+        get => NumGet(this, 3760, "uint")
+        set => NumPut("uint", value, this, 3760)
     }
 
     /**
@@ -611,7 +611,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * @type {Pointer<Byte>}
      */
     ContextData {
-        get => NumGet(this, 3760, "ptr")
-        set => NumPut("ptr", value, this, 3760)
+        get => NumGet(this, 3768, "ptr")
+        set => NumPut("ptr", value, this, 3768)
     }
 }

@@ -16,7 +16,7 @@
  */
 class SECPKG_EXTENDED_INFORMATION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 

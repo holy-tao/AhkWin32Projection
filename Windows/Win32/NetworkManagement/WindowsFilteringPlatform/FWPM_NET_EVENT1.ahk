@@ -14,7 +14,7 @@
  */
 class FWPM_NET_EVENT1 extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -35,55 +35,55 @@ class FWPM_NET_EVENT1 extends Win32Struct
      * @type {Integer}
      */
     type {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+        get => NumGet(this, 144, "int")
+        set => NumPut("int", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_MM_FAILURE1>}
      */
     ikeMmFailure {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_QM_FAILURE0>}
      */
     ikeQmFailure {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_EM_FAILURE1>}
      */
     ikeEmFailure {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CLASSIFY_DROP1>}
      */
     classifyDrop {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IPSEC_KERNEL_DROP0>}
      */
     ipsecDrop {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IPSEC_DOSP_DROP0>}
      */
     idpDrop {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 }

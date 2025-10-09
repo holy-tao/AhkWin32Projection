@@ -7,9 +7,9 @@
  */
 class TRANSDATA extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 6
 
-    static packingSize => 2
+    static packingSize => 3
 
     /**
      * @type {Integer}
@@ -31,16 +31,16 @@ class TRANSDATA extends Win32Struct
      * @type {Integer}
      */
     sCode {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
+        get => NumGet(this, 3, "short")
+        set => NumPut("short", value, this, 3)
     }
 
     /**
      * @type {Integer}
      */
     ubCode {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**
@@ -49,7 +49,7 @@ class TRANSDATA extends Win32Struct
     ubPairs{
         get {
             if(!this.HasProp("__ubPairsProxyArray"))
-                this.__ubPairsProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
+                this.__ubPairsProxyArray := Win32FixedArray(this.ptr + 3, 2, Primitive, "char")
             return this.__ubPairsProxyArray
         }
     }

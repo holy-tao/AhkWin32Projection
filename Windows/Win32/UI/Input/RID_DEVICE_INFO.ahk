@@ -12,7 +12,7 @@
  */
 class RID_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -75,6 +75,6 @@ class RID_DEVICE_INFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 24
+        this.cbSize := 32
     }
 }

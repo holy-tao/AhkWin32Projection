@@ -8,7 +8,7 @@
  */
 class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,23 +27,23 @@ class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION extends Win32Struct
      * @type {Pointer<Void>}
      */
     BaseAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     RequestedBufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     NotificationCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

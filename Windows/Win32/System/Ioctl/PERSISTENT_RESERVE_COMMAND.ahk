@@ -7,9 +7,9 @@
  */
 class PERSISTENT_RESERVE_COMMAND extends Win32Struct
 {
-    static sizeof => 18
+    static sizeof => 21
 
-    static packingSize => 6
+    static packingSize => 7
 
     /**
      * @type {Integer}
@@ -28,7 +28,7 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     }
 
     class _PR_IN extends Win32Struct {
-        static sizeof => 6
+        static sizeof => 7
         static packingSize => 4
 
         /**
@@ -69,7 +69,7 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     }
 
     class _PR_OUT extends Win32Struct {
-        static sizeof => 6
+        static sizeof => 7
         static packingSize => 4
 
         /**
@@ -145,7 +145,7 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     PR_IN{
         get {
             if(!this.HasProp("__PR_IN"))
-                this.__PR_IN := %this.__Class%._PR_IN(this.ptr + 12)
+                this.__PR_IN := %this.__Class%._PR_IN(this.ptr + 14)
             return this.__PR_IN
         }
     }
@@ -156,7 +156,7 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     PR_OUT{
         get {
             if(!this.HasProp("__PR_OUT"))
-                this.__PR_OUT := %this.__Class%._PR_OUT(this.ptr + 12)
+                this.__PR_OUT := %this.__Class%._PR_OUT(this.ptr + 14)
             return this.__PR_OUT
         }
     }

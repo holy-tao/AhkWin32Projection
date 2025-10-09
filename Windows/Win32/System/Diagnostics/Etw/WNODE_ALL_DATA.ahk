@@ -9,7 +9,7 @@
  */
 class WNODE_ALL_DATA extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -52,8 +52,8 @@ class WNODE_ALL_DATA extends Win32Struct
      * @type {Integer}
      */
     FixedInstanceSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -62,7 +62,7 @@ class WNODE_ALL_DATA extends Win32Struct
     OffsetInstanceDataAndLength{
         get {
             if(!this.HasProp("__OffsetInstanceDataAndLengthProxyArray"))
-                this.__OffsetInstanceDataAndLengthProxyArray := Win32FixedArray(this.ptr + 52, 1, OFFSETINSTANCEDATAANDLENGTH, "")
+                this.__OffsetInstanceDataAndLengthProxyArray := Win32FixedArray(this.ptr + 56, 1, OFFSETINSTANCEDATAANDLENGTH, "")
             return this.__OffsetInstanceDataAndLengthProxyArray
         }
     }

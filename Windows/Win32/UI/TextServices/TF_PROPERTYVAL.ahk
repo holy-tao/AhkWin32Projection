@@ -12,7 +12,7 @@
  */
 class TF_PROPERTYVAL extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 

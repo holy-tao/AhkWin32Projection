@@ -9,9 +9,9 @@
  */
 class STRRET extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 272
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: <b>UINT</b>
@@ -26,16 +26,16 @@ class STRRET extends Win32Struct
      * @type {Pointer<Char>}
      */
     pOleStr {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     uOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -44,7 +44,7 @@ class STRRET extends Win32Struct
     cStr{
         get {
             if(!this.HasProp("__cStrProxyArray"))
-                this.__cStrProxyArray := Win32FixedArray(this.ptr + 4, 260, Primitive, "char")
+                this.__cStrProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
             return this.__cStrProxyArray
         }
     }

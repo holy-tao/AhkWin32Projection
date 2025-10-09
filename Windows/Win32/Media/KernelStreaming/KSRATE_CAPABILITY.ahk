@@ -9,7 +9,7 @@
  */
 class KSRATE_CAPABILITY extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSRATE_CAPABILITY extends Win32Struct
     Rate{
         get {
             if(!this.HasProp("__Rate"))
-                this.__Rate := KSRATE(this.ptr + 8)
+                this.__Rate := KSRATE(this.ptr + 16)
             return this.__Rate
         }
     }

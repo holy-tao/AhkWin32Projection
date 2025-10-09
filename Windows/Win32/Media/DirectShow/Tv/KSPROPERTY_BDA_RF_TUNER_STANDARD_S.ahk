@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_BDA_RF_TUNER_STANDARD_S extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,15 +28,15 @@ class KSPROPERTY_BDA_RF_TUNER_STANDARD_S extends Win32Struct
      * @type {Integer}
      */
     SignalType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     SignalStandard {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

@@ -10,9 +10,9 @@
  */
 class USBFN_NOTIFICATION extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 32
 
-    static packingSize => 6
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -26,8 +26,8 @@ class USBFN_NOTIFICATION extends Win32Struct
      * @type {Integer}
      */
     BusSpeed {
-        get => NumGet(this, 6, "int")
-        set => NumPut("int", value, this, 6)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -36,7 +36,7 @@ class USBFN_NOTIFICATION extends Win32Struct
     SetupPacket{
         get {
             if(!this.HasProp("__SetupPacket"))
-                this.__SetupPacket := USB_DEFAULT_PIPE_SETUP_PACKET(this.ptr + 6)
+                this.__SetupPacket := USB_DEFAULT_PIPE_SETUP_PACKET(this.ptr + 8)
             return this.__SetupPacket
         }
     }
@@ -45,16 +45,16 @@ class USBFN_NOTIFICATION extends Win32Struct
      * @type {Integer}
      */
     ConfigurationValue {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     PortType {
-        get => NumGet(this, 6, "int")
-        set => NumPut("int", value, this, 6)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -63,7 +63,7 @@ class USBFN_NOTIFICATION extends Win32Struct
     AlternateInterface{
         get {
             if(!this.HasProp("__AlternateInterface"))
-                this.__AlternateInterface := ALTERNATE_INTERFACE(this.ptr + 6)
+                this.__AlternateInterface := ALTERNATE_INTERFACE(this.ptr + 8)
             return this.__AlternateInterface
         }
     }

@@ -48,7 +48,7 @@
  */
 class DNS_RECORDW extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 88
 
     static packingSize => 8
 

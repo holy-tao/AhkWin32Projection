@@ -10,9 +10,9 @@
  */
 class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The handle to the Bluetooth LE GATT profile service.
@@ -58,7 +58,7 @@ class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     AttributeHandle {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 }

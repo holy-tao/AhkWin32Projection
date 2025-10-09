@@ -9,9 +9,9 @@
  */
 class TXFS_READ_BACKUP_INFORMATION_OUT extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 7
 
-    static packingSize => 4
+    static packingSize => 7
 
     /**
      * @type {Integer}

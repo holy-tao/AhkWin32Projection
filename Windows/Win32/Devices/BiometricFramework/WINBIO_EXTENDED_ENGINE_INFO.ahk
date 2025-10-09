@@ -9,9 +9,9 @@
  */
 class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The generic capabilities of the engine component that is connected to a specific biometric unit.
@@ -32,7 +32,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     }
 
     class _FacialFeatures extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -54,7 +54,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     }
 
     class _Fingerprint extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 32
         static packingSize => 8
 
         class _EnrollmentRequirements extends Win32Struct {
@@ -133,7 +133,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     }
 
     class _Iris extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -155,7 +155,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     }
 
     class _Voice extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 32
         static packingSize => 8
 
         /**

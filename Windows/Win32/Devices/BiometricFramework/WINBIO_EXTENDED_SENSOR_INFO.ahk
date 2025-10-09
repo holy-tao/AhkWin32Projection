@@ -11,7 +11,7 @@
  */
 class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 1096
 
     static packingSize => 8
 
@@ -34,7 +34,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     }
 
     class _FacialFeatures extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 1084
         static packingSize => 8
 
         class _HardwareInfo extends Win32Struct {
@@ -111,7 +111,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     }
 
     class _Iris extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 1084
         static packingSize => 8
 
         /**

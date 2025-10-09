@@ -11,9 +11,9 @@
  */
 class SDP_ELEMENT_DATA extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Enumeration of SDP element types.  Generic element types have a
@@ -58,7 +58,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     class _string extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -80,7 +80,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     class _url extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -102,7 +102,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     class _sequence extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -124,7 +124,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     class _alternative extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 16
         static packingSize => 8
 
         /**

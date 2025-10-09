@@ -25,7 +25,7 @@
  */
 class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 

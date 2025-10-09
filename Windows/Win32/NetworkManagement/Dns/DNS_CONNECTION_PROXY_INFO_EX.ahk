@@ -8,7 +8,7 @@
  */
 class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -27,31 +27,31 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
      * @type {Integer}
      */
     dwInterfaceIndex {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     pwszConnectionName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     fDirectConfiguration {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     hConnection {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

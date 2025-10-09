@@ -7,7 +7,7 @@
  */
 class VDS_ADVANCEDDISK_PROP extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -175,31 +175,31 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
      * @type {Integer}
      */
     dwSignature {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     DiskGuid {
-        get => NumGet(this, 124, "ptr")
-        set => NumPut("ptr", value, this, 124)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
      * @type {Integer}
      */
     dwDeviceType {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 }

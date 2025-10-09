@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,30 +27,14 @@ class KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S extends Win32Struct
      * @type {Integer}
      */
     StreamIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     DefaultKeyFrameRate {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DefaultPFrameRate {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DefaultQuality {
         get => NumGet(this, 20, "int")
         set => NumPut("int", value, this, 20)
     }
@@ -58,7 +42,7 @@ class KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    NumberOfQualitySettings {
+    DefaultPFrameRate {
         get => NumGet(this, 24, "int")
         set => NumPut("int", value, this, 24)
     }
@@ -66,8 +50,24 @@ class KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    Capabilities {
+    DefaultQuality {
         get => NumGet(this, 28, "int")
         set => NumPut("int", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NumberOfQualitySettings {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Capabilities {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 }

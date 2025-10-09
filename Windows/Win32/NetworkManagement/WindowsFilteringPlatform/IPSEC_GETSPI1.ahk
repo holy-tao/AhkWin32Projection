@@ -10,7 +10,7 @@
  */
 class IPSEC_GETSPI1 extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -31,16 +31,16 @@ class IPSEC_GETSPI1 extends Win32Struct
      * @type {Integer}
      */
     ipVersion {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
      * @type {Pointer<TypeHandle>}
      */
     Anonymous {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -48,7 +48,7 @@ class IPSEC_GETSPI1 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     rngCryptoModuleID {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

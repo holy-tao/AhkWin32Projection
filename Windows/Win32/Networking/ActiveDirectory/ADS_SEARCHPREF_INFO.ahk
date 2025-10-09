@@ -129,7 +129,7 @@
  */
 class ADS_SEARCHPREF_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -159,7 +159,7 @@ class ADS_SEARCHPREF_INFO extends Win32Struct
      * @type {Integer}
      */
     dwStatus {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

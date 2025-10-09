@@ -10,7 +10,7 @@
  */
 class RASUPDATECONN extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -63,7 +63,7 @@ class RASUPDATECONN extends Win32Struct
     remoteEndPoint{
         get {
             if(!this.HasProp("__remoteEndPoint"))
-                this.__remoteEndPoint := RASTUNNELENDPOINT(this.ptr + 24)
+                this.__remoteEndPoint := RASTUNNELENDPOINT(this.ptr + 40)
             return this.__remoteEndPoint
         }
     }

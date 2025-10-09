@@ -27,9 +27,9 @@
  */
 class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that specifies the viewing format.  For allowable formats, see Remarks.
@@ -64,8 +64,8 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
      * @type {Integer}
      */
     Texture1D {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -74,7 +74,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D12_TEX1D_ARRAY_DSV(this.ptr + 12)
+                this.__Texture1DArray := D3D12_TEX1D_ARRAY_DSV(this.ptr + 16)
             return this.__Texture1DArray
         }
     }
@@ -83,8 +83,8 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
      * @type {Integer}
      */
     Texture2D {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -93,7 +93,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D12_TEX2D_ARRAY_DSV(this.ptr + 12)
+                this.__Texture2DArray := D3D12_TEX2D_ARRAY_DSV(this.ptr + 16)
             return this.__Texture2DArray
         }
     }
@@ -102,8 +102,8 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
      * @type {Integer}
      */
     Texture2DMS {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -112,7 +112,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_DSV(this.ptr + 12)
+                this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_DSV(this.ptr + 16)
             return this.__Texture2DMSArray
         }
     }

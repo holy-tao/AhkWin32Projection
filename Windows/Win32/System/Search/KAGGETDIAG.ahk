@@ -10,7 +10,7 @@
  */
 class KAGGETDIAG extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class KAGGETDIAG extends Win32Struct
      * @type {Integer}
      */
     sDiagField {
-        get => NumGet(this, 24, "short")
-        set => NumPut("short", value, this, 24)
+        get => NumGet(this, 32, "short")
+        set => NumPut("short", value, this, 32)
     }
 }

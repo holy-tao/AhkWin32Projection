@@ -12,7 +12,7 @@
  */
 class CERT_BIOMETRIC_DATA extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -29,16 +29,16 @@ class CERT_BIOMETRIC_DATA extends Win32Struct
      * @type {Integer}
      */
     dwPredefined {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     pszObjId {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,7 +48,7 @@ class CERT_BIOMETRIC_DATA extends Win32Struct
     HashedUrl{
         get {
             if(!this.HasProp("__HashedUrl"))
-                this.__HashedUrl := CERT_HASHED_URL(this.ptr + 8)
+                this.__HashedUrl := CERT_HASHED_URL(this.ptr + 16)
             return this.__HashedUrl
         }
     }

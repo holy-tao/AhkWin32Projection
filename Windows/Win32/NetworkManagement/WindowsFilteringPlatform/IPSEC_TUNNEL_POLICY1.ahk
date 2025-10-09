@@ -11,7 +11,7 @@
  */
 class IPSEC_TUNNEL_POLICY1 extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -65,7 +65,7 @@ class IPSEC_TUNNEL_POLICY1 extends Win32Struct
     saIdleTimeout{
         get {
             if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(this.ptr + 40)
+                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(this.ptr + 64)
             return this.__saIdleTimeout
         }
     }
@@ -77,7 +77,7 @@ class IPSEC_TUNNEL_POLICY1 extends Win32Struct
      * @type {Pointer<IKEEXT_EM_POLICY1>}
      */
     emPolicy {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

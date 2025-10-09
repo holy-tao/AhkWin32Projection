@@ -12,7 +12,7 @@
  */
 class MPEG2_FILTER2 extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -181,8 +181,8 @@ class MPEG2_FILTER2 extends Win32Struct
      * @type {Integer}
      */
     fSpecifyDvbEitOptions {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+        get => NumGet(this, 156, "int")
+        set => NumPut("int", value, this, 156)
     }
 
     /**
@@ -199,7 +199,7 @@ class MPEG2_FILTER2 extends Win32Struct
     DvbEit{
         get {
             if(!this.HasProp("__DvbEit"))
-                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(this.ptr + 136)
+                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(this.ptr + 160)
             return this.__DvbEit
         }
     }

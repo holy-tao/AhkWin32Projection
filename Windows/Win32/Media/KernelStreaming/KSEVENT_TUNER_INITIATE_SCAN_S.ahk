@@ -8,7 +8,7 @@
  */
 class KSEVENT_TUNER_INITIATE_SCAN_S extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,15 +27,15 @@ class KSEVENT_TUNER_INITIATE_SCAN_S extends Win32Struct
      * @type {Integer}
      */
     StartFrequency {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     EndFrequency {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

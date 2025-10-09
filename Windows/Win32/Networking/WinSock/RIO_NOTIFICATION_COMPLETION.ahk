@@ -21,7 +21,7 @@
  */
 class RIO_NOTIFICATION_COMPLETION extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -35,7 +35,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     }
 
     class _Event extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -57,7 +57,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     }
 
     class _Iocp extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 24
         static packingSize => 8
 
         /**

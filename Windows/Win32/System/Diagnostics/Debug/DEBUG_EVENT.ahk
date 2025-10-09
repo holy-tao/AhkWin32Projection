@@ -19,9 +19,9 @@
  */
 class DEBUG_EVENT extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 176
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -64,7 +64,7 @@ class DEBUG_EVENT extends Win32Struct
     Exception{
         get {
             if(!this.HasProp("__Exception"))
-                this.__Exception := EXCEPTION_DEBUG_INFO(this.ptr + 12)
+                this.__Exception := EXCEPTION_DEBUG_INFO(this.ptr + 16)
             return this.__Exception
         }
     }
@@ -75,7 +75,7 @@ class DEBUG_EVENT extends Win32Struct
     CreateThread{
         get {
             if(!this.HasProp("__CreateThread"))
-                this.__CreateThread := CREATE_THREAD_DEBUG_INFO(this.ptr + 12)
+                this.__CreateThread := CREATE_THREAD_DEBUG_INFO(this.ptr + 16)
             return this.__CreateThread
         }
     }
@@ -86,7 +86,7 @@ class DEBUG_EVENT extends Win32Struct
     CreateProcessInfo{
         get {
             if(!this.HasProp("__CreateProcessInfo"))
-                this.__CreateProcessInfo := CREATE_PROCESS_DEBUG_INFO(this.ptr + 12)
+                this.__CreateProcessInfo := CREATE_PROCESS_DEBUG_INFO(this.ptr + 16)
             return this.__CreateProcessInfo
         }
     }
@@ -95,16 +95,16 @@ class DEBUG_EVENT extends Win32Struct
      * @type {Integer}
      */
     ExitThread {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     ExitProcess {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -113,7 +113,7 @@ class DEBUG_EVENT extends Win32Struct
     LoadDll{
         get {
             if(!this.HasProp("__LoadDll"))
-                this.__LoadDll := LOAD_DLL_DEBUG_INFO(this.ptr + 12)
+                this.__LoadDll := LOAD_DLL_DEBUG_INFO(this.ptr + 16)
             return this.__LoadDll
         }
     }
@@ -122,8 +122,8 @@ class DEBUG_EVENT extends Win32Struct
      * @type {Pointer<Void>}
      */
     UnloadDll {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -132,7 +132,7 @@ class DEBUG_EVENT extends Win32Struct
     DebugString{
         get {
             if(!this.HasProp("__DebugString"))
-                this.__DebugString := OUTPUT_DEBUG_STRING_INFO(this.ptr + 12)
+                this.__DebugString := OUTPUT_DEBUG_STRING_INFO(this.ptr + 16)
             return this.__DebugString
         }
     }
@@ -143,7 +143,7 @@ class DEBUG_EVENT extends Win32Struct
     RipInfo{
         get {
             if(!this.HasProp("__RipInfo"))
-                this.__RipInfo := RIP_INFO(this.ptr + 12)
+                this.__RipInfo := RIP_INFO(this.ptr + 16)
             return this.__RipInfo
         }
     }

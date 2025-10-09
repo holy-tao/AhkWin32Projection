@@ -9,7 +9,7 @@
  */
 class CLFS_MGMT_POLICY extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -52,7 +52,7 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     class _GrowthRate extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 12
         static packingSize => 8
 
         /**
@@ -74,7 +74,7 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     class _LogTail extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 12
         static packingSize => 8
 
         /**
@@ -96,7 +96,7 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     class _NewContainerPrefix extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 12
         static packingSize => 8
 
         /**
@@ -118,7 +118,7 @@ class CLFS_MGMT_POLICY extends Win32Struct
     }
 
     class _NewContainerExtension extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 12
         static packingSize => 8
 
         /**

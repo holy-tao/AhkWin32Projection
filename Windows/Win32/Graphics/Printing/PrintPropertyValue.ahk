@@ -7,9 +7,9 @@
  */
 class PrintPropertyValue extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -20,7 +20,7 @@ class PrintPropertyValue extends Win32Struct
     }
 
     class _propertyBlob extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -45,32 +45,32 @@ class PrintPropertyValue extends Win32Struct
      * @type {Integer}
      */
     propertyByte {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     propertyString {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     propertyInt32 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     propertyInt64 {
-        get => NumGet(this, 4, "int64")
-        set => NumPut("int64", value, this, 4)
+        get => NumGet(this, 8, "int64")
+        set => NumPut("int64", value, this, 8)
     }
 
     /**
@@ -79,7 +79,7 @@ class PrintPropertyValue extends Win32Struct
     propertyBlob{
         get {
             if(!this.HasProp("__propertyBlob"))
-                this.__propertyBlob := %this.__Class%._propertyBlob(this.ptr + 4)
+                this.__propertyBlob := %this.__Class%._propertyBlob(this.ptr + 8)
             return this.__propertyBlob
         }
     }

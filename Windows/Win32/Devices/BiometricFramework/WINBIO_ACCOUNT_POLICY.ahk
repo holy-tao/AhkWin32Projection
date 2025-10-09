@@ -12,7 +12,7 @@
  */
 class WINBIO_ACCOUNT_POLICY extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -33,7 +33,7 @@ class WINBIO_ACCOUNT_POLICY extends Win32Struct
      * @type {Integer}
      */
     AntiSpoofBehavior {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 }

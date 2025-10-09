@@ -14,7 +14,7 @@
  */
 class DD_SURFACE_GLOBAL extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -38,31 +38,6 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Pointer<VIDEOMEMORY>}
      */
     lpVidMemHeap {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBlockSizeX {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwUserMemSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * 
-     * @type {Pointer}
-     */
-    fpVidMem {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }
@@ -70,17 +45,42 @@ class DD_SURFACE_GLOBAL extends Win32Struct
     /**
      * @type {Integer}
      */
+    dwBlockSizeX {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwUserMemSize {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * 
+     * @type {Pointer}
+     */
+    fpVidMem {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
     lPitch {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwLinearSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -88,8 +88,8 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Integer}
      */
     yHint {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -97,8 +97,8 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Integer}
      */
     xHint {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -106,8 +106,8 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Integer}
      */
     wHeight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -115,8 +115,8 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Integer}
      */
     wWidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -124,8 +124,8 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Pointer}
      */
     dwReserved1 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -135,7 +135,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
     ddpfSurface{
         get {
             if(!this.HasProp("__ddpfSurface"))
-                this.__ddpfSurface := DDPIXELFORMAT(this.ptr + 48)
+                this.__ddpfSurface := DDPIXELFORMAT(this.ptr + 56)
             return this.__ddpfSurface
         }
     }
@@ -145,8 +145,8 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Pointer}
      */
     fpHeapOffset {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -154,7 +154,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
      * @type {Pointer<Void>}
      */
     hCreatorProcess {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

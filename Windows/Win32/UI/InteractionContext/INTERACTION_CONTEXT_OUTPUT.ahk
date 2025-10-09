@@ -13,9 +13,9 @@
  */
 class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 96
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * ID of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
@@ -68,7 +68,7 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
     manipulation{
         get {
             if(!this.HasProp("__manipulation"))
-                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(this.ptr + 20)
+                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(this.ptr + 24)
             return this.__manipulation
         }
     }
@@ -77,8 +77,8 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
      * @type {Integer}
      */
     tap {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -87,7 +87,7 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct
     crossSlide{
         get {
             if(!this.HasProp("__crossSlide"))
-                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(this.ptr + 20)
+                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(this.ptr + 24)
             return this.__crossSlide
         }
     }

@@ -8,7 +8,7 @@
  */
 class KSM_NODE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -27,15 +27,15 @@ class KSM_NODE extends Win32Struct
      * @type {Integer}
      */
     NodeId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

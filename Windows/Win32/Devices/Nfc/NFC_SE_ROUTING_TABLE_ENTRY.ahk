@@ -10,7 +10,7 @@
  */
 class NFC_SE_ROUTING_TABLE_ENTRY extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 

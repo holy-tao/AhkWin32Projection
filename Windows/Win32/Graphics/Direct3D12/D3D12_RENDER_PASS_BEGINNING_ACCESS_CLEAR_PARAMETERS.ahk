@@ -11,7 +11,7 @@
  */
 class D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

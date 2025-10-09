@@ -12,7 +12,7 @@
  */
 class DDBLTFX extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -127,24 +127,24 @@ class DDBLTFX extends Win32Struct
      * @type {Integer}
      */
     dwZSrcConstBitDepth {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     dwZSrcConst {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Pointer<IDirectDrawSurface>}
      */
     lpDDSZBufferSrc {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -152,8 +152,8 @@ class DDBLTFX extends Win32Struct
      * @type {Integer}
      */
     dwAlphaEdgeBlendBitDepth {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -161,8 +161,8 @@ class DDBLTFX extends Win32Struct
      * @type {Integer}
      */
     dwAlphaEdgeBlend {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -170,8 +170,8 @@ class DDBLTFX extends Win32Struct
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -179,24 +179,24 @@ class DDBLTFX extends Win32Struct
      * @type {Integer}
      */
     dwAlphaDestConstBitDepth {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     dwAlphaDestConst {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Pointer<IDirectDrawSurface>}
      */
     lpDDSAlphaDest {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -204,56 +204,56 @@ class DDBLTFX extends Win32Struct
      * @type {Integer}
      */
     dwAlphaSrcConstBitDepth {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     dwAlphaSrcConst {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Pointer<IDirectDrawSurface>}
      */
     lpDDSAlphaSrc {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     dwFillColor {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwFillDepth {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwFillPixel {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Pointer<IDirectDrawSurface>}
      */
     lpDDSPattern {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -263,7 +263,7 @@ class DDBLTFX extends Win32Struct
     ddckDestColorkey{
         get {
             if(!this.HasProp("__ddckDestColorkey"))
-                this.__ddckDestColorkey := DDCOLORKEY(this.ptr + 88)
+                this.__ddckDestColorkey := DDCOLORKEY(this.ptr + 112)
             return this.__ddckDestColorkey
         }
     }
@@ -275,7 +275,7 @@ class DDBLTFX extends Win32Struct
     ddckSrcColorkey{
         get {
             if(!this.HasProp("__ddckSrcColorkey"))
-                this.__ddckSrcColorkey := DDCOLORKEY(this.ptr + 96)
+                this.__ddckSrcColorkey := DDCOLORKEY(this.ptr + 120)
             return this.__ddckSrcColorkey
         }
     }

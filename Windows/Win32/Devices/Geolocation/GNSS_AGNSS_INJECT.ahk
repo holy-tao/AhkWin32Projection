@@ -13,7 +13,7 @@
  */
 class GNSS_AGNSS_INJECT extends Win32Struct
 {
-    static sizeof => 568
+    static sizeof => 672
 
     static packingSize => 8
 

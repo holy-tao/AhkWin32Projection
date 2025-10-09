@@ -13,9 +13,9 @@
  */
 class CHANGE_ATTRIBUTES_PARAMETERS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Determines the partition parameters. Supported values are <b>VDS_PST_MBR</b> or 
@@ -31,15 +31,15 @@ class CHANGE_ATTRIBUTES_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     MbrPartInfo {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     GptPartInfo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

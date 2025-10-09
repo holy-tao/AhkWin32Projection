@@ -9,7 +9,7 @@
  */
 class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
 {
-    static sizeof => 568
+    static sizeof => 1056
 
     static packingSize => 8
 
@@ -62,7 +62,7 @@ class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 56, 512, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 544, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

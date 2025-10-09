@@ -100,7 +100,7 @@
  */
 class UiaChangeInfo extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -132,7 +132,7 @@ class UiaChangeInfo extends Win32Struct
     extraInfo{
         get {
             if(!this.HasProp("__extraInfo"))
-                this.__extraInfo := VARIANT(this.ptr + 24)
+                this.__extraInfo := VARIANT(this.ptr + 32)
             return this.__extraInfo
         }
     }

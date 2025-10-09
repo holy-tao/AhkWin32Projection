@@ -20,9 +20,9 @@
  */
 class UI_EVENTPARAMS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 48
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * One of the values from <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_eventtype">UI_EVENTTYPE</a>.
@@ -37,8 +37,8 @@ class UI_EVENTPARAMS extends Win32Struct
      * @type {Integer}
      */
     Modes {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -47,7 +47,7 @@ class UI_EVENTPARAMS extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__Params"))
-                this.__Params := UI_EVENTPARAMS_COMMAND(this.ptr + 4)
+                this.__Params := UI_EVENTPARAMS_COMMAND(this.ptr + 8)
             return this.__Params
         }
     }

@@ -8,7 +8,7 @@
  */
 class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,23 +27,23 @@ class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct
      * @type {Integer}
      */
     StartFrequency {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     EndFrequency {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     LockRequested {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

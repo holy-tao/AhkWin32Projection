@@ -8,7 +8,7 @@
  */
 class KSEVENT_TIME_INTERVAL extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,15 +27,15 @@ class KSEVENT_TIME_INTERVAL extends Win32Struct
      * @type {Integer}
      */
     TimeBase {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     Interval {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
+        get => NumGet(this, 40, "int64")
+        set => NumPut("int64", value, this, 40)
     }
 }

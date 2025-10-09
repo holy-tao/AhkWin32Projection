@@ -204,7 +204,7 @@
  */
 class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -252,7 +252,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
     }
 
     class _Data extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**

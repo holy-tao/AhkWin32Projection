@@ -32,7 +32,7 @@
  */
 class URB extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 152
 
     static packingSize => 8
 

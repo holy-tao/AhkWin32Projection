@@ -25,7 +25,7 @@
  */
 class D3D12_CLEAR_VALUE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

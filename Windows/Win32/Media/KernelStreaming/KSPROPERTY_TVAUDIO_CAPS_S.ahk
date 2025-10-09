@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -27,8 +27,8 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
      * @type {Integer}
      */
     Capabilities {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -37,7 +37,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     InputMedium{
         get {
             if(!this.HasProp("__InputMedium"))
-                this.__InputMedium := KSIDENTIFIER(this.ptr + 16)
+                this.__InputMedium := KSIDENTIFIER(this.ptr + 24)
             return this.__InputMedium
         }
     }
@@ -48,7 +48,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     OutputMedium{
         get {
             if(!this.HasProp("__OutputMedium"))
-                this.__OutputMedium := KSIDENTIFIER(this.ptr + 24)
+                this.__OutputMedium := KSIDENTIFIER(this.ptr + 40)
             return this.__OutputMedium
         }
     }

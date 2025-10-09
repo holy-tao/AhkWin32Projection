@@ -11,7 +11,7 @@
  */
 class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -30,8 +30,8 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -40,7 +40,7 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -49,8 +49,8 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -59,7 +59,7 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }
@@ -71,8 +71,8 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * @type {Integer}
      */
     localIfLuid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -82,8 +82,8 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * @type {Pointer<Char>}
      */
     remoteFqdn {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -93,8 +93,8 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * @type {Integer}
      */
     numAddresses {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -106,7 +106,7 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * @type {Pointer<IPSEC_TUNNEL_ENDPOINT0>}
      */
     remoteAddresses {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

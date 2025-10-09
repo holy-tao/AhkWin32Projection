@@ -10,7 +10,7 @@
  */
 class DDHAL_UPDATEOVERLAYDATA extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -83,15 +83,15 @@ class DDHAL_UPDATEOVERLAYDATA extends Win32Struct
      * @type {HRESULT}
      */
     ddRVal {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
      * @type {Pointer<LPDDHALSURFCB_UPDATEOVERLAY>}
      */
     UpdateOverlay {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 }

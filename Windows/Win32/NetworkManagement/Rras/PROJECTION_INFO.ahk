@@ -11,7 +11,7 @@
  */
 class PROJECTION_INFO extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 200
 
     static packingSize => 8
 

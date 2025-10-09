@@ -8,7 +8,7 @@
  */
 class JET_INDEXCREATE_A extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -64,63 +64,63 @@ class JET_INDEXCREATE_A extends Win32Struct
      * @type {Integer}
      */
     lcid {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer<JET_UNICODEINDEX>}
      */
     pidxunicode {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     cbVarSegMac {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Pointer<JET_TUPLELIMITS>}
      */
     ptuplelimits {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<JET_CONDITIONALCOLUMN_A>}
      */
     rgconditionalcolumn {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     cConditionalColumn {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     err {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
      * @type {Integer}
      */
     cbKeyMost {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 }

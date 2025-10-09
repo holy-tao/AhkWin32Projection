@@ -16,7 +16,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SET_EX extends Win32Struct
 {
-    static sizeof => 272
+    static sizeof => 280
 
     static packingSize => 8
 

@@ -10,7 +10,7 @@
  */
 class KSPROPERTY_TIMECODE_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -31,7 +31,7 @@ class KSPROPERTY_TIMECODE_S extends Win32Struct
     TimecodeSamp{
         get {
             if(!this.HasProp("__TimecodeSamp"))
-                this.__TimecodeSamp := TIMECODE_SAMPLE(this.ptr + 8)
+                this.__TimecodeSamp := TIMECODE_SAMPLE(this.ptr + 16)
             return this.__TimecodeSamp
         }
     }

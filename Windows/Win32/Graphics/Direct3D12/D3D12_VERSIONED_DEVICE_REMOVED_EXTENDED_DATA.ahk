@@ -16,7 +16,7 @@
  */
 class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 64
 
     static packingSize => 8
 

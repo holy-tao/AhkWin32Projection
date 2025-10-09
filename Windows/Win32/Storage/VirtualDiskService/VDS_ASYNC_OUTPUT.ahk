@@ -13,7 +13,7 @@
  */
 class VDS_ASYNC_OUTPUT extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -112,7 +112,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cp extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -134,7 +134,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cv extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -148,7 +148,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _bvp extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -162,7 +162,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cl extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -176,7 +176,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _ct extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -190,7 +190,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cpg extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -204,7 +204,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cvd extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**

@@ -9,7 +9,7 @@
  */
 class MIXERCONTROLDETAILS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -87,16 +87,16 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Pointer<Void>}
      */
     hwndOwner {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     cMultipleItems {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -151,8 +151,8 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Integer}
      */
     cbDetails {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -171,7 +171,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Pointer<Void>}
      */
     paDetails {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

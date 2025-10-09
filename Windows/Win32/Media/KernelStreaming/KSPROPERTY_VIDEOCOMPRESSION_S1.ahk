@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_VIDEOCOMPRESSION_S1 extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,23 +27,23 @@ class KSPROPERTY_VIDEOCOMPRESSION_S1 extends Win32Struct
      * @type {Integer}
      */
     StreamIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Value {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

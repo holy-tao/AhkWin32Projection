@@ -11,9 +11,9 @@
  */
 class PM_ENUM_FILTER extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -27,56 +27,56 @@ class PM_ENUM_FILTER extends Win32Struct
      * @type {Integer}
      */
     Dummy {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Genre {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     AppHubType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     HubType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Tasktype {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     TaskProductID {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     TileProductID {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -85,7 +85,7 @@ class PM_ENUM_FILTER extends Win32Struct
     AppTaskType{
         get {
             if(!this.HasProp("__AppTaskType"))
-                this.__AppTaskType := PM_APPTASKTYPE(this.ptr + 4)
+                this.__AppTaskType := PM_APPTASKTYPE(this.ptr + 8)
             return this.__AppTaskType
         }
     }
@@ -96,7 +96,7 @@ class PM_ENUM_FILTER extends Win32Struct
     Consumer{
         get {
             if(!this.HasProp("__Consumer"))
-                this.__Consumer := PM_EXTENSIONCONSUMER(this.ptr + 4)
+                this.__Consumer := PM_EXTENSIONCONSUMER(this.ptr + 8)
             return this.__Consumer
         }
     }
@@ -107,7 +107,7 @@ class PM_ENUM_FILTER extends Win32Struct
     BSATask{
         get {
             if(!this.HasProp("__BSATask"))
-                this.__BSATask := PM_BSATASKID(this.ptr + 4)
+                this.__BSATask := PM_BSATASKID(this.ptr + 8)
             return this.__BSATask
         }
     }
@@ -116,8 +116,8 @@ class PM_ENUM_FILTER extends Win32Struct
      * @type {Pointer<Guid>}
      */
     BSAProductID {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -126,7 +126,7 @@ class PM_ENUM_FILTER extends Win32Struct
     BWTask{
         get {
             if(!this.HasProp("__BWTask"))
-                this.__BWTask := PM_BWTASKID(this.ptr + 4)
+                this.__BWTask := PM_BWTASKID(this.ptr + 8)
             return this.__BWTask
         }
     }
@@ -135,39 +135,39 @@ class PM_ENUM_FILTER extends Win32Struct
      * @type {Pointer<Char>}
      */
     ProtocolName {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     FileType {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     ContentType {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     AppSupportedFileExtPID {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     ShareTargetFileType {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

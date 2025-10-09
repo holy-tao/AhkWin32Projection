@@ -15,7 +15,7 @@
  */
 class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -66,7 +66,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     UserKeyingMaterial{
         get {
             if(!this.HasProp("__UserKeyingMaterial"))
-                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(this.ptr + 56)
             return this.__UserKeyingMaterial
         }
     }
@@ -79,7 +79,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 48)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 72)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -89,8 +89,8 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
      * @type {Integer}
      */
     cRecipientEncryptedKeys {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -98,7 +98,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
      * @type {Pointer<CMSG_RECIPIENT_ENCRYPTED_KEY_INFO>}
      */
     rgpRecipientEncryptedKeys {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

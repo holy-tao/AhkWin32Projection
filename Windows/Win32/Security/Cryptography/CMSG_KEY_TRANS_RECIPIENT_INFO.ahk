@@ -13,7 +13,7 @@
  */
 class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -46,7 +46,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 32)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 48)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -58,7 +58,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
     EncryptedKey{
         get {
             if(!this.HasProp("__EncryptedKey"))
-                this.__EncryptedKey := CRYPT_INTEGER_BLOB(this.ptr + 56)
+                this.__EncryptedKey := CRYPT_INTEGER_BLOB(this.ptr + 72)
             return this.__EncryptedKey
         }
     }

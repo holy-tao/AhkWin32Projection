@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_DROPPEDFRAMES_CURRENT_S extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,14 +27,6 @@ class KSPROPERTY_DROPPEDFRAMES_CURRENT_S extends Win32Struct
      * @type {Integer}
      */
     PictureNumber {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DropCount {
         get => NumGet(this, 16, "int64")
         set => NumPut("int64", value, this, 16)
     }
@@ -42,8 +34,16 @@ class KSPROPERTY_DROPPEDFRAMES_CURRENT_S extends Win32Struct
     /**
      * @type {Integer}
      */
+    DropCount {
+        get => NumGet(this, 24, "int64")
+        set => NumPut("int64", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
     AverageFrameSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

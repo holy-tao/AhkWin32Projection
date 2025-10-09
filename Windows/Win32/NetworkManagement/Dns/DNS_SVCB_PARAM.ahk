@@ -7,9 +7,9 @@
  */
 class DNS_SVCB_PARAM extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,63 +23,63 @@ class DNS_SVCB_PARAM extends Win32Struct
      * @type {Pointer<DNS_SVCB_PARAM_IPV4>}
      */
     pIpv4Hints {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<DNS_SVCB_PARAM_IPV6>}
      */
     pIpv6Hints {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<DNS_SVCB_PARAM_MANDATORY>}
      */
     pMandatory {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<DNS_SVCB_PARAM_ALPN>}
      */
     pAlpn {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     wPort {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 
     /**
      * @type {Pointer<DNS_SVCB_PARAM_UNKNOWN>}
      */
     pUnknown {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     pszDohPath {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pReserved {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

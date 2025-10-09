@@ -29,9 +29,9 @@
  */
 class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 336
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

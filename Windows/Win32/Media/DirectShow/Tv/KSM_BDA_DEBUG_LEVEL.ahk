@@ -8,7 +8,7 @@
  */
 class KSM_BDA_DEBUG_LEVEL extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,16 +27,16 @@ class KSM_BDA_DEBUG_LEVEL extends Win32Struct
      * @type {Integer}
      */
     ucDebugLevel {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     ulDebugStringSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,7 +45,7 @@ class KSM_BDA_DEBUG_LEVEL extends Win32Struct
     argbDebugString{
         get {
             if(!this.HasProp("__argbDebugStringProxyArray"))
-                this.__argbDebugStringProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__argbDebugStringProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
             return this.__argbDebugStringProxyArray
         }
     }

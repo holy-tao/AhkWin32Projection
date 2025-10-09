@@ -10,7 +10,7 @@
  */
 class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -54,7 +54,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 136
         static packingSize => 8
 
         /**
@@ -108,7 +108,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version2 extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 136
         static packingSize => 8
 
         /**
@@ -208,7 +208,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version3 extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 136
         static packingSize => 8
 
         /**
@@ -327,7 +327,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version4 extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 136
         static packingSize => 8
 
         /**

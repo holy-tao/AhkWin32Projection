@@ -11,7 +11,7 @@
  */
 class MetafileHeader extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -121,23 +121,23 @@ class MetafileHeader extends Win32Struct
      * @type {Integer}
      */
     EmfPlusHeaderSize {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 128, "int")
+        set => NumPut("int", value, this, 128)
     }
 
     /**
      * @type {Integer}
      */
     LogicalDpiX {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 132, "int")
+        set => NumPut("int", value, this, 132)
     }
 
     /**
      * @type {Integer}
      */
     LogicalDpiY {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 }

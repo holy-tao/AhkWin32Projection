@@ -9,9 +9,9 @@
  */
 class SET_VIRTUAL_DISK_INFO extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-set_virtual_disk_info_version">SET_VIRTUAL_DISK_INFO_VERSION</a> 
@@ -26,7 +26,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _ParentPathWithDepthInfo extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -48,7 +48,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _ParentLocator extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -73,16 +73,16 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
      * @type {Pointer<Char>}
      */
     ParentFilePath {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     UniqueIdentifier {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -91,7 +91,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     ParentPathWithDepthInfo{
         get {
             if(!this.HasProp("__ParentPathWithDepthInfo"))
-                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(this.ptr + 4)
+                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(this.ptr + 8)
             return this.__ParentPathWithDepthInfo
         }
     }
@@ -100,24 +100,24 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
      * @type {Integer}
      */
     VhdPhysicalSectorSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     VirtualDiskId {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     ChangeTrackingEnabled {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -126,7 +126,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     ParentLocator{
         get {
             if(!this.HasProp("__ParentLocator"))
-                this.__ParentLocator := %this.__Class%._ParentLocator(this.ptr + 4)
+                this.__ParentLocator := %this.__Class%._ParentLocator(this.ptr + 8)
             return this.__ParentLocator
         }
     }

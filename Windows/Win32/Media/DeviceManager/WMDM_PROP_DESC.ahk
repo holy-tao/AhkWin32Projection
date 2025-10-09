@@ -43,7 +43,7 @@
  */
 class WMDM_PROP_DESC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 88
 
     static packingSize => 8
 

@@ -37,7 +37,7 @@
  */
 class SEARCH_COLUMN_PROPERTIES extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -62,7 +62,7 @@ class SEARCH_COLUMN_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     lcid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

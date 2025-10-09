@@ -18,7 +18,7 @@
  */
 class FWP_RANGE0 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -45,7 +45,7 @@ class FWP_RANGE0 extends Win32Struct
     valueHigh{
         get {
             if(!this.HasProp("__valueHigh"))
-                this.__valueHigh := FWP_VALUE0(this.ptr + 8)
+                this.__valueHigh := FWP_VALUE0(this.ptr + 16)
             return this.__valueHigh
         }
     }

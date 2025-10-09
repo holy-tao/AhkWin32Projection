@@ -11,7 +11,7 @@
  */
 class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -46,23 +46,23 @@ class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct
      * @type {Integer}
      */
     u32 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     u64 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Float}
      */
     d {
-        get => NumGet(this, 20, "double")
-        set => NumPut("double", value, this, 20)
+        get => NumGet(this, 24, "double")
+        set => NumPut("double", value, this, 24)
     }
 }

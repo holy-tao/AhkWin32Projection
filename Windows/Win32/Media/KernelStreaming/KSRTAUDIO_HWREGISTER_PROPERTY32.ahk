@@ -8,7 +8,7 @@
  */
 class KSRTAUDIO_HWREGISTER_PROPERTY32 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class KSRTAUDIO_HWREGISTER_PROPERTY32 extends Win32Struct
      * @type {Integer}
      */
     BaseAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

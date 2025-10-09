@@ -8,7 +8,7 @@
  */
 class GNSS_GEOREGION extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 528
 
     static packingSize => 8
 

@@ -10,7 +10,7 @@
  */
 class GET_VIRTUAL_DISK_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _Size extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 28
         static packingSize => 8
 
         /**
@@ -66,7 +66,7 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _ParentLocation extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 28
         static packingSize => 8
 
         /**
@@ -88,7 +88,7 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _PhysicalDisk extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 28
         static packingSize => 8
 
         /**
@@ -118,7 +118,7 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _ChangeTrackingState extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 28
         static packingSize => 8
 
         /**

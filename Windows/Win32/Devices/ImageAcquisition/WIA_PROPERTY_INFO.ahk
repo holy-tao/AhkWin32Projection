@@ -7,7 +7,7 @@
  */
 class WIA_PROPERTY_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _Range extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -66,7 +66,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _RangeFloat extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -104,7 +104,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _List extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -134,7 +134,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _ListFloat extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -164,7 +164,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _ListGuid extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -194,7 +194,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _ListBStr extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -224,7 +224,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     class _Flag extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 36
         static packingSize => 8
 
         /**

@@ -9,7 +9,7 @@
  */
 class USB_HUB_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 88
 
     static packingSize => 8
 

@@ -9,7 +9,7 @@
  */
 class WAITCHAIN_NODE_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 280
 
     static packingSize => 8
 
@@ -32,7 +32,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     }
 
     class _LockObject extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 272
         static packingSize => 8
 
         /**
@@ -62,7 +62,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     }
 
     class _ThreadObject extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 272
         static packingSize => 8
 
         /**

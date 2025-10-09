@@ -17,9 +17,9 @@
  */
 class WNV_REDIRECT_PARAM extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 64
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
@@ -74,7 +74,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
     CA{
         get {
             if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(this.ptr + 12)
+                this.__CA := WNV_IP_ADDRESS(this.ptr + 16)
             return this.__CA
         }
     }
@@ -88,7 +88,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(this.ptr + 16)
+                this.__PA := WNV_IP_ADDRESS(this.ptr + 32)
             return this.__PA
         }
     }
@@ -102,7 +102,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
     NewPA{
         get {
             if(!this.HasProp("__NewPA"))
-                this.__NewPA := WNV_IP_ADDRESS(this.ptr + 20)
+                this.__NewPA := WNV_IP_ADDRESS(this.ptr + 48)
             return this.__NewPA
         }
     }

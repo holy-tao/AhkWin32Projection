@@ -14,7 +14,7 @@
  */
 class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
 {
-    static sizeof => 1560
+    static sizeof => 65616
 
     static packingSize => 8
 

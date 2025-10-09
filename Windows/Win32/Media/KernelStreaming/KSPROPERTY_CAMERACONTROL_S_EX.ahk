@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -28,24 +28,24 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
      * @type {Integer}
      */
     Value {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     Capabilities {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -54,7 +54,7 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
     FocusRect{
         get {
             if(!this.HasProp("__FocusRect"))
-                this.__FocusRect := RECT(this.ptr + 24)
+                this.__FocusRect := RECT(this.ptr + 32)
             return this.__FocusRect
         }
     }

@@ -9,7 +9,7 @@
  */
 class KSWAVETABLE_WAVE_DESC extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -28,22 +28,6 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
      * @type {Integer}
      */
     Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Looped {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LoopPoint {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
     }
@@ -51,9 +35,25 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     /**
      * @type {Integer}
      */
-    InROM {
+    Looped {
         get => NumGet(this, 20, "int")
         set => NumPut("int", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LoopPoint {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    InROM {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -62,7 +62,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := KSDATAFORMAT(this.ptr + 24)
+                this.__Format := KSDATAFORMAT(this.ptr + 32)
             return this.__Format
         }
     }

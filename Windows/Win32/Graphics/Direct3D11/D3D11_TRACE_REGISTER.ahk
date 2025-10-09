@@ -26,7 +26,7 @@
  */
 class D3D11_TRACE_REGISTER extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 12
 
     static packingSize => 4
 
@@ -63,8 +63,8 @@ class D3D11_TRACE_REGISTER extends Win32Struct
      * @type {Integer}
      */
     OperandIndex {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -83,7 +83,7 @@ class D3D11_TRACE_REGISTER extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 }

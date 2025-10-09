@@ -9,7 +9,7 @@
  */
 class MSP_EVENT_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -41,7 +41,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_ADDRESS_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -63,7 +63,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_CALL_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -109,7 +109,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_TSP_DATA extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -134,7 +134,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_PRIVATE_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -156,7 +156,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_FILE_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -202,7 +202,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_ASR_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -224,7 +224,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_TTS_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -246,7 +246,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_TONE_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 32
         static packingSize => 8
 
         /**

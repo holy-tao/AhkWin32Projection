@@ -13,9 +13,9 @@
  */
 class RPC_EE_INFO_PARAM extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type of parameter being provided as extended error information. This value determines which union member(s) is used. Valid values are the following: 
@@ -43,40 +43,40 @@ class RPC_EE_INFO_PARAM extends Win32Struct
      * @type {Pointer<Byte>}
      */
     AnsiString {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     UnicodeString {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     LVal {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     SVal {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
+        get => NumGet(this, 8, "short")
+        set => NumPut("short", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     PVal {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -85,7 +85,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     BVal{
         get {
             if(!this.HasProp("__BVal"))
-                this.__BVal := BinaryParam(this.ptr + 4)
+                this.__BVal := BinaryParam(this.ptr + 8)
             return this.__BVal
         }
     }

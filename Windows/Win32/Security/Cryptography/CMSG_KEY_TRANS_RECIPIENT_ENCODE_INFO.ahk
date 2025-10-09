@@ -14,7 +14,7 @@
  */
 class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -93,6 +93,6 @@ class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 96
+        this.cbSize := 112
     }
 }

@@ -10,7 +10,7 @@
  */
 class ExtendedDebugPropertyInfo extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -101,15 +101,15 @@ class ExtendedDebugPropertyInfo extends Win32Struct
      * @type {Pointer<ILockBytes>}
      */
     plbValue {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Pointer<IDebugExtendedProperty>}
      */
     pDebugExtProp {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

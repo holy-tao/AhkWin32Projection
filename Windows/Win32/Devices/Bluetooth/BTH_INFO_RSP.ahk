@@ -7,9 +7,9 @@
  */
 class BTH_INFO_RSP extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 56
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -31,8 +31,8 @@ class BTH_INFO_RSP extends Win32Struct
      * @type {Integer}
      */
     connectionlessMTU {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 
     /**
@@ -41,7 +41,7 @@ class BTH_INFO_RSP extends Win32Struct
     data{
         get {
             if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 4, 44, Primitive, "char")
+                this.__dataProxyArray := Win32FixedArray(this.ptr + 8, 44, Primitive, "char")
             return this.__dataProxyArray
         }
     }

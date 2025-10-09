@@ -10,7 +10,7 @@
  */
 class DRT_EVENT_DATA extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -42,7 +42,7 @@ class DRT_EVENT_DATA extends Win32Struct
     }
 
     class _leafsetKeyChange extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 40
         static packingSize => 8
 
         /**
@@ -78,7 +78,7 @@ class DRT_EVENT_DATA extends Win32Struct
     }
 
     class _registrationStateChange extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 40
         static packingSize => 8
 
         /**
@@ -103,7 +103,7 @@ class DRT_EVENT_DATA extends Win32Struct
     }
 
     class _statusChange extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 40
         static packingSize => 8
 
         class _bootstrapAddresses extends Win32Struct {

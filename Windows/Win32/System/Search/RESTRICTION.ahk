@@ -42,12 +42,12 @@
  */
 class RESTRICTION extends Win32Struct
 {
-    static sizeof => 224
+    static sizeof => 256
 
     static packingSize => 8
 
     class _URes extends Win32Struct {
-        static sizeof => 224
+        static sizeof => 256
         static packingSize => 8
 
         /**

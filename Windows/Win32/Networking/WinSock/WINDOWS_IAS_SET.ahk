@@ -7,7 +7,7 @@
  */
 class WINDOWS_IAS_SET extends Win32Struct
 {
-    static sizeof => 664
+    static sizeof => 1680
 
     static packingSize => 8
 
@@ -36,7 +36,7 @@ class WINDOWS_IAS_SET extends Win32Struct
     }
 
     class _irdaAttribOctetSeq extends Win32Struct {
-        static sizeof => 10
+        static sizeof => 1032
         static packingSize => 8
 
         /**
@@ -61,7 +61,7 @@ class WINDOWS_IAS_SET extends Win32Struct
     }
 
     class _irdaAttribUsrStr extends Win32Struct {
-        static sizeof => 10
+        static sizeof => 1032
         static packingSize => 8
 
         /**

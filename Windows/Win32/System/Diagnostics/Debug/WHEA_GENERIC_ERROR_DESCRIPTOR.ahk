@@ -9,7 +9,7 @@
  */
 class WHEA_GENERIC_ERROR_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 

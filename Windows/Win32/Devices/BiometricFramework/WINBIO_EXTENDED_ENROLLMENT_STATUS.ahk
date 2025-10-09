@@ -11,7 +11,7 @@
  */
 class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 376
 
     static packingSize => 8
 
@@ -70,7 +70,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     }
 
     class _FacialFeatures extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 348
         static packingSize => 8
 
         class _OpaqueEngineData extends Win32Struct {
@@ -131,7 +131,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     }
 
     class _Fingerprint extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 348
         static packingSize => 8
 
         /**
@@ -185,7 +185,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     }
 
     class _Iris extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 348
         static packingSize => 8
 
         class _Point3D extends Win32Struct {

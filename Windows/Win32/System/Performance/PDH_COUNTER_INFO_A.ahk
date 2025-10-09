@@ -14,7 +14,7 @@
  */
 class PDH_COUNTER_INFO_A extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -177,8 +177,8 @@ class PDH_COUNTER_INFO_A extends Win32Struct
      * @type {Pointer<Byte>}
      */
     szExplainText {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -188,7 +188,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     DataBuffer{
         get {
             if(!this.HasProp("__DataBufferProxyArray"))
-                this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "uint")
+                this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "uint")
             return this.__DataBufferProxyArray
         }
     }

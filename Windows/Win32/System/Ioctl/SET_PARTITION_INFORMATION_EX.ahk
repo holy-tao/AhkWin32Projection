@@ -8,9 +8,9 @@
  */
 class SET_PARTITION_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 104
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -24,8 +24,8 @@ class SET_PARTITION_INFORMATION_EX extends Win32Struct
      * @type {Integer}
      */
     Mbr {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -34,7 +34,7 @@ class SET_PARTITION_INFORMATION_EX extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := PARTITION_INFORMATION_GPT(this.ptr + 4)
+                this.__Gpt := PARTITION_INFORMATION_GPT(this.ptr + 8)
             return this.__Gpt
         }
     }

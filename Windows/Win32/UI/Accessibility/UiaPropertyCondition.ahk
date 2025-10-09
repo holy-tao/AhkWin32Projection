@@ -12,7 +12,7 @@
  */
 class UiaPropertyCondition extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -59,7 +59,7 @@ class UiaPropertyCondition extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

@@ -16,7 +16,7 @@
  */
 class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX extends Win32Struct
 {
-    static sizeof => 280
+    static sizeof => 288
 
     static packingSize => 8
 

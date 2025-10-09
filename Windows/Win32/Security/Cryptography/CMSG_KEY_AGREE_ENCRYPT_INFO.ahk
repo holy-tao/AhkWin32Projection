@@ -30,7 +30,7 @@
  */
 class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -112,8 +112,8 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
      * @type {Integer}
      */
     cKeyAgreeKeyEncryptInfo {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -121,8 +121,8 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
      * @type {Pointer<CMSG_KEY_AGREE_KEY_ENCRYPT_INFO>}
      */
     rgpKeyAgreeKeyEncryptInfo {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -203,8 +203,8 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -213,6 +213,6 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 104
+        this.cbSize := 128
     }
 }

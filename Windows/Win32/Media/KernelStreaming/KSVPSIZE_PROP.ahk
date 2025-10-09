@@ -9,7 +9,7 @@
  */
 class KSVPSIZE_PROP extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSVPSIZE_PROP extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := KS_AMVPSIZE(this.ptr + 8)
+                this.__Size := KS_AMVPSIZE(this.ptr + 16)
             return this.__Size
         }
     }

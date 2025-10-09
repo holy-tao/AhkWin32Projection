@@ -13,7 +13,7 @@
  */
 class FWPM_NET_EVENT0 extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -34,55 +34,55 @@ class FWPM_NET_EVENT0 extends Win32Struct
      * @type {Integer}
      */
     type {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_MM_FAILURE0>}
      */
     ikeMmFailure {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_QM_FAILURE0>}
      */
     ikeQmFailure {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_EM_FAILURE0>}
      */
     ikeEmFailure {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CLASSIFY_DROP0>}
      */
     classifyDrop {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IPSEC_KERNEL_DROP0>}
      */
     ipsecDrop {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IPSEC_DOSP_DROP0>}
      */
     idpDrop {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

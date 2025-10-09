@@ -9,7 +9,7 @@
  */
 class WHV_TRIGGER_PARAMETERS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class WHV_TRIGGER_PARAMETERS extends Win32Struct
     }
 
     class _DeviceInterrupt extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 24
         static packingSize => 8
 
         /**

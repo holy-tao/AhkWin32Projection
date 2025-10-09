@@ -14,7 +14,7 @@
  */
 class D3D12_ROOT_PARAMETER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -65,7 +65,7 @@ class D3D12_ROOT_PARAMETER extends Win32Struct
      * @type {Integer}
      */
     ShaderVisibility {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

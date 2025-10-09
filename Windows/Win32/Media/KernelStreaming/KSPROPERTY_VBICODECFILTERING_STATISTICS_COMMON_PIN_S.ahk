@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_VBICODECFILTERING_STATISTICS_COMMON_PIN_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSPROPERTY_VBICODECFILTERING_STATISTICS_COMMON_PIN_S extends Win32Struct
     Statistics{
         get {
             if(!this.HasProp("__Statistics"))
-                this.__Statistics := VBICODECFILTERING_STATISTICS_COMMON_PIN(this.ptr + 8)
+                this.__Statistics := VBICODECFILTERING_STATISTICS_COMMON_PIN(this.ptr + 16)
             return this.__Statistics
         }
     }

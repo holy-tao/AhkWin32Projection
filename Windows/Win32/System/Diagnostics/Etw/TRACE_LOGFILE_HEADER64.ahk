@@ -9,7 +9,7 @@
  */
 class TRACE_LOGFILE_HEADER64 extends Win32Struct
 {
-    static sizeof => 280
+    static sizeof => 288
 
     static packingSize => 8
 
@@ -178,16 +178,16 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
      * @type {Integer}
      */
     LoggerName {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     LogFileName {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -196,7 +196,7 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 64)
+                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 72)
             return this.__TimeZone
         }
     }
@@ -205,14 +205,6 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
      * @type {Integer}
      */
     BootTime {
-        get => NumGet(this, 248, "int64")
-        set => NumPut("int64", value, this, 248)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PerfFreq {
         get => NumGet(this, 256, "int64")
         set => NumPut("int64", value, this, 256)
     }
@@ -220,7 +212,7 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
     /**
      * @type {Integer}
      */
-    StartTime {
+    PerfFreq {
         get => NumGet(this, 264, "int64")
         set => NumPut("int64", value, this, 264)
     }
@@ -228,16 +220,24 @@ class TRACE_LOGFILE_HEADER64 extends Win32Struct
     /**
      * @type {Integer}
      */
+    StartTime {
+        get => NumGet(this, 272, "int64")
+        set => NumPut("int64", value, this, 272)
+    }
+
+    /**
+     * @type {Integer}
+     */
     ReservedFlags {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
+        get => NumGet(this, 280, "uint")
+        set => NumPut("uint", value, this, 280)
     }
 
     /**
      * @type {Integer}
      */
     BuffersLost {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 284, "uint")
+        set => NumPut("uint", value, this, 284)
     }
 }

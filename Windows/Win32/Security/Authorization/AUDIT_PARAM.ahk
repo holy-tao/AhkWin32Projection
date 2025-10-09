@@ -7,7 +7,7 @@
  */
 class AUDIT_PARAM extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -39,70 +39,38 @@ class AUDIT_PARAM extends Win32Struct
      * @type {Pointer}
      */
     Data0 {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     String {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer}
      */
     u {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<SID>}
      */
     psid {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     pguid {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LogonId_LowPart {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Pointer<AUDIT_OBJECT_TYPES>}
-     */
-    pObjectTypes {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
-    }
-
-    /**
-     * @type {Pointer<AUDIT_IP_ADDRESS>}
-     */
-    pIpAddress {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Data1 {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
@@ -110,8 +78,40 @@ class AUDIT_PARAM extends Win32Struct
     /**
      * @type {Integer}
      */
+    LogonId_LowPart {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * @type {Pointer<AUDIT_OBJECT_TYPES>}
+     */
+    pObjectTypes {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Pointer<AUDIT_IP_ADDRESS>}
+     */
+    pIpAddress {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    Data1 {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
     LogonId_HighPart {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

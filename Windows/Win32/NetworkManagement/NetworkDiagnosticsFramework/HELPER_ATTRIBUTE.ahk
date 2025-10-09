@@ -13,7 +13,7 @@
  */
 class HELPER_ATTRIBUTE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -43,88 +43,88 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * @type {Integer}
      */
     Boolean {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Char {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Byte {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Short {
-        get => NumGet(this, 12, "short")
-        set => NumPut("short", value, this, 12)
+        get => NumGet(this, 16, "short")
+        set => NumPut("short", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Word {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Int {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     DWord {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Int64 {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     UInt64 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     PWStr {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     Guid {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -133,7 +133,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     LifeTime{
         get {
             if(!this.HasProp("__LifeTime"))
-                this.__LifeTime := LIFE_TIME(this.ptr + 12)
+                this.__LifeTime := LIFE_TIME(this.ptr + 16)
             return this.__LifeTime
         }
     }
@@ -144,7 +144,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := DIAG_SOCKADDR(this.ptr + 12)
+                this.__Address := DIAG_SOCKADDR(this.ptr + 16)
             return this.__Address
         }
     }
@@ -155,7 +155,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     OctetString{
         get {
             if(!this.HasProp("__OctetString"))
-                this.__OctetString := OCTET_STRING(this.ptr + 12)
+                this.__OctetString := OCTET_STRING(this.ptr + 16)
             return this.__OctetString
         }
     }

@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -28,16 +28,16 @@ class KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S extends Win32Struct
      * @type {Integer}
      */
     StreamIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     RangeIndex {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -46,7 +46,7 @@ class KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S extends Win32Struct
     Dimensions{
         get {
             if(!this.HasProp("__Dimensions"))
-                this.__Dimensions := SIZE(this.ptr + 16)
+                this.__Dimensions := SIZE(this.ptr + 24)
             return this.__Dimensions
         }
     }
@@ -55,15 +55,15 @@ class KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE_S extends Win32Struct
      * @type {Integer}
      */
     CurrentActualFrameRate {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     CurrentMaxAvailableFrameRate {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
+        get => NumGet(this, 40, "int64")
+        set => NumPut("int64", value, this, 40)
     }
 }

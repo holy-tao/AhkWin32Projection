@@ -9,9 +9,9 @@
  */
 class CHAR_INFO extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 6
 
-    static packingSize => 2
+    static packingSize => 3
 
     /**
      * @type {Integer}
@@ -52,7 +52,7 @@ class CHAR_INFO extends Win32Struct
      * @type {Integer}
      */
     Attributes {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 }

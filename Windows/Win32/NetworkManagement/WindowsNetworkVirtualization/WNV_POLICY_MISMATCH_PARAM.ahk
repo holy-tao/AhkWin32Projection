@@ -14,9 +14,9 @@
  */
 class WNV_POLICY_MISMATCH_PARAM extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
@@ -74,7 +74,7 @@ class WNV_POLICY_MISMATCH_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(this.ptr + 12)
+                this.__PA := WNV_IP_ADDRESS(this.ptr + 24)
             return this.__PA
         }
     }

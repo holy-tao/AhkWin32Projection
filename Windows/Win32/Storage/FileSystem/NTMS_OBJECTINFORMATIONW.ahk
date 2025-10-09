@@ -37,7 +37,7 @@
  */
 class NTMS_OBJECTINFORMATIONW extends Win32Struct
 {
-    static sizeof => 464
+    static sizeof => 1400
 
     static packingSize => 8
 

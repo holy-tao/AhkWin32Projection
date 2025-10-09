@@ -12,7 +12,7 @@
  */
 class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -42,8 +42,8 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
      * @type {Pointer<Char>}
      */
     commandState {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -51,7 +51,7 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
      * @type {Integer}
      */
     exitCode {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

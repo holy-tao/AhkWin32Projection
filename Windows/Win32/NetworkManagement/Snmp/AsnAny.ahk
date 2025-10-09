@@ -13,9 +13,9 @@
  */
 class AsnAny extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: <b>BYTE</b>
@@ -30,24 +30,24 @@ class AsnAny extends Win32Struct
      * @type {Integer}
      */
     number {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     unsigned32 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     counter64 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -56,7 +56,7 @@ class AsnAny extends Win32Struct
     string{
         get {
             if(!this.HasProp("__string"))
-                this.__string := AsnOctetString(this.ptr + 4)
+                this.__string := AsnOctetString(this.ptr + 8)
             return this.__string
         }
     }
@@ -67,7 +67,7 @@ class AsnAny extends Win32Struct
     bits{
         get {
             if(!this.HasProp("__bits"))
-                this.__bits := AsnOctetString(this.ptr + 4)
+                this.__bits := AsnOctetString(this.ptr + 8)
             return this.__bits
         }
     }
@@ -78,7 +78,7 @@ class AsnAny extends Win32Struct
     object{
         get {
             if(!this.HasProp("__object"))
-                this.__object := AsnObjectIdentifier(this.ptr + 4)
+                this.__object := AsnObjectIdentifier(this.ptr + 8)
             return this.__object
         }
     }
@@ -89,7 +89,7 @@ class AsnAny extends Win32Struct
     sequence{
         get {
             if(!this.HasProp("__sequence"))
-                this.__sequence := AsnOctetString(this.ptr + 4)
+                this.__sequence := AsnOctetString(this.ptr + 8)
             return this.__sequence
         }
     }
@@ -100,7 +100,7 @@ class AsnAny extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := AsnOctetString(this.ptr + 4)
+                this.__address := AsnOctetString(this.ptr + 8)
             return this.__address
         }
     }
@@ -109,24 +109,24 @@ class AsnAny extends Win32Struct
      * @type {Integer}
      */
     counter {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     gauge {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     ticks {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -135,7 +135,7 @@ class AsnAny extends Win32Struct
     arbitrary{
         get {
             if(!this.HasProp("__arbitrary"))
-                this.__arbitrary := AsnOctetString(this.ptr + 4)
+                this.__arbitrary := AsnOctetString(this.ptr + 8)
             return this.__arbitrary
         }
     }

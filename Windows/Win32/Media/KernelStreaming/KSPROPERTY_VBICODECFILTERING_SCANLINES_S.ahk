@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
     Scanlines{
         get {
             if(!this.HasProp("__Scanlines"))
-                this.__Scanlines := VBICODECFILTERING_SCANLINES(this.ptr + 8)
+                this.__Scanlines := VBICODECFILTERING_SCANLINES(this.ptr + 16)
             return this.__Scanlines
         }
     }

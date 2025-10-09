@@ -13,7 +13,7 @@
  */
 class PARTITION_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 128
 
     static packingSize => 8
 

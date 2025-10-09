@@ -7,9 +7,9 @@
  */
 class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 12
 
-    static packingSize => 4
+    static packingSize => 6
 
     /**
      * @type {Integer}
@@ -39,7 +39,7 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct
      * @type {Integer}
      */
     OffsetToData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

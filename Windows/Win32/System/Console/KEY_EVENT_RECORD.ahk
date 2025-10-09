@@ -13,7 +13,7 @@
  */
 class KEY_EVENT_RECORD extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 20
 
     static packingSize => 4
 
@@ -57,16 +57,16 @@ class KEY_EVENT_RECORD extends Win32Struct
      * @type {Integer}
      */
     UnicodeChar {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     AsciiChar {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
@@ -86,7 +86,7 @@ class KEY_EVENT_RECORD extends Win32Struct
      * @type {Integer}
      */
     dwControlKeyState {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

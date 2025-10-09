@@ -8,7 +8,7 @@
  */
 class WINBIO_PROTECTION_POLICY extends Win32Struct
 {
-    static sizeof => 168
+    static sizeof => 240
 
     static packingSize => 8
 
@@ -35,24 +35,24 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
      * @type {Pointer<Guid>}
      */
     DatabaseId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     UserState {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Pointer}
      */
     PolicySize {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -61,7 +61,7 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
     Policy{
         get {
             if(!this.HasProp("__PolicyProxyArray"))
-                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 40, 128, Primitive, "char")
+                this.__PolicyProxyArray := Win32FixedArray(this.ptr + 112, 128, Primitive, "char")
             return this.__PolicyProxyArray
         }
     }

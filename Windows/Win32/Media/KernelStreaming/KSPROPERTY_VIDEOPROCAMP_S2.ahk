@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_VIDEOPROCAMP_S2 extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,31 +27,31 @@ class KSPROPERTY_VIDEOPROCAMP_S2 extends Win32Struct
      * @type {Integer}
      */
     Value1 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     Capabilities {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     Value2 {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

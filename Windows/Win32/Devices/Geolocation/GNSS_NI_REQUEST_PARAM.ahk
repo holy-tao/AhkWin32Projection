@@ -10,7 +10,7 @@
  */
 class GNSS_NI_REQUEST_PARAM extends Win32Struct
 {
-    static sizeof => 560
+    static sizeof => 1600
 
     static packingSize => 8
 
@@ -99,15 +99,15 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
      * @type {Integer}
      */
     ResponseTimeInSec {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
+        get => NumGet(this, 1592, "uint")
+        set => NumPut("uint", value, this, 1592)
     }
 
     /**
      * @type {Integer}
      */
     EmergencyLocation {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
+        get => NumGet(this, 1596, "int")
+        set => NumPut("int", value, this, 1596)
     }
 }

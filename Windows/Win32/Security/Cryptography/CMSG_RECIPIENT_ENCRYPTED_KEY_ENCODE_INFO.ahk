@@ -14,7 +14,7 @@
  */
 class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -58,7 +58,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
     Date{
         get {
             if(!this.HasProp("__Date"))
-                this.__Date := FILETIME(this.ptr + 56)
+                this.__Date := FILETIME(this.ptr + 72)
             return this.__Date
         }
     }
@@ -68,8 +68,8 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
      * @type {Pointer<CRYPT_ATTRIBUTE_TYPE_VALUE>}
      */
     pOtherAttr {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -78,6 +78,6 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 72
+        this.cbSize := 88
     }
 }

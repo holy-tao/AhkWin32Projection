@@ -8,7 +8,7 @@
  */
 class KSM_BDA_GDDS_SERVICEFROMTUNEXML extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -27,8 +27,8 @@ class KSM_BDA_GDDS_SERVICEFROMTUNEXML extends Win32Struct
      * @type {Integer}
      */
     ulTuneXmlLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -37,7 +37,7 @@ class KSM_BDA_GDDS_SERVICEFROMTUNEXML extends Win32Struct
     argbTuneXml{
         get {
             if(!this.HasProp("__argbTuneXmlProxyArray"))
-                this.__argbTuneXmlProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__argbTuneXmlProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
             return this.__argbTuneXmlProxyArray
         }
     }

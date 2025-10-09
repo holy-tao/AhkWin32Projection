@@ -10,7 +10,7 @@
  */
 class DETAILSINFO extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 296
 
     static packingSize => 8
 
@@ -66,7 +66,7 @@ class DETAILSINFO extends Win32Struct
      * @type {Integer}
      */
     iImage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 288, "int")
+        set => NumPut("int", value, this, 288)
     }
 }

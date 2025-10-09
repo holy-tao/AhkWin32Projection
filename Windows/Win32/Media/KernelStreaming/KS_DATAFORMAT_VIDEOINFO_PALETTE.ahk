@@ -13,7 +13,7 @@
  */
 class KS_DATAFORMAT_VIDEOINFO_PALETTE extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 2200
 
     static packingSize => 8
 

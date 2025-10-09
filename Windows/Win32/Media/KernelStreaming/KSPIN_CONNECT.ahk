@@ -9,7 +9,7 @@
  */
 class KSPIN_CONNECT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSPIN_CONNECT extends Win32Struct
     Medium{
         get {
             if(!this.HasProp("__Medium"))
-                this.__Medium := KSIDENTIFIER(this.ptr + 8)
+                this.__Medium := KSIDENTIFIER(this.ptr + 16)
             return this.__Medium
         }
     }
@@ -39,16 +39,16 @@ class KSPIN_CONNECT extends Win32Struct
      * @type {Integer}
      */
     PinId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     PinToHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -57,7 +57,7 @@ class KSPIN_CONNECT extends Win32Struct
     Priority{
         get {
             if(!this.HasProp("__Priority"))
-                this.__Priority := KSPRIORITY(this.ptr + 32)
+                this.__Priority := KSPRIORITY(this.ptr + 48)
             return this.__Priority
         }
     }

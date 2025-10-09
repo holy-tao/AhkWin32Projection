@@ -17,7 +17,7 @@
  */
 class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 184
 
     static packingSize => 8
 
@@ -49,7 +49,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     StencilBeginningAccess{
         get {
             if(!this.HasProp("__StencilBeginningAccess"))
-                this.__StencilBeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(this.ptr + 24)
+                this.__StencilBeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(this.ptr + 40)
             return this.__StencilBeginningAccess
         }
     }
@@ -61,7 +61,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     DepthEndingAccess{
         get {
             if(!this.HasProp("__DepthEndingAccess"))
-                this.__DepthEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 40)
+                this.__DepthEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 72)
             return this.__DepthEndingAccess
         }
     }
@@ -73,7 +73,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     StencilEndingAccess{
         get {
             if(!this.HasProp("__StencilEndingAccess"))
-                this.__StencilEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 56)
+                this.__StencilEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 128)
             return this.__StencilEndingAccess
         }
     }

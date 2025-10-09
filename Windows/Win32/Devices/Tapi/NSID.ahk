@@ -8,7 +8,7 @@
  */
 class NSID extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 176
 
     static packingSize => 8
 

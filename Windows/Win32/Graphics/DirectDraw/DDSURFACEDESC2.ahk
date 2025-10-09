@@ -14,7 +14,7 @@
  */
 class DDSURFACEDESC2 extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -258,7 +258,7 @@ class DDSURFACEDESC2 extends Win32Struct
     ddckCKDestBlt{
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
-                this.__ddckCKDestBlt := DDCOLORKEY(this.ptr + 56)
+                this.__ddckCKDestBlt := DDCOLORKEY(this.ptr + 64)
             return this.__ddckCKDestBlt
         }
     }
@@ -270,7 +270,7 @@ class DDSURFACEDESC2 extends Win32Struct
     ddckCKSrcOverlay{
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(this.ptr + 64)
+                this.__ddckCKSrcOverlay := DDCOLORKEY(this.ptr + 72)
             return this.__ddckCKSrcOverlay
         }
     }
@@ -282,7 +282,7 @@ class DDSURFACEDESC2 extends Win32Struct
     ddckCKSrcBlt{
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
-                this.__ddckCKSrcBlt := DDCOLORKEY(this.ptr + 72)
+                this.__ddckCKSrcBlt := DDCOLORKEY(this.ptr + 80)
             return this.__ddckCKSrcBlt
         }
     }
@@ -293,7 +293,7 @@ class DDSURFACEDESC2 extends Win32Struct
     ddpfPixelFormat{
         get {
             if(!this.HasProp("__ddpfPixelFormat"))
-                this.__ddpfPixelFormat := DDPIXELFORMAT(this.ptr + 80)
+                this.__ddpfPixelFormat := DDPIXELFORMAT(this.ptr + 88)
             return this.__ddpfPixelFormat
         }
     }
@@ -302,8 +302,8 @@ class DDSURFACEDESC2 extends Win32Struct
      * @type {Integer}
      */
     dwFVF {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -313,7 +313,7 @@ class DDSURFACEDESC2 extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS2(this.ptr + 88)
+                this.__ddsCaps := DDSCAPS2(this.ptr + 128)
             return this.__ddsCaps
         }
     }
@@ -323,7 +323,7 @@ class DDSURFACEDESC2 extends Win32Struct
      * @type {Integer}
      */
     dwTextureStage {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 }

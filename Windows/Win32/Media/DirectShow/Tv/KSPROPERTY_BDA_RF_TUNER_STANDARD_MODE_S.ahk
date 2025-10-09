@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S extends Win32Struct
      * @type {Integer}
      */
     AutoDetect {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

@@ -9,7 +9,7 @@
  */
 class PICTDESC extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -32,7 +32,7 @@ class PICTDESC extends Win32Struct
     }
 
     class _bmp extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -54,7 +54,7 @@ class PICTDESC extends Win32Struct
     }
 
     class _wmf extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**

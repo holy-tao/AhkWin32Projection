@@ -41,7 +41,7 @@
  */
 class WSACOMPLETION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -57,7 +57,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     class _WindowMessage extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -87,7 +87,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     class _Apc extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -109,7 +109,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     class _Port extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 24
         static packingSize => 8
 
         /**

@@ -13,9 +13,9 @@
  */
 class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The type of command.
@@ -27,7 +27,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
     }
 
     class _Notification extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -46,7 +46,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
     Notification{
         get {
             if(!this.HasProp("__Notification"))
-                this.__Notification := %this.__Class%._Notification(this.ptr + 4)
+                this.__Notification := %this.__Class%._Notification(this.ptr + 8)
             return this.__Notification
         }
     }
@@ -55,7 +55,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
      * @type {Pointer<Void>}
      */
     Enumeration {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

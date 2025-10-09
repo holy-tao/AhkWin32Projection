@@ -9,7 +9,7 @@
  */
 class KSMULTIPLE_DATA_PROP extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSMULTIPLE_DATA_PROP extends Win32Struct
     MultipleItem{
         get {
             if(!this.HasProp("__MultipleItem"))
-                this.__MultipleItem := KSMULTIPLE_ITEM(this.ptr + 8)
+                this.__MultipleItem := KSMULTIPLE_ITEM(this.ptr + 16)
             return this.__MultipleItem
         }
     }

@@ -15,7 +15,7 @@
  */
 class WSMAN_RESPONSE_DATA extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 120
 
     static packingSize => 8
 

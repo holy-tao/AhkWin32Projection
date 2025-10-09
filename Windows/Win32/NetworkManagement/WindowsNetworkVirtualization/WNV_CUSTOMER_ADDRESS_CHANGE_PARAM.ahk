@@ -13,7 +13,7 @@
  */
 class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -42,7 +42,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     CA{
         get {
             if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(this.ptr + 28)
+                this.__CA := WNV_IP_ADDRESS(this.ptr + 32)
             return this.__CA
         }
     }
@@ -51,16 +51,16 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     VirtualSubnetId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     PAFamily {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
+        get => NumGet(this, 52, "ushort")
+        set => NumPut("ushort", value, this, 52)
     }
 
     /**
@@ -69,7 +69,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(this.ptr + 40)
+                this.__PA := WNV_IP_ADDRESS(this.ptr + 56)
             return this.__PA
         }
     }
@@ -78,7 +78,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     NotificationReason {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 }

@@ -8,7 +8,7 @@
  */
 class FWPM_NETWORK_CONNECTION_POLICY_SETTING0 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

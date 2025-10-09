@@ -7,7 +7,7 @@
  */
 class ChannelInfo extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -20,7 +20,7 @@ class ChannelInfo extends Win32Struct
     }
 
     class _DVB extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 16
         static packingSize => 8
 
         /**

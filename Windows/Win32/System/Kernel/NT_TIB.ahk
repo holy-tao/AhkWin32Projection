@@ -7,7 +7,7 @@
  */
 class NT_TIB extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -63,15 +63,15 @@ class NT_TIB extends Win32Struct
      * @type {Pointer<Void>}
      */
     ArbitraryUserPointer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<NT_TIB>}
      */
     Self {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

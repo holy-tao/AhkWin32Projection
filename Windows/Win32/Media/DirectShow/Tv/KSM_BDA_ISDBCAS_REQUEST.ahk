@@ -9,7 +9,7 @@
  */
 class KSM_BDA_ISDBCAS_REQUEST extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -28,16 +28,16 @@ class KSM_BDA_ISDBCAS_REQUEST extends Win32Struct
      * @type {Integer}
      */
     ulRequestID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     ulIsdbCommandSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -46,7 +46,7 @@ class KSM_BDA_ISDBCAS_REQUEST extends Win32Struct
     argbIsdbCommandData{
         get {
             if(!this.HasProp("__argbIsdbCommandDataProxyArray"))
-                this.__argbIsdbCommandDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__argbIsdbCommandDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
             return this.__argbIsdbCommandDataProxyArray
         }
     }

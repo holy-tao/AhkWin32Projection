@@ -10,7 +10,7 @@
  */
 class WINBIO_EVENT extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -23,7 +23,7 @@ class WINBIO_EVENT extends Win32Struct
     }
 
     class _Unclaimed extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 100
         static packingSize => 8
 
         /**
@@ -45,7 +45,7 @@ class WINBIO_EVENT extends Win32Struct
     }
 
     class _UnclaimedIdentify extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 100
         static packingSize => 8
 
         /**
@@ -71,16 +71,16 @@ class WINBIO_EVENT extends Win32Struct
          * @type {Integer}
          */
         SubFactor {
-            get => NumGet(this, 16, "char")
-            set => NumPut("char", value, this, 16)
+            get => NumGet(this, 88, "char")
+            set => NumPut("char", value, this, 88)
         }
     
         /**
          * @type {Integer}
          */
         RejectDetail {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
+            get => NumGet(this, 92, "uint")
+            set => NumPut("uint", value, this, 92)
         }
     
     }

@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_VBICODECFILTERING_NABTS_SUBSTREAMS_S extends Win32Struct
 {
-    static sizeof => 520
+    static sizeof => 528
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSPROPERTY_VBICODECFILTERING_NABTS_SUBSTREAMS_S extends Win32Struct
     Substreams{
         get {
             if(!this.HasProp("__Substreams"))
-                this.__Substreams := VBICODECFILTERING_NABTS_SUBSTREAMS(this.ptr + 8)
+                this.__Substreams := VBICODECFILTERING_NABTS_SUBSTREAMS(this.ptr + 16)
             return this.__Substreams
         }
     }

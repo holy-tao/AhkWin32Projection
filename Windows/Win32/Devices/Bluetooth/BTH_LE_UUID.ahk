@@ -9,9 +9,9 @@
  */
 class BTH_LE_UUID extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * Indicates if the Low Energy (LE) UUID a 16-bit shortened value, or if it is the long 128-bit value.
@@ -26,15 +26,15 @@ class BTH_LE_UUID extends Win32Struct
      * @type {Integer}
      */
     ShortUuid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     LongUuid {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

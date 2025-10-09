@@ -12,7 +12,7 @@
  */
 class RESUTIL_PROPERTY_ITEM extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -51,48 +51,48 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
      * @type {Pointer}
      */
     DefaultPtr {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     Default {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     lpDefault {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<RESUTIL_LARGEINT_DATA>}
      */
     LargeIntData {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<RESUTIL_ULARGEINT_DATA>}
      */
     ULargeIntData {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<RESUTIL_FILETIME_DATA>}
      */
     FileTimeData {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -103,8 +103,8 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
      * @type {Integer}
      */
     Minimum {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -112,8 +112,8 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
      * @type {Integer}
      */
     Maximum {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -121,8 +121,8 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -130,7 +130,7 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
      * @type {Integer}
      */
     Offset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

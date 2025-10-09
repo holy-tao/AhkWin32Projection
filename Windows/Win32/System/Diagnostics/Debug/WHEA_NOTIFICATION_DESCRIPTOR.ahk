@@ -8,9 +8,9 @@
  */
 class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -40,7 +40,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _Interrupt extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -94,7 +94,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _LocalInterrupt extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -148,7 +148,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _Sci extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -202,7 +202,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _Nmi extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -256,7 +256,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _Sea extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -310,7 +310,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _Sei extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -364,7 +364,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     class _Gsiv extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 24
         static packingSize => 8
 
         /**

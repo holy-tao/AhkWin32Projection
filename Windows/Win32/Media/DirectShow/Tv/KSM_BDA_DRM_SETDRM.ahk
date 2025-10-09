@@ -9,7 +9,7 @@
  */
 class KSM_BDA_DRM_SETDRM extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class KSM_BDA_DRM_SETDRM extends Win32Struct
      * @type {Pointer<Guid>}
      */
     NewDRMuuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

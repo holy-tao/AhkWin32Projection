@@ -9,7 +9,7 @@
  */
 class KSRELATIVEEVENT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -70,7 +70,7 @@ class KSRELATIVEEVENT extends Win32Struct
     EventData{
         get {
             if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(this.ptr + 32)
+                this.__EventData := KSEVENTDATA(this.ptr + 40)
             return this.__EventData
         }
     }

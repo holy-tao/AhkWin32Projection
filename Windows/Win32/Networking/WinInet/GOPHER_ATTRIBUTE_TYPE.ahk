@@ -20,9 +20,9 @@
  */
 class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Name of the Gopher category for the attribute. The possible values include: 

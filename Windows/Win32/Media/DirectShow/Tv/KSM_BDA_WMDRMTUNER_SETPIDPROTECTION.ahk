@@ -9,7 +9,7 @@
  */
 class KSM_BDA_WMDRMTUNER_SETPIDPROTECTION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -28,15 +28,15 @@ class KSM_BDA_WMDRMTUNER_SETPIDPROTECTION extends Win32Struct
      * @type {Integer}
      */
     ulPID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     uuidKeyID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -17,7 +17,7 @@
  */
 class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -49,7 +49,7 @@ class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
     EndingAccess{
         get {
             if(!this.HasProp("__EndingAccess"))
-                this.__EndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 24)
+                this.__EndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 40)
             return this.__EndingAccess
         }
     }

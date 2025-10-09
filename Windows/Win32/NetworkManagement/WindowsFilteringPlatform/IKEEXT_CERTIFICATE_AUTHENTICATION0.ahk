@@ -9,7 +9,7 @@
  */
 class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -63,22 +63,30 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
      * @type {Integer}
      */
     outboundConfigType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     outboundRootArraySize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
      */
     outboundRootArray {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
+     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
+     */
+    outboundEnterpriseStoreConfig {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }
@@ -86,17 +94,9 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
     /**
      * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
      */
-    outboundEnterpriseStoreConfig {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_CERT_ROOT_CONFIG0>}
-     */
     outboundTrustedRootStoreConfig {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -104,7 +104,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0 extends Win32Struct
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

@@ -10,7 +10,7 @@
  */
 class CERT_ALT_NAME_ENTRY extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

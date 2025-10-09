@@ -9,12 +9,12 @@
  */
 class DEVICE_MEDIA_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 
     class _DiskInfo extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -76,7 +76,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
     }
 
     class _RemovableDiskInfo extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 36
         static packingSize => 8
 
         /**
@@ -138,7 +138,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
     }
 
     class _TapeInfo extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 36
         static packingSize => 8
 
         /**

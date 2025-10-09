@@ -11,7 +11,7 @@
  */
 class CONTEXT extends Win32Struct
 {
-    static sizeof => 832
+    static sizeof => 848
 
     static packingSize => 8
 
@@ -534,7 +534,7 @@ class CONTEXT extends Win32Struct
     VectorRegister{
         get {
             if(!this.HasProp("__VectorRegisterProxyArray"))
-                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 576, 26, M128A, "")
+                this.__VectorRegisterProxyArray := Win32FixedArray(this.ptr + 592, 26, M128A, "")
             return this.__VectorRegisterProxyArray
         }
     }
@@ -543,22 +543,6 @@ class CONTEXT extends Win32Struct
      * @type {Integer}
      */
     VectorControl {
-        get => NumGet(this, 784, "uint")
-        set => NumPut("uint", value, this, 784)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DebugControl {
-        get => NumGet(this, 792, "uint")
-        set => NumPut("uint", value, this, 792)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastBranchToRip {
         get => NumGet(this, 800, "uint")
         set => NumPut("uint", value, this, 800)
     }
@@ -566,7 +550,7 @@ class CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    LastBranchFromRip {
+    DebugControl {
         get => NumGet(this, 808, "uint")
         set => NumPut("uint", value, this, 808)
     }
@@ -574,7 +558,7 @@ class CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    LastExceptionToRip {
+    LastBranchToRip {
         get => NumGet(this, 816, "uint")
         set => NumPut("uint", value, this, 816)
     }
@@ -582,8 +566,24 @@ class CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    LastExceptionFromRip {
+    LastBranchFromRip {
         get => NumGet(this, 824, "uint")
         set => NumPut("uint", value, this, 824)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LastExceptionToRip {
+        get => NumGet(this, 832, "uint")
+        set => NumPut("uint", value, this, 832)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LastExceptionFromRip {
+        get => NumGet(this, 840, "uint")
+        set => NumPut("uint", value, this, 840)
     }
 }

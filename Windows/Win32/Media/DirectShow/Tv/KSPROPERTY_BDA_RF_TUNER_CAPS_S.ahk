@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -28,22 +28,6 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
      * @type {Integer}
      */
     Mode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AnalogStandardsSupported {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DigitalStandardsSupported {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -51,7 +35,7 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    MinFrequency {
+    AnalogStandardsSupported {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -59,7 +43,7 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    MaxFrequency {
+    DigitalStandardsSupported {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -67,7 +51,7 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    SettlingTime {
+    MinFrequency {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
     }
@@ -75,7 +59,7 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    AnalogSensingRange {
+    MaxFrequency {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
     }
@@ -83,7 +67,7 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    DigitalSensingRange {
+    SettlingTime {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -91,8 +75,24 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    MilliSecondsPerMHz {
+    AnalogSensingRange {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DigitalSensingRange {
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MilliSecondsPerMHz {
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

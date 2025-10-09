@@ -9,7 +9,7 @@
  */
 class WHEA_GENERIC_ERROR_DESCRIPTOR_V2 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -108,55 +108,55 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR_V2 extends Win32Struct
      * @type {Integer}
      */
     ReadAckAddressSpaceID {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     ReadAckAddressBitWidth {
-        get => NumGet(this, 37, "char")
-        set => NumPut("char", value, this, 37)
+        get => NumGet(this, 57, "char")
+        set => NumPut("char", value, this, 57)
     }
 
     /**
      * @type {Integer}
      */
     ReadAckAddressBitOffset {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
+        get => NumGet(this, 58, "char")
+        set => NumPut("char", value, this, 58)
     }
 
     /**
      * @type {Integer}
      */
     ReadAckAddressAccessSize {
-        get => NumGet(this, 39, "char")
-        set => NumPut("char", value, this, 39)
+        get => NumGet(this, 59, "char")
+        set => NumPut("char", value, this, 59)
     }
 
     /**
      * @type {Integer}
      */
     ReadAckAddress {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
+        get => NumGet(this, 64, "int64")
+        set => NumPut("int64", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     ReadAckPreserveMask {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     ReadAckWriteMask {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 }

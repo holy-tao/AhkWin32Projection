@@ -7,9 +7,9 @@
  */
 class MMTIME extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -20,7 +20,7 @@ class MMTIME extends Win32Struct
     }
 
     class _smpte extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 8
         static packingSize => 1
 
         /**
@@ -88,32 +88,32 @@ class MMTIME extends Win32Struct
      * @type {Integer}
      */
     ms {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     sample {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     ticks {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -122,7 +122,7 @@ class MMTIME extends Win32Struct
     smpte{
         get {
             if(!this.HasProp("__smpte"))
-                this.__smpte := %this.__Class%._smpte(this.ptr + 4)
+                this.__smpte := %this.__Class%._smpte(this.ptr + 8)
             return this.__smpte
         }
     }
@@ -131,7 +131,7 @@ class MMTIME extends Win32Struct
      * @type {Integer}
      */
     midi {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }
