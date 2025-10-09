@@ -16,7 +16,7 @@
  */
 class IKEEXT_SA_DETAILS2 extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -84,7 +84,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     ikeProposal{
         get {
             if(!this.HasProp("__ikeProposal"))
-                this.__ikeProposal := IKEEXT_PROPOSAL0(this.ptr + 48)
+                this.__ikeProposal := IKEEXT_PROPOSAL0(this.ptr + 72)
             return this.__ikeProposal
         }
     }
@@ -98,7 +98,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     cookiePair{
         get {
             if(!this.HasProp("__cookiePair"))
-                this.__cookiePair := IKEEXT_COOKIE_PAIR0(this.ptr + 80)
+                this.__cookiePair := IKEEXT_COOKIE_PAIR0(this.ptr + 104)
             return this.__cookiePair
         }
     }
@@ -112,7 +112,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     ikeCredentials{
         get {
             if(!this.HasProp("__ikeCredentials"))
-                this.__ikeCredentials := IKEEXT_CREDENTIALS2(this.ptr + 96)
+                this.__ikeCredentials := IKEEXT_CREDENTIALS2(this.ptr + 120)
             return this.__ikeCredentials
         }
     }
@@ -124,8 +124,8 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ikePolicyKey {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -135,8 +135,8 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
      * @type {Integer}
      */
     virtualIfTunnelId {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -149,7 +149,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     correlationKey{
         get {
             if(!this.HasProp("__correlationKey"))
-                this.__correlationKey := FWP_BYTE_BLOB(this.ptr + 128)
+                this.__correlationKey := FWP_BYTE_BLOB(this.ptr + 152)
             return this.__correlationKey
         }
     }

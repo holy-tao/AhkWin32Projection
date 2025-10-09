@@ -18,7 +18,7 @@
  */
 class DISPLAYCONFIG_MODE_INFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 64
 
     static packingSize => 8
 

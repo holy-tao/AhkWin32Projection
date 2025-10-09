@@ -13,9 +13,9 @@
  */
 class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version)</b>
@@ -32,8 +32,8 @@ class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
      * @type {Integer}
      */
     v4Address {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -42,7 +42,7 @@ class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
     v6Address{
         get {
             if(!this.HasProp("__v6AddressProxyArray"))
-                this.__v6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
+                this.__v6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__v6AddressProxyArray
         }
     }

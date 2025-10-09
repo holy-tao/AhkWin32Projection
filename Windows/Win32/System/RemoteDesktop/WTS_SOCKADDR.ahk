@@ -9,7 +9,7 @@
  */
 class WTS_SOCKADDR extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -23,7 +23,7 @@ class WTS_SOCKADDR extends Win32Struct
     }
 
     class _ipv4 extends Win32Struct {
-        static sizeof => 20
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -56,7 +56,7 @@ class WTS_SOCKADDR extends Win32Struct
     }
 
     class _ipv6 extends Win32Struct {
-        static sizeof => 20
+        static sizeof => 32
         static packingSize => 8
 
         /**

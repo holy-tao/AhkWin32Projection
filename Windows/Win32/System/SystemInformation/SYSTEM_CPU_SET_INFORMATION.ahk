@@ -9,7 +9,7 @@
  */
 class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -32,7 +32,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
     }
 
     class _CpuSet extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -111,24 +111,24 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
          * @type {Integer}
          */
         Reserved {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
+            get => NumGet(this, 14, "uint")
+            set => NumPut("uint", value, this, 14)
         }
     
         /**
          * @type {Integer}
          */
         SchedulingClass {
-            get => NumGet(this, 12, "char")
-            set => NumPut("char", value, this, 12)
+            get => NumGet(this, 14, "char")
+            set => NumPut("char", value, this, 14)
         }
     
         /**
          * @type {Integer}
          */
         AllocationTag {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
         }
     
     }

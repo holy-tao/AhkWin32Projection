@@ -15,9 +15,9 @@
  */
 class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 64
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type of authentication method specified by <a href="https://docs.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_method_type">IKEEXT_AUTHENTICATION_METHOD_TYPE</a>.
@@ -34,7 +34,7 @@ class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
     presharedKeyAuthentication{
         get {
             if(!this.HasProp("__presharedKeyAuthentication"))
-                this.__presharedKeyAuthentication := IKEEXT_PRESHARED_KEY_AUTHENTICATION0(this.ptr + 4)
+                this.__presharedKeyAuthentication := IKEEXT_PRESHARED_KEY_AUTHENTICATION0(this.ptr + 8)
             return this.__presharedKeyAuthentication
         }
     }
@@ -45,7 +45,7 @@ class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
     certificateAuthentication{
         get {
             if(!this.HasProp("__certificateAuthentication"))
-                this.__certificateAuthentication := IKEEXT_CERTIFICATE_AUTHENTICATION0(this.ptr + 4)
+                this.__certificateAuthentication := IKEEXT_CERTIFICATE_AUTHENTICATION0(this.ptr + 8)
             return this.__certificateAuthentication
         }
     }
@@ -56,7 +56,7 @@ class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
     kerberosAuthentication{
         get {
             if(!this.HasProp("__kerberosAuthentication"))
-                this.__kerberosAuthentication := IKEEXT_KERBEROS_AUTHENTICATION0(this.ptr + 4)
+                this.__kerberosAuthentication := IKEEXT_KERBEROS_AUTHENTICATION0(this.ptr + 8)
             return this.__kerberosAuthentication
         }
     }
@@ -65,8 +65,8 @@ class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
      * @type {Integer}
      */
     ntlmV2Authentication {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -75,7 +75,7 @@ class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
     sslAuthentication{
         get {
             if(!this.HasProp("__sslAuthentication"))
-                this.__sslAuthentication := IKEEXT_CERTIFICATE_AUTHENTICATION0(this.ptr + 4)
+                this.__sslAuthentication := IKEEXT_CERTIFICATE_AUTHENTICATION0(this.ptr + 8)
             return this.__sslAuthentication
         }
     }
@@ -86,7 +86,7 @@ class IKEEXT_AUTHENTICATION_METHOD0 extends Win32Struct
     cgaAuthentication{
         get {
             if(!this.HasProp("__cgaAuthentication"))
-                this.__cgaAuthentication := IKEEXT_IPV6_CGA_AUTHENTICATION0(this.ptr + 4)
+                this.__cgaAuthentication := IKEEXT_IPV6_CGA_AUTHENTICATION0(this.ptr + 8)
             return this.__cgaAuthentication
         }
     }

@@ -39,7 +39,7 @@
  */
 class WMDM_PROP_VALUES_RANGE extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -62,7 +62,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     rangeMax{
         get {
             if(!this.HasProp("__rangeMax"))
-                this.__rangeMax := PROPVARIANT(this.ptr + 16)
+                this.__rangeMax := PROPVARIANT(this.ptr + 24)
             return this.__rangeMax
         }
     }
@@ -74,7 +74,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     rangeStep{
         get {
             if(!this.HasProp("__rangeStep"))
-                this.__rangeStep := PROPVARIANT(this.ptr + 32)
+                this.__rangeStep := PROPVARIANT(this.ptr + 48)
             return this.__rangeStep
         }
     }

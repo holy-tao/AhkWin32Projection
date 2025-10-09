@@ -9,7 +9,7 @@
  */
 class BIDI_RESPONSE_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 

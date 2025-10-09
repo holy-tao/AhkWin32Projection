@@ -9,7 +9,7 @@
  */
 class KSM_BDA_TS_SELECTOR_SETTSID extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class KSM_BDA_TS_SELECTOR_SETTSID extends Win32Struct
      * @type {Integer}
      */
     usTSID {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 }

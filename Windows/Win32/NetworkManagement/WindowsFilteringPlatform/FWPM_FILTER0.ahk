@@ -19,7 +19,7 @@
  */
 class FWPM_FILTER0 extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -156,8 +156,8 @@ class FWPM_FILTER0 extends Win32Struct
      * @type {Integer}
      */
     numFilterConditions {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -168,8 +168,8 @@ class FWPM_FILTER0 extends Win32Struct
      * @type {Pointer<FWPM_FILTER_CONDITION0>}
      */
     filterCondition {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -179,7 +179,7 @@ class FWPM_FILTER0 extends Win32Struct
     action{
         get {
             if(!this.HasProp("__action"))
-                this.__action := FWPM_ACTION0(this.ptr + 96)
+                this.__action := FWPM_ACTION0(this.ptr + 104)
             return this.__action
         }
     }
@@ -188,16 +188,16 @@ class FWPM_FILTER0 extends Win32Struct
      * @type {Integer}
      */
     rawContext {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     providerContextKey {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -205,8 +205,8 @@ class FWPM_FILTER0 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     reserved {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -215,8 +215,8 @@ class FWPM_FILTER0 extends Win32Struct
      * @type {Integer}
      */
     filterId {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
@@ -226,7 +226,7 @@ class FWPM_FILTER0 extends Win32Struct
     effectiveWeight{
         get {
             if(!this.HasProp("__effectiveWeight"))
-                this.__effectiveWeight := FWP_VALUE0(this.ptr + 136)
+                this.__effectiveWeight := FWP_VALUE0(this.ptr + 144)
             return this.__effectiveWeight
         }
     }

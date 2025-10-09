@@ -10,9 +10,9 @@
  */
 class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 80
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The type of the descriptor value.
@@ -30,13 +30,13 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     DescriptorUuid{
         get {
             if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(this.ptr + 4)
+                this.__DescriptorUuid := BTH_LE_UUID(this.ptr + 8)
             return this.__DescriptorUuid
         }
     }
 
     class _CharacteristicExtendedProperties extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -58,7 +58,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     class _ClientCharacteristicConfiguration extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -80,7 +80,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     class _CharacteristicFormat extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -105,7 +105,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         Unit{
             get {
                 if(!this.HasProp("__Unit"))
-                    this.__Unit := BTH_LE_UUID(this.ptr + 4)
+                    this.__Unit := BTH_LE_UUID(this.ptr + 8)
                 return this.__Unit
             }
         }
@@ -114,8 +114,8 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
          * @type {Integer}
          */
         NameSpace {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
+            get => NumGet(this, 24, "char")
+            set => NumPut("char", value, this, 24)
         }
     
         /**
@@ -124,7 +124,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         Description{
             get {
                 if(!this.HasProp("__Description"))
-                    this.__Description := BTH_LE_UUID(this.ptr + 12)
+                    this.__Description := BTH_LE_UUID(this.ptr + 32)
                 return this.__Description
             }
         }
@@ -137,7 +137,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     CharacteristicExtendedProperties{
         get {
             if(!this.HasProp("__CharacteristicExtendedProperties"))
-                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(this.ptr + 8)
+                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(this.ptr + 24)
             return this.__CharacteristicExtendedProperties
         }
     }
@@ -148,7 +148,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     ClientCharacteristicConfiguration{
         get {
             if(!this.HasProp("__ClientCharacteristicConfiguration"))
-                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(this.ptr + 8)
+                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(this.ptr + 24)
             return this.__ClientCharacteristicConfiguration
         }
     }
@@ -157,8 +157,8 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
      * @type {Integer}
      */
     ServerCharacteristicConfiguration {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
@@ -167,7 +167,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     CharacteristicFormat{
         get {
             if(!this.HasProp("__CharacteristicFormat"))
-                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(this.ptr + 8)
+                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(this.ptr + 24)
             return this.__CharacteristicFormat
         }
     }
@@ -177,8 +177,8 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
      * @type {Integer}
      */
     DataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -188,7 +188,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")
             return this.__DataProxyArray
         }
     }

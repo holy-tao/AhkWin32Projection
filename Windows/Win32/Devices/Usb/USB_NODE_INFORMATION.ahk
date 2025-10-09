@@ -9,7 +9,7 @@
  */
 class USB_NODE_INFORMATION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 96
 
     static packingSize => 8
 

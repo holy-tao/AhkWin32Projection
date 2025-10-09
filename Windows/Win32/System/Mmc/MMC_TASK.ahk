@@ -18,7 +18,7 @@
  */
 class MMC_TASK extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -39,8 +39,8 @@ class MMC_TASK extends Win32Struct
      * @type {Pointer<Char>}
      */
     szText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -48,8 +48,8 @@ class MMC_TASK extends Win32Struct
      * @type {Pointer<Char>}
      */
     szHelpString {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -60,31 +60,31 @@ class MMC_TASK extends Win32Struct
      * @type {Integer}
      */
     eActionType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {Pointer}
      */
     nCommandID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     szActionURL {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     szScript {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

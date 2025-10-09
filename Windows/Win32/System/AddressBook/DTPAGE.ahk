@@ -17,7 +17,7 @@
  */
 class DTPAGE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -60,7 +60,7 @@ class DTPAGE extends Win32Struct
      * @type {Pointer<DTCTL>}
      */
     lpctl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

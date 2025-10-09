@@ -13,7 +13,7 @@
  */
 class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -52,7 +52,7 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct
     remoteSubNet{
         get {
             if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 8)
+                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 16)
             return this.__remoteSubNet
         }
     }
@@ -66,7 +66,7 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct
     localMainModeCertHash{
         get {
             if(!this.HasProp("__localMainModeCertHash"))
-                this.__localMainModeCertHash := FWP_BYTE_BLOB(this.ptr + 16)
+                this.__localMainModeCertHash := FWP_BYTE_BLOB(this.ptr + 32)
             return this.__localMainModeCertHash
         }
     }

@@ -9,7 +9,7 @@
  */
 class LDR_DATA_TABLE_ENTRY extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -118,7 +118,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
      * @type {Integer}
      */
     TimeDateStamp {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 }

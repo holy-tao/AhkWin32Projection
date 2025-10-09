@@ -12,7 +12,7 @@
  */
 class CRYPT_XML_X509DATA_ITEM extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

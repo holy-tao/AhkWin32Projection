@@ -8,9 +8,9 @@
  */
 class BIDI_DATA extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -24,32 +24,32 @@ class BIDI_DATA extends Win32Struct
      * @type {Integer}
      */
     bData {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     iData {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     sData {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Float}
      */
     fData {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
+        get => NumGet(this, 8, "float")
+        set => NumPut("float", value, this, 8)
     }
 
     /**
@@ -58,7 +58,7 @@ class BIDI_DATA extends Win32Struct
     biData{
         get {
             if(!this.HasProp("__biData"))
-                this.__biData := BINARY_CONTAINER(this.ptr + 4)
+                this.__biData := BINARY_CONTAINER(this.ptr + 8)
             return this.__biData
         }
     }

@@ -15,7 +15,7 @@
  */
 class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 

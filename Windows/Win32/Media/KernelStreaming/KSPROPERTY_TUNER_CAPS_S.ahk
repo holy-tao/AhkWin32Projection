@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_CAPS_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -27,8 +27,8 @@ class KSPROPERTY_TUNER_CAPS_S extends Win32Struct
      * @type {Integer}
      */
     ModesSupported {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -37,7 +37,7 @@ class KSPROPERTY_TUNER_CAPS_S extends Win32Struct
     VideoMedium{
         get {
             if(!this.HasProp("__VideoMedium"))
-                this.__VideoMedium := KSIDENTIFIER(this.ptr + 16)
+                this.__VideoMedium := KSIDENTIFIER(this.ptr + 24)
             return this.__VideoMedium
         }
     }
@@ -48,7 +48,7 @@ class KSPROPERTY_TUNER_CAPS_S extends Win32Struct
     TVAudioMedium{
         get {
             if(!this.HasProp("__TVAudioMedium"))
-                this.__TVAudioMedium := KSIDENTIFIER(this.ptr + 24)
+                this.__TVAudioMedium := KSIDENTIFIER(this.ptr + 40)
             return this.__TVAudioMedium
         }
     }
@@ -59,7 +59,7 @@ class KSPROPERTY_TUNER_CAPS_S extends Win32Struct
     RadioAudioMedium{
         get {
             if(!this.HasProp("__RadioAudioMedium"))
-                this.__RadioAudioMedium := KSIDENTIFIER(this.ptr + 32)
+                this.__RadioAudioMedium := KSIDENTIFIER(this.ptr + 56)
             return this.__RadioAudioMedium
         }
     }

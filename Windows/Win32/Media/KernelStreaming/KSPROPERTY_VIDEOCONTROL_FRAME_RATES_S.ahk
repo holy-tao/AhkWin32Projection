@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,16 +28,16 @@ class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct
      * @type {Integer}
      */
     StreamIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     RangeIndex {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -46,7 +46,7 @@ class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct
     Dimensions{
         get {
             if(!this.HasProp("__Dimensions"))
-                this.__Dimensions := SIZE(this.ptr + 16)
+                this.__Dimensions := SIZE(this.ptr + 24)
             return this.__Dimensions
         }
     }

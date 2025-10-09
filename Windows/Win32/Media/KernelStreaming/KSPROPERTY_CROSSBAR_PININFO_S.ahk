@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_CROSSBAR_PININFO_S extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,32 +27,32 @@ class KSPROPERTY_CROSSBAR_PININFO_S extends Win32Struct
      * @type {Integer}
      */
     Direction {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Index {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     PinType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     RelatedPinIndex {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -61,7 +61,7 @@ class KSPROPERTY_CROSSBAR_PININFO_S extends Win32Struct
     Medium{
         get {
             if(!this.HasProp("__Medium"))
-                this.__Medium := KSIDENTIFIER(this.ptr + 24)
+                this.__Medium := KSIDENTIFIER(this.ptr + 32)
             return this.__Medium
         }
     }

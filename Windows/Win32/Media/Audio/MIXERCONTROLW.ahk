@@ -13,7 +13,7 @@
  */
 class MIXERCONTROLW extends Win32Struct
 {
-    static sizeof => 200
+    static sizeof => 232
 
     static packingSize => 8
 
@@ -251,15 +251,15 @@ class MIXERCONTROLW extends Win32Struct
      * @type {Integer}
      */
     cSteps {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 208, "uint")
+        set => NumPut("uint", value, this, 208)
     }
 
     /**
      * @type {Integer}
      */
     cbCustomData {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 208, "uint")
+        set => NumPut("uint", value, this, 208)
     }
 }

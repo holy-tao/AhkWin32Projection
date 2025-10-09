@@ -31,9 +31,9 @@
  */
 class INTERNET_PER_CONN_OPTIONA extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * 
@@ -48,16 +48,16 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
      * @type {Integer}
      */
     dwValue {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     pszValue {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -66,7 +66,7 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     ftValue{
         get {
             if(!this.HasProp("__ftValue"))
-                this.__ftValue := FILETIME(this.ptr + 4)
+                this.__ftValue := FILETIME(this.ptr + 8)
             return this.__ftValue
         }
     }

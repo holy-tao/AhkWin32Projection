@@ -10,9 +10,9 @@
  */
 class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The handle to the Bluetooth LE GATT profile service.
@@ -30,7 +30,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
     CharacteristicUuid{
         get {
             if(!this.HasProp("__CharacteristicUuid"))
-                this.__CharacteristicUuid := BTH_LE_UUID(this.ptr + 4)
+                this.__CharacteristicUuid := BTH_LE_UUID(this.ptr + 8)
             return this.__CharacteristicUuid
         }
     }
@@ -40,8 +40,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     AttributeHandle {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
@@ -49,8 +49,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     CharacteristicValueHandle {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
@@ -58,8 +58,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsBroadcastable {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+        get => NumGet(this, 28, "char")
+        set => NumPut("char", value, this, 28)
     }
 
     /**
@@ -67,8 +67,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsReadable {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
+        get => NumGet(this, 29, "char")
+        set => NumPut("char", value, this, 29)
     }
 
     /**
@@ -76,8 +76,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsWritable {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
+        get => NumGet(this, 30, "char")
+        set => NumPut("char", value, this, 30)
     }
 
     /**
@@ -85,8 +85,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsWritableWithoutResponse {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
+        get => NumGet(this, 31, "char")
+        set => NumPut("char", value, this, 31)
     }
 
     /**
@@ -94,8 +94,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsSignedWritable {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
@@ -103,8 +103,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsNotifiable {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 
     /**
@@ -112,8 +112,8 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     IsIndicatable {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+        get => NumGet(this, 34, "char")
+        set => NumPut("char", value, this, 34)
     }
 
     /**
@@ -121,7 +121,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * @type {Integer}
      */
     HasExtendedProperties {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
+        get => NumGet(this, 35, "char")
+        set => NumPut("char", value, this, 35)
     }
 }

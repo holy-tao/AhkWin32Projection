@@ -14,7 +14,7 @@
  */
 class D3D12_RESOURCE_BARRIER extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 

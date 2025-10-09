@@ -13,7 +13,7 @@
  */
 class INPUTCONTEXT extends Win32Struct
 {
-    static sizeof => 232
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -99,7 +99,7 @@ class INPUTCONTEXT extends Win32Struct
     cfCompForm{
         get {
             if(!this.HasProp("__cfCompForm"))
-                this.__cfCompForm := COMPOSITIONFORM(this.ptr + 104)
+                this.__cfCompForm := COMPOSITIONFORM(this.ptr + 136)
             return this.__cfCompForm
         }
     }
@@ -110,7 +110,7 @@ class INPUTCONTEXT extends Win32Struct
     cfCandForm{
         get {
             if(!this.HasProp("__cfCandFormProxyArray"))
-                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 136, 4, CANDIDATEFORM, "")
+                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 168, 4, CANDIDATEFORM, "")
             return this.__cfCandFormProxyArray
         }
     }
@@ -119,56 +119,56 @@ class INPUTCONTEXT extends Win32Struct
      * @type {Pointer<Void>}
      */
     hCompStr {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     hCandInfo {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     hGuideLine {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     hPrivate {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
      * @type {Integer}
      */
     dwNumMsgBuf {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     hMsgBuf {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 240, "ptr")
+        set => NumPut("ptr", value, this, 240)
     }
 
     /**
      * @type {Integer}
      */
     fdwInit {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -177,7 +177,7 @@ class INPUTCONTEXT extends Win32Struct
     dwReserve{
         get {
             if(!this.HasProp("__dwReserveProxyArray"))
-                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 220, 3, Primitive, "uint")
+                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 252, 3, Primitive, "uint")
             return this.__dwReserveProxyArray
         }
     }

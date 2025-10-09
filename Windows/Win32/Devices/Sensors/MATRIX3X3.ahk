@@ -8,7 +8,7 @@
  */
 class MATRIX3X3 extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 

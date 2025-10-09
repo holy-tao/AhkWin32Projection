@@ -10,7 +10,7 @@
  */
 class DBPROPINFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 

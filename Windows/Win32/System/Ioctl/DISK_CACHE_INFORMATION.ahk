@@ -9,9 +9,9 @@
  */
 class DISK_CACHE_INFORMATION extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 6
 
     /**
      * Indicates whether the device is capable of saving any parameters in nonvolatile storage.
@@ -77,7 +77,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     }
 
     class _ScalarPrefetch extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 6
         static packingSize => 6
 
         /**
@@ -107,7 +107,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     }
 
     class _BlockPrefetch extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 6
         static packingSize => 6
 
         /**
@@ -134,7 +134,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     ScalarPrefetch{
         get {
             if(!this.HasProp("__ScalarPrefetch"))
-                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(this.ptr + 16)
+                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(this.ptr + 18)
             return this.__ScalarPrefetch
         }
     }
@@ -145,7 +145,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     BlockPrefetch{
         get {
             if(!this.HasProp("__BlockPrefetch"))
-                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(this.ptr + 16)
+                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(this.ptr + 18)
             return this.__BlockPrefetch
         }
     }

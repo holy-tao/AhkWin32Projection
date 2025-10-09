@@ -11,7 +11,7 @@
  */
 class BranchOfficeJobData extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 96
 
     static packingSize => 8
 

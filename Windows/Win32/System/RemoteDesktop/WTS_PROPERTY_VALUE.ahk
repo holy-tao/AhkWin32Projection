@@ -9,9 +9,9 @@
  */
 class WTS_PROPERTY_VALUE extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * 
@@ -23,7 +23,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     }
 
     class _strVal extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -45,7 +45,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     }
 
     class _bVal extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -70,8 +70,8 @@ class WTS_PROPERTY_VALUE extends Win32Struct
      * @type {Integer}
      */
     ulVal {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -80,7 +80,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     strVal{
         get {
             if(!this.HasProp("__strVal"))
-                this.__strVal := %this.__Class%._strVal(this.ptr + 4)
+                this.__strVal := %this.__Class%._strVal(this.ptr + 8)
             return this.__strVal
         }
     }
@@ -91,7 +91,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     bVal{
         get {
             if(!this.HasProp("__bVal"))
-                this.__bVal := %this.__Class%._bVal(this.ptr + 4)
+                this.__bVal := %this.__Class%._bVal(this.ptr + 8)
             return this.__bVal
         }
     }
@@ -100,7 +100,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidVal {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

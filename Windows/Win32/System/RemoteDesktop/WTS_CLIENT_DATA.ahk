@@ -12,7 +12,7 @@
  */
 class WTS_CLIENT_DATA extends Win32Struct
 {
-    static sizeof => 3736
+    static sizeof => 3744
 
     static packingSize => 8
 
@@ -396,8 +396,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {String}
      */
     ClientDirectory {
-        get => StrGet(this.ptr + 3128, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 3128, 256, "UTF-16")
+        get => StrGet(this.ptr + 3136, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 3136, 256, "UTF-16")
     }
 
     /**
@@ -405,8 +405,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     ClientBuildNumber {
-        get => NumGet(this, 3644, "uint")
-        set => NumPut("uint", value, this, 3644)
+        get => NumGet(this, 3652, "uint")
+        set => NumPut("uint", value, this, 3652)
     }
 
     /**
@@ -414,8 +414,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     ClientProductId {
-        get => NumGet(this, 3648, "ushort")
-        set => NumPut("ushort", value, this, 3648)
+        get => NumGet(this, 3656, "ushort")
+        set => NumPut("ushort", value, this, 3656)
     }
 
     /**
@@ -423,8 +423,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     OutBufCountHost {
-        get => NumGet(this, 3650, "ushort")
-        set => NumPut("ushort", value, this, 3650)
+        get => NumGet(this, 3658, "ushort")
+        set => NumPut("ushort", value, this, 3658)
     }
 
     /**
@@ -432,8 +432,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     OutBufCountClient {
-        get => NumGet(this, 3652, "ushort")
-        set => NumPut("ushort", value, this, 3652)
+        get => NumGet(this, 3660, "ushort")
+        set => NumPut("ushort", value, this, 3660)
     }
 
     /**
@@ -441,8 +441,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     OutBufLength {
-        get => NumGet(this, 3654, "ushort")
-        set => NumPut("ushort", value, this, 3654)
+        get => NumGet(this, 3662, "ushort")
+        set => NumPut("ushort", value, this, 3662)
     }
 
     /**
@@ -450,8 +450,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     ClientSessionId {
-        get => NumGet(this, 3656, "uint")
-        set => NumPut("uint", value, this, 3656)
+        get => NumGet(this, 3664, "uint")
+        set => NumPut("uint", value, this, 3664)
     }
 
     /**
@@ -459,8 +459,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {String}
      */
     ClientDigProductId {
-        get => StrGet(this.ptr + 3660, 32, "UTF-16")
-        set => StrPut(value, this.ptr + 3660, 32, "UTF-16")
+        get => StrGet(this.ptr + 3668, 32, "UTF-16")
+        set => StrPut(value, this.ptr + 3668, 32, "UTF-16")
     }
 
     /**
@@ -468,8 +468,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     fDisableCpm {
-        get => NumGet(this, 3726, "char")
-        set => NumPut("char", value, this, 3726)
+        get => NumGet(this, 3734, "char")
+        set => NumPut("char", value, this, 3734)
     }
 
     /**
@@ -477,8 +477,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     fDisableCdm {
-        get => NumGet(this, 3727, "char")
-        set => NumPut("char", value, this, 3727)
+        get => NumGet(this, 3735, "char")
+        set => NumPut("char", value, this, 3735)
     }
 
     /**
@@ -486,8 +486,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     fDisableCcm {
-        get => NumGet(this, 3728, "char")
-        set => NumPut("char", value, this, 3728)
+        get => NumGet(this, 3736, "char")
+        set => NumPut("char", value, this, 3736)
     }
 
     /**
@@ -495,8 +495,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     fDisableLPT {
-        get => NumGet(this, 3729, "char")
-        set => NumPut("char", value, this, 3729)
+        get => NumGet(this, 3737, "char")
+        set => NumPut("char", value, this, 3737)
     }
 
     /**
@@ -504,8 +504,8 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     fDisableClip {
-        get => NumGet(this, 3730, "char")
-        set => NumPut("char", value, this, 3730)
+        get => NumGet(this, 3738, "char")
+        set => NumPut("char", value, this, 3738)
     }
 
     /**
@@ -513,7 +513,7 @@ class WTS_CLIENT_DATA extends Win32Struct
      * @type {Integer}
      */
     fDisablePNP {
-        get => NumGet(this, 3731, "char")
-        set => NumPut("char", value, this, 3731)
+        get => NumGet(this, 3739, "char")
+        set => NumPut("char", value, this, 3739)
     }
 }

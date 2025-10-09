@@ -13,7 +13,7 @@
  */
 class D3D12_RAYTRACING_GEOMETRY_DESC extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 56
 
     static packingSize => 8
 

@@ -14,7 +14,7 @@
  */
 class CMSG_CMS_SIGNER_INFO extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -46,7 +46,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 32)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 48)
             return this.__HashAlgorithm
         }
     }
@@ -58,7 +58,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     HashEncryptionAlgorithm{
         get {
             if(!this.HasProp("__HashEncryptionAlgorithm"))
-                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 56)
+                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 72)
             return this.__HashEncryptionAlgorithm
         }
     }
@@ -71,7 +71,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     EncryptedHash{
         get {
             if(!this.HasProp("__EncryptedHash"))
-                this.__EncryptedHash := CRYPT_INTEGER_BLOB(this.ptr + 80)
+                this.__EncryptedHash := CRYPT_INTEGER_BLOB(this.ptr + 96)
             return this.__EncryptedHash
         }
     }
@@ -83,7 +83,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     AuthAttrs{
         get {
             if(!this.HasProp("__AuthAttrs"))
-                this.__AuthAttrs := CRYPT_ATTRIBUTES(this.ptr + 96)
+                this.__AuthAttrs := CRYPT_ATTRIBUTES(this.ptr + 112)
             return this.__AuthAttrs
         }
     }
@@ -95,7 +95,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     UnauthAttrs{
         get {
             if(!this.HasProp("__UnauthAttrs"))
-                this.__UnauthAttrs := CRYPT_ATTRIBUTES(this.ptr + 112)
+                this.__UnauthAttrs := CRYPT_ATTRIBUTES(this.ptr + 128)
             return this.__UnauthAttrs
         }
     }

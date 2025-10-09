@@ -20,7 +20,7 @@
  */
 class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 568
 
     static packingSize => 8
 
@@ -119,8 +119,8 @@ class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
      * @type {Integer}
      */
     dwNormalUsage {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 556, "uint")
+        set => NumPut("uint", value, this, 556)
     }
 
     /**
@@ -128,7 +128,7 @@ class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
      * @type {Integer}
      */
     dwExemptUsage {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 560, "uint")
+        set => NumPut("uint", value, this, 560)
     }
 }

@@ -13,7 +13,7 @@
  */
 class PNRPINFO_V2 extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 

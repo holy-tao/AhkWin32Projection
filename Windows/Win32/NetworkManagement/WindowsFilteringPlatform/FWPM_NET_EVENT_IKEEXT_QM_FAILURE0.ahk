@@ -12,7 +12,7 @@
  */
 class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -87,7 +87,7 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 extends Win32Struct
     remoteSubNet{
         get {
             if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 32)
+                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 40)
             return this.__remoteSubNet
         }
     }
@@ -97,7 +97,7 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 extends Win32Struct
      * @type {Integer}
      */
     qmFilterId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

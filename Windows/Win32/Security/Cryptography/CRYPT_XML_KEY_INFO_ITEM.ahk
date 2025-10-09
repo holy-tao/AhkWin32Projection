@@ -16,7 +16,7 @@
  */
 class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 128
 
     static packingSize => 8
 

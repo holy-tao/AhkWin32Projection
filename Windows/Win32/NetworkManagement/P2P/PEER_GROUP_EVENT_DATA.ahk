@@ -16,7 +16,7 @@
  */
 class PEER_GROUP_EVENT_DATA extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 56
 
     static packingSize => 8
 

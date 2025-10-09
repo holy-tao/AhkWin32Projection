@@ -13,7 +13,7 @@
  */
 class WINML_VARIABLE_DESC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 

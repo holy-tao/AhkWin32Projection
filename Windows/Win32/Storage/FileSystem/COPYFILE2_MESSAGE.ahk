@@ -14,9 +14,9 @@
  */
 class COPYFILE2_MESSAGE extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 80
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Value from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ne-winbase-copyfile2_message_type">COPYFILE2_MESSAGE_TYPE</a> 
@@ -125,7 +125,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     class _ChunkStarted extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -195,7 +195,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     class _ChunkFinished extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -281,7 +281,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     class _StreamStarted extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -335,7 +335,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     class _StreamFinished extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -405,7 +405,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     class _Error extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 72
         static packingSize => 8
 
         /**

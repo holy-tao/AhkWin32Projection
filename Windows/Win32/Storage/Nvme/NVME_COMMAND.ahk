@@ -85,7 +85,7 @@
  */
 class NVME_COMMAND extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 288
 
     static packingSize => 8
 
@@ -165,7 +165,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _GENERAL extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -219,7 +219,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _IDENTIFY extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -264,8 +264,8 @@ class NVME_COMMAND extends Win32Struct
          * @type {Integer}
          */
         CDW14 {
-            get => NumGet(this, 28, "uint")
-            set => NumPut("uint", value, this, 28)
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
         }
     
         /**
@@ -274,7 +274,7 @@ class NVME_COMMAND extends Win32Struct
         CDW14_V20{
             get {
                 if(!this.HasProp("__CDW14_V20"))
-                    this.__CDW14_V20 := NVME_CDW14_IDENTIFY(this.ptr + 28)
+                    this.__CDW14_V20 := NVME_CDW14_IDENTIFY(this.ptr + 32)
                 return this.__CDW14_V20
             }
         }
@@ -283,14 +283,14 @@ class NVME_COMMAND extends Win32Struct
          * @type {Integer}
          */
         CDW15 {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
+            get => NumGet(this, 40, "uint")
+            set => NumPut("uint", value, this, 40)
         }
     
     }
 
     class _ABORT extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -347,7 +347,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _GETFEATURES extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -407,7 +407,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _SETFEATURES extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -479,7 +479,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _GETLOGPAGE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -592,7 +592,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _CREATEIOCQ extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -652,7 +652,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _CREATEIOSQ extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -712,7 +712,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _DATASETMANAGEMENT extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -772,7 +772,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _SECURITYSEND extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -829,7 +829,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _SECURITYRECEIVE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -886,7 +886,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _FIRMWAREDOWNLOAD extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -940,7 +940,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _FIRMWAREACTIVATE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -997,7 +997,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _FORMATNVM extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1054,7 +1054,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _DIRECTIVERECEIVE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1114,7 +1114,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _DIRECTIVESEND extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1174,7 +1174,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _SANITIZE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1234,7 +1234,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _READWRITE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1297,7 +1297,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _RESERVATIONACQUIRE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1354,7 +1354,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _RESERVATIONREGISTER extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1411,7 +1411,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _RESERVATIONRELEASE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1468,7 +1468,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _RESERVATIONREPORT extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1528,7 +1528,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _ZONEMANAGEMENTSEND extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1577,7 +1577,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _ZONEMANAGEMENTRECEIVE extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1626,7 +1626,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _ZONEAPPEND extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1678,7 +1678,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _DEVICESELFTEST extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**
@@ -1735,7 +1735,7 @@ class NVME_COMMAND extends Win32Struct
     }
 
     class _VENDORSPECIFIC extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 240
         static packingSize => 8
 
         /**

@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,22 +27,6 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct
      * @type {Integer}
      */
     Frequency {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastFrequency {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TuningFlags {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
     }
@@ -50,7 +34,7 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    VideoSubChannel {
+    LastFrequency {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
     }
@@ -58,7 +42,7 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    AudioSubChannel {
+    TuningFlags {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -66,7 +50,7 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    Channel {
+    VideoSubChannel {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -74,8 +58,24 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    Country {
+    AudioSubChannel {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Channel {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Country {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

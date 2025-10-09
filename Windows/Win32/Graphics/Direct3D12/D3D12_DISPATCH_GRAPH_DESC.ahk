@@ -9,7 +9,7 @@
  */
 class D3D12_DISPATCH_GRAPH_DESC extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 

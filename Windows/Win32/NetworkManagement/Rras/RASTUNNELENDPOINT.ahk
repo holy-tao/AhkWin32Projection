@@ -9,9 +9,9 @@
  */
 class RASTUNNELENDPOINT extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class RASTUNNELENDPOINT extends Win32Struct
     ipv4{
         get {
             if(!this.HasProp("__ipv4"))
-                this.__ipv4 := IN_ADDR(this.ptr + 4)
+                this.__ipv4 := IN_ADDR(this.ptr + 8)
             return this.__ipv4
         }
     }
@@ -38,7 +38,7 @@ class RASTUNNELENDPOINT extends Win32Struct
     ipv6{
         get {
             if(!this.HasProp("__ipv6"))
-                this.__ipv6 := IN6_ADDR(this.ptr + 4)
+                this.__ipv6 := IN6_ADDR(this.ptr + 8)
             return this.__ipv6
         }
     }

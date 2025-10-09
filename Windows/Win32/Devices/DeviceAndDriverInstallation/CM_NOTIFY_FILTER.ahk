@@ -11,7 +11,7 @@
  */
 class CM_NOTIFY_FILTER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 416
 
     static packingSize => 8
 
@@ -52,7 +52,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
     }
 
     class _DeviceInterface extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 400
         static packingSize => 8
 
         /**
@@ -66,7 +66,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
     }
 
     class _DeviceInstance extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 400
         static packingSize => 8
 
         /**
@@ -115,6 +115,6 @@ class CM_NOTIFY_FILTER extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 24
+        this.cbSize := 416
     }
 }

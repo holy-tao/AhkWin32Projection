@@ -9,7 +9,7 @@
  */
 class BLUETOOTH_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 560
+    static sizeof => 568
 
     static packingSize => 8
 
@@ -36,32 +36,32 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
      * @type {Integer}
      */
     ulClassofDevice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     fConnected {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     fRemembered {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     fAuthenticated {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -70,7 +70,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     stLastSeen{
         get {
             if(!this.HasProp("__stLastSeen"))
-                this.__stLastSeen := SYSTEMTIME(this.ptr + 32)
+                this.__stLastSeen := SYSTEMTIME(this.ptr + 40)
             return this.__stLastSeen
         }
     }
@@ -81,7 +81,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     stLastUsed{
         get {
             if(!this.HasProp("__stLastUsed"))
-                this.__stLastUsed := SYSTEMTIME(this.ptr + 48)
+                this.__stLastUsed := SYSTEMTIME(this.ptr + 56)
             return this.__stLastUsed
         }
     }
@@ -90,7 +90,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 64, 247, "UTF-16")
-        set => StrPut(value, this.ptr + 64, 247, "UTF-16")
+        get => StrGet(this.ptr + 72, 247, "UTF-16")
+        set => StrPut(value, this.ptr + 72, 247, "UTF-16")
     }
 }

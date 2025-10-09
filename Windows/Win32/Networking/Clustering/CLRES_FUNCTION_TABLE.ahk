@@ -37,7 +37,7 @@
  */
 class CLRES_FUNCTION_TABLE extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 120
 
     static packingSize => 8
 

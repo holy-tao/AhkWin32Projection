@@ -10,7 +10,7 @@
  */
 class SHELLDETAILS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 280
 
     static packingSize => 8
 

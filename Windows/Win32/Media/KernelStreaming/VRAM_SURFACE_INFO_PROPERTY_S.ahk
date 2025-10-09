@@ -8,7 +8,7 @@
  */
 class VRAM_SURFACE_INFO_PROPERTY_S extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class VRAM_SURFACE_INFO_PROPERTY_S extends Win32Struct
      * @type {Pointer<VRAM_SURFACE_INFO>}
      */
     pVramSurfaceInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

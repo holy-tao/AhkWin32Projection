@@ -9,7 +9,7 @@
  */
 class IPSEC_TUNNEL_POLICY3 extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -54,7 +54,7 @@ class IPSEC_TUNNEL_POLICY3 extends Win32Struct
     saIdleTimeout{
         get {
             if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(this.ptr + 64)
+                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(this.ptr + 88)
             return this.__saIdleTimeout
         }
     }
@@ -63,39 +63,39 @@ class IPSEC_TUNNEL_POLICY3 extends Win32Struct
      * @type {Pointer<IKEEXT_EM_POLICY2>}
      */
     emPolicy {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     fwdPathSaLifetime {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     compartmentId {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
      * @type {Integer}
      */
     numTrafficSelectorPolicy {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
      * @type {Pointer<IPSEC_TRAFFIC_SELECTOR_POLICY0>}
      */
     trafficSelectorPolicies {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 }

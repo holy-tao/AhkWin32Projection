@@ -20,9 +20,9 @@
  */
 class WINBIO_IDENTITY extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 80
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Specifies the format of the identity information contained in this structure. This can be one of the following values:
@@ -43,7 +43,7 @@ class WINBIO_IDENTITY extends Win32Struct
     }
 
     class _AccountSid extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -71,24 +71,24 @@ class WINBIO_IDENTITY extends Win32Struct
      * @type {Integer}
      */
     Null {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Wildcard {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     TemplateGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -97,7 +97,7 @@ class WINBIO_IDENTITY extends Win32Struct
     AccountSid{
         get {
             if(!this.HasProp("__AccountSid"))
-                this.__AccountSid := %this.__Class%._AccountSid(this.ptr + 4)
+                this.__AccountSid := %this.__Class%._AccountSid(this.ptr + 8)
             return this.__AccountSid
         }
     }
@@ -108,7 +108,7 @@ class WINBIO_IDENTITY extends Win32Struct
     SecureId{
         get {
             if(!this.HasProp("__SecureIdProxyArray"))
-                this.__SecureIdProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
+                this.__SecureIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
             return this.__SecureIdProxyArray
         }
     }

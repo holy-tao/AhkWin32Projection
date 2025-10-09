@@ -9,7 +9,7 @@
  */
 class KSM_BDA_WMDRMTUNER_SYNCVALUE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class KSM_BDA_WMDRMTUNER_SYNCVALUE extends Win32Struct
      * @type {Integer}
      */
     ulSyncValue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

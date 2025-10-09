@@ -92,12 +92,12 @@
  */
 class WINBIO_PRESENCE extends Win32Struct
 {
-    static sizeof => 480
+    static sizeof => 552
 
     static packingSize => 8
 
     class _Authorization extends Win32Struct {
-        static sizeof => 480
+        static sizeof => 552
         static packingSize => 8
 
         /**
@@ -174,8 +174,8 @@ class WINBIO_PRESENCE extends Win32Struct
      * @type {Integer}
      */
     TrackingId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -183,8 +183,8 @@ class WINBIO_PRESENCE extends Win32Struct
      * @type {Integer}
      */
     Ticket {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -194,7 +194,7 @@ class WINBIO_PRESENCE extends Win32Struct
     Properties{
         get {
             if(!this.HasProp("__Properties"))
-                this.__Properties := WINBIO_PRESENCE_PROPERTIES(this.ptr + 40)
+                this.__Properties := WINBIO_PRESENCE_PROPERTIES(this.ptr + 112)
             return this.__Properties
         }
     }
@@ -205,7 +205,7 @@ class WINBIO_PRESENCE extends Win32Struct
     Authorization{
         get {
             if(!this.HasProp("__Authorization"))
-                this.__Authorization := %this.__Class%._Authorization(this.ptr + 440)
+                this.__Authorization := %this.__Class%._Authorization(this.ptr + 512)
             return this.__Authorization
         }
     }

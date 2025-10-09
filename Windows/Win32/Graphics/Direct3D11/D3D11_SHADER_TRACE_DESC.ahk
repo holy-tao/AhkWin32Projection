@@ -13,7 +13,7 @@
  */
 class D3D11_SHADER_TRACE_DESC extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 40
 
     static packingSize => 8
 

@@ -5,6 +5,7 @@
 
 #Include ../Windows/Win32/Networking/HttpServer/HTTP_REQUEST_HEADERS.ahk
 #Include ../Windows/Win32/UI/Controls/NMCHAR.ahk
+#Include ../Windows/Win32/UI/Controls/PROPSHEETHEADERW_V2.ahk
 #Include ../Windows/Win32/Graphics/Gdi/LOGFONTA.ahk
 #Include ../Windows/Win32/Graphics/Gdi/LOGFONTW.ahk
 #Include ../Windows/Win32/UI/WindowsAndMessaging/ICONINFOEXW.ahk
@@ -195,6 +196,24 @@ class GeneratedStructSmokeTests {
 
             Yunit.Assert(mbi.fFocused == 1)
             Yunit.Assert(mbi.fBarFocused == 1)
+        }
+    }
+
+    class Unions {
+
+        /**
+         * Regression test for https://github.com/holy-tao/AhkWin32Structs-Generator/issues/11
+         */
+        Unions_WithMembersOfMixedWidths_AreProjectedCorrectly(){
+            pshw := PROPSHEETHEADERW_V2()
+
+            NumPut("ptr", -1, pshw, 40)             ;Max Int64, should not bleed into pStartPage
+            NumPut("uint64", 123456789, pshw, 48)   ;pStartPage / nStartPage union
+            NumPut("ptr", 42, pshw, 56)             ;phpage union
+
+            Yunit.Assert(pshw.nPages == 0xFFFFFFFF, Format("Expected {1} but got {2}", -1, pshw.nPages))
+            Yunit.Assert(pshw.pStartPage == 123456789, Format("Expected {1} but got {2}", 123456789, pshw.pStartPage))
+            Yunit.Assert(pshw.phpage == 42, Format("Expected {1} but got {2}", 42, pshw.nPages))
         }
     }
 }

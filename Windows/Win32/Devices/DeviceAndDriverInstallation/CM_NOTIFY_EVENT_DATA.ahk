@@ -11,7 +11,7 @@
  */
 class CM_NOTIFY_EVENT_DATA extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -34,7 +34,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
     }
 
     class _DeviceInterface extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 30
         static packingSize => 8
 
         /**
@@ -56,7 +56,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
     }
 
     class _DeviceHandle extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 30
         static packingSize => 8
 
         /**
@@ -97,7 +97,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
     }
 
     class _DeviceInstance extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 30
         static packingSize => 8
 
         /**

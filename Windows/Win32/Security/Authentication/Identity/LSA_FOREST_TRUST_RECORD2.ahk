@@ -11,7 +11,7 @@
  */
 class LSA_FOREST_TRUST_RECORD2 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 56
 
     static packingSize => 8
 

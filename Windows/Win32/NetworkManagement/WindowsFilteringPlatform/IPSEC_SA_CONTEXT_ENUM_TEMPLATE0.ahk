@@ -12,7 +12,7 @@
  */
 class IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -39,7 +39,7 @@ class IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 extends Win32Struct
     remoteSubNet{
         get {
             if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 8)
+                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 16)
             return this.__remoteSubNet
         }
     }

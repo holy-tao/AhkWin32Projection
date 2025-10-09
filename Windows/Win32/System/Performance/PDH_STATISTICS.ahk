@@ -10,7 +10,7 @@
  */
 class PDH_STATISTICS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -52,7 +52,7 @@ class PDH_STATISTICS extends Win32Struct
     max{
         get {
             if(!this.HasProp("__max"))
-                this.__max := PDH_FMT_COUNTERVALUE(this.ptr + 16)
+                this.__max := PDH_FMT_COUNTERVALUE(this.ptr + 24)
             return this.__max
         }
     }
@@ -64,7 +64,7 @@ class PDH_STATISTICS extends Win32Struct
     mean{
         get {
             if(!this.HasProp("__mean"))
-                this.__mean := PDH_FMT_COUNTERVALUE(this.ptr + 24)
+                this.__mean := PDH_FMT_COUNTERVALUE(this.ptr + 40)
             return this.__mean
         }
     }

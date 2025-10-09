@@ -14,7 +14,7 @@
  */
 class FWPM_CONNECTION0 extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -44,8 +44,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -54,7 +54,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -63,8 +63,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -73,7 +73,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }
@@ -85,8 +85,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     providerKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -96,8 +96,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     ipsecTrafficModeType {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -107,8 +107,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     keyModuleType {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
@@ -120,7 +120,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     mmCrypto{
         get {
             if(!this.HasProp("__mmCrypto"))
-                this.__mmCrypto := IKEEXT_PROPOSAL0(this.ptr + 40)
+                this.__mmCrypto := IKEEXT_PROPOSAL0(this.ptr + 64)
             return this.__mmCrypto
         }
     }
@@ -134,7 +134,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     mmPeer{
         get {
             if(!this.HasProp("__mmPeer"))
-                this.__mmPeer := IKEEXT_CREDENTIAL2(this.ptr + 72)
+                this.__mmPeer := IKEEXT_CREDENTIAL2(this.ptr + 96)
             return this.__mmPeer
         }
     }
@@ -148,7 +148,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     emPeer{
         get {
             if(!this.HasProp("__emPeer"))
-                this.__emPeer := IKEEXT_CREDENTIAL2(this.ptr + 88)
+                this.__emPeer := IKEEXT_CREDENTIAL2(this.ptr + 112)
             return this.__emPeer
         }
     }
@@ -160,8 +160,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     bytesTransferredIn {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -171,8 +171,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     bytesTransferredOut {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**
@@ -182,8 +182,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     bytesTransferredTotal {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -195,7 +195,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     startSysTime{
         get {
             if(!this.HasProp("__startSysTime"))
-                this.__startSysTime := FILETIME(this.ptr + 128)
+                this.__startSysTime := FILETIME(this.ptr + 152)
             return this.__startSysTime
         }
     }

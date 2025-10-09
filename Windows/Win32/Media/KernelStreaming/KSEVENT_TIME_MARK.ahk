@@ -8,7 +8,7 @@
  */
 class KSEVENT_TIME_MARK extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class KSEVENT_TIME_MARK extends Win32Struct
      * @type {Integer}
      */
     MarkTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 }

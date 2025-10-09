@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_IF_MEDIUM_S extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class KSPROPERTY_TUNER_IF_MEDIUM_S extends Win32Struct
     IFMedium{
         get {
             if(!this.HasProp("__IFMedium"))
-                this.__IFMedium := KSIDENTIFIER(this.ptr + 8)
+                this.__IFMedium := KSIDENTIFIER(this.ptr + 16)
             return this.__IFMedium
         }
     }

@@ -7,9 +7,9 @@
  */
 class WINDOWS_IAS_QUERY extends Win32Struct
 {
-    static sizeof => 652
+    static sizeof => 1680
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Array<Byte>}
@@ -47,7 +47,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     }
 
     class _irdaAttribOctetSeq extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 1028
         static packingSize => 8
 
         /**
@@ -72,7 +72,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     }
 
     class _irdaAttribUsrStr extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 1028
         static packingSize => 8
 
         /**

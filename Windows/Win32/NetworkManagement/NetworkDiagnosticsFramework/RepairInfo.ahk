@@ -11,7 +11,7 @@
  */
 class RepairInfo extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -223,7 +223,7 @@ class RepairInfo extends Win32Struct
      * @type {Integer}
      */
     rootCauseIndex {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 }

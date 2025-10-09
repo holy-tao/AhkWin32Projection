@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,23 +27,23 @@ class KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S extends Win32Struct
      * @type {Pointer<Guid>}
      */
     NetworkType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     BufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     NetworkTunerCapabilities {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

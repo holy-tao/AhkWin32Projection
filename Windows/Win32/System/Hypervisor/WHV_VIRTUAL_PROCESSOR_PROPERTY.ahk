@@ -7,9 +7,9 @@
  */
 class WHV_VIRTUAL_PROCESSOR_PROPERTY extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

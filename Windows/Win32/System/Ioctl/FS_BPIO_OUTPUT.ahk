@@ -9,7 +9,7 @@
  */
 class FS_BPIO_OUTPUT extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 352
 
     static packingSize => 8
 

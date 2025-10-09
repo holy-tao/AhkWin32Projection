@@ -12,7 +12,7 @@
  */
 class FWPM_NET_EVENT_HEADER3 extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -73,8 +73,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     localAddrV4 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -83,7 +83,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     localAddrV6{
         get {
             if(!this.HasProp("__localAddrV6"))
-                this.__localAddrV6 := FWP_BYTE_ARRAY16(this.ptr + 20)
+                this.__localAddrV6 := FWP_BYTE_ARRAY16(this.ptr + 24)
             return this.__localAddrV6
         }
     }
@@ -92,8 +92,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     remoteAddrV4 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -102,7 +102,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     remoteAddrV6{
         get {
             if(!this.HasProp("__remoteAddrV6"))
-                this.__remoteAddrV6 := FWP_BYTE_ARRAY16(this.ptr + 24)
+                this.__remoteAddrV6 := FWP_BYTE_ARRAY16(this.ptr + 40)
             return this.__remoteAddrV6
         }
     }
@@ -112,8 +112,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     localPort {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
+        get => NumGet(this, 56, "ushort")
+        set => NumPut("ushort", value, this, 56)
     }
 
     /**
@@ -121,8 +121,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     remotePort {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
+        get => NumGet(this, 58, "ushort")
+        set => NumPut("ushort", value, this, 58)
     }
 
     /**
@@ -130,8 +130,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     scopeId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -141,7 +141,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     appId{
         get {
             if(!this.HasProp("__appId"))
-                this.__appId := FWP_BYTE_BLOB(this.ptr + 40)
+                this.__appId := FWP_BYTE_BLOB(this.ptr + 64)
             return this.__appId
         }
     }
@@ -151,8 +151,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Pointer<SID>}
      */
     userId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -162,8 +162,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     addressFamily {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -171,8 +171,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Pointer<SID>}
      */
     packageSid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -180,8 +180,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Pointer<Char>}
      */
     enterpriseId {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -189,8 +189,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     policyFlags {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -200,7 +200,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     effectiveName{
         get {
             if(!this.HasProp("__effectiveName"))
-                this.__effectiveName := FWP_BYTE_BLOB(this.ptr + 96)
+                this.__effectiveName := FWP_BYTE_BLOB(this.ptr + 120)
             return this.__effectiveName
         }
     }

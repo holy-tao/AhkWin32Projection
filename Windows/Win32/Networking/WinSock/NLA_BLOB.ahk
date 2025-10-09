@@ -7,12 +7,12 @@
  */
 class NLA_BLOB extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 1056
 
     static packingSize => 8
 
     class _header extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 1056
         static packingSize => 8
 
         /**
@@ -53,7 +53,7 @@ class NLA_BLOB extends Win32Struct
     }
 
     class _interfaceData extends Win32Struct {
-        static sizeof => 2
+        static sizeof => 1040
         static packingSize => 8
 
         /**
@@ -83,7 +83,7 @@ class NLA_BLOB extends Win32Struct
     }
 
     class _locationData extends Win32Struct {
-        static sizeof => 2
+        static sizeof => 1040
         static packingSize => 8
 
         /**
@@ -97,7 +97,7 @@ class NLA_BLOB extends Win32Struct
     }
 
     class _connectivity extends Win32Struct {
-        static sizeof => 2
+        static sizeof => 1040
         static packingSize => 8
 
         /**
@@ -119,7 +119,7 @@ class NLA_BLOB extends Win32Struct
     }
 
     class _ICS extends Win32Struct {
-        static sizeof => 2
+        static sizeof => 1040
         static packingSize => 8
 
         class _remote extends Win32Struct {
@@ -185,8 +185,8 @@ class NLA_BLOB extends Win32Struct
      * @type {String}
      */
     rawData {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
+        get => StrGet(this.ptr + 16, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
     }
 
     /**
@@ -195,7 +195,7 @@ class NLA_BLOB extends Win32Struct
     interfaceData{
         get {
             if(!this.HasProp("__interfaceData"))
-                this.__interfaceData := %this.__Class%._interfaceData(this.ptr + 12)
+                this.__interfaceData := %this.__Class%._interfaceData(this.ptr + 16)
             return this.__interfaceData
         }
     }
@@ -206,7 +206,7 @@ class NLA_BLOB extends Win32Struct
     locationData{
         get {
             if(!this.HasProp("__locationData"))
-                this.__locationData := %this.__Class%._locationData(this.ptr + 12)
+                this.__locationData := %this.__Class%._locationData(this.ptr + 16)
             return this.__locationData
         }
     }
@@ -217,7 +217,7 @@ class NLA_BLOB extends Win32Struct
     connectivity{
         get {
             if(!this.HasProp("__connectivity"))
-                this.__connectivity := %this.__Class%._connectivity(this.ptr + 12)
+                this.__connectivity := %this.__Class%._connectivity(this.ptr + 16)
             return this.__connectivity
         }
     }
@@ -228,7 +228,7 @@ class NLA_BLOB extends Win32Struct
     ICS{
         get {
             if(!this.HasProp("__ICS"))
-                this.__ICS := %this.__Class%._ICS(this.ptr + 12)
+                this.__ICS := %this.__Class%._ICS(this.ptr + 16)
             return this.__ICS
         }
     }

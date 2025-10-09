@@ -10,7 +10,7 @@
  */
 class SPPHRASEPROPERTY extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -77,47 +77,47 @@ class SPPHRASEPROPERTY extends Win32Struct
      * @type {Integer}
      */
     ulFirstElement {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     ulCountOfElements {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {Pointer<SPPHRASEPROPERTY>}
      */
     pNextSibling {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<SPPHRASEPROPERTY>}
      */
     pFirstChild {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Float}
      */
     SREngineConfidence {
-        get => NumGet(this, 64, "float")
-        set => NumPut("float", value, this, 64)
+        get => NumGet(this, 72, "float")
+        set => NumPut("float", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     Confidence {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
+        get => NumGet(this, 76, "char")
+        set => NumPut("char", value, this, 76)
     }
 }

@@ -11,7 +11,7 @@
  */
 class REASON_CONTEXT extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -35,7 +35,7 @@ class REASON_CONTEXT extends Win32Struct
     }
 
     class _Detailed extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 24
         static packingSize => 8
 
         /**

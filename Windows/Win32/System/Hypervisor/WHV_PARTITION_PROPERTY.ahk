@@ -20,7 +20,7 @@
  */
 class WHV_PARTITION_PROPERTY extends Win32Struct
 {
-    static sizeof => 264
+    static sizeof => 288
 
     static packingSize => 8
 

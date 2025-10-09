@@ -9,7 +9,7 @@
  */
 class KSM_BDA_CAS_ENTITLEMENTTOKEN extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -28,32 +28,32 @@ class KSM_BDA_CAS_ENTITLEMENTTOKEN extends Win32Struct
      * @type {Integer}
      */
     ulDialogRequest {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {String}
      */
     cLanguage {
-        get => StrGet(this.ptr + 20, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 11, "UTF-16")
+        get => StrGet(this.ptr + 28, 11, "UTF-16")
+        set => StrPut(value, this.ptr + 28, 11, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     ulRequestType {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     ulEntitlementTokenLen {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -62,7 +62,7 @@ class KSM_BDA_CAS_ENTITLEMENTTOKEN extends Win32Struct
     argbEntitlementToken{
         get {
             if(!this.HasProp("__argbEntitlementTokenProxyArray"))
-                this.__argbEntitlementTokenProxyArray := Win32FixedArray(this.ptr + 52, 1, Primitive, "char")
+                this.__argbEntitlementTokenProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")
             return this.__argbEntitlementTokenProxyArray
         }
     }

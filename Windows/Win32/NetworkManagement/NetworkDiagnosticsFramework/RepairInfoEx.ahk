@@ -12,7 +12,7 @@
  */
 class RepairInfoEx extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class RepairInfoEx extends Win32Struct
      * @type {Integer}
      */
     repairRank {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
+        get => NumGet(this, 104, "ushort")
+        set => NumPut("ushort", value, this, 104)
     }
 }

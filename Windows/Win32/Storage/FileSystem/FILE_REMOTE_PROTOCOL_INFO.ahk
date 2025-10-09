@@ -13,12 +13,12 @@
  */
 class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 120
 
     static packingSize => 8
 
     class _GenericReserved extends Win32Struct {
-        static sizeof => 72
+        static sizeof => 120
         static packingSize => 8
 
         /**
@@ -206,7 +206,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     }
 
     class _Smb2 extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 64
         static packingSize => 8
 
         class _Share extends Win32Struct {

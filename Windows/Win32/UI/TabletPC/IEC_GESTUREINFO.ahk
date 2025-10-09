@@ -13,7 +13,7 @@
  */
 class IEC_GESTUREINFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 

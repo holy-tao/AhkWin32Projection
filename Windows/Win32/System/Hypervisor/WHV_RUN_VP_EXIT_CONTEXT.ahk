@@ -28,7 +28,7 @@
  */
 class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 184
 
     static packingSize => 8
 

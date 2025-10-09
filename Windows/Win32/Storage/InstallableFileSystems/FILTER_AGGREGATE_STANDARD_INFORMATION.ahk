@@ -7,7 +7,7 @@
  */
 class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
     }
 
     class _MiniFilter extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -90,7 +90,7 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
     }
 
     class _LegacyFilter extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 24
         static packingSize => 8
 
         /**

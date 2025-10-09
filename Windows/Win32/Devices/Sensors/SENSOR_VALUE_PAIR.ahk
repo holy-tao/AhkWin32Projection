@@ -36,7 +36,7 @@
  */
 class SENSOR_VALUE_PAIR extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 

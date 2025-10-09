@@ -34,7 +34,7 @@
  */
 class PROPSHEETHEADERW_V2 extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -106,38 +106,22 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
      * @type {Integer}
      */
     nStartPage {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     pStartPage {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<PROPSHEETPAGEW>}
      */
     ppsp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    phpage {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<PFNPROPSHEETCALLBACK>}
-     */
-    pfnCallback {
         get => NumGet(this, 56, "ptr")
         set => NumPut("ptr", value, this, 56)
     }
@@ -145,17 +129,33 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     /**
      * @type {Pointer<Void>}
      */
-    hbmWatermark {
+    phpage {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
+    }
+
+    /**
+     * @type {Pointer<PFNPROPSHEETCALLBACK>}
+     */
+    pfnCallback {
         get => NumGet(this, 64, "ptr")
         set => NumPut("ptr", value, this, 64)
+    }
+
+    /**
+     * @type {Pointer<Void>}
+     */
+    hbmWatermark {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     pszbmWatermark {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -166,23 +166,23 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
      * @type {Pointer<Void>}
      */
     hplWatermark {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     hbmHeader {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     pszbmHeader {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

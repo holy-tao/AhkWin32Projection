@@ -7,12 +7,12 @@
  */
 class DEBUG_VALUE extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     class _I64Parts32 extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -34,7 +34,7 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     class _F128Parts64 extends Win32Struct {
-        static sizeof => 1
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -247,15 +247,15 @@ class DEBUG_VALUE extends Win32Struct
      * @type {Integer}
      */
     TailOfRawBytes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

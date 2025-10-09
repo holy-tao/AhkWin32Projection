@@ -8,7 +8,7 @@
  */
 class KSM_BDA_SCAN_FILTER extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,16 +27,16 @@ class KSM_BDA_SCAN_FILTER extends Win32Struct
      * @type {Integer}
      */
     ulScanModulationTypeSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     AnalogVideoStandards {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -45,7 +45,7 @@ class KSM_BDA_SCAN_FILTER extends Win32Struct
     argbScanModulationTypes{
         get {
             if(!this.HasProp("__argbScanModulationTypesProxyArray"))
-                this.__argbScanModulationTypesProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__argbScanModulationTypesProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
             return this.__argbScanModulationTypesProxyArray
         }
     }

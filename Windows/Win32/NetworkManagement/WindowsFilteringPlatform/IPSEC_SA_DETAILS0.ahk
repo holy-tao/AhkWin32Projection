@@ -12,7 +12,7 @@
  */
 class IPSEC_SA_DETAILS0 extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 184
 
     static packingSize => 8
 
@@ -53,7 +53,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
     saBundle{
         get {
             if(!this.HasProp("__saBundle"))
-                this.__saBundle := IPSEC_SA_BUNDLE0(this.ptr + 40)
+                this.__saBundle := IPSEC_SA_BUNDLE0(this.ptr + 72)
             return this.__saBundle
         }
     }
@@ -62,8 +62,8 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
      * @type {Pointer<TypeHandle>}
      */
     Anonymous {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -71,7 +71,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
      * @type {Pointer<FWPM_FILTER0>}
      */
     transportFilter {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 }

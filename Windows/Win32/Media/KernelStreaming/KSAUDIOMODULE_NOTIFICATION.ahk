@@ -7,12 +7,12 @@
  */
 class KSAUDIOMODULE_NOTIFICATION extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
     static packingSize => 8
 
     class _ProviderId extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 24
         static packingSize => 8
 
         /**

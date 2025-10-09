@@ -11,7 +11,7 @@
  */
 class SD_GLOBAL_CHANGE_OUTPUT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 72
 
     static packingSize => 8
 

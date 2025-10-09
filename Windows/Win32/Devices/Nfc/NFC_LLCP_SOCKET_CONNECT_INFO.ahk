@@ -8,7 +8,7 @@
  */
 class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -40,8 +40,8 @@ class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct
      * @type {Integer}
      */
     bSAP {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
@@ -50,7 +50,7 @@ class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct
     sServiceName{
         get {
             if(!this.HasProp("__sServiceName"))
-                this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(this.ptr + 20)
+                this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(this.ptr + 24)
             return this.__sServiceName
         }
     }

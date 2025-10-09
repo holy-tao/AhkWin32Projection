@@ -7,9 +7,9 @@
  */
 class KSCAMERA_EXTENDEDPROP_VALUE extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Float}

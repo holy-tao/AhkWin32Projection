@@ -11,9 +11,9 @@
  */
 class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * A single <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_indirect_argument_type">D3D12_INDIRECT_ARGUMENT_TYPE</a> enumeration constant.
@@ -25,7 +25,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _Constant extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 12
         static packingSize => 8
 
         /**
@@ -55,7 +55,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _IncrementingConstant extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 12
         static packingSize => 8
 
         /**
@@ -80,8 +80,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
      * @type {Integer}
      */
     VertexBuffer {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -90,7 +90,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     Constant{
         get {
             if(!this.HasProp("__Constant"))
-                this.__Constant := %this.__Class%._Constant(this.ptr + 4)
+                this.__Constant := %this.__Class%._Constant(this.ptr + 8)
             return this.__Constant
         }
     }
@@ -99,24 +99,24 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
      * @type {Integer}
      */
     ConstantBufferView {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     ShaderResourceView {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     UnorderedAccessView {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -125,7 +125,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     IncrementingConstant{
         get {
             if(!this.HasProp("__IncrementingConstant"))
-                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(this.ptr + 4)
+                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(this.ptr + 8)
             return this.__IncrementingConstant
         }
     }

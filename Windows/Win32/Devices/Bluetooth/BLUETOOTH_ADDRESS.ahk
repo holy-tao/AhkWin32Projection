@@ -7,7 +7,7 @@
  */
 class BLUETOOTH_ADDRESS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
     static packingSize => 8
 

@@ -20,7 +20,7 @@
  */
 class WHV_CAPABILITY extends Win32Struct
 {
-    static sizeof => 232
+    static sizeof => 256
 
     static packingSize => 8
 

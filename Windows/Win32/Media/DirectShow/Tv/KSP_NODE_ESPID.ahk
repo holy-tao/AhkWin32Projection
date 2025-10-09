@@ -9,7 +9,7 @@
  */
 class KSP_NODE_ESPID extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class KSP_NODE_ESPID extends Win32Struct
      * @type {Integer}
      */
     EsPid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

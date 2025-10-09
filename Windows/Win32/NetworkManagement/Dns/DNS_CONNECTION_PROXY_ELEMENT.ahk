@@ -8,7 +8,7 @@
  */
 class DNS_CONNECTION_PROXY_ELEMENT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 80
 
     static packingSize => 8
 

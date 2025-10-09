@@ -114,7 +114,7 @@
  */
 class PROPVARIANT extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

@@ -14,7 +14,7 @@
  */
 class POINTER_TYPE_INFO extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 152
 
     static packingSize => 8
 

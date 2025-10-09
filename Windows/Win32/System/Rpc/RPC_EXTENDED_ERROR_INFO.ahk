@@ -19,7 +19,7 @@
  */
 class RPC_EXTENDED_ERROR_INFO extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -77,8 +77,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     GeneratingComponent {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -86,8 +86,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     Status {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -96,8 +96,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     DetectionLocation {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -110,8 +110,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
@@ -119,8 +119,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     NumberOfParameters {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -131,7 +131,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__ParametersProxyArray"))
-                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 48, 4, RPC_EE_INFO_PARAM, "")
+                this.__ParametersProxyArray := Win32FixedArray(this.ptr + 56, 4, RPC_EE_INFO_PARAM, "")
             return this.__ParametersProxyArray
         }
     }

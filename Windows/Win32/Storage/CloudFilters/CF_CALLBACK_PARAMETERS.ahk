@@ -9,9 +9,9 @@
  */
 class CF_CALLBACK_PARAMETERS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 64
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * _ParamSize_ is set based on the callback being performed.
@@ -39,7 +39,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Cancel extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -86,7 +86,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _FetchData extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -148,7 +148,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _ValidateData extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -178,7 +178,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _FetchPlaceholders extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -200,7 +200,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _OpenCompletion extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -214,7 +214,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _CloseCompletion extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -228,7 +228,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Dehydrate extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -250,7 +250,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _DehydrateCompletion extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -272,7 +272,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Delete extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -286,7 +286,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _DeleteCompletion extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -300,7 +300,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _Rename extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -322,7 +322,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     class _RenameCompletion extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -349,7 +349,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Cancel{
         get {
             if(!this.HasProp("__Cancel"))
-                this.__Cancel := %this.__Class%._Cancel(this.ptr + 4)
+                this.__Cancel := %this.__Class%._Cancel(this.ptr + 8)
             return this.__Cancel
         }
     }
@@ -360,7 +360,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     FetchData{
         get {
             if(!this.HasProp("__FetchData"))
-                this.__FetchData := %this.__Class%._FetchData(this.ptr + 4)
+                this.__FetchData := %this.__Class%._FetchData(this.ptr + 8)
             return this.__FetchData
         }
     }
@@ -371,7 +371,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     ValidateData{
         get {
             if(!this.HasProp("__ValidateData"))
-                this.__ValidateData := %this.__Class%._ValidateData(this.ptr + 4)
+                this.__ValidateData := %this.__Class%._ValidateData(this.ptr + 8)
             return this.__ValidateData
         }
     }
@@ -382,7 +382,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     FetchPlaceholders{
         get {
             if(!this.HasProp("__FetchPlaceholders"))
-                this.__FetchPlaceholders := %this.__Class%._FetchPlaceholders(this.ptr + 4)
+                this.__FetchPlaceholders := %this.__Class%._FetchPlaceholders(this.ptr + 8)
             return this.__FetchPlaceholders
         }
     }
@@ -393,7 +393,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     OpenCompletion{
         get {
             if(!this.HasProp("__OpenCompletion"))
-                this.__OpenCompletion := %this.__Class%._OpenCompletion(this.ptr + 4)
+                this.__OpenCompletion := %this.__Class%._OpenCompletion(this.ptr + 8)
             return this.__OpenCompletion
         }
     }
@@ -404,7 +404,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     CloseCompletion{
         get {
             if(!this.HasProp("__CloseCompletion"))
-                this.__CloseCompletion := %this.__Class%._CloseCompletion(this.ptr + 4)
+                this.__CloseCompletion := %this.__Class%._CloseCompletion(this.ptr + 8)
             return this.__CloseCompletion
         }
     }
@@ -415,7 +415,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Dehydrate{
         get {
             if(!this.HasProp("__Dehydrate"))
-                this.__Dehydrate := %this.__Class%._Dehydrate(this.ptr + 4)
+                this.__Dehydrate := %this.__Class%._Dehydrate(this.ptr + 8)
             return this.__Dehydrate
         }
     }
@@ -426,7 +426,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     DehydrateCompletion{
         get {
             if(!this.HasProp("__DehydrateCompletion"))
-                this.__DehydrateCompletion := %this.__Class%._DehydrateCompletion(this.ptr + 4)
+                this.__DehydrateCompletion := %this.__Class%._DehydrateCompletion(this.ptr + 8)
             return this.__DehydrateCompletion
         }
     }
@@ -437,7 +437,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Delete{
         get {
             if(!this.HasProp("__Delete"))
-                this.__Delete := %this.__Class%._Delete(this.ptr + 4)
+                this.__Delete := %this.__Class%._Delete(this.ptr + 8)
             return this.__Delete
         }
     }
@@ -448,7 +448,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     DeleteCompletion{
         get {
             if(!this.HasProp("__DeleteCompletion"))
-                this.__DeleteCompletion := %this.__Class%._DeleteCompletion(this.ptr + 4)
+                this.__DeleteCompletion := %this.__Class%._DeleteCompletion(this.ptr + 8)
             return this.__DeleteCompletion
         }
     }
@@ -459,7 +459,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Rename{
         get {
             if(!this.HasProp("__Rename"))
-                this.__Rename := %this.__Class%._Rename(this.ptr + 4)
+                this.__Rename := %this.__Class%._Rename(this.ptr + 8)
             return this.__Rename
         }
     }
@@ -470,7 +470,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     RenameCompletion{
         get {
             if(!this.HasProp("__RenameCompletion"))
-                this.__RenameCompletion := %this.__Class%._RenameCompletion(this.ptr + 4)
+                this.__RenameCompletion := %this.__Class%._RenameCompletion(this.ptr + 8)
             return this.__RenameCompletion
         }
     }

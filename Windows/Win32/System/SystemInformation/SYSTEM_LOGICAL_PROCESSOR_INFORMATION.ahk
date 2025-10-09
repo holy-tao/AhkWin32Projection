@@ -10,7 +10,7 @@
  */
 class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -96,16 +96,16 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     ProcessorCore {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     NumaNode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -114,7 +114,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     Cache{
         get {
             if(!this.HasProp("__Cache"))
-                this.__Cache := CACHE_DESCRIPTOR(this.ptr + 12)
+                this.__Cache := CACHE_DESCRIPTOR(this.ptr + 16)
             return this.__Cache
         }
     }
@@ -125,7 +125,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

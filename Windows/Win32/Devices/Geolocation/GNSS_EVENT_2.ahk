@@ -27,7 +27,7 @@
  */
 class GNSS_EVENT_2 extends Win32Struct
 {
-    static sizeof => 536
+    static sizeof => 2136
 
     static packingSize => 8
 

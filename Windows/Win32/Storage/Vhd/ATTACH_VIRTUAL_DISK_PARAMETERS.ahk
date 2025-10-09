@@ -9,9 +9,9 @@
  */
 class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-attach_virtual_disk_version">ATTACH_VIRTUAL_DISK_VERSION</a> 
@@ -26,7 +26,7 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version2 extends Win32Struct {
-        static sizeof => 4
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -51,8 +51,8 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     Version1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -61,7 +61,7 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version2{
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(this.ptr + 4)
+                this.__Version2 := %this.__Class%._Version2(this.ptr + 8)
             return this.__Version2
         }
     }

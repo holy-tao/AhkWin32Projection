@@ -13,9 +13,9 @@
  */
 class WNV_IP_ADDRESS extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {IN_ADDR}

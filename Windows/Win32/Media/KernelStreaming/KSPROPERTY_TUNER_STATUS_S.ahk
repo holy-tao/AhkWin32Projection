@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_STATUS_S extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,22 +27,6 @@ class KSPROPERTY_TUNER_STATUS_S extends Win32Struct
      * @type {Integer}
      */
     CurrentFrequency {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PLLOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SignalStrength {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
     }
@@ -50,8 +34,24 @@ class KSPROPERTY_TUNER_STATUS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    Busy {
+    PLLOffset {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SignalStrength {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Busy {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

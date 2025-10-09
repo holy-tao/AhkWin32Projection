@@ -9,7 +9,7 @@
  */
 class KSPROPERTY_EXTDEVICE_S extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 544
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     Capabilities{
         get {
             if(!this.HasProp("__Capabilities"))
-                this.__Capabilities := DEVCAPS(this.ptr + 8)
+                this.__Capabilities := DEVCAPS(this.ptr + 16)
             return this.__Capabilities
         }
     }
@@ -39,24 +39,24 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
      * @type {Integer}
      */
     DevPort {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     PowerState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {String}
      */
     pawchString {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 16, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 259, "UTF-16")
     }
 
     /**
@@ -65,7 +65,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     NodeUniqueID{
         get {
             if(!this.HasProp("__NodeUniqueIDProxyArray"))
-                this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
+                this.__NodeUniqueIDProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
             return this.__NodeUniqueIDProxyArray
         }
     }

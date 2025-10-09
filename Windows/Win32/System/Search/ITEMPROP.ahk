@@ -14,7 +14,7 @@
  */
 class ITEMPROP extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -35,7 +35,7 @@ class ITEMPROP extends Win32Struct
      * @type {Pointer<Char>}
      */
     pwszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

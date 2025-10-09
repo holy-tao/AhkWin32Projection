@@ -10,7 +10,7 @@
  */
 class DDHAL_BLTDATA extends Win32Struct
 {
-    static sizeof => 240
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -91,24 +91,24 @@ class DDHAL_BLTDATA extends Win32Struct
      * @type {HRESULT}
      */
     ddRVal {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
+        get => NumGet(this, 192, "int")
+        set => NumPut("int", value, this, 192)
     }
 
     /**
      * @type {Pointer<LPDDHALSURFCB_BLT>}
      */
     Blt {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
      * @type {Integer}
      */
     IsClipped {
-        get => NumGet(this, 184, "int")
-        set => NumPut("int", value, this, 184)
+        get => NumGet(this, 208, "int")
+        set => NumPut("int", value, this, 208)
     }
 
     /**
@@ -117,7 +117,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rOrigDest{
         get {
             if(!this.HasProp("__rOrigDest"))
-                this.__rOrigDest := RECTL(this.ptr + 192)
+                this.__rOrigDest := RECTL(this.ptr + 216)
             return this.__rOrigDest
         }
     }
@@ -128,7 +128,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rOrigSrc{
         get {
             if(!this.HasProp("__rOrigSrc"))
-                this.__rOrigSrc := RECTL(this.ptr + 208)
+                this.__rOrigSrc := RECTL(this.ptr + 232)
             return this.__rOrigSrc
         }
     }
@@ -137,15 +137,15 @@ class DDHAL_BLTDATA extends Win32Struct
      * @type {Integer}
      */
     dwRectCnt {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
      * @type {Pointer<RECT>}
      */
     prDestRects {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 256, "ptr")
+        set => NumPut("ptr", value, this, 256)
     }
 }

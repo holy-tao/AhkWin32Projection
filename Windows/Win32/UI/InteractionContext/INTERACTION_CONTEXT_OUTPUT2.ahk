@@ -11,9 +11,9 @@
  */
 class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 104
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -77,7 +77,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     manipulation{
         get {
             if(!this.HasProp("__manipulation"))
-                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(this.ptr + 28)
+                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(this.ptr + 32)
             return this.__manipulation
         }
     }
@@ -86,8 +86,8 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
      * @type {Integer}
      */
     tap {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -96,7 +96,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     crossSlide{
         get {
             if(!this.HasProp("__crossSlide"))
-                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(this.ptr + 28)
+                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(this.ptr + 32)
             return this.__crossSlide
         }
     }

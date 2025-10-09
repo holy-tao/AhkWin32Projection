@@ -7,7 +7,7 @@
  */
 class PROPSHEETHEADERA_V1 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -79,39 +79,39 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
      * @type {Integer}
      */
     nStartPage {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     pStartPage {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<PROPSHEETPAGEA>}
      */
     ppsp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     phpage {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<PFNPROPSHEETCALLBACK>}
      */
     pfnCallback {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

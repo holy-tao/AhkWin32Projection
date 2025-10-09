@@ -8,7 +8,7 @@
  */
 class KSP_TIMEFORMAT extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,23 +27,23 @@ class KSP_TIMEFORMAT extends Win32Struct
      * @type {Pointer<Guid>}
      */
     SourceFormat {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     TargetFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     Time {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 }

@@ -13,7 +13,7 @@
  */
 class RAS_PROJECTION_INFO extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 

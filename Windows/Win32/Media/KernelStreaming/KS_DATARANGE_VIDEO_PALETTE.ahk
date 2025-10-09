@@ -15,7 +15,7 @@
  */
 class KS_DATARANGE_VIDEO_PALETTE extends Win32Struct
 {
-    static sizeof => 288
+    static sizeof => 2336
 
     static packingSize => 8
 

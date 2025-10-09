@@ -37,7 +37,7 @@
  */
 class PROPERTYRESTRICTION extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -66,7 +66,7 @@ class PROPERTYRESTRICTION extends Win32Struct
     prval{
         get {
             if(!this.HasProp("__prval"))
-                this.__prval := PROPVARIANT(this.ptr + 24)
+                this.__prval := PROPVARIANT(this.ptr + 32)
             return this.__prval
         }
     }

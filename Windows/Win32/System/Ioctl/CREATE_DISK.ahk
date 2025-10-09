@@ -10,9 +10,9 @@
  */
 class CREATE_DISK extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The format of a partition. 
@@ -30,8 +30,8 @@ class CREATE_DISK extends Win32Struct
      * @type {Integer}
      */
     Mbr {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -40,7 +40,7 @@ class CREATE_DISK extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := CREATE_DISK_GPT(this.ptr + 4)
+                this.__Gpt := CREATE_DISK_GPT(this.ptr + 8)
             return this.__Gpt
         }
     }

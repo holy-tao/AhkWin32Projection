@@ -19,7 +19,7 @@
  */
 class USB_DEVICE_NODE_INFO extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 1208
 
     static packingSize => 8
 

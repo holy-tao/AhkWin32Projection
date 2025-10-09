@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_STANDARD_MODE_S extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class KSPROPERTY_TUNER_STANDARD_MODE_S extends Win32Struct
      * @type {Integer}
      */
     AutoDetect {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

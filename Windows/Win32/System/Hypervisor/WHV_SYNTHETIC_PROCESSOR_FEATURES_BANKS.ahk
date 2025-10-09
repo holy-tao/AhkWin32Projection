@@ -8,7 +8,7 @@
  */
 class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 

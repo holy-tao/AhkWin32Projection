@@ -12,7 +12,7 @@
  */
 class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -39,8 +39,8 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
      * @type {Integer}
      */
     authMethod {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -49,7 +49,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     pinInfo{
         get {
             if(!this.HasProp("__pinInfo"))
-                this.__pinInfo := BLUETOOTH_PIN_INFO(this.ptr + 12)
+                this.__pinInfo := BLUETOOTH_PIN_INFO(this.ptr + 24)
             return this.__pinInfo
         }
     }
@@ -60,7 +60,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     oobInfo{
         get {
             if(!this.HasProp("__oobInfo"))
-                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(this.ptr + 12)
+                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(this.ptr + 24)
             return this.__oobInfo
         }
     }
@@ -69,16 +69,16 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
      * @type {Integer}
      */
     numericCompInfo {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     passkeyInfo {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -86,7 +86,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
      * @type {Integer}
      */
     negativeResponse {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 }

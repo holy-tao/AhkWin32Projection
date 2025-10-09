@@ -93,7 +93,7 @@
  */
 class STAT_CHUNK extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -156,8 +156,8 @@ class STAT_CHUNK extends Win32Struct
      * @type {Integer}
      */
     idChunkSource {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -165,8 +165,8 @@ class STAT_CHUNK extends Win32Struct
      * @type {Integer}
      */
     cwcStartSource {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -174,7 +174,7 @@ class STAT_CHUNK extends Win32Struct
      * @type {Integer}
      */
     cwcLenSource {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

@@ -14,7 +14,7 @@
  */
 class UiaPropertyChangedEventArgs extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -74,7 +74,7 @@ class UiaPropertyChangedEventArgs extends Win32Struct
     NewValue{
         get {
             if(!this.HasProp("__NewValue"))
-                this.__NewValue := VARIANT(this.ptr + 32)
+                this.__NewValue := VARIANT(this.ptr + 40)
             return this.__NewValue
         }
     }

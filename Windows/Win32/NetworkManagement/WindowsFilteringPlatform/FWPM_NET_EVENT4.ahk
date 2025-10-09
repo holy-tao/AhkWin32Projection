@@ -11,7 +11,7 @@
  */
 class FWPM_NET_EVENT4 extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -30,87 +30,87 @@ class FWPM_NET_EVENT4 extends Win32Struct
      * @type {Integer}
      */
     type {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_MM_FAILURE2>}
      */
     ikeMmFailure {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_QM_FAILURE1>}
      */
     ikeQmFailure {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IKEEXT_EM_FAILURE1>}
      */
     ikeEmFailure {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CLASSIFY_DROP2>}
      */
     classifyDrop {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IPSEC_KERNEL_DROP0>}
      */
     ipsecDrop {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_IPSEC_DOSP_DROP0>}
      */
     idpDrop {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CLASSIFY_ALLOW0>}
      */
     classifyAllow {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CAPABILITY_DROP0>}
      */
     capabilityDrop {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CAPABILITY_ALLOW0>}
      */
     capabilityAllow {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {Pointer<FWPM_NET_EVENT_CLASSIFY_DROP_MAC0>}
      */
     classifyDropMac {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 }

@@ -11,7 +11,7 @@
  */
 class KS_VIDEOINFO extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 2152
 
     static packingSize => 8
 

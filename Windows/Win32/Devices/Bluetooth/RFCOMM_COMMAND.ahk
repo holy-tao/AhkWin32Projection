@@ -9,9 +9,9 @@
  */
 class RFCOMM_COMMAND extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 14
 
-    static packingSize => 4
+    static packingSize => 7
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class RFCOMM_COMMAND extends Win32Struct
     MSC{
         get {
             if(!this.HasProp("__MSC"))
-                this.__MSC := RFCOMM_MSC_DATA(this.ptr + 4)
+                this.__MSC := RFCOMM_MSC_DATA(this.ptr + 7)
             return this.__MSC
         }
     }
@@ -36,8 +36,8 @@ class RFCOMM_COMMAND extends Win32Struct
      * @type {Integer}
      */
     RLS {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
@@ -46,7 +46,7 @@ class RFCOMM_COMMAND extends Win32Struct
     RPN{
         get {
             if(!this.HasProp("__RPN"))
-                this.__RPN := RFCOMM_RPN_DATA(this.ptr + 4)
+                this.__RPN := RFCOMM_RPN_DATA(this.ptr + 7)
             return this.__RPN
         }
     }

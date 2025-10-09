@@ -13,7 +13,7 @@
  */
 class RAS_CONNECTION_4 extends Win32Struct
 {
-    static sizeof => 1640
+    static sizeof => 1696
 
     static packingSize => 8
 
@@ -274,8 +274,8 @@ class RAS_CONNECTION_4 extends Win32Struct
      * @type {Pointer<Void>}
      */
     hConnection {
-        get => NumGet(this, 1616, "ptr")
-        set => NumPut("ptr", value, this, 1616)
+        get => NumGet(this, 1672, "ptr")
+        set => NumPut("ptr", value, this, 1672)
     }
 
     /**
@@ -283,8 +283,8 @@ class RAS_CONNECTION_4 extends Win32Struct
      * @type {Pointer<Void>}
      */
     hInterface {
-        get => NumGet(this, 1624, "ptr")
-        set => NumPut("ptr", value, this, 1624)
+        get => NumGet(this, 1680, "ptr")
+        set => NumPut("ptr", value, this, 1680)
     }
 
     /**
@@ -339,7 +339,7 @@ class RAS_CONNECTION_4 extends Win32Struct
      * @type {Integer}
      */
     dwDeviceType {
-        get => NumGet(this, 1632, "uint")
-        set => NumPut("uint", value, this, 1632)
+        get => NumGet(this, 1688, "uint")
+        set => NumPut("uint", value, this, 1688)
     }
 }

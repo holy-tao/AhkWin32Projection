@@ -44,7 +44,7 @@ class TYPEDESC extends Win32Struct
      * @type {Integer}
      */
     vt {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 }

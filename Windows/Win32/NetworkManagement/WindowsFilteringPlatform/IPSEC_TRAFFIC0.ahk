@@ -15,7 +15,7 @@
  */
 class IPSEC_TRAFFIC0 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -34,8 +34,8 @@ class IPSEC_TRAFFIC0 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -44,7 +44,7 @@ class IPSEC_TRAFFIC0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -53,8 +53,8 @@ class IPSEC_TRAFFIC0 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -63,7 +63,7 @@ class IPSEC_TRAFFIC0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }
@@ -75,24 +75,24 @@ class IPSEC_TRAFFIC0 extends Win32Struct
      * @type {Integer}
      */
     trafficType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     ipsecFilterId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     tunnelPolicyId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -101,7 +101,7 @@ class IPSEC_TRAFFIC0 extends Win32Struct
      * @type {Integer}
      */
     remotePort {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 56, "ushort")
+        set => NumPut("ushort", value, this, 56)
     }
 }

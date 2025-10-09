@@ -8,9 +8,9 @@
  */
 class AAL_PARAMETERS_IE extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class AAL_PARAMETERS_IE extends Win32Struct
     AAL5Parameters{
         get {
             if(!this.HasProp("__AAL5Parameters"))
-                this.__AAL5Parameters := AAL5_PARAMETERS(this.ptr + 4)
+                this.__AAL5Parameters := AAL5_PARAMETERS(this.ptr + 8)
             return this.__AAL5Parameters
         }
     }
@@ -35,7 +35,7 @@ class AAL_PARAMETERS_IE extends Win32Struct
      * @type {Integer}
      */
     AALUserParameters {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

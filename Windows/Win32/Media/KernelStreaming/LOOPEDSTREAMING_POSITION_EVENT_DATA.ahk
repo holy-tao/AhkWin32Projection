@@ -8,7 +8,7 @@
  */
 class LOOPEDSTREAMING_POSITION_EVENT_DATA extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class LOOPEDSTREAMING_POSITION_EVENT_DATA extends Win32Struct
      * @type {Integer}
      */
     Position {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

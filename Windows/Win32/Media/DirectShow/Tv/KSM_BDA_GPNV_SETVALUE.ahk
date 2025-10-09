@@ -8,7 +8,7 @@
  */
 class KSM_BDA_GPNV_SETVALUE extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -27,32 +27,32 @@ class KSM_BDA_GPNV_SETVALUE extends Win32Struct
      * @type {Integer}
      */
     ulDialogRequest {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {String}
      */
     cLanguage {
-        get => StrGet(this.ptr + 12, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 11, "UTF-16")
+        get => StrGet(this.ptr + 20, 11, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 11, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     ulNameLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     ulValueLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -61,7 +61,7 @@ class KSM_BDA_GPNV_SETVALUE extends Win32Struct
     argbName{
         get {
             if(!this.HasProp("__argbNameProxyArray"))
-                this.__argbNameProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__argbNameProxyArray := Win32FixedArray(this.ptr + 52, 1, Primitive, "char")
             return this.__argbNameProxyArray
         }
     }

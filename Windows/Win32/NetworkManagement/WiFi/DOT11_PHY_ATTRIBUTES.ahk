@@ -12,7 +12,7 @@
  */
 class DOT11_PHY_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 1592
+    static sizeof => 1600
 
     static packingSize => 8
 
@@ -117,8 +117,8 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
      * @type {Integer}
      */
     uNumberSupportedPowerLevels {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -127,7 +127,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     TxPowerLevels{
         get {
             if(!this.HasProp("__TxPowerLevelsProxyArray"))
-                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")
+                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 44, 8, Primitive, "uint")
             return this.__TxPowerLevelsProxyArray
         }
     }
@@ -136,8 +136,8 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
      * @type {Integer}
      */
     uNumDataRateMappingEntries {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -146,7 +146,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     DataRateMappingEntries{
         get {
             if(!this.HasProp("__DataRateMappingEntriesProxyArray"))
-                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 72, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")
+                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 80, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")
             return this.__DataRateMappingEntriesProxyArray
         }
     }
@@ -157,7 +157,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     SupportedDataRatesValue{
         get {
             if(!this.HasProp("__SupportedDataRatesValue"))
-                this.__SupportedDataRatesValue := DOT11_SUPPORTED_DATA_RATES_VALUE_V2(this.ptr + 1080)
+                this.__SupportedDataRatesValue := DOT11_SUPPORTED_DATA_RATES_VALUE_V2(this.ptr + 1088)
             return this.__SupportedDataRatesValue
         }
     }

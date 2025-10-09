@@ -9,7 +9,7 @@
  */
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT extends Win32Struct
 {
-    static sizeof => 544
+    static sizeof => 1056
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class CLUSTER_SHARED_VOLUME_RENAME_INPUT extends Win32Struct
     Base2{
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(this.ptr + 24)
+                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(this.ptr + 536)
             return this.__Base2
         }
     }

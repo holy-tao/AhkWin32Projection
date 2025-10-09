@@ -9,9 +9,9 @@
  */
 class PXE_ADDRESS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Indicates how the structure should be interpreted and which of the members of the structure are 
@@ -101,7 +101,7 @@ class PXE_ADDRESS extends Win32Struct
     bAddress{
         get {
             if(!this.HasProp("__bAddressProxyArray"))
-                this.__bAddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
+                this.__bAddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
             return this.__bAddressProxyArray
         }
     }
@@ -110,8 +110,8 @@ class PXE_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     uIpAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -120,8 +120,8 @@ class PXE_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     uAddrLen {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -130,7 +130,7 @@ class PXE_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     uPort {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 }

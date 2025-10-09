@@ -11,9 +11,9 @@
  */
 class PDH_FMT_COUNTERVALUE extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Counter status that indicates if the counter value is valid. Check this member before using the data in a calculation or displaying its value. For a list of possible values, see 
@@ -29,39 +29,39 @@ class PDH_FMT_COUNTERVALUE extends Win32Struct
      * @type {Integer}
      */
     longValue {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {Float}
      */
     doubleValue {
-        get => NumGet(this, 4, "double")
-        set => NumPut("double", value, this, 4)
+        get => NumGet(this, 8, "double")
+        set => NumPut("double", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     largeValue {
-        get => NumGet(this, 4, "int64")
-        set => NumPut("int64", value, this, 4)
+        get => NumGet(this, 8, "int64")
+        set => NumPut("int64", value, this, 8)
     }
 
     /**
      * @type {Pointer<Byte>}
      */
     AnsiStringValue {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Char>}
      */
     WideStringValue {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

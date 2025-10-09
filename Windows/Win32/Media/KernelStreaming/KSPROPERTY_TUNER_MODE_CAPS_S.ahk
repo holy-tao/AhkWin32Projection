@@ -8,7 +8,7 @@
  */
 class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,22 +27,6 @@ class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
      * @type {Integer}
      */
     Mode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StandardsSupported {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MinFrequency {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
     }
@@ -50,7 +34,7 @@ class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    MaxFrequency {
+    StandardsSupported {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
     }
@@ -58,7 +42,7 @@ class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    TuningGranularity {
+    MinFrequency {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -66,7 +50,7 @@ class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    NumberOfInputs {
+    MaxFrequency {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -74,7 +58,7 @@ class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    SettlingTime {
+    TuningGranularity {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -82,8 +66,24 @@ class KSPROPERTY_TUNER_MODE_CAPS_S extends Win32Struct
     /**
      * @type {Integer}
      */
-    Strategy {
+    NumberOfInputs {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SettlingTime {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Strategy {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

@@ -10,9 +10,9 @@
  */
 class BTH_LE_GATT_SERVICE extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The Universally Unique ID (UUID) of the Bluetooth LE GATT profile service.
@@ -31,7 +31,7 @@ class BTH_LE_GATT_SERVICE extends Win32Struct
      * @type {Integer}
      */
     AttributeHandle {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 }

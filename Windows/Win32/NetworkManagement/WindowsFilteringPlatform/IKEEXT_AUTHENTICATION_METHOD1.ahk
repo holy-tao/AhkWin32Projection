@@ -16,7 +16,7 @@
  */
 class IKEEXT_AUTHENTICATION_METHOD1 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 88
 
     static packingSize => 8
 

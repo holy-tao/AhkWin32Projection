@@ -7,7 +7,7 @@
  */
 class FDIDECRYPT extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class FDIDECRYPT extends Win32Struct
     }
 
     class _cabinet extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 40
         static packingSize => 8
 
         /**
@@ -66,7 +66,7 @@ class FDIDECRYPT extends Win32Struct
     }
 
     class _folder extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 40
         static packingSize => 8
 
         /**
@@ -96,7 +96,7 @@ class FDIDECRYPT extends Win32Struct
     }
 
     class _decrypt extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 40
         static packingSize => 8
 
         /**

@@ -11,7 +11,7 @@
  */
 class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 544
 
     static packingSize => 8
 
@@ -27,7 +27,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     }
 
     class _Timecode extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 520
         static packingSize => 8
 
         /**
@@ -65,7 +65,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     }
 
     class _RawAVC extends Win32Struct {
-        static sizeof => 8
+        static sizeof => 520
         static packingSize => 8
 
         /**
@@ -93,24 +93,24 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
      * @type {Integer}
      */
     Capabilities {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     SignalMode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     LoadMedium {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -119,7 +119,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     MediumInfo{
         get {
             if(!this.HasProp("__MediumInfo"))
-                this.__MediumInfo := MEDIUM_INFO(this.ptr + 16)
+                this.__MediumInfo := MEDIUM_INFO(this.ptr + 24)
             return this.__MediumInfo
         }
     }
@@ -130,7 +130,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     XPrtState{
         get {
             if(!this.HasProp("__XPrtState"))
-                this.__XPrtState := TRANSPORT_STATE(this.ptr + 16)
+                this.__XPrtState := TRANSPORT_STATE(this.ptr + 24)
             return this.__XPrtState
         }
     }
@@ -141,7 +141,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     Timecode{
         get {
             if(!this.HasProp("__Timecode"))
-                this.__Timecode := %this.__Class%._Timecode(this.ptr + 16)
+                this.__Timecode := %this.__Class%._Timecode(this.ptr + 24)
             return this.__Timecode
         }
     }
@@ -150,16 +150,16 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
      * @type {Integer}
      */
     dwTimecode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwAbsTrackNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -168,7 +168,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     RawAVC{
         get {
             if(!this.HasProp("__RawAVC"))
-                this.__RawAVC := %this.__Class%._RawAVC(this.ptr + 16)
+                this.__RawAVC := %this.__Class%._RawAVC(this.ptr + 24)
             return this.__RawAVC
         }
     }

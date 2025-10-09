@@ -7,7 +7,7 @@
  */
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 536
 
     static packingSize => 8
 

@@ -13,7 +13,7 @@
  */
 class IPSEC_SA_DETAILS1 extends Win32Struct
 {
-    static sizeof => 200
+    static sizeof => 232
 
     static packingSize => 8
 
@@ -54,7 +54,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     saBundle{
         get {
             if(!this.HasProp("__saBundle"))
-                this.__saBundle := IPSEC_SA_BUNDLE1(this.ptr + 56)
+                this.__saBundle := IPSEC_SA_BUNDLE1(this.ptr + 88)
             return this.__saBundle
         }
     }
@@ -63,8 +63,8 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * @type {Pointer<TypeHandle>}
      */
     Anonymous {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
@@ -72,8 +72,8 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * @type {Pointer<FWPM_FILTER0>}
      */
     transportFilter {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
@@ -83,7 +83,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     virtualIfTunnelInfo{
         get {
             if(!this.HasProp("__virtualIfTunnelInfo"))
-                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(this.ptr + 184)
+                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(this.ptr + 216)
             return this.__virtualIfTunnelInfo
         }
     }

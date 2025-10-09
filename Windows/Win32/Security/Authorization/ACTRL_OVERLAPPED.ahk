@@ -31,8 +31,8 @@ class ACTRL_OVERLAPPED extends Win32Struct
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
