@@ -33,7 +33,7 @@ class D3D9ON12_ARGS extends Win32Struct
     ppD3D12Queues{
         get {
             if(!this.HasProp("__ppD3D12QueuesProxyArray"))
-                this.__ppD3D12QueuesProxyArray := Win32FixedArray(this.ptr + 16, 2, IUnknown, "")
+                this.__ppD3D12QueuesProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
             return this.__ppD3D12QueuesProxyArray
         }
     }
