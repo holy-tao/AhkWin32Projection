@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether a specific ID2D1SimplifiedGeometrySink figure is filled or hollow.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_begin
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_figure_begin
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

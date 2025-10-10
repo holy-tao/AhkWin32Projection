@@ -1,13 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Includes options that can be set or retrieved for the current Microsoft Windows HTTP Services (WinHTTP) session.
- * @remarks
- * Set an option by specifying one of the preceding constants as the parameter of the [**Option**](iwinhttprequest-option.md) property.
-  * 
-  * > [!Note]  
-  * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHttp start page.
- * @see https://learn.microsoft.com/windows/win32/WinHttp/winhttprequestoption
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

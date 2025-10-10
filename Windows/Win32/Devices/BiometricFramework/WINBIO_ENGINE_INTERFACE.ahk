@@ -4,7 +4,7 @@
 
 /**
  * Contains pointers to your custom engine adapter functions.
- * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_engine_interface
+ * @see https://docs.microsoft.com/windows/win32/api//winbio_adapter/ns-winbio_adapter-winbio_engine_interface
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the traffic secrets for a connection.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_traffic_secrets
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     static packingSize => 4
 
     /**
-     * THe negotiated symmetric key algorithm (e.g. **BCRYPT_AES_ALGORITHM**).
      * @type {String}
      */
     SymmetricAlgId {
@@ -25,7 +20,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The negotiated symmetric key algorithm chaining mode (e.g. **BCRYPT_CHAIN_MODE_GCM** or **BCRYPT_CHAIN_MODE_CCM**).
      * @type {String}
      */
     ChainingMode {
@@ -34,7 +28,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The negotiated hash algorithm (e.g. **BCRYPT_SHA256_ALGORITHM** or **BCRYPT_SHA384_ALGORITHM**).
      * @type {String}
      */
     HashAlgId {
@@ -43,7 +36,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * They size (in bytes) of the symmetric key to derive from this traffic secret.
      * @type {Integer}
      */
     KeySize {
@@ -52,7 +44,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The size (in bytes) of the IV to derive from this traffic secret.
      * @type {Integer}
      */
     IvSize {
@@ -61,7 +52,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The offset of the first byte of the TLS message sequence to be protected with a key derived from **TrafficSecret**. Use **0** to indicate the first byte of the buffer.
      * @type {Integer}
      */
     MsgSequenceStart {
@@ -70,7 +60,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The offset of the last byte of the TLS message sequence to be protected with a key derived from **TrafficSecret**. Use **0** if the secret is for the encryption of application data or decryption of incoming records.
      * @type {Integer}
      */
     MsgSequenceEnd {
@@ -79,7 +68,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The type of traffic secret from the [TRAFFIC_SECRET_TYPE](ne-sspi-sec_traffic_secret_type.md) enumeration.
      * @type {Integer}
      */
     TrafficSecretType {
@@ -88,7 +76,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * The size (in bytes) of the traffic secret.
      * @type {Integer}
      */
     TrafficSecretSize {
@@ -97,7 +84,6 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
     }
 
     /**
-     * Traffic secret of type **TrafficSecretType**, **TrafficSecretSize** bytes long, used to derive write key and IV for message protection.
      * @type {Array<Byte>}
      */
     TrafficSecret{

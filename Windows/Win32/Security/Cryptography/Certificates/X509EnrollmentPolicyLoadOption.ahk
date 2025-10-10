@@ -2,7 +2,7 @@
 
 /**
  * Is used by the LoadPolicy method on the IX509EnrollmentPolicyServer interface to specify how to retrieve policy from the policy server.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509enrollmentpolicyloadoption
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509enrollmentpolicyloadoption
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Provides a set of values that indicate the base key that will be used for an enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-shregenum_flags
+ * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-shregenum_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

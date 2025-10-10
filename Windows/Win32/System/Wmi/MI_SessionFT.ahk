@@ -3,7 +3,7 @@
 
 /**
  * Function table for all actions on a session object.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sessionft
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_sessionft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Identifiers for properties of the Distant-diffuse lighting effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_distantdiffuse_prop
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_distantdiffuse_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

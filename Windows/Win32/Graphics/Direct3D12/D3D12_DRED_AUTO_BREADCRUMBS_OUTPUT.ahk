@@ -3,7 +3,7 @@
 
 /**
  * Contains a pointer to the head of a linked list of D3D12_AUTO_BREADCRUMB_NODE objects.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_dred_auto_breadcrumbs_output
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_dred_auto_breadcrumbs_output
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

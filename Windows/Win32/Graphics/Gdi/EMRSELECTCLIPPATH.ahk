@@ -4,7 +4,7 @@
 
 /**
  * Contains parameters for the SelectClipPath, SetBkMode, SetMapMode, SetPolyFillMode, SetROP2, SetStretchBltMode, SetTextAlign, SetICMMode , and SetLayout enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrselectclippath
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrselectclippath
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

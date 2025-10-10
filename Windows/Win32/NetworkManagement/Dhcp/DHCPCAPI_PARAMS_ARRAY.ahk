@@ -3,7 +3,7 @@
 
 /**
  * The DHCPCAPI_PARAMS_ARRAY structure stores an array of DHCPAPI_PARAMS structures used to query DHCP parameters.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

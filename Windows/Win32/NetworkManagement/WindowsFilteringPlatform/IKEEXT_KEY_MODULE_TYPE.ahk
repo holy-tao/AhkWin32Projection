@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of keying module.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_key_module_type
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_key_module_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

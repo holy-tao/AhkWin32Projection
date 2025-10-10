@@ -3,7 +3,7 @@
 
 /**
  * Represents a section of metadata in a generic form.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_metadata_section
+ * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_metadata_section
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class WSD_METADATA_SECTION extends Win32Struct
      * </tr>
      * <tr>
      * <td width="40%"><a id="http___schemas.xmlsoap.org_ws_2006_02_devprof_Relationship"></a><a id="http___schemas.xmlsoap.org_ws_2006_02_devprof_relationship"></a><a id="HTTP___SCHEMAS.XMLSOAP.ORG_WS_2006_02_DEVPROF_RELATIONSHIP"></a><dl>
-     * <dt><b>`http://schemas.xmlsoap.org/ws/2006/02/devprof/Relationship`</b></dt>
+     * <dt><b>http://schemas.xmlsoap.org/ws/2006/02/devprof/Relationship</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -70,7 +70,7 @@ class WSD_METADATA_SECTION extends Win32Struct
     }
 
     /**
-     * Reference to a binary representation of the metadata. The type of metadata is specified by <b>Dialect</b>. This member is ignored if <b>Dialect</b> does not have a value of `http://schemas.xmlsoap.org/ws/2006/02/devprof/ThisModel`, `http://schemas.xmlsoap.org/ws/2006/02/devprof/ThisDevice`, or `http://schemas.xmlsoap.org/ws/2006/02/devprof/Relationship`.
+     * Reference to a binary representation of the metadata. The type of metadata is specified by <b>Dialect</b>. This member is ignored if <b>Dialect</b> does not have a value of http://schemas.xmlsoap.org/ws/2006/02/devprof/ThisModel, http://schemas.xmlsoap.org/ws/2006/02/devprof/ThisDevice, or http://schemas.xmlsoap.org/ws/2006/02/devprof/Relationship.
      * @type {Pointer<Void>}
      */
     Data {

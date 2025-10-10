@@ -2,7 +2,7 @@
 
 /**
  * Contains flags that describe query tokens used in the GetAnalysis method.
- * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ne-wmiutils-wmiq_rpn_token_flags
+ * @see https://docs.microsoft.com/windows/win32/api//wmiutils/ne-wmiutils-wmiq_rpn_token_flags
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

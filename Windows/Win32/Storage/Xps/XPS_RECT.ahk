@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the width, height, and location of a rectangle. (XPS_RECT)
+ * Describes the width, height, and location of a rectangle.
  * @remarks
- * The measurement units depend on the context and are not specified in the structure.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect
+ * 
+  * The measurement units depend on the context and are not specified in the structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_rect
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

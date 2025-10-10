@@ -3,7 +3,7 @@
 
 /**
  * The DD_FLIPDATA structure contains information needed to do a flip.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_flipdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_flipdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

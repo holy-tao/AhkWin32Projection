@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * HCN_PORT_RANGE_ENTRY
- * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_RANGE_ENTRY
  * @namespace Windows.Win32.System.HostComputeNetwork
  * @version v4.0.30319
  */

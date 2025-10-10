@@ -4,7 +4,7 @@
 
 /**
  * This type description is used with WS_DATETIME_TYPE and is optional. It is used to specify constraints on the set of values which can be deserialized.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_datetime_description
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_datetime_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

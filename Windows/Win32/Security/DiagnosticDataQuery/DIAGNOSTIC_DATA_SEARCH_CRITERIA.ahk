@@ -4,8 +4,11 @@
 /**
  * This resource contains details of the search criteria when fetching a diagnostic data record.
  * @remarks
- * For more details on how core data is defined, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
- * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_search_criteria
+ * 
+  * For more details on how core data is defined, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_search_criteria
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

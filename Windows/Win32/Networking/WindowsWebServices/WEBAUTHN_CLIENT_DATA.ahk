@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A structure containing the client data that is sent to the authenticator.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_client_data
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class WEBAUTHN_CLIENT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -25,7 +20,6 @@ class WEBAUTHN_CLIENT_DATA extends Win32Struct
     }
 
     /**
-     * The size of the **pbClientDataJSON** field.
      * @type {Integer}
      */
     cbClientDataJSON {
@@ -34,7 +28,6 @@ class WEBAUTHN_CLIENT_DATA extends Win32Struct
     }
 
     /**
-     * UTF-8 encoded JSON serialization of the client data.
      * @type {Pointer<Byte>}
      */
     pbClientDataJSON {
@@ -43,7 +36,6 @@ class WEBAUTHN_CLIENT_DATA extends Win32Struct
     }
 
     /**
-     * Hash algorithm ID used to hash the **pbClientDataJSON** field.
      * @type {Pointer<Char>}
      */
     pwszHashAlgId {

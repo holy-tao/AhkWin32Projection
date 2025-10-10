@@ -3,7 +3,7 @@
 
 /**
  * Contains image list statistics. Used by GetStatistics.
- * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/ns-commoncontrols-imageliststats
+ * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/ns-commoncontrols-imageliststats
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

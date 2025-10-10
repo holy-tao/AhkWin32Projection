@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains a parameter for the Host Memory Buffer Feature that specifies the upper 32 bits of the physical location of the Host Memory Descriptor List.
- * @remarks
- * For a description of the fields and structures that define the Host Memory Descriptor List, see [NVME_CDW11_FEATURES](ns-nvme-nvme_cdw11_features.md#host-memory-buffer).
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw14_feature_host_memory_buffer
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -24,7 +20,6 @@ class NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

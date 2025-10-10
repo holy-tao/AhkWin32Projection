@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether the InkEdit control is idle, collecting ink, or recognizing ink.
- * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkeditstatus
+ * @see https://docs.microsoft.com/windows/win32/api//inked/ne-inked-inkeditstatus
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

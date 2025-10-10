@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents the information for a synchronization provider configuration UI.
- * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguiconfiguration
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     static packingSize => 8
 
     /**
-     * The version of the configuration UI.
      * @type {Integer}
      */
     dwVersion {
@@ -23,7 +20,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * The unique instance ID of the configuration UI.
      * @type {Pointer<Guid>}
      */
     guidInstanceId {
@@ -32,7 +28,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * The COM CLSID of the configuration UI.
      * @type {Pointer<Guid>}
      */
     clsidConfigUI {
@@ -41,7 +36,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * The GUID that identifies the content type supported by the synchronization provider that is created by the configuration UI.
      * @type {Pointer<Guid>}
      */
     guidContentType {
@@ -50,25 +44,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * One of the following constants that represent the capabilities of the synchronization provider configuration UI. These values are masks that can be combined.
-     * 
-     * <ul>
-     * <li><b>SCC_DEFAULT</b> ((DWORD)0x00000000) The configuration UI supports the default capabilities of creating and modifying a synchronization provider with a UI displayed.
-     * 
-     * </li>
-     * <li><b>SCC_CAN_CREATE_WITHOUT_UI</b>  ((DWORD)0x00000001) The configuration UI creates providers without displaying the UI.  This value is not compatible with <b>SCC_CREATE_NOT_SUPPORTED</b>.
-     * 
-     * </li>
-     * <li><b>SCC_CAN_MODIFY_WITHOUT_UI</b>  ((DWORD)0x00000002) The configuration UI modifies providers without displaying the UI.  This value is not compatible with <b>SCC_MODIFY_NOT_SUPPORTED</b>.
-     * 
-     * </li>
-     * <li><b>SCC_CREATE_NOT_SUPPORTED</b>  ((DWORD)0x00000004) The configuration UI cannot create new configured providers.  This value is not compatible with <b>SCC_CAN_CREATE_WITHOUT_UI</b>.
-     * 
-     * </li>
-     * <li><b>SCC_MODIFY_NOT_SUPPORTED</b>  ((DWORD)0x00000008) The configuration UI cannot modify providers.  This value is not compatible with <b>SCC_CAN_MODIFY_WITHOUT_UI</b>.
-     * 
-     * </li>
-     * </ul>
      * @type {Integer}
      */
     dwCapabilities {
@@ -77,12 +52,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * One of the following constants that represent the architectures supported by the synchronization provider configuration UI. This value corresponds to the architectures that the synchronization provider configuration UI CLSID (<b>clsidConfigUI</b>) is registered for.   These values can be combined, and can be used as bitmasks.
-     * 
-     * <ul>
-     * <li><b>SYNC_32_BIT_SUPPORTED</b> ((DWORD)0x00000001)</li>
-     * <li><b>SYNC_64_BIT_SUPPORTED</b>  ((DWORD)0x00000002)</li>
-     * </ul>
      * @type {Integer}
      */
     dwSupportedArchitecture {
@@ -91,7 +60,6 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * Reserved for future use. At this time, the value should always be <b>FALSE</b>.
      * @type {Integer}
      */
     fIsGlobal {

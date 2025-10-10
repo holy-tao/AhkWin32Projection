@@ -2,7 +2,7 @@
 
 /**
  * Flags for acknowledging placeholder file or directory renaming.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_operation_ack_rename_flags
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_operation_ack_rename_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

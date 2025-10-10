@@ -4,8 +4,11 @@
 /**
  * Contains information about the width, thickness, offset, run height, reading direction, and flow direction of an underline.
  * @remarks
- * All coordinates are in device independent pixels (DIPs).
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_underline
+ * 
+  * All coordinates are in device independent pixels (DIPs).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_underline
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

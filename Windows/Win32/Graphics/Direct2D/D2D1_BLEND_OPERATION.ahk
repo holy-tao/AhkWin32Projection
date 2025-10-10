@@ -3,8 +3,11 @@
 /**
  * Specifies the blend operation on two color sources.
  * @remarks
- * This enumeration has the same numeric values as <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_blend_op">D3D10_BLEND_OP</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_blend_operation
+ * 
+  * This enumeration has the same numeric values as <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_blend_op">D3D10_BLEND_OP</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ne-d2d1effectauthor-d2d1_blend_operation
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

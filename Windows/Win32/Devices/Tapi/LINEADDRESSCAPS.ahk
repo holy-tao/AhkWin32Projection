@@ -4,7 +4,8 @@
 /**
  * The LINEADDRESSCAPS structure describes the capabilities of a specified address. The lineGetAddressCaps function and the TSPI_lineGetAddressCaps function return the LINEADDRESSCAPS structure.
  * @remarks
- * Device-specific extensions should use the <b>DevSpecific</b> (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+  * Device-specific extensions should use the <b>DevSpecific</b> (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
   * 
   * Older applications are compiled without this member in the 
   * <b>LINEADDRESSCAPS</b> structure, and using a SIZEOF(LINEADDRESSCAPS) smaller than the new size. The application passes in a <i>dwAPIVersion</i> parameter with the 
@@ -17,7 +18,9 @@
   * 
   * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwAvailableMediaModes</b> are available only to applications that request an API version of 2.0 or later when calling 
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetaddresscaps">lineGetAddressCaps</a>.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineaddresscaps
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineaddresscaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

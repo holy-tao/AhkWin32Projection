@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the current value of a policy.
- * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_policy_value
+ * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ns-wcmapi-wcm_policy_value
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

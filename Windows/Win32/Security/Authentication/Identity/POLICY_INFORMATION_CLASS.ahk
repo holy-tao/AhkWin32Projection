@@ -2,7 +2,7 @@
 
 /**
  * Defines values that indicate the type of information to set or query in a Policy object.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_information_class
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-policy_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

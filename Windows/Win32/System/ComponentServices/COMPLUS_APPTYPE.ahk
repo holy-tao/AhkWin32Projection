@@ -2,7 +2,7 @@
 
 /**
  * Represents types of applications tracked by the tracker server.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-complus_apptype
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-complus_apptype
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

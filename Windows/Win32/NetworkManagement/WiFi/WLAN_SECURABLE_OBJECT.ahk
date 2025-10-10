@@ -3,8 +3,11 @@
 /**
  * Defines the securable objects used by Native Wifi Functions.
  * @remarks
- * These objects can be secured using <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetsecuritysettings">WlanSetSecuritySettings</a>. The current permissions associated with these objects can be retrieved using <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetsecuritysettings">WlanGetSecuritySettings</a>. For more information about the use of securable objects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a> and <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/native-wifi-api-permissions">Native Wifi API Permissions</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_securable_object
+ * 
+  * These objects can be secured using <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetsecuritysettings">WlanSetSecuritySettings</a>. The current permissions associated with these objects can be retrieved using <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetsecuritysettings">WlanGetSecuritySettings</a>. For more information about the use of securable objects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a> and <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/native-wifi-api-permissions">Native Wifi API Permissions</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ne-wlanapi-wlan_securable_object
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

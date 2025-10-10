@@ -3,7 +3,7 @@
 
 /**
  * Serves as the key by which a given Secure Sockets Layer (SSL) certificate record is identified.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_key
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_key
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

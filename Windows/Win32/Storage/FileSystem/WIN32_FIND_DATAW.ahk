@@ -3,9 +3,10 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * Contains information about the file that is found by the FindFirstFile, FindFirstFileEx, or FindNextFile function. (Unicode)
+ * Contains information about the file that is found by the FindFirstFile, FindFirstFileEx, or FindNextFile function.
  * @remarks
- * If a file has a long file name, the complete name appears in the <b>cFileName</b> member, 
+ * 
+  * If a file has a long file name, the complete name appears in the <b>cFileName</b> member, 
   *     and the 8.3 format truncated version of the name appears in the <b>cAlternateFileName</b> 
   *     member. Otherwise, <b>cAlternateFileName</b> is empty. If the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfileexa">FindFirstFileEx</a> function was called with a value of 
@@ -29,7 +30,9 @@
   * 
   * > [!NOTE]
   * > The minwinbase.h header defines WIN32_FIND_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-win32_find_dataw
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-win32_find_dataw
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  * @charset Unicode

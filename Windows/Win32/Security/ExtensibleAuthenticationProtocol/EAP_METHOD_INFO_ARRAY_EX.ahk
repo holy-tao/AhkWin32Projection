@@ -3,7 +3,7 @@
 
 /**
  * Contains information about all of the EAP methods installed on the client computer.
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_info_array_ex
+ * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_method_info_array_ex
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

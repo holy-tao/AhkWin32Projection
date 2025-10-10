@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MULTI_QI (objidlbase.h) structure represents an interface in a query for multiple interfaces.
+ * Represents an interface in a query for multiple interfaces.
  * @remarks
- * To optimize network performance, most remote activation functions take an array of <b>MULTI_QI</b> structures rather than just a single IID as input and a single pointer to the requested interface on the object as output, as do local activation functions. This allows a set of pointers to interfaces to be returned from the same object in a single round-trip to the server. In network scenarios, requesting multiple interfaces at the time of object construction can save considerable time over using a number of calls to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for unique interfaces, each of which would require a round-trip to the server.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-multi_qi
+ * 
+  * To optimize network performance, most remote activation functions take an array of <b>MULTI_QI</b> structures rather than just a single IID as input and a single pointer to the requested interface on the object as output, as do local activation functions. This allows a set of pointers to interfaces to be returned from the same object in a single round-trip to the server. In network scenarios, requesting multiple interfaces at the time of object construction can save considerable time over using a number of calls to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for unique interfaces, each of which would require a round-trip to the server.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-multi_qi
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

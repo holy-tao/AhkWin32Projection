@@ -1545,11 +1545,22 @@ class GdiPlus {
     }
 
     /**
+     * The GdiplusStartup function initializes Windows GDI+. Call GdiplusStartup before making any other GDI+ calls, and call GdiplusShutdown when you have finished using GDI+.
+     * @param {Pointer<UIntPtr>} token Type: [out] <b>ULONG_PTR token*</b>
      * 
-     * @param {Pointer<UIntPtr>} token 
-     * @param {Pointer<GdiplusStartupInput>} input 
-     * @param {Pointer<GdiplusStartupOutput>} output 
-     * @returns {Integer} 
+     * Pointer to a <b>ULONG_PTR</b> that receives a token. Pass the token to <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusshutdown">GdiplusShutdown</a> when you have finished using GDI+.
+     * @param {Pointer<GdiplusStartupInput>} input Type: [in] <b>const <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupinput">GdiplusStartupInput</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupinput">GdiplusStartupInput</a> structure that contains the GDI+ version, a pointer to a debug callback function, a Boolean value that specifies whether to suppress the background thread, and a Boolean value that specifies whether to suppress external image codecs.
+     * @param {Pointer<GdiplusStartupOutput>} output Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupoutput">GdiplusStartupOutput</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupoutput">GdiplusStartupOutput</a> structure that receives a pointer to a notification hook function and a pointer to a notification unhook function. If the <b>SuppressBackgroundThread</b> data member of the <i>input</i> parameter is <b>FALSE</b>, then this parameter can be <b>NULL</b>.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">Status</a></b>
+     * 
+     * If the function succeeds, it returns <b>Ok</b>, which is an element of the <a href="/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">Status</a> enumeration.
+     * 
+     * If the function fails, it returns one of the other elements of the <a href="/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">Status</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/nf-gdiplusinit-gdiplusstartup
      * @since windows5.1.2600
      */
     static GdiplusStartup(token, input, output) {
@@ -1558,9 +1569,20 @@ class GdiPlus {
     }
 
     /**
+     * The GdiplusShutdown function cleans up resources used by Windows GDI+. Each call to GdiplusStartup should be paired with a call to GdiplusShutdown.
+     * @remarks
      * 
-     * @param {Pointer} token 
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a> before you create any GDI+ objects, and you must delete all of your GDI+ objects (or have them go out of scope) before you call <b>GdiplusShutdown</b>.
+     * 
+     * <div class="alert"><b>Note</b>  For Windows 7 and earlier, if GDI+ can't create a font family, it substitutes the generic Sans Serif family and client-side caches the pointer for the generic family. Because calls to <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a> and <b>GdiplusShutdown</b> are not aware of this caching, the operating system retains the pointer for the generic family object past the object's lifetime, which causes the operating system to crash. For Windows 8 and later, GDI+ returns a sentinel value for the generic family object that remains constant across calls to <b>GdiplusStartup</b> and <b>GdiplusShutdown</b> so the operating system doesn't retain the pointer for the generic family object past the object's lifetime.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Pointer} token Type: [in] <b>ULONG_PTR</b>
+     * 
+     * Token returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a>.
      * @returns {String} Nothing - always returns an empty string
+     * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/nf-gdiplusinit-gdiplusshutdown
      * @since windows5.1.2600
      */
     static GdiplusShutdown(token) {

@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether the encoder produces encoded fields or encoded frames. This enumeration is used with the AVEncMPVFrameFieldMode property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpvframefieldmode
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencmpvframefieldmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

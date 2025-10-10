@@ -4,7 +4,7 @@
 
 /**
  * The MCAST_LEASE_RESPONSE structure is used to respond to multicast lease requests.
- * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_lease_response
+ * @see https://docs.microsoft.com/windows/win32/api//madcapcl/ns-madcapcl-mcast_lease_response
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
  */

@@ -3,8 +3,11 @@
 /**
  * Specifies the possible types for a token binding.
  * @remarks
- * More information about the use of these Token Binding types can be found in the <b>Token Binding over HTTP Internet</b> draft.
- * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ne-tokenbinding-tokenbinding_type
+ * 
+  * More information about the use of these Token Binding types can be found in the <b>Token Binding over HTTP Internet</b> draft.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/ne-tokenbinding-tokenbinding_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

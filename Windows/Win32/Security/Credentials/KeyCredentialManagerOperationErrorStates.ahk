@@ -2,7 +2,7 @@
 
 /**
  * Enumeration of Error states returned by the function KeyCredentialManagerGetOperationErrorStates as flags.
- * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates
+ * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

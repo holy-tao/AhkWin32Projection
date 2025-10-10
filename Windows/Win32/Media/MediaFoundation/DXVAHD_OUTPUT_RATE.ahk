@@ -2,7 +2,7 @@
 
 /**
  * Specifies the output frame rates for an input stream, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_output_rate
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_output_rate
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

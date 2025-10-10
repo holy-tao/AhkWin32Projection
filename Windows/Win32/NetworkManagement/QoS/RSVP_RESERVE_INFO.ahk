@@ -4,7 +4,7 @@
 
 /**
  * The QOS object RSVP_RESERVE_INFO, through the ProviderSpecific buffer, enables RSVP behavior for a given flow to be specified or modified at a granular level, and enables default RSVP style settings for a flow to be overridden.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_reserve_info
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_reserve_info
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

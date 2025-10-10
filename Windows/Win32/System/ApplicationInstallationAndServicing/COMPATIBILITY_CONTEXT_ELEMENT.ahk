@@ -3,7 +3,7 @@
 
 /**
  * The COMPATIBILITY_CONTEXT_ELEMENT structure is used by the QueryActCtxW function as part of the ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-compatibility_context_element
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-compatibility_context_element
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

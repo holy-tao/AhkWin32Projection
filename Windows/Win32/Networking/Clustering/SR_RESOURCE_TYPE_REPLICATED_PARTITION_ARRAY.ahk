@@ -4,7 +4,7 @@
 
 /**
  * Lists the all replicated partitions on a disk.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_replicated_partition_array
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-sr_resource_type_replicated_partition_array
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

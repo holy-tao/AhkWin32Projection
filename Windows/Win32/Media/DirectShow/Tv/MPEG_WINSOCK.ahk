@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_WINSOCK structure is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_winsock
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_winsock
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

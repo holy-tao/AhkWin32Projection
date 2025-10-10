@@ -4,7 +4,8 @@
 /**
  * Defines the boundaries of the ink to the recognizer.
  * @remarks
- * If the application has drawn guidelines on the screen on which the user is expected to write, the application should set the values in the <b>RECO_GUIDE</b> structure to inform the recognizer. The <b>RECO_GUIDE</b> structure is for the recognizer's use only. Setting the <b>RECO_GUIDE</b> structure does not, by itself, draw visual clues on the display. The application or the control draws the visual clues.
+ * 
+  * If the application has drawn guidelines on the screen on which the user is expected to write, the application should set the values in the <b>RECO_GUIDE</b> structure to inform the recognizer. The <b>RECO_GUIDE</b> structure is for the recognizer's use only. Setting the <b>RECO_GUIDE</b> structure does not, by itself, draw visual clues on the display. The application or the control draws the visual clues.
   * 
   * The xOrigin and yOrigin members are ink-space coordinates of the upper-left corner of the area to write in. The cyBox and cxBox members are the height and width of the individual boxes to write in. If the guide is lined, they cyBox and cxBox width/height of every line. The cHorzBox and cVertBox members specify the number of columns and rows. The cyBase member specifies a baseline within the box. Setting the cyBase member to 0 indicates that there is no baseline. The cxBase member gives a horizontal displacement of the edge of the guideline from the edge of the box where writing is expected to start.
   * 
@@ -133,11 +134,13 @@
   * 
   * The following illustration represents the recognition guide structure for five columns and three rows of boxes.
   * 
-  * <img alt="Illustration of recognition guide structure" border="" src="images/3551c7eb-7398-4724-9de7-191818f35443.gif"/>
+  * <img alt="Illustrration of recognition guide structure" border="" src="images/3551c7eb-7398-4724-9de7-191818f35443.gif"/>
   * The following illustration represents a single box from the previous illustration.
   * 
   * <img alt="Illustration of single recognition guide box" border="" src="images/a7106d81-4314-44ec-905d-1bb3ba7711b7.gif"/>
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_guide
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-reco_guide
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

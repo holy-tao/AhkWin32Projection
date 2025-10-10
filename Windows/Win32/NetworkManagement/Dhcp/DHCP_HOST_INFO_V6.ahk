@@ -5,8 +5,11 @@
 /**
  * Contains network information about a DHCPv6 server (host), such as its IPv6 address and name.
  * @remarks
- * When this structure is populated by the DHCP Server, the <b>HostName</b> and <b>NetBiosName</b> members may be set to <b>NULL</b>.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info_v6
+ * 
+  * When this structure is populated by the DHCP Server, the <b>HostName</b> and <b>NetBiosName</b> members may be set to <b>NULL</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_host_info_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

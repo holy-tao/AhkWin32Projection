@@ -3,15 +3,15 @@
 /**
  * Options for resolving data into a condition tree.
  * @remarks
- * The <b>STRUCTURED_QUERY_RESOLVE_OPTION</b> type is defined in StructuredQuery.h as shown here.
+ * 
+  * The <b>STRUCTURED_QUERY_RESOLVE_OPTION</b> type is defined in StructuredQuery.h as shown here.
   * 
   *             
   * 
+  * <pre class="syntax" xml:space="preserve"><c>typedef int STRUCTURED_QUERY_RESOLVE_OPTION;</c></pre>
   * 
-  * ``` syntax
-  * typedef int STRUCTURED_QUERY_RESOLVE_OPTION;
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_resolve_option
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-structured_query_resolve_option
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

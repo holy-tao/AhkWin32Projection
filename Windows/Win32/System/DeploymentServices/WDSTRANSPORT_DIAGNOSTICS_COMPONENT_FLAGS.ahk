@@ -2,7 +2,7 @@
 
 /**
  * Configures which WDS components have diagnostics enabled. WDS diagnostics log events to the system event log.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_diagnostics_component_flags
+ * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_diagnostics_component_flags
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

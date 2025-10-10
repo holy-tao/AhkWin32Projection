@@ -3,7 +3,8 @@
 /**
  * The NtmsObjectsTypes enumeration type specifies the types of RSM objects.
  * @remarks
- * The following table show the relationship of RSM objects.
+ * 
+  * The following table show the relationship of RSM objects.
   * 
   * <table>
   * <tr>
@@ -123,7 +124,9 @@
   * <td>Side</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ne-ntmsapi-ntmsobjectstypes
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ne-ntmsapi-ntmsobjectstypes
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

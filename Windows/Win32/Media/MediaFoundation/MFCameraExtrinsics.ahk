@@ -6,7 +6,7 @@
 
 /**
  * Describes the location of a camera relative to other cameras or an established external reference.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraextrinsics
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfcameraextrinsics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

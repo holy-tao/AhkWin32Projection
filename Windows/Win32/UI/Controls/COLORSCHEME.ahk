@@ -3,7 +3,7 @@
 
 /**
  * Contains information for the drawing of buttons in a toolbar or rebar.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-colorscheme
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-colorscheme
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

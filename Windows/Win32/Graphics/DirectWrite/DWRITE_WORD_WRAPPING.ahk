@@ -2,7 +2,7 @@
 
 /**
  * Specifies the word wrapping to be used in a particular multiline paragraph.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_word_wrapping
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

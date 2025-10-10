@@ -3,7 +3,7 @@
 
 /**
  * Contains an operating system platform and processor architecture.
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-csplatform
+ * @see https://docs.microsoft.com/windows/win32/api//wtypes/ns-wtypes-csplatform
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

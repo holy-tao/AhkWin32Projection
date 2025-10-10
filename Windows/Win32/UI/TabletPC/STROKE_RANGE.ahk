@@ -3,7 +3,7 @@
 
 /**
  * Specifies a range of strokes in the InkDisp object.
- * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ns-tpcshrd-stroke_range
+ * @see https://docs.microsoft.com/windows/win32/api//tpcshrd/ns-tpcshrd-stroke_range
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines shadow copy LUN flags.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_hardware_options
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_hardware_options
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

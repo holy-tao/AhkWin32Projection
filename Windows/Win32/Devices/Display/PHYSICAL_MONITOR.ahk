@@ -4,8 +4,11 @@
 /**
  * Contains a handle and text description corresponding to a physical monitor.
  * @remarks
- * A physical monitor description is always an array of 128 characters.
- * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor
+ * 
+  * A physical monitor description is always an array of 128 characters.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

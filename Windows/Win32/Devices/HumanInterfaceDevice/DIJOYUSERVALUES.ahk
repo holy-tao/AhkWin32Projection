@@ -6,7 +6,7 @@
 
 /**
  * The DIJOYUSERVALUES structure contains information about the user's joystick settings.
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoyuservalues
+ * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-dijoyuservalues
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

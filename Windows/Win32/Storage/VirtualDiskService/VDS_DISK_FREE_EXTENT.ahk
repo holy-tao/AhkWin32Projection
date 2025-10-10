@@ -3,7 +3,7 @@
 
 /**
  * Describes a free extent on a disk.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_free_extent
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_disk_free_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -4,8 +4,8 @@
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
- * The CANDIDATEFORM structure (immdev.h) contains position information for the candidate window.
- * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-candidateform
+ * Contains position information for the candidate window.
+ * @see https://docs.microsoft.com/windows/win32/api//imm/ns-imm-candidateform
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class CANDIDATEFORM extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinates of the upper left corner of the candidate window or the caret position, depending on the value of <b>dwStyle</b>.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure containing the coordinates of the upper left corner of the candidate window or the caret position, depending on the value of <b>dwStyle</b>.
      * @type {POINT}
      */
     ptCurrentPos{

@@ -4,8 +4,11 @@
 /**
  * Specifies a folder shortcut's target folder and its attributes. This structure is used by IPersistFolder3::GetFolderTargetInfo and IPersistFolder3::InitializeEx.
  * @remarks
- * Any or all of the <b>pidlTargetFolder</b>, <b>szTargetParsingName</b>, and <b>csidl</b> members can be used to specify the target folder's location.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-persist_folder_target_info
+ * 
+  * Any or all of the <b>pidlTargetFolder</b>, <b>szTargetParsingName</b>, and <b>csidl</b> members can be used to specify the target folder's location.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-persist_folder_target_info
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

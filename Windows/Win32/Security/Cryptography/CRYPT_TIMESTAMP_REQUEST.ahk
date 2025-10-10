@@ -5,7 +5,7 @@
 
 /**
  * Defines a time stamp request structure that corresponds to the Abstract Syntax Notation One (ASN.1) definition of a TimeStampReq type.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_request
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_timestamp_request
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

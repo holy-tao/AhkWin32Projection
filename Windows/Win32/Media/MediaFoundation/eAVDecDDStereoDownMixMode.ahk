@@ -2,7 +2,7 @@
 
 /**
  * Specifies the stereo downmix mode for a Dolby Digital audio decoder.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecddstereodownmixmode
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecddstereodownmixmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * . (MBN_DEVICE_SERVICES_INTERFACE_STATE)
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_device_services_interface_state
+ * .
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_device_services_interface_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

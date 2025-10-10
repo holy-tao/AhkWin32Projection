@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function. (Unicode)
+ * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function.
  * @remarks
- * Because the <b>lpszClass</b> member can contain a pointer to a local (and thus inaccessible) atom, do not obtain the class name by using this member. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getclassname">GetClassName</a> function instead.
+ * 
+  * Because the <b>lpszClass</b> member can contain a pointer to a local (and thus inaccessable) atom, do not obtain the class name by using this member. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getclassname">GetClassName</a> function instead.
   * 
   *  You should access the data represented by the <b>lpCreateParams</b> member using a pointer that has been declared using the <b>UNALIGNED</b> type, because the pointer may not be <b>DWORD</b> aligned. This is demonstrated in the following example:
   * 
@@ -33,7 +34,9 @@
   * 
   * > [!NOTE]
   * > The winuser.h header defines CREATESTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-createstructw
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-createstructw
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  * @charset Unicode

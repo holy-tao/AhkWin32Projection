@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Description of a vertex element in a vertex buffer in an output slot. (D3D11_SO_DECLARATION_ENTRY)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_so_declaration_entry
+ * Description of a vertex element in a vertex buffer in an output slot.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_so_declaration_entry
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

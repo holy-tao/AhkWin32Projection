@@ -3,7 +3,7 @@
 
 /**
  * The VMRDeinterlaceCaps structure describes the capabilities of a deinterlacing mode.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrdeinterlacecaps
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrdeinterlacecaps
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

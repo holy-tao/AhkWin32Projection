@@ -4,8 +4,11 @@
 /**
  * Defines the raw input data coming from the specified keyboard.
  * @remarks
- * For information about keyboard types, subtypes, scan code modes, and related keyboard layouts, see the documentation in *kbd.h*, *ntdd8042.h* and *ntddkbd.h* headers in Windows SDK, and the [Keyboard Layout Samples](/samples/microsoft/windows-driver-samples/keyboard-layout-samples/).
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info_keyboard
+ * 
+  * For information about keyboard types, subtypes, scan code modes, and related keyboard layouts, see the documentation in *kbd.h*, *ntdd8042.h* and *ntddkbd.h* headers in Windows SDK, and the [Keyboard Layout Samples](/samples/microsoft/windows-driver-samples/keyboard-layout-samples/).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rid_device_info_keyboard
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Describes the color type used by the XPS_COLOR structure.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_color_type
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

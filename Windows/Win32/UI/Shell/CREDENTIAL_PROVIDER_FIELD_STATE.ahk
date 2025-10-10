@@ -2,7 +2,7 @@
 
 /**
  * Specifies the state of a single field in the Credential UI.
- * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state
+ * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_field_state
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

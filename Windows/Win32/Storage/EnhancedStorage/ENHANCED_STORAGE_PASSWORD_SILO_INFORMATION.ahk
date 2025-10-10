@@ -3,7 +3,7 @@
 
 /**
  * ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION structure contains data that defines the capabilities and requirements of a password silo.
- * @see https://learn.microsoft.com/windows/win32/api/ehstorextensions/ns-ehstorextensions-enhanced_storage_password_silo_information
+ * @see https://docs.microsoft.com/windows/win32/api//ehstorextensions/ns-ehstorextensions-enhanced_storage_password_silo_information
  * @namespace Windows.Win32.Storage.EnhancedStorage
  * @version v4.0.30319
  */
@@ -77,7 +77,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
     }
 
     /**
-     * <b>TRUE</b> if the silo is set to prepare for initialization to the default state set by the manufacturer; otherwise, <b>FALSE</b>.
+     * <b>TRUE</b> if the silo is set to prepare for initalization to the default state set by the manufacturer; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     ITMSArmed {

@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents the criteria for matching client certificates against those of an HTTPS server. (WSD_SECURITY_CERT_VALIDATION)
+ * Represents the criteria for matching client certificates against those of an HTTPS server.
  * @remarks
- * This structure is used in the <b>pConfigData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structure. 
+ * 
+  * This structure is used in the <b>pConfigData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structure. 
   * 
   * When the <b>configParamType</b> of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> is <b>WSD_SECURITY_SSL_SERVER_CERT_VALIDATION</b>, this structure can be used to validate SSL server certificates presented by an SSL server.
   * 
@@ -19,7 +20,8 @@
   * If the application is built using Windows 8 SDK targeted for Windows 7 OS, <b>WSD_SECURITY_CERT_VALIDATION</b> will resolve into the old structure (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437346(v=vs.85)">WSD_SECURITY_CERT_VALIDATION_V1</a>). While it's a given that the application will be supported for Windows 7, it also  on Windows 8 since <b>wsdapi.dll</b> on Windows 8 will handle both the old and the newer versions of this structure.
   * 
   * An application already built using Windows 7 SDK will use the old version of this structure. It will run fine on Windows 8 since <b>wsdapi.dll</b> on Windows 8 can handle both versions.
- * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_security_cert_validation
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ns-wsdbase-wsd_security_cert_validation
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -30,7 +32,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures that contain certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validation.  This parameter can be NULL.
+     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures that contain certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validatation.  This parameter can be NULL.
      * @type {Pointer<CERT_CONTEXT>}
      */
     certMatchArray {
@@ -48,7 +50,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
     }
 
     /**
-     * A handle to a certificate store that contains certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validation.  This parameter can be NULL.
+     * A handle to a certificate store that contains certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validatation.  This parameter can be NULL.
      * @type {Pointer<Void>}
      */
     hCertMatchStore {

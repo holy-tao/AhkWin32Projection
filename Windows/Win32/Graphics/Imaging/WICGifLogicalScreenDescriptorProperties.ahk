@@ -2,7 +2,7 @@
 
 /**
  * Specifies the logical screen descriptor properties for Graphics Interchange Format (GIF) metadata.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgiflogicalscreendescriptorproperties
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicgiflogicalscreendescriptorproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

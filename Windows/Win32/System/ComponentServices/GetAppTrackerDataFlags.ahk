@@ -2,7 +2,7 @@
 
 /**
  * Controls what data is returned from calls to the IGetAppTrackerData interface.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-getapptrackerdataflags
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-getapptrackerdataflags
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

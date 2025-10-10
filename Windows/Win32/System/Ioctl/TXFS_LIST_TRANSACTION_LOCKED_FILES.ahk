@@ -3,7 +3,7 @@
 
 /**
  * Contains a list of files locked by a transacted writer.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transaction_locked_files
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_list_transaction_locked_files
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

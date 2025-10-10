@@ -2,7 +2,7 @@
 
 /**
  * Contains values for the VisualEffects attribute.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-visualeffects
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-visualeffects
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

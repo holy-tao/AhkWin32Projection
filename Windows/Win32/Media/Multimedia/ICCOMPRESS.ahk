@@ -4,8 +4,11 @@
 /**
  * The ICCOMPRESS structure contains compression parameters used with the ICM_COMPRESS message.
  * @remarks
- * Drivers that perform temporal compression use data from the previous frame (found in the <b>lpbiPrev</b> and <b>lpPrev</b> members) to prune redundant data from the current frame.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-iccompress
+ * 
+  * Drivers that perform temporal compression use data from the previous frame (found in the <b>lpbiPrev</b> and <b>lpPrev</b> members) to prune redundant data from the current frame.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-iccompress
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

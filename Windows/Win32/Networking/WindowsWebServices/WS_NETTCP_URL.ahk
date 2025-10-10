@@ -4,10 +4,13 @@
 #Include .\WS_STRING.ahk
 
 /**
- * The URL subtype for specifying a net.tcp URL.
+ * The URL subtype for specifying an net.tcp URL.
  * @remarks
- * If used with the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsdecodeurl">WsDecodeUrl</a> field, portAsString is a zero-length string if no port is specified in url.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_nettcp_url
+ * 
+  * If used with the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsdecodeurl">WsDecodeUrl</a> field, portAsString is a zero-length string if no port is specified in url.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_nettcp_url
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains XML encoded data.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_data_blob
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_data_blob
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

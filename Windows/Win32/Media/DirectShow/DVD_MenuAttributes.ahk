@@ -6,7 +6,7 @@
 
 /**
  * The DVD_MenuAttributes structure contains information about a DVD menu. The IDvdInfo2::GetTitleAttributes method fills in a DVD_MenuAttributes structure for a specified stream.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_menuattributes
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_menuattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

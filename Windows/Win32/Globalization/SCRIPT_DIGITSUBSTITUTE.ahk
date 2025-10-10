@@ -3,7 +3,7 @@
 
 /**
  * Contains native digit and digit substitution settings.
- * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute
+ * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_digitsubstitute
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

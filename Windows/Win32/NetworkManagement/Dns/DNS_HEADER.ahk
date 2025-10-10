@@ -3,7 +3,7 @@
 
 /**
  * The DNS_HEADER structure contains DNS header information used when sending DNS messages as specified in section 4.1.1 of RFC 1035.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_header
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_header
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

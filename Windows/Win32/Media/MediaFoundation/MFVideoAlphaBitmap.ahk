@@ -7,8 +7,11 @@
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.
  * @remarks
- * To specify a GDI bitmap, create a device context and call <b>SelectObject</b> to select the bitmap into the DC. Then set the <b>hdc</b> member of the structure equal to the handle to the DC and set the <b>GetBitmapFromDC</b> member to <b>TRUE</b>.
- * @see https://learn.microsoft.com/windows/win32/api/evr9/ns-evr9-mfvideoalphabitmap
+ * 
+  * To specify a GDI bitmap, create a device context and call <b>SelectObject</b> to select the bitmap into the DC. Then set the <b>hdc</b> member of the structure equal to the handle to the DC and set the <b>GetBitmapFromDC</b> member to <b>TRUE</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evr9/ns-evr9-mfvideoalphabitmap
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

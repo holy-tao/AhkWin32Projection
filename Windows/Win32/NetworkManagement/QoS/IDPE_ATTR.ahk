@@ -3,7 +3,7 @@
 
 /**
  * The IDPE_ATTR structure contains identity policy element attribute information.
- * @see https://learn.microsoft.com/windows/win32/api/qospol/ns-qospol-idpe_attr
+ * @see https://docs.microsoft.com/windows/win32/api//qospol/ns-qospol-idpe_attr
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

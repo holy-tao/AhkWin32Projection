@@ -4,7 +4,7 @@
 
 /**
  * The MCAST_SCOPE_CTX structure defines the scope context for programmatic interaction with multicast addresses. The MCAST_SCOPE_CTX structure is used by various MADCAP functions as a handle for allocating, renewing, or releasing MADCAP addresses.
- * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_scope_ctx
+ * @see https://docs.microsoft.com/windows/win32/api//madcapcl/ns-madcapcl-mcast_scope_ctx
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
  */

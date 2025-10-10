@@ -4,8 +4,10 @@
 /**
  * Contains optional extra information that can be passed to the CryptGetTimeValidObject function in the pExtraInfo parameter.
  * @remarks
- * All members of the <b>CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO</b> structure that do not have a value must be set to zero.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_get_time_valid_object_extra_info
+ * 
+  * All members of the <b>CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO</b> structure that do not have a value must be set to zero.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_get_time_valid_object_extra_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

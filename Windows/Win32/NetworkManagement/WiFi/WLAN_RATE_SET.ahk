@@ -3,7 +3,7 @@
 
 /**
  * The set of supported data rates.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_rate_set
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_rate_set
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

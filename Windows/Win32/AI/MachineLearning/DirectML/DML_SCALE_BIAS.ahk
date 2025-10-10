@@ -3,7 +3,7 @@
 
 /**
  * Contains the values of scale and bias terms supplied to a DirectML operator. Scale and bias have the effect of applying the function g(x) = x * Scale + Bias.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_scale_bias
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_scale_bias
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

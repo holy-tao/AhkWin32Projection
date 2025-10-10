@@ -7,8 +7,11 @@
 /**
  * Defines a client information record used by the DHCP server, extending the definition provided in DHCP_CLIENT_INFO by including client type and address state information.
  * @remarks
- * The <b>DHCP_CLIENT_INFO_V5</b> structure is returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv5">DhcpEnumSubnetClientsV5</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v5
+ * 
+  * The <b>DHCP_CLIENT_INFO_V5</b> structure is returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv5">DhcpEnumSubnetClientsV5</a> function.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

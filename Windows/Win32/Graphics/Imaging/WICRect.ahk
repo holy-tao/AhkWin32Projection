@@ -3,7 +3,7 @@
 
 /**
  * Represents a rectangle for Windows Imaging Component (WIC) API.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrect
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicrect
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

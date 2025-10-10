@@ -3,7 +3,7 @@
 
 /**
  * Don't use this structure; it is not supported and it will be removed from the header in a future release.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_display_color_space
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_display_color_space
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

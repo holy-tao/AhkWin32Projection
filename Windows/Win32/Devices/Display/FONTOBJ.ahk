@@ -5,10 +5,13 @@
 /**
  * The FONTOBJ structure is used to give a driver access to information about a particular instance of a font.
  * @remarks
- * As an accelerator, the driver is allowed to access the public members of the FONTOBJ structure.
+ * 
+  * As an accelerator, the driver is allowed to access the public members of the FONTOBJ structure.
   * 
   * A driver can be both a producer and a consumer. For example, a printer driver can act as a producer while processing a call to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvqueryfontdata">DrvQueryFontData</a> function to provide glyph metrics, and later act a consumer while processing a call to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvtextout">DrvTextOut</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fontobj
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-fontobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

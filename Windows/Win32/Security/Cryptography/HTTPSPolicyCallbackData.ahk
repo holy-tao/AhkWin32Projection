@@ -3,7 +3,7 @@
 
 /**
  * Holds policy information used in the verification of Secure Sockets Layer (SSL) client/server certificate chains.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-httpspolicycallbackdata
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-httpspolicycallbackdata
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

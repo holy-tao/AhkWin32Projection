@@ -2,7 +2,7 @@
 
 /**
  * Indicates information about a safer application that is being blocked.
- * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_saferappblocked
+ * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_saferappblocked
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

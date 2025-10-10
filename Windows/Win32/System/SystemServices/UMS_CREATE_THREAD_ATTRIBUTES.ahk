@@ -3,7 +3,7 @@
 
 /**
  * Specifies attributes for a user-mode scheduling (UMS) worker thread.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-ums_create_thread_attributes
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-ums_create_thread_attributes
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

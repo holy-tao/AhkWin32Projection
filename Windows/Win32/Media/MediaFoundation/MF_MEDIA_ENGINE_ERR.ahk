@@ -3,8 +3,11 @@
 /**
  * Defines error status codes for the Media Engine.
  * @remarks
- * The values greater than zero correspond to error codes defined for the <b>MediaError</b> object  in HTML5.
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err
+ * 
+  * The values greater than zero correspond to error codes defined for the <b>MediaError</b> object  in HTML5.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_err
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

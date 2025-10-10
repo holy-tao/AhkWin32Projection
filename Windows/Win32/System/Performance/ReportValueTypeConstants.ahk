@@ -2,7 +2,7 @@
 
 /**
  * Determines if the Histogram and Report views graph the last value sampled or a calculated value using values from the sampling period, such as the average or minimum value.
- * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-reportvaluetypeconstants
+ * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-reportvaluetypeconstants
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

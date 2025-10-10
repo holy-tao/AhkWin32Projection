@@ -3,7 +3,7 @@
 
 /**
  * The table of NET_INTERFACE_CONTEXT structures.
- * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context_table
+ * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context_table
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

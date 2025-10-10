@@ -4,8 +4,11 @@
 /**
  * The PATHDATA structure describes all or part of a subpath.
  * @remarks
- * The PATHDATA structure describes all or part of a subpath. For example, a <b>MoveTo</b> call by an application within a path begins a new subpath.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-pathdata
+ * 
+  * The PATHDATA structure describes all or part of a subpath. For example, a <b>MoveTo</b> call by an application within a path begins a new subpath.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-pathdata
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

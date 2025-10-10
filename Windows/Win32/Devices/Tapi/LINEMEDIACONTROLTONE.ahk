@@ -4,14 +4,17 @@
 /**
  * The LINEMEDIACONTROLTONE structure describes a media action to be executed when a tone has been detected. It is used as an entry in an array. The lineSetMediaControl and TSPI_lineSetMediaControl functions use this structure.
  * @remarks
- * This structure may not be extended.
+ * 
+  * This structure may not be extended.
   * 
   * The 
   * <b>LINEMEDIACONTROLTONE</b> structure defines a tuple &lt;tone, media-control action&gt;. An array of these tuples is passed to the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetmediacontrol">lineSetMediaControl</a> function to set media control actions triggered by media type changes for a given call. When a change to a listed media type is detected, the corresponding action on the media stream is invoked.
   * 
   * A tone with all frequencies set to zero corresponds to silence. An application can thus monitor the call's information stream for silence.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontroltone
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linemediacontroltone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

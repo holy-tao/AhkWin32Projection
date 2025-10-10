@@ -5,7 +5,7 @@
 
 /**
  * Allows applications to extract the information that was placed in NMTBSAVE when the toolbar state was saved. This structure is passed to applications when they receive a TBN_RESTORE notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbrestore
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtbrestore
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

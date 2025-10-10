@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents information about the state of a Cluster Shared Volume (CSV). (CLUSTER_SHARED_VOLUME_STATE_INFO)
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_shared_volume_state_info
+ * Represents information about the state of a Cluster Shared Volume (CSV).
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-cluster_shared_volume_state_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

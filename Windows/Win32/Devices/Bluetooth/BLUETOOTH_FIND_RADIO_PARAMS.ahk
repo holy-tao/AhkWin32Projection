@@ -3,7 +3,7 @@
 
 /**
  * The BLUETOOTH_FIND_RADIO_PARAMS structure facilitates enumerating installed Bluetooth radios.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_find_radio_params
+ * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_find_radio_params
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

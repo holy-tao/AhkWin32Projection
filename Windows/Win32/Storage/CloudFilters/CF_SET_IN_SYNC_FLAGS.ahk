@@ -2,7 +2,7 @@
 
 /**
  * The in-sync state flags for placeholder files and folders.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_set_in_sync_flags
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_set_in_sync_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

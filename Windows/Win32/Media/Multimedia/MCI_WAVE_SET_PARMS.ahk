@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MCI\_WAVE\_SET\_PARMS structure contains information for the MCI\_SET command for waveform-audio devices.
- * @remarks
- * When assigning data to the members of this structure, set the corresponding flags in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the members.
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-wave-set-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     static packingSize => 8
 
     /**
-     * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
      * @type {Pointer}
      */
     dwCallback {
@@ -25,7 +20,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Device's time format.
      * @type {Integer}
      */
     dwTimeFormat {
@@ -34,7 +28,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Channel number for audio output. Typically used when turning a channel on or off.
      * @type {Integer}
      */
     dwAudio {
@@ -43,7 +36,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Audio input channel.
      * @type {Integer}
      */
     wInput {
@@ -52,7 +44,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Output device to use. For example, this value could be 2 if a system had two installed sound cards.
      * @type {Integer}
      */
     wOutput {
@@ -61,7 +52,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Format of the waveform-audio data, such as WAVE\_FORMAT\_PCM. Possible values are defined in Mmreg.h.
      * @type {Integer}
      */
     wFormatTag {
@@ -70,7 +60,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Reserved.
      * @type {Integer}
      */
     wReserved2 {
@@ -79,7 +68,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Mono (1) or stereo (2).
      * @type {Integer}
      */
     nChannels {
@@ -88,7 +76,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Reserved.
      * @type {Integer}
      */
     wReserved3 {
@@ -97,7 +84,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Samples per second.
      * @type {Integer}
      */
     nSamplesPerSec {
@@ -106,7 +92,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Sample rate in bytes per second.
      * @type {Integer}
      */
     nAvgBytesPerSec {
@@ -115,7 +100,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Block alignment of the data.
      * @type {Integer}
      */
     nBlockAlign {
@@ -124,7 +108,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Reserved.
      * @type {Integer}
      */
     wReserved4 {
@@ -133,7 +116,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Bits per sample.
      * @type {Integer}
      */
     wBitsPerSample {
@@ -142,7 +124,6 @@ class MCI_WAVE_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Reserved.
      * @type {Integer}
      */
     wReserved5 {

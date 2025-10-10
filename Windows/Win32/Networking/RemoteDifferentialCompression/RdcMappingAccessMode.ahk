@@ -2,7 +2,7 @@
 
 /**
  * Defines the access mode values for RDC file mapping objects.
- * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode
+ * @see https://docs.microsoft.com/windows/win32/api//msrdc/ne-msrdc-rdcmappingaccessmode
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines the states of a cluster shared volume.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_shared_volume_state
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-cluster_shared_volume_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

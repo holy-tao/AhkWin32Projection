@@ -4,7 +4,7 @@
 
 /**
  * Contains information for the IPN_FIELDCHANGED notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmipaddress
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmipaddress
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The CAPINFOCHUNK structure contains parameters that can be used to define an information chunk within an AVI capture file. The WM_CAP_FILE_SET_INFOCHUNK message or capSetInfoChunk macro is used to send a CAPINFOCHUNK structure to a capture window.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capinfochunk
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-capinfochunk
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

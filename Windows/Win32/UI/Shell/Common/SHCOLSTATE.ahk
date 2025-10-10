@@ -2,7 +2,7 @@
 
 /**
  * Describes how a property should be treated. These values are defined in Shtypes.h.
- * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-shcolstate
+ * @see https://docs.microsoft.com/windows/win32/api//shtypes/ne-shtypes-shcolstate
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class SHCOLSTATE{
     static SHCOLSTATE_TYPE_DATE => 3
 
     /**
-     * A mask for display type values SHCOLSTATE_TYPE_STR, SHCOLSTATE_TYPE_INT, and SHCOLSTATE_TYPE_DATE.
+     * A mask for display type values SHCOLSTATE_TYPE_STR, SHCOLSTATE_TYPE_STR, and SHCOLSTATE_TYPE_DATE.
      * @type {Integer (Int32)}
      */
     static SHCOLSTATE_TYPEMASK => 15

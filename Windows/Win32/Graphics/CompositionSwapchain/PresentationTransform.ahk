@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an arbitrary affine 2D transformation defined by a 3-by-2 matrix. (PresentationTransform)
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/presentationtypes/ns-presentationtypes-presentationtransform
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */
@@ -16,9 +12,6 @@ class PresentationTransform extends Win32Struct
     static packingSize => 4
 
     /**
-     * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The value of the first row and first column of this transform matrix structure.
      * @type {Float}
      */
     M11 {
@@ -27,9 +20,6 @@ class PresentationTransform extends Win32Struct
     }
 
     /**
-     * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The value of the first row and second column of this transform matrix structure.
      * @type {Float}
      */
     M12 {
@@ -38,9 +28,6 @@ class PresentationTransform extends Win32Struct
     }
 
     /**
-     * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The value of the second row and first column of this transform matrix structure.
      * @type {Float}
      */
     M21 {
@@ -49,9 +36,6 @@ class PresentationTransform extends Win32Struct
     }
 
     /**
-     * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The value of the second row and second column of this transform matrix structure.
      * @type {Float}
      */
     M22 {
@@ -60,9 +44,6 @@ class PresentationTransform extends Win32Struct
     }
 
     /**
-     * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The value of the third row and first column of this transform matrix structure.
      * @type {Float}
      */
     M31 {
@@ -71,9 +52,6 @@ class PresentationTransform extends Win32Struct
     }
 
     /**
-     * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The value of the third row and second column of this transform matrix structure.
      * @type {Float}
      */
     M32 {

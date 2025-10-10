@@ -5,7 +5,7 @@
 
 /**
  * The EMRLINETO and EMRMOVETOEX structures contains members for the LineTo and MoveToEx enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrlineto
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrlineto
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

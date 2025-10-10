@@ -2,7 +2,7 @@
 
 /**
  * The values of the SHARINGCONNECTIONTYPE type enumerate the possible types of shared connections.
- * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-sharingconnectiontype
+ * @see https://docs.microsoft.com/windows/win32/api//netcon/ne-netcon-sharingconnectiontype
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

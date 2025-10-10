@@ -3,7 +3,7 @@
 
 /**
  * Represents a processor group-specific affinity, such as the affinity of a thread.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-group_affinity
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-group_affinity
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

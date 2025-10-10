@@ -2,7 +2,7 @@
 
 /**
  * Determines the type of multicast sessions used for transmitting objects covered by this namespace.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_namespace_type
+ * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_namespace_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

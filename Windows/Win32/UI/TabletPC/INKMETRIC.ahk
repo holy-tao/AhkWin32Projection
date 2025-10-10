@@ -4,10 +4,13 @@
 /**
  * Specifies display properties for a text ink object (tInk).
  * @remarks
- * The <b>iHeight</b>, <b>iFontAssent</b> and <b>iFontDescent</b> fields are in <b>HIMETRIC</b> units.
+ * 
+  * The <b>iHeight</b>, <b>iFontAssent</b> and <b>iFontDescent</b> fields are in <b>HIMETRIC</b> units.
   * 
   * Applying italics to a text ink object slants the ink to the right.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkmetric
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ns-msinkaut-inkmetric
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

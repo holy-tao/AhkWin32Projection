@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a data buffer that can be registered with an I/O ring.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ns-ntioring_x-ioring_buffer_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class IORING_BUFFER_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * A **VOID** pointer representing the address of the data buffer.
      * @type {Pointer<Void>}
      */
     Address {
@@ -25,7 +20,6 @@ class IORING_BUFFER_INFO extends Win32Struct
     }
 
     /**
-     * The length of the data buffer, in bytes.
      * @type {Integer}
      */
     Length {

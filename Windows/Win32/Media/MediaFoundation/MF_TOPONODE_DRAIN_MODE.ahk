@@ -2,7 +2,7 @@
 
 /**
  * Defines at what times a transform in a topology is drained.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_toponode_drain_mode
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_toponode_drain_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

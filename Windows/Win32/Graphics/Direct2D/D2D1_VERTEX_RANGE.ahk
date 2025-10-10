@@ -3,7 +3,7 @@
 
 /**
  * Defines a range of vertices that are used when rendering less than the full contents of a vertex buffer.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_vertex_range
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ns-d2d1effectauthor-d2d1_vertex_range
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

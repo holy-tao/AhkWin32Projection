@@ -2,7 +2,7 @@
 
 /**
  * Flags used by INewWindowManager::EvaluateNewWindow. These values are factors in the decision of whether to display a pop-up window.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-nwmf
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-nwmf
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

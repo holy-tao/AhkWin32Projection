@@ -2,7 +2,7 @@
 
 /**
  * Defines the set of possible general window (app view) size preferences. Used by ILaunchSourceViewSizePreference::GetSourceViewSizePreference and ILaunchTargetViewSizePreference::GetTargetViewSizePreference.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-application_view_size_preference
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The RTM_ENTITY_METHOD_OUTPUT structure is used to pass information to the calling client when the routing table manager invokes a method.
- * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_method_output
+ * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_entity_method_output
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

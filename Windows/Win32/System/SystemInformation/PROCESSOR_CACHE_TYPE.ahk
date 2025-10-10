@@ -2,7 +2,7 @@
 
 /**
  * Represents the type of processor cache identified in the corresponding CACHE_DESCRIPTOR structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-processor_cache_type
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-processor_cache_type
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

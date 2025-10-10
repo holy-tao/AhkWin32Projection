@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of credentials specified by a CREDSSP_CRED structure.
- * @see https://learn.microsoft.com/windows/win32/api/credssp/ne-credssp-credspp_submit_type
+ * @see https://docs.microsoft.com/windows/win32/api//credssp/ne-credssp-credspp_submit_type
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

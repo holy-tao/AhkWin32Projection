@@ -4,8 +4,11 @@
 /**
  * The WAVEFORMATEX structure defines the format of waveform-audio data.
  * @remarks
- * An example of a format that uses extra information is the Microsoft Adaptive Delta Pulse Code Modulation (MS-ADPCM) format. The <b>wFormatTag</b> for MS-ADPCM is WAVE_FORMAT_ADPCM. The <b>cbSize</b> member will typically be set to 32. The extra information stored for WAVE_FORMAT_ADPCM is coefficient pairs required for encoding and decoding the waveform-audio data.
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-waveformatex
+ * 
+  * An example of a format that uses extra information is the Microsoft Adaptive Delta Pulse Code Modulation (MS-ADPCM) format. The <b>wFormatTag</b> for MS-ADPCM is WAVE_FORMAT_ADPCM. The <b>cbSize</b> member will typically be set to 32. The extra information stored for WAVE_FORMAT_ADPCM is coefficient pairs required for encoding and decoding the waveform-audio data.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-waveformatex
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

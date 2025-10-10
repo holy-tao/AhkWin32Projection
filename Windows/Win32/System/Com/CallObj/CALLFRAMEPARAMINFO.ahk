@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the parameter on the stack.
- * @see https://learn.microsoft.com/windows/win32/api/callobj/ns-callobj-callframeparaminfo
+ * @see https://docs.microsoft.com/windows/win32/api//callobj/ns-callobj-callframeparaminfo
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Windows app package key information.
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_key_info
+ * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ns-appxpackaging-appx_key_info
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

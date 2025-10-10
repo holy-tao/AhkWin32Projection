@@ -7,7 +7,8 @@
 /**
  * Contains data about a UI Automation change that occurred.
  * @remarks
- * The provider can call <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisechangesevent">UiaRaiseChangesEvent</a> and pass in an array of <b>UiaChangeInfo</b> structs to notify clients of a related group of changes.  The <b>payload</b> and <b>extraInfo</b> will vary depending on the <b>uiaId</b> populated in the <b>UiaChangeInfo</b> struct.
+ * 
+  * The provider can call <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisechangesevent">UiaRaiseChangesEvent</a> and pass in an array of <b>UiaChangeInfo</b> structs to notify clients of a related group of changes.  The <b>payload</b> and <b>extraInfo</b> will vary depending on the <b>uiaId</b> populated in the <b>UiaChangeInfo</b> struct.
   * 
   * If there are multiple of any of these event types multiple <b>UiaChangeInfo</b> structs would be created.  Below is a description of what these are for each pair of values.
   * 
@@ -94,7 +95,8 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ns-uiautomationcore-uiachangeinfo
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -105,7 +107,7 @@ class UiaChangeInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * Identifies the type of change info. Possible values are all the values of <b>Change Identifiers</b>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">Annotation Type Identifiers</a> and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-style-identifiers">Style Identifiers</a>.
+     * Identifies the type of change info. Possible values are all the values of <b>Change Indentifiers</b>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">Annotation Type Identifiers</a> and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-style-identifiers">Style Identifiers</a>.
      * @type {Integer}
      */
     uiaId {

@@ -3,7 +3,7 @@
 
 /**
  * Used to provide options for the Optimal Asymmetric Encryption Padding (OAEP) scheme.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_oaep_padding_info
+ * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_oaep_padding_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

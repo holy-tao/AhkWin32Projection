@@ -4,8 +4,6 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 
 /**
- * Contains the response to a D3DAUTHENTICATEDQUERY\_CRYPTOSESSION query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-querycryptosession-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -16,7 +14,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_OUTPUT extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_OUTPUT**](d3dauthenticatedchannel-query-output.md) structure that contains a Message Authentication Code (MAC) and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
     Output{
@@ -28,7 +25,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_OUTPUT extends Win32Struct
     }
 
     /**
-     * A handle to a DirectX Video Acceleration 2 (DXVA-2) decoder device.
      * @type {Pointer<Void>}
      */
     DXVA2DecodeHandle {
@@ -37,7 +33,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_OUTPUT extends Win32Struct
     }
 
     /**
-     * A handle to the cryptographic session that is associated with the decoder device.
      * @type {Pointer<Void>}
      */
     CryptoSessionHandle {
@@ -46,7 +41,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_OUTPUT extends Win32Struct
     }
 
     /**
-     * A handle to the Direct3D device that is associated with the decoder device.
      * @type {Pointer<Void>}
      */
     DeviceHandle {

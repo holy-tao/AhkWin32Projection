@@ -5,7 +5,7 @@
 
 /**
  * Contains an array of information about available networks.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_available_network_list
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_available_network_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

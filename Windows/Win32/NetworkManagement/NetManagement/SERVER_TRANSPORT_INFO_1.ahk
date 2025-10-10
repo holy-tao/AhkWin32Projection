@@ -4,9 +4,12 @@
 /**
  * The SERVER_TRANSPORT_INFO_1 structure contains information about the specified transport protocol, including name and address. This information level is valid only for the NetServerTransportAddEx function.
  * @remarks
- * The 
+ * 
+  * The 
   * 				<b>SERVER_TRANSPORT_INFO_1</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function to bind the specified server to the transport protocol.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_transport_info_1
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_transport_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
@@ -32,12 +35,8 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * 
      * A pointer to a null-terminated character string that contains the name of a transport device; for example,
      * 
-     * 
-     * ``` syntax
-     * \Device\NetBT_Tcpip_{2C9725F4-151A-11D3-AEEC-C3B211BD350B}
-     * 
-     * ```
-     * 
+     * <pre class="syntax" xml:space="preserve"><code>\Device\NetBT_Tcpip_{2C9725F4-151A-11D3-AEEC-C3B211BD350B}
+     * </code></pre>
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {Pointer<Char>}
      */

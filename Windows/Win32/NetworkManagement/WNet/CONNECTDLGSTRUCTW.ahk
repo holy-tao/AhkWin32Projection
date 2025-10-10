@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Used by the WNetConnectionDialog1 function to establish browsing dialog box parameters. (Unicode)
+ * Used by the WNetConnectionDialog1 function to establish browsing dialog box parameters.
  * @remarks
- * If neither the CONNDLG_RO_PATH nor the CONNDLG_USE_MRU flag is set, and the <b>lpRemoteName</b> member of the 
+ * 
+  * If neither the CONNDLG_RO_PATH nor the CONNDLG_USE_MRU flag is set, and the <b>lpRemoteName</b> member of the 
   * <b>NETRESOURCE</b> structure does not specify a remote path, the request defaults to the CONNDLG_RO_PATH dialog display type.
   * 
   * The CONNDLG_PERSIST and CONNDLG_NOT_PERSIST values cannot both be set. If neither is set, the dialog box defaults to the last option that was selected in this dialog box for the particular type of device connection.
@@ -15,7 +16,9 @@
   * 
   * > [!NOTE]
   * > The winnetwk.h header defines CONNECTDLGSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-connectdlgstructw
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnetwk/ns-winnetwk-connectdlgstructw
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @version v4.0.30319
  * @charset Unicode

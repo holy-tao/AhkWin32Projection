@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether to get or set a monitor's red, green, or blue gain.
- * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type
+ * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

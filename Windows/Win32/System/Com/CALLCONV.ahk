@@ -2,7 +2,7 @@
 
 /**
  * Identifies the calling convention used by a member function described in the METHODDATA structure.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-callconv
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-callconv
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

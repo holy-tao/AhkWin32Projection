@@ -5,8 +5,11 @@
 /**
  * AUTO_SCROLL_DATA may be altered or unavailable.
  * @remarks
- * NUM_POINTS is currently set to <c>3</c>.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-auto_scroll_data
+ * 
+  * NUM_POINTS is currently set to <c>3</c>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-auto_scroll_data
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -50,7 +53,7 @@ class AUTO_SCROLL_DATA extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>[NUM_POINTS]</b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>[NUM_POINTS]</b>
      * 
      * A pointer to the current scroll coordinates. The index of this array is <b>iNextSample</b>.
      * @type {Array<POINT>}

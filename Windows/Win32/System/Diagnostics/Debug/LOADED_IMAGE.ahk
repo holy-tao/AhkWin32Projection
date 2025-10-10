@@ -5,7 +5,8 @@
 /**
  * Contains information about the loaded image.
  * @remarks
- * The <b>LIST_ENTRY</b> structure is defined as follows:
+ * 
+  * The <b>LIST_ENTRY</b> structure is defined as follows:
   * 
   * 
   * ```cpp
@@ -14,7 +15,9 @@
   *    struct _LIST_ENTRY *Blink;
   * } LIST_ENTRY, *PLIST_ENTRY, *RESTRICTED_POINTER PRLIST_ENTRY;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-loaded_image
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-loaded_image
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

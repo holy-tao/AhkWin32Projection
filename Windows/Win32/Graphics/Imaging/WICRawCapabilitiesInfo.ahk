@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines raw codec capabilities.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrawcapabilitiesinfo
+ * Defines raw codec capabilites.
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicrawcapabilitiesinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

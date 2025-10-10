@@ -3,7 +3,7 @@
 
 /**
  * Defines options that are used to set window visual style attributes.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-wta_options
+ * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-wta_options
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

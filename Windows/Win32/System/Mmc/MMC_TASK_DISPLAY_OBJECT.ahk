@@ -5,7 +5,7 @@
 
 /**
  * Specifies the type of image and all the data required to use that image to display a task or the background on a taskpad.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task_display_object
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_task_display_object
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

@@ -6,8 +6,11 @@
 /**
  * Defines a color value for DXVA-HD.
  * @remarks
- * This union can represent both RGB and YCbCr colors. The interpretation of the union depends on the context.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_color
+ * 
+  * This union can represent both RGB and YCbCr colors. The interpretation of the union depends on the context.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_color
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

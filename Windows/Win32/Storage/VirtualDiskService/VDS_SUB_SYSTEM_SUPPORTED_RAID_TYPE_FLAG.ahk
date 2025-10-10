@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG enumeration (vdshwprv.h) defines the set of RAID levels that can be supported by subsystems.
+ * Defines the set of RAID levels that can be supported by subsystems.
  * @remarks
- * The values of this enumeration are used in the <b>ulSupportedRaidTypeFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop2">VDS_SUB_SYSTEM_PROP2</a> structure.
+ * 
+  * The values of this enumeration are used in the <b>ulSupportedRaidTypeFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop2">VDS_SUB_SYSTEM_PROP2</a> structure.
   * 
   * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG</b> enumeration constant.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_sub_system_supported_raid_type_flag
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_sub_system_supported_raid_type_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

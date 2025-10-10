@@ -3,7 +3,7 @@
 
 /**
  * The DD_VPORTCOLORDATA structure contains the video port extensions (VPE) object color control information.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_vportcolordata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_vportcolordata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

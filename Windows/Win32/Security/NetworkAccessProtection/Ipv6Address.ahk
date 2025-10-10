@@ -3,7 +3,7 @@
 
 /**
  * Defines an IPv6 address.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-ipv6address
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-ipv6address
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains a list of supported country or region strings.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_country_or_region_string_list
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_country_or_region_string_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

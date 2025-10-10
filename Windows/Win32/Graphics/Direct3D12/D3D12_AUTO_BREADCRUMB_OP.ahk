@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Defines constants that specify render/compute GPU operations. (D3D12_AUTO_BREADCRUMB_OP)
+ * Defines constants that specify render/compute GPU operations.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_auto_breadcrumb_op
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_auto_breadcrumb_op
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -300,5 +301,25 @@ class D3D12_AUTO_BREADCRUMB_OP{
     /**
      * @type {Integer (Int32)}
      */
+    static D3D12_AUTO_BREADCRUMB_OP_ENCODEFRAME1 => 49
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_AUTO_BREADCRUMB_OP_RESOLVEENCODEROUTPUTMETADATA1 => 50
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_AUTO_BREADCRUMB_OP_RESOLVEINPUTPARAMLAYOUT => 51
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static D3D12_AUTO_BREADCRUMB_OP_PROCESSFRAMES2 => 52
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_AUTO_BREADCRUMB_OP_SET_WORK_GRAPH_MAXIMUM_GPU_INPUT_RECORDS => 53
 }

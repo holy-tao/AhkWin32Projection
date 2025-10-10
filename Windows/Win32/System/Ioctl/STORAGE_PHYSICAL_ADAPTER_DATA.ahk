@@ -4,7 +4,7 @@
 
 /**
  * Describes a physical storage adapter.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_adapter_data
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_physical_adapter_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

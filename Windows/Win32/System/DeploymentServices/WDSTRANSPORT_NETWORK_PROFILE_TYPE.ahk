@@ -2,7 +2,7 @@
 
 /**
  * Defines settings that are used by WDS transport protocols to optimize data transfer on the network.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_network_profile_type
+ * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_network_profile_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
 /**
  * Provides information about the hotplug information of a device.
  * @remarks
- * The value of the <b>Size</b> member also identifies the version of this structure, as 
+ * 
+  * The value of the <b>Size</b> member also identifies the version of this structure, as 
   *     members will be added to this structure in the future. If the value of the <b>Size</b> member 
   *     is <c>sizeof(STORAGE_HOTPLUG_INFO)</c>, the current version of the 
   *     structure is the same as the version you compiled with. If the value is not 
@@ -25,7 +26,9 @@
   *     <b>ExpectSurpriseRemoval</b> and all levels of caching are disabled. If the value of that 
   *     member is not set, the removal policy of the specified device is set 
   *     to <b>ExpectOrderlyRemoval</b>, and caching may be selectively enabled.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hotplug_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_hotplug_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

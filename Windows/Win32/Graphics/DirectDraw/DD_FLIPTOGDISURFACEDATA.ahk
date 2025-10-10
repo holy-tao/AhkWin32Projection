@@ -3,7 +3,7 @@
 
 /**
  * The DD_FLIPTOGDISURFACEDATA structure contains the GDI surface notification information.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_fliptogdisurfacedata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_fliptogdisurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

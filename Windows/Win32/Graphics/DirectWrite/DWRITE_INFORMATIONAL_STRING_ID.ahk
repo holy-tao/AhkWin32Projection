@@ -2,7 +2,7 @@
 
 /**
  * The informational string enumeration which identifies a string embedded in a font file.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_informational_string_id
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

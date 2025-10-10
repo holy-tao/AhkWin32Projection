@@ -3,7 +3,7 @@
 
 /**
  * Contains snapshot deletion parameters, designating which snapshot to delete from the VHD Set.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-delete_snapshot_vhdset_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-delete_snapshot_vhdset_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

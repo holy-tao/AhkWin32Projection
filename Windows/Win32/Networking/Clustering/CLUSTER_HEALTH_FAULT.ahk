@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * TBD.
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-cluster_health_fault
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -12,6 +14,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     static packingSize => 8
 
     /**
+     * TBD
      * @type {Pointer<Char>}
      */
     Id {
@@ -20,6 +23,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     ErrorType {
@@ -28,6 +32,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     ErrorCode {
@@ -36,6 +41,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Pointer<Char>}
      */
     Description {
@@ -44,6 +50,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Pointer<Char>}
      */
     Provider {
@@ -52,6 +59,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     Flags {
@@ -60,6 +68,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     Reserved {

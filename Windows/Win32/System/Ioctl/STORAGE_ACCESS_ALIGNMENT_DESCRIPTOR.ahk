@@ -3,7 +3,7 @@
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage access alignment descriptor data for a device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_access_alignment_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_access_alignment_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -74,16 +74,12 @@ class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR extends Win32Struct
      * 
      * Example:  Offset = 3 Logical sectors
      * 
-     * 
-     * ``` syntax
-     * +---------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     * <pre class="syntax" xml:space="preserve"><code>+---------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
      * |LBA      |##|##|##|00|01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|
      * +---------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
      * |Physical |                       |                       |                ...
      * |Sector   |           0           |           1           |           2
-     * +---------+-----------------------+-----------------------+---------------
-     * ```
-     * 
+     * +---------+-----------------------+-----------------------+---------------</code></pre>
      * In this example, <c>BytesOffsetForSectorAlignment = 3 * BytesPerLogicalSector</c>.
      * @type {Integer}
      */

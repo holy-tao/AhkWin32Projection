@@ -3,7 +3,8 @@
 /**
  * Defines the type of logging that is performed.
  * @remarks
- * The log files are named based on the rollover type and logging format as shown in  the following table.
+ * 
+  * The log files are named based on the rollover type and logging format as shown in  the following table.
   * 
   * 
   * <table>
@@ -128,7 +129,9 @@
   * 
   * 
   * For more information about the log file formats, see <a href="https://docs.microsoft.com/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)">IIS Log File Formats</a>.
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_logging_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

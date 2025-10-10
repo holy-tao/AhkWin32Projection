@@ -5,7 +5,7 @@
 
 /**
  * The RTM_DEST_INFO structure is used to exchange destination information with clients registered with the routing table manager.
- * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_dest_info
+ * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_dest_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

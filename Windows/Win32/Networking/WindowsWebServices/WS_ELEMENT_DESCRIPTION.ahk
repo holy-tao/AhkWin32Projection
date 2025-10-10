@@ -3,7 +3,7 @@
 
 /**
  * Represents a mapping between a C data type and an XML element.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_element_description
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_element_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

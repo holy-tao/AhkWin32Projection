@@ -3,7 +3,7 @@
 
 /**
  * Contains information that an application passes to a rich edit control in a EM_STREAMIN or EM_STREAMOUT message. The rich edit control uses the information to transfer a stream of data into or out of the control.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-editstream
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-editstream
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

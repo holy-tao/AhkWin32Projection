@@ -3,9 +3,10 @@
 #Include .\DXVAHD_RATIONAL.ahk
 
 /**
- * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC). (DXVAHD_CUSTOM_RATE_DATA)
+ * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC).
  * @remarks
- * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples. 
+ * 
+  * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples. 
   * 
   * Here are some example uses for this structure:
   * 
@@ -33,7 +34,9 @@
   * 
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_custom_rate_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

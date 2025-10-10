@@ -2,7 +2,7 @@
 
 /**
  * The Windows Sockets WSAECOMPARATOR enumeration type is used for version-comparison semantics in Windows Sockets 2.
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ne-winsock2-wsaecomparator
+ * @see https://docs.microsoft.com/windows/win32/api//winsock2/ne-winsock2-wsaecomparator
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

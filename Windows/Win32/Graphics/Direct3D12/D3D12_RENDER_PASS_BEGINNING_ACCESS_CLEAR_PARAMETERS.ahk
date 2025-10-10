@@ -5,7 +5,7 @@
 
 /**
  * Describes the clear value to which resource(s) should be cleared at the beginning of a render pass.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_beginning_access_clear_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_render_pass_beginning_access_clear_parameters
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

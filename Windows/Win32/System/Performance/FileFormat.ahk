@@ -2,7 +2,7 @@
 
 /**
  * Defines the format of the data in the log file.
- * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-fileformat
+ * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-fileformat
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

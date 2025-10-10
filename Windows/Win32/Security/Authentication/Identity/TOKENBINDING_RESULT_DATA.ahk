@@ -3,7 +3,7 @@
 
 /**
  * Contains data about the result of generating a token binding or verifying one of the token bindings in a token binding message.
- * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ns-tokenbinding-tokenbinding_result_data
+ * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/ns-tokenbinding-tokenbinding_result_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

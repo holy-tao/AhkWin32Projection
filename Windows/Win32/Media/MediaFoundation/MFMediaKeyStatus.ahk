@@ -2,12 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents the status of a Content Decryption Module (CDM) session key.
+ * Reporesents the status of a Content Decryption Module (CDM) session key.
  * @remarks
- * This structure is used as the output parameter for the [IMFContentDecryptionModuleSession::GetKeyStatuses](../mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses.md) method.
+ * 
+  * This structure is used as the output parameter for the [IMFContentDecryptionModuleSession::GetKeyStatuses](../mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses.md) method.
   * 
   * **MFMediaKeyStatus** is based on the Encrypted Media Extension specification's [MediaKeyStatusMap](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession-sessionid).
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfmediakeystatus
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfmediakeystatus
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -27,7 +30,7 @@ class MFMediaKeyStatus extends Win32Struct
     }
 
     /**
-     * The number of bytes in the *pbKeyId* parameter.
+     * The number of bytes in the *pbKeyId* paramater.
      * @type {Integer}
      */
     cbKeyId {

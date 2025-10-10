@@ -4,8 +4,11 @@
 /**
  * Contains driver-specific data for the ID3D11VideoContext::DecoderExtension method.
  * @remarks
- * The exact meaning of each structure member depends on the value of <b>Function</b>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_decoder_extension
+ * 
+  * The exact meaning of each structure member depends on the value of <b>Function</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_decoder_extension
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -23384,14 +23384,9 @@ class HumanInterfaceDevice {
 
     /**
      * The joyConfigChanged function informs the joystick driver that the configuration has changed and should be reloaded from the registry.
-     * @remarks
-     * This function causes a window message to be sent to all top-level windows. This message may be defined by applications that need to respond to changes in joystick calibration by using <b>RegisterWindowMessage</b> with the following message ID:
-     * 
-     * 
-     * ```cpp
      * @param {Integer} dwFlags Reserved for future use. Must equal zero.
      * @returns {Integer} Returns JOYERR_NOERROR if successful. Returns JOYERR_PARMS if the parameter is non-zero.
-     * @see https://learn.microsoft.com/windows/win32/api/joystickapi/nf-joystickapi-joyconfigchanged
+     * @see https://docs.microsoft.com/windows/win32/api//joystickapi/nf-joystickapi-joyconfigchanged
      * @since windows5.0
      */
     static joyConfigChanged(dwFlags) {

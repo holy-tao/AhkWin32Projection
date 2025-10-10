@@ -2,7 +2,7 @@
 
 /**
  * Defines the type of a topology node.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_topology_type
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_topology_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

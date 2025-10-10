@@ -3,7 +3,7 @@
 
 /**
  * The WM_PICTURE structure is used as the data item for the WM/Picture complex metadata attribute.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_picture
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_picture
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

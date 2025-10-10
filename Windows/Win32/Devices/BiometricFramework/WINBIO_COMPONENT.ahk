@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specify the type of adapter being used.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-component-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

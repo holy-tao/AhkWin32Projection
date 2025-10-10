@@ -2,7 +2,7 @@
 
 /**
  * Defines the data collector types.
- * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-datacollectortype
+ * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-datacollectortype
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

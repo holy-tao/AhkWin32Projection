@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the type of information being assigned to or retrieved from an access control list (ACL).
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-acl_information_class
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-acl_information_class
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

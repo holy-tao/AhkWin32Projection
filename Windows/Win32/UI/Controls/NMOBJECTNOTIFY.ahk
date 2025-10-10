@@ -4,7 +4,7 @@
 
 /**
  * Contains information used with the TBN_GETOBJECT, TCN_GETOBJECT, and PSN_GETOBJECT notification codes.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmobjectnotify
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmobjectnotify
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

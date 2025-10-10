@@ -3,8 +3,11 @@
 /**
  * Determines whether the copied call frame data can be shared with data in the parent frame by determining its lifetime dependency on the parent frame.
  * @remarks
- * A consequence is that whichever of these <b>CALLFRAME_COPY</b> flags are passed to <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-copy">ICallFrame::Copy</a>, the interface pointers can be modified without consequence of disturbing the interface pointers residing in the parent frame.
- * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_copy
+ * 
+  * A consequence is that whichever of these <b>CALLFRAME_COPY</b> flags are passed to <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-copy">ICallFrame::Copy</a>, the interface pointers can be modified without consequence of disturbing the interface pointers residing in the parent frame.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//callobj/ne-callobj-callframe_copy
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
 /**
  * Used to enable stream processing of data rather than single block processing.
  * @remarks
- * Messages can be so large that processing them all at once by storing the whole message in memory can be difficult, if not impossible. It is possible to process large messages without encountering memory limitations by streaming the data that is to be processed into manageable sized blocks. The 
+ * 
+  * Messages can be so large that processing them all at once by storing the whole message in memory can be difficult, if not impossible. It is possible to process large messages without encountering memory limitations by streaming the data that is to be processed into manageable sized blocks. The 
   * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptography-functions">low-level message functions</a> can be used with streaming to encode or decode a message. Any level of nesting of messages is supported when streaming to encode and streaming to decode.
   * 
   * The input message to be processed as a stream feeds into 
@@ -13,7 +14,8 @@
   * No assumptions can be made about the block size of the output data because the size can vary for several reasons, such as the jitter in output block size caused by the block size for the encryption algorithm when processing an enveloped message, or when blocks that contain the message header and the SignerInfo as defined by PKCS # 7 are processed.
   * 
   * The size of the output block is passed to the callback function in its <i>cbData</i> parameter. The use of output data is determined in the calling application. Typically, output from stream processing will not be persisted in memory as a whole due to memory limitations; rather, it will be serialized to a disk or server file.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_stream_info
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_stream_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

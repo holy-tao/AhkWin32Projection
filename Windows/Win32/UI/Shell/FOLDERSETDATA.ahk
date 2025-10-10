@@ -4,7 +4,7 @@
 
 /**
  * Deprecated. Data used in IBrowserService2::GetFolderSetData.
- * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-foldersetdata
+ * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/ns-shdeprecated-foldersetdata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -17,7 +17,7 @@ class FOLDERSETDATA extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a></b>
      * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure containing folder view information.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure containing folder view informtion.
      * @type {FOLDERSETTINGS}
      */
     _fs{

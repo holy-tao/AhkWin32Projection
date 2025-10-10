@@ -3,7 +3,7 @@
 
 /**
  * The MBN_SMS_STATUS_INFO structure contains the status of the SMS message store of a device.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_sms_status_info
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_sms_status_info
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

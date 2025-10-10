@@ -4,7 +4,7 @@
 
 /**
  * Contains information specific to up-down control notification messages. It is identical to and replaces the NM_UPDOWN structure.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmupdown
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmupdown
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

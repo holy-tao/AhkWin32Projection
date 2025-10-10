@@ -3,7 +3,7 @@
 
 /**
  * The TF_HALTCOND structure is used to contain conditions of a range shift.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_haltcond
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_haltcond
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

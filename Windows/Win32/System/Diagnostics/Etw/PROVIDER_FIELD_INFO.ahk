@@ -3,7 +3,7 @@
 
 /**
  * Defines the field information.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-provider_field_info
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-provider_field_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

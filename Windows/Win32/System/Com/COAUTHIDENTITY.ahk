@@ -4,11 +4,14 @@
 /**
  * Contains a user name and password.
  * @remarks
- * COM does not persist the user's password information. For applications that use passwords, please see the documentation on <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptography-portal">Cryptography</a> (CryptoAPI). 
+ * 
+  * COM does not persist the user's password information. For applications that use passwords, please see the documentation on <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptography-portal">Cryptography</a> (CryptoAPI). 
   * 
   * 
-  * This structure is equivalent to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-coauthidentity
+  * This structure is equivalenet to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtypesbase/ns-wtypesbase-coauthidentity
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

@@ -5,14 +5,17 @@
 /**
  * The SYSTEM_AUDIT_CALLBACK_OBJECT_ACE structure defines an access control entry for a system access control list.
  * @remarks
- * If neither the <b>ObjectType</b> nor <b>InheritedObjectType</b> GUID is specified, the <b>SYSTEM_AUDIT_CALLBACK_OBJECT_ACE</b> structure has the same semantics as the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_callback_ace">SYSTEM_AUDIT_CALLBACK_ACE</a> structure. In that case, use the 
+ * 
+  * If neither the <b>ObjectType</b> nor <b>InheritedObjectType</b> GUID is specified, the <b>SYSTEM_AUDIT_CALLBACK_OBJECT_ACE</b> structure has the same semantics as the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_callback_ace">SYSTEM_AUDIT_CALLBACK_ACE</a> structure. In that case, use the 
   * <b>SYSTEM_AUDIT_CALLBACK_ACE</b> structure because it is smaller and more efficient.
   * 
   * An ACL that contains a <b>SYSTEM_AUDIT_CALLBACK_OBJECT_ACE</b> structure must specify the ACL_REVISION_DS revision number in its 
   * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure.
   * 
   * When a <b>SYSTEM_AUDIT_CALLBACK_OBJECT_ACE</b> structure is created, sufficient memory must be allocated to accommodate the GUID structures in <b>ObjectType</b> and <b>InheritedObjectType</b> members, if one or both of them exists, as well as to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory that follows it.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_audit_callback_object_ace
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_audit_callback_object_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

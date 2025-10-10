@@ -4,7 +4,8 @@
 /**
  * Defines a record in the SSL configuration store.
  * @remarks
- * Together with a 
+ * 
+  * Together with a 
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_key">HTTP_SERVICE_CONFIG_SSL_KEY</a> structure, the <b>HTTP_SERVICE_CONFIG_SSL_PARAM</b> structure makes up the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_set">HTTP_SERVICE_CONFIG_SSL_SET</a> structure passed to 
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a> function in the <i>pConfigInformation</i> parameter when the <i>ConfigId</i> parameter is set to <b>HttpServiceConfigSSLCertInfo</b>.
@@ -13,7 +14,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_ccs_key">HTTP_SERVICE_CONFIG_SSL_CCS_KEY</a> structure, the <b>HTTP_SERVICE_CONFIG_SSL_PARAM</b> structure makes up the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_ccs_set">HTTP_SERVICE_CONFIG_SSL_CCS_SET</a> structure passed to 
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a> function in the <i>pConfigInformation</i> parameter when the <i>ConfigId</i> parameter is set to <b>HttpServiceConfigSslCcsCertInfo</b>.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_param
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_param
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

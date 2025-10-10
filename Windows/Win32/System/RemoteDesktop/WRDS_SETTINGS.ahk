@@ -5,7 +5,7 @@
 
 /**
  * Contains policy-related setting information for a remote session.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_settings
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_settings
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

@@ -2,14 +2,14 @@
 
 /**
  * Defines flags for the MFVideoAlphaBitmapParams structure.
- * @see https://learn.microsoft.com/windows/win32/api/evr9/ne-evr9-mfvideoalphabitmapflags
+ * @see https://docs.microsoft.com/windows/win32/api//evr9/ne-evr9-mfvideoalphabitmapflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class MFVideoAlphaBitmapFlags{
 
     /**
-     * Alpha-blend the entire DirectDraw surface.
+     * Alpha-blend the entire DirectDraw suface.
  * 
  * If you are alpha-blending a DirectDraw surface, you can set this flag when you call <a href="https://docs.microsoft.com/windows/desktop/api/evr9/nf-evr9-imfvideomixerbitmap-setalphabitmap">IMFVideoMixerBitmap::SetAlphaBitmap</a>. If this flag is set, the mixer ignores the <b>rcSrc</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/evr9/ns-evr9-mfvideoalphabitmapparams">MFVideoAlphaBitmapParams</a> structure. If this flag is absent, the <b>rcSrc</b> member specifies the source rectangle.
  * 

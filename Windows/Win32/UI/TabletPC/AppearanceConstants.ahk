@@ -2,7 +2,7 @@
 
 /**
  * Specifies how an InkEdit control appears on the screen.
- * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-appearanceconstants
+ * @see https://docs.microsoft.com/windows/win32/api//inked/ne-inked-appearanceconstants
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

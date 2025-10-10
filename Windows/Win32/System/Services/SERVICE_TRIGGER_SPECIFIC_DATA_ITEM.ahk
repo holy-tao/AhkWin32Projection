@@ -4,7 +4,8 @@
 /**
  * Contains trigger-specific data for a service trigger event.
  * @remarks
- * The following table lists trigger-specific data by trigger event type. 
+ * 
+  * The following table lists trigger-specific data by trigger event type. 
   * 
   * <table>
   * <tr>
@@ -40,7 +41,9 @@
   * <td>A SERVICE_TRIGGER_DATA_TYPE_STRING that specifies the port, named pipe, or RPC interface for the network endpoint.</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger_specific_data_item
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_trigger_specific_data_item
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

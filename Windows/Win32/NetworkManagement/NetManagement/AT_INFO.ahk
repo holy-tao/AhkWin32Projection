@@ -4,9 +4,12 @@
 /**
  * The AT_INFO structure contains information about a job.
  * @remarks
- * For more information about scheduling jobs that execute once, jobs that execute multiple times, and jobs that execute periodically without deletion, see 
+ * 
+  * For more information about scheduling jobs that execute once, jobs that execute multiple times, and jobs that execute periodically without deletion, see 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobadd">NetScheduleJobAdd</a>.
- * @see https://learn.microsoft.com/windows/win32/api/lmat/ns-lmat-at_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmat/ns-lmat-at_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

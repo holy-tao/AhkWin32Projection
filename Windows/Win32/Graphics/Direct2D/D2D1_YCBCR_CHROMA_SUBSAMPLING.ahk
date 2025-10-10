@@ -2,7 +2,7 @@
 
 /**
  * Specifies the chroma subsampling of the input chroma image used by the YCbCr effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_1/ne-d2d1effects_1-d2d1_ycbcr_chroma_subsampling
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_1/ne-d2d1effects_1-d2d1_ycbcr_chroma_subsampling
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

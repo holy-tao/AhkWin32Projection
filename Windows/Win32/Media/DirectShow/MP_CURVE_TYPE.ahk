@@ -3,7 +3,8 @@
 /**
  * The MP_CURVE_TYPE enumeration defines the curve that a media parameter follows within an envelope segment.
  * @remarks
- * The following table lists the defined curves and their mathematical equivalents.
+ * 
+  * The following table lists the defined curves and their mathematical equivalents.
   * 
   * <table>
   * <tr>
@@ -38,7 +39,9 @@
   *  
   * 
   * For Boolean and enumeration parameters, only MP_CURVE_JUMP is valid.
- * @see https://learn.microsoft.com/windows/win32/api/medparam/ne-medparam-mp_curve_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//medparam/ne-medparam-mp_curve_type
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information used with the RBN_AUTOBREAK notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarautobreak
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmrebarautobreak
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

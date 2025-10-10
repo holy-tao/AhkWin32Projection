@@ -4,10 +4,6 @@
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
 
 /**
- * Describes an ID3D12VideoEncoder.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -18,7 +14,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * The node mask specifying the physical adapter on which the video processor will be used. For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node, i.e. the device's physical adapter, to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
      * @type {Integer}
      */
     NodeMask {
@@ -27,7 +22,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     }
 
     /**
-     * A bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_FLAGS](ne-d3d12video-d3d12_video_encoder_flags.md) specifying the flags for encoder creation.
      * @type {Integer}
      */
     Flags {
@@ -36,7 +30,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     }
 
     /**
-     * A [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) specifying the desired codec.
      * @type {Integer}
      */
     EncodeCodec {
@@ -45,7 +38,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     }
 
     /**
-     * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the desired encoding profile.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
     EncodeProfile{
@@ -57,7 +49,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     }
 
     /**
-     * A [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) specifying the format of the source stream.
      * @type {Integer}
      */
     InputFormat {
@@ -66,7 +57,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     }
 
     /**
-     * A [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION](ns-d3d12video-d3d12_video_encoder_codec_configuration.md) structure specifying codec configuration parameters.
      * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
      */
     CodecConfiguration{
@@ -78,7 +68,6 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     }
 
     /**
-     * A value from the [D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE](ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode.md) enumeration the maximum number of motion vectors allowed.
      * @type {Integer}
      */
     MaxMotionEstimationPrecision {

@@ -4,7 +4,8 @@
 /**
  * Contains information about an authentication identity.
  * @remarks
- * This authentication identity buffer can be returned from several credential APIs, for example, the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getserialization">GetSerialization</a> method and the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredential</a> and <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a> functions.
+ * 
+  * This authentication identity buffer can be returned from several credential APIs, for example, the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getserialization">GetSerialization</a> method and the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredential</a> and <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a> functions.
   * 
   * The structure describes a header of the authentication identity buffer and the data is appended at the end of the structure. Although the buffer size is specified by the <b>cbStructureLength</b> member, the actual buffer size can be larger or smaller than <b>cbStructureLength</b>. Some functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspivalidateauthidentity">SspiValidateAuthIdentity</a>, take a pointer, but not the buffer size, to the identity structure as input. As a result, those functions can validate the internal buffer data but cannot verify the buffer size. This can result in reading or writing data outside of the buffer range. To avoid buffer overruns when handling an untrusted identity buffer, applications should call <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiunmarshalauthidentity">SspiUnmarshalAuthIdentity</a> to obtain a pointer to an identity structure with a validated size and then pass that pointer to the functions.
   * 
@@ -18,7 +19,8 @@
   * Identity providers must explicitly check or set SEC_WINNT_AUTH_IDENTITY_FLAGS_ID_PROVIDER and the domain name fields to differentiate their password credential from a domain password and another identity provider's password.
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function  can be called with the CRED_PACK_ID_PROVIDER_CREDENTIALS option to create a <b>SEC_WINNT_AUTH_IDENTITY_EX2</b> structure with the authentication data of SEC_WINNT_AUTH_DATA_TYPE_PASSWORD credential type, a <b>Flags</b> member that contains the SEC_WINNT_AUTH_IDENTITY_FLAGS_ID_PROVIDER value, and a <b>DomainOffset</b> member set to the provider name.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-sec_winnt_auth_identity_ex2
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

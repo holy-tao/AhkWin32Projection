@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the origin of the logon session.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_origin
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_origin
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

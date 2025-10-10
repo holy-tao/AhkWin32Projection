@@ -819,7 +819,7 @@ class IndexServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ntquery/nf-ntquery-loadifilter
+     * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-loadifilter
      * @since windows5.0
      */
     static LoadIFilter(pwcsPath, pUnkOuter, ppIUnk) {
@@ -852,8 +852,6 @@ class IndexServer {
 
     /**
      * Retrieves the IFilter interface pointer for the specified storage object. This is especially useful when filtering the contents of a document and processing embedded OLE objects that are accessible through their IStorage interfaces.
-     * @remarks
-     * This function is not a full implementation of a COM persistent handler.
      * @param {Pointer<IStorage>} pStg A pointer to the <b>IStorage</b> interface to be used to access the file.
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
@@ -931,7 +929,7 @@ class IndexServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ntquery/nf-ntquery-bindifilterfromstorage
+     * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-bindifilterfromstorage
      * @since windows5.0
      */
     static BindIFilterFromStorage(pStg, pUnkOuter, ppIUnk) {
@@ -944,8 +942,6 @@ class IndexServer {
 
     /**
      * Retrieves the IFilter interface pointer for the specified storage object. This is especially useful when filtering the contents of a document and processing embedded OLE objects accessible through their IStream interfaces.
-     * @remarks
-     * This function is not a full implementation of a COM persistent handler.
      * @param {Pointer<IStream>} pStm A pointer to the <b>IStream</b> interface to be used to access the file.
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this stream object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
@@ -1023,7 +1019,7 @@ class IndexServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ntquery/nf-ntquery-bindifilterfromstream
+     * @see https://docs.microsoft.com/windows/win32/api//ntquery/nf-ntquery-bindifilterfromstream
      * @since windows5.0
      */
     static BindIFilterFromStream(pStm, pUnkOuter, ppIUnk) {

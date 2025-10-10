@@ -4,8 +4,11 @@
 /**
  * Used with the ADSVALUE structure to contain a distinguished name attribute value that also contains binary data.
  * @remarks
- * When extending the active directory schema to add <b>ADS_DN_WITH_BINARY</b>, you must also specify the otherWellKnownGuid attribute definition. Add the following to the ldf file attribute definition: omObjectClass:: KoZIhvcUAQEBCw==
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_dn_with_binary
+ * 
+  * When extending the active directory schema to add <b>ADS_DN_WITH_BINARY</b>, you must also specify the otherWellKnownGuid attribute definition. Add the following to the ldf file attribute definition: omObjectClass:: KoZIhvcUAQEBCw==
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_dn_with_binary
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

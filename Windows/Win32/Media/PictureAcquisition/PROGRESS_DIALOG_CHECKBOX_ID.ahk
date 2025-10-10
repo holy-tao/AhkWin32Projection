@@ -2,7 +2,7 @@
 
 /**
  * The PROGRESS_DIALOG_CHECKBOX_ID enumeration type indicates the check box on the IPhotoProgressDialog object.
- * @see https://learn.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-progress_dialog_checkbox_id
+ * @see https://docs.microsoft.com/windows/win32/api//photoacquire/ne-photoacquire-progress_dialog_checkbox_id
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */

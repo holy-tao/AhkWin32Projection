@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The GLOBALOPT_UNMARSHALING_POLICY_VALUES (objidlbase.h) enumeration provides values for the COM unmarshaling policy global option.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-globalopt_unmarshaling_policy_values
+ * Provides values for the COM unmarshaling policy global option.
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-globalopt_unmarshaling_policy_values
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

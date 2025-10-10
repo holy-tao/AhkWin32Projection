@@ -4,7 +4,7 @@
 
 /**
  * Describes the drawing state of a render target.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_drawing_state_description
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_drawing_state_description
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

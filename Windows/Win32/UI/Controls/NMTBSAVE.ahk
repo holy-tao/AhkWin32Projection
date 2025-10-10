@@ -5,7 +5,7 @@
 
 /**
  * This structure is passed to applications when they receive a TBN_SAVE notification code. It contains information about the button currently being saved. Applications can modify the values of the members to save additional information.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbsave
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtbsave
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

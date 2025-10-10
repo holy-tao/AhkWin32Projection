@@ -2,7 +2,7 @@
 
 /**
  * Identifies how to perform a tile-mapping operation.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ne-d3d11_2-d3d11_tile_mapping_flag
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_2/ne-d3d11_2-d3d11_tile_mapping_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

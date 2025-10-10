@@ -4,7 +4,8 @@
 /**
  * Contains raw data in the form of an array of data blobs that are used by some Native Wifi functions.
  * @remarks
- * The <b>WLAN_RAW_DATA_LIST</b> structure is used to encapsulate a list of data blobs into a flat memory block. It should be interpreted as a list of headers followed by data blobs.
+ * 
+  * The <b>WLAN_RAW_DATA_LIST</b> structure is used to encapsulate a list of data blobs into a flat memory block. It should be interpreted as a list of headers followed by data blobs.
   * 
   * To create 	a <b>WLAN_RAW_DATA_LIST</b>, an application needs to allocate a memory block that is large enough to hold the headers and the data blobs, and then cast the memory block to a pointer to a  <b>WLAN_RAW_DATA_LIST</b> structure.
   * 
@@ -92,7 +93,9 @@
   * 
   * 
   * For more information about PSD IEs, including a discussion of the format of an IE, see <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetpsdiedatalist">WlanSetPsdIEDataList</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_raw_data_list
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_raw_data_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

@@ -4,12 +4,15 @@
 /**
  * Contains the header values for a known header from an HTTP request or HTTP response.
  * @remarks
- * In the HTTP Server API, known headers are defined as those that are enumerated in the 
+ * 
+  * In the HTTP Server API, known headers are defined as those that are enumerated in the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_header_id">HTTP_HEADER_ID</a> enumeration type. Be aware that there are different lists of different sizes for request and response headers.
   * 
   * For more information about the structure and usage of HTTP headers, see the 
   * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_known_header
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_known_header
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

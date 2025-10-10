@@ -2,7 +2,7 @@
 
 /**
  * Elements of the TsShiftDir enumeration specify which direction an anchor is moved.
- * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsshiftdir
+ * @see https://docs.microsoft.com/windows/win32/api//textstor/ne-textstor-tsshiftdir
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -3,13 +3,16 @@
 /**
  * Used to specify the type of an access-control entry for Active Directory objects.
  * @remarks
- * A standard ACE is one defined and used in a Windows security descriptor. Windows enables the ACE to be applied to objects and properties identified by GUIDs.
+ * 
+  * A standard ACE is one defined and used in a Windows security descriptor. Windows enables the ACE to be applied to objects and properties identified by GUIDs.
   * 
   * Use the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsaccesscontrolentry">IADsAccessControlEntry</a> property method to determine the ACE type.
   * 
   * <div class="alert"><b>Note</b>  Because Visual Basic Scripting Edition (VBScript) cannot read data from a type library, VBScript applications cannot recognize symbolic constants as defined above. Use the numeric constants instead to set the appropriate flags in VBScript applications. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here, in VBScript applications.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_acetype_enum
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_acetype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

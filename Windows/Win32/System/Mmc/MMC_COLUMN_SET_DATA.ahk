@@ -3,7 +3,7 @@
 
 /**
  * The MMC_COLUMN_SET_DATA structure is introduced in MMC 1.2.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_column_set_data
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_column_set_data
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

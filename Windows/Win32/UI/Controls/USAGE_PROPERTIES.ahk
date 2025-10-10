@@ -4,8 +4,11 @@
 /**
  * Contains device properties (Human Interface Device (HID) global items that correspond to HID usages) for any type of HID input device.
  * @remarks
- * The HID working group publishes a set of documents that make up the HID Usage Tables (the dictionary that describes what HID devices are allowed to do). These HID Usage Tables contain a list with Usage descriptions. A Usage provides information to an application developer about the intended meaning and use of a particular item described in the Report Descriptor. For example, there is a Usage defined for the left button of a mouse. The Report Descriptor can define where in a report an application can find the current state of the mouse’s left button. The Usage Tables are broken up into several name spaces, called Usage Pages. Each Usage Page describes a set of related Usages to help organize the document. The combination of a Usage Page and Usage defines the Usage ID that uniquely identifies a specific Usage in the Usage Tables.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-usage_properties
+ * 
+  * The HID working group publishes a set of documents that make up the HID Usage Tables (the dictionary that describes what HID devices are allowed to do). These HID Usage Tables contain a list with Usage descriptions. A Usage provides information to an application developer about the intended meaning and use of a particular item described in the Report Descriptor. For example, there is a Usage defined for the left button of a mouse. The Report Descriptor can define where in a report an application can find the current state of the mouse’s left button. The Usage Tables are broken up into several name spaces, called Usage Pages. Each Usage Page describes a set of related Usages to help organize the document. The combination of a Usage Page and Usage defines the Usage ID that uniquely identifies a specific Usage in the Usage Tables.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-usage_properties
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

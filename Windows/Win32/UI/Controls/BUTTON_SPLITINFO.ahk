@@ -5,8 +5,11 @@
 /**
  * Contains information that defines a split button (BS_SPLITBUTTON and BS_DEFSPLITBUTTON styles). Used with the BCM_GETSPLITINFO and BCM_SETSPLITINFO messages.
  * @remarks
- * The glyph is the image that appears on the part of the button that activates the dropdown list. By default, this is an inverted triangle. Multiple images can be added to the image list to provide different glyphs for different states of the button, such as hot and pressed.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_splitinfo
+ * 
+  * The glyph is the image that appears on the part of the button that activates the dropdown list. By default, this is an inverted triangle. Multiple images can be added to the image list to provide different glyphs for different states of the button, such as hot and pressed.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-button_splitinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -144,9 +147,9 @@ class BUTTON_SPLITINFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that specifies the size of the glyph in <b>himlGlyph</b>.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that specifies the size of the glyph in <b>himlGlyph</b>.
      * @type {SIZE}
      */
     size{

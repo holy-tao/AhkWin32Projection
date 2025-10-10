@@ -2,7 +2,7 @@
 
 /**
  * Elements of the TfLBIClick enumeration specify which mouse button was used to click a toolbar item.
- * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbiclick
+ * @see https://docs.microsoft.com/windows/win32/api//ctfutb/ne-ctfutb-tflbiclick
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

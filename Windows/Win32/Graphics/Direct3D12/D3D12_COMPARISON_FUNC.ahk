@@ -3,7 +3,8 @@
 /**
  * Specifies comparison options.
  * @remarks
- * A comparison option determines how the runtime compares source (new) data against destination (existing) data before storing the new data. The comparison option is declared in a description before an object is created. The API allows you to set a comparison option for <ul>
+ * 
+  * A comparison option determines how the runtime compares source (new) data against destination (existing) data before storing the new data. The comparison option is declared in a description before an object is created. The API allows you to set a comparison option for <ul>
   * <li>a depth-stencil buffer (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc">D3D12_DEPTH_STENCIL_DESC</a>)
   *             </li>
   * <li>depth-stencil operations (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc">D3D12_DEPTH_STENCILOP_DESC</a>)
@@ -11,7 +12,9 @@
   * <li>sampler state (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_sampler_desc">D3D12_SAMPLER_DESC</a>)
   *             </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_comparison_func
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_comparison_func
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

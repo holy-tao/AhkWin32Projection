@@ -3,7 +3,7 @@
 
 /**
  * The DD_ENDMOCOMPFRAMEDATA structure contains information required to complete a decoded frame.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_endmocompframedata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_endmocompframedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

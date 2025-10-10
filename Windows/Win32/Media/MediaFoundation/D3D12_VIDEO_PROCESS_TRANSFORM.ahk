@@ -5,8 +5,11 @@
 /**
  * Specifies transform parameters for video processing.
  * @remarks
- * For stereo formats, the orientation is applied before the stereo format is applied.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_transform
+ * 
+  * For stereo formats, the orientation is applied before the stereo format is applied.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_transform
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

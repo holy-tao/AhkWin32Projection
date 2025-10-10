@@ -3,7 +3,7 @@
 
 /**
  * Contains a desired value for polarity of a pin or channel.
- * @see https://learn.microsoft.com/windows/win32/api/pwm/ns-pwm-pwm_pin_set_polarity_input
+ * @see https://docs.microsoft.com/windows/win32/api//pwm/ns-pwm-pwm_pin_set_polarity_input
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

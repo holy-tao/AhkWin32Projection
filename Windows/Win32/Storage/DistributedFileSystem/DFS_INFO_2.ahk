@@ -4,15 +4,14 @@
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, and number of DFS targets for the root or link.
  * @remarks
- * The DFS functions use the <b>DFS_INFO_2</b> structure to 
+ * 
+  * The DFS functions use the <b>DFS_INFO_2</b> structure to 
   *     retrieve information about a DFS root or link.
   * 
   * Following is an example that describes interpretation of the flags that can be returned in the 
   *     <b>State</b> member:
   * 
-  * 
-  * ``` syntax
-  * FlavorBits = (Flags &amp; DFS_VOLUME_FLAVORS)
+  * <pre class="syntax" xml:space="preserve"><code>FlavorBits = (Flags &amp; DFS_VOLUME_FLAVORS)
   * If (FlavorBits == DFS_VOLUME_FLAVOR_STANDALONE)   // namespace is stand-alone DFS
   * else if (FlavorBits == DFS_VOLUME_FLAVOR_AD_BLOB) // namespace is AD blob
   * else                                              // unknown flavor
@@ -20,9 +19,10 @@
   * StateBits = (Flags &amp; DFS_VOLUME_STATES)
   * // StateBits can be one of the following: 
   * //  (DFS_VOLUME_STATE_OK, DFS_VOLUME_STATE_INCONSISTENT, 
-  * //   DFS_VOLUME_STATE_OFFLINE or DFS_VOLUME_STATE_ONLINE)
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_2
+  * //   DFS_VOLUME_STATE_OFFLINE or DFS_VOLUME_STATE_ONLINE)</code></pre>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_2
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
 /**
  * Contains parameters used to check for strong signatures on certificates, certificate revocation lists (CRLs), online certificate status protocol (OCSP) responses, and PKCS
  * @remarks
- * The parameters needed to check for a strong signature include the following:
+ * 
+  * The parameters needed to check for a strong signature include the following:
   * 
   * <ul>
   * <li>Name of the public (asymmetric) algorithm</li>
@@ -53,7 +54,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certselectcertificatechains">CertSelectCertificateChains</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_para
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_strong_sign_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

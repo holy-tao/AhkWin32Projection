@@ -3,7 +3,7 @@
 
 /**
  * Defines a list of result codes.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-resultcodes
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-resultcodes
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

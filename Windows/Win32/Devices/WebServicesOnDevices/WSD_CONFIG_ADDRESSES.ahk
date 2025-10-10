@@ -3,7 +3,7 @@
 
 /**
  * Information about specific addresses that a host should listen on.
- * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_config_addresses
+ * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ns-wsdbase-wsd_config_addresses
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The SecPkgContext_ConnectionInfo structure contains protocol and cipher information. This structure is used by the InitializeSecurityContext (Schannel) function.This attribute is supported only by the Schannel security support provider (SSP).
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_connectioninfo
+ * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_connectioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -21,29 +21,28 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * <th>Value</th>
      * <th>Meaning</th>
      * </tr>
-     * 
      * <tr>
-     * <td width="40%"><a id="SP_PROT_SSL2_CLIENT"></a><a id="sp_prot_ssl2_client"></a><dl>
-     * <dt><b>SP_PROT_SSL2_CLIENT</b></dt>
-     * <dt>8 (0x8)</dt>
+     * <td width="40%"><a id="SP_PROT_TLS1_CLIENT"></a><a id="sp_prot_tls1_client"></a><dl>
+     * <dt><b>SP_PROT_TLS1_CLIENT</b></dt>
+     * <dt>128 (0x80)</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Secure Sockets Layer 2.0 client-side. Superseded by SP_PROT_TLS1_CLIENT.
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">Transport Layer Security</a> 1.0 client-side.
+     * 
      * </td>
      * </tr>
-     * 
      * <tr>
-     * <td width="40%"><a id="SP_PROT_SSL2_SERVER"></a><a id="sp_prot_ssl2_server"></a><dl>
-     * <dt><b>SP_PROT_SSL2_SERVER</b></dt>
-     * <dt>4 (0x4)</dt>
+     * <td width="40%"><a id="SP_PROT_TLS1_SERVER"></a><a id="sp_prot_tls1_server"></a><dl>
+     * <dt><b>SP_PROT_TLS1_SERVER</b></dt>
+     * <dt>64 (0x40)</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Secure Sockets Layer 2.0 server-side. Superseded by SP_PROT_TLS1_SERVER.
+     * Transport Layer Security 1.0 server-side.
+     * 
      * </td>
      * </tr>
-     * 
      * <tr>
      * <td width="40%"><a id="SP_PROT_SSL3_CLIENT"></a><a id="sp_prot_ssl3_client"></a><dl>
      * <dt><b>SP_PROT_SSL3_CLIENT</b></dt>
@@ -52,9 +51,9 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * <td width="60%">
      * Secure Sockets Layer 3.0 client-side.
+     * 
      * </td>
      * </tr>
-     * 
      * <tr>
      * <td width="40%"><a id="SP_PROT_SSL3_SERVER"></a><a id="sp_prot_ssl3_server"></a><dl>
      * <dt><b>SP_PROT_SSL3_SERVER</b></dt>
@@ -63,31 +62,9 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * <td width="60%">
      * Secure Sockets Layer 3.0 server-side.
-     * </td>
-     * </tr>
-     *  
-     * <tr>
-     * <td width="40%"><a id="SP_PROT_TLS1_0_CLIENT"></a><a id="sp_prot_tls1_0_client"></a><dl>
-     * <dt><b>SP_PROT_TLS1_0_CLIENT</b></dt>
-     * <dt>128 (0x80)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">Transport Layer Security</a> 1.0 client-side.
-     * </td>
-     * </tr>
      * 
-     * <tr>
-     * <td width="40%"><a id="SP_PROT_TLS1_0_SERVER"></a><a id="sp_prot_tls1_0_server"></a><dl>
-     * <dt><b>SP_PROT_TLS1_0_SERVER</b></dt>
-     * <dt>64 (0x40)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Transport Layer Security 1.0 server-side.
      * </td>
      * </tr>
-     * 
      * <tr>
      * <td width="40%"><a id="SP_PROT_TLS1_1_CLIENT"></a><a id="sp_prot_tls1_1_client"></a><dl>
      * <dt><b>SP_PROT_TLS1_1_CLIENT</b></dt>
@@ -96,9 +73,9 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * <td width="60%">
      * Transport Layer Security 1.1 client-side.
+     * 
      * </td>
      * </tr>
-     * 
      * <tr>
      * <td width="40%"><a id="SP_PROT_TLS1_1_SERVER"></a><a id="sp_prot_tls1_1_server"></a><dl>
      * <dt><b>SP_PROT_TLS1_1_SERVER</b></dt>
@@ -107,9 +84,9 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * <td width="60%">
      * Transport Layer Security 1.1 server-side.
+     * 
      * </td>
      * </tr>
-     * 
      * <tr>
      * <td width="40%"><a id="SP_PROT_TLS1_2_CLIENT"></a><a id="sp_prot_tls1_2_client"></a><dl>
      * <dt><b>SP_PROT_TLS1_2_CLIENT</b></dt>
@@ -118,9 +95,9 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * <td width="60%">
      * Transport Layer Security 1.2 client-side.
+     * 
      * </td>
      * </tr>
-     *  
      * <tr>
      * <td width="40%"><a id="SP_PROT_TLS1_2_SERVER"></a><a id="sp_prot_tls1_2_server"></a><dl>
      * <dt><b>SP_PROT_TLS1_2_SERVER</b></dt>
@@ -129,75 +106,53 @@ class SecPkgContext_ConnectionInfo extends Win32Struct
      * </td>
      * <td width="60%">
      * Transport Layer Security 1.2 server-side.
-     * </td>
-     * </tr>
      * 
+     * </td>
+     * </tr>
      * <tr>
-     * <td width="40%"><a id="SP_PROT_TLS1_3_CLIENT"></a><a id="sp_prot_tls1_3_client"></a><dl>
-     * <dt><b>SP_PROT_TLS1_3_CLIENT</b></dt>
-     * <dt>2048 (0x2000)</dt>
+     * <td width="40%"><a id="SP_PROT_PCT1_CLIENT"></a><a id="sp_prot_pct1_client"></a><dl>
+     * <dt><b>SP_PROT_PCT1_CLIENT</b></dt>
+     * <dt>2 (0x2)</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Transport Layer Security 1.3 client-side.
-     * </td>
-     * </tr>
-     *  
-     * <tr>
-     * <td width="40%"><a id="SP_PROT_TLS1_3_SERVER"></a><a id="sp_prot_tls1_3_server"></a><dl>
-     * <dt><b>SP_PROT_TLS1_3_SERVER</b></dt>
-     * <dt>1024 (0x1000)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Transport Layer Security 1.3 server-side.
-     * </td>
-     * </tr>
+     * Private Communications Technology 1.0 client-side. Obsolete.
      * 
+     * </td>
+     * </tr>
      * <tr>
-     * <td width="40%"><a id="SP_PROT_DTLS1_0_CLIENT"></a><a id="sp_prot_dtls1_0_client"></a><dl>
-     * <dt><b>SP_PROT_DTLS1_0_CLIENT</b></dt>
-     * <dt>1024 (0x00020000)</dt>
+     * <td width="40%"><a id="SP_PROT_PCT1_SERVER"></a><a id="sp_prot_pct1_server"></a><dl>
+     * <dt><b>SP_PROT_PCT1_SERVER</b></dt>
+     * <dt>1 (0x1)</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Datagram Transport Layer Security 1.0 client-side.
-     * </td>
-     * </tr>
-     *  
-     * <tr>
-     * <td width="40%"><a id="SP_PROT_DTLS1_0_SERVER"></a><a id="sp_prot_dtls1_0_server"></a><dl>
-     * <dt><b>SP_PROT_DTLS1_0_SERVER</b></dt>
-     * <dt>1024 (0x00010000)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Datagram Transport Layer Security 1.0 server-side.
-     * </td>
-     * </tr>
+     * Private Communications Technology 1.0 server-side. Obsolete.
      * 
+     * </td>
+     * </tr>
      * <tr>
-     * <td width="40%"><a id="SP_PROT_DTLS1_2_CLIENT"></a><a id="sp_prot_dtls1_2_client"></a><dl>
-     * <dt><b>SP_PROT_DTLS1_2_CLIENT</b></dt>
-     * <dt>1024 (0x00080000)</dt>
+     * <td width="40%"><a id="SP_PROT_SSL2_CLIENT"></a><a id="sp_prot_ssl2_client"></a><dl>
+     * <dt><b>SP_PROT_SSL2_CLIENT</b></dt>
+     * <dt>8 (0x8)</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Datagram Transport Layer Security 1.2 client-side.
-     * </td>
-     * </tr>
-     *  
-     * <tr>
-     * <td width="40%"><a id="SP_PROT_DTLS1_2_SERVER"></a><a id="sp_prot_dtls1_2_server"></a><dl>
-     * <dt><b>SP_PROT_DTLS1_2_SERVER</b></dt>
-     * <dt>1024 (0x00040000)</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Datagram Transport Layer Security 1.2 server-side.
-     * </td>
-     * </tr>
+     * Secure Sockets Layer 2.0 client-side. Superseded by SP_PROT_TLS1_CLIENT.
      * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SP_PROT_SSL2_SERVER"></a><a id="sp_prot_ssl2_server"></a><dl>
+     * <dt><b>SP_PROT_SSL2_SERVER</b></dt>
+     * <dt>4 (0x4)</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Secure Sockets Layer 2.0 server-side. Superseded by SP_PROT_TLS1_SERVER.
+     * 
+     * </td>
+     * </tr>
      * </table>
      * @type {Integer}
      */

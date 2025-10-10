@@ -4,11 +4,14 @@
 /**
  * The LINEFORWARD structure describes an entry of the forwarding instructions. The LINEFORWARDLIST and the LINEADDRESSSTATUS structures can contain an array of LINEFORWARD structures.
  * @remarks
- * This structure may not be extended.
+ * 
+  * This structure may not be extended.
   * 
   * Each entry in the 
   * <b>LINEFORWARD</b> structure specifies a forwarding request.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforward
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineforward
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

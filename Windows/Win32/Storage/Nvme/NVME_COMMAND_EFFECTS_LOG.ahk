@@ -3,10 +3,6 @@
 #Include .\NVME_COMMAND_EFFECTS_DATA.ahk
 
 /**
- * Contains information that describes the commands that the controller supports and the effects of those commands on the state of the NVM subsystem.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_effects_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -17,7 +13,6 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure that describes the Admin commands that the controller supports and the effects of those commands.
      * @type {Array<NVME_COMMAND_EFFECTS_DATA>}
      */
     ACS{
@@ -29,7 +24,6 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     }
 
     /**
-     * A [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure that describes the I/O commands that the controller supports and the effects of those commands.
      * @type {Array<NVME_COMMAND_EFFECTS_DATA>}
      */
     IOCS{
@@ -41,7 +35,6 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<Byte>}
      */
     Reserved{

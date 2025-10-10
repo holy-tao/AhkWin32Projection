@@ -5,7 +5,7 @@
 
 /**
  * Provides metadata for a collection of attribute replication values.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_attr_value_meta_data_ext
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_attr_value_meta_data_ext
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

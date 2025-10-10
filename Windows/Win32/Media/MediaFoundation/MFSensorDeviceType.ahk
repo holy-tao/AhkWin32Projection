@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of a sensor device. A value from this enumeration is returned by IMFSensorDevice::GetDeviceType.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicetype
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfsensordevicetype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

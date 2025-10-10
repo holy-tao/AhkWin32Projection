@@ -4,8 +4,11 @@
 /**
  * The DNS_WIRE_QUESTION structure contains information about a DNS question transmitted across the network as specified in section 4.1.2 of RFC 1035..
  * @remarks
- * When constructing a DNS message, the question name must precede the <b>DNS_WIRE_QUESTION</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wire_question
+ * 
+  * When constructing a DNS message, the question name must precede the <b>DNS_WIRE_QUESTION</b> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_wire_question
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

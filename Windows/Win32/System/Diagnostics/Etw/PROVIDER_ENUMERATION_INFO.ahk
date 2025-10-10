@@ -4,7 +4,7 @@
 
 /**
  * Defines the array of providers that have registered a MOF or manifest on the computer.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-provider_enumeration_info
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-provider_enumeration_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

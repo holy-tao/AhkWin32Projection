@@ -6,7 +6,7 @@
 
 /**
  * The DisplayModes structure contains a list of display modes.
- * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-displaymodes
+ * @see https://docs.microsoft.com/windows/win32/api//cloneviewhelper/ns-cloneviewhelper-displaymodes
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

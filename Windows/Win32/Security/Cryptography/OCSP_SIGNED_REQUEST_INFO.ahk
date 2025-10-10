@@ -5,12 +5,15 @@
 /**
  * Contains information for an online certificate status protocol (OCSP) request with optional signature information.
  * @remarks
- * In an OCSP client application, this structure receives an encoded <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_request_info">OCSP_REQUEST_INFO</a> structure as its <b>ToBeSigned</b> member. Optionally, a signature  of the <b>ToBeSigned</b>  member is stored in the <b>pOptionalSignatureInfo</b> member.
+ * 
+  * In an OCSP client application, this structure receives an encoded <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_request_info">OCSP_REQUEST_INFO</a> structure as its <b>ToBeSigned</b> member. Optionally, a signature  of the <b>ToBeSigned</b>  member is stored in the <b>pOptionalSignatureInfo</b> member.
   * 
   * On the receiving end, an OCSP responder application decodes the incoming request to populate an <b>OCSP_SIGNED_REQUEST_INFO</b> structure and subsequently decodes the <b>ToBeSigned</b> member to obtain an <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_request_info">OCSP_REQUEST_INFO</a> structure.
   * 
   * OCSP applications can encode or decode this structure by using <b>X509_ASN_ENCODING</b> or <b>PKCS_7_ASN_ENCODING</b>.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_signed_request_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ocsp_signed_request_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

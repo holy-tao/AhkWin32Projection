@@ -3,7 +3,7 @@
 
 /**
  * Used by an IEnumExtraSearch enumerator object to return information on the search objects supported by a Shell Folder object.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-extrasearch
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-extrasearch
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

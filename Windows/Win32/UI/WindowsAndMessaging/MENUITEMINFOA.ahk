@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a menu item. (MENUITEMINFOA)
+ * Contains information about a menu item.
  * @remarks
- * The <b>MENUITEMINFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmenuiteminfoa">GetMenuItemInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insertmenuitema">InsertMenuItem</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenuiteminfoa">SetMenuItemInfo</a> functions.
+ * 
+  * The <b>MENUITEMINFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmenuiteminfoa">GetMenuItemInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insertmenuitema">InsertMenuItem</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenuiteminfoa">SetMenuItemInfo</a> functions.
   * 
   * The menu can display items using text, bitmaps, or both.
   * 
@@ -14,7 +15,9 @@
   * 
   * > [!NOTE]
   * > The winuser.h header defines MENUITEMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuiteminfoa
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-menuiteminfoa
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  * @charset ANSI

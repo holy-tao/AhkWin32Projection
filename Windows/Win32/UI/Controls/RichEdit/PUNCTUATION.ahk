@@ -4,8 +4,11 @@
 /**
  * Contains information about the punctuation used in a rich edit control.
  * @remarks
- * This structure is used only in Asian-language versions of the operating system.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-punctuation
+ * 
+  * This structure is used only in Asian-language versions of the operating system.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-punctuation
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Associates command flags from the OLECMDF enumeration with a command identifier through a call to IOleCommandTarget::QueryStatus.
- * @see https://learn.microsoft.com/windows/win32/api/docobj/ns-docobj-olecmd
+ * @see https://docs.microsoft.com/windows/win32/api//docobj/ns-docobj-olecmd
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

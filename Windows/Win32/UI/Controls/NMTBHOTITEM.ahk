@@ -4,7 +4,7 @@
 
 /**
  * Contains information used with the TBN_HOTITEMCHANGE notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbhotitem
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtbhotitem
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

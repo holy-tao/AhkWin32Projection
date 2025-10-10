@@ -3,8 +3,11 @@
 /**
  * Blend options. A blend option identifies the data source and an optional pre-blend operation.
  * @remarks
- * Blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">blend description</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_blend
+ * 
+  * Blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">blend description</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_blend
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

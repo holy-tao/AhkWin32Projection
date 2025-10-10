@@ -6,10 +6,13 @@
 /**
  * Defines the properties of a partition.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-getpartitionproperties">IVdsAdvancedDisk::GetPartitionProperties</a> 
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-getpartitionproperties">IVdsAdvancedDisk::GetPartitionProperties</a> 
   *     and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-querypartitions">IVdsAdvancedDisk::QueryPartitions</a> 
   *     methods return this structure to report the property details of a partition.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_partition_prop
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_partition_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

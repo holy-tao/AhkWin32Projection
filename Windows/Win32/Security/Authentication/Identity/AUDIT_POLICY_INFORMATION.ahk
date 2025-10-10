@@ -3,7 +3,7 @@
 
 /**
  * Specifies a security event type and when to audit that type.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-audit_policy_information
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-audit_policy_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

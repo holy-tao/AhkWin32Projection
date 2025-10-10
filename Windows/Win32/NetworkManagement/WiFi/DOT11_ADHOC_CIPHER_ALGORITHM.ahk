@@ -3,7 +3,8 @@
 /**
  * Specifies a cipher algorithm used to encrypt and decrypt information on an ad hoc network.
  * @remarks
- * Authentication and cipher algorithms are used in pairs. The following table shows valid algorithm pairs for use on an ad hoc network.
+ * 
+  * Authentication and cipher algorithms are used in pairs. The following table shows valid algorithm pairs for use on an ad hoc network.
   * 
   * <table>
   * <tr>
@@ -27,7 +28,9 @@
   * <td>DOT11_ADHOC_CIPHER_ALGO_CCMP</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

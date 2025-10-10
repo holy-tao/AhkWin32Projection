@@ -2,7 +2,7 @@
 
 /**
  * Defines values that indicate whether the events come from a channel or log file.
- * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_exportlog_flags
+ * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_exportlog_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

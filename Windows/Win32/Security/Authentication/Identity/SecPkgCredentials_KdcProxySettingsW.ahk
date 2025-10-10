@@ -3,7 +3,7 @@
 
 /**
  * Specifies the Kerberos proxy settings for the credentials.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcredentials_kdcproxysettingsw
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcredentials_kdcproxysettingsw
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

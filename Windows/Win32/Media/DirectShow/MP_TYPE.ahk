@@ -3,8 +3,11 @@
 /**
  * The MP_TYPE enumeration specifies the data type for a parameter.
  * @remarks
- * To reduce type conversions at run time, all parameters have 32-bit float values, defined as type <b>MP_DATA</b>. The members of this enumeration specify how a given parameter should be interpreted.
- * @see https://learn.microsoft.com/windows/win32/api/medparam/ne-medparam-mp_type
+ * 
+  * To reduce type conversions at run time, all parameters have 32-bit float values, defined as type <b>MP_DATA</b>. The members of this enumeration specify how a given parameter should be interpreted.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//medparam/ne-medparam-mp_type
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

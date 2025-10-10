@@ -3,7 +3,8 @@
 /**
  * Indicates the digital video (DV) encoding resolution.
  * @remarks
- * The meaning of the enumeration elements depends on whether the current format is NTSC or PAL:
+ * 
+  * The meaning of the enumeration elements depends on whether the current format is NTSC or PAL:
   * 
   * <table>
   * <tr>
@@ -32,7 +33,9 @@
   * <td>88 x 72</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvencoderresolution
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_dvencoderresolution
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

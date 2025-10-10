@@ -2,14 +2,17 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents the relationship between two network interfaces. (MIB_IFSTACK_ROW)
+ * Represents the relationship between two network interfaces.
  * @remarks
- * The <b>MIB_IFSTACK_ROW</b> structure is defined in Windows Vista and later. 
+ * 
+  * The <b>MIB_IFSTACK_ROW</b> structure is defined in Windows Vista and later. 
   * 
   * The relationship between the interfaces in the interface stack is that the interface with index in the <b>HigherLayerInterfaceIndex</b> member is immediately above the interface with index in the <b>LowerLayerInterfaceIndex</b> member.
   * 
   * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ifstack_row
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ifstack_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

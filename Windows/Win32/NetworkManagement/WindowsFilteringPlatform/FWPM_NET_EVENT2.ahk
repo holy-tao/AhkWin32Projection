@@ -6,8 +6,8 @@
 #Include .\FWPM_NET_EVENT_HEADER2.ahk
 
 /**
- * Contains information about all event types. (FWPM_NET_EVENT2)
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event2
+ * Contains information about all event types.
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

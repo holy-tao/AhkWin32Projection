@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines a rectangle.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drect
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -14,10 +12,6 @@ class D3DRECT extends Win32Struct
     static packingSize => 4
 
     /**
-     * Type: **[**LONG**](../winprog/windows-data-types.md)**
-     * 
-     * 
-     * The x-coordinate of the upper-left corner of the rectangle.
      * @type {Integer}
      */
     x1 {
@@ -26,10 +20,6 @@ class D3DRECT extends Win32Struct
     }
 
     /**
-     * Type: **[**LONG**](../winprog/windows-data-types.md)**
-     * 
-     * 
-     * The y-coordinate of the upper-left corner of the rectangle.
      * @type {Integer}
      */
     y1 {
@@ -38,10 +28,6 @@ class D3DRECT extends Win32Struct
     }
 
     /**
-     * Type: **[**LONG**](../winprog/windows-data-types.md)**
-     * 
-     * 
-     * The x-coordinate of the lower-right corner of the rectangle.
      * @type {Integer}
      */
     x2 {
@@ -50,10 +36,6 @@ class D3DRECT extends Win32Struct
     }
 
     /**
-     * Type: **[**LONG**](../winprog/windows-data-types.md)**
-     * 
-     * 
-     * The y-coordinate of the lower-right corner of the rectangle.
      * @type {Integer}
      */
     y2 {

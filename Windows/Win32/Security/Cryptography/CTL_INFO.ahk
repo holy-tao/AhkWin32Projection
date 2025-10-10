@@ -7,7 +7,7 @@
 
 /**
  * Contains the information stored in a Certificate Trust List (CTL).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

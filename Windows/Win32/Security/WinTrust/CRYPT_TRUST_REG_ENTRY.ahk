@@ -3,7 +3,7 @@
 
 /**
  * Identifies a provider function by DLL name and function name.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_trust_reg_entry
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_trust_reg_entry
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * Casts each element in the input to the data type of the output tensor, and stores the result in the corresponding element of the output.
  * @remarks
- * Some data types might not be supported on certain hardware. To determine whether a data type is supported, use [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) with [DML_FEATURE_TENSOR_DATA_TYPE_SUPPORT](/windows/win32/api/directml/ne-directml-dml_feature).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_cast_operator_desc
+ * 
+  * Some data types might not be supported on certain hardware. To determine whether a data type is supported, use [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) with [DML_FEATURE_TENSOR_DATA_TYPE_SUPPORT](/windows/win32/api/directml/ne-directml-dml_feature).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_cast_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

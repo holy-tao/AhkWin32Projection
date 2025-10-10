@@ -4,7 +4,7 @@
 
 /**
  * The KSJACK_SINK_INFORMATION structure stores information about an audio jack sink.
- * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_sink_information
+ * @see https://docs.microsoft.com/windows/win32/api//devicetopology/ns-devicetopology-ksjack_sink_information
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */

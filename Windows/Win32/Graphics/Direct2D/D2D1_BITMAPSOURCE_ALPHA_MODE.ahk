@@ -2,7 +2,7 @@
 
 /**
  * Specifies the alpha mode of the output of the Bitmap source effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_bitmapsource_alpha_mode
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_bitmapsource_alpha_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

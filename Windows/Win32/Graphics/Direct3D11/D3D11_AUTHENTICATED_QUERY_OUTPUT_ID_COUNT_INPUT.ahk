@@ -4,7 +4,7 @@
 
 /**
  * Contains input data for a D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_COUNT query.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_authenticated_query_output_id_count_input
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_authenticated_query_output_id_count_input
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

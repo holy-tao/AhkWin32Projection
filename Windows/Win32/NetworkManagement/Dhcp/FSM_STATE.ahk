@@ -3,8 +3,11 @@
 /**
  * The FSM_STATE enumeration defines the set of possible failover relationship states on a DHCPv4 server.
  * @remarks
- * These states are in conformance with the states described in the IETF Failover Protocol draft: <a href="https://tools.ietf.org/html/draft-ietf-dhc-failover-12">http://tools.ietf.org/html/draft-ietf-dhc-failover-12</a>
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-fsm_state
+ * 
+  * These states are in conformance with the states described in the IETF Failover Protocol draft: <a href="https://tools.ietf.org/html/draft-ietf-dhc-failover-12">http://tools.ietf.org/html/draft-ietf-dhc-failover-12</a>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-fsm_state
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

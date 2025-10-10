@@ -4,7 +4,7 @@
 
 /**
  * Specifies the data for the binding cache entry.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_binding_cache_entry_data
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_binding_cache_entry_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify an adapter's memory segment grouping.
- * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoresegmentgroup
+ * @see https://docs.microsoft.com/windows/win32/api//dxcore_interface/ne-dxcore_interface-dxcoresegmentgroup
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

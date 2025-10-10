@@ -4,7 +4,7 @@
 
 /**
  * Deprecated. Data used in IBrowserService2::_GetToolbarItem, IBrowserService2::v_MayGetNextToolbarFocus, and IBrowserService2::_SetFocus to define a toolbar item.
- * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-toolbaritem
+ * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/ns-shdeprecated-toolbaritem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

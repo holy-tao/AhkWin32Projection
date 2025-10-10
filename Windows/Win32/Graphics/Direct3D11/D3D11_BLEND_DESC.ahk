@@ -5,7 +5,8 @@
 /**
  * Describes the blend state that you use in a call to ID3D11Device::CreateBlendState to create a blend-state object.
  * @remarks
- * Here are the default values for blend state.
+ * 
+  * Here are the default values for blend state.
   * 
   * <table>
   * <tr>
@@ -59,7 +60,9 @@
   *         </div>
   * <div> </div>
   * If the driver type is set to <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE_HARDWARE</a>, the feature level is set to less than or equal to <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL_9_3</a>, and the pixel format of the render target is set to <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</a>, <b>DXGI_FORMAT_B8G8R8A8_UNORM_SRGB</b>, or <b>DXGI_FORMAT_B8G8R8X8_UNORM_SRGB</b>, the display device performs the blend in standard RGB (sRGB) space and not in linear space. However, if the feature level is set to greater than <b>D3D_FEATURE_LEVEL_9_3</b>, the display device performs the blend in linear space, which is ideal.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_blend_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

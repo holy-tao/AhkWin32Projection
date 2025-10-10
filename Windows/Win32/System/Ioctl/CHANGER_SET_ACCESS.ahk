@@ -4,7 +4,7 @@
 
 /**
  * Contains information that the IOCTL_CHANGER_SET_ACCESS control code needs to set the state of the device's insert/eject port, door, or keypad.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_set_access
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_set_access
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

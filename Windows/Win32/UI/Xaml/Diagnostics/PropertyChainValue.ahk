@@ -3,7 +3,7 @@
 
 /**
  * Represents a property defined on an element.
- * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-propertychainvalue
+ * @see https://docs.microsoft.com/windows/win32/api//xamlom/ns-xamlom-propertychainvalue
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

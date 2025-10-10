@@ -5,7 +5,8 @@
  * Specifies parameters for a call to ActivateAudioInterfaceAsync where loopback activation is requested.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_process_loopback_params
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//audioclientactivationparams/ns-audioclientactivationparams-audioclient_process_loopback_params
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -25,7 +26,7 @@ class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS extends Win32Struct
     }
 
     /**
-     * A value from the [PROCESS_LOOPBACK_MODE](ne-audioclientactivationparams-process_loopback_mode.md) enumeration specifying whether the render streams for the process and child processes specified in the *TargetProcessId* field should be included or excluded when activating the audio interface. For sample code that demonstrates the process loopback capture scenario, see the [Application Loopback API Capture Sample](https://docs.microsoft.com/en-us/samples/microsoft/windows-classic-samples/applicationloopbackaudio-sample/).
+     * A value from the [PROCESS_LOOPBACK_MODE](ne-audioclientactivationparams-process_loopback_mode.md) enumeration specifying whether the render streams for the process and child processes specified in the *TargetProcessId* field should be included or excluded when activating the audio interface.
      * @type {Integer}
      */
     ProcessLoopbackMode {

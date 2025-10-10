@@ -2,7 +2,7 @@
 
 /**
  * Defines values for the type of encoding of a keyboard.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-rdpsrapi_kbd_code_type
+ * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-rdpsrapi_kbd_code_type
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

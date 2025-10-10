@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the handler for use in the ISyncMgrSynchronize::GetHandlerInfo method.
- * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgrhandlerinfo
+ * @see https://docs.microsoft.com/windows/win32/api//mobsync/ns-mobsync-syncmgrhandlerinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

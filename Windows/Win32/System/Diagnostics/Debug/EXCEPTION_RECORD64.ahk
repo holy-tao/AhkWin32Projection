@@ -2,9 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes an exception.E
+ * Describes an exception.
  * @remarks
- * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
+ * 
+  * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
   * 
   * 
   * ```cpp
@@ -27,7 +28,9 @@
   *     DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
   * } EXCEPTION_RECORD64, *PEXCEPTION_RECORD64;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_record64
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-exception_record64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

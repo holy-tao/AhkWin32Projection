@@ -4,7 +4,7 @@
 
 /**
  * Contains information about an NM_TVSTATEIMAGECHANGING notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvstateimagechanging
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtvstateimagechanging
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Identifies the algorithm and (optionally) the value of the label for an RSAES-OAEP key encryption.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_psource_algorithm
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_psource_algorithm
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

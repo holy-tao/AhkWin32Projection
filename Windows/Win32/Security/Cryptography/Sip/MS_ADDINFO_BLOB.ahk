@@ -3,7 +3,7 @@
 
 /**
  * Provides additional information for in-memory BLOB subject types.
- * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-ms_addinfo_blob
+ * @see https://docs.microsoft.com/windows/win32/api//mssip/ns-mssip-ms_addinfo_blob
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319
  */

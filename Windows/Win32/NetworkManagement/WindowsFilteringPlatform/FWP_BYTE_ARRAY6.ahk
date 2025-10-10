@@ -4,8 +4,11 @@
 /**
  * Stores an array of exactly 6 bytes. Reserved.
  * @remarks
- * This structure is reserved.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_byte_array6
+ * 
+  * This structure is reserved.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ns-fwptypes-fwp_byte_array6
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

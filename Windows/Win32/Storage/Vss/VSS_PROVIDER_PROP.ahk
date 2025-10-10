@@ -3,7 +3,7 @@
 
 /**
  * Specifies shadow copy provider properties.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_provider_prop
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ns-vss-vss_provider_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

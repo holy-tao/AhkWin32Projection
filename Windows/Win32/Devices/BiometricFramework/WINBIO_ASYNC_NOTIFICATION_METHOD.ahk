@@ -3,8 +3,11 @@
 /**
  * Defines constants that specify how completion notifications for asynchronous operations are to be delivered to the client application.
  * @remarks
- * This enumeration was introduced in Windows 8.
- * @see https://learn.microsoft.com/windows/win32/api/winbio/ne-winbio-winbio_async_notification_method
+ * 
+  * This enumeration was introduced in Windows 8.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbio/ne-winbio-winbio_async_notification_method
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

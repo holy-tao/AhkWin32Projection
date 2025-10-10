@@ -3,7 +3,7 @@
 
 /**
  * Contains information for an online certificate status protocol (OCSP) request as specified by RFC 2560.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_request_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ocsp_request_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

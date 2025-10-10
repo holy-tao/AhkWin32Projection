@@ -5,10 +5,13 @@
 #Include .\ETW_BUFFER_CONTEXT.ahk
 
 /**
- * The EVENT_RECORD structure (evntcons.h) defines the layout of an event that ETW delivers.
+ * Defines the layout of an event that ETW delivers.
  * @remarks
- * The <b>EVENT_RECORD</b> structure is passed to the consumer's implementation of the <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback .
- * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_record
+ * 
+  * The <b>EVENT_RECORD</b> structure is passed to the consumer's implementation of the <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback .
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evntcons/ns-evntcons-event_record
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

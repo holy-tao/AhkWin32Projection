@@ -4,12 +4,15 @@
 /**
  * Defines the version of the HTTP Server API.
  * @remarks
- * Constants that represents the version of the API  are pre-defined in the Http.h header file as follows:
+ * 
+  * Constants that represents the version of the API  are pre-defined in the Http.h header file as follows:
   * 
   * "#define HTTPAPI_VERSION_1 {1, 0}"
   * 
   * "#define HTTPAPI_VERSION_2 {2, 0}"
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-httpapi_version
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-httpapi_version
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

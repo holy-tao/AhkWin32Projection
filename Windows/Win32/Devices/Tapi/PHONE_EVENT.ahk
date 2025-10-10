@@ -2,7 +2,7 @@
 
 /**
  * The PHONE_EVENT enum indicates a type of phone event.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_event
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

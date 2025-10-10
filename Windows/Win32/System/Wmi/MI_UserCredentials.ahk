@@ -4,7 +4,7 @@
 
 /**
  * A user's credentials. It includes an authentication type and either a username and password or a certificate thumbprint.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_usercredentials
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_usercredentials
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Acts as a unique identifier of a certificate containing the issuer and issuer's serial number for a certificate.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_issuer_serial_number
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_issuer_serial_number
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

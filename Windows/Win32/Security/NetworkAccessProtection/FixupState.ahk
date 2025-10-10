@@ -2,7 +2,7 @@
 
 /**
  * Defines the fix-up state of the System Health Agent (SHA).
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-fixupstate
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ne-naptypes-fixupstate
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

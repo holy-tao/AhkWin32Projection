@@ -3,7 +3,8 @@
 /**
  * Allows additional attributes to be specified for a shadow copy.
  * @remarks
- * The default context for VSS shadow copies is VSS_CTX_BACKUP.
+ * 
+  * The default context for VSS shadow copies is VSS_CTX_BACKUP.
   * 
   * A requester sets the context for a shadow copy about to be created by passing the member of the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> enumeration to the 
@@ -49,7 +50,9 @@
   * The shadow copies' context and attributes are found as a bit mask contained in the 
   *     <b>m_lSnapshotAttributes</b> member of the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_volume_snapshot_attributes
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_volume_snapshot_attributes
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

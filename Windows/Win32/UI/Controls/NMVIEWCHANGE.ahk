@@ -4,7 +4,7 @@
 
 /**
  * Stores information required to process the MCN_VIEWCHANGE notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmviewchange
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmviewchange
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a cached Kerberos ticket. The Kerberos ticket is defined in Internet RFC 4120. For more information, see http://www.ietf.org.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_cache_info
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_ticket_cache_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

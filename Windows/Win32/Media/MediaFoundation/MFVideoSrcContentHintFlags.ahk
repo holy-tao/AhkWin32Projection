@@ -3,8 +3,11 @@
 /**
  * Describes the intended aspect ratio for a video stream.
  * @remarks
- * Use these flags with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-source-content-hint-attribute">MF_MT_SOURCE_CONTENT_HINT</a> attribute.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideosrccontenthintflags
+ * 
+  * Use these flags with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-source-content-hint-attribute">MF_MT_SOURCE_CONTENT_HINT</a> attribute.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ne-mfapi-mfvideosrccontenthintflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

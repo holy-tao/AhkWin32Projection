@@ -2,7 +2,7 @@
 
 /**
  * Defines the horizontal alignment options for content within a viewport.
- * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_horizontalalignment
+ * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_horizontalalignment
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

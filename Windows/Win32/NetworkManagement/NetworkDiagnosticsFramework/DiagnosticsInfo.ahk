@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The DiagnosticsInfo structure contains the estimate of diagnosis time, and flags for invocation.
- * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-diagnosticsinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
@@ -14,9 +12,6 @@ class DiagnosticsInfo extends Win32Struct
     static packingSize => 4
 
     /**
-     * Type: <b>long</b>
-     * 
-     * The length of time, in seconds, that the diagnosis should take to complete. A value of zero or a negative value  means the cost is negligible. Any positive value will cause the engine to adjust the overall diagnostics process.
      * @type {Integer}
      */
     cost {
@@ -25,9 +20,6 @@ class DiagnosticsInfo extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * Reserved.
      * @type {Integer}
      */
     flags {

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the short vector information.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_short_vector
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_short_vector
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

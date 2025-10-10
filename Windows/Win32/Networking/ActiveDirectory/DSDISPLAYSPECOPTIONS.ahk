@@ -3,7 +3,7 @@
 
 /**
  * Used to supply data to a context menu or property page extension about the display specifiers used.
- * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsdisplayspecoptions
+ * @see https://docs.microsoft.com/windows/win32/api//dsclient/ns-dsclient-dsdisplayspecoptions
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

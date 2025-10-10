@@ -3,7 +3,7 @@
 
 /**
  * Can be used to specify the signatures on a file.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_signature_settings
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-wintrust_signature_settings
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

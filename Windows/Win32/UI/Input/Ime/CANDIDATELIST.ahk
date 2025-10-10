@@ -2,10 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The CANDIDATELIST structure (immdev.h) contains information about a candidate list.
+ * Contains information about a candidate list.
  * @remarks
- * The candidate strings immediately follow the last offset in the <b>dwOffset</b> array.
- * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-candidatelist
+ * 
+  * The candidate strings immediately follow the last offset in the <b>dwOffset</b> array.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//imm/ns-imm-candidatelist
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

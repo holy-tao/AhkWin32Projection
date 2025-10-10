@@ -2,7 +2,7 @@
 
 /**
  * Defines flags for serializing and deserializing attribute stores.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_attribute_serialize_options
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_attribute_serialize_options
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

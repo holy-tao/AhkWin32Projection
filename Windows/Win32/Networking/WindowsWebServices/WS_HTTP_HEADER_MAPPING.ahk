@@ -4,7 +4,7 @@
 
 /**
  * Specifies an individual header that is mapped as part of WS_HTTP_MESSAGE_MAPPING.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_header_mapping
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_header_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

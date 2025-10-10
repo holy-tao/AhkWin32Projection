@@ -2,7 +2,7 @@
 
 /**
  * Specifies the element type of a changer device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-element_type
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-element_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

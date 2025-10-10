@@ -2,7 +2,7 @@
 
 /**
  * Differentiates between a push or pull subscription delivery type. This is not supported when using the DCOM protocol.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_subscriptiondeliverytype
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_subscriptiondeliverytype
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

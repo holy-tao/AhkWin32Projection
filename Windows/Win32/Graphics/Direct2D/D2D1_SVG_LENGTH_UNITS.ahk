@@ -2,7 +2,7 @@
 
 /**
  * Specifies the units for an SVG length.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ne-d2d1svg-d2d1_svg_length_units
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/ne-d2d1svg-d2d1_svg_length_units
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

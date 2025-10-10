@@ -3,7 +3,7 @@
 
 /**
  * A generic container for a DirectML tensor description.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_tensor_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_tensor_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

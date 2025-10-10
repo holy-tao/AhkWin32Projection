@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the size and position of either a primary or secondary Help window. An application can set this information by calling the WinHelp function with the HELP_SETWINPOS value. (Unicode)
+ * Contains the size and position of either a primary or secondary Help window. An application can set this information by calling the WinHelp function with the HELP_SETWINPOS value.
  * @remarks
- * Windows Help divides the display into 1024 units in both the X and Y directions. To create a secondary window that fills the upper-left quadrant of the display, for example, an application would specify zero for the <b>x</b> and <b>y</b> members and 512 for the <b>dx</b> and <b>dy</b> members.
+ * 
+  * Windows Help divides the display into 1024 units in both the X and Y directions. To create a secondary window that fills the upper-left quadrant of the display, for example, an application would specify zero for the <b>x</b> and <b>y</b> members and 512 for the <b>dx</b> and <b>dy</b> members.
   * 
   * To calculate <b>wStructSize</b> properly, the actual size of the string to be stored at <b>rgchMember</b> must be known. Since <a href="https://docs.microsoft.com/previous-versions/0w557fh7(v=vs.85)">sizeof</a>(HELPWININFO) includes two <b>TCHARs</b> by definition, they must be taken into account in the final total. The following example shows the proper calculation of an instance of  <b>wStructSize</b>.
   * 
@@ -41,7 +42,8 @@
   * 
   * > [!NOTE]
   * > The winuser.h header defines HELPWININFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-helpwininfow
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-helpwininfow
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset Unicode

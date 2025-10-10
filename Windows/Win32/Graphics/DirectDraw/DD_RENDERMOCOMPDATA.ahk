@@ -3,7 +3,7 @@
 
 /**
  * The DD_RENDERMOCOMPDATA structure contains the information required to render a frame.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_rendermocompdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_rendermocompdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

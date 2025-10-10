@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify a type of graph edge. See [DML_GRAPH_EDGE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_edge_desc) for the usage of this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_graph_edge_type
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_graph_edge_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

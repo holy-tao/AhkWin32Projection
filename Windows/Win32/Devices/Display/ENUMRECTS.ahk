@@ -4,7 +4,7 @@
 
 /**
  * The ENUMRECTS structure is used by the CLIPOBJ_cEnumStart function to provide information about rectangles in a clip region for the CLIPOBJ_bEnum function.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-enumrects
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-enumrects
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

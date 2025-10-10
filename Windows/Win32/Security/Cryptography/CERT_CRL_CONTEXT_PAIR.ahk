@@ -3,7 +3,7 @@
 
 /**
  * The CERT_CRL_CONTEXT_PAIR structure contains a certificate context and an associated CRL context.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_crl_context_pair
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_crl_context_pair
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
  * Defines constants that specify hints about the usage charge for a network connection.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_network_connectivity_cost_hint
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_network_connectivity_cost_hint
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

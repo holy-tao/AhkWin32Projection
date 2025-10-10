@@ -2,7 +2,7 @@
 
 /**
  * Specifies support for overlay color space.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_overlay_color_space_support_flag
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/ne-dxgi1_4-dxgi_overlay_color_space_support_flag
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

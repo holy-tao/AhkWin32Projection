@@ -2,7 +2,7 @@
 
 /**
  * Defines some limit values.
- * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_limits
+ * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ne-wbemcli-wbem_limits
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

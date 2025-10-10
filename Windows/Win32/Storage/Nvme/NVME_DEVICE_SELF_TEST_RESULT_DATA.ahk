@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains data about the results of a Device Self-Test operation.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_result_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * A **Status** structure containing fields that describe the status of a Device Self-Test operation.
      * @type {Integer}
      */
     Status {
@@ -25,7 +20,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * Indicates the first segment in which a failure occurred during the Device Self-Test operation.
      * @type {Integer}
      */
     SegmentNumber {
@@ -34,7 +28,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * A **ValidDiagnostics** structure containing fields that indicate the validity of certain parameters in a Device Self-Test operation.
      * @type {Integer}
      */
     ValidDiagnostics {
@@ -43,7 +36,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * A reserved field in the **ValidDiagnostics**  structure.
      * @type {Integer}
      */
     Reserved {
@@ -52,7 +44,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * Indicates the number of Power On Hours (POH) when the test operation was completed or aborted.
      * @type {Integer}
      */
     POH {
@@ -61,7 +52,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * Contains the Namespace Identifier (NSID). This field is only valid if **NSIDValid** is set to `1`.
      * @type {Integer}
      */
     NSID {
@@ -70,7 +60,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * The Logical Block Address (LBA) which caused the test to fail. This field is only valid if **FLBAValid** is set to `1`.
      * @type {Integer}
      */
     FailingLBA {
@@ -79,7 +68,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * A Status Code Type (**StatusCodeType**) structure containing fields that contain information about errors and conditions.
      * @type {Integer}
      */
     StatusCodeType {
@@ -88,9 +76,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * A **StatusCodeType** field that contains additional information related to errors and conditions of the Device Self-Test operation based on the Status Code.
-     * 
-     * This field is only valid if **SCValid** is set to `1`.
      * @type {Integer}
      */
     StatusCode {
@@ -99,7 +84,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     }
 
     /**
-     * A vendor specific field.
      * @type {Integer}
      */
     VendorSpecific {

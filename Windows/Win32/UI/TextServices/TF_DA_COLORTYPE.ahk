@@ -2,7 +2,7 @@
 
 /**
  * Elements of the TF_DA_COLORTYPE enumeration specify the format of the color contained in the TF_DA_COLOR structure.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tf_da_colortype
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ne-msctf-tf_da_colortype
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

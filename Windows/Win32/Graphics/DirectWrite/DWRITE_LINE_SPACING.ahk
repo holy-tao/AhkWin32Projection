@@ -3,7 +3,7 @@
 
 /**
  * Sets the vertical spacing between lines of text.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_line_spacing
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ns-dwrite_3-dwrite_line_spacing
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

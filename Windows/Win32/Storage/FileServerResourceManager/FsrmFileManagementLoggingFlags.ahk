@@ -2,7 +2,7 @@
 
 /**
  * Defines the options for logging when running a file management job.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmfilemanagementloggingflags
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmfilemanagementloggingflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a folder band. This structure is used with the IShellFolderBand::GetBandInfoSFB and IShellFolderBand::SetBandInfoSFB methods.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-bandinfosfb
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj/ns-shlobj-bandinfosfb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Contains possible values for the CaretBidiMode text attribute, which indicates whether the caret is in text that flows from left to right, or from right to left.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-caretbidimode
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-caretbidimode
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents the status of a Scale-Out File Server clone.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_dnn_sodafs_clone_status
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_dnn_sodafs_clone_status
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

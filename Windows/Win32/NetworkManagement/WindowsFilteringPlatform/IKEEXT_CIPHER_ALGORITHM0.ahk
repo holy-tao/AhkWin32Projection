@@ -4,8 +4,11 @@
 /**
  * Stores information about the IKE/AuthIP encryption algorithm.
  * @remarks
- * <b>IKEEXT_CIPHER_ALGORITHM0</b> is a specific implementation of IKEEXT_CIPHER_ALGORITHM. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_cipher_algorithm0
+ * 
+  * <b>IKEEXT_CIPHER_ALGORITHM0</b> is a specific implementation of IKEEXT_CIPHER_ALGORITHM. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_cipher_algorithm0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

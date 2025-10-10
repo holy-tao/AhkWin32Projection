@@ -3,7 +3,7 @@
 
 /**
  * Represents a unique identifier within the context of the Resource Manager.
- * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_id
+ * @see https://docs.microsoft.com/windows/win32/api//txfw32/ns-txfw32-txf_id
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

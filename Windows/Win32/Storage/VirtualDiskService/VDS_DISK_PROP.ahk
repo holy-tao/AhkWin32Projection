@@ -4,9 +4,12 @@
 /**
  * Defines the properties of a disk object.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk-getproperties">IVdsDisk::GetProperties</a> method returns 
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk-getproperties">IVdsDisk::GetProperties</a> method returns 
   *     the value of this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/disk-object">disk object</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_prop
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_disk_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -191,7 +194,7 @@ class VDS_DISK_PROP extends Win32Struct
     }
 
     /**
-     * The name returned by the Plug and Play Manager. This name is maintained in the Windows registry by the 
+     * The name returned by the Plug and Play   Manager. This name is maintained in the Windows registry by the 
      *       Plug and Play Manager, for example: "SEAGATE ST34573N SCSI Disk Device".
      * @type {Pointer<Char>}
      */

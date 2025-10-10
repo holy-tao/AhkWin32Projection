@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * This enumeration is intended for infrastructure use only. (FEATURE_ENABLED_STATE)
- * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/ne-featurestagingapi-feature_enabled_state
+ * This enumeration is intended for infrastructure use only.
+ * @see https://docs.microsoft.com/windows/win32/api//featurestagingapi/ne-featurestagingapi-feature_enabled_state
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

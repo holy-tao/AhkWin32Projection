@@ -4,7 +4,7 @@
 
 /**
  * Specifies information about the last time a group was moved to another node.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusctl_group_get_last_move_time_output
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusctl_group_get_last_move_time_output
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

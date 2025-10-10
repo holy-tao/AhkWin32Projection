@@ -3,7 +3,7 @@
 
 /**
  * Contains color settings for a composition string.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-compcolor
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-compcolor
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

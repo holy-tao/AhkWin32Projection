@@ -3,7 +3,7 @@
 
 /**
  * The DIOBJECTATTRIBUTES structure describes the information contained in the &quot;Attributes&quot; value of the registry key for each &quot;object&quot; on a device. If the &quot;Attributes&quot; value is absent, then default attributes are used.
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-diobjectattributes
+ * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-diobjectattributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

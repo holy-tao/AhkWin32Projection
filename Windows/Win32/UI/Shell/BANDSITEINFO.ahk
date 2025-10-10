@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a band site. This structure is used with the IBandSite::GetBandSiteInfo and IBandSite::SetBandSiteInfo methods.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-bandsiteinfo
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-bandsiteinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Controls how much error information is included in a fault. Since the error object may contain sensitive data as part of the error string, it is not always appropriate to include the error strings information in all faults.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_fault_disclosure
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_fault_disclosure
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

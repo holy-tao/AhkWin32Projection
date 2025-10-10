@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_NETWORK_ROLE enumeration (msclus.h) describes the role a network plays in the cluster.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_network_role
+ * Describes the role a network plays in the cluster.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_network_role
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

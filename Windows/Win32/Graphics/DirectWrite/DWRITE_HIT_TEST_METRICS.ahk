@@ -3,7 +3,7 @@
 
 /**
  * Describes the region obtained by a hit test.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_hit_test_metrics
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_hit_test_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

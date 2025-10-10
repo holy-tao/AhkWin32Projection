@@ -3,7 +3,7 @@
 
 /**
  * The WINUSB_PIPE_INFORMATION structure contains pipe information that the WinUsb_QueryPipe routine retrieves.
- * @see https://learn.microsoft.com/windows/win32/api/winusbio/ns-winusbio-winusb_pipe_information
+ * @see https://docs.microsoft.com/windows/win32/api//winusbio/ns-winusbio-winusb_pipe_information
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

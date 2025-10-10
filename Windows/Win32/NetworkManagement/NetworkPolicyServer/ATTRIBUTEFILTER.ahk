@@ -2,7 +2,7 @@
 
 /**
  * The usage cases for the NPS dictionary attributes.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributefilter
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-attributefilter
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

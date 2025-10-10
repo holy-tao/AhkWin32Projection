@@ -3,7 +3,7 @@
 
 /**
  * The LINEAGENTSESSIONENTRY structure describes an ACD agent session. The LINEAGENTSESSIONLIST structure can contain an array of LINEAGENTSESSIONENTRY structures.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentsessionentry
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentsessionentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

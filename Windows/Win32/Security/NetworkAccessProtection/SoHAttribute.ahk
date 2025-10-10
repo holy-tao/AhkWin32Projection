@@ -3,7 +3,7 @@
 
 /**
  * Defines the SoH protocol between the SHA/SHV and the NAP system.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-sohattribute
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-sohattribute
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

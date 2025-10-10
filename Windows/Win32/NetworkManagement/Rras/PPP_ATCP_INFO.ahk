@@ -3,7 +3,7 @@
 
 /**
  * The PPP_ATCP_INFO structure contains the result of a PPP AppleTalk projection operation.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_atcp_info
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_atcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

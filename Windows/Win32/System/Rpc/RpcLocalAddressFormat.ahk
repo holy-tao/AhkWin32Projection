@@ -2,7 +2,7 @@
 
 /**
  * Specifies the possible local IP address formats supported by RPC.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpclocaladdressformat
+ * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ne-rpcasync-rpclocaladdressformat
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

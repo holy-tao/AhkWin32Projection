@@ -6,12 +6,15 @@
 /**
  * Stores the state associated with a callout.
  * @remarks
- * The first six members of this structure contain data supplied when adding objects.
+ * 
+  * The first six members of this structure contain data supplied when adding objects.
   * 
   * The last member, <b>calloutId</b>, provides additional information returned when getting/enumerating objects.
   * 
   * <b>FWPM_CALLOUT0</b> is a specific implementation of FWPM_CALLOUT. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_callout0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_callout0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * The ICOPEN structure contains information about the data stream being compressed or decompressed, the version number of the driver, and how the driver is used.
  * @remarks
- * This structure is passed to video capture drivers when they are opened. This allows a single installable driver to function as either an installable compressor or a video capture device. By examining the <b>fccType</b> member of the <b>ICOPEN</b> structure, the driver can determine its function. For example, a <b>fccType</b> value of "VIDC" indicates that it is opened as an installable video compressor.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icopen
+ * 
+  * This structure is passed to video capture drivers when they are opened. This allows a single installable driver to function as either an installable compressor or a video capture device. By examining the <b>fccType</b> member of the <b>ICOPEN</b> structure, the driver can determine its function. For example, a <b>fccType</b> value of "VIDC" indicates that it is opened as an installable video compressor.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-icopen
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

@@ -7,7 +7,8 @@
 /**
  * Contains the information for an update sequence number (USN) change journal version 4.0 record. The version 2.0 and 3.0 records are defined by the USN_RECORD_V2 (also called USN_RECORD) and USN_RECORD_V3 structures respectively.
  * @remarks
- * A <b>USN_RECORD_V4</b> record is only output when range tracking is turned on and the file size is equal or larger than the value of the <b>RangeTrackFileSizeThreshold</b> member. The user always receives one or more <b>USN_RECORD_V4</b> records followed by one <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v3">USN_RECORD_V3</a> record.
+ * 
+  * A <b>USN_RECORD_V4</b> record is only output when range tracking is turned on and the file size is equal or larger than the value of the <b>RangeTrackFileSizeThreshold</b> member. The user always receives one or more <b>USN_RECORD_V4</b> records followed by one <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v3">USN_RECORD_V3</a> record.
   * 
   * To provide a path forward compatibility in change journal clients, Microsoft provides a major and minor version number of the change journal software in the <b>USN_RECORD_V4</b> structure. Your code should examine these values, examine its own compatibility with the change journal software, and gracefully handle any incompatibility if necessary.
   * 
@@ -19,7 +20,9 @@
   * 
   * 
   * For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v4
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-usn_record_v4
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The type of the Windows Integrated Authentication credential, used as a selector for subtypes of WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_windows_integrated_auth_credential_type
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_windows_integrated_auth_credential_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

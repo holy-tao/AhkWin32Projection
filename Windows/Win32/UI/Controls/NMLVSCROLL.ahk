@@ -4,7 +4,7 @@
 
 /**
  * Provides information about a scrolling operation.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvscroll
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvscroll
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

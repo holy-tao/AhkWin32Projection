@@ -4,7 +4,7 @@
 
 /**
  * The PolicyPrimaryDomainInformation value and POLICY_PRIMARY_DOMAIN_INFO structure are obsolete. Use the PolicyDnsDomainInformation and POLICY_DNS_DOMAIN_INFO structure instead.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-policy_primary_domain_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

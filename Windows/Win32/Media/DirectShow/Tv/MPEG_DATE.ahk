@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_DATE structure specifies a date.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_date
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_date
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * A structure used to specify an XML name (of an element or an attribute) as a local name, namespace pair.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_qname
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_qname
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

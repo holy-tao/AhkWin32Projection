@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the coordinates of a tiled resource. (D3D12_TILED_RESOURCE_COORDINATE)
+ * Describes the coordinates of a tiled resource.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles">CopyTiles</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings">CopyTileMappings</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings">UpdateTileMappings</a> methods.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles">CopyTiles</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings">CopyTileMappings</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings">UpdateTileMappings</a> methods.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_tiled_resource_coordinate
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

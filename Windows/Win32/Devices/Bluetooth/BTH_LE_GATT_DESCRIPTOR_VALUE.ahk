@@ -4,7 +4,7 @@
 
 /**
  * The BTH_LE_GATT_DESCRIPTOR_VALUE structure describes a parent characteristic.
- * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_descriptor_value
+ * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bth_le_gatt_descriptor_value
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

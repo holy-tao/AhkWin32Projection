@@ -6,7 +6,7 @@
 
 /**
  * Contains information about an uncompressed video format. This structure is used in the MFVIDEOFORMAT structure.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideosurfaceinfo
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideosurfaceinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

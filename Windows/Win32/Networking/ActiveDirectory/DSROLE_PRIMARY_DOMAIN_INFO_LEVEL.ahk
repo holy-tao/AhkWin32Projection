@@ -2,7 +2,7 @@
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to specify the type of data to retrieve.
- * @see https://learn.microsoft.com/windows/win32/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level
+ * @see https://docs.microsoft.com/windows/win32/api//dsrole/ne-dsrole-dsrole_primary_domain_info_level
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

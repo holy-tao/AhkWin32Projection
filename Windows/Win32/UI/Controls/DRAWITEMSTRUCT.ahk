@@ -5,8 +5,11 @@
 /**
  * Provides information that the owner window uses to determine how to paint an owner-drawn control or menu item.
  * @remarks
- * Some control types, such as status bars, do not set the value of <b>CtlType</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-drawitemstruct
+ * 
+  * Some control types, such as status bars, do not set the value of <b>CtlType</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-drawitemstruct
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

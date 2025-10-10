@@ -4,7 +4,7 @@
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation of Internet Protocol version 4 (IPv4) and IPv6 projection operations, and PPP Link Control Protocol (LCP)/multilink, and Compression Control Protocol (CCP) negotiation.
- * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-rasppp_projection_info
+ * @see https://docs.microsoft.com/windows/win32/api//ras/ns-ras-rasppp_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

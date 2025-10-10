@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Is used to store credential information used for the authentication. (IKEEXT_CREDENTIAL2)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credential2
+ * Is used to store credential information used for the authentication.
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_credential2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

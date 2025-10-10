@@ -2,7 +2,7 @@
 
 /**
  * The _AM_AUDIO_RENDERER_STAT_PARAM enumeration specifies which performance information to retrieve from the audio renderer.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_audio_renderer_stat_param
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_am_audio_renderer_stat_param
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

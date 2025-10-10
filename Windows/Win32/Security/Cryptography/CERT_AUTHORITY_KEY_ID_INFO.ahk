@@ -4,7 +4,7 @@
 
 /**
  * Identifies the key used to sign a certificate or certificate revocation list (CRL).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_authority_key_id_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_authority_key_id_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

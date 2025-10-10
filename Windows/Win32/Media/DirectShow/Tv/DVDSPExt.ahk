@@ -2,7 +2,7 @@
 
 /**
  * The DVDSPExt enumeration type holds a value indicating the default DVD subpicture language extension.
- * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-dvdspext
+ * @see https://docs.microsoft.com/windows/win32/api//segment/ne-segment-dvdspext
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

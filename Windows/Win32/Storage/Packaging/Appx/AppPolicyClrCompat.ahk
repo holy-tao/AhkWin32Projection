@@ -2,7 +2,7 @@
 
 /**
  * The AppPolicyClrCompat enumeration indicates the application type of a process so that you can determine whether to enable private reflection and/or make managed objects agile.
- * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicyclrcompat
+ * @see https://docs.microsoft.com/windows/win32/api//appmodel/ne-appmodel-apppolicyclrcompat
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

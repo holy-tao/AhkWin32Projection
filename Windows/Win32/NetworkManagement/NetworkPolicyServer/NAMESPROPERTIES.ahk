@@ -2,7 +2,7 @@
 
 /**
  * The values of the NAMESPROPERTIES enumeration type enumerate properties related to the name of the user requesting network access.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-namesproperties
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-namesproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

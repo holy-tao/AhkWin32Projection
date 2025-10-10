@@ -3,7 +3,7 @@
 
 /**
  * Specifies the dimensions and pixel format of the uncompressed surfaces for DirectX Video Acceleration (DXVA) video decoding.
- * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxvauncompdatainfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxvauncompdatainfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

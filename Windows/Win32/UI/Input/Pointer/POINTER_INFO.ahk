@@ -4,7 +4,7 @@
 
 /**
  * Contains basic pointer information common to all pointer types. Applications can retrieve this information using the GetPointerInfo, GetPointerFrameInfo, GetPointerInfoHistory and GetPointerFrameInfoHistory functions.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_info
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-pointer_info
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */
@@ -50,9 +50,9 @@ class POINTER_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/inputmsg/pointer-flags-contants">POINTER_FLAGS</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/pointer-flags-contants">POINTER_FLAGS</a></b>
      * 
-     * May be any reasonable combination of flags from the <a href="https://docs.microsoft.com/windows/win32/inputmsg/pointer-flags-contants">Pointer Flags</a> constants.
+     * May be any reasonable combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/pointer-flags-contants">Pointer Flags</a> constants.
      * @type {Integer}
      */
     pointerFlags {
@@ -83,7 +83,7 @@ class POINTER_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The predicted screen coordinates of the pointer, in pixels. 
      * 
@@ -99,7 +99,7 @@ class POINTER_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The predicted screen coordinates of the pointer, in HIMETRIC units. 
      * 
@@ -115,7 +115,7 @@ class POINTER_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The screen coordinates of the pointer, in pixels. For adjusted screen coordinates, see <b>ptPixelLocation</b>.
      * @type {POINT}
@@ -129,7 +129,7 @@ class POINTER_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The screen coordinates of the pointer, in HIMETRIC units. For adjusted screen coordinates, see <b>ptHimetricLocation</b>.
      * @type {POINT}

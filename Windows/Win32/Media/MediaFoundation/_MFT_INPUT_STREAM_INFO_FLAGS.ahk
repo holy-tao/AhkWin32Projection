@@ -3,7 +3,8 @@
 /**
  * Describes an input stream on a Media Foundation transform (MFT).
  * @remarks
- * Before the client sets the media types on the transform, the only flags guaranteed to be accurate are the MFT_INPUT_STREAM_REMOVABLE and MFT_INPUT_STREAM_OPTIONAL flags. For all other flags, the client should first set the media type on every non-optional stream.
+ * 
+  * Before the client sets the media types on the transform, the only flags guaranteed to be accurate are the MFT_INPUT_STREAM_REMOVABLE and MFT_INPUT_STREAM_OPTIONAL flags. For all other flags, the client should first set the media type on every non-optional stream.
   * 
   * In the default processing model, an MFT holds a reference count on the sample that it receives in <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processinput">ProcessInput</a>. It does not process the sample immediately inside <b>ProcessInput</b>. When <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> is called, the MFT produces output data and then discards the input sample. The following variations on this model are defined:
   * 
@@ -17,7 +18,9 @@
   * 
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_input_stream_info_flags
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_input_stream_info_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Indicates the type of the parameter value.
- * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ne-wsbonline-wsb_ob_status_entry_pair_type
+ * @see https://docs.microsoft.com/windows/win32/api//wsbonline/ne-wsbonline-wsb_ob_status_entry_pair_type
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */

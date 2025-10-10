@@ -2,7 +2,7 @@
 
 /**
  * Contains values for the OutlineStyle text attribute.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-outlinestyles
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-outlinestyles
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides information about an ISpatialAudioMetadataItems object. Get a copy of this structure by calling GetInfo.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ns-spatialaudiometadata-spatialaudiometadataitemsinfo
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/ns-spatialaudiometadata-spatialaudiometadataitemsinfo
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

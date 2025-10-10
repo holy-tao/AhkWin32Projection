@@ -3,7 +3,7 @@
 
 /**
  * Contains the bit length of the key for RC2 encryption algorithms.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_rc2_aux_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_rc2_aux_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

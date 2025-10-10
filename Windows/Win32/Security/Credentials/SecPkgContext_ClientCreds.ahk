@@ -3,7 +3,7 @@
 
 /**
  * Specifies client credentials when calling the QueryContextAttributes (CredSSP) function.
- * @see https://learn.microsoft.com/windows/win32/api/credssp/ns-credssp-secpkgcontext_clientcreds
+ * @see https://docs.microsoft.com/windows/win32/api//credssp/ns-credssp-secpkgcontext_clientcreds
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains process status information for a service. The ControlServiceEx, EnumServicesStatusEx, NotifyServiceStatusChange, and QueryServiceStatusEx functions use this structure.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_status_process
+ * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_status_process
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

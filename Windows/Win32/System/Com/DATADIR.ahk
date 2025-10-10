@@ -2,7 +2,7 @@
 
 /**
  * Specifies the direction of the data flow. This determines the formats that the resulting enumerator can enumerate.
- * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-datadir
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-datadir
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

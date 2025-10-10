@@ -4,11 +4,14 @@
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, GUID, time-out, namespace/root/link properties, metadata size, and number of targets for the root or link.
  * @remarks
- * To retrieve information about targets and target priorities, use the 
+ * 
+  * To retrieve information about targets and target priorities, use the 
   *      <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_6">DFS_INFO_6</a> structure. 
   *      <b>DFS_INFO_5</b> is used to specify information about a DFS 
   *      namespace without target information.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_5
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_5
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

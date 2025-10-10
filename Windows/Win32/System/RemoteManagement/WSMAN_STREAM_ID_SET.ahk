@@ -3,7 +3,7 @@
 
 /**
  * Lists all the streams that are used for either input or output for the shell and commands.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_stream_id_set
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_stream_id_set
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

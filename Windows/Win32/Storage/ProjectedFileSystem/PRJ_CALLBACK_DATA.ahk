@@ -3,7 +3,7 @@
 
 /**
  * Defines the standard information passed to a provider for every operation callback.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_callback_data
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_callback_data
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

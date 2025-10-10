@@ -3,12 +3,11 @@
 /**
  * The type of WS_XML_NODE structure.
  * @remarks
- * The BNF for node types within a document is:
+ * 
+  * The BNF for node types within a document is:
   *       
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   * Xml := StartInput Whitespace Element Whitespace EndInput
   * Whitespace := (Text | Comment)* // Text is whitespace only
   * Element := StartElement ElementContent EndElement
@@ -19,9 +18,9 @@
   * Comment := WS_XML_NODE_TYPE_COMMENT
   * CData := WS_XML_NODE_TYPE_CDATA Text* WS_XML_NODE_TYPE_END_CDATA
   * StartInput := WS_XML_NODE_TYPE_BOF
-  * EndInput := WS_XML_NODE_TYPE_EOF
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_node_type
+  * EndInput := WS_XML_NODE_TYPE_EOF</code></pre>
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_node_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

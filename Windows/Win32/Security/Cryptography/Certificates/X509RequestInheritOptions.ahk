@@ -2,7 +2,7 @@
 
 /**
  * Specifies how keys, extension values, and external properties are inherited when a new request is created from an existing certificate.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509requestinheritoptions
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509requestinheritoptions
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

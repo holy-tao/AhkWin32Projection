@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of a given Windows Network Virtualization (WNV) notification.
- * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ne-wnvapi-wnv_notification_type
+ * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ne-wnvapi-wnv_notification_type
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

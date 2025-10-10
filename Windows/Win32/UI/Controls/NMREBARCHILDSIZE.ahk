@@ -5,7 +5,7 @@
 
 /**
  * Contains information used in handling the RBN_CHILDSIZE notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarchildsize
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmrebarchildsize
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

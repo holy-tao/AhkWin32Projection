@@ -2,7 +2,7 @@
 
 /**
  * The FULLDUPLEX_SUPPORT enum is used by applications interacting with legacy TSPs to indicate whether a specified terminal supports full duplex operations. This enum is returned by the ITLegacyWaveSupport::IsFullDuplex method.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-fullduplex_support
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-fullduplex_support
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

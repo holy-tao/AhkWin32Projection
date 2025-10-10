@@ -2,7 +2,7 @@
 
 /**
  * The NLM_NETWORK_PROPERTY_CHANGE enumeration is a set of flags that define changes made to the properties of a network.
- * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_network_property_change
+ * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ne-netlistmgr-nlm_network_property_change
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

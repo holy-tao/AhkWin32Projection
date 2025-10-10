@@ -3,7 +3,7 @@
 
 /**
  * The ATSC_FILTER_OPTIONS structure specifies additional criteria for matching ATSC section headers.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-atsc_filter_options
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-atsc_filter_options
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

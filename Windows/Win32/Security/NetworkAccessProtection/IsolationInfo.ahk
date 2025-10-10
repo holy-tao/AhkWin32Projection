@@ -5,7 +5,7 @@
 
 /**
  * Defines the isolation status of the machine or the connection.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-isolationinfo
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-isolationinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

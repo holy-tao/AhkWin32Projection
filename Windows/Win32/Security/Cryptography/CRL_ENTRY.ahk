@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a single revoked certificate. It is a member of a CRL_INFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_entry
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crl_entry
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The WinSNMP smiCNTR64 structure contains a 64-bit unsigned integer value. The structure represents a 64-bit counter.
- * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smicntr64
+ * @see https://docs.microsoft.com/windows/win32/api//winsnmp/ns-winsnmp-smicntr64
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

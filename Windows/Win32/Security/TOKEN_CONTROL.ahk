@@ -5,7 +5,7 @@
 
 /**
  * Contains information that identifies an access token.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_control
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_control
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

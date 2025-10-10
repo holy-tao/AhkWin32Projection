@@ -3,9 +3,10 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * The FAX_DEVICE_STATUS structure contains information about the current status of a fax device. (ANSI)
+ * The FAX_DEVICE_STATUS structure contains information about the current status of a fax device.
  * @remarks
- * The fax client application can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxgetdevicestatusa">FaxGetDeviceStatus</a> function to retrieve status information for the fax device of interest. The function returns the information in a <b>FAX_DEVICE_STATUS</b> structure.
+ * 
+  * The fax client application can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxgetdevicestatusa">FaxGetDeviceStatus</a> function to retrieve status information for the fax device of interest. The function returns the information in a <b>FAX_DEVICE_STATUS</b> structure.
   * 
   * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-device-management">Fax Device Management</a>. For information about the status information a fax service provider supplies for an active fax operation, see the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">FAX_DEV_STATUS</a> topic.
   * 
@@ -15,7 +16,9 @@
   * 
   * > [!NOTE]
   * > The winfax.h header defines FAX_DEVICE_STATUS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_device_statusa
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winfax/ns-winfax-fax_device_statusa
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  * @charset ANSI

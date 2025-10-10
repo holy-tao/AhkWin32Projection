@@ -2,7 +2,7 @@
 
 /**
  * The WMT_MUSICSPEECH_CLASS_MODE enumeration type defines the types of compression supported by the Windows Media Audio 9 Voice codec.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_musicspeech_class_mode
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_musicspeech_class_mode
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

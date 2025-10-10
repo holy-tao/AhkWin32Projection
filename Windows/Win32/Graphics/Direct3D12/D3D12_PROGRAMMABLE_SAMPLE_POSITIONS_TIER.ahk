@@ -3,8 +3,11 @@
 /**
  * Specifies the level of support for programmable sample positions that's offered by the adapter.
  * @remarks
- * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options2">D3D12_FEATURE_D3D12_DATA_OPTIONS2</a> structure to indicate the level of support offered for programmable sample positions.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_programmable_sample_positions_tier
+ * 
+  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options2">D3D12_FEATURE_D3D12_DATA_OPTIONS2</a> structure to indicate the level of support offered for programmable sample positions.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_programmable_sample_positions_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

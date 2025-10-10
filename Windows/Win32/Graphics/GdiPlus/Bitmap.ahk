@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the Base64 encoded data for a bitmap contained in the Journal file as a background image.
- * @see https://learn.microsoft.com/windows/win32/tablet/bitmap-element
+ * The Bitmap class inherits from the Image class.
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplusheaders/nl-gdiplusheaders-bitmap
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

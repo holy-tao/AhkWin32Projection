@@ -5,7 +5,7 @@
 
 /**
  * Describes an array, its element type, and its dimension.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-arraydesc
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-arraydesc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

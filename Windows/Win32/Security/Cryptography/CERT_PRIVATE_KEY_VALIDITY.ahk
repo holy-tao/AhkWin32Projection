@@ -4,7 +4,7 @@
 
 /**
  * The CERT_PRIVATE_KEY_VALIDITY structure indicates a valid time span for the private key corresponding to a certificate's public key.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_private_key_validity
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_private_key_validity
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

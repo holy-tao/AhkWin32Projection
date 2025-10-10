@@ -3,7 +3,7 @@
 
 /**
  * Defines an individual network binding for the DHCP server. A single DHCP server can contain multiple bindings and serve multiple networks.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_bind_element
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_bind_element
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

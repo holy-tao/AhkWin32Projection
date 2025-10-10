@@ -2,7 +2,7 @@
 
 /**
  * The MBN_SMS_CDMA_LANG enumerated type represents the different languages that can be used in a CDMA message.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_cdma_lang
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_sms_cdma_lang
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

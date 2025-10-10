@@ -3,8 +3,8 @@
 #Include .\MI_Real32A.ahk
 
 /**
- * Represents a property inside an MI_Instance structure. (MI_Real32AField)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_real32afield
+ * Represents a property inside an MI_Instance structure.
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_real32afield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

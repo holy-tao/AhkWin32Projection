@@ -4,8 +4,10 @@
 /**
  * Defines an attribute set on the DHCP server.
  * @remarks
- * A DHCP server attribute is a value that can be queried to determine supported and available features.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_attrib
+ * 
+  * A DHCP server attribute is a value that can be queried to determine supported and available features.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_attrib
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

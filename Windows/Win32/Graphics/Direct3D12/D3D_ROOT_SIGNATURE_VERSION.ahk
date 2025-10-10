@@ -3,7 +3,8 @@
 /**
  * Specifies the version of root signature layout.
  * @remarks
- * This enum is used by the following structures and methods.
+ * 
+  * This enum is used by the following structures and methods.
   * 
   * <ul>
   * <li>
@@ -19,7 +20,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature">D3D12SerializeRootSignature</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d_root_signature_version
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d_root_signature_version
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

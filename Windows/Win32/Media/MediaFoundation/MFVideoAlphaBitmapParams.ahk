@@ -5,7 +5,7 @@
 
 /**
  * Specifies how the enhanced video renderer (EVR) alpha-blends a bitmap with the video.
- * @see https://learn.microsoft.com/windows/win32/api/evr9/ns-evr9-mfvideoalphabitmapparams
+ * @see https://docs.microsoft.com/windows/win32/api//evr9/ns-evr9-mfvideoalphabitmapparams
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

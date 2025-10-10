@@ -3,7 +3,7 @@
 
 /**
  * The RPC_ERROR_ENUM_HANDLE structure provides an enumeration handle used by RpcError* functions for processing extended error information.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_error_enum_handle
+ * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_error_enum_handle
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

@@ -5,7 +5,8 @@
  * Retrieves the list of video extension command parameters for the specified parameter stage.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_parameters
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies why the marshaling is to be done.
- * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-mshlflags
+ * @see https://docs.microsoft.com/windows/win32/api//wtypesbase/ne-wtypesbase-mshlflags
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

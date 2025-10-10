@@ -3,7 +3,7 @@
 
 /**
  * The RAS_SECURITY_INFO structure is used with the RasSecurityDialogGetInfo function to return information about the RAS port associated with a RAS security DLL authentication transaction.
- * @see https://learn.microsoft.com/windows/win32/api/rasshost/ns-rasshost-ras_security_info
+ * @see https://docs.microsoft.com/windows/win32/api//rasshost/ns-rasshost-ras_security_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

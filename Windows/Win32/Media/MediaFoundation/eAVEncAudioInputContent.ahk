@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether the audio content contains music or voice. This enumeration is used with the AVEncAudioInputContent property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencaudioinputcontent
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencaudioinputcontent
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

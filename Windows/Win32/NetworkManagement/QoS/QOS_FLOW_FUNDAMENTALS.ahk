@@ -3,7 +3,7 @@
 
 /**
  * The QOS_FLOW_FUNDAMENTALS structure contains basic information about a flow.
- * @see https://learn.microsoft.com/windows/win32/api/qos2/ns-qos2-qos_flow_fundamentals
+ * @see https://docs.microsoft.com/windows/win32/api//qos2/ns-qos2-qos_flow_fundamentals
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

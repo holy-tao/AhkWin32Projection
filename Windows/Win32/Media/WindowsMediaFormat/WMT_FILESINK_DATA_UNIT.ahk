@@ -4,7 +4,7 @@
 
 /**
  * The WMT_FILESINK_DATA_UNIT structure is used by IWMWriterFileSink3::OnDataUnitEx to deliver information about a packet.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_filesink_data_unit
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmt_filesink_data_unit
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

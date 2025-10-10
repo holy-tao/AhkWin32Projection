@@ -3,7 +3,7 @@
 
 /**
  * The ENHMETARECORD structure contains data that describes a graphics device interface (GDI) function used to create part of a picture in an enhanced-format metafile.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-enhmetarecord
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-enhmetarecord
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

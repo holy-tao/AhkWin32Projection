@@ -3,8 +3,8 @@
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
- * Contains information about a Secure Socket Tunneling Protocol (SSTP) based certificate.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-sstp_cert_info
+ * Contains information about a Secure Socket Tunneling Protocool (SSTP) based certificate.
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-sstp_cert_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

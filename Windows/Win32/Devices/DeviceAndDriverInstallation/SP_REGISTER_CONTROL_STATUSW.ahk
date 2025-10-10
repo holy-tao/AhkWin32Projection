@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The SP_REGISTER_CONTROL_STATUS structure contains information about a file being registered or unregistered using the RegisterDlls INF directive to self-register DLLs on Windows 2000. (Unicode)
+ * The SP_REGISTER_CONTROL_STATUS structure contains information about a file being registered or unregistered using the RegisterDlls INF directive to self-register DLLs on Windows 2000.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The setupapi.h header defines SP_REGISTER_CONTROL_STATUS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_register_control_statusw
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_register_control_statusw
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  * @charset Unicode

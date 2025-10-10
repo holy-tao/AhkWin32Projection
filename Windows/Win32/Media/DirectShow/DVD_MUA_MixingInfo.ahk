@@ -4,7 +4,8 @@
 /**
  * The DVD_MUA_MixingInfo structure describes the surround sound mixing information for the channels in one audio stream in a specified title.
  * @remarks
- * Applications cannot use the information contained in this structure to change the mixing unless they have a way to communicate with a custom audio decoder that has been inserted manually into the filter graph. The default audio decoder handles Linear Pulse Code Modulated (LPCM) audio using the mixing information on the digital video disc (DVD), but applications have no way to instruct the decoder to modify the mixing values. This means that current DVD playback applications should have no need to access the multichannel-related data structures.
+ * 
+  * Applications cannot use the information contained in this structure to change the mixing unless they have a way to communicate with a custom audio decoder that has been inserted manually into the filter graph. The default audio decoder handles Linear Pulse Code Modulated (LPCM) audio using the mixing information on the digital video disc (DVD), but applications have no way to instruct the decoder to modify the mixing values. This means that current DVD playback applications should have no need to access the multichannel-related data structures.
   * 
   * The [DVD_MultichannelAudioAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_multichannelaudioattributes) structure contains information about one audio stream in a specified title. An array of up to eight <c>DVD_MUA_MixingInfo</c> structures will be populated in this structure, if the following conditions are true.
   * 
@@ -71,7 +72,9 @@
   * <td>0x800</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_mua_mixinginfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_mua_mixinginfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

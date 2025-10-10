@@ -3,8 +3,11 @@
 /**
  * Defines the speaker configuration for an audio stream.
  * @remarks
- * All channels within a stream will use the same speaker configuration, although the channels can be sent to different speakers within this configuration.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_karaoke_assignment
+ * 
+  * All channels within a stream will use the same speaker configuration, although the channels can be sent to different speakers within this configuration.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_karaoke_assignment
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

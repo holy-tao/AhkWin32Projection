@@ -2,7 +2,7 @@
 
 /**
  * The type of the username/password credential, used as a selector for subtypes of WS_USERNAME_CREDENTIAL.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_username_credential_type
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_username_credential_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

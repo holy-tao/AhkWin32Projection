@@ -2,7 +2,7 @@
 
 /**
  * Indicates a pin's direction.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-pin_direction
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-pin_direction
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

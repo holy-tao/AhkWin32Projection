@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the session change notification. A service receives this structure in its HandlerEx function in response to a session change event.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-wtssession_notification
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-wtssession_notification
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

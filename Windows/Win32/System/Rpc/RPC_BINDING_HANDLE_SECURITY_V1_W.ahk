@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the basic security options with which to create an RPC binding handle. (Unicode)
+ * Contains the basic security options with which to create an RPC binding handle.
  * @remarks
- * If this structure is not passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a> -- that is, if the <i>Security</i> parameter of <b>RpcBindingCreate</b> is set to <b>NULL</b> -- then the following default security behaviors are assumed:
+ * 
+  * If this structure is not passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingcreatea">RpcBindingCreate</a> -- that is, if the <i>Security</i> parameter of <b>RpcBindingCreate</b> is set to <b>NULL</b> -- then the following default security behaviors are assumed:
   * 
   * 
   * <ul>
@@ -88,7 +89,9 @@
   * 
   * </div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_security_v1_w
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_binding_handle_security_v1_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset Unicode

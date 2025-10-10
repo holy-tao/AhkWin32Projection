@@ -3,7 +3,7 @@
 
 /**
  * Defines a menu item in a menu template.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuitemtemplate
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-menuitemtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
 /**
  * The authentication protocol uses the PPP_EAP_OUTPUT structure to communicate requests and status information to the Connection Manager on return from calls to RasEapMakeMessage.
  * @remarks
- * Use the 
+ * 
+  * Use the 
   * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363532(v=vs.85)">RasEapMakeMessage</a> function to pass the 
   * <b>PPP_EAP_OUTPUT</b> structure between the authentication protocol and the Connection Manager.
   * 
@@ -18,7 +19,9 @@
   * 
   * <div class="alert"><b>Note</b>  When formatting attributes for encryption keys, it is strongly recommended that you  use MSCHAPv2 and its MS-MPPE-Recv-Keys and MS-MPPE-Send-Keys,  which create <i>strong encryption</i> rather than  MSCHAPv1 and its MS-CHAP-MPPE-Keys.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_output
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//raseapif/ns-raseapif-ppp_eap_output
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

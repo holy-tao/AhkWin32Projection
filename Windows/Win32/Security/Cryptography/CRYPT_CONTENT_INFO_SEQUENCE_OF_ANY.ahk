@@ -3,7 +3,7 @@
 
 /**
  * Contains information representing the Netscape certificate sequence of certificates.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_content_info_sequence_of_any
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_content_info_sequence_of_any
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

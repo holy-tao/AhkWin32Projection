@@ -5,7 +5,8 @@
 /**
  * Describes the data returned in response to an IPv4 echo request on a 64-bit platform.
  * @remarks
- * The <b>ICMP_ECHO_REPLY32</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpparsereplies">IcmpParseReplies</a> function to return the response to an IPv4 echo request on a 64-bit platform. This structure is only defined if _WIN64 is defined.
+ * 
+  * The <b>ICMP_ECHO_REPLY32</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpparsereplies">IcmpParseReplies</a> function to return the response to an IPv4 echo request on a 64-bit platform. This structure is only defined if _WIN64 is defined.
   * 
   * For IPv4, some of the possible values for the <b>Status</b> member are specified in 
   * <a href="https://www.ietf.org/rfc/rfc792.txt">RFC 792</a>.
@@ -13,7 +14,9 @@
   * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getiperrorstring">GetIpErrorString</a> function can be used to retrieve the IP helper error string for the <b>IP_STATUS</b> error code in the <b>Status</b> member.
   * 
   * The <b>ICMP_ECHO_REPLY32</b> structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmp_echo_reply32
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ipexport/ns-ipexport-icmp_echo_reply32
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

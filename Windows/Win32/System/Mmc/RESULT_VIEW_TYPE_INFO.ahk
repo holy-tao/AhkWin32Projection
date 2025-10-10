@@ -3,7 +3,7 @@
 
 /**
  * The RESULT_VIEW_TYPE_INFO structure is introduced in MMC 2.0.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-result_view_type_info
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-result_view_type_info
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

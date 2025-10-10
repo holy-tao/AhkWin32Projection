@@ -4,7 +4,7 @@
 
 /**
  * Contains statistical information about a DHCP server.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

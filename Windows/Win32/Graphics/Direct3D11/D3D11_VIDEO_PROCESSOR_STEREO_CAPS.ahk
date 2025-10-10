@@ -2,7 +2,7 @@
 
 /**
  * Defines stereo 3D capabilities for a Microsoft Direct3D 11 video processor.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_caps
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_video_processor_stereo_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

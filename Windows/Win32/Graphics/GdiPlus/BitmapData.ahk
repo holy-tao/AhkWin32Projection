@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The BitmapData class is used by the Bitmap::LockBits and Bitmap::UnlockBits methods of the Bitmap class. A BitmapData object stores attributes of a bitmap.
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplusimaging/nl-gdiplusimaging-bitmapdata
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

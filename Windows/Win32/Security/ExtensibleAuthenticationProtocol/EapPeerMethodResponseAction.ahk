@@ -2,7 +2,7 @@
 
 /**
  * Defines the set of actions an EAP authenticator can indicate to a supplicant or EAP peer method during authentication.
- * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eappeermethodresponseaction
+ * @see https://docs.microsoft.com/windows/win32/api//eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eappeermethodresponseaction
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

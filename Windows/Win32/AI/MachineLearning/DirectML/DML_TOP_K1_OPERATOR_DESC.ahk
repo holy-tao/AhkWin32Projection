@@ -4,8 +4,11 @@
 /**
  * Selects the largest or smallest *K* elements from each sequence along an axis of the *InputTensor*, and returns the values and indices of those elements in the *OutputValueTensor* and *OutputIndexTensor*, respectively.
  * @remarks
- * When *AxisDirection* is set to [DML_AXIS_DIRECTION_DECREASING](/windows/win32/api/directml/ne-directml-dml_axis_direction), this operator is equivalent to [DML_TOP_K_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_top_k_operator_desc).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_top_k1_operator_desc
+ * 
+  * When *AxisDirection* is set to [DML_AXIS_DIRECTION_DECREASING](/windows/win32/api/directml/ne-directml-dml_axis_direction), this operator is equivalent to [DML_TOP_K_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_top_k_operator_desc).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_top_k1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

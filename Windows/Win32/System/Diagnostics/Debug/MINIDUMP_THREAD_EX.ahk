@@ -5,7 +5,7 @@
 
 /**
  * Contains extended information for a specific thread.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_ex
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_thread_ex
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

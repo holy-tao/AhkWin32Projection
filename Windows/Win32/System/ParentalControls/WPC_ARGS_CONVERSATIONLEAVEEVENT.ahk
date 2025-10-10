@@ -2,7 +2,7 @@
 
 /**
  * Indicates information about leaving a conversation.
- * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_conversationleaveevent
+ * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_conversationleaveevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines event IDs used in an EVENT_FILTER_DESCRIPTOR structure for a stack walk level-keyword filter.
- * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_level_kw
+ * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_filter_level_kw
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

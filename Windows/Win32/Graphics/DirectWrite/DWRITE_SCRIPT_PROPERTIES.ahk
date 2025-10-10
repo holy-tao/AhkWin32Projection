@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_SCRIPT_PROPERTIES structure specifies script properties for caret navigation and justification.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_script_properties
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ns-dwrite_1-dwrite_script_properties
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

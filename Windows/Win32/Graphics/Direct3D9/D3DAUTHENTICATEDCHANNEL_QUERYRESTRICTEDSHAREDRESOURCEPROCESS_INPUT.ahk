@@ -3,8 +3,6 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
 
 /**
- * Contains input data for a D3DAUTHENTICATEDQUERY\_RESTRICTEDSHAREDRESOURCEPROCESS query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryrestrictedsharedresourceprocess-input
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_INPUT extends
     static packingSize => 8
 
     /**
-     * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_INPUT**](d3dauthenticatedchannel-query-input.md) structure that contains the GUID for the query and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_INPUT}
      */
     Input{
@@ -27,7 +24,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_INPUT extends
     }
 
     /**
-     * The index of the process.
      * @type {Integer}
      */
     ProcessIndex {

@@ -2,7 +2,7 @@
 
 /**
  * Used by writers to indicate support for auto-recovery.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_component_flags
+ * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_component_flags
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

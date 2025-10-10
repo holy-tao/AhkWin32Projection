@@ -2,7 +2,7 @@
 
 /**
  * The DMO_VIDEO_OUTPUT_STREAM_FLAGS enumeration defines flags that describe requested features, for video optimizations.
- * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_video_output_stream_flags
+ * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ne-mediaobj-_dmo_video_output_stream_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

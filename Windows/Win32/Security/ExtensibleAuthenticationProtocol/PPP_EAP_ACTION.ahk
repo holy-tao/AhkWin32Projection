@@ -2,7 +2,7 @@
 
 /**
  * The PPP_EAP_ACTION enumerated type specifies actions that the Connection Manager should take on behalf of the authentication protocol.
- * @see https://learn.microsoft.com/windows/win32/api/raseapif/ne-raseapif-ppp_eap_action
+ * @see https://docs.microsoft.com/windows/win32/api//raseapif/ne-raseapif-ppp_eap_action
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

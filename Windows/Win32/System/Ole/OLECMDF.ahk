@@ -3,8 +3,11 @@
 /**
  * Specifies the type of support provided by an object for the command specified in an OLECMD structure.
  * @remarks
- * Values from the <b>OLECMDF</b> enumeration are used to fill the value of the <b>cmdf</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/ns-docobj-olecmd">OLECMD</a> structures passed to <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-querystatus">IOleCommandTarget::QueryStatus</a>.
- * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdf
+ * 
+  * Values from the <b>OLECMDF</b> enumeration are used to fill the value of the <b>cmdf</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/ns-docobj-olecmd">OLECMD</a> structures passed to <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-querystatus">IOleCommandTarget::QueryStatus</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//docobj/ne-docobj-olecmdf
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

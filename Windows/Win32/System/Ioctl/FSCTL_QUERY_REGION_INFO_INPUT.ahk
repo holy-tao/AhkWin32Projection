@@ -3,7 +3,7 @@
 
 /**
  * Contains the storage tier regions from the storage stack for a particular volume.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_query_region_info_input
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-fsctl_query_region_info_input
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

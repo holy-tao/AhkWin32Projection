@@ -4,7 +4,7 @@
 
 /**
  * Contains detail information for a Shell folder item. Used with the SFVM_GETDETAILSOF notification.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-detailsinfo
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-detailsinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

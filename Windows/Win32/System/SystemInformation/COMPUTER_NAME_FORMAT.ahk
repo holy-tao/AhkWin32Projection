@@ -2,7 +2,7 @@
 
 /**
  * Specifies a type of computer name.
- * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/ne-sysinfoapi-computer_name_format
+ * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/ne-sysinfoapi-computer_name_format
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains the information for an update sequence number (USN) common header which is common through USN_RECORD_V2, USN_RECORD_V3 and USN_RECORD_V4.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_common_header
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-usn_record_common_header
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -18,7 +18,7 @@ class USN_RECORD_COMMON_HEADER extends Win32Struct
      * 
      * Because USN record is a variable size, the <b>RecordLength</b> member should be used when calculating the address of the next record in an output buffer, for example, a buffer that is returned from operations for the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> function that work with different USN record types.
      * 
-     * For [USN_RECORD_V4 structure](ns-winioctl-usn_record_v4.md), the size in bytes of any change journal record is at most the size of the structure, plus (NumberOfExtents-1) times size of the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_extent">USN_RECORD_EXTENT</a>.
+     * For <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v4">USN_RECORD_V4</a>, the size in bytes of any change journal record is at most the size of the structure, plus (NumberOfExtents-1) times size of the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_extent">USN_RECORD_EXTENT</a>.
      * @type {Integer}
      */
     RecordLength {
@@ -46,7 +46,7 @@ class USN_RECORD_COMMON_HEADER extends Win32Struct
      * </tr>
      * <tr>
      * <td>4</td>
-     * <td>The structure is a [USN_RECORD_V4 structure](ns-winioctl-usn_record_v4.md) and the remainder of the structure should be parsed using that layout.</td>
+     * <td>The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v4">USN_RECORD_V4</a> structure and the remainder of the structure should be parsed using that layout.</td>
      * </tr>
      * </table>
      * @type {Integer}

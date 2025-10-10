@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_CONTEXT structure identifies the source of an MPEG-2 data stream.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_context
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_context
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains the center point, x-radius, and y-radius of an ellipse.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_ellipse
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_ellipse
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

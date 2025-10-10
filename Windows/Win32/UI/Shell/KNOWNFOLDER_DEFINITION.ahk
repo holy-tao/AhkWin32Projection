@@ -4,8 +4,11 @@
 /**
  * Defines the specifics of a known folder.
  * @remarks
- * The <b>fidParent</b> and <b>pszRelativePath</b> values work together. For example, suppose you are defining a folder called MyNewFolder and want to create that folder as ...\&lt;Username&gt;\AppData\Local\MyApp\MyNewFolder. Provide <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_LocalAppData</a> in <b>fidParent</b> to represent ...\&lt;Username&gt;\AppData\Local. Provide "\MyApp\MyNewFolder" in <b>pszRelativePath</b>.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-knownfolder_definition
+ * 
+  * The <b>fidParent</b> and <b>pszRelativePath</b> values work together. For example, suppose you are defining a folder called MyNewFolder and want to create that folder as ...\&lt;Username&gt;\AppData\Local\MyApp\MyNewFolder. Provide <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_LocalAppData</a> in <b>fidParent</b> to represent ...\&lt;Username&gt;\AppData\Local. Provide "\MyApp\MyNewFolder" in <b>pszRelativePath</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-knownfolder_definition
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

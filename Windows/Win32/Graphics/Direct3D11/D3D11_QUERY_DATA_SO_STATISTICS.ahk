@@ -3,7 +3,7 @@
 
 /**
  * Query information about the amount of data streamed out to the stream-output buffers in between ID3D11DeviceContext::Begin and ID3D11DeviceContext::End.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_query_data_so_statistics
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_query_data_so_statistics
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The RPCOLEMESSAGE (objidlbase.h) structure contains marshaling invocation arguments and return values between COM components.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-rpcolemessage
+ * Contains marshaling invocation arguments and return values between COM components.
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-rpcolemessage
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

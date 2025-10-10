@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible restart behaviors for an update.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-installationrebootbehavior
+ * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-installationrebootbehavior
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

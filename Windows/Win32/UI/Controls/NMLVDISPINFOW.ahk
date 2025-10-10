@@ -4,9 +4,10 @@
 #Include .\LVITEMW.ahk
 
 /**
- * Contains information about an LVN_GETDISPINFO or LVN_SETDISPINFO notification code. This structure is the same as the LV_DISPINFO structure, but has been renamed to fit standard naming conventions. (Unicode)
+ * Contains information about an LVN_GETDISPINFO or LVN_SETDISPINFO notification code. This structure is the same as the LV_DISPINFO structure, but has been renamed to fit standard naming conventions.
  * @remarks
- * If the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure is receiving item text, the <b>pszText</b> and <b>cchTextMax</b> members specify the address and size of a buffer. You can either copy text to the buffer or assign the address of a string to the <b>pszText</b> member. In the latter case, you must not change or delete the string until the corresponding item text is deleted or two additional <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-getdispinfo">LVN_GETDISPINFO</a> messages have been sent. 
+ * 
+  * If the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure is receiving item text, the <b>pszText</b> and <b>cchTextMax</b> members specify the address and size of a buffer. You can either copy text to the buffer or assign the address of a string to the <b>pszText</b> member. In the latter case, you must not change or delete the string until the corresponding item text is deleted or two additional <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-getdispinfo">LVN_GETDISPINFO</a> messages have been sent. 
   * 
   * 
   * If you are handling the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-getdispinfo">LVN_GETDISPINFO</a> message, you can set the LVIF_DI_SETITEM flag in the <b>mask</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure. This tells the operating system to store the requested list item information and not ask for it again. For list-view controls with the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_REPORT</a> style, this flag only applies to the first (subitem 0) column's information. The control will not store information for subitems.
@@ -17,7 +18,8 @@
   * 
   * > [!NOTE]
   * > The commctrl.h header defines NMLVDISPINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvdispinfow
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvdispinfow
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode

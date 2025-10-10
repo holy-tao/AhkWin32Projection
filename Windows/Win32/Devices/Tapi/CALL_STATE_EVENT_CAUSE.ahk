@@ -2,7 +2,7 @@
 
 /**
  * The CALL_STATE_EVENT_CAUSE enum is returned by the ITCallStateEvent::get_Cause method.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_state_event_cause
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_state_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

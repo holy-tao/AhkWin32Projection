@@ -5,7 +5,7 @@
 
 /**
  * The RPC_CLIENT_INTERFACE structure is part of the private interface between the run-time libraries and the stubs. Most distributed applications that use Microsoft RPC do not need this structure.
- * @see https://learn.microsoft.com/windows/win32/api/rpcdcep/ns-rpcdcep-rpc_client_interface
+ * @see https://docs.microsoft.com/windows/win32/api//rpcdcep/ns-rpcdcep-rpc_client_interface
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

@@ -4326,15 +4326,12 @@ class DirectShow {
 
 ;@region Methods
     /**
-     * The AMGetErrorText function retrieves the error message for a given return code, using the current language setting. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The errors.h header defines AMGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The AMGetErrorText function retrieves the error message for a given return code, using the current language setting.
      * @param {HRESULT} hr <b>HRESULT</b> value.
      * @param {Pointer<Byte>} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortexta
+     * @see https://docs.microsoft.com/windows/win32/api//errors/nf-errors-amgeterrortexta
      */
     static AMGetErrorTextA(hr, pbuffer, MaxLen) {
         pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
@@ -4344,15 +4341,12 @@ class DirectShow {
     }
 
     /**
-     * The AMGetErrorText function retrieves the error message for a given return code, using the current language setting. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The errors.h header defines AMGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The AMGetErrorText function retrieves the error message for a given return code, using the current language setting.
      * @param {HRESULT} hr <b>HRESULT</b> value.
      * @param {Pointer<Char>} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortextw
+     * @see https://docs.microsoft.com/windows/win32/api//errors/nf-errors-amgeterrortextw
      */
     static AMGetErrorTextW(hr, pbuffer, MaxLen) {
         pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer

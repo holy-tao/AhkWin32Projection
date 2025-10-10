@@ -2,7 +2,7 @@
 
 /**
  * The UI_INFO_TYPE enumeration identifies repairs that perform user interface tasks.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ne-ndattrib-ui_info_type
+ * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ne-ndattrib-ui_info_type
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

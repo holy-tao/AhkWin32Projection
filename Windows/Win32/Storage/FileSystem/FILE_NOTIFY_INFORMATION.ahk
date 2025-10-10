@@ -3,7 +3,7 @@
 
 /**
  * Describes the changes found by the ReadDirectoryChangesW function.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-file_notify_information
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-file_notify_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

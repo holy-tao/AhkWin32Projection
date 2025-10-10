@@ -2,7 +2,7 @@
 
 /**
  * Defines the set of supported generator parameters.
- * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype
+ * @see https://docs.microsoft.com/windows/win32/api//msrdc/ne-msrdc-generatorparameterstype
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

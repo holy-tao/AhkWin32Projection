@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Describes the level of support for shader caching in the current graphics driver. (D3D12_SHADER_CACHE_SUPPORT_FLAGS)
+ * Describes the level of support for shader caching in the current graphics driver.
  * @remarks
- * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_shader_cache">D3D_FEATURE_DATA_SHADER_CACHE</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_cache_support_flags
+ * 
+  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_shader_cache">D3D_FEATURE_DATA_SHADER_CACHE</a> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_shader_cache_support_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

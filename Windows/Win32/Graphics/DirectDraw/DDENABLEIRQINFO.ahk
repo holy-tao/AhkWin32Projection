@@ -4,8 +4,11 @@
 /**
  * The DDENABLEIRQINFO structure contains the information required to enable interrupts.
  * @remarks
- * The <b>dwIRQSources</b> member of this structure does not use the DDIRQ_BUSMASTER flag. However, the DDIRQ_BUSMASTER flag can be set in the <b>dwIrqFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-dx_irqdata">DX_IRQDATA</a> structure. The driver passes this DX_IRQDATA to the <b>IRQCallback</b> function when an IRQ occurs.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddenableirqinfo
+ * 
+  * The <b>dwIRQSources</b> member of this structure does not use the DDIRQ_BUSMASTER flag. However, the DDIRQ_BUSMASTER flag can be set in the <b>dwIrqFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-dx_irqdata">DX_IRQDATA</a> structure. The driver passes this DX_IRQDATA to the <b>IRQCallback</b> function when an IRQ occurs.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddenableirqinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

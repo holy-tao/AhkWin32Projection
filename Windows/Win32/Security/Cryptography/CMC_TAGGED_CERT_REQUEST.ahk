@@ -4,7 +4,7 @@
 
 /**
  * Used in the CMC_TAGGED_REQUEST structure.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_cert_request
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmc_tagged_cert_request
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

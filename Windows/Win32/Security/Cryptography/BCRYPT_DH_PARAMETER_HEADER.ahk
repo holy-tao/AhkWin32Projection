@@ -4,7 +4,8 @@
 /**
  * Used to contain parameter header information for a Diffie-Hellman key.
  * @remarks
- * This structure is used as a header for a larger buffer. The single memory block consists of this structure followed by a buffer of <b>cbKeyLength</b> size that contains the Diffie-Hellman prime number, and another buffer of <b>cbKeyLength</b> size that contains the Diffie-Hellman generator number. Both of these numbers are in big-endian format.
+ * 
+  * This structure is used as a header for a larger buffer. The single memory block consists of this structure followed by a buffer of <b>cbKeyLength</b> size that contains the Diffie-Hellman prime number, and another buffer of <b>cbKeyLength</b> size that contains the Diffie-Hellman generator number. Both of these numbers are in big-endian format.
   * 
   * The following example shows how to calculate the sizes needed for this buffer and how to fill in the members of this structure.
   * 
@@ -39,7 +40,9 @@
   * 
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dh_parameter_header
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_dh_parameter_header
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

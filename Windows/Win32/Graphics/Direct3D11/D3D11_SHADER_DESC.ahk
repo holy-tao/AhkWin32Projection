@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a shader. (D3D11_SHADER_DESC)
+ * Describes a shader.
  * @remarks
- * A shader is written in HLSL and compiled into an intermediate language by the HLSL compiler. The shader description returns information about the compiled shader. Get a shader description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getdesc">ID3D11ShaderReflection::GetDesc</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_desc
+ * 
+  * A shader is written in HLSL and compiled into an intermediate language by the HLSL compiler. The shader description returns information about the compiled shader. Get a shader description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getdesc">ID3D11ShaderReflection::GetDesc</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/ns-d3d11shader-d3d11_shader_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

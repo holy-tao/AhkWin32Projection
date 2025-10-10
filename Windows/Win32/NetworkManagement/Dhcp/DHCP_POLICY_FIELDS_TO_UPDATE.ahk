@@ -2,7 +2,7 @@
 
 /**
  * The DHCP_POLICY_FIELDS_TO_UPDATE enumeration defines which properties of a DHCP server policy must be updated.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_policy_fields_to_update
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_policy_fields_to_update
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

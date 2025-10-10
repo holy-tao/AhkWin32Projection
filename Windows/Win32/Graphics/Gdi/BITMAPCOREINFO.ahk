@@ -6,7 +6,8 @@
 /**
  * The BITMAPCOREINFO structure defines the dimensions and color information for a DIB.
  * @remarks
- * A DIB consists of two parts: a <b>BITMAPCOREINFO</b> structure describing the dimensions and colors of the bitmap, and an array of bytes defining the pixels of the bitmap. The bits in the array are packed together, but each scan line must be padded with zeros to end on a <b>LONG</b> boundary. The origin of the bitmap is the lower-left corner.
+ * 
+  * A DIB consists of two parts: a <b>BITMAPCOREINFO</b> structure describing the dimensions and colors of the bitmap, and an array of bytes defining the pixels of the bitmap. The bits in the array are packed together, but each scan line must be padded with zeros to end on a <b>LONG</b> boundary. The origin of the bitmap is the lower-left corner.
   * 
   * The <b>bcBitCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreheader">BITMAPCOREHEADER</a> structure determines the number of bits that define each pixel and the maximum number of colors in the bitmap. This member can be one of the following values.
   * 
@@ -42,7 +43,9 @@
   * 
   * </div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapcoreinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-bitmapcoreinfo
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

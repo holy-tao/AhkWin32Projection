@@ -4,7 +4,8 @@
 /**
  * Contains information on the functions implemented by a namespace service provider version-2 (NSPv2) provider.
  * @remarks
- * The 
+ * 
+  * The 
   * **NSPV2_ROUTINE** structure is used as part of the namespace service provider version-2 (NSPv2) architecture available on Windows Vista and later. 
   * 
   * On Windows Vista and Windows Server 2008, the **NSPV2_ROUTINE** structure can only be used for operations on NS_EMAIL namespace providers.
@@ -35,7 +36,9 @@
   * 
   * The 
   * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> function makes a specific namespace provider no longer available for clients.
- * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-nspv2_routine
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2spi/ns-ws2spi-nspv2_routine
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

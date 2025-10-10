@@ -3,7 +3,7 @@
 
 /**
  * The WSABUF structure enables the creation or manipulation of a data buffer used by some Winsock functions.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf
+ * @see https://docs.microsoft.com/windows/win32/api//ws2def/ns-ws2def-wsabuf
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

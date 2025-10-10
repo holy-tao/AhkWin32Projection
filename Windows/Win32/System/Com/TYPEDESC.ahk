@@ -4,8 +4,11 @@
 /**
  * Describes the type of a variable, the return type of a function, or the type of a function parameter.
  * @remarks
- * If the variable is VT_SAFEARRAY or VT_PTR, the union portion of the TYPEDESC contains a pointer to a TYPEDESC that specifies the element type.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-typedesc
+ * 
+  * If the variable is VT_SAFEARRAY or VT_PTR, the union portion of the TYPEDESC contains a pointer to a TYPEDESC that specifies the element type.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-typedesc
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

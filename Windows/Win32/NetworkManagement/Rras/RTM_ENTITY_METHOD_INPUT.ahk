@@ -3,7 +3,7 @@
 
 /**
  * The RTM_ENTITY_METHOD_INPUT structure is used to pass information to a client when invoking its method.
- * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_method_input
+ * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_entity_method_input
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

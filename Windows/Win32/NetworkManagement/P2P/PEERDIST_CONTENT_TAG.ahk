@@ -3,7 +3,7 @@
 
 /**
  * PEERDIST_CONTENT_TAG structure contains a client supplied content tag as an input to the PeerDistClientOpenContent API.
- * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_content_tag
+ * @see https://docs.microsoft.com/windows/win32/api//peerdist/ns-peerdist-peerdist_content_tag
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

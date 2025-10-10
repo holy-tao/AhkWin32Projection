@@ -4,7 +4,7 @@
 
 /**
  * Used to query or set the name of a trusted domain.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_domain_name_info
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-trusted_domain_name_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

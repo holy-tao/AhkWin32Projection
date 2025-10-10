@@ -3,7 +3,7 @@
 
 /**
  * Specifies a resource binding described by a range of bytes in a Direct3D 12 buffer, represented by an offset and size into an ID3D12Resource.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_binding
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_buffer_binding
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

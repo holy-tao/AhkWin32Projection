@@ -6,8 +6,11 @@
 /**
  * The USBUSER_BUS_STATISTICS_0_REQUEST structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve bus statistics.
  * @remarks
- * The <b>USBUSER_BUS_STATISTICS_0_REQUEST</b> structure is used with the USBUSER_GET_BUS_STATISTICS_0 user-mode request. For more information about this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
- * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_bus_statistics_0_request
+ * 
+  * The <b>USBUSER_BUS_STATISTICS_0_REQUEST</b> structure is used with the USBUSER_GET_BUS_STATISTICS_0 user-mode request. For more information about this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//usbuser/ns-usbuser-usbuser_bus_statistics_0_request
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

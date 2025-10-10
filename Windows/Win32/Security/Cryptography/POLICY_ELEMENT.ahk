@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The POLICY_ELEMENT (lpmapi.h) structure contains an RSVP policy element.
- * @see https://learn.microsoft.com/windows/win32/api/lpmapi/ns-lpmapi-policy_element
+ * The POLICY_ELEMENT structure contains an RSVP policy element.
+ * @see https://docs.microsoft.com/windows/win32/api//lpmapi/ns-lpmapi-policy_element
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

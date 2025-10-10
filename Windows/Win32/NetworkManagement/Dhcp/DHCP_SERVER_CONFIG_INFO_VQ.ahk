@@ -3,7 +3,7 @@
 
 /**
  * Defines settings for the DHCP server.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_vq
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_vq
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

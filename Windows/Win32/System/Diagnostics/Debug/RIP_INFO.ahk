@@ -3,7 +3,7 @@
 
 /**
  * Contains the error that caused the RIP debug event.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-rip_info
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-rip_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

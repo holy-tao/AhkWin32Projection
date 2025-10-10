@@ -2,7 +2,7 @@
 
 /**
  * Defines when font resources should be subset during printing.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_print_font_subset_mode
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_print_font_subset_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

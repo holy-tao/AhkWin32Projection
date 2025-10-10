@@ -2,7 +2,7 @@
 
 /**
  * The PEER_SIGNIN_FLAGS enumeration defines the set of peer presence publication behaviors available when the peer signs in to a peer collaboration network.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_signin_flags
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_signin_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

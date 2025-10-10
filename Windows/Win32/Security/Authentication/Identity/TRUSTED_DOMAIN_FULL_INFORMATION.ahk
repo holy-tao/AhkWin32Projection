@@ -6,7 +6,7 @@
 
 /**
  * Used to retrieve complete information about a trusted domain.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_domain_full_information
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-trusted_domain_full_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

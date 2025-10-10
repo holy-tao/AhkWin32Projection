@@ -2,7 +2,7 @@
 
 /**
  * Used to specify the type of graphics virtual channel to create in the IWRdsGraphicsChannelManager::CreateChannel method.
- * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/ne-wrdsgraphicschannels-wrdsgraphicschanneltype
+ * @see https://docs.microsoft.com/windows/win32/api//wrdsgraphicschannels/ne-wrdsgraphicschannels-wrdsgraphicschanneltype
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Identifies the target operating system platform.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-syskind
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-syskind
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

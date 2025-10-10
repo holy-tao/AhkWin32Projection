@@ -2,7 +2,7 @@
 
 /**
  * Defines the streaming modes to use for the file stream.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmfilestreamingmode
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmfilestreamingmode
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

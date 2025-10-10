@@ -3,7 +3,7 @@
 
 /**
  * The base class for all policy extension structures. Policy extensions are assertions that are directly handled by applications such as custom assertions.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_policy_extension
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_policy_extension
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

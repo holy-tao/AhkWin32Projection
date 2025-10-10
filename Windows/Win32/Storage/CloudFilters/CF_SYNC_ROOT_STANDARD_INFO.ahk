@@ -7,7 +7,10 @@
  * Standard sync root information.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_root_standard_info
+  * <b>CF_MAX_PROVIDER_NAME_LENGTH</b> and <b>CF_MAX_PROVIDER_VERSION_LENGTH</b>  are set to 255.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_sync_root_standard_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -27,7 +30,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Hydration policy of the sync root. See [CF_HYDRATION_POLICY_PRIMARY](ne-cfapi-cf_hydration_policy_primary.md) for more information.
+     * Hydration policy of the sync root.
      * @type {CF_HYDRATION_POLICY}
      */
     HydrationPolicy{
@@ -39,7 +42,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Population policy of the sync root. See [CF_POPULATION_POLICY_PRIMARY](ne-cfapi-cf_population_policy_primary.md) for more information.
+     * Population policy of the sync root.
      * @type {CF_POPULATION_POLICY}
      */
     PopulationPolicy{
@@ -51,7 +54,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * In-sync policy of the sync root. See [CF_INSYNC_POLICY](ne-cfapi-cf_insync_policy.md) for possible values.
+     * In-sync policy of the sync root.
      * @type {Integer}
      */
     InSyncPolicy {
@@ -60,7 +63,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Sync root hard linking policy. See [CF_HARDLINK_POLICY](ne-cfapi-cf_hardlink_policy.md) for possible values.
+     * Sync root hard linking policy.
      * @type {Integer}
      */
     HardLinkPolicy {
@@ -69,7 +72,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Status of the sync root provider. See [CF_SYNC_PROVIDER_STATUS](ne-cfapi-cf_sync_provider_status.md) for possible values.
+     * Status of the sync root provider.
      * @type {Integer}
      */
     ProviderStatus {
@@ -78,7 +81,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Name of the sync root. *ProviderName* is an end-user facing string with a maximum length of **CF_MAX_PROVIDER_NAME_LENGTH** (255 characters).
+     * Name of the sync root.
      * @type {String}
      */
     ProviderName {
@@ -87,7 +90,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Version of the sync root. *ProviderVersion* is an end-user facing string with a maximum length of **CF_MAX_PROVIDER_VERSION_LENGTH** (255 characters).
+     * Version of the sync root.
      * @type {String}
      */
     ProviderVersion {
@@ -96,7 +99,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Length, in bytes, of the *SyncRootIdentity*.
+     * Length, in bytes, of the <i>SyncRootIdentity</i>.
      * @type {Integer}
      */
     SyncRootIdentityLength {

@@ -3,9 +3,12 @@
 /**
  * Data types that can be stored in an FWP_VALUE0 or an FWP_CONDITION_VALUE0structure.
  * @remarks
- * Not all data types are valid for each structure; see the tagged union
+ * 
+  * Not all data types are valid for each structure; see the tagged union
   * in each structure to determine which are allowed.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_data_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_data_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -42,25 +45,25 @@ class FWP_DATA_TYPE{
     static FWP_UINT64 => 4
 
     /**
-     * Indicates a signed 8-bit integer value.
+     * Indicates an signed 8-bit integer value.
      * @type {Integer (Int32)}
      */
     static FWP_INT8 => 5
 
     /**
-     * Indicates a signed 16-bit integer value.
+     * Indicates an signed 16-bit integer value.
      * @type {Integer (Int32)}
      */
     static FWP_INT16 => 6
 
     /**
-     * Indicates a signed 32-bit integer value.
+     * Indicates an signed 32-bit integer value.
      * @type {Integer (Int32)}
      */
     static FWP_INT32 => 7
 
     /**
-     * Indicates a signed 64-bit integer value.
+     * Indicates an signed 64-bit integer value.
      * @type {Integer (Int32)}
      */
     static FWP_INT64 => 8

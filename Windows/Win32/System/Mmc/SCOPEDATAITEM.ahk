@@ -4,8 +4,11 @@
 /**
  * The SCOPEDATAITEM structure specifies items to be inserted into the scope pane.
  * @remarks
- * It is not valid to insert an item as a sibling of the static node. If a snap-in sets the <b>relativeID</b> member to the <b>HSCOPEITEM</b> of the static node, sets  the <b>SDI_PREVIOUS</b> or <b>SDI_NEXT</b> flags, and then calls <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsolenamespace-insertitem">IConsoleNameSpace2::InsertItem</a>, MMC  returns  <b>E_INVALIDARG</b>.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-scopedataitem
+ * 
+  * It is not valid to insert an item as a sibling of the static node. If a snap-in sets the <b>relativeID</b> member to the <b>HSCOPEITEM</b> of the static node, sets  the <b>SDI_PREVIOUS</b> or <b>SDI_NEXT</b> flags, and then calls <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iconsolenamespace-insertitem">IConsoleNameSpace2::InsertItem</a>, MMC  returns  <b>E_INVALIDARG</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-scopedataitem
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

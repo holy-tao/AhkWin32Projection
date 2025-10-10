@@ -4,8 +4,11 @@
 /**
  * Contains folder view information.
  * @remarks
- * These settings assume a particular user interface, which the Shell's folder view has. A Shell extension can use these settings if they apply to the view implemented by the extension.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-foldersettings
+ * 
+  * These settings assume a particular user interface, which the Shell's folder view has. A Shell extension can use these settings if they apply to the view implemented by the extension.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-foldersettings
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

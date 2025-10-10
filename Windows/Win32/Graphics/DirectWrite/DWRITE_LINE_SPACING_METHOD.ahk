@@ -3,8 +3,11 @@
 /**
  * The method used for line spacing in a text layout.
  * @remarks
- * The line spacing method is set by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setlinespacing">SetLineSpacing</a> method of the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat">IDWriteTextFormat</a> or <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a> interfaces.  To get  the current line spacing method of a text format or text layout use the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlinespacing">GetLineSpacing</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method
+ * 
+  * The line spacing method is set by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setlinespacing">SetLineSpacing</a> method of the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat">IDWriteTextFormat</a> or <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a> interfaces.  To get  the current line spacing method of a text format or text layou use the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlinespacing">GetLineSpacing</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_line_spacing_method
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

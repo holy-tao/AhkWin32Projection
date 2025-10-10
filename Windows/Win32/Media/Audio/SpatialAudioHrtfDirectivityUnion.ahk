@@ -6,7 +6,7 @@
 
 /**
  * Defines a spatial audio directivity model for an ISpatialAudioObjectForHrtf.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivityunion
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivityunion
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -29,6 +29,7 @@ class SpatialAudioHrtfDirectivityUnion extends Win32Struct
     }
 
     /**
+     * 
      * @type {SpatialAudioHrtfDirectivityCardioid}
      */
     Cardiod{

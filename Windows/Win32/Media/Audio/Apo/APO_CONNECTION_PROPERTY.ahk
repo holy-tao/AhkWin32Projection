@@ -4,8 +4,10 @@
 /**
  * Contains the dynamically changing connection properties.
  * @remarks
- * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
- * @see https://learn.microsoft.com/windows/win32/api/audioapotypes/ns-audioapotypes-apo_connection_property
+ * 
+  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//audioapotypes/ns-audioapotypes-apo_connection_property
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

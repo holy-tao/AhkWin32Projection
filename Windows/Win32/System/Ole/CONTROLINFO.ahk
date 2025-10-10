@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters that describe a control's keyboard mnemonics and keyboard behavior. The structure is populated during the IOleControl::GetControlInfo method.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-controlinfo
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-controlinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

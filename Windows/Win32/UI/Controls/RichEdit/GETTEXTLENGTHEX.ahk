@@ -3,7 +3,7 @@
 
 /**
  * Contains information about how the text length of a rich edit control should be calculated. This structure is passed in the wParam in the EM_GETTEXTLENGTHEX message.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-gettextlengthex
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-gettextlengthex
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

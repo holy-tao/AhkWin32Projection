@@ -2,7 +2,7 @@
 
 /**
  * Specifies how ink is inserted onto the InkEdit control.
- * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkinsertmode
+ * @see https://docs.microsoft.com/windows/win32/api//inked/ne-inked-inkinsertmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

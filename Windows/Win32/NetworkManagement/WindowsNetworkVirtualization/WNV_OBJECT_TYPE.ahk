@@ -2,7 +2,7 @@
 
 /**
  * Specifies the object type of a given Windows Network Virtualization (WNV) notification when the WNV notification type is WnvObjectChangeType.
- * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ne-wnvapi-wnv_object_type
+ * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ne-wnvapi-wnv_object_type
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

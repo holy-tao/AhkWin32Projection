@@ -2,7 +2,7 @@
 
 /**
  * Flags to provide when starting a virtualization instance.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_startvirtualizing_flags
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ne-projectedfslib-prj_startvirtualizing_flags
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

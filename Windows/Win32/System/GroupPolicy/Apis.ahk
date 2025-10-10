@@ -517,14 +517,12 @@ class GroupPolicy {
 ;@region Methods
     /**
      * The RefreshPolicy function causes policy to be applied immediately on the client computer.
-     * @remarks
-     * By default, policy is reapplied every 90 minutes.
      * @param {Integer} bMachine Specifies whether to refresh the computer policy or user policy. If this value is <b>TRUE</b>, the system refreshes the computer policy. If this value is <b>FALSE</b>, the system refreshes the user policy.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-refreshpolicy
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-refreshpolicy
      * @since windows6.0.6000
      */
     static RefreshPolicy(bMachine) {
@@ -539,18 +537,13 @@ class GroupPolicy {
 
     /**
      * The RefreshPolicyEx function causes policy to be applied immediately on the computer. The extended function allows you to specify the type of policy refresh to apply.
-     * @remarks
-     * If you do not need to specify the <i>dwOptions</i> parameter, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-refreshpolicy">RefreshPolicy</a> function instead.
-     * 
-     * By default, policy is reapplied every 90 minutes.
      * @param {Integer} bMachine Specifies whether to refresh the computer policy or user policy. If this value is <b>TRUE</b>, the system refreshes the computer policy. If this value is <b>FALSE</b>, the system refreshes the user policy.
      * @param {Integer} dwOptions Specifies the type of policy refresh to apply. This parameter can be the following value.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-refreshpolicyex
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-refreshpolicyex
      * @since windows6.0.6000
      */
     static RefreshPolicyEx(bMachine, dwOptions) {
@@ -565,19 +558,12 @@ class GroupPolicy {
 
     /**
      * The EnterCriticalPolicySection function pauses the application of policy to allow applications to safely read policy settings.
-     * @remarks
-     * The maximum amount of time an application can hold a critical section is 10 minutes. After 10 minutes, the system releases the critical section and policy can be applied again.
-     * 
-     * To acquire both the computer and user critical section objects, acquire the user critical section object before acquiring the computer critical section object. This will help prevent a deadlock situation.
-     * 
-     * To close the handle, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-leavecriticalpolicysection">LeaveCriticalPolicySection</a> function. The policy section handle cannot be used in any other Windows functions.
      * @param {Integer} bMachine A value that specifies whether to stop the application of computer policy or user policy. If this value is <b>TRUE</b>, the system stops applying computer policy. If this value is <b>FALSE</b>, the system stops applying user policy.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a policy section.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-entercriticalpolicysection
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-entercriticalpolicysection
      * @since windows6.0.6000
      */
     static EnterCriticalPolicySection(bMachine) {
@@ -597,8 +583,8 @@ class GroupPolicy {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-leavecriticalpolicysection
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-leavecriticalpolicysection
      * @since windows6.0.6000
      */
     static LeaveCriticalPolicySection(hSection) {
@@ -613,21 +599,14 @@ class GroupPolicy {
 
     /**
      * The RegisterGPNotification function enables an application to receive notification when there is a change in policy. When a policy change occurs, the specified event object is set to the signaled state.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-unregistergpnotification">UnregisterGPNotification</a> function to unregister the handle from receiving policy change notifications. Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle when it is no longer required.
-     * 
-     * An application can also receive notifications about policy changes when a 
-     * <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message is broadcast. In this instance, the <i>wParam</i> parameter value is 1 if computer policy was applied; it is zero if user policy was applied. The <i>lParam</i> parameter points to the string "Policy".
      * @param {Pointer<Void>} hEvent Handle to an event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create the event object.
      * @param {Integer} bMachine Specifies the policy change type. If <b>TRUE</b>, computer policy changes are reported. If <b>FALSE</b>, user policy changes are reported.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-registergpnotification
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-registergpnotification
      * @since windows6.0.6000
      */
     static RegisterGPNotification(hEvent, bMachine) {
@@ -642,16 +621,13 @@ class GroupPolicy {
 
     /**
      * The UnregisterGPNotification function unregisters the specified policy-notification handle from receiving policy change notifications.
-     * @remarks
-     * The caller must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle when it is no longer needed.
      * @param {Pointer<Void>} hEvent Policy-notification handle passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-registergpnotification">RegisterGPNotification</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-unregistergpnotification
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-unregistergpnotification
      * @since windows6.0.6000
      */
     static UnregisterGPNotification(hEvent) {
@@ -665,59 +641,7 @@ class GroupPolicy {
     }
 
     /**
-     * The GetGPOList function retrieves the list of GPOs for the specified user or computer. (ANSI)
-     * @remarks
-     * The 
-     * <b>GetGPOList</b> function is intended for use by services acting on behalf of a user or computer. The service calls this function to obtain a list of GPOs, then checks each GPO for service-specific policy.
-     * 
-     * Calling this function with a token provides the most accurate list. The system can perform access checking for the user or computer. Calling this function with the user or computer name and the domain controller name is faster than calling it with a token. However, if the token is not specified, the system uses the security access of the caller, which means that the list may not be completely correct for the intended user or computer.
-     * 
-     * To obtain the most accurate list of GPOs for a computer when calling <b>GetGPOList</b>, the caller must have read access to each OU and site in the computer domain, and also read and apply Group Policy access to all GPOs that are linked to the sites, domain or OUs of that domain. An example of a caller would be a service running on the computer whose name is specified in the <i>lpName</i> parameter. An alternate method of obtaining a list of GPOs would be to call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsopplanningmodeprovider-rsopcreatesession">RsopCreateSession</a> method of the <b>RsopPlanningModeProvider</b> WMI class. The method can generate resultant policy data for a computer or user account in a hypothetical scenario.
-     * 
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-freegpolista">FreeGPOList</a> function to free the GPO list when you have finished processing it.
-     * 
-     * Generally, you should call 
-     * <b>GetGPOList</b> with a token when retrieving a list of GPOs for a user as shown in the following code example.
-     * 
-     * 
-     * ```cpp
-     * LPGROUP_POLICY_OBJECT  pGPOList;
-     *       if (GetGPOList (hToken, NULL, NULL, NULL, 0, &pGPOList))
-     *       {
-     * //        Perform processing here. 
-     * //
-     * //        Free the GPO list when you finish processing.
-     *           FreeGPOList (pGPOList);
-     *       }
-     * ```
-     * 
-     * 
-     * Typically, to retrieve a list of GPOs for a computer, you can call 
-     * <b>GetGPOList</b> with the computer name and domain controller name as demonstrated in the following code snippet.
-     * 
-     * 
-     * ```cpp
-     * LPGROUP_POLICY_OBJECT  pGPOList;
-     *       if (GetGPOList (NULL, lpMachineName, lpHostName, lpMachineName, GPO_LIST_FLAG_MACHINE, &pGPOList))
-     *       {
-     * //        Perform processing here. 
-     * //
-     * //        Free the GPO list when you finish processing.
-     *           FreeGPOList (pGPOList);
-     *       }
-     * ```
-     * 
-     * 
-     * To retrieve the list of GPOs applied for a specific user or computer and extension, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getappliedgpolista">GetAppliedGPOList</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The userenv.h header defines GetGPOList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetGPOList function retrieves the list of GPOs for the specified user or computer.
      * @param {Pointer<Void>} hToken A token for the user or computer, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
@@ -730,7 +654,7 @@ class GroupPolicy {
      * @param {Pointer<Byte>} lpName A pointer to the user or computer name, in the fully qualified distinguished name format (for example,  "CN=<i>user</i>, OU=<i>users</i>, DC=<i>contoso</i>, DC=<i>com</i>").
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpHostName A DNS domain name (preferred) or domain controller name. Domain controller name can be retrieved using the 
+     * @param {Pointer<Byte>} lpHostName A DNS domain name or domain controller name. Domain controller name can be retrieved using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function, specifying <b>DS_DIRECTORY_SERVICE_REQUIRED</b> in the <i>flags</i> parameter.
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
@@ -743,8 +667,8 @@ class GroupPolicy {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getgpolista
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getgpolista
      * @since windows6.0.6000
      */
     static GetGPOListA(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
@@ -762,59 +686,7 @@ class GroupPolicy {
     }
 
     /**
-     * The GetGPOList function retrieves the list of GPOs for the specified user or computer. (Unicode)
-     * @remarks
-     * The 
-     * <b>GetGPOList</b> function is intended for use by services acting on behalf of a user or computer. The service calls this function to obtain a list of GPOs, then checks each GPO for service-specific policy.
-     * 
-     * Calling this function with a token provides the most accurate list. The system can perform access checking for the user or computer. Calling this function with the user or computer name and the domain controller name is faster than calling it with a token. However, if the token is not specified, the system uses the security access of the caller, which means that the list may not be completely correct for the intended user or computer.
-     * 
-     * To obtain the most accurate list of GPOs for a computer when calling <b>GetGPOList</b>, the caller must have read access to each OU and site in the computer domain, and also read and apply Group Policy access to all GPOs that are linked to the sites, domain or OUs of that domain. An example of a caller would be a service running on the computer whose name is specified in the <i>lpName</i> parameter. An alternate method of obtaining a list of GPOs would be to call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsopplanningmodeprovider-rsopcreatesession">RsopCreateSession</a> method of the <b>RsopPlanningModeProvider</b> WMI class. The method can generate resultant policy data for a computer or user account in a hypothetical scenario.
-     * 
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-freegpolista">FreeGPOList</a> function to free the GPO list when you have finished processing it.
-     * 
-     * Generally, you should call 
-     * <b>GetGPOList</b> with a token when retrieving a list of GPOs for a user as shown in the following code example.
-     * 
-     * 
-     * ```cpp
-     * LPGROUP_POLICY_OBJECT  pGPOList;
-     *       if (GetGPOList (hToken, NULL, NULL, NULL, 0, &pGPOList))
-     *       {
-     * //        Perform processing here. 
-     * //
-     * //        Free the GPO list when you finish processing.
-     *           FreeGPOList (pGPOList);
-     *       }
-     * ```
-     * 
-     * 
-     * Typically, to retrieve a list of GPOs for a computer, you can call 
-     * <b>GetGPOList</b> with the computer name and domain controller name as demonstrated in the following code snippet.
-     * 
-     * 
-     * ```cpp
-     * LPGROUP_POLICY_OBJECT  pGPOList;
-     *       if (GetGPOList (NULL, lpMachineName, lpHostName, lpMachineName, GPO_LIST_FLAG_MACHINE, &pGPOList))
-     *       {
-     * //        Perform processing here. 
-     * //
-     * //        Free the GPO list when you finish processing.
-     *           FreeGPOList (pGPOList);
-     *       }
-     * ```
-     * 
-     * 
-     * To retrieve the list of GPOs applied for a specific user or computer and extension, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getappliedgpolista">GetAppliedGPOList</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The userenv.h header defines GetGPOList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetGPOList function retrieves the list of GPOs for the specified user or computer.
      * @param {Pointer<Void>} hToken A token for the user or computer, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
@@ -827,7 +699,7 @@ class GroupPolicy {
      * @param {Pointer<Char>} lpName A pointer to the user or computer name, in the fully qualified distinguished name format (for example,  "CN=<i>user</i>, OU=<i>users</i>, DC=<i>contoso</i>, DC=<i>com</i>").
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
-     * @param {Pointer<Char>} lpHostName A DNS domain name (preferred) or domain controller name. Domain controller name can be retrieved using the 
+     * @param {Pointer<Char>} lpHostName A DNS domain name or domain controller name. Domain controller name can be retrieved using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function, specifying <b>DS_DIRECTORY_SERVICE_REQUIRED</b> in the <i>flags</i> parameter.
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
@@ -840,8 +712,8 @@ class GroupPolicy {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getgpolistw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getgpolistw
      * @since windows6.0.6000
      */
     static GetGPOListW(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
@@ -859,10 +731,7 @@ class GroupPolicy {
     }
 
     /**
-     * The FreeGPOList function frees the specified list of GPOs. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The userenv.h header defines FreeGPOList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The FreeGPOList function frees the specified list of GPOs.
      * @param {Pointer<GROUP_POLICY_OBJECTA>} pGPOList A pointer to the list of GPO structures. This list is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getgpolista">GetGPOList</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getappliedgpolista">GetAppliedGPOList</a> function. For more information, see 
@@ -870,8 +739,8 @@ class GroupPolicy {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-freegpolista
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-freegpolista
      * @since windows6.0.6000
      */
     static FreeGPOListA(pGPOList) {
@@ -885,10 +754,7 @@ class GroupPolicy {
     }
 
     /**
-     * The FreeGPOList function frees the specified list of GPOs. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The userenv.h header defines FreeGPOList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The FreeGPOList function frees the specified list of GPOs.
      * @param {Pointer<GROUP_POLICY_OBJECTW>} pGPOList A pointer to the list of GPO structures. This list is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getgpolista">GetGPOList</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getappliedgpolista">GetAppliedGPOList</a> function. For more information, see 
@@ -896,8 +762,8 @@ class GroupPolicy {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-freegpolistw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-freegpolistw
      * @since windows6.0.6000
      */
     static FreeGPOListW(pGPOList) {
@@ -911,17 +777,7 @@ class GroupPolicy {
     }
 
     /**
-     * The GetAppliedGPOList function retrieves the list of GPOs applied for the specified user or computer. (ANSI)
-     * @remarks
-     * To free the GPO list when you have finished processing it, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-freegpolista">FreeGPOList</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The userenv.h header defines GetAppliedGPOList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetAppliedGPOList function retrieves the list of GPOs applied for the specified user or computer.
      * @param {Integer} dwFlags A value that specifies the policy type. This parameter can be the following value.
      * @param {Pointer<Byte>} pMachineName A pointer to the name of the remote computer. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
      * @param {Pointer<Void>} pSidUser A value that specifies the SID of the user. If <i>pMachineName</i> is not <b>NULL</b> and <i>dwFlags</i> specifies user policy, then <i>pSidUser</i> cannot be <b>NULL</b>.
@@ -932,8 +788,8 @@ class GroupPolicy {
      * @param {Pointer<GROUP_POLICY_OBJECTA>} ppGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns a system error code. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappliedgpolista
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getappliedgpolista
      * @since windows6.0.6000
      */
     static GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
@@ -944,17 +800,7 @@ class GroupPolicy {
     }
 
     /**
-     * The GetAppliedGPOList function retrieves the list of GPOs applied for the specified user or computer. (Unicode)
-     * @remarks
-     * To free the GPO list when you have finished processing it, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-freegpolista">FreeGPOList</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The userenv.h header defines GetAppliedGPOList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetAppliedGPOList function retrieves the list of GPOs applied for the specified user or computer.
      * @param {Integer} dwFlags A value that specifies the policy type. This parameter can be the following value.
      * @param {Pointer<Char>} pMachineName A pointer to the name of the remote computer. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
      * @param {Pointer<Void>} pSidUser A value that specifies the SID of the user. If <i>pMachineName</i> is not <b>NULL</b> and <i>dwFlags</i> specifies user policy, then <i>pSidUser</i> cannot be <b>NULL</b>.
@@ -965,8 +811,8 @@ class GroupPolicy {
      * @param {Pointer<GROUP_POLICY_OBJECTW>} ppGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns a system error code. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappliedgpolistw
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getappliedgpolistw
      * @since windows6.0.6000
      */
     static GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
@@ -983,8 +829,8 @@ class GroupPolicy {
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nc-userenv-pfnprocessgrouppolicy">ProcessGroupPolicy</a> function.
      * @param {Integer} dwStatus Specifies the completion status of asynchronous processing.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-processgrouppolicycompleted
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-processgrouppolicycompleted
      * @since windows6.0.6000
      */
     static ProcessGroupPolicyCompleted(extensionId, pAsyncHandle, dwStatus) {
@@ -1000,8 +846,8 @@ class GroupPolicy {
      * @param {Integer} dwStatus Specifies the completion status of asynchronous processing of policy.
      * @param {HRESULT} RsopStatus Specifies an <b>HRESULT</b> return code that indicates the status of RSoP logging.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-processgrouppolicycompletedex
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-processgrouppolicycompletedex
      * @since windows6.0.6000
      */
     static ProcessGroupPolicyCompletedEx(extensionId, pAsyncHandle, dwStatus, RsopStatus) {
@@ -1010,42 +856,19 @@ class GroupPolicy {
     }
 
     /**
-     * The RSoPAccessCheckByType function determines whether a security descriptor grants a specified set of access rights to the client identified by an RSOPTOKEN.
-     * @remarks
-     * The 
-     * <b>RSoPAccessCheckByType</b> function compares the specified security descriptor with the specified <b>RSOPTOKEN</b> and indicates, in the <i>pbAccessStatus</i> parameter, whether access is granted or denied.
-     * @param {Pointer<Void>} pSecurityDescriptor Pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> against which access on the object is checked.
-     * @param {Pointer<Void>} pPrincipalSelfSid Pointer to a SID. If the security descriptor is associated with an object that represents a principal (for example, a user object), this parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known <b>PRINCIPAL_SELF</b> SID ("S-1-5-10"). For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-Known SIDs</a>.
      * 
-     * This parameter should be <b>NULL</b> if the protected object does not represent a principal.
-     * @param {Pointer<Void>} pRsopToken Pointer to a valid <b>RSOPTOKEN</b> representing the client attempting to gain access to the object.
-     * @param {Integer} dwDesiredAccessMask Specifies an access mask that indicates the access rights to check. This mask can contain a combination of 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/generic-access-rights">generic</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">standard</a> and specific access rights. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-and-access-masks">Access Rights and Access Masks</a>.
-     * @param {Pointer<OBJECT_TYPE_LIST>} pObjectTypeList Pointer to an array of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-object_type_list">OBJECT_TYPE_LIST</a> structures that identify the hierarchy of object types for which to check access. Each element in the array specifies a <b>GUID</b> that identifies the object type and a value indicating the level of the object type in the hierarchy of object types. The array should not have two elements with the same <b>GUID</b>.
-     * 
-     * The array must have at least one element. The first element in the array must be at level zero and identify the object itself. The array can have only one level zero element. The second element is a subobject, such as a property set, at level 1. Following each level 1 entry are subordinate entries for the level 2 through 4 subobjects. Thus, the levels for the elements in the array might be {0, 1, 2, 2, 1, 2, 3}. If the object type list is out of order, 
-     * <b>RSoPAccessCheckByType</b> fails and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Integer} ObjectTypeListLength Specifies the number of elements in the <i>pObjectTypeList</i> array.
-     * @param {Pointer<GENERIC_MAPPING>} pGenericMapping Pointer to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
-     * @param {Pointer} pPrivilegeSet This parameter is currently unused.
-     * @param {Pointer<UInt32>} pdwPrivilegeSetLength This parameter is currently unused.
-     * @param {Pointer<UInt32>} pdwGrantedAccessMask Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-and-access-masks">access mask</a> that receives the granted access rights.
-     * 
-     * If the function succeeds, the <i>pbAccessStatus</i> parameter is set to <b>TRUE</b>, and the mask is updated to contain the standard and specific rights granted. If <i>pbAccessStatus</i> is set to <b>FALSE</b>, this parameter is set to zero. If the function fails, the mask is not modified.
-     * @param {Pointer<Int32>} pbAccessStatus Pointer to a variable that receives the results of the access check.
-     * 
-     * If the function succeeds, and the requested set of access rights are granted, this parameter is set to <b>TRUE</b>. Otherwise, this parameter is set to <b>FALSE</b>. If the function fails, the status is not modified.
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopaccesscheckbytype
+     * @param {Pointer<Void>} pSecurityDescriptor 
+     * @param {Pointer<Void>} pPrincipalSelfSid 
+     * @param {Pointer<Void>} pRsopToken 
+     * @param {Integer} dwDesiredAccessMask 
+     * @param {Pointer<OBJECT_TYPE_LIST>} pObjectTypeList 
+     * @param {Integer} ObjectTypeListLength 
+     * @param {Pointer<GENERIC_MAPPING>} pGenericMapping 
+     * @param {Pointer} pPrivilegeSet 
+     * @param {Pointer<UInt32>} pdwPrivilegeSetLength 
+     * @param {Pointer<UInt32>} pdwGrantedAccessMask 
+     * @param {Pointer<Int32>} pbAccessStatus 
+     * @returns {HRESULT} 
      * @since windows6.0.6000
      */
     static RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken, dwDesiredAccessMask, pObjectTypeList, ObjectTypeListLength, pGenericMapping, pPrivilegeSet, pdwPrivilegeSetLength, pdwGrantedAccessMask, pbAccessStatus) {
@@ -1062,24 +885,13 @@ class GroupPolicy {
     }
 
     /**
-     * The RSoPFileAccessCheck function determines whether a file's security descriptor grants a specified set of file access rights to the client identified by an RSOPTOKEN.
-     * @remarks
-     * The 
-     * <b>RSoPFileAccessCheck</b> function indicates, in the <i>pbAccessStatus</i> parameter, whether access is granted or denied to the client identified by the <b>RSOPTOKEN</b>. If access is granted, the requested access mask becomes the object's granted access mask.
-     * @param {Pointer<Char>} pszFileName Pointer to the name of the relevant file. The file must already exist.
-     * @param {Pointer<Void>} pRsopToken Pointer to a valid <b>RSOPTOKEN</b> representing the client attempting to gain access to the file.
-     * @param {Integer} dwDesiredAccessMask Specifies an access mask that indicates the access rights to check. This mask can contain a combination of 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/generic-access-rights">generic</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">standard</a>, and specific access rights. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-and-access-masks">Access Rights and Access Masks</a>.
-     * @param {Pointer<UInt32>} pdwGrantedAccessMask Pointer to an access mask that receives the granted access rights.
      * 
-     * If the function succeeds, the <i>pbAccessStatus</i> parameter is set to <b>TRUE</b>, and the mask is updated to contain the standard and specific rights granted. If <i>pbAccessStatus</i> is set to <b>FALSE</b>, this parameter is set to zero. If the function fails, the mask is not modified.
-     * @param {Pointer<Int32>} pbAccessStatus Pointer to a variable that receives the results of the access check.
-     * 
-     * If the function succeeds, and the requested set of access rights are granted, this parameter is set to <b>TRUE</b>. Otherwise, this parameter is set to <b>FALSE</b>. If the function fails, the status is not modified.
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopfileaccesscheck
+     * @param {Pointer<Char>} pszFileName 
+     * @param {Pointer<Void>} pRsopToken 
+     * @param {Integer} dwDesiredAccessMask 
+     * @param {Pointer<UInt32>} pdwGrantedAccessMask 
+     * @param {Pointer<Int32>} pbAccessStatus 
+     * @returns {HRESULT} 
      * @since windows6.0.6000
      */
     static RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGrantedAccessMask, pbAccessStatus) {
@@ -1093,21 +905,13 @@ class GroupPolicy {
     }
 
     /**
-     * The RSoPSetPolicySettingStatus function creates an instance of RSOP_PolicySettingStatus and an instance of RSOP_PolicySettingLink. The function links (associates) RSOP_PolicySettingStatus to its RSOP_PolicySetting instance.
-     * @remarks
-     * To unlink an 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysettingstatus">RSOP_PolicySettingStatus</a> instance from its 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysetting">RSOP_PolicySetting</a> instance, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-rsopresetpolicysettingstatus">RSoPResetPolicySettingStatus</a> function.
-     * @param {Integer} dwFlags This parameter is currently unused.
-     * @param {Pointer<IWbemServices>} pServices Specifies a WMI services pointer to the RSoP namespace to which the policy data is to be written. This parameter is required.
-     * @param {Pointer<IWbemClassObject>} pSettingInstance Pointer to an instance of 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysetting">RSOP_PolicySetting</a> containing the policy setting. This parameter is required and can point to the instance's children.
-     * @param {Integer} nInfo Specifies the number of elements in the <i>pStatus</i> array.
-     * @param {Pointer<POLICYSETTINGSTATUSINFO>} pStatus Pointer to an array of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-policysettingstatusinfo">POLICYSETTINGSTATUSINFO</a> structures.
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopsetpolicysettingstatus
+     * 
+     * @param {Integer} dwFlags 
+     * @param {Pointer<IWbemServices>} pServices 
+     * @param {Pointer<IWbemClassObject>} pSettingInstance 
+     * @param {Integer} nInfo 
+     * @param {Pointer<POLICYSETTINGSTATUSINFO>} pStatus 
+     * @returns {HRESULT} 
      * @since windows6.0.6000
      */
     static RsopSetPolicySettingStatus(dwFlags, pServices, pSettingInstance, nInfo, pStatus) {
@@ -1119,18 +923,11 @@ class GroupPolicy {
     }
 
     /**
-     * The RSoPResetPolicySettingStatus function unlinks the RSOP_PolicySettingStatus instance from its RSOP_PolicySetting instance.
-     * @remarks
-     * To link (associate) the 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysettingstatus">RSOP_PolicySettingStatus</a> instance to its 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysetting">RSOP_PolicySetting</a> instance, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-rsopsetpolicysettingstatus">RSoPSetPolicySettingStatus</a> function.
-     * @param {Integer} dwFlags This parameter is currently unused.
-     * @param {Pointer<IWbemServices>} pServices Specifies a WMI services pointer to the RSoP namespace to which the policy data is to be written. This parameter is required.
-     * @param {Pointer<IWbemClassObject>} pSettingInstance Pointer to an instance of 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsop-policysetting">RSOP_PolicySetting</a> containing the policy setting. This parameter is required and can also point to the instance's children.
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopresetpolicysettingstatus
+     * 
+     * @param {Integer} dwFlags 
+     * @param {Pointer<IWbemServices>} pServices 
+     * @param {Pointer<IWbemClassObject>} pSettingInstance 
+     * @returns {HRESULT} 
      * @since windows6.0.6000
      */
     static RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
@@ -1157,27 +954,10 @@ class GroupPolicy {
 
     /**
      * The InstallApplication function can install applications that have been deployed to target users that belong to a domain.
-     * @remarks
-     * The <b>InstallApplication</b> function can only install applications that have been deployed by using  Group Policy. A domain administrator can deploy applications to  target users by using  the  user configuration section of Group Policy Objects (GPO). The target user must belong to the target domain and the GPO must apply to this  user in the target  domain. The <b>InstallApplication</b> function installs applications according to standard Group Policy inheritance rules.  If the same application is deployed in multiple GPOs, the function installs the version of the application deployed in the highest precedence GPO.  After an application has been  installed for a user, it is not visible to other users on the computer. This is standard for applications that are deployed through user group policy.
-     * 
-     * The <b>InstallApplication</b> function can  install deployed applications that  use <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> (.msi files) or software installation settings (.zap files) to handle setup and installation.
-     * 
-     * The
-     *     <b>InstallApplication</b> function can install applications that use a <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> package for their installation.  In this case,  the  user calling <b>InstallApplication</b> is not required to have administrator privileges. The system can install the application because the  Windows Installer  is a trusted application deployed by a domain administrator. The user that receives the application must have access to the location of the .msi files.
-     * 
-     * Remove applications installed using .msi files by calling the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> function <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a> to uninstall the application. Then call <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/nf-appmgmt-uninstallapplication">UninstallApplication</a>  to  inform the system that the application is no longer managed on the client by Group Policy.  <b>UninstallApplication</b> should be called even if the uninstall fails because this enables the system to keep the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/reporting-group-policy">Resultant Set of Policy (RSoP)</a> accurate.
-     * 
-     * The
-     *     <b>InstallApplication</b> function can also install applications that use setup applications based on software installation settings (.zap files). The user that receives the application must have access to the location of the .zap files. A .zap file is a text file similar to an .ini file, which enables Windows to publish an application (for example, Setup.exe) for installation with <b>Add or Remove Programs</b>. To publish applications that do not use the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a>, you must create a .zap file, copy the .zap file to the software distribution point servers, and then use Group Policy–based software deployment to publish the application for users. 
-     * If the application is deployed using .zap files, the user installing the application must have privileges on the machine to install the software. You cannot use .zap files for assigned applications.
-     * 
-     * Remove applications using software installation settings (.zap files) by calling the uninstall function or a command  specific for the installation application.
-     * 
-     * For information about using installation applications other than  the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> see article 231747, "How to Publish non-MSI Programs with .zap Files," in the Microsoft Knowledge Base.
      * @param {Pointer<INSTALLDATA>} pInstallInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-installdata">INSTALLDATA</a> structure that specifies the application to install.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/appmgmt/nf-appmgmt-installapplication
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-installapplication
      * @since windows6.0.6000
      */
     static InstallApplication(pInstallInfo) {
@@ -1187,15 +967,11 @@ class GroupPolicy {
 
     /**
      * The UninstallApplication function uninstalls a group policy application that handles setup and installation using Windows Installer .msi files.
-     * @remarks
-     * Remove a group policy application that uses .msi files by calling  the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> function <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a> to uninstall the application. Then call <b>UninstallApplication</b>  to  inform the system that the application is no longer managed on the client by Group Policy.  <b>UninstallApplication</b> should be called even if the uninstall fails because this enables the system to keep the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/reporting-group-policy">Resultant Set of Policy (RSoP)</a> accurate.
-     * 
-     * Remove applications installed using software installation settings (.zap files) by calling  the uninstall function or command  specific for the installation application. For information about using installation applications other than  the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> see article 231747, "How to Publish non-MSI Programs with .zap Files," in the Microsoft Knowledge Base.
      * @param {Pointer<Char>} ProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> product code of the product being uninstalled. The <a href="https://docs.microsoft.com/windows/desktop/Msi/product-codes">product code</a> of the application should be provided in the form of  a <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">Windows Installer GUID</a> as a string with braces.
      * @param {Integer} dwStatus The status of the uninstall attempt. The <i>dwStatus</i> parameter is the Windows success code of the uninstall attempt returned by <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a>.  The system can use this to ensure that the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/reporting-group-policy">Resultant Set of Policy (RSoP)</a> indicates whether the uninstall failed or succeeded.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/appmgmt/nf-appmgmt-uninstallapplication
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-uninstallapplication
      * @since windows6.0.6000
      */
     static UninstallApplication(ProductCode, dwStatus) {
@@ -1230,8 +1006,8 @@ class GroupPolicy {
      * @param {Pointer<UInt32>} pdwApps The count of applications in the list returned by this function.
      * @param {Pointer<MANAGEDAPPLICATION>} prgManagedApps This parameter is a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-managedapplication">MANAGEDAPPLICATION</a> structures. This array contains the list of applications listed in the <b>Add</b> pane of  <b>Add/Remove Programs</b> (ARP). You must call <b>LocalFree</b> to free the array when they array is no longer required.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/appmgmt/nf-appmgmt-getmanagedapplications
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-getmanagedapplications
      * @since windows6.0.6000
      */
     static GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prgManagedApps) {
@@ -1245,8 +1021,8 @@ class GroupPolicy {
      * @param {Pointer<UInt32>} pdwApps The address of a <b>DWORD</b> that specifies the number of applications in the list returned by <i>prgLocalApps</i>.
      * @param {Pointer<LOCALMANAGEDAPPLICATION>} prgLocalApps The address of an array that contains the list of managed applications. You must call <b>LocalFree</b> to free this array when its contents are no longer required. This parameter cannot be null. The list is returned as a <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-localmanagedapplication">LOCALMANAGEDAPPLICATION</a> structure.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/appmgmt/nf-appmgmt-getlocalmanagedapplications
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-getlocalmanagedapplications
      * @since windows6.0.6000
      */
     static GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
@@ -1269,12 +1045,10 @@ class GroupPolicy {
 
     /**
      * The GetManagedApplicationCategories function gets a list of application categories for a domain. The list is the same for all users in the domain.
-     * @remarks
-     * The structure returned by <b>GetManagedApplicationCategories</b> must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> when the list is no longer required.
      * @param {Pointer<APPCATEGORYINFOLIST>} pAppCategory A <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-appcategoryinfolist">APPCATEGORYINFOLIST</a> structure that contains a list of application categories. This structure must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>  when the list is no longer required.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/appmgmt/nf-appmgmt-getmanagedapplicationcategories
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-getmanagedapplicationcategories
      * @since windows6.0.6000
      */
     static GetManagedApplicationCategories(pAppCategory) {
@@ -1298,7 +1072,7 @@ class GroupPolicy {
      *        the return value <b>S_OK</b>. Do not use the <b>SUCCEEDED</b> or 
      *        <b>FAILED</b> macro on the returned <b>HRESULT</b> to determine success or failure of the 
      *        function.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-creategpolink
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-creategpolink
      * @since windows6.0.6000
      */
     static CreateGPOLink(lpGPO, lpContainer, fHighPriority) {
@@ -1317,7 +1091,7 @@ class GroupPolicy {
      * @param {Pointer<Char>} lpGPO A value that specifies the path to the GPO, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
      * @param {Pointer<Char>} lpContainer Specifies the Active Directory path to the site, domain, or organizational unit.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the  header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deletegpolink
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-deletegpolink
      * @since windows6.0.6000
      */
     static DeleteGPOLink(lpGPO, lpContainer) {
@@ -1335,7 +1109,7 @@ class GroupPolicy {
      * The DeleteAllGPOLinks function deletes all GPO links for the specified site, domain, or organizational unit.
      * @param {Pointer<Char>} lpContainer A value that specifies the path to the site, domain, or organizational unit, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deleteallgpolinks
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-deleteallgpolinks
      * @since windows6.0.6000
      */
     static DeleteAllGPOLinks(lpContainer) {
@@ -1354,7 +1128,7 @@ class GroupPolicy {
      * <a href="https://docs.microsoft.com/windows/win32/api/gpedit/ns-gpedit-gpobrowseinfo">GPOBROWSEINFO</a> structure that contains information used to initialize the dialog box. When 
      * the <b>BrowseForGPO</b> function returns, this structure contains information about the user's actions.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. If the user cancels or closes the dialog box, the return value is <b>HRESULT_FROM_WIN32</b>(<b>ERROR_CANCELLED</b>). Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-browseforgpo
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-browseforgpo
      * @since windows6.0.6000
      */
     static BrowseForGPO(lpBrowseInfo) {
@@ -1371,7 +1145,7 @@ class GroupPolicy {
      * <b>ImportRSoPData</b>.
      * @param {Pointer<Char>} lpFileName Pointer to a string specifying the name of the file that contains the RSoP data.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-importrsopdata
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-importrsopdata
      * @since windows6.0.6000
      */
     static ImportRSoPData(lpNameSpace, lpFileName) {
@@ -1387,13 +1161,10 @@ class GroupPolicy {
 
     /**
      * The ExportRSoPData function exports a WMI namespace that contains RSoP information to a data file. The function writes the information to a data file that can be imported to a WMI namespace with a call to the ImportRSoPData function.
-     * @remarks
-     * It is recommended that you call the 
-     * <b>ExportRSoPData</b> function twice: one time to process the user data and a second time to process the computer data.
      * @param {Pointer<Char>} lpNameSpace A pointer to a string that specifies the namespace which contains the RSoP data.
      * @param {Pointer<Char>} lpFileName A pointer to a string that specifies the name of the file to receive the RSoP data.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-exportrsopdata
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-exportrsopdata
      * @since windows6.0.6000
      */
     static ExportRSoPData(lpNameSpace, lpFileName) {

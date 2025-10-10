@@ -4,7 +4,8 @@
 /**
  * A MapiFileDesc structure contains information about a file containing a message attachment stored as a temporary file.
  * @remarks
- * Simple MAPI works with three kinds of embedded attachments:  
+ * 
+  * Simple MAPI works with three kinds of embedded attachments:  
   * 
   * <ul>
   * <li>
@@ -25,7 +26,9 @@
   * OLE object files are file representations of OLE object streams. The client application can re-create an OLE object from the file by calling the OLE function <a href="https://docs.microsoft.com/windows/desktop/api/ole/nf-ole-oleloadfromstream">OleLoadFromStream</a> with an OLESTREAM object that reads the file contents. If an OLE file attachment is included in an outbound message, the OLE object stream should be written directly to the file used as the attachment. 
   * 
   * When using the <b>MapiFileDesc</b> member <b>nPosition</b>, the client application should not place two attachments in the same location. Client applications might not display file attachments at positions beyond the end of the message text.
- * @see https://learn.microsoft.com/windows/win32/api/mapi/ns-mapi-mapifiledesc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mapi/ns-mapi-mapifiledesc
  * @namespace Windows.Win32.System.Mapi
  * @version v4.0.30319
  * @charset ANSI

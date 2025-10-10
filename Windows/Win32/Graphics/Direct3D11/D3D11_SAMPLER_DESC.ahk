@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a sampler state. (D3D11_SAMPLER_DESC)
+ * Describes a sampler state.
  * @remarks
- * These are the default values for sampler state.
+ * 
+  * These are the default values for sampler state.
   * 
   * <table>
   * <tr>
@@ -56,7 +57,9 @@
   * <td>N/A</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_sampler_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

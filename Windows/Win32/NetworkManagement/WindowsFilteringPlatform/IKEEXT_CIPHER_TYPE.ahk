@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of encryption algorithm used for encrypting the Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) messages.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_cipher_type
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_cipher_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

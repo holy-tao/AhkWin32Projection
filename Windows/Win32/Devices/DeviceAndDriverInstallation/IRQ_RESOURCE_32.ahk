@@ -4,8 +4,6 @@
 #Include .\IRQ_RANGE.ahk
 
 /**
- * The IRQ_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes IRQ line usage for a device instance. (32 bit)
- * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_resource_32
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */
@@ -16,7 +14,6 @@ class IRQ_RESOURCE_32 extends Win32Struct
     static packingSize => 8
 
     /**
-     * An [IRQ_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-irq_des_32) structure.
      * @type {IRQ_DES_32}
      */
     IRQ_Header{
@@ -28,7 +25,6 @@ class IRQ_RESOURCE_32 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<IRQ_RANGE>}
      */
     IRQ_Data{

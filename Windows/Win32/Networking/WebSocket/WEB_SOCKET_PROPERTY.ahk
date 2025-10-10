@@ -3,7 +3,7 @@
 
 /**
  * Contains a single WebSocket property.
- * @see https://learn.microsoft.com/windows/win32/api/websocket/ns-websocket-web_socket_property
+ * @see https://docs.microsoft.com/windows/win32/api//websocket/ns-websocket-web_socket_property
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */

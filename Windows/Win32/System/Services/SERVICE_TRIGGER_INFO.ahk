@@ -3,7 +3,7 @@
 
 /**
  * Contains trigger event information for a service. This structure is used by the ChangeServiceConfig2 and QueryServiceConfig2 functions.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger_info
+ * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_trigger_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

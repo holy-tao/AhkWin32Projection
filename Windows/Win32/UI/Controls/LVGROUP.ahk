@@ -4,11 +4,13 @@
 /**
  * Used to set and retrieve groups.
  * @remarks
- * All strings returned in this structure should be treated as read-only.
+ * 
+  * All strings returned in this structure should be treated as read-only.
   * 	
   * 
   * The creation of subsets is not currently supported, and <b>pszSubsetTitle</b> cannot be set by applications.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvgroup
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvgroup
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

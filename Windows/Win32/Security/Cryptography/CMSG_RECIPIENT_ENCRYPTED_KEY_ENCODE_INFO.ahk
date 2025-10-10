@@ -8,7 +8,7 @@
 
 /**
  * Contains information on a message receiver used to decrypt the session key needed to decrypt the message contents.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_recipient_encrypted_key_encode_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_recipient_encrypted_key_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

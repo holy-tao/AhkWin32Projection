@@ -5,7 +5,8 @@
 /**
  * The traffic control object QOS_TRAFFIC_CLASS is used to override the default UserPriority value ascribed to packets that classify the traffic of a given flow.
  * @remarks
- * <b>Traffic Control:  </b>The following <b>ServiceType</b> enumeration values are invalid when specifically working with Traffic Control. <dl>
+ * 
+  * <b>Traffic Control:  </b>The following <b>ServiceType</b> enumeration values are invalid when specifically working with Traffic Control. <dl>
   * <dd>SERVICE_NO_TRAFFIC_CONTROL</dd>
   * <dd>SERVICE_NO_QOS_SIGNALING</dd>
   * <dd>SERVICETYPE_GENERAL_INFORMATION</dd>
@@ -13,7 +14,9 @@
   * <dd>SERVICETYPE_NOCHANGE</dd>
   * <dd>SERVICETYPE_NOTRAFFIC</dd>
   * </dl>
- * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_traffic_class
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//qosobjs/ns-qosobjs-qos_traffic_class
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The DHCP_SUBNET_ELEMENT_TYPE enumeration defines the set of possible subnet element types.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

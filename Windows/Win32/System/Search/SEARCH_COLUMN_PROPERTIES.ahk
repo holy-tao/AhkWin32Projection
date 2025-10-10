@@ -31,7 +31,7 @@
 
 /**
  * This structure is not implemented.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-search_column_properties
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-search_column_properties
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

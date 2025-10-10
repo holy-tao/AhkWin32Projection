@@ -4,7 +4,8 @@
 /**
  * The RM_FEC_INFO structure specifies settings for using forward error correction (FEC) with Reliable Multicast. This structure is used with the RM_USE_FEC socket option.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/WinSock/socket-options">RM_USE_FEC</a> socket option notifies the Reliable Multicast sender to apply forward error correction techniques to send repair data. there are three modes of using forward error correction:
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/WinSock/socket-options">RM_USE_FEC</a> socket option notifies the Reliable Multicast sender to apply forward error correction techniques to send repair data. there are three modes of using forward error correction:
   * 
   * <ol>
   * <li>Pro-active parity packets only</li>
@@ -12,7 +13,9 @@
   * <li>Both pro-active and OnDemand parity packets</li>
   * </ol>
   * Since the use of this structure implies the need for forward error correction, either the <b>FECProActivePackets</b> or <b>fFECOnDemandParityEnabled</b> member must be nonzero, otherwise the function call fails.
- * @see https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_fec_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wsrm/ns-wsrm-rm_fec_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

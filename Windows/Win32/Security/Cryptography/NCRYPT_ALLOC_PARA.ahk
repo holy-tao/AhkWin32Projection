@@ -3,7 +3,7 @@
 
 /**
  * Enables you to specify custom functions that can be used to allocate and free data.
- * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_alloc_para
+ * @see https://docs.microsoft.com/windows/win32/api//ncrypt/ns-ncrypt-ncrypt_alloc_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

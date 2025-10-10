@@ -3,7 +3,8 @@
 /**
  * Indicates flags used by IFolderView, IFolderView2, IShellView and IShellView2 to specify a type of selection to apply.
  * @remarks
- * An additional value SVSI_NOSTATECHANGE is also defined outside of the enumeration. This value indicates that an operation to edit or position an item should not affect the item's focus or selected state. Its numeric value is (UINT)0x80000000.
+ * 
+  * An additional value SVSI_NOSTATECHANGE is also defined outside of the enumeration. This value indicates that an operation to edit or position an item should not affect the item's focus or selected state. Its numeric value is (UINT)0x80000000.
   * 
   * The <b>SVSIF</b> type used to refer to members of the <b>_SVSIF</b> enumeration is defined in Shobjidl.h as shown here.
   * 
@@ -13,7 +14,8 @@
   * ```
   * typedef UINT SVSIF;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svsif
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-_svsif
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

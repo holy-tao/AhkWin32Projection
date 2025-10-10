@@ -8,7 +8,7 @@
 
 /**
  * The QOS object RSVP_ADSPEC provides a means by which information describing network devices along the data path between sender and receiver, pertaining to RSVP functionality and available services, is provided or retrieved.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_adspec
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_adspec
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

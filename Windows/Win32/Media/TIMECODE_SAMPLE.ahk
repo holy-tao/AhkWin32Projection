@@ -5,8 +5,11 @@
 /**
  * The TIMECODE_SAMPLE structure contains complete timecode information.
  * @remarks
- * The upper 16 bits in <b>dwFlags</b> are reserved; set to zero.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample
+ * 
+  * The upper 16 bits in <b>dwFlags</b> are reserved; set to zero.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-timecode_sample
  * @namespace Windows.Win32.Media
  * @version v4.0.30319
  */

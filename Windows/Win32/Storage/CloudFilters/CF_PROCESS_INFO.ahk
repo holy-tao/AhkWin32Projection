@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a user process.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_process_info
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_process_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class CF_PROCESS_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size of the **CF_PROCESS_INFO** structure.
+     * The size of the structure.
      * @type {Integer}
      */
     StructSize {
@@ -32,7 +32,7 @@ class CF_PROCESS_INFO extends Win32Struct
     }
 
     /**
-     * The absolute path of the main executable file including the volume name in the format of NT file path. If the platform failed to retrieve the image path, `UNKNOWN` will be returned.
+     * The absolute path of the main executable file including the volume name in the format of NT file path. If the platform failed to retrieve the image path, “UNKNOWN” will be returned.
      * @type {Pointer<Char>}
      */
     ImagePath {
@@ -59,10 +59,9 @@ class CF_PROCESS_INFO extends Win32Struct
     }
 
     /**
-     * >[!NOTE]
-     * >This member was added in Windows 10, version 1803.
+     * <b>Note</b>  This member was added in Windows 10, version 1803.
      * 
-     * The string that is used to start the process. If the platform failed to retrieve the command line, `UNKNOWN` will be returned.
+     * Used to start the process. If the platform failed to retrieve the command line, “UNKNOWN” will be returned.
      * @type {Pointer<Char>}
      */
     CommandLine {
@@ -71,10 +70,7 @@ class CF_PROCESS_INFO extends Win32Struct
     }
 
     /**
-     * >[!NOTE]
-     * >This member was added in Windows 10, version 1803.
      * 
-     * The 32bit ID of the session wherein the user process that triggers the callback resides.
      * @type {Integer}
      */
     SessionId {

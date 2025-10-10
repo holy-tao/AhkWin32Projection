@@ -3,9 +3,7 @@
 
 /**
  * Performs the following operation for each element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*. This operator clamps (or limits) every element in the input within the closed interval [Min, Max].
- * @remarks
- * If the tensor data type is not **float**, then *Min* and *Max* are cast to the tensor data type before applying the clipping operation (which for integers means truncating toward zero; and for floating point values rounding to the nearest even).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_clip_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_clip_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -3,7 +3,8 @@
 /**
  * Defines the set of valid flags for a volume object.
  * @remarks
- * On an MBR basic disk, volume flags can be set only for the entire disk, not for individual volumes.
+ * 
+  * On an MBR basic disk, volume flags can be set only for the entire disk, not for individual volumes.
   * 
   * If the <b>VDS_VF_NO_DEFAULT_DRIVE_LETTER</b> flag is set on an MBR disk, any existing drive letters are preserved, but no new drive letters will be assigned to volumes on the disk.
   * 
@@ -42,7 +43,9 @@
   * 
   * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_FLAG</b> enumeration constant.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_volume_flag
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_volume_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

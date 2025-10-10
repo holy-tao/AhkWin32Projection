@@ -3,8 +3,11 @@
 /**
  * Defines protection levels for MFPROTECTION_CGMSA.
  * @remarks
- * These flags are equivalent to the OPM_CGMSA_Protection_Level enumeration constants used in the Output Protection Protocol (OPM).
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_opm_cgmsa_protection_level
+ * 
+  * These flags are equivalent to the OPM_CGMSA_Protection_Level enumeration constants used in the Output Protection Protocol (OPM).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_opm_cgmsa_protection_level
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

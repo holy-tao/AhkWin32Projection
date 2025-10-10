@@ -4,7 +4,8 @@
 /**
  * How an HTTP request or response should be represented in a message object.
  * @remarks
- * A message may contain additional transport-specific information that is
+ * 
+  * A message may contain additional transport-specific information that is
   *                 not part of the message envelope.  This transport-specific information
   *                 can be exposed programmatically as headers of the message object.  
   *                 These headers are referred to as mapped headers.
@@ -17,7 +18,7 @@
   * 
   * This structure specifies how the mapping occurs between an HTTP request
   *                 or response and the mapped headers of the message object.  The structure
-  *                 can be specified using the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_HTTP_MESSAGE_MAPPING</a> property.
+  *                 can be specified using the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_HTTP_MESSAGE_MAPPING</a>property.
   *             
   * 
   * The following diagram shows how HTTP headers are mapped into
@@ -42,7 +43,7 @@
   * 
   * The HTTP channel will only perform this mapping for HTTP headers
   *                 that have been specified in the requestHeaderMappings or
-  *                 responseHeaderMappings fields.  The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_header_mapping">WS_HTTP_HEADER_MAPPING</a> is used to specify each header, and includes instructions about how
+  *                 responseHeaderMappings fields.  The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_header_mapping">WS_HTTP_HEADER_MAPPING</a>is used to specify each header, and includes instructions about how
   *                 the message header is transformed to/from an HTTP header.
   *             
   * 
@@ -52,7 +53,8 @@
   *                 extracted using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmappedheader">WsGetMappedHeader</a>.  
   *                 See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_HTTP_REQUEST_MAPPING_OPTIONS</a> or <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_canonicalization_property_id">WS_HTTP_RESPONSE_MAPPING_OPTIONS</a> 
   *                 for information about what information can be mapped into message headers.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_message_mapping
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_message_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

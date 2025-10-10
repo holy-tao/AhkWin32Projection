@@ -2,7 +2,7 @@
 
 /**
  * Specifies which protocols the WDS transport server supports.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_protocol_flags
+ * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_protocol_flags
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

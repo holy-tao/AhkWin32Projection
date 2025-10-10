@@ -2,7 +2,7 @@
 
 /**
  * The PROFILEPROPERTIES enumeration type enumerates properties associated with a profile.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-profileproperties
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-profileproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

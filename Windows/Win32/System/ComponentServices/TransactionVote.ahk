@@ -2,7 +2,7 @@
 
 /**
  * Indicates the readiness of an object to commit or abort the current transaction.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-transactionvote
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-transactionvote
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Input structure for the FSCTL_REPAIR_COPIES control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-repair_copies_input
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-repair_copies_input
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

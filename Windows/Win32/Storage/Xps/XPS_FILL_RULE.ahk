@@ -2,7 +2,7 @@
 
 /**
  * The rule used by a composite shape to determine whether a given point is part of the geometry.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_fill_rule
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_fill_rule
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Describes the partition to be erased.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_erase
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_erase
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

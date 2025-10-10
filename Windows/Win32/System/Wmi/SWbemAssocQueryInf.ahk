@@ -3,7 +3,7 @@
 
 /**
  * Contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_ASSOC_QUERY analysis type.
- * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemassocqueryinf
+ * @see https://docs.microsoft.com/windows/win32/api//wmiutils/ns-wmiutils-swbemassocqueryinf
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

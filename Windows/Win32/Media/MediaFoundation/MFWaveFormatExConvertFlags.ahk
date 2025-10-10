@@ -2,7 +2,7 @@
 
 /**
  * Contains flags that specify how to convert an audio media type.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfwaveformatexconvertflags
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ne-mfapi-mfwaveformatexconvertflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

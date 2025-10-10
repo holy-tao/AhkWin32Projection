@@ -4,7 +4,7 @@
 
 /**
  * Contains virtual hard disk (VHD) creation parameters, providing control over, and information about, the newly created virtual disk.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-create_virtual_disk_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-create_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * An enumeration of the different security binding combinations that are supported.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_binding_template_type
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_binding_template_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

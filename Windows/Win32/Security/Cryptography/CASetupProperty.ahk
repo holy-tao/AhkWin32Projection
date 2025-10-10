@@ -2,7 +2,7 @@
 
 /**
  * Specifies a property type for setup and configuration of a certification authority (CA) role when using the ICertSrvSetup interface.
- * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty
+ * @see https://docs.microsoft.com/windows/win32/api//casetup/ne-casetup-casetupproperty
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

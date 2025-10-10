@@ -4,8 +4,11 @@
 /**
  * Describes the arguments (parameters) of a command signature.
  * @remarks
- * Use this structure by <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandsignature">CreateCommandSignature</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_command_signature_desc
+ * 
+  * Use this structure by <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandsignature">CreateCommandSignature</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_command_signature_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -16,7 +19,7 @@ class D3D12_COMMAND_SIGNATURE_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * Specifies the size of each command in the drawing buffer, in bytes.
+     * Specifies the size of each argument of a command signature, in bytes.
      * @type {Integer}
      */
     ByteStride {

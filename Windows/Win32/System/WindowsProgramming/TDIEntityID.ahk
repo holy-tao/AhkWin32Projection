@@ -3,7 +3,7 @@
 
 /**
  * Contains a part of the TDIObjectID structure to represent information about TDI drivers retrieved using the IOCTL_TCP_QUERY_INFORMATION_EX control code.
- * @see https://learn.microsoft.com/windows/win32/api/tdiinfo/ns-tdiinfo-tdientityid
+ * @see https://docs.microsoft.com/windows/win32/api//tdiinfo/ns-tdiinfo-tdientityid
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

@@ -2,12 +2,28 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
- * Describes FILETIME and provides syntax, members, and additional remarks.
+ * Contains a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC).
  * @remarks
- * A property of type PT_SYSTIME has a **FILETIME** structure for its value. Such a property has a **FILETIME** data type for the **Value** member in its definition in an [SPropValue](spropvalue.md) structure. 
-  *   
-  * The definition of the **FILETIME** structure is in the _Win32 Programmer's Reference_ and in the MAPI header file Mapidefs.h. MAPI defines the structure conditionally to make sure that it is defined when the Win32 definition is unavailable.
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/filetime
+ * 
+  * To convert a 
+  * <b>FILETIME</b> structure into a time that is easy to display to a user, use the 
+  * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-filetimetosystemtime">FileTimeToSystemTime</a> function.
+  * 
+  * It is not recommended that you add and subtract values from the 
+  * <b>FILETIME</b> structure to obtain relative times. Instead, you should copy the low- and high-order parts of the file time to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer-r1">ULARGE_INTEGER</a> structure, perform 64-bit arithmetic on the <b>QuadPart</b> member, and copy the <b>LowPart</b> and <b>HighPart</b> members into the <b>FILETIME</b> structure.
+  * 
+  * Do not cast a pointer to a <b>FILETIME</b> structure to either a <b>ULARGE_INTEGER*</b> or <b>__int64*</b> value because it can cause alignment faults on 64-bit Windows.
+  * 
+  * Not all file systems can record creation and last access time and not all file systems record them in the same manner. For example, on NT FAT, create time has a resolution of 10 milliseconds, write time has a resolution of 2 seconds, and access time has a resolution of 1 day (really, the access date). On NTFS, access time has a resolution of 1 hour. Therefore, the 
+  * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfiletime">GetFileTime</a> function may not return the same file time information set using the 
+  * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfiletime">SetFileTime</a> function. Furthermore, FAT records times on disk in local time. However, NTFS records times on disk in UTC. For more information, see 
+  * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
+  * 
+  *   A function using the <b>FILETIME</b> structure can allow for values outside of  zero or positive values typically specified by the <b>dwLowDateTime</b> and <b>dwHighDateTime</b> members.  For example, the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfiletime">SetFileTime</a> function uses 0xFFFFFFFF to specify that a file's previous access time should be preserved. For more information, see the topic for the function you are calling.
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-filetime
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */
@@ -18,7 +34,7 @@ class FILETIME extends Win32Struct
     static packingSize => 4
 
     /**
-     * > Low-order 32 bits of the file time value.
+     * The low-order part of the file time.
      * @type {Integer}
      */
     dwLowDateTime {
@@ -27,7 +43,7 @@ class FILETIME extends Win32Struct
     }
 
     /**
-     * > High-order 32 bits of the file time value.
+     * The high-order part of the file time.
      * @type {Integer}
      */
     dwHighDateTime {

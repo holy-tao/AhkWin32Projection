@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters for the IMFLocalMFTRegistration::RegisterMFTs method.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mft_registration_info
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mft_registration_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

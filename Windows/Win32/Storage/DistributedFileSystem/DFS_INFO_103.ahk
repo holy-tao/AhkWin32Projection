@@ -3,7 +3,7 @@
 
 /**
  * Contains properties that set specific behaviors for a DFS root or link.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_103
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_103
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

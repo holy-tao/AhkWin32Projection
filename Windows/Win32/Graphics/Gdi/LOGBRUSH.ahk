@@ -4,8 +4,11 @@
 /**
  * The LOGBRUSH structure defines the style, color, and pattern of a physical brush. It is used by the CreateBrushIndirect and ExtCreatePen functions.
  * @remarks
- * Although <b>lbColor</b> controls the foreground color of a hatch brush, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkcolor">SetBkColor</a> functions control the background color.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logbrush
+ * 
+  * Although <b>lbColor</b> controls the foreground color of a hatch brush, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkcolor">SetBkColor</a> functions control the background color.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-logbrush
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

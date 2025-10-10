@@ -2,7 +2,7 @@
 
 /**
  * Define how a write operation to a class or an instance is carried out.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemchangeflagenum
+ * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemchangeflagenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

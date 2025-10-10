@@ -4,7 +4,7 @@
 
 /**
  * The CTL_VERIFY_USAGE_PARA structure contains parameters used by CertVerifyCTLUsage to establish the validity of a CTL's usage.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_verify_usage_para
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_verify_usage_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

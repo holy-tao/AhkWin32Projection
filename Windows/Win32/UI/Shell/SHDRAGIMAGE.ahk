@@ -6,7 +6,8 @@
 /**
  * Contains the information needed to create a drag image.
  * @remarks
- * In Windows Vista this structure is defined in Shobjidl.idl. Prior to that, it was defined in Shlobj.h.
+ * 
+  * In Windows Vista this structure is defined in Shobjidl.idl. Prior to that, it was defined in Shlobj.h.
   * 
   * Use the following procedure to create the drag image.
   * 
@@ -19,7 +20,9 @@
   * </ol>
   * <div class="alert"><b>Note</b>  Turn off antialiasing when drawing text. Otherwise, artifacts could occur at the edges, between the text color and the color key.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-shdragimage
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-shdragimage
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -30,9 +33,9 @@ class SHDRAGIMAGE extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure with the length and width of the drag image.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure with the length and width of the drag image.
      * @type {SIZE}
      */
     sizeDragImage{
@@ -44,9 +47,9 @@ class SHDRAGIMAGE extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor.
      * @type {POINT}
      */
     ptOffset{

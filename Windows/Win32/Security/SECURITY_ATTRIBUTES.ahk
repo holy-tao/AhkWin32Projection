@@ -5,7 +5,8 @@
  * The SECURITY_ATTRIBUTES structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-security_attributes
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtypesbase/ns-wtypesbase-security_attributes
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

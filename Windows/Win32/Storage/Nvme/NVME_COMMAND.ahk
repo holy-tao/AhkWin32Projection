@@ -74,12 +74,6 @@
 #Include .\NVME_CDW10_DEVICE_SELF_TEST.ahk
 
 /**
- * Contains the parameters for all commands in the Admin Command and NVM Command sets.
- * @remarks
- * The Admin Command Set defines the commands that may be submitted to the Admin Submission Queue.
-  * 
-  * For all Admin commands, DWord 14 and DWord 15 are I/O Command Set specific.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -90,7 +84,6 @@ class NVME_COMMAND extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [NVME_COMMAND_DWORD0](ns-nvme-nvme_command_dword0.md) structure containing parameters that are common for all Admin and NVM commands.
      * @type {NVME_COMMAND_DWORD0}
      */
     CDW0{
@@ -102,11 +95,6 @@ class NVME_COMMAND extends Win32Struct
     }
 
     /**
-     * The namespace ID that this command applies to.
-     * 
-     * If the namespace ID is not used for the command, then this field should cleared to `0h`. If a command is applied to all namespaces accessible by this controller, then this field should be set to `FFFFFFFFh`.
-     * 
-     * Unless otherwise noted, specifying an inactive namespace ID in a command that uses the namespace ID will cause the controller to abort the command with the status [NVME_STATUS_INVALID_FIELD_IN_COMMAND](ne-nvme-nvme_status_generic_command_codes.md#-field-nvme-status-invalid-field-in-command). Specifying an invalid namespace ID in a command that uses the namespace ID will cause the controller to abort the command with the status [NVME_STATUS_INVALID_NAMESPACE_OR_FORMAT](ne-nvme-nvme_status_generic_command_codes.md#-field-nvme-status-invalid-namespace-or-format).
      * @type {Integer}
      */
     NSID {
@@ -115,7 +103,6 @@ class NVME_COMMAND extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<UInt32>}
      */
     Reserved0{
@@ -127,9 +114,6 @@ class NVME_COMMAND extends Win32Struct
     }
 
     /**
-     * The address of a contiguous physical buffer of metadata.
-     * 
-     * This field is only used if metadata is not interleaved with the logical block data, as specified in the **MS** field of the [NVME_CDW10_FORMAT_NVM](ns-nvme-nvme_cdw10_format_nvm.md) command structure. This field is Dword aligned.
      * @type {Integer}
      */
     MPTR {

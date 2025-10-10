@@ -4,7 +4,7 @@
 
 /**
  * Contains a script item, including a SCRIPT_ANALYSIS structure with the string offset of the first character of the item.
- * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item
+ * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_item
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

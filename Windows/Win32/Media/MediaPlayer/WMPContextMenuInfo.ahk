@@ -4,8 +4,11 @@
 /**
  * The WMPContextMenuInfo structure contains data about a context menu command.
  * @remarks
- * This structure is retrieved by a call to <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcommands">IWMPContentPartner::GetCommands</a>.
- * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ns-contentpartner-wmpcontextmenuinfo
+ * 
+  * This structure is retrieved by a call to <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcommands">IWMPContentPartner::GetCommands</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//contentpartner/ns-contentpartner-wmpcontextmenuinfo
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

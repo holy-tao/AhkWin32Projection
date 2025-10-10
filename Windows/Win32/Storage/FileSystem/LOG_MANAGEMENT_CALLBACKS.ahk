@@ -3,7 +3,7 @@
 
 /**
  * The LOG_MANAGEMENT_CALLBACKS structure is used to register with the Common Log File System (CLFS) for the callbacks that a client program requires information from.
- * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks
+ * @see https://docs.microsoft.com/windows/win32/api//clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

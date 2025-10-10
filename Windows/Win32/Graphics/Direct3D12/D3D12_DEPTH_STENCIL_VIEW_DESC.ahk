@@ -7,7 +7,8 @@
 /**
  * Describes the subresources of a texture that are accessible from a depth-stencil view.
  * @remarks
- * These are valid formats for a depth-stencil view:
+ * 
+  * These are valid formats for a depth-stencil view:
   *         
   * 
   * <ul>
@@ -21,7 +22,9 @@
   *         
   * 
   * Pass a depth-stencil-view description into <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createdepthstencilview">ID3D12Device::CreateDepthStencilView</a> to create a depth-stencil view.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_depth_stencil_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

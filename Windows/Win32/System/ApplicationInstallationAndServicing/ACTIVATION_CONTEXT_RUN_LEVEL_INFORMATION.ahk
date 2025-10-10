@@ -3,7 +3,7 @@
 
 /**
  * The ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION structure is used by the QueryActCtxW function.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_run_level_information
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-activation_context_run_level_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

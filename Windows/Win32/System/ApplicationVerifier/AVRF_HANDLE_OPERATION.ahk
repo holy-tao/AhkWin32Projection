@@ -4,7 +4,7 @@
 
 /**
  * Contains information required to collect handle trace information.
- * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ns-avrfsdk-avrf_handle_operation
+ * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/ns-avrfsdk-avrf_handle_operation
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */

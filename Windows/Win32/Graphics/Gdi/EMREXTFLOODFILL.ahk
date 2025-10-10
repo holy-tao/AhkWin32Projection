@@ -5,7 +5,7 @@
 
 /**
  * The EMREXTFLOODFILL structure contains members for the ExtFloodFill enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextfloodfill
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrextfloodfill
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

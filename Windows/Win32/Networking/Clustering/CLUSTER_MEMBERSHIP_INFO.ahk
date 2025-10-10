@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CLUSTER_MEMBERSHIP_INFO structure represents membership information for a cluster. (CLUSTER_MEMBERSHIP_INFO)
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_membership_info
+ * Represents membership information for a cluster.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-cluster_membership_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

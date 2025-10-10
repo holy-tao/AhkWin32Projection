@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * OPM_OMAC (opmapi.h) contains a Message Authentication Code (MAC) for an Output Protection Manager (OPM) message.
- * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_omac
+ * Contains a Message Authentication Code (MAC) for an Output Protection Manager (OPM) message.
+ * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_omac
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

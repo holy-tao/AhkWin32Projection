@@ -2,7 +2,7 @@
 
 /**
  * The _AM_FILTER_MISC_FLAGS enumeration contains flags that indicate whether a filter is a source filter or a renderer filter.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_filter_misc_flags
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_am_filter_misc_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Represents the output data received from a WSManReceiveShellOutput method.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_receive_data_result
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_receive_data_result
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

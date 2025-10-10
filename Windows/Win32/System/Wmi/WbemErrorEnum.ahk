@@ -2,7 +2,7 @@
 
 /**
  * Define the errors that may be returned by Scripting API for WMI calls.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemerrorenum
+ * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemerrorenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -515,7 +515,7 @@ class WbemErrorEnum{
     static wbemErrUpdateTypeMismatch => -2147217326
 
     /**
-     * An attempt was made in a derived class to override a non-overridable qualifier.
+     * An attempt was made in a derived class to override a non-overrideable qualifier.
      * @type {Integer (Int32)}
      */
     static wbemErrUpdateOverrideNotAllowed => -2147217325

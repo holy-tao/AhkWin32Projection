@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Stores the token binding information.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_token_binding
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SEC_TOKEN_BINDING extends Win32Struct
     static packingSize => 2
 
     /**
-     * The supported major version of the Token Binding protocol.
      * @type {Integer}
      */
     MajorVersion {
@@ -25,7 +20,6 @@ class SEC_TOKEN_BINDING extends Win32Struct
     }
 
     /**
-     * The supported minor version of the Token Binding protocol.
      * @type {Integer}
      */
     MinorVersion {
@@ -34,7 +28,6 @@ class SEC_TOKEN_BINDING extends Win32Struct
     }
 
     /**
-     * The size (in bytes) of the Token Binding key parameter IDs array.
      * @type {Integer}
      */
     KeyParametersSize {
@@ -43,7 +36,6 @@ class SEC_TOKEN_BINDING extends Win32Struct
     }
 
     /**
-     * The Token Binding key parameter IDs, most preferred first.
      * @type {Array<Byte>}
      */
     KeyParameters{

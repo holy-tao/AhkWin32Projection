@@ -3,7 +3,7 @@
 
 /**
  * Contains information used to set the system power state.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-power_action_policy
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-power_action_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

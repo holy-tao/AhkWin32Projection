@@ -4,8 +4,11 @@
 /**
  * The PIXELFORMATDESCRIPTOR structure describes the pixel format of a drawing surface.
  * @remarks
- * Please notice carefully, as documented above, that certain pixel format properties are not supported in the current generic implementation. The generic implementation is the Microsoft GDI software implementation of OpenGL. Hardware manufacturers may enhance parts of OpenGL, and may support some pixel format properties not supported by the generic implementation.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pixelformatdescriptor
+ * 
+  * Please notice carefully, as documented above, that certain pixel format properties are not supported in the current generic implementation. The generic implementation is the Microsoft GDI software implementation of OpenGL. Hardware manufacturers may enhance parts of OpenGL, and may support some pixel format properties not supported by the generic implementation.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-pixelformatdescriptor
  * @namespace Windows.Win32.Graphics.OpenGL
  * @version v4.0.30319
  */

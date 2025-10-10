@@ -2,7 +2,7 @@
 
 /**
  * Defines values for how data is sent on the channel.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_flags
+ * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-channel_flags
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

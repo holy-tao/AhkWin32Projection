@@ -3,7 +3,7 @@
 
 /**
  * The FaceRectInfoBlobHeader structure describes the size and count information of the blob format for the MF_CAPTURE_METADATA_FACEROIS attribute.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facerectinfoblobheader
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-facerectinfoblobheader
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * Contains the x and y offsets of the combining glyph.
  * @remarks
- * The members of this structure are named as they are so that they are not confused with the "dx" and "dy" designators for physical units in Uniscribe functions and structures.
- * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-goffset
+ * 
+  * The members of this structure are named as they are so that they are not confused with the "dx" and "dy" designators for physical units in Uniscribe functions and structures.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-goffset
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

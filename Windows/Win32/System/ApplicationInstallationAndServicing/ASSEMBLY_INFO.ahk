@@ -3,7 +3,7 @@
 
 /**
  * The ASSEMBLY_INFO structure contains information about an assembly in the side-by-side assembly store. The information is used by the QueryAssemblyInfo method.
- * @see https://learn.microsoft.com/windows/win32/api/winsxs/ns-winsxs-assembly_info
+ * @see https://docs.microsoft.com/windows/win32/api//winsxs/ns-winsxs-assembly_info
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

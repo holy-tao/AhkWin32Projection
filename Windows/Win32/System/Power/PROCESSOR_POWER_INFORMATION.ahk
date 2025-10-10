@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a processor.
- * @remarks
- * Note that this structure definition was accidentally omitted from WinNT.h. This error will be corrected in the future. In the meantime, to compile your application, include the structure definition contained in this topic in your source code.
- * @see https://learn.microsoft.com/windows/win32/Power/processor-power-information-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class PROCESSOR_POWER_INFORMATION extends Win32Struct
     static packingSize => 4
 
     /**
-     * The system processor number.
      * @type {Integer}
      */
     Number {
@@ -25,7 +20,6 @@ class PROCESSOR_POWER_INFORMATION extends Win32Struct
     }
 
     /**
-     * The maximum specified clock frequency of the system processor, in megahertz.
      * @type {Integer}
      */
     MaxMhz {
@@ -34,7 +28,6 @@ class PROCESSOR_POWER_INFORMATION extends Win32Struct
     }
 
     /**
-     * The processor clock frequency, in megahertz. This number is the maximum specified processor clock frequency multiplied by the current processor throttle.
      * @type {Integer}
      */
     CurrentMhz {
@@ -43,7 +36,6 @@ class PROCESSOR_POWER_INFORMATION extends Win32Struct
     }
 
     /**
-     * The limit on the processor clock frequency, in megahertz. This number is the maximum specified processor clock frequency multiplied by the current processor thermal throttle limit.
      * @type {Integer}
      */
     MhzLimit {
@@ -52,7 +44,6 @@ class PROCESSOR_POWER_INFORMATION extends Win32Struct
     }
 
     /**
-     * The maximum idle state of this processor.
      * @type {Integer}
      */
     MaxIdleState {
@@ -61,7 +52,6 @@ class PROCESSOR_POWER_INFORMATION extends Win32Struct
     }
 
     /**
-     * The current idle state of this processor.
      * @type {Integer}
      */
     CurrentIdleState {

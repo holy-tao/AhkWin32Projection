@@ -3,7 +3,8 @@
 /**
  * The CALL_STATE enum is used by the ITCallInfo::get_CallState and ITCallStateEvent::get_State methods.
  * @remarks
- * Following is a table of all valid call state transitions.
+ * 
+  * Following is a table of all valid call state transitions.
   * 
   * <table>
   * <tr>
@@ -75,7 +76,9 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_state
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Flags for indicating a subset of components used with video decode histogram. (D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS)
+ * Flags for indicating a subset of components used with video decode histogram.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ne-d3d11_4-d3d11_video_decoder_histogram_component_flags
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/ne-d3d11_4-d3d11_video_decoder_histogram_component_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

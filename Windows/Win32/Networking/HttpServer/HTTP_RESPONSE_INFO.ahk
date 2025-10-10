@@ -4,8 +4,11 @@
 /**
  * Extends the HTTP_RESPONSE structure with additional information for the response.
  * @remarks
- * Starting with the HTTP Server API version 2.0, the HTTP_RESPONSE structure is extended to include an array of <b>HTTP_RESPONSE_INFO</b> structures in the <b>pRequestInfo</b> member. These structures contain additional information for the  response.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_info
+ * 
+  * Starting with the HTTP Server API version 2.0, the HTTP_RESPONSE structure is extended to include an array of <b>HTTP_RESPONSE_INFO</b> structures in the <b>pRequestInfo</b> member. These structures contain additional information for the  response.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_response_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

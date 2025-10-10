@@ -3,7 +3,7 @@
 
 /**
  * Represents the preferred node on which to run a service.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_preferred_node_info
+ * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_preferred_node_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

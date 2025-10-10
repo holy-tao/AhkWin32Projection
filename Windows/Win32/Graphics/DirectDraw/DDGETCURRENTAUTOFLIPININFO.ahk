@@ -3,7 +3,7 @@
 
 /**
  * The DDGETCURRENTAUTOFLIPININFO structure contains the video port extensions (VPE) object information.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddgetcurrentautoflipininfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddgetcurrentautoflipininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

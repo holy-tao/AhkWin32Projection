@@ -6,7 +6,7 @@
 
 /**
  * Defines the raw input data coming from any device.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rid_device_info
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

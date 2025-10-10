@@ -4,7 +4,7 @@
 
 /**
  * SAFER_IDENTIFICATION_HEADER structure is used as the header for the SAFER_PATHNAME_IDENTIFICATION, SAFER_HASH_IDENTIFICATION, and SAFER_URLZONE_IDENTIFICATION structures.
- * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_identification_header
+ * @see https://docs.microsoft.com/windows/win32/api//winsafer/ns-winsafer-safer_identification_header
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */

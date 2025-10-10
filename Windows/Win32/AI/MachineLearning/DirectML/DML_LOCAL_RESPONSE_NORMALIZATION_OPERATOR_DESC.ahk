@@ -3,7 +3,7 @@
 
 /**
  * Performs a local response normalization (LRN) function on the input.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_local_response_normalization_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_local_response_normalization_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Contains flags used for setting security access levels.
- * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_security_flags
+ * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ne-wbemcli-wbem_security_flags
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

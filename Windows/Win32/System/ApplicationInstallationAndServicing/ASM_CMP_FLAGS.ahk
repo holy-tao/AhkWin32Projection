@@ -2,7 +2,7 @@
 
 /**
  * The values of the ASM_CMP_FLAGS enumeration are used by the IsEqual method to specify which portions of two assembly names to compare.
- * @see https://learn.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_cmp_flags
+ * @see https://docs.microsoft.com/windows/win32/api//winsxs/ne-winsxs-asm_cmp_flags
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

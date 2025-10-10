@@ -5,7 +5,7 @@
 
 /**
  * Represents the volume tag information. It is used by the IOCTL_CHANGER_QUERY_VOLUME_TAGS control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_element_address_info
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-read_element_address_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

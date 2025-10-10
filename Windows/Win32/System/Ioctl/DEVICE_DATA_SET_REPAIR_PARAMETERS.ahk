@@ -3,7 +3,7 @@
 
 /**
  * Specifies parameters for the repair operation.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_repair_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_data_set_repair_parameters
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

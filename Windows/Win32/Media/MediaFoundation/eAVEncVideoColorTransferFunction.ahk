@@ -2,7 +2,7 @@
 
 /**
  * Specifies the conversion function from R'G'B' to RGB. This enumeration is used with the AVEncVideoInputColorTransferFunction and AVEncVideoOutputColorTransferFunction properties.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocolortransferfunction
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideocolortransferfunction
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

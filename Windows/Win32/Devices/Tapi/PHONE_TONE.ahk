@@ -2,7 +2,7 @@
 
 /**
  * The PHONE_TONE enum identifies a phone tone.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_tone
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_tone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

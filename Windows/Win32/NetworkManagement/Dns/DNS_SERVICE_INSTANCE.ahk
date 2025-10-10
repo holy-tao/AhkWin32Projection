@@ -4,7 +4,8 @@
 /**
  * Represents a DNS service running on the network.
  * @remarks
- * `pszInstanceName`. A string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
+ * 
+  * `pszInstanceName`. A string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
   * 
   * `pszHostName`. A string that represents the name of the host of the service.
   * 
@@ -12,7 +13,9 @@
   * 
   *  
   * `values`. A pointer to an array of string values that represent the corresponding property values.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_instance
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_service_instance
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
@@ -50,7 +53,7 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
     }
 
     /**
-     * A pointer to an [IP6_ADDRESS](/windows/win32/api/windns/ns-windns-ip6_address) structure that represents the service-associated IPv6 address.
+     * A pointer to an [IP6_ADDRESS](/windows/desktop/api/windns/ns-windns-ip6_address_1) structure that represents the service-associated IPv6 address.
      * @type {Pointer<IP6_ADDRESS>}
      */
     ip6Address {

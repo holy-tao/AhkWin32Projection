@@ -5,7 +5,7 @@
 
 /**
  * Contains information associated with an EN_SELCHANGE notification code. A rich edit control sends this notification to its parent window when the current selection changes.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-selchange
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-selchange
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

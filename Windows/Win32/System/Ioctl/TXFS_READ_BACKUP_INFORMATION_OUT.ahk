@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains a Transactional NTFS (TxF) specific structure. This information should only be used when calling TXFS_WRITE_BACKUP_INFORMATION. (TXFS_READ_BACKUP_INFORMATION_OUT)
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_read_backup_information_out
+ * Contains a Transactional NTFS (TxF) specific structure. This information should only be used when calling TXFS_WRITE_BACKUP_INFORMATION.
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_read_backup_information_out
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

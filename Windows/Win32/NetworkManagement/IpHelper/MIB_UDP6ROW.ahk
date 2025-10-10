@@ -5,9 +5,10 @@
 /**
  * Contains an entry from the User Datagram Protocol (UDP) listener table for IPv6 on the local computer.
  * @remarks
- * The <b>MIB_UDP6ROW</b> structure is defined on Windows Vista and later. 
+ * 
+  * The <b>MIB_UDP6ROW</b> structure is defined on Windows Vista and later. 
   * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getudp6table">GetUdp6Table</a> function retrieves the UDP listener table for IPv6 on the local computer and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table">MIB_UDP6TABLE</a> structure. 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getudp6table">GetUdp6Table</a>function retrieves the UDP listener table for IPv6 on the local computer and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table">MIB_UDP6TABLE</a> structure. 
   * 
   * An array of <b>MIB_UDP6ROW</b> structures are contained in the <b>MIB_UDP6TABLE</b> structure.  
   * 
@@ -17,7 +18,9 @@
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table">MIB_UDP6TABLE</a> structure contains the UDP listener table for IPv6 on the local computer. The name is based on the definition of this table in RFC 2454 published by the IETF. For more information, see 
   * <a href="http://tools.ietf.org/html/rfc2454">http://www.ietf.org/rfc/rfc2454.txt</a>. This table contains UDP  endpoints for IPv6 that have been bound to an address. It should be noted that an application can create a UDP socket and bind it to an address for the sole purpose of sending a UDP datagram, with no intention of receiving packets using this socket (functioning as a listener).
- * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6row
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//udpmib/ns-udpmib-mib_udp6row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Used to add a new record to the URL reservation store or retrieve an existing record from it.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_set
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_urlacl_set
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

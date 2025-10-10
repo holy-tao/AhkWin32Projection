@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an LVN_LINKCLICK notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvlink
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvlink
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

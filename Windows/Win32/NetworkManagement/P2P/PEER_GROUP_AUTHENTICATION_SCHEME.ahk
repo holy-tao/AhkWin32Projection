@@ -2,7 +2,7 @@
 
 /**
  * Defines the set of possible authentication schemes that can be used to authenticate peers joining a peer group.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_group_authentication_scheme
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_group_authentication_scheme
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

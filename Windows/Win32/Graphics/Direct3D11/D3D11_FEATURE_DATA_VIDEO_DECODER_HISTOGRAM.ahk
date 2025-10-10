@@ -6,7 +6,8 @@
  * Provides data for calls to ID3D11VideoDevice2::CheckFeatureSupport when the feature specified is D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ns-d3d11_4-d3d11_feature_data_video_decoder_histogram
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/ns-d3d11_4-d3d11_feature_data_video_decoder_histogram
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

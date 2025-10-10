@@ -4,10 +4,13 @@
 /**
  * Stencil operations that can be performed based on the results of stencil test.
  * @remarks
- * All stencil operations are specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_stencil_op">D3D11_STENCIL_OP</a>. The stencil operation can be set differently based on the outcome of the stencil test (which is referred to as <b>StencilFunc</b> in the stencil test portion of depth-stencil testing.
+ * 
+  * All stencil operations are specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_stencil_op">D3D11_STENCIL_OP</a>. The stencil operation can be set differently based on the outcome of the stencil test (which is referred to as <b>StencilFunc</b> in the stencil test portion of depth-stencil testing.
   * 
   * This structure is a member of a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencil_desc">depth-stencil description</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_depth_stencilop_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_depth_stencilop_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

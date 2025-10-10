@@ -3,7 +3,7 @@
 
 /**
  * The abstract base type for all credential types used with Windows Integrated Authentication.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_windows_integrated_auth_credential
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_windows_integrated_auth_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

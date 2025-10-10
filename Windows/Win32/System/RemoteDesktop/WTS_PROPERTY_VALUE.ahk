@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a property value to retrieve from the protocol.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_property_value
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_property_value
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The BTH_LE_GATT_SERVICE structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile service.
- * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_service
+ * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bth_le_gatt_service
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

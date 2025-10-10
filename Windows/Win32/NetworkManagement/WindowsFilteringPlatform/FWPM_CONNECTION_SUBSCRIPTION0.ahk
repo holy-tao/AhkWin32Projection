@@ -3,7 +3,7 @@
 
 /**
  * Stores information used to subscribe to notifications about a connection object.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_subscription0
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_connection_subscription0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -14,8 +14,6 @@ class FWPM_CONNECTION_SUBSCRIPTION0 extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **[FWPM_CONNECTION_ENUM_TEMPLATE0](/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_enum_template0)**
-     * 
      * Enumeration template for limiting the subscription.
      * @type {Pointer<FWPM_CONNECTION_ENUM_TEMPLATE0>}
      */

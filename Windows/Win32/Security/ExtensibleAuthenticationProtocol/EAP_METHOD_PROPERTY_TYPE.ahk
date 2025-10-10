@@ -2,7 +2,7 @@
 
 /**
  * Specifies the set of possible EAP method properties.
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_method_property_type
+ * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ne-eaptypes-eap_method_property_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

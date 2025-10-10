@@ -5,7 +5,7 @@
 
 /**
  * Contains information about modifications to restart or shutdown actions.
- * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ns-restartmanager-rm_filter_info
+ * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ns-restartmanager-rm_filter_info
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

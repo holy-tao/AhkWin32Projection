@@ -5,7 +5,7 @@
 
 /**
  * Contains information associated with an EN_PROTECTED notification code. A rich edit control sends this notification when the user attempts to edit protected text.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enprotected
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-enprotected
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class ENPROTECTED extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Message that triggered the notification.
      * @type {Integer}
@@ -42,7 +42,7 @@ class ENPROTECTED extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">WPARAM</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
      * The <b>wParam</b> parameter of the message.
      * @type {Pointer}
@@ -53,7 +53,7 @@ class ENPROTECTED extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">LPARAM</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * The <b>lParam</b> parameter of the message.
      * @type {Pointer}

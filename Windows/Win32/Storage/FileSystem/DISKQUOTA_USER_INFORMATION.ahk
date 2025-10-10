@@ -3,7 +3,7 @@
 
 /**
  * Represents the per-user quota information.
- * @see https://learn.microsoft.com/windows/win32/api/dskquota/ns-dskquota-diskquota_user_information
+ * @see https://docs.microsoft.com/windows/win32/api//dskquota/ns-dskquota-diskquota_user_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

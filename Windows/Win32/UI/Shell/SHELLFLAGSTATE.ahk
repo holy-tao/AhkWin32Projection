@@ -3,7 +3,7 @@
 
 /**
  * Contains a set of flags that indicate the current Shell settings. This structure is used with the SHGetSettings function.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shellflagstate
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-shellflagstate
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

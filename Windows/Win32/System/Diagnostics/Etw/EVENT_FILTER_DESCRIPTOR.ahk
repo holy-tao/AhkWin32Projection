@@ -4,7 +4,8 @@
 /**
  * Defines the filter data that a session passes to the provider's enable callback function.
  * @remarks
- * The provider determines the layout of the data and its purpose.
+ * 
+  * The provider determines the layout of the data and its purpose.
   * 
   * On Windows 8.1,Windows Server 2012 R2, and later, event payload, scope, and
   * stack walk filters can be used by the
@@ -19,7 +20,9 @@
   * functions and the **ENABLE_TRACE_PARAMETERS** and
   * [PAYLOAD_FILTER_PREDICATE](/windows/desktop/api/tdh/ns-tdh-payload_filter_predicate)
   * structures.
- * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_descriptor
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_filter_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

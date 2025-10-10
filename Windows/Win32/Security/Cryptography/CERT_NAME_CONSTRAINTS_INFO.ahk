@@ -3,7 +3,7 @@
 
 /**
  * The CERT_NAME_CONSTRAINTS_INFO structure contains information about certificates that are specifically permitted or excluded from trust.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_name_constraints_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_name_constraints_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

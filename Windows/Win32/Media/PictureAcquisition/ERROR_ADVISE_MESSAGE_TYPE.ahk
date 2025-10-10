@@ -2,7 +2,7 @@
 
 /**
  * The ERROR_ADVISE_MESSAGE_TYPE enumeration type indicates the type of error values that can be passed to the nMessageType parameter of IPhotoAcquireProgressCB::ErrorAdvise.
- * @see https://learn.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-error_advise_message_type
+ * @see https://docs.microsoft.com/windows/win32/api//photoacquire/ne-photoacquire-error_advise_message_type
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */

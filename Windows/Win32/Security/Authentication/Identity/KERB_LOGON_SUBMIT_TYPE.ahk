@@ -2,7 +2,7 @@
 
 /**
  * Identifies the type of logon being requested.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-kerb_logon_submit_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The WCRANGE structure specifies a range of Unicode characters.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-wcrange
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-wcrange
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

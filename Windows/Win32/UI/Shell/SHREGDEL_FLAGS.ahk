@@ -2,7 +2,7 @@
 
 /**
  * Provides a set of values that indicate from which base key an item will be deleted.
- * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-shregdel_flags
+ * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-shregdel_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

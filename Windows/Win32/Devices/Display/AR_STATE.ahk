@@ -2,7 +2,7 @@
 
 /**
  * Indicates the state of screen auto-rotation for the system. For example, whether auto-rotation is supported, and whether it is enabled by the user.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-ar_state
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-ar_state
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

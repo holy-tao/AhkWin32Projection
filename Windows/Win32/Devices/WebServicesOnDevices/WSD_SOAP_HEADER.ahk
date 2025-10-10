@@ -4,7 +4,7 @@
 
 /**
  * Provides SOAP header data for the WSD_SOAP_MESSAGE structure.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_header
+ * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_soap_header
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

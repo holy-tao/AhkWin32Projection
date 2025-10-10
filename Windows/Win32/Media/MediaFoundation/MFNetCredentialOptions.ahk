@@ -2,14 +2,14 @@
 
 /**
  * Describes options for the caching network credentials.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetcredentialoptions
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnetcredentialoptions
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class MFNetCredentialOptions{
 
     /**
-     * Allow the credential cache object to save credentials in persistent storage.
+     * Allow the credential cache object to save  credentials in persistant storage.
      * @type {Integer (Int32)}
      */
     static MFNET_CREDENTIAL_SAVE => 1

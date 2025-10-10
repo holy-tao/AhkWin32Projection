@@ -4,7 +4,8 @@
 /**
  * The WinSNMP smiOID structure passes object identifiers to multiple WinSNMP functions. The structure also receives the variable name of a variable binding entry in a call to the SnmpGetVb function.
  * @remarks
- * In an 
+ * 
+  * In an 
   * <b>smiOID</b> structure, the format of the array pointed to by the <b>ptr</b> member is one subidentifier per array element. For example, the string "1.3.6.1" would be an array of four elements {1,3,6,1}.
   * 
   * The Microsoft WinSNMP implementation allocates and deallocates memory for all output 
@@ -14,7 +15,9 @@
   * 
   * Because the WinSNMP application allocates memory for input descriptor objects with variable lengths, it must free that memory. For more information, see 
   * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smioid
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsnmp/ns-winsnmp-smioid
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

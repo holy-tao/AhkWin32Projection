@@ -2,8 +2,6 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
- * Deprecated. Represents an instant in time, typically expressed as a date and time of day and a corresponding calendar.
- * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class CALDATETIME extends Win32Struct
     static packingSize => 4
 
     /**
-     * The [calendar identifier](calendar-identifiers.md) for the instant in time.
      * @type {Integer}
      */
     CalId {
@@ -23,7 +20,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The era information for the instant in time.
      * @type {Integer}
      */
     Era {
@@ -32,7 +28,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The year for the instant in time.
      * @type {Integer}
      */
     Year {
@@ -41,7 +36,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The month for the instant in time.
      * @type {Integer}
      */
     Month {
@@ -50,7 +44,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The day for the instant in time.
      * @type {Integer}
      */
     Day {
@@ -59,7 +52,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The day of the week for the instant in time.
      * @type {Integer}
      */
     DayOfWeek {
@@ -68,7 +60,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The hour for the instant in time.
      * @type {Integer}
      */
     Hour {
@@ -77,7 +68,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The minute for the instant in time.
      * @type {Integer}
      */
     Minute {
@@ -86,7 +76,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The second for the instant in time.
      * @type {Integer}
      */
     Second {
@@ -95,7 +84,6 @@ class CALDATETIME extends Win32Struct
     }
 
     /**
-     * The tick for the instant in time.
      * @type {Integer}
      */
     Tick {

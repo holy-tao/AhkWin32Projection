@@ -4,12 +4,15 @@
 /**
  * Defines the property to retrieve.
  * @remarks
- * To describe a structure, set PropertyName to the name of the structure and ArrayIndex to ULONG_MAX. 
+ * 
+  * To describe a structure, set PropertyName to the name of the structure and ArrayIndex to ULONG_MAX. 
   * 
   * To describe a member of a structure, define an array of two <b>PROPERTY_DATA_DESCRIPTOR</b> structures. In the first descriptor, set  PropertyName to the name of the structure and ArrayIndex to 0. In the second descriptor, set PropertyName to the name of the member and ArrayIndex to ULONG_MAX.
   * 
   * If the structure is an element of an array of structures, set ArrayIndex in the first descriptor to the zero-based index of the structure in the array.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-property_data_descriptor
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-property_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

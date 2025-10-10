@@ -2,7 +2,7 @@
 
 /**
  * The VMR9MixerPrefs enumeration type contains flags that specify how the Video Mixing Render 9 filter (VMR-9) mixes the video streams. Settings include decimation, filtering, and render target preferences.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9mixerprefs
+ * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9mixerprefs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -99,7 +99,7 @@ class VMR9MixerPrefs{
     static MixerPref9_RenderTargetReserved => 1032192
 
     /**
-     * Bitmask to isolate flags that control the render target. (This value is not a valid flag.)
+     * Bitmaks to isolate flags that control the render target. (This value is not a valid flag.)
      * @type {Integer (Int32)}
      */
     static MixerPref9_RenderTargetMask => 1044480

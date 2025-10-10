@@ -1752,7 +1752,7 @@ class DirectSound {
     }
 
     /**
-     * The DirectSoundFullDuplexCreate function is documented under a different name. For complete documentation of this function, see DirectSoundFullDuplexCreate8.
+     * 
      * @param {Pointer<Guid>} pcGuidCaptureDevice 
      * @param {Pointer<Guid>} pcGuidRenderDevice 
      * @param {Pointer<DSCBUFFERDESC>} pcDSCBufferDesc 
@@ -1763,11 +1763,7 @@ class DirectSound {
      * @param {Pointer<IDirectSoundCaptureBuffer8>} ppDSCBuffer8 
      * @param {Pointer<IDirectSoundBuffer8>} ppDSBuffer8 
      * @param {Pointer<IUnknown>} pUnkOuter 
-     * @returns {HRESULT} *...* 
-     * 
-     * 
-     * If this function succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/directsoundfullduplexcreate
+     * @returns {HRESULT} 
      */
     static DirectSoundFullDuplexCreate(pcGuidCaptureDevice, pcGuidRenderDevice, pcDSCBufferDesc, pcDSBufferDesc, hWnd, dwLevel, ppDSFD, ppDSCBuffer8, ppDSBuffer8, pUnkOuter) {
         result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", "ptr", pcGuidCaptureDevice, "ptr", pcGuidRenderDevice, "ptr", pcDSCBufferDesc, "ptr", pcDSBufferDesc, "ptr", hWnd, "uint", dwLevel, "ptr", ppDSFD, "ptr", ppDSCBuffer8, "ptr", ppDSBuffer8, "ptr", pUnkOuter, "int")

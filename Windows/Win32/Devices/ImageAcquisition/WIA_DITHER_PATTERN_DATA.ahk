@@ -3,7 +3,7 @@
 
 /**
  * The WIA_DITHER_PATTERN_DATA structure specifies a dither pattern for scanners. It is used in conjunction with the scanner device property constant WIA_DPS_DITHER_PATTERN_DATA.
- * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_dither_pattern_data
+ * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_dither_pattern_data
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The ADDRESS_LIST_DESCRIPTOR structure provides network address descriptor information for a given interface.
- * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-address_list_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//traffic/ns-traffic-address_list_descriptor
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

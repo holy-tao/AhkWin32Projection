@@ -3,7 +3,7 @@
 
 /**
  * Represents a COM+ application hosted in a particular process. It can also represent a pseudo-application entry for all Services Without Components (SWC) contexts in the process.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationsummary
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-applicationsummary
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

@@ -3,8 +3,11 @@
 /**
  * Defines the behavior of the IMFMediaSession::SetTopology method.
  * @remarks
- * These flags are optional, and are not mutually exclusive. If no flags are set, the Media Session resolves the topology and then adds it to the queue of pending presentations.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsession_settopology_flags
+ * 
+  * These flags are optional, and are not mutually exclusive. If no flags are set, the Media Session resolves the topology and then adds it to the queue of pending presentations.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfsession_settopology_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

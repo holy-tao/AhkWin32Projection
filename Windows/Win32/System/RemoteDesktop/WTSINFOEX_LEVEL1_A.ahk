@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains extended information about a Remote Desktop Services session. (ANSI)
- * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wtsinfoex_level1_a
+ * Contains extended information about a Remote Desktop Services session.
+ * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/ns-wtsapi32-wtsinfoex_level1_a
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  * @charset ANSI

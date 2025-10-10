@@ -5,7 +5,7 @@
 
 /**
  * Used with hashed messages. It is passed to the CryptMsgOpenToEncode function if the CryptMsgOpenToEncode function's dwMsgType parameter is CMSG_ENVELOPED.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_hashed_encode_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_hashed_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

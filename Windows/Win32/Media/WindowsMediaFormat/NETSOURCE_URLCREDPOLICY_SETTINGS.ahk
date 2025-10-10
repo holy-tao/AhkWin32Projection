@@ -2,7 +2,7 @@
 
 /**
  * The NETSOURCE_URLCREDPOLICY_SETTINGS enumeration type is used for an output parameter of IWMSInternalAdminNetSource2::GetCredentialsEx.
- * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings
+ * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

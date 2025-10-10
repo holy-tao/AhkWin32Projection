@@ -6,8 +6,11 @@
 /**
  * The AM_MPEGSYSTEMTYPE structure defines the format block for an MPEG-1 system stream.
  * @remarks
- * The <b>Streams</b> member contains a list of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpegtype/ns-mpegtype-am_mpegstreamtype">AM_MPEGSTREAMTYPE</a> structures. The size of each <b>AM_MPEGSTREAMTYPE</b> structure is aligned to an 8-byte boundary. Given a pointer to an <b>AM_MPEGSTREAMTYPE</b> structure in list, use the <b>AM_MPEGSTREAMTYPE_NEXT</b> macro to get a pointer to the next structure.
- * @see https://learn.microsoft.com/windows/win32/api/mpegtype/ns-mpegtype-am_mpegsystemtype
+ * 
+  * The <b>Streams</b> member contains a list of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpegtype/ns-mpegtype-am_mpegstreamtype">AM_MPEGSTREAMTYPE</a> structures. The size of each <b>AM_MPEGSTREAMTYPE</b> structure is aligned to an 8-byte boundary. Given a pointer to an <b>AM_MPEGSTREAMTYPE</b> structure in list, use the <b>AM_MPEGSTREAMTYPE_NEXT</b> macro to get a pointer to the next structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mpegtype/ns-mpegtype-am_mpegsystemtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

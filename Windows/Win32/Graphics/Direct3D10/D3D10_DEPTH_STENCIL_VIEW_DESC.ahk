@@ -7,7 +7,8 @@
 /**
  * Specifies the subresource(s) from a texture that are accessible using a depth-stencil view.
  * @remarks
- * These are valid formats for a depth-stencil view:
+ * 
+  * These are valid formats for a depth-stencil view:
   * 
   * <ul>
   * <li>DXGI_FORMAT_D16_UNORM</li>
@@ -19,7 +20,9 @@
   * A depth-stencil view cannot use a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-access-views">typeless format</a>.  If the format chosen is DXGI_FORMAT_UNKNOWN, then the format of the parent resource is used.
   * 
   * A depth-stencil-view description is needed when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilview">ID3D10Device::CreateDepthStencilView</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_depth_stencil_view_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_depth_stencil_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

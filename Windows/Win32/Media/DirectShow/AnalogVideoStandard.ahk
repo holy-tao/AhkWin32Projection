@@ -2,7 +2,7 @@
 
 /**
  * The AnalogVideoStandard enumeration specifies the format of an analog television signal.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-analogvideostandard
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

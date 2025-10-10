@@ -3,7 +3,7 @@
 
 /**
  * The MPR_DEVICE_1 structure stores information about a device used for a link in a multilinked demand dial interface. In addition to the information in MPR_DEVICE_0, MPR_DEVICE_1 contains phone-number information.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_device_1
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_device_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

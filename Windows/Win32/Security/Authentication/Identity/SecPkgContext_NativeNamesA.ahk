@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the client and server principal names.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-_secpkgcontext_nativenamesa
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  * @charset ANSI
@@ -17,7 +13,6 @@ class SecPkgContext_NativeNamesA extends Win32Struct
     static packingSize => 8
 
     /**
-     * The client principal name (CNAME).
      * @type {Pointer<SByte>}
      */
     sClientName {
@@ -26,7 +21,6 @@ class SecPkgContext_NativeNamesA extends Win32Struct
     }
 
     /**
-     * The server principal name (CNAME).
      * @type {Pointer<SByte>}
      */
     sServerName {

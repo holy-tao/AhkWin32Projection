@@ -5,7 +5,7 @@
 
 /**
  * The type for supplying a username/password pair as strings.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_string_username_credential
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_string_username_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

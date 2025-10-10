@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies the alpha fill mode for video processing. (D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_alpha_fill_mode
+ * Specifies the alpha fill mode for video processing.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_video_processor_alpha_fill_mode
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

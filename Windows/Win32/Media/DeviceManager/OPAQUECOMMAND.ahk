@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The OPAQUECOMMAND structure contains data for commands that are passed through Windows Media Device Manager to a device but are not intended to be acted upon by Windows Media Device Manager.
- * @see https://learn.microsoft.com/windows/win32/WMDM/opaquecommand
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class OPAQUECOMMAND extends Win32Struct
     static packingSize => 8
 
     /**
-     * 
      * @type {Pointer<Guid>}
      */
     guidCommand {
@@ -23,7 +20,6 @@ class OPAQUECOMMAND extends Win32Struct
     }
 
     /**
-     * Length of the data to which *pData* points, in bytes.
      * @type {Integer}
      */
     dwDataLen {
@@ -32,12 +28,6 @@ class OPAQUECOMMAND extends Win32Struct
     }
 
     /**
-     * Data required to execute the command, and/or data returned by the command.
-     * 
-     * 
-     * **abMAC\[20\]**
-     * 
-     * This message authentication code (MAC) should include the **guidCommand** member, the data to which *pdwDataLen* points, and the data to which *pData* points, if any. If *pData* is **NULL**, it must not be included in the MAC. WMDM\_MAC\_LENGTH is defined as 20.
      * @type {Pointer<Byte>}
      */
     pData {

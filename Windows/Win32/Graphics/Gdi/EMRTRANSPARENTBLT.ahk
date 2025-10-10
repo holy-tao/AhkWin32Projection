@@ -5,10 +5,6 @@
 #Include .\XFORM.ahk
 
 /**
- * The EMRTRANSPARENTBLT structure contains members for the TransparentBLT enhanced metafile record.
- * @remarks
- * This structure is to be used during metafile playback.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtransparentblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -19,7 +15,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     static packingSize => 8
 
     /**
-     * The base structure for all record types.
      * @type {EMR}
      */
     emr{
@@ -31,7 +26,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Inclusive bounds, in device units.
      * @type {RECTL}
      */
     rclBounds{
@@ -43,7 +37,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Logical x coordinate of the upper-left corner of the destination rectangle.
      * @type {Integer}
      */
     xDest {
@@ -52,7 +45,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Logical y coordinate of the upper-left corner of the destination rectangle.
      * @type {Integer}
      */
     yDest {
@@ -61,7 +53,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Logical width of the destination rectangle.
      * @type {Integer}
      */
     cxDest {
@@ -70,7 +61,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Logical height of the destination rectangle.
      * @type {Integer}
      */
     cyDest {
@@ -79,7 +69,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Stores the transparent color.
      * @type {Integer}
      */
     dwRop {
@@ -88,7 +77,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Logical x coordinate of the upper-left corner of the source rectangle.
      * @type {Integer}
      */
     xSrc {
@@ -97,7 +85,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Logical y coordinate of the upper-left corner of the source rectangle.
      * @type {Integer}
      */
     ySrc {
@@ -106,7 +93,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * World-space to page-space transformation of the source device context.
      * @type {XFORM}
      */
     xformSrc{
@@ -118,7 +104,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Background color (the RGB value) of the source device context. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {Integer}
      */
     crBkColorSrc {
@@ -127,7 +112,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Source bitmap information color table usage (DIB_RGB_COLORS).
      * @type {Integer}
      */
     iUsageSrc {
@@ -136,7 +120,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Offset to the source <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
      * @type {Integer}
      */
     offBmiSrc {
@@ -145,7 +128,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Size of the source <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
      * @type {Integer}
      */
     cbBmiSrc {
@@ -154,7 +136,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Offset to the source bitmap bits.
      * @type {Integer}
      */
     offBitsSrc {
@@ -163,7 +144,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Size of the source bitmap bits.
      * @type {Integer}
      */
     cbBitsSrc {
@@ -172,7 +152,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Width of the source rectangle, in logical units.
      * @type {Integer}
      */
     cxSrc {
@@ -181,7 +160,6 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * Height of the source rectangle, in logical units.
      * @type {Integer}
      */
     cySrc {

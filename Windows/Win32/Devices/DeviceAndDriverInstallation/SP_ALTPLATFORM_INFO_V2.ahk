@@ -3,7 +3,7 @@
 
 /**
  * The SP_ALTPLATFORM_INFO_V2 structure is used to pass information for an alternate platform to SetupQueryInfOriginalFileInformation.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v2
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_altplatform_info_v2
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

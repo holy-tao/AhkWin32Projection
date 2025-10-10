@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the type of a security identifier (SID).
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-sid_name_use
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-sid_name_use
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

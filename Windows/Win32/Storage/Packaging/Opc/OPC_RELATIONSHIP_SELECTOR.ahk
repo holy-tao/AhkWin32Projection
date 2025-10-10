@@ -2,7 +2,7 @@
 
 /**
  * Describes how to interpret the selectionCriterion parameter of the IOpcRelationshipSelector::GetSelectionCriterion method.
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_relationship_selector
+ * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_relationship_selector
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

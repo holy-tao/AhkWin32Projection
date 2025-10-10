@@ -3,7 +3,7 @@
 
 /**
  * Specifies the changes to an indexed item.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-search_item_change
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-search_item_change
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

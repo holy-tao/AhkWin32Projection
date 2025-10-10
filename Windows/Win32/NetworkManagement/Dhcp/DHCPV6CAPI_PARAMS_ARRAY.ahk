@@ -3,7 +3,7 @@
 
 /**
  * Contains an array of requested parameters.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

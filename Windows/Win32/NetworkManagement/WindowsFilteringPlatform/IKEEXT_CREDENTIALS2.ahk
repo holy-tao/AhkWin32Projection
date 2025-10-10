@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Is used to store multiple credential pairs. (IKEEXT_CREDENTIALS2)
+ * Is used to store multiple credential pairs.
  * @remarks
- * IKE and IKEv2 have only 1 pair.
+ * 
+  * IKE and IKEv2 have only 1 pair.
   * 
   * AuthIP
   * has 1 pair, or 2 pairs if EM was enabled.
@@ -13,7 +14,9 @@
   * 
   * EM authentication, if it occurs,
   * is index 1.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credentials2
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_credentials2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

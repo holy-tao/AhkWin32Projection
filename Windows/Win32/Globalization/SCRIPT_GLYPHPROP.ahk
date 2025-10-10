@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a glyph that is part of an output glyph array.
- * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_glyphprop
+ * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_glyphprop
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

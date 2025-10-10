@@ -3,8 +3,11 @@
 /**
  * Indicates the behavior of a live source filter.
  * @remarks
- * If no flags are set (the default case), the source filter is assumed to be live and not to perform any rate matching on its own.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_pushsource_flags
+ * 
+  * If no flags are set (the default case), the source filter is assumed to be live and not to perform any rate matching on its own.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_am_pushsource_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

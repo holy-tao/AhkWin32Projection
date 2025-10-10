@@ -5,7 +5,7 @@
 
 /**
  * NLM_DATAPLAN_STATUS structure stores the current data plan status information supplied by the carrier.
- * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_dataplan_status
+ * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ns-netlistmgr-nlm_dataplan_status
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

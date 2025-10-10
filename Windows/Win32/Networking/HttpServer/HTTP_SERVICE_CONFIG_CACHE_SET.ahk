@@ -3,7 +3,7 @@
 
 /**
  * Used in the pConfigInformation parameter of the HttpSetServiceConfiguration function.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_cache_set
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_cache_set
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1528 structure specifies the period of time that the scavenger remains idle before waking up to service requests.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1528
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1528
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

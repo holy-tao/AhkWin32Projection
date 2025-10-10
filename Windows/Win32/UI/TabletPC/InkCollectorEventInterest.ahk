@@ -2,7 +2,7 @@
 
 /**
  * Defines values that are used to specify whether an event occurred on an ink collector and, if so, which event fired.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkcollectoreventinterest
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkcollectoreventinterest
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

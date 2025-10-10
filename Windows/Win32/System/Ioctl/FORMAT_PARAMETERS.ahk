@@ -3,7 +3,7 @@
 
 /**
  * Contains information used in formatting a contiguous set of disk tracks.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-format_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-format_parameters
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

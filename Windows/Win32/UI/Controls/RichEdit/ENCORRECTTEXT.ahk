@@ -5,7 +5,7 @@
 
 /**
  * Contains information about the selected text to be corrected.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-encorrecttext
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-encorrecttext
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

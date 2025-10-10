@@ -4,8 +4,11 @@
 /**
  * The RECT structure defines a rectangle by the coordinates of its upper-left and lower-right corners.
  * @remarks
- * The RECT structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/windef/ns-windef-rect
+ * 
+  * The RECT structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windef/ns-windef-rect
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

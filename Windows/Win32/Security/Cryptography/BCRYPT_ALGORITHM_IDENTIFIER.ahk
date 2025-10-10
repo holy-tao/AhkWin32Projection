@@ -3,7 +3,7 @@
 
 /**
  * Is used with the BCryptEnumAlgorithms function to contain a cryptographic algorithm identifier.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_algorithm_identifier
+ * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_algorithm_identifier
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

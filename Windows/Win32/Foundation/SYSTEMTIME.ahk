@@ -4,7 +4,8 @@
 /**
  * Specifies a date and time, using individual members for the month, day, year, weekday, hour, minute, second, and millisecond. The time is either in coordinated universal time (UTC) or local time, depending on the function that is being called.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The <b>SYSTEMTIME</b> does not check to see if the date represented is a real and valid date. When working with this API, you should ensure its validity, especially in leap year scenarios. See [leap day readiness](https://techcommunity.microsoft.com/t5/azure-developer-community-blog/it-s-2020-is-your-code-ready-for-leap-day/ba-p/1157279) for more information.
   * 
   * It is not recommended that you add and subtract values from the 
@@ -21,7 +22,10 @@
   * </ul>
   * The system can periodically refresh the time by synchronizing with a time source. Because the system time can be adjusted either forward or backward, do not compare system time readings to determine elapsed time. Instead, use one of the methods described in 
   * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/windows-time">Windows Time</a>.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-systemtime
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-systemtime
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

@@ -6,8 +6,11 @@
 /**
  * Defines basic pen information common to all pointer types.
  * @remarks
- * Applications can retrieve this information using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerpeninfo">GetPointerPenInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframepeninfo">GetPointerFramePenInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerpeninfohistory">GetPointerPenInfoHistory</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframepeninfohistory">GetPointerFramePenInfoHistory</a> API functions.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_pen_info
+ * 
+  * Applications can retrieve this information using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerpeninfo">GetPointerPenInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframepeninfo">GetPointerFramePenInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerpeninfohistory">GetPointerPenInfoHistory</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerframepeninfohistory">GetPointerFramePenInfoHistory</a> API functions.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-pointer_pen_info
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */
@@ -20,7 +23,7 @@ class POINTER_PEN_INFO extends Win32Struct
     /**
      * Type: <b>POINTER_INFO</b>
      * 
-     * An embedded <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure.
+     * An embedded <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure.
      * @type {POINTER_INFO}
      */
     pointerInfo{
@@ -34,7 +37,7 @@ class POINTER_PEN_INFO extends Win32Struct
     /**
      * Type: <b>PEN_FLAGS</b>
      * 
-     * The pen flag. This member can be zero or any reasonable combination of the values from the <a href="https://docs.microsoft.com/windows/win32/inputmsg/pen-flags-constants">Pen Flags</a> constants.
+     * The pen flag. This member can be zero or any reasonable combination of the values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/pen-flags-constants">Pen Flags</a> constants.
      * @type {Integer}
      */
     penFlags {
@@ -45,7 +48,7 @@ class POINTER_PEN_INFO extends Win32Struct
     /**
      * Type: <b>PEN_MASK</b>
      * 
-     * The pen mask. This member can be zero or any reasonable combination of the values from the <a href="https://docs.microsoft.com/windows/win32/inputmsg/pen-mask-constants">Pen Mask</a> constants.
+     * The pen mask. This member can be zero or any reasonable combination of the values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/pen-mask-constants">Pen Mask</a> constants.
      * @type {Integer}
      */
     penMask {

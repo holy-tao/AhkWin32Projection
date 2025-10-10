@@ -7,7 +7,8 @@
 /**
  * Defines the properties of a provider, volume, shadow copy, or shadow copy set.
  * @remarks
- * A requester obtains <b>VSS_OBJECT_PROP</b> structures by 
+ * 
+  * A requester obtains <b>VSS_OBJECT_PROP</b> structures by 
   *     using <a href="https://docs.microsoft.com/windows/desktop/api/vss/nf-vss-ivssenumobject-next">IVssEnumObject::Next</a> to iterate over the list 
   *     of objects returned by a call to 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-query">IVssBackupComponents::Query</a>.
@@ -21,7 +22,9 @@
   * In the case of <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a>, this can be done 
   *     manually, or the utility function 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> can be used.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_object_prop
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ns-vss-vss_object_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

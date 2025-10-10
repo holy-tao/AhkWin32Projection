@@ -4,11 +4,14 @@
 #Include ..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk
 
 /**
- * ISCSI_DEVICE_ON_SESSION structure specifies multiple methods for identifying a device associated with an iSCSI login session. (Unicode)
+ * ISCSI_DEVICE_ON_SESSION structure specifies multiple methods for identifying a device associated with an iSCSI login session.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The iscsidsc.h header defines ISCSI_DEVICE_ON_SESSION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_device_on_sessionw
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ns-iscsidsc-iscsi_device_on_sessionw
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  * @charset Unicode

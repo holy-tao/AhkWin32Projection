@@ -4,7 +4,8 @@
 /**
  * SHChangeUpdateImageIDList may be altered or unavailable.
  * @remarks
- * This example demonstrates the use of <b>SHChangeUpdateImageIDList</b> and <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shchangedwordasidlist">SHChangeDWORDAsIDList</a> by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHChangeNotify</a> to mimic the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shupdateimagea">SHUpdateImage</a> function.
+ * 
+  * This example demonstrates the use of <b>SHChangeUpdateImageIDList</b> and <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shchangedwordasidlist">SHChangeDWORDAsIDList</a> by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHChangeNotify</a> to mimic the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shupdateimagea">SHUpdateImage</a> function.
   * 
   *                 
   * 
@@ -54,7 +55,9 @@
   *     SHChangeNotify(SHCNE_UPDATEIMAGE, SHCNF_IDLIST, &rgDWord, &rgPidl);
   * }
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shchangeupdateimageidlist
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-shchangeupdateimageidlist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The QOCINFO structure is returned by the IsDestinationReachable function and provides Quality of Connection information to the caller.
- * @see https://learn.microsoft.com/windows/win32/api/sensapi/ns-sensapi-qocinfo
+ * @see https://docs.microsoft.com/windows/win32/api//sensapi/ns-sensapi-qocinfo
  * @namespace Windows.Win32.System.EventNotificationService
  * @version v4.0.30319
  */

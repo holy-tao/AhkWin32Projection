@@ -2,10 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an item in a singly linked list. (SLIST_ENTRY)
+ * Represents an item in a singly linked list.
  * @remarks
- * All list items must be aligned on a  <b>MEMORY_ALLOCATION_ALIGNMENT</b> boundary. Unaligned items can cause unpredictable results. See <b>_aligned_malloc</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-slist_entry
+ * 
+  * All list items must be aligned on a  <b>MEMORY_ALLOCATION_ALIGNMENT</b> boundary. Unaligned items can cause unpredictable results. See <b>_aligned_malloc</b>.
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-slist_entry
  * @namespace Windows.Win32.System.Kernel
  * @version v4.0.30319
  */

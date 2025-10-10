@@ -4,7 +4,7 @@
 
 /**
  * Contains the object identifiers (OIDs) for the extended security package.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_extra_oids
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_extra_oids
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The SnmpVarBindList structure represents an SNMP variable bindings list. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.
- * @see https://learn.microsoft.com/windows/win32/api/snmp/ns-snmp-snmpvarbindlist
+ * @see https://docs.microsoft.com/windows/win32/api//snmp/ns-snmp-snmpvarbindlist
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The WMT_WEBSTREAM_FORMAT structure contains information about a Web stream. This structure is used as the pbFormat member of the WM_MEDIA_TYPE structure for Web streams.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_webstream_format
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmt_webstream_format
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

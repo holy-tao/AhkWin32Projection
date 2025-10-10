@@ -2,7 +2,7 @@
 
 /**
  * Specifies the replicated disk types for the SR_RESOURCE_TYPE_REPLICATED_DISK structure.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-sr_replicated_disk_type
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-sr_replicated_disk_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

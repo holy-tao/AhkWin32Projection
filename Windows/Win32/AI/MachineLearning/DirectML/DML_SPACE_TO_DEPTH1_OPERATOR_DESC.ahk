@@ -2,10 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Rearranges blocks of spatial data into depth. The operator outputs a copy of the input tensor where values from the height and width dimensions are moved to the depth dimension. (DML_SPACE_TO_DEPTH1_OPERATOR_DESC)
+ * Rearranges blocks of spatial data into depth. The operator outputs a copy of the input tensor where values from the height and width dimensions are moved to the depth dimension.
  * @remarks
- * When the *Order* parameter is set to [DML_DEPTH_SPACE_ORDER_DEPTH_COLUMN_ROW](/windows/win32/api/directml/ne-directml-dml_depth_space_order), this operator is equivalent to [DML_SPACE_TO_DEPTH_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth_operator_desc).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc
+ * 
+  * When the *Order* parameter is set to [DML_DEPTH_SPACE_ORDER_DEPTH_COLUMN_ROW](/windows/win32/api/directml/ne-directml-dml_depth_space_order), this operator is equivalent to [DML_SPACE_TO_DEPTH_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth_operator_desc).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_space_to_depth1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

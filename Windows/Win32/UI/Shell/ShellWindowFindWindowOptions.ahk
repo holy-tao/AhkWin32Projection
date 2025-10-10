@@ -2,7 +2,7 @@
 
 /**
  * Specifies options for finding window in the Shell windows collection.
- * @see https://learn.microsoft.com/windows/win32/api/exdisp/ne-exdisp-shellwindowfindwindowoptions
+ * @see https://docs.microsoft.com/windows/win32/api//exdisp/ne-exdisp-shellwindowfindwindowoptions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

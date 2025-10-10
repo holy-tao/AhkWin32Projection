@@ -3,7 +3,7 @@
 
 /**
  * The ADS_TIMESTAMP structure is an ADSI representation of the Timestamp attribute syntax.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_timestamp
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_timestamp
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

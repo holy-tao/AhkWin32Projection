@@ -3,7 +3,7 @@
 
 /**
  * The WKSTA_TRANSPORT_INFO_0 structure contains information about the workstation transport protocol, such as Wide Area Network (WAN) or NetBIOS.
- * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_transport_info_0
+ * @see https://docs.microsoft.com/windows/win32/api//lmwksta/ns-lmwksta-wksta_transport_info_0
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

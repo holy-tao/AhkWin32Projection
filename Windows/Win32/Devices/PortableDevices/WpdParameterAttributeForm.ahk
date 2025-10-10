@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Describes how a (method or event) parameter stores its value.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-parameter-attribute-form
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

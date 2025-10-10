@@ -2,7 +2,7 @@
 
 /**
  * Defines the days of the week on which to run the data collector set.
- * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-weekdays
+ * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-weekdays
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

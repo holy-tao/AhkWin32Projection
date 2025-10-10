@@ -2,7 +2,7 @@
 
 /**
  * Identifiers for the properties of the 3D Lookup Table effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_lookuptable3d_prop
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_2/ne-d2d1effects_2-d2d1_lookuptable3d_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains fields that specify the information in an Endurance Group Information log page that indicates the amount of data being read from and written to an Endurance Group.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_endurance_group_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved0 {
@@ -25,7 +20,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * The amount of spare capacity before the threshold is reached, expressed as a normalized percentage (0 to 100).
      * @type {Integer}
      */
     AvailableSpareThreshold {
@@ -34,7 +28,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * A vendor-specific estimate of the percentage of life used for the NVM set(s) in the Endurance Group, expressed in units of one billion.
      * @type {Integer}
      */
     PercentageUsed {
@@ -43,7 +36,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved1{
@@ -55,7 +47,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * An estimate of the total number of data bytes written to NVM set(s) in the Endurance Group, expressed in units of one billion.
      * @type {Array<Byte>}
      */
     EnduranceEstimate{
@@ -67,7 +58,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * The total number of data bytes read from NVM set(s) in the Endurance Group, expressed in units of one billion.
      * @type {Array<Byte>}
      */
     DataUnitsRead{
@@ -79,9 +69,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * The total number of data bytes written to the NVM sets(s) in the Endurance Group, expressed in units of one billion.
-     * 
-     * This value only includes data written by the host.
      * @type {Array<Byte>}
      */
     DataUnitsWritten{
@@ -93,9 +80,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * The total number of data bytes written to the NVM sets(s) in the Endurance Group, expressed in units of one billion.
-     * 
-     * This value includes data written by the host and the controller.
      * @type {Array<Byte>}
      */
     MediaUnitsWritten{
@@ -107,7 +91,6 @@ class NVME_ENDURANCE_GROUP_LOG extends Win32Struct
     }
 
     /**
-     * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved2{

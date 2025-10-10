@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The SYMBOL_INFO structure (dbghelp.h) contains symbol information.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-symbol_info
+ * Contains symbol information.
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-symbol_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  * @charset ANSI
@@ -56,9 +56,7 @@ class SYMBOL_INFO extends Win32Struct
     }
 
     /**
-     * The symbol size, in bytes (or bits, if the symbol is a bitfield member).
-     * 
-     * This value is meaningful only if the module symbols are from a pdb file;  otherwise, this value is typically zero and should be ignored.
+     * The symbol size, in bytes. This value is meaningful only if the module symbols are from a pdb file;  otherwise, this value is typically zero and should be ignored.
      * @type {Integer}
      */
     Size {

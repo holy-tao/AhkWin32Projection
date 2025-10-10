@@ -2,7 +2,7 @@
 
 /**
  * Indicates the measuring method used for text layout.
- * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode
+ * @see https://docs.microsoft.com/windows/win32/api//dcommon/ne-dcommon-dwrite_measuring_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

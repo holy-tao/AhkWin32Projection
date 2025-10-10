@@ -2,7 +2,7 @@
 
 /**
  * The VideoProcAmpProperty enumeration specifies video properties on a video capture device.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-videoprocampproperty
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-videoprocampproperty
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -5,8 +5,10 @@
 /**
  * Specifies Desktop Window Manager (DWM) composition timing information. Used by the DwmGetCompositionTimingInfo function.
  * @remarks
- * Both DWM_FRAME_COUNT and QPC_TIME are defined in Dwmapi.h as <b>ULONGLONG</b>.
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_timing_info
+ * 
+  * Both DWM_FRAME_COUNT and QPC_TIME are defined in Dwmapi.h as <b>ULONGLONG</b>.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ns-dwmapi-dwm_timing_info
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

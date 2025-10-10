@@ -2,7 +2,7 @@
 
 /**
  * Identifies the type of pointer shape.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_outdupl_pointer_shape_type
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ne-dxgi1_2-dxgi_outdupl_pointer_shape_type
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

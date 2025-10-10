@@ -3,8 +3,11 @@
 /**
  * Represents filtering modes that a transform may select to use on input textures.
  * @remarks
- * This enumeration has the same numeric values as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_filter">D3D11_FILTER</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_filter
+ * 
+  * This enumeration has the same numeric values as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_filter">D3D11_FILTER</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ne-d2d1effectauthor-d2d1_filter
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

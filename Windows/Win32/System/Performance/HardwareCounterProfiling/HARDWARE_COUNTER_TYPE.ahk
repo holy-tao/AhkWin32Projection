@@ -2,7 +2,7 @@
 
 /**
  * Defines the types of hardware counters being profiled.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-hardware_counter_type
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-hardware_counter_type
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * The KSJACK_DESCRIPTION structure describes an audio jack.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription">IKsJackDescription::GetJackDescription</a> method in the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/devicetopology-api">DeviceTopology API</a>. It describes an audio jack that is part of a connection between an endpoint device and a hardware device in an audio adapter. When a user needs to plug an endpoint device into a jack or unplug it from a jack, an audio application can use the descriptive information in the structure to help the user to find the jack.
- * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription">IKsJackDescription::GetJackDescription</a> method in the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/devicetopology-api">DeviceTopology API</a>. It describes an audio jack that is part of a connection between an endpoint device and a hardware device in an audio adapter. When a user needs to plug an endpoint device into a jack or unplug it from a jack, an audio application can use the descriptive information in the structure to help the user to find the jack.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//devicetopology/ns-devicetopology-ksjack_description
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */

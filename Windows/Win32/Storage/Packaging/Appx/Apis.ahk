@@ -300,7 +300,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackageid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackageid
      * @since windows8.0
      */
     static GetCurrentPackageId(bufferLength, buffer) {
@@ -310,8 +310,6 @@ class Appx {
 
     /**
      * Gets the package full name for the calling process.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
@@ -350,7 +348,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagefullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackagefullname
      * @since windows8.0
      */
     static GetCurrentPackageFullName(packageFullNameLength, packageFullName) {
@@ -362,8 +360,6 @@ class Appx {
 
     /**
      * Gets the package family name for the calling process.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters, including the null terminator. On output, the size of the package family name returned, in characters, including the null terminator.
@@ -402,7 +398,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagefamilyname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackagefamilyname
      * @since windows8.0
      */
     static GetCurrentPackageFamilyName(packageFamilyNameLength, packageFamilyName) {
@@ -413,7 +409,7 @@ class Appx {
     }
 
     /**
-     * Gets the package path for the calling process. (GetCurrentPackagePath)
+     * Gets the package path for the calling process.
      * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
@@ -452,7 +448,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagepath
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackagepath
      * @since windows8.0
      */
     static GetCurrentPackagePath(pathLength, path) {
@@ -505,7 +501,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
      * @since windows8.0
      */
     static GetPackageId(hProcess, bufferLength, buffer) {
@@ -515,8 +511,6 @@ class Appx {
 
     /**
      * Gets the package full name for the specified process.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Void>} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
@@ -558,7 +552,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefullname
      * @since windows8.0
      */
     static GetPackageFullName(hProcess, packageFullNameLength, packageFullName) {
@@ -570,9 +564,6 @@ class Appx {
 
     /**
      * Gets the package full name for the specified token.
-     * @remarks
-     * For info about string size limits, see 
-     *      <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Void>} token A token that contains the package identity.
      * @param {Pointer<UInt32>} packageFullNameLength On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the 
      *       size of the package full name returned, in characters, including the null terminator.
@@ -609,7 +600,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefullnamefromtoken
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefullnamefromtoken
      * @since windows8.0
      */
     static GetPackageFullNameFromToken(token, packageFullNameLength, packageFullName) {
@@ -621,8 +612,6 @@ class Appx {
 
     /**
      * Gets the package family name for the specified process.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Void>} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
@@ -664,7 +653,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefamilyname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilyname
      * @since windows8.0
      */
     static GetPackageFamilyName(hProcess, packageFamilyNameLength, packageFamilyName) {
@@ -676,8 +665,6 @@ class Appx {
 
     /**
      * Gets the package family name for the specified token.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Void>} token Type: <b>HANDLE</b>
      * 
      * A token that contains the package identity.
@@ -719,7 +706,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefamilynamefromtoken
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilynamefromtoken
      * @since windows8.0
      */
     static GetPackageFamilyNameFromToken(token, packageFamilyNameLength, packageFamilyName) {
@@ -761,7 +748,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagepath
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagepath
      * @since windows8.0
      */
     static GetPackagePath(packageId, pathLength, path) {
@@ -774,7 +761,7 @@ class Appx {
     }
 
     /**
-     * Gets the path of the specified package. (GetPackagePathByFullName)
+     * Gets the path of the specified package.
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
@@ -807,7 +794,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagepathbyfullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagepathbyfullname
      * @since windows8.1
      */
     static GetPackagePathByFullName(packageFullName, pathLength, path) {
@@ -819,9 +806,7 @@ class Appx {
     }
 
     /**
-     * Gets the path of the specified staged package. (GetStagedPackagePathByFullName)
-     * @remarks
-     * This function succeeds if the package is staged, regardless of the user context or if the package is registered for the current user.
+     * Gets the path of the specified staged package.
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the staged package.
@@ -854,7 +839,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getstagedpackagepathbyfullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getstagedpackagepathbyfullname
      * @since windows8.1
      */
     static GetStagedPackagePathByFullName(packageFullName, pathLength, path) {
@@ -866,9 +851,7 @@ class Appx {
     }
 
     /**
-     * Gets the path of the specified package. (GetPackagePathByFullName2)
-     * @remarks
-     * The *packagePathType* parameter is useful for applications that use the [windows.mutablePackageDirectories extension](/uwp/schemas/appxpackage/uapmanifestschema/element-desktop6-package-extension) in their package manifest. This extension specifies a folder under the %ProgramFiles%\ModifiableWindowsApps path where the contents of the application's install folder are projected so that users can modify the installation files. This feature is currently available only for certain types of desktop PC games that are published by Microsoft and our partners, and it enables these types of games to support mods.
+     * Gets the path of the specified package.
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
@@ -904,7 +887,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagepathbyfullname2
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagepathbyfullname2
      * @since windows10.0.10240
      */
     static GetPackagePathByFullName2(packageFullName, packagePathType, pathLength, path) {
@@ -916,9 +899,7 @@ class Appx {
     }
 
     /**
-     * Gets the path of the specified staged package. (GetStagedPackagePathByFullName2)
-     * @remarks
-     * The *packagePathType* parameter is useful for applications that use the [windows.mutablePackageDirectories extension](/uwp/schemas/appxpackage/uapmanifestschema/element-desktop6-package-extension) in their package manifest. This extension specifies a folder under the %ProgramFiles%\ModifiableWindowsApps path where the contents of the application's install folder are projected so that users can modify the installation files. This feature is currently available only for certain types of desktop PC games that are published by Microsoft and our partners, and it enables these types of games to support mods.
+     * Gets the path of the specified staged package.
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the staged package.
@@ -954,7 +935,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getstagedpackagepathbyfullname2
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getstagedpackagepathbyfullname2
      * @since windows10.0.10240
      */
     static GetStagedPackagePathByFullName2(packageFullName, packagePathType, pathLength, path) {
@@ -966,9 +947,7 @@ class Appx {
     }
 
     /**
-     * Gets the package information for the calling process. (GetCurrentPackageInfo2)
-     * @remarks
-     * The *packagePathType* parameter is useful for applications that use the [windows.mutablePackageDirectories extension](/uwp/schemas/appxpackage/uapmanifestschema/element-desktop6-package-extension) in their package manifest. This extension specifies a folder under the %ProgramFiles%\ModifiableWindowsApps path where the contents of the application's install folder are projected so that users can modify the installation files. This feature is currently available only for certain types of desktop PC games that are published by Microsoft and our partners, and it enables these types of games to support mods.
+     * Gets the package information for the calling process.
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The [package constants](/windows/desktop/appxpkg/package-constants) that specify how package information is retrieved. The <b>PACKAGE_FILTER_*</b> flags are supported.
@@ -1016,7 +995,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackageinfo2
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackageinfo2
      * @since windows10.0.10240
      */
     static GetCurrentPackageInfo2(flags, packagePathType, bufferLength, buffer, count) {
@@ -1025,9 +1004,7 @@ class Appx {
     }
 
     /**
-     * Gets the package path for the calling process. (GetCurrentPackagePath2)
-     * @remarks
-     * The *packagePathType* parameter is useful for applications that use the [windows.mutablePackageDirectories extension](/uwp/schemas/appxpackage/uapmanifestschema/element-desktop6-package-extension) in their package manifest. This extension specifies a folder under the %ProgramFiles%\ModifiableWindowsApps path where the contents of the application's install folder are projected so that users can modify the installation files. This feature is currently available only for certain types of desktop PC games that are published by Microsoft and our partners, and it enables these types of games to support mods.
+     * Gets the package path for the calling process.
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
      * 
      * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
@@ -1069,7 +1046,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagepath2
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackagepath2
      * @since windows10.0.10240
      */
     static GetCurrentPackagePath2(packagePathType, pathLength, path) {
@@ -1081,8 +1058,6 @@ class Appx {
 
     /**
      * Gets the application user model ID for the current process.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {Pointer<Char>} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
@@ -1115,7 +1090,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentapplicationusermodelid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentapplicationusermodelid
      */
     static GetCurrentApplicationUserModelId(applicationUserModelIdLength, applicationUserModelId) {
         applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
@@ -1126,8 +1101,6 @@ class Appx {
 
     /**
      * Gets the application user model ID for the specified process.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {Pointer<Char>} applicationUserModelId A pointer to a buffer that receives the application user model ID.
@@ -1161,7 +1134,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getapplicationusermodelid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelid
      */
     static GetApplicationUserModelId(hProcess, applicationUserModelIdLength, applicationUserModelId) {
         applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
@@ -1172,8 +1145,6 @@ class Appx {
 
     /**
      * Gets the application user model ID for the specified token.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Void>} token A token that contains the application identity. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {Pointer<Char>} applicationUserModelId A pointer to a buffer that receives the application user model ID.
@@ -1207,7 +1178,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getapplicationusermodelidfromtoken
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelidfromtoken
      */
     static GetApplicationUserModelIdFromToken(token, applicationUserModelIdLength, applicationUserModelId) {
         applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
@@ -1276,29 +1247,6 @@ class Appx {
 
     /**
      * Gets the package identifier (ID) for the specified package full name.
-     * @remarks
-     * If <i>flags</i> specifies <b>PACKAGE_INFORMATION_BASIC</b>, the following fields are retrieved:
-     * 
-     * <ul>
-     * <li><b>name</b></li>
-     * <li><b>processorArchitecture</b></li>
-     * <li><b>publisherId</b></li>
-     * <li><b>resourceId</b></li>
-     * <li><b>version</b></li>
-     * </ul>
-     * If <i>flags</i> specifies <b>PACKAGE_INFORMATION_FULL</b>, the following fields are retrieved:
-     * 
-     * <ul>
-     * <li><b>name</b></li>
-     * <li><b>processorArchitecture</b></li>
-     * <li><b>publisher</b></li>
-     * <li><b>publisherId</b></li>
-     * <li><b>resourceId</b></li>
-     * <li><b>version</b></li>
-     * </ul>
-     * A request for <b>PACKAGE_INFORMATION_FULL</b> succeeds only if the package corresponding to <i>packageFullName</i> is installed for and accessible to the current user. If the package full name is syntactically correct but does not correspond to a package that is installed for and accessible to the current user, the function returns <b>ERROR_NOT_FOUND</b>.
-     * 
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of a package.
@@ -1343,7 +1291,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packageidfromfullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-packageidfromfullname
      * @since windows8.0
      */
     static PackageIdFromFullName(packageFullName, flags, bufferLength, buffer) {
@@ -1355,8 +1303,6 @@ class Appx {
 
     /**
      * Gets the package full name for the specified package identifier (ID).
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<PACKAGE_ID>} packageId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a>*</b>
      * 
      * The package ID.
@@ -1387,7 +1333,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagefullnamefromid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-packagefullnamefromid
      * @since windows8.0
      */
     static PackageFullNameFromId(packageId, packageFullNameLength, packageFullName) {
@@ -1399,8 +1345,6 @@ class Appx {
 
     /**
      * Gets the package family name for the specified package identifier.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<PACKAGE_ID>} packageId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a>*</b>
      * 
      * The package identifier.
@@ -1431,7 +1375,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagefamilynamefromid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-packagefamilynamefromid
      * @since windows8.0
      */
     static PackageFamilyNameFromId(packageId, packageFamilyNameLength, packageFamilyName) {
@@ -1443,8 +1387,6 @@ class Appx {
 
     /**
      * Gets the package family name for the specified package full name.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of a package.
@@ -1475,7 +1417,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagefamilynamefromfullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-packagefamilynamefromfullname
      * @since windows8.0
      */
     static PackageFamilyNameFromFullName(packageFullName, packageFamilyNameLength, packageFamilyName) {
@@ -1488,8 +1430,6 @@ class Appx {
 
     /**
      * Gets the package name and publisher identifier (ID) for the specified package family name.
-     * @remarks
-     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @param {Pointer<Char>} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The family name of a package.
@@ -1526,7 +1466,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagenameandpublisheridfromfamilyname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-packagenameandpublisheridfromfamilyname
      * @since windows8.0
      */
     static PackageNameAndPublisherIdFromFamilyName(packageFamilyName, packageNameLength, packageName, packagePublisherIdLength, packagePublisherId) {
@@ -1586,7 +1526,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-formatapplicationusermodelid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-formatapplicationusermodelid
      * @since windows8.1
      */
     static FormatApplicationUserModelId(packageFamilyName, packageRelativeApplicationId, applicationUserModelIdLength, applicationUserModelId) {
@@ -1651,7 +1591,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-parseapplicationusermodelid
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-parseapplicationusermodelid
      * @since windows8.1
      */
     static ParseApplicationUserModelId(applicationUserModelId, packageFamilyNameLength, packageFamilyName, packageRelativeApplicationIdLength, packageRelativeApplicationId) {
@@ -1705,7 +1645,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagesbypackagefamily
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagesbypackagefamily
      * @since windows8.0
      */
     static GetPackagesByPackageFamily(packageFamilyName, count, packageFullNames, bufferLength, buffer) {
@@ -1764,7 +1704,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-findpackagesbypackagefamily
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-findpackagesbypackagefamily
      * @since windows8.1
      */
     static FindPackagesByPackageFamily(packageFamilyName, packageFilters, count, packageFullNames, bufferLength, buffer, packageProperties) {
@@ -1804,7 +1744,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getstagedpackageorigin
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getstagedpackageorigin
      * @since windows8.1
      */
     static GetStagedPackageOrigin(packageFullName, origin) {
@@ -1815,7 +1755,7 @@ class Appx {
     }
 
     /**
-     * Gets the package information for the calling process. (GetCurrentPackageInfo)
+     * Gets the package information for the calling process.
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package constants</a> that specify how package information is retrieved. The <b>PACKAGE_FILTER_*</b> flags are supported.
@@ -1860,7 +1800,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackageinfo
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentpackageinfo
      * @since windows8.0
      */
     static GetCurrentPackageInfo(flags, bufferLength, buffer, count) {
@@ -1897,7 +1837,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-openpackageinfobyfullname
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-openpackageinfobyfullname
      * @since windows8.0
      */
     static OpenPackageInfoByFullName(packageFullName, packageInfoReference) {
@@ -1933,7 +1873,7 @@ class Appx {
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-closepackageinfo
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-closepackageinfo
      * @since windows8.0
      */
     static ClosePackageInfo(packageInfoReference) {
@@ -1942,7 +1882,7 @@ class Appx {
     }
 
     /**
-     * Gets the package information for the specified package. (GetPackageInfo)
+     * Gets the package information for the specified package.
      * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
@@ -1979,7 +1919,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageinfo
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageinfo
      * @since windows8.0
      */
     static GetPackageInfo(packageInfoReference, flags, bufferLength, buffer, count) {
@@ -2024,7 +1964,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageapplicationids
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageapplicationids
      * @since windows8.1
      */
     static GetPackageApplicationIds(packageInfoReference, bufferLength, buffer, count) {
@@ -2033,9 +1973,7 @@ class Appx {
     }
 
     /**
-     * Gets the package information for the specified package. (GetPackageInfo2)
-     * @remarks
-     * The *packagePathType* parameter is useful for applications that use the [windows.mutablePackageDirectories extension](/uwp/schemas/appxpackage/uapmanifestschema/element-desktop6-package-extension) in their package manifest. This extension specifies a folder under the %ProgramFiles%\ModifiableWindowsApps path where the contents of the application's install folder are projected so that users can modify the installation files. This feature is currently available only for certain types of desktop PC games that are published by Microsoft and our partners, and it enables these types of games to support mods.
+     * Gets the package information for the specified package.
      * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
@@ -2075,7 +2013,7 @@ class Appx {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageinfo2
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageinfo2
      * @since windows10.0.10240
      */
     static GetPackageInfo2(packageInfoReference, flags, packagePathType, bufferLength, buffer, count) {
@@ -2100,43 +2038,16 @@ class Appx {
     }
 
     /**
-     * Creates an install-time reference for a framework package dependency for the current app, using the specified package family name, minimum version, and additional criteria.
-     * @remarks
-     * In your app's installer or during the first run of your app, call this method to specify a set of criteria for a framework package you want to use in your app. This informs the OS that your app has a dependency upon a framework package that meets the specified criteria. If one or more framework packages are installed that meet the criteria, Windows will ensure that at least one of these framework packages will remain installed until the install-time reference is deleted. For more information, see [Use the dynamic dependency API to reference MSIX packages at run time](/windows/apps/desktop/modernize/framework-packages/use-the-dynamic-dependency-api).
      * 
-     * This function fails if the specified dependency criteria cannot be resolved to a specific package. This package resolution check is skipped if [CreatePackageDependencyOptions_DoNotVerifyDependencyResolution](ne-appmodel-createpackagedependencyoptions.md) is specified for the *options* parameter. This is useful for installers running as user contexts other than the target user (for example, installers running as LocalSystem).
-     * @param {Pointer<Void>} user Type: <b>PSID</b>
-     * 
-     * The user scope of the package dependency. If NULL, the caller's user context is used. Must be NULL if [CreatePackageDependencyOptions_ScopeIsSystem](ne-appmodel-createpackagedependencyoptions.md) is specified.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PCWSTR</b>
-     * 
-     * The package family name of the framework package on which to take dependency.
-     * @param {Pointer} minVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_version">PACKAGE_VERSION</a></b>
-     * 
-     * The minimum version of the framework package on which to take dependency.
-     * @param {Integer} packageDependencyProcessorArchitectures Type: <b><a href="ne-appmodel-packagedependencyprocessorarchitectures.md">PackageDependencyProcessorArchitectures</a></b>
-     * 
-     * The processor architectures of the package dependency.
-     * @param {Integer} lifetimeKind Type: <b><a href="ne-appmodel-packagedependencylifetimekind.md">PackageDependencyLifetimeKind</a></b>
-     * 
-     * The type of artifact to use to define the lifetime of the package dependency. For more information, see the remarks.
-     * @param {Pointer<Char>} lifetimeArtifact Type: <b>PCWSTR</b>
-     * 
-     * The name of the artifact used to define the lifetime of the package dependency. Must be NULL if the *lifetimeKind* parameter is [PackageDependencyLifetimeKind_Process](ne-appmodel-packagedependencylifetimekind.md). For more information, see the remarks.
-     * @param {Integer} options Type: <b><a href="ne-appmodel-createpackagedependencyoptions.md">CreatePackageDependencyOptions</a></b>
-     * 
-     * The options to apply when creating the package dependency.
-     * @param {Pointer<Char>} packageDependencyId Type: <b>PWSTR*</b>
-     * 
-     * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the ID of the new package dependency. The caller is responsible for freeing this resource once it is no longer needed by calling [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree).
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * | Return code | Description |
-     * |-------------|-------------|
-     * | E_INVALIDARG | The *packageDependencyId* parameter is NULL on input. |
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-trycreatepackagedependency
+     * @param {Pointer<Void>} user 
+     * @param {Pointer<Char>} packageFamilyName 
+     * @param {Pointer} minVersion 
+     * @param {Integer} packageDependencyProcessorArchitectures 
+     * @param {Integer} lifetimeKind 
+     * @param {Pointer<Char>} lifetimeArtifact 
+     * @param {Integer} options 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @returns {HRESULT} 
      */
     static TryCreatePackageDependency(user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, packageDependencyId) {
         packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
@@ -2174,18 +2085,9 @@ class Appx {
     }
 
     /**
-     * Deletes the install-time reference for the framework package dependency you created earlier by using the TryCreatePackageDependency method. This method informs the OS that it is safe to remove the framework package if no other apps have a dependency on it.
-     * @remarks
-     * Removing a package dependency is typically done when an app is uninstalled. A package dependency is implicitly removed if its lifetime artifact (specified via the *lifetimeArtifact* parameter of the [TryCreatePackageDependency](nf-appmodel-trycreatepackagedependency.md) function) is deleted. Package dependencies that are not referenced by other packages are elegible to be removed.
      * 
-     * The caller of this function must have administrative privileges if the package dependency was created using [CreatePackageDependencyOptions_ScopeIsSystem](ne-appmodel-createpackagedependencyoptions.md).
-     * @param {Pointer<Char>} packageDependencyId Type: <b>PCWSTR</b>
-     * 
-     * The ID of the package dependency to remove.
-     * @returns {HRESULT} | Return code | Description |
-     * |-------------|-------------|
-     * | E_INVALIDARG | The *packageDependencyId* parameter is NULL on input. |
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-deletepackagedependency
+     * @param {Pointer<Char>} packageDependencyId 
+     * @returns {HRESULT} 
      */
     static DeletePackageDependency(packageDependencyId) {
         packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
@@ -2198,40 +2100,13 @@ class Appx {
     }
 
     /**
-     * Resolves a previously defined PackageDependency to a specific package and adds it to the invoking process' package graph. After the dependency has been added, other code-loading methods (such as LoadLibrary and CoCreateInstance) can find the binaries in the resolved package.
-     * @remarks
-     * Calling this method resolves the framework package dependency to a specific package on the system. It also informs the OS that the framework package is in active use and to handle any version updates in a side-by-side manner (effectively delay uninstalling or otherwise servicing the older version until after your app is done using it). Package resolution is specific to a user and can return different values for different users on a system.
      * 
-     * Each successful **AddPackageDependency** call adds the resolved package to the calling process' package graph, even if already present. There is no duplicate detection or filtering applied by the API (that is, multiple references from a package is not harmful). After resolution is complete, the package dependency stays resolved for that user until the last reference across all processes for that user is removed via [RemovePackageDependency](nf-appmodel-removepackagedependency.md) or the process is terminated.
-     * 
-     * After this method successfully returns, your app can activate types and use content from the framework package until [RemovePackageDependency](nf-appmodel-removepackagedependency.md) is called.
-     * 
-     * If multiple packages are present in the package graph with the same rank as the call to **AddPackageDependency**, the resolved package is (by default) added after others of the same rank. To add a package before others of the same rank, specify [AddPackageDependencyOptions_PrependIfRankCollision](ne-appmodel-addpackagedependencyoptions.md) for the *options* parameter.
-     * 
-     * For more information, see [Use the dynamic dependency API to reference MSIX packages at run time](/windows/apps/desktop/modernize/framework-packages/use-the-dynamic-dependency-api).
-     * @param {Pointer<Char>} packageDependencyId Type: <b>PCWSTR</b>
-     * 
-     * The ID of the package dependency to be resolved and added to the invoking process' package graph. This parameter must match a package dependency defined by using the [TryCreatePackageDependency](nf-appmodel-trycreatepackagedependency.md) function for the calling user or the system (via the [CreatePackageDependencyOptions_ScopeIsSystem](ne-appmodel-createpackagedependencyoptions.md) option), or else an error is returned.
-     * @param {Integer} rank Type: <b>INT32</b>
-     * 
-     * The rank to use to add the resolved package to the caller's package graph. For more information, see the remarks.
-     * @param {Integer} options Type: <b><a href="ne-appmodel-addpackagedependencyoptions.md">AddPackageDependencyOptions</a></b>
-     * 
-     * The options to apply when adding the package dependency.
-     * @param {Pointer<Void>} packageDependencyContext Type: <b>PACKAGEDEPENDENCY_CONTEXT*</b>
-     * 
-     * The handle of the added package dependency. This handle is valid until it is passed to <a href="nf-appmodel-removepackagedependency.md">RemovePackageDependency</a>.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR*</b>
-     * 
-     * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the full name of the package to which the dependency has been resolved. The caller is responsible for freeing this resource once it is no longer needed by calling [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree).
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * | Return code | Description |
-     * |-------------|-------------|
-     * | E_INVALIDARG | The *packageDependencyId* or *packageDependencyContext* parameter is NULL on input. |
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-addpackagedependency
+     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Integer} rank 
+     * @param {Integer} options 
+     * @param {Pointer<Void>} packageDependencyContext 
+     * @param {Pointer<Char>} packageFullName 
+     * @returns {HRESULT} 
      */
     static AddPackageDependency(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
         packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
@@ -2263,21 +2138,9 @@ class Appx {
     }
 
     /**
-     * Removes a resolved package dependency from the current process' package graph (that is, a run-time reference for a framework package dependency that was added by using the AddPackageDependency function).
-     * @remarks
-     * This function does not unload loaded resources such as DLLs. After removing a package dependency, any files loaded from the package can continue
-     * to be used. Future file resolution will fail to see the removed package dependency.
-     * @param {Pointer<Void>} packageDependencyContext Type: <b>PACKAGEDEPENDENCY_CONTEXT</b>
      * 
-     * The handle of the package dependency to remove.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * | Return code | Description |
-     * |-------------|-------------|
-     * | E_INVALIDARG | The *packageDependencyContext* parameter is NULL on input. |
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-removepackagedependency
+     * @param {Pointer<Void>} packageDependencyContext 
+     * @returns {HRESULT} 
      */
     static RemovePackageDependency(packageDependencyContext) {
         result := DllCall("KERNELBASE.dll\RemovePackageDependency", "ptr", packageDependencyContext, "int")
@@ -2288,19 +2151,10 @@ class Appx {
     }
 
     /**
-     * Returns the package full name that would be used if the package dependency were to be resolved. This function does not add the package to the process graph.
-     * @remarks
-     * To add the package to the invoking process' package graph, use the [AddPackageDependency](nf-appmodel-addpackagedependency.md) function.
-     * @param {Pointer<Char>} packageDependencyId Type: <b>PCWSTR</b>
      * 
-     * The ID of the package dependency to be resolved. This parameter must match a package dependency defined by using the [TryCreatePackageDependency](nf-appmodel-trycreatepackagedependency.md) function for the calling user or the system (via the [CreatePackageDependencyOptions_ScopeIsSystem](ne-appmodel-createpackagedependencyoptions.md) option), or else an error is returned.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR*</b>
-     * 
-     * The full name of the package to which the dependency has been resolved. If the package dependency cannot be resolved, the function succeeds but this parameter is **nullptr** on output. Use the [HeapAlloc](/windows/win32/api/heapapi/nf-heapapi-heapalloc) function to allocate memory for this parameter, and use [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree) to deallocate the memory.
-     * @returns {HRESULT} | Return code | Description |
-     * |-------------|-------------|
-     * | E_INVALIDARG | The *packageDependencyId* or *packageFullName* parameter is NULL on input. |
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getresolvedpackagefullnameforpackagedependency
+     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Pointer<Char>} packageFullName 
+     * @returns {HRESULT} 
      */
     static GetResolvedPackageFullNameForPackageDependency(packageDependencyId, packageFullName) {
         packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
@@ -2329,17 +2183,10 @@ class Appx {
     }
 
     /**
-     * Returns the package dependency for the specified context handle.
-     * @param {Pointer<Void>} packageDependencyContext Type: <b>PACKAGEDEPENDENCY_CONTEXT</b>
      * 
-     * The handle of the package dependency to return.
-     * @param {Pointer<Char>} packageDependencyId Type: <b>PCWSTR*</b>
-     * 
-     * The ID of the package dependency for the specified context handle. If the package dependency cannot be resolved, the function succeeds but this parameter is **nullptr** on output. Use the [HeapAlloc](/windows/win32/api/heapapi/nf-heapapi-heapalloc) function to allocate memory for this parameter, and use [HeapFree](/windows/win32/api/heapapi/nf-heapapi-heapfree) to deallocate the memory.
-     * @returns {HRESULT} | Return code | Description |
-     * |-------------|-------------|
-     * | E_INVALIDARG | The *packageDependencyContext* or *packageDependencyId* parameter is NULL on input. |
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getidforpackagedependencycontext
+     * @param {Pointer<Void>} packageDependencyContext 
+     * @param {Pointer<Char>} packageDependencyId 
+     * @returns {HRESULT} 
      */
     static GetIdForPackageDependencyContext(packageDependencyContext, packageDependencyId) {
         result := DllCall("KERNELBASE.dll\GetIdForPackageDependencyContext", "ptr", packageDependencyContext, "ptr", packageDependencyId, "int")
@@ -2424,7 +2271,7 @@ class Appx {
      * If no known lifecycle management policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetlifecyclemanagement
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetlifecyclemanagement
      */
     static AppPolicyGetLifecycleManagement(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetLifecycleManagement", "ptr", processToken, "int*", policy, "uint")
@@ -2440,7 +2287,7 @@ class Appx {
      * If no known windowing model policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetwindowingmodel
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetwindowingmodel
      */
     static AppPolicyGetWindowingModel(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetWindowingModel", "ptr", processToken, "int*", policy, "uint")
@@ -2456,7 +2303,7 @@ class Appx {
      * If no known codec-loading policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetmediafoundationcodecloading
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetmediafoundationcodecloading
      */
     static AppPolicyGetMediaFoundationCodecLoading(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetMediaFoundationCodecLoading", "ptr", processToken, "int*", policy, "uint")
@@ -2472,7 +2319,7 @@ class Appx {
      * If no known application type was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetclrcompat
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetclrcompat
      */
     static AppPolicyGetClrCompat(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetClrCompat", "ptr", processToken, "int*", policy, "uint")
@@ -2488,7 +2335,7 @@ class Appx {
      * If no known thread initialization policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetthreadinitializationtype
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetthreadinitializationtype
      */
     static AppPolicyGetThreadInitializationType(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetThreadInitializationType", "ptr", processToken, "int*", policy, "uint")
@@ -2504,7 +2351,7 @@ class Appx {
      * If no known developer information  policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetshowdeveloperdiagnostic
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetshowdeveloperdiagnostic
      */
     static AppPolicyGetShowDeveloperDiagnostic(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetShowDeveloperDiagnostic", "ptr", processToken, "int*", policy, "uint")
@@ -2520,7 +2367,7 @@ class Appx {
      * If no known process termination policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetprocessterminationmethod
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetprocessterminationmethod
      */
     static AppPolicyGetProcessTerminationMethod(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetProcessTerminationMethod", "ptr", processToken, "int*", policy, "uint")
@@ -2536,7 +2383,7 @@ class Appx {
      * If no known create file access policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
      * 
      * If either processToken or policy are null, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-apppolicygetcreatefileaccess
+     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetcreatefileaccess
      */
     static AppPolicyGetCreateFileAccess(processToken, policy) {
         result := DllCall("KERNEL32.dll\AppPolicyGetCreateFileAccess", "ptr", processToken, "int*", policy, "uint")
@@ -2632,40 +2479,13 @@ class Appx {
     }
 
     /**
-     * Retrieves the package graph's current generation ID.
-     * @remarks
-     * This function does not have an associated header file or library file. Your application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (`Kernel32.dll`) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
-     * @param {Integer} flags Type: **const UINT32**
      * 
-     * The [package constants](/windows/desktop/appxpkg/package-constants) that specify how package information is retrieved. The **PACKAGE_FILTER_\*** flags are supported.
-     * @param {Integer} packageInfoType Type: **PackageInfo3Type**
-     * 
-     * ```cpp
-     * enum PackageInfo3Type
-     * {
-     * 	PackageInfo3Type_PackageInfoGeneration = 16,
-     * } PackageInfoType;
-     * ```
-     * 
-     * Declare **PackageInfo3Type** as shown above, and pass **PackageInfo3Type::PackageInfo3Type_PackageInfoGeneration**.
-     * @param {Pointer<UInt32>} bufferLength Type: **UINT32\***
-     * 
-     * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
-     * @param {Pointer} buffer Type: **BYTE\***
-     * 
-     * The package graph's current generation ID, represented as an array of <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
-     * @param {Pointer<UInt32>} count Type: **UINT32\***
-     * 
-     * The number of structures in the buffer.
-     * @returns {HRESULT} Type: **LONG**
-     * 
-     * If the function succeeds it returns **ERROR_SUCCESS**. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * |Return code|Description|
-     * |-|-|
-     * |**APPMODEL_ERROR_NO_PACKAGE**|The process has no package identity.|
-     * |**ERROR_INSUFFICIENT_BUFFER**|The buffer is not large enough to hold the data. The required size is specified  by <i>bufferLength</i>.|
-     * @see https://learn.microsoft.com/windows/win32/appxpkg/appmodel/nf-appmodel-getcurrentpackageinfo3
+     * @param {Integer} flags 
+     * @param {Integer} packageInfoType 
+     * @param {Pointer<UInt32>} bufferLength 
+     * @param {Pointer} buffer 
+     * @param {Pointer<UInt32>} count 
+     * @returns {HRESULT} 
      */
     static GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, buffer, count) {
         result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, "uint*", bufferLength, "ptr", buffer, "uint*", count, "int")

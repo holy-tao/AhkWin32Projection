@@ -2,7 +2,7 @@
 
 /**
  * Describes the possible types of access denied remediation (ADR) client display flags.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adrclientdisplayflags
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-adrclientdisplayflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

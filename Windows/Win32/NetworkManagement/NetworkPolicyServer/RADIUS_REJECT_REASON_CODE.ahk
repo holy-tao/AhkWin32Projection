@@ -2,7 +2,7 @@
 
 /**
  * The RADIUS_REJECT_REASON_CODE enumeration defines the possible RADIUS packet reject codes.
- * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_reject_reason_code
+ * @see https://docs.microsoft.com/windows/win32/api//authif/ne-authif-radius_reject_reason_code
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

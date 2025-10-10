@@ -4,8 +4,11 @@
 /**
  * Represents the occupied and available clusters on a disk.
  * @remarks
- * The <b>BitmapSize</b> member is the number of clusters on the volume starting from the starting LCN returned in the <b>StartingLcn</b> member of this structure. For example, suppose there are 0xD3F7 clusters on the volume. If you start the bitmap query at LCN 0xA007, then both the FAT and NTFS file systems will round down the returned starting LCN to LCN 0xA000. The value returned in the <b>BitmapSize</b> member will be (0xD3F7 – 0xA000), or 0x33F7.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_bitmap_buffer
+ * 
+  * The <b>BitmapSize</b> member is the number of clusters on the volume starting from the starting LCN returned in the <b>StartingLcn</b> member of this structure. For example, suppose there are 0xD3F7 clusters on the volume. If you start the bitmap query at LCN 0xA007, then both the FAT and NTFS file systems will round down the returned starting LCN to LCN 0xA000. The value returned in the <b>BitmapSize</b> member will be (0xD3F7 – 0xA000), or 0x33F7.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-volume_bitmap_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

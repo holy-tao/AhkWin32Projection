@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a custom Domain Name System (DNS) server, used in the Winsock APIs.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfo_dns_server
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     ai_servertype {
@@ -25,11 +20,6 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * A bitmap containing any of the following options.
-     * 
-     * | Constant | Value | Meaning |
-     * |-|-|-|
-     * | **AI_DNS_SERVER_UDP_FALLBACK** | 0x1 | This server can also be used for non-secure name resolution. |
      * @type {Integer}
      */
     ai_flags {
@@ -38,7 +28,6 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * The length in bytes of the socket address structure that *ai_addr* points to.
      * @type {Integer}
      */
     ai_addrlen {
@@ -47,7 +36,6 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * A pointer to a socket address structure containing the address of the custom server. Only **SOCKADDR_IN** and **SOCKADDR_IN6** structures are supported. The *sa_family* member must be set to **AF_INET** or **AF_INET6**. The rest of the structure must be zeroed out, with the exception of the **SOCKADDR_IN::sin_addr** member for IPv4, or **SOCKADDR_IN6::sin6_addr** for IPv6.
      * @type {Pointer<SOCKADDR>}
      */
     ai_addr {

@@ -2,7 +2,7 @@
 
 /**
  * The STGTY enumeration values are used in the type member of the STATSTG structure to indicate the type of the storage element. A storage element is a storage object, a stream object, or a byte-array object (LOCKBYTES).
- * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-stgty
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-stgty
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

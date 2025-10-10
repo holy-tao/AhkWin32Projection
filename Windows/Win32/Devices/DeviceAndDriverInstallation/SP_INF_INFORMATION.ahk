@@ -3,7 +3,7 @@
 
 /**
  * The SP_INF_INFORMATION structure stores information about an INF file, including the style, number of constituent INF files, and version data.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_inf_information
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_inf_information
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

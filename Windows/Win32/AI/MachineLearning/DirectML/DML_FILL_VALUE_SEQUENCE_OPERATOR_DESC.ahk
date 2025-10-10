@@ -4,7 +4,7 @@
 
 /**
  * Fills a tensor with a sequence.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_fill_value_sequence_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_fill_value_sequence_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

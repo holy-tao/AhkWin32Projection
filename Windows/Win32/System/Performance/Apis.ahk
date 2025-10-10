@@ -972,13 +972,11 @@ class Performance {
 ;@region Methods
     /**
      * Retrieves the current value of the performance counter, which is a high resolution (&lt;1us) time stamp that can be used for time-interval measurements.
-     * @remarks
-     * For more info about this function and its usage, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/acquiring-high-resolution-time-stamps">Acquiring high-resolution time stamps</a>.
      * @param {Pointer<Int64>} lpPerformanceCount A pointer to a variable that receives the current performance-counter value, in counts.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
-     * @see https://learn.microsoft.com/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
+     * @see https://docs.microsoft.com/windows/win32/api//profileapi/nf-profileapi-queryperformancecounter
      * @since windows5.0
      */
     static QueryPerformanceCounter(lpPerformanceCount) {
@@ -993,13 +991,11 @@ class Performance {
 
     /**
      * Retrieves the frequency of the performance counter.
-     * @remarks
-     * For more info about this function and its usage, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/acquiring-high-resolution-time-stamps">Acquiring high-resolution time stamps</a>.
      * @param {Pointer<Int64>} lpFrequency A pointer to a variable that receives the current performance-counter frequency, in counts per second. If the installed hardware doesn't support a high-resolution performance counter, this parameter can be zero (this will not occur on systems that run Windows XP or later).
      * @returns {Integer} If the installed hardware supports a high-resolution performance counter, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
-     * @see https://learn.microsoft.com/windows/win32/api/profileapi/nf-profileapi-queryperformancefrequency
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
+     * @see https://docs.microsoft.com/windows/win32/api//profileapi/nf-profileapi-queryperformancefrequency
      * @since windows5.0
      */
     static QueryPerformanceFrequency(lpFrequency) {
@@ -1013,21 +1009,12 @@ class Performance {
     }
 
     /**
-     * Installs performance counter strings, as defined in an input .ini file, into the system registry. (Unicode)
-     * @remarks
-     * This function has no associated import library; you must call it using the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The loadperf.h header defines InstallPerfDll as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Installs performance counter strings, as defined in an input .ini file, into the system registry.
      * @param {Pointer<Char>} szComputerName The name of the system. This should be <b>NULL</b> because this function cannot be used to install remotely.
      * @param {Pointer<Char>} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
      * @param {Pointer} dwFlags This parameter can be <b>LOADPERF_FLAGS_DISPLAY_USER_MSGS</b> (<c>(ULONG_PTR) 8</c>).
      * @returns {Integer} If the function is successful, it returns <b>TRUE</b> and posts additional information in  an application event log. Otherwise, it returns an error code that represents the condition that caused the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-installperfdllw
+     * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-installperfdllw
      */
     static InstallPerfDllW(szComputerName, lpIniFile, dwFlags) {
         szComputerName := szComputerName is String? StrPtr(szComputerName) : szComputerName
@@ -1038,21 +1025,12 @@ class Performance {
     }
 
     /**
-     * Installs performance counter strings, as defined in an input .ini file, into the system registry. (ANSI)
-     * @remarks
-     * This function has no associated import library; you must call it using the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The loadperf.h header defines InstallPerfDll as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Installs performance counter strings, as defined in an input .ini file, into the system registry.
      * @param {Pointer<Byte>} szComputerName The name of the system. This should be <b>NULL</b> because this function cannot be used to install remotely.
      * @param {Pointer<Byte>} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
      * @param {Pointer} dwFlags This parameter can be <b>LOADPERF_FLAGS_DISPLAY_USER_MSGS</b> (<c>(ULONG_PTR) 8</c>).
      * @returns {Integer} If the function is successful, it returns <b>TRUE</b> and posts additional information in  an application event log. Otherwise, it returns an error code that represents the condition that caused the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-installperfdlla
+     * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-installperfdlla
      */
     static InstallPerfDllA(szComputerName, lpIniFile, dwFlags) {
         szComputerName := szComputerName is String? StrPtr(szComputerName) : szComputerName
@@ -1063,16 +1041,7 @@ class Performance {
     }
 
     /**
-     * Loads onto the computer the performance objects and counters defined in the specified initialization file. (ANSI)
-     * @remarks
-     * This function provides an API to the functionality provided by the <b>Lodctr</b> tool. For information on <b>Lodctr</b>, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/adding-counter-names-and-descriptions-to-the-registry">Adding Counter Names and Descriptions to the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The loadperf.h header defines LoadPerfCounterTextStrings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Loads onto the computer the performance objects and counters defined in the specified initialization file.
      * @param {Pointer<Byte>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the initialization (.ini) file. The name can include the path to the initialization file. 
      * 
      * The function uses only the initialization file; the first argument is discarded. For example, to load an initialization file called "myfile.ini", the <i>commandLine</i> string could be "xx myfile.ini". The letters before the space (here "xx")  are discarded, and the second part, following the space, is interpreted as the initialization file specification.
@@ -1081,8 +1050,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-loadperfcountertextstringsa
+     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-loadperfcountertextstringsa
      * @since windows5.1.2600
      */
     static LoadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
@@ -1093,16 +1062,7 @@ class Performance {
     }
 
     /**
-     * Loads onto the computer the performance objects and counters defined in the specified initialization file. (Unicode)
-     * @remarks
-     * This function provides an API to the functionality provided by the <b>Lodctr</b> tool. For information on <b>Lodctr</b>, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/adding-counter-names-and-descriptions-to-the-registry">Adding Counter Names and Descriptions to the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The loadperf.h header defines LoadPerfCounterTextStrings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Loads onto the computer the performance objects and counters defined in the specified initialization file.
      * @param {Pointer<Char>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the initialization (.ini) file. The name can include the path to the initialization file. 
      * 
      * The function uses only the initialization file; the first argument is discarded. For example, to load an initialization file called "myfile.ini", the <i>commandLine</i> string could be "xx myfile.ini". The letters before the space (here "xx")  are discarded, and the second part, following the space, is interpreted as the initialization file specification.
@@ -1111,8 +1071,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-loadperfcountertextstringsw
+     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-loadperfcountertextstringsw
      * @since windows5.1.2600
      */
     static LoadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
@@ -1123,24 +1083,15 @@ class Performance {
     }
 
     /**
-     * Unloads performance objects and counters from the computer for the specified application. (Unicode)
-     * @remarks
-     * This function provides an API to the functionality provided by <b>Unlodctr</b> tool. For more information, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/removing-counter-names-and-descriptions-from-the-registry">Removing Counter Names and Descriptions from the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The loadperf.h header defines UnloadPerfCounterTextStrings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Unloads performance objects and counters from the computer for the specified application.
      * @param {Pointer<Char>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the application. The name of the application must match the <b>drivername</b> key value found in the initialization (.ini) file used to <a href="https://docs.microsoft.com/windows/desktop/api/loadperf/nf-loadperf-loadperfcountertextstringsa">load the text strings</a>.
-     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
+     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-unloadperfcountertextstringsw
+     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-unloadperfcountertextstringsw
      * @since windows5.1.2600
      */
     static UnloadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
@@ -1151,24 +1102,15 @@ class Performance {
     }
 
     /**
-     * Unloads performance objects and counters from the computer for the specified application. (ANSI)
-     * @remarks
-     * This function provides an API to the functionality provided by <b>Unlodctr</b> tool. For more information, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/removing-counter-names-and-descriptions-from-the-registry">Removing Counter Names and Descriptions from the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The loadperf.h header defines UnloadPerfCounterTextStrings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Unloads performance objects and counters from the computer for the specified application.
      * @param {Pointer<Byte>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the application. The name of the application must match the <b>drivername</b> key value found in the initialization (.ini) file used to <a href="https://docs.microsoft.com/windows/desktop/api/loadperf/nf-loadperf-loadperfcountertextstringsa">load the text strings</a>.
-     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
+     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-unloadperfcountertextstringsa
+     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-unloadperfcountertextstringsa
      * @since windows5.1.2600
      */
     static UnloadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
@@ -1269,11 +1211,7 @@ class Performance {
     }
 
     /**
-     * Registers the provider. (PerfStartProvider)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/counterinitialize">CounterInitialize</a> function calls this function; do not call this function directly.
-     * 
-     * <b>Windows Vista:  </b>The <b>PerfAutoInitialize</b> function calls this function.
+     * Registers the provider.
      * @param {Pointer<Guid>} ProviderGuid GUID that uniquely identifies the provider. The <b>providerGuid</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element specifies the GUID.
      * @param {Pointer<PERFLIBREQUEST>} ControlCallback <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perflibrequest">ControlCallback</a> function that PERFLIB calls to notify you of consumer requests, such as a request to add or remove counters from the query. This parameter is set if the <b>callback</b> attribute of the <b>counters</b> element is "custom"; otherwise, <b>NULL</b>.
      * @param {Pointer<Void>} phProvider Handle to the provider. You must call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstopprovider">PerfStopProvider</a> to release resources associated with the handle.
@@ -1281,8 +1219,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfstartprovider
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfstartprovider
      * @since windows6.0.6000
      */
     static PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
@@ -1291,13 +1229,7 @@ class Performance {
     }
 
     /**
-     * Registers the provider. (PerfStartProviderEx)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/counterinitialize">CounterInitialize</a> function calls this function; do not call this function directly.
-     * 
-     * <b>Windows Vista:  </b>The <b>PerfAutoInitialize</b> function calls this function.
-     * 
-     * The CTRPP tool includes this function instead of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> if you use the <b>-MemoryRoutines</b> argument or <b>-NotificationCallback</b> argument when calling <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a>, or if the <b>callback</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element is set to "custom".
+     * Registers the provider.
      * @param {Pointer<Guid>} ProviderGuid GUID that uniquely identifies the provider. The <b>providerGuid</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element specifies the GUID.
      * @param {Pointer<PERF_PROVIDER_CONTEXT>} ProviderContext A <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_provider_context">PERF_PROVIDER_CONTEXT</a> structure that contains pointers to the control callback, memory management routines, and context information.
      * @param {Pointer<Void>} Provider Handle to the provider. You must call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstopprovider">PerfStopProvider</a> to release resources associated with the handle.
@@ -1305,8 +1237,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfstartproviderex
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfstartproviderex
      * @since windows6.0.6000
      */
     static PerfStartProviderEx(ProviderGuid, ProviderContext, Provider) {
@@ -1316,17 +1248,13 @@ class Performance {
 
     /**
      * Removes the provider's registration from the list of registered providers and frees all resources associated with the provider.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/countercleanup">CounterCleanup</a> function calls this function; do not call this function directly.
-     * 
-     * <b>Windows Vista:  </b>The <b>PerfAutoCleanup</b> function calls this function.
      * @param {Pointer<Void>} ProviderHandle Handle to the provider.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfstopprovider
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfstopprovider
      * @since windows6.0.6000
      */
     static PerfStopProvider(ProviderHandle) {
@@ -1336,10 +1264,6 @@ class Performance {
 
     /**
      * Specifies the layout of a particular counter set.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/counterinitialize">CounterInitialize</a> function calls this function; do not call this function directly.
-     * 
-     * <b>Windows Vista:  </b>The <b>PerfAutoInitialize</b> function calls this function.
      * @param {Pointer<Void>} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1349,8 +1273,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetcountersetinfo
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfsetcountersetinfo
      * @since windows6.0.6000
      */
     static PerfSetCounterSetInfo(ProviderHandle, Template, TemplateSize) {
@@ -1360,25 +1284,6 @@ class Performance {
 
     /**
      * Creates an instance of the specified counter set.
-     * @remarks
-     * The provider determines when it creates an instance. If the counter data is more static, the provider can create an instance at initialization time. For example, the number of processors on a computer would be considered static, so a provider that provides counter data for processors could create an instance for each processor on the computer at initialization time. For counters that are more dynamic, such as disk or process counters, the providers would create the new instances in response to a new USB device being added or a new process being created.
-     * 
-     * When the provider calls this function, PERFLIB allocates local memory for the new instance and builds the instance block. PERFLIB deletes the memory when the provider calls the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfdeleteinstance">PerfDeleteInstance</a> function.
-     * 
-     * The instance contains the raw counter data. Providers use the following three functions to update the raw counter data:
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetulongcountervalue">PerfSetUlongCounterValue</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetulonglongcountervalue">PerfSetUlongLongCounterValue</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetcounterrefvalue">PerfSetCounterRefValue</a>
-     * </li>
-     * </ul>
-     * Typically, the provider keeps the counter data up-to-date at all times. As an alternative, the provider can implement the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perflibrequest">ControlCallback</a> function and use the <b>PERF_COLLECT_START</b> request code to trigger the updates.
      * @param {Pointer<Void>} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1387,10 +1292,10 @@ class Performance {
      * <b>Windows Vista:  </b>The GUID variable is not available.
      * @param {Pointer<Char>} Name <b>Null</b>-terminated Unicode string that contains a unique name for this instance.
      * @param {Integer} Id Unique identifier for this instance of the counter set. The identifier can be a serial number that you increment for each new instance.
-     * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the instance of the counter set or <b>NULL</b> if PERFLIB could not create the instance. Cache this pointer to use in later calls instead of calling <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfqueryinstance">PerfQueryInstance</a> to retrieve the pointer to the instance.
+     * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the instance of the counter set or <b>NULL</b> if PERFLIB could not create the instance. Cache this pointer to use in later calls instead of calling <a href="/windows/desktop/api/perflib/nf-perflib-perfqueryinstance">PerfQueryInstance</a> to retrieve the pointer to the instance.
      * 
-     * This function returns <b>NULL</b> if an error occurred. To determine the error that occurred, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfcreateinstance
+     * This function returns <b>NULL</b> if an error occurred. To determine the error that occurred, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfcreateinstance
      * @since windows6.0.6000
      */
     static PerfCreateInstance(ProviderHandle, CounterSetGuid, Name, Id) {
@@ -1407,10 +1312,6 @@ class Performance {
 
     /**
      * Deletes an instance of the counter set created by the PerfCreateInstance function.
-     * @remarks
-     * If the provider process terminates abnormally, all allocated instances will be released.
-     * 
-     * The provider determines when it deletes an instance. If the counter data is more static, the provider can delete an instance at cleanup time. For example, the number of processors on a computer would be considered static, so a provider that provides counter data for processors could delete an instance for each processor on the computer at cleanup time. For counters that are more dynamic, such as disk or process counters, the providers would delete the instances in response to a USB device being removed or a process being terminated.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1419,8 +1320,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdeleteinstance
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfdeleteinstance
      * @since windows6.0.6000
      */
     static PerfDeleteInstance(Provider, InstanceBlock) {
@@ -1430,10 +1331,6 @@ class Performance {
 
     /**
      * Retrieves a pointer to the specified counter set instance. Providers use this function.
-     * @remarks
-     * Use the same instance name and identifier that you used when calling <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> to retrieve a specific instance of the counter set.
-     * 
-     * Providers should  cache the pointer to the instance when they create the instance instead of calling this function to retrieve the pointer.
      * @param {Pointer<Void>} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1442,10 +1339,10 @@ class Performance {
      * <b>Windows Vista:  </b>The GUID variable is not available.
      * @param {Pointer<Char>} Name <b>Null</b>-terminated Unicode string that contains the name of counter set instance that you want to retrieve.
      * @param {Integer} Id Unique identifier of the counter set instance that you want to retrieve.
-     * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance or <b>NULL</b> if the instance does not exist.
+     * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance or <b>NULL</b> if the instance does not exist.
      * 
-     * This function returns <b>NULL</b> if an error occurred. To determine the error that occurred, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfqueryinstance
+     * This function returns <b>NULL</b> if an error occurred. To determine the error that occurred, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfqueryinstance
      * @since windows6.0.6000
      */
     static PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
@@ -1462,10 +1359,6 @@ class Performance {
 
     /**
      * Updates the value of a counter whose value is a pointer to the actual data. Providers use this function.
-     * @remarks
-     * This is a convenience function for specifying a reference to the raw counter data. To update the reference to the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the counter value for a specific counter. The <b>Attrib</b> member must include the PERF_ATTRIB_BY_REFERENCE flag. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * Depending on the counter type, the pointer must reference a 4-byte or 8-byte unsigned integer. When collecting the counter data, PERFLIB dereferences the pointer and returns the actual data.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1482,8 +1375,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetcounterrefvalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfsetcounterrefvalue
      * @since windows6.0.6000
      */
     static PerfSetCounterRefValue(Provider, Instance, CounterId, Address) {
@@ -1493,10 +1386,6 @@ class Performance {
 
     /**
      * Updates the value of a counter whose value is a 4-byte unsigned integer. Providers use this function.
-     * @remarks
-     * This is a convenience function for setting raw counter data. To update the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the raw counter data for a specific counter. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfincrementulongcountervalue">PerfIncrementULongCounterValue</a> and <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfdecrementulongcountervalue">PerfDecrementULongCounterValue</a> functions to increment or decrement the counter value, respectively.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1509,8 +1398,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetulongcountervalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfsetulongcountervalue
      * @since windows6.0.6000
      */
     static PerfSetULongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1520,10 +1409,6 @@ class Performance {
 
     /**
      * Updates the value of a counter whose value is an 8-byte unsigned integer. Providers use this function.
-     * @remarks
-     * This is a convenience function for setting raw counter data. To update the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the raw counter data for a specific counter. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfincrementulonglongcountervalue">PerfIncrementULongLongCounterValue</a> and <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfdecrementulonglongcountervalue">PerfDecrementULongLongCounterValue</a> functions to increment or decrement the counter value, respectively.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1536,8 +1421,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetulonglongcountervalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfsetulonglongcountervalue
      * @since windows6.0.6000
      */
     static PerfSetULongLongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1547,12 +1432,6 @@ class Performance {
 
     /**
      * Increments the value of a counter whose value is a 4-byte unsigned integer. Providers use this function.
-     * @remarks
-     * This is a convenience function for incrementing raw counter data. To increment the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the raw counter data for a specific counter. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetulongcountervalue">PerfSetULongCounterValue</a> function to initially set the counter value.
-     * 
-     * Note that the counter value will overflow when the counter value increments past the maximum size of a 4-byte unsigned integer.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1565,8 +1444,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfincrementulongcountervalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfincrementulongcountervalue
      * @since windows6.0.6000
      */
     static PerfIncrementULongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1576,12 +1455,6 @@ class Performance {
 
     /**
      * Increments the value of a counter whose value is an 8-byte unsigned integer. Providers use this function.
-     * @remarks
-     * This is a convenience function for incrementing raw counter data. To increment the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the raw counter data for a specific counter. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetulonglongcountervalue">PerfSetULongLongCounterValue</a> function to initially set the counter value.
-     * 
-     * Note that the counter value will overflow when the counter value increments past the maximum size of an 8-byte unsigned integer.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1594,8 +1467,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfincrementulonglongcountervalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfincrementulonglongcountervalue
      * @since windows6.0.6000
      */
     static PerfIncrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1605,12 +1478,6 @@ class Performance {
 
     /**
      * Decrements the value of a counter whose value is a 4-byte unsigned integer. Providers use this function.
-     * @remarks
-     * This is a convenience function for decrementing raw counter data. To decrement the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the raw counter data for a specific counter. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetulongcountervalue">PerfSetULongCounterValue</a> function to initially set the counter value.
-     * 
-     * Note that the counter value will underflow when the counter value decrements past zero.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1623,8 +1490,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdecrementulongcountervalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfdecrementulongcountervalue
      * @since windows6.0.6000
      */
     static PerfDecrementULongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1634,12 +1501,6 @@ class Performance {
 
     /**
      * Decrements the value of a counter whose value is an 8-byte unsigned integer. Providers use this function.
-     * @remarks
-     * This is a convenience function for decrementing raw counter data. To decrement the raw counter data yourself, use the <b>Offset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structure to access the raw counter data for a specific counter. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure block contains one or more counter information structures.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfsetulonglongcountervalue">PerfSetULongLongCounterValue</a> function to initially set the counter value.
-     * 
-     * Note that the counter value will underflow when the counter value decrements past zero.
      * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
@@ -1652,8 +1513,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdecrementulonglongcountervalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfdecrementulonglongcountervalue
      * @since windows6.0.6000
      */
     static PerfDecrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1733,8 +1594,8 @@ class Performance {
      *  
      * 
      * For other types of failures, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfenumeratecounterset
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfenumeratecounterset
      * @since windows10.0.14393
      */
     static PerfEnumerateCounterSet(szMachine, pCounterSetIds, cCounterSetIds, pcCounterSetIdsActual) {
@@ -1746,16 +1607,6 @@ class Performance {
 
     /**
      * Gets the names and identifiers of the active instances of a counter set on the specified system.
-     * @remarks
-     * The information about the active instances of the specified counter set is  written to the buffer that <i>pInstances</i> specifies as a sequence of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_instance_header">PERF_INSTANCE_HEADER</a> blocks. The size in bytes of  
-     * 
-     * the sequence of blocks is written to  <i>pcbInstancesActual</i>. Each <b>PERF_INSTANCE_HEADER</b> block consists  
-     * 
-     * of a <b>PERF_INSTANCE_HEADER</b> structure, immediately followed by a null-terminated UTF-16LE  
-     * 
-     * instance name, followed by padding so that the size of the  
-     * 
-     * <b>PERF_INSTANCE_HEADER</b> block is a multiple of 8 bytes.
      * @param {Pointer<Char>} szMachine The name of the machine for which to get the information about the active instances of the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the active instances of the specified counter set for the local machine.
      * @param {Pointer<Guid>} pCounterSetId The counter set identifier of the counter set for which you want to get the information about of the active instances.
      * @param {Pointer} pInstances Pointer to a buffer that is large enough to receive the amount of data that the <i>cbInstances</i> parameter specifies. May be  
@@ -1827,8 +1678,8 @@ class Performance {
      *  
      * 
      * For other types of failures, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfenumeratecountersetinstances
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfenumeratecountersetinstances
      * @since windows10.0.14393
      */
     static PerfEnumerateCounterSetInstances(szMachine, pCounterSetId, pInstances, cbInstances, pcbInstancesActual) {
@@ -1840,10 +1691,6 @@ class Performance {
 
     /**
      * Gets information about a counter set on the specified system.
-     * @remarks
-     * See  <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ne-perflib-perfreginfotype">PerfRegInfoType</a>  for the types of data that you can request and  
-     * 
-     * the formats of the data provided for each type of request.
      * @param {Pointer<Char>} szMachine The name of the machine for which to get the information about the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the specified counter set for the local machine.
      * @param {Pointer<Guid>} pCounterSetId The counter set identifier of the counter set for which you want to get information.
      * @param {Integer} requestCode The type of information that you want to get about the counter set. See <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ne-perflib-perfreginfotype">PerfRegInfoType</a> for a list of possible values.
@@ -1925,8 +1772,8 @@ class Performance {
      *  
      * 
      * For other types of failures, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfquerycountersetregistrationinfo
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfquerycountersetregistrationinfo
      * @since windows10.0.14393
      */
     static PerfQueryCounterSetRegistrationInfo(szMachine, pCounterSetId, requestCode, requestLangId, pbRegInfo, cbRegInfo, pcbRegInfoActual) {
@@ -1938,21 +1785,14 @@ class Performance {
 
     /**
      * Creates a handle that references a query on the specified system. A query is a list of counter specifications.
-     * @remarks
-     * Use <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfaddcounters">PerfAddCounters</a> and <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfdeletecounters">PerfDeleteCounters</a> to
-     * add or remove counter specifications to the list. Use <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a> to
-     * get the counter specifications currently in the list and to determine the
-     * indexes at which the data for each counter will be returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterdata">PerfQueryCounterData</a>. Use <b>PerfQueryCounterData</b> to retrieve the values of the
-     * counters that match the counter specifications.
      * @param {Pointer<Char>} szMachine The name of the machine for which you want to get the query handle.
      * @param {Pointer<Void>} phQuery The handle to the query. Call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfclosequeryhandle">PerfCloseQueryHandle</a> to close ths handle when you no longer need it.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfopenqueryhandle
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfopenqueryhandle
      * @since windows10.0.14393
      */
     static PerfOpenQueryHandle(szMachine, phQuery) {
@@ -1969,8 +1809,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfclosequeryhandle
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfclosequeryhandle
      * @since windows10.0.14393
      */
     static PerfCloseQueryHandle(hQuery) {
@@ -1980,19 +1820,6 @@ class Performance {
 
     /**
      * Gets the counter specifications in the specified query.
-     * @remarks
-     * The information about the counter specifications is written to the buffer that <i>pCounters</i> specifies as a sequence of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> blocks. The size in bytes of  
-     * 
-     * the sequence of blocks is written to  <i>pcbCountersActual</i>. Each <b>PERF_COUNTER_IDENTIFIER</b> block consists  
-     * 
-     * of a <b>PERF_COUNTER_IDENTIFIER</b> structure, optionally followed by a null-terminated UTF-16LE  
-     * 
-     * instance name, followed by padding so that the size of the  
-     * 
-     * <b>PERF_COUNTER_IDENTIFIER</b> block is a multiple of 8 bytes. 
-     *  The size of each block, including the <b>PERF_COUNTER_IDENTIFIER</b> structure, instance name,
-     * and padding, is determined by the <b>Size</b> member of the <b>PERF_COUNTER_IDENTIFIER</b> structure, which
-     * will be a multiple of 8 bytes.
      * @param {Pointer<Void>} hQuery A handle to the query for which you want to get the counter specifications
      * @param {Pointer} pCounters Pointer to a buffer that is large enough to hold the amount of data that the <i>cbCounters</i> parameter specifies, in bytes. May be
      * NULL if <i>cbCounters</i> is 0.
@@ -2062,8 +1889,8 @@ class Performance {
      *  
      * 
      * For other types of failures, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfquerycounterinfo
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfquerycounterinfo
      * @since windows10.0.14393
      */
     static PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
@@ -2073,8 +1900,6 @@ class Performance {
 
     /**
      * Gets the values of the performance counters that match the counter specifications in the specified query.
-     * @remarks
-     * The information about the performance counter values is  written to the buffer that <i>pCounterBlock</i> specifies as a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_data_header">PERF_DATA_HEADER</a> block, which consists <b>PERF_DATA_HEADER</b> structure followed by a sequence of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> blocks.
      * @param {Pointer<Void>} hQuery A handle to a query for the counter specifications of the performance counters for which you want to get the values.
      * @param {Pointer} pCounterBlock A pointer to a buffer that has enough space to receive the amount of  data that the <i>cbCounterBlock</i> parameter specifies, in bytes. May be NULL if  
      * 
@@ -2145,8 +1970,8 @@ class Performance {
      *  
      * 
      * For other types of failures, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfquerycounterdata
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfquerycounterdata
      * @since windows10.0.14393
      */
     static PerfQueryCounterData(hQuery, pCounterBlock, cbCounterBlock, pcbCounterBlockActual) {
@@ -2156,41 +1981,6 @@ class Performance {
 
     /**
      * Adds performance counter specifications to the specified query.
-     * @remarks
-     * The <i>pCounters</i> parameter should point to a sequence of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> blocks. Each <b>PERF_COUNTER_IDENTIFIER</b> block consists of a
-     * <b>PERF_COUNTER_IDENTIFIER</b> structure, optionally followed by a null-terminated
-     * UTF-16LE instance  name string, followed by padding that makes the size of the block a multiple of 8 bytes.
-     * 
-     * For each <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> block:
-     * 
-     * <ul>
-     * <li>Set the <b>CounterSetGuid</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to the identifier of the counter set to be queried.
-     * </li>
-     * <li>Set the <b>Status</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to 0.</li>
-     * <li>Set <b>Size</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to the size of the <b>PERF_COUNTER_IDENTIFIER</b> block in bytes, including the
-     *   <b>PERF_COUNTER_IDENTIFIER</b> structure, the instance name, and the padding. The
-     *   value of <b>Size</b> must be a multiple of 8.</li>
-     * <li>Set the <b>CounterId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to the identifier of the counter that should be returned by the query.
-     *   To return all counters, set <b>CounterId</b> to <b>PERF_WILDCARD_COUNTER</b>.</li>
-     * <li>Set the <b>InstanceId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to the identifier of the instance that should be returned by the
-     *   query. If no filtering should be done based on instance identifier, set
-     *   <b>InstanceId</b> to <b>PERF_WILDCARD_COUNTER</b>.</li>
-     * <li>Set the <b>Index</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to 0.</li>
-     * <li>Set the <b>Reserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure to 0.
-     * </li>
-     * <li>Include the instance name immediately after the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure. <ul>
-     * <li>If the counter set is single-instance, do not set the instance name. In this case, the value of the Size member of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> structure must be  the size of the <b>PERF_COUNTER_IDENTIFIER</b> structure. </li>
-     * <li>If the
-     *   counter set is multiple-instance, you must set the instance name. If you do not want to filter the performance counter specifications based on instance name, use <b>PERF_WILDCARD_INSTANCE</b> as the
-     *   instance name.
-     * 
-     * </li>
-     * </ul>
-     * </li>
-     * </ul>
-     * <b>PerfAddCounters</b> attempts to add one counter specification to the query for
-     * each <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> block, and updates the <b>Status</b> member of the <b>PERF_COUNTER_IDENTIFIER</b> structure in each
-     * block with the result of the attempt.
      * @param {Pointer<Void>} hQuery A handle to the query to which you want to add performance counter specifications.
      * @param {Pointer} pCounters A pointer to the performance counter specifications that you want to add.
      * @param {Integer} cbCounters The size of the buffer that the <i>pCounters</i> parameter specifies, in bytes.
@@ -2198,8 +1988,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfaddcounters
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfaddcounters
      * @since windows10.0.14393
      */
     static PerfAddCounters(hQuery, pCounters, cbCounters) {
@@ -2209,18 +1999,6 @@ class Performance {
 
     /**
      * Removes the specified performance counter specifications from the specified query.
-     * @remarks
-     * The <i>pCounters</i> parameter should point to a sequence of <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> blocks. Each <b>PERF_COUNTER_IDENTIFIER</b> block consists of a
-     * <b>PERF_COUNTER_IDENTIFIER</b> structure, optionally followed by a null-terminated
-     * UTF-16LE instance  name string, followed by padding that makes the size of the block a multiple of 8 bytes.
-     * 
-     * Configure each <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> block in the same way as described in the Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfaddcounters">PerfAddCounters</a>.
-     * 
-     * 
-     * 
-     * <b>PerfDeleteCounters</b> attempts to remove one counter specification from the
-     * query for each <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_identifier">PERF_COUNTER_IDENTIFIER</a> block,  and updates the <b>Status</b> member of the <b>PERF_COUNTER_IDENTIFIER</b> structure in each
-     * block with the result of the attempt.
      * @param {Pointer<Void>} hQuery A handle to the query from which you want to remove performance counter specifications.
      * @param {Pointer} pCounters A pointer to the performance counter specifications that you want to remove.
      * @param {Integer} cbCounters The size of the buffer that the <i>pCounters</i> parameter specifies, in bytes.
@@ -2228,8 +2006,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdeletecounters
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//perflib/nf-perflib-perfdeletecounters
      * @since windows10.0.14393
      */
     static PerfDeleteCounters(hQuery, pCounters, cbCounters) {
@@ -2239,16 +2017,14 @@ class Performance {
 
     /**
      * Returns the version of the currently installed Pdh.dll file.
-     * @remarks
-     * This function is used to help in determining the functionality that the currently installed version of Pdh.dll supports.
      * @param {Pointer<UInt32>} lpdwVersion 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdllversion
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdllversion
      * @since windows5.1.2600
      */
     static PdhGetDllVersion(lpdwVersion) {
@@ -2257,10 +2033,7 @@ class Performance {
     }
 
     /**
-     * Creates a new query that is used to manage the collection of performance data. To use handles to data sources, use the PdhOpenQueryH function. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhOpenQuery as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a new query that is used to manage the collection of performance data. To use handles to data sources, use the PdhOpenQueryH function.
      * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file from which to retrieve performance data. If <b>NULL</b>, performance data is collected from a real-time data source.
      * @param {Pointer} dwUserData User-defined value to associate with this query. To retrieve the user data later, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> and access the <b>dwQueryUserData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a>.
@@ -2269,9 +2042,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenqueryw
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhopenqueryw
      * @since windows5.1.2600
      */
     static PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
@@ -2282,10 +2055,7 @@ class Performance {
     }
 
     /**
-     * Creates a new query that is used to manage the collection of performance data. To use handles to data sources, use the PdhOpenQueryH function. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhOpenQuery as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a new query that is used to manage the collection of performance data. To use handles to data sources, use the PdhOpenQueryH function.
      * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file from which to retrieve performance data. If <b>NULL</b>, performance data is collected from a real-time data source.
      * @param {Pointer} dwUserData User-defined value to associate with this query. To retrieve the user data later, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> and access the <b>dwQueryUserData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a>.
@@ -2294,9 +2064,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenquerya
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhopenquerya
      * @since windows5.1.2600
      */
     static PdhOpenQueryA(szDataSource, dwUserData, phQuery) {
@@ -2307,15 +2077,7 @@ class Performance {
     }
 
     /**
-     * Adds the specified counter to the query. (Unicode)
-     * @remarks
-     * If the counter path contains a wildcard character, all counter names matching the wildcard character are added to the query.
-     * 
-     * If a counter instance is specified that does not yet exist, 
-     * <b>PdhAddCounter</b> does not report an error condition. Instead, it returns ERROR_SUCCESS. The reason for this behavior is that it is not known whether a nonexistent counter instance has been specified or whether one will exist but has not yet been created.
-     * 
-     * To remove the counter from the query, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhremovecounter">PdhRemoveCounter</a> function.
+     * Adds the specified counter to the query.
      * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
      * @param {Pointer<Char>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
@@ -2326,8 +2088,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -2434,7 +2196,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddcounterw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhaddcounterw
      * @since windows5.1.2600
      */
     static PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2445,15 +2207,7 @@ class Performance {
     }
 
     /**
-     * Adds the specified counter to the query. (ANSI)
-     * @remarks
-     * If the counter path contains a wildcard character, all counter names matching the wildcard character are added to the query.
-     * 
-     * If a counter instance is specified that does not yet exist, 
-     * <b>PdhAddCounter</b> does not report an error condition. Instead, it returns ERROR_SUCCESS. The reason for this behavior is that it is not known whether a nonexistent counter instance has been specified or whether one will exist but has not yet been created.
-     * 
-     * To remove the counter from the query, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhremovecounter">PdhRemoveCounter</a> function.
+     * Adds the specified counter to the query.
      * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
      * @param {Pointer<Byte>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
@@ -2464,8 +2218,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -2572,7 +2326,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddcountera
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhaddcountera
      * @since windows5.1.2600
      */
     static PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2583,33 +2337,7 @@ class Performance {
     }
 
     /**
-     * Adds the specified language-neutral counter to the query. (Unicode)
-     * @remarks
-     * This function provides a language-neutral way to add performance counters to the query. In contrast, the counter path that you specify in the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function must be localized. 
-     * 
-     * If a counter instance is specified that does not yet exist, 
-     * <b>PdhAddEnglishCounter</b> does not report an error condition. Instead, it returns ERROR_SUCCESS. The reason for this behavior is that it is not known whether a nonexistent counter instance has been specified or whether one will exist but has not yet been created.
-     * 
-     * To remove the counter from the query, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhremovecounter">PdhRemoveCounter</a> function.
-     * 
-     * <div class="alert"><b>Note</b>  If the counter path contains a wildcard character, the non-wildcard portions of the path will be localized, but wildcards will not be expanded before adding the localized counter path to the query. In this case, you will need use the following procedure to add all matching counter names to the query.  <ol>
-     * <li>Make a query</li>
-     * <li>Use <b>PdhAddEnglishCounter</b> with the string containing wildcards</li>
-     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> on the counter handle returned by  <b>PdhAddEnglishCounter</b> to get a localized full path (<i>szFullPath</i>.) This string still contains wildcards, but the non-wildcard parts are now localized.
-     * </li>
-     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandwildcardpatha">PdhExpandWildCardPath</a> to expand the wildcards.</li>
-     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> on each of the resulting paths
-     * </li>
-     * </ol>
-     * </div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhAddEnglishCounter as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Adds the specified language-neutral counter to the query.
      * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
      * @param {Pointer<Char>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
@@ -2620,8 +2348,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -2728,7 +2456,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddenglishcounterw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhaddenglishcounterw
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2739,33 +2467,7 @@ class Performance {
     }
 
     /**
-     * Adds the specified language-neutral counter to the query. (ANSI)
-     * @remarks
-     * This function provides a language-neutral way to add performance counters to the query. In contrast, the counter path that you specify in the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function must be localized. 
-     * 
-     * If a counter instance is specified that does not yet exist, 
-     * <b>PdhAddEnglishCounter</b> does not report an error condition. Instead, it returns ERROR_SUCCESS. The reason for this behavior is that it is not known whether a nonexistent counter instance has been specified or whether one will exist but has not yet been created.
-     * 
-     * To remove the counter from the query, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhremovecounter">PdhRemoveCounter</a> function.
-     * 
-     * <div class="alert"><b>Note</b>  If the counter path contains a wildcard character, the non-wildcard portions of the path will be localized, but wildcards will not be expanded before adding the localized counter path to the query. In this case, you will need use the following procedure to add all matching counter names to the query.  <ol>
-     * <li>Make a query</li>
-     * <li>Use <b>PdhAddEnglishCounter</b> with the string containing wildcards</li>
-     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> on the counter handle returned by  <b>PdhAddEnglishCounter</b> to get a localized full path (<i>szFullPath</i>.) This string still contains wildcards, but the non-wildcard parts are now localized.
-     * </li>
-     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandwildcardpatha">PdhExpandWildCardPath</a> to expand the wildcards.</li>
-     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> on each of the resulting paths
-     * </li>
-     * </ol>
-     * </div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhAddEnglishCounter as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Adds the specified language-neutral counter to the query.
      * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
      * @param {Pointer<Byte>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
@@ -2776,8 +2478,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -2884,7 +2586,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddenglishcountera
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhaddenglishcountera
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2895,22 +2597,12 @@ class Performance {
     }
 
     /**
-     * Collects the current raw data value for all counters in the specified query and updates the status code of each counter. (PdhCollectQueryDataWithTime)
-     * @remarks
-     * Call this function when you want to collect counter data for the counters in the query. PDH stores the raw counter values for the current and previous collection. 
-     * 
-     * If you want to retrieve the current raw counter value, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> function. If you want to compute a displayable value for the counter value, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a>. If the counter path contains a wildcard for the instance name, instead call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcounterarraya">PdhGetRawCounterArray</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcounterarraya">PdhGetFormattedCounterArray</a> functions, respectively.
-     * 
-     * When 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcollectquerydataex">PdhCollectQueryDataEx</a> is called for data from one counter instance only, and the counter instance does not exist, the function returns PDH_NO_DATA. However, if data from more than one counter is queried, 
-     * <b>PdhCollectQueryDataEx</b> may return ERROR_SUCCESS even if one of the counter instances does not yet exist. This is because it is not known if the specified counter instance does not exist, or if it will exist but has not yet been created. In this case, call 
-     * the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a> function for each of the counter instances of interest to determine whether they exist.
+     * Collects the current raw data value for all counters in the specified query and updates the status code of each counter.
      * @param {Pointer<Void>} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @param {Pointer<Int64>} pllTimeStamp Time stamp when the first counter value in the query was retrieved. The time is specified as FILETIME.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 						
      * 					
      * 
@@ -2947,7 +2639,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcollectquerydatawithtime
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhcollectquerydatawithtime
      * @since windows6.0.6000
      */
     static PdhCollectQueryDataWithTime(hQuery, pllTimeStamp) {
@@ -2956,10 +2648,7 @@ class Performance {
     }
 
     /**
-     * Validates that the specified counter is present on the computer or in the log file. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhValidatePathEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Validates that the specified counter is present on the computer or in the log file.
      * @param {Pointer<Void>} hDataSource Handle to the data source. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> functions return this handle. 
      * 
      * To validate that the counter is present on the local computer, specify <b>NULL</b> (this is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhvalidatepatha">PdhValidatePath</a>).
@@ -2968,8 +2657,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3043,7 +2732,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepathexw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhvalidatepathexw
      * @since windows6.0.6000
      */
     static PdhValidatePathExW(hDataSource, szFullPathBuffer) {
@@ -3054,10 +2743,7 @@ class Performance {
     }
 
     /**
-     * Validates that the specified counter is present on the computer or in the log file. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhValidatePathEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Validates that the specified counter is present on the computer or in the log file.
      * @param {Pointer<Void>} hDataSource Handle to the data source. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> functions return this handle. 
      * 
      * To validate that the counter is present on the local computer, specify <b>NULL</b> (this is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhvalidatepatha">PdhValidatePath</a>).
@@ -3066,8 +2752,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3141,7 +2827,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepathexa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhvalidatepathexa
      * @since windows6.0.6000
      */
     static PdhValidatePathExA(hDataSource, szFullPathBuffer) {
@@ -3153,26 +2839,14 @@ class Performance {
 
     /**
      * Removes a counter from a query.
-     * @remarks
-     * Do not use the counter handle after removing the counter from the query.
-     * 
-     * The following shows the syntax if calling this function from Visual Basic.
-     * 
-     * 
-     * ``` syntax
-     * PdhRemoveCounter(
-     *   ByVal CounterHandle as Long  
-     * )
-     * as Long
-     * ```
      * @param {Pointer<Void>} hCounter Handle of the counter to remove from its query. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * 
      * The following is a possible value.
@@ -3196,7 +2870,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhremovecounter
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhremovecounter
      * @since windows5.1.2600
      */
     static PdhRemoveCounter(hCounter) {
@@ -3205,31 +2879,11 @@ class Performance {
     }
 
     /**
-     * Collects the current raw data value for all counters in the specified query and updates the status code of each counter. (PdhCollectQueryData)
-     * @remarks
-     * Call this function when you want to collect counter data for the counters in the query. PDH stores the raw counter values for the current and previous collection. 
-     * 
-     * If you want to retrieve the current raw counter value, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> function. If you want to compute a displayable value for the counter value, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a> function. If the counter path contains a wildcard for the instance name, instead call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcounterarraya">PdhGetRawCounterArray</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcounterarraya">PdhGetFormattedCounterArray</a> functions, respectively.
-     * 
-     * When 
-     * <b>PdhCollectQueryData</b> is called for data from one counter instance only and the counter instance does not exist, the function returns PDH_NO_DATA. However, if data from more than one counter is queried, 
-     * <b>PdhCollectQueryData</b> may return ERROR_SUCCESS even if one of the counter instances does not yet exist. This is because it is not known if the specified counter instance does not exist, or if it will exist but has not yet been created. In this case, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a> for each of the counter instances of interest to determine whether they exist.
-     * 
-     * The following shows the syntax if calling this function from Visual Basic.
-     * 
-     * 
-     * ``` syntax
-     * PdhCollectQueryData(
-     *   ByVal QueryHandle as Long  
-     * )
-     * as Long
-     * ```
+     * Collects the current raw data value for all counters in the specified query and updates the status code of each counter.
      * @param {Pointer<Void>} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 						
      * 					
      * 
@@ -3261,12 +2915,12 @@ class Performance {
      * </dl>
      * </td>
      * <td width="60%">
-     * The query does not currently contain any counters. The query may not contain data because the user is not running with an elevated token (see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/limited-user-access-support">Limited User Access Support</a>).
+     * The query does not currently contain any counters. The query may not contain data because the user is not running with an elevated token (see <a href="/windows/desktop/PerfCtrs/limited-user-access-support">Limited User Access Support</a>).
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcollectquerydata
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhcollectquerydata
      * @since windows5.1.2600
      */
     static PdhCollectQueryData(hQuery) {
@@ -3276,23 +2930,11 @@ class Performance {
 
     /**
      * Closes all counters contained in the specified query, closes all handles related to the query, and frees all memory associated with the query.
-     * @remarks
-     * Do not use the counter handles associated with this query after calling this function.
-     * 
-     * The following shows the syntax if calling this function from Visual Basic.
-     * 
-     * 
-     * ``` syntax
-     * PdhCloseQuery(
-     *   ByVal QueryHandle as Long  
-     * )
-     * as Long
-     * ```
      * @param {Pointer<Void>} hQuery Handle to the query to close. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 						
      * 					
      * 
@@ -3318,7 +2960,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhclosequery
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhclosequery
      * @since windows5.1.2600
      */
     static PdhCloseQuery(hQuery) {
@@ -3328,18 +2970,6 @@ class Performance {
 
     /**
      * Computes a displayable value for the specified counter.
-     * @remarks
-     * The data for the counter is locked (protected) for the duration of the call to 
-     * <b>PdhGetFormattedCounterValue</b> to prevent any changes during the processing of the call. Reading the data (calling this function successfully) clears the data-changed flag for the counter.
-     * 
-     * Some counters, such as rate counters, require two counter values in order to compute a displayable value. In this case you must call <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcollectquerydata">PdhCollectQueryData</a> twice before calling 
-     * <b>PdhGetFormattedCounterValue</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/collecting-performance-data">Collecting Performance Data</a>. 
-     * 
-     * If 
-     * the specified counter instance does not exist, the method will return PDH_INVALID_DATA and set the <b>CStatus</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_fmt_countervalue">PDH_FMT_COUNTERVALUE</a> structure to PDH_CSTATUS_NO_INSTANCE.
-     * 
-     * <b>Prior to Windows Server 2003:  </b>The format call may fail for counters that require only a single value when the instance is not found. Try calling the query and format calls again. If the format call fails the second time, the instance is not found. As an alternative, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhenumobjectsa">PdhEnumObjects</a> function with the refresh option set to <b>TRUE</b> to refresh the counter instances before querying and formatting the counter data.
      * @param {Pointer<Void>} hCounter Handle of the counter for which you want to compute a displayable value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
@@ -3350,8 +2980,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3392,7 +3022,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetformattedcountervalue
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetformattedcountervalue
      * @since windows5.1.2600
      */
     static PdhGetFormattedCounterValue(hCounter, dwFormat, lpdwType, pValue) {
@@ -3401,12 +3031,7 @@ class Performance {
     }
 
     /**
-     * Returns an array of formatted counter values. Use this function when you want to format the counter values of a counter that contains a wildcard character for the instance name. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>ItemBuffer</i> to <b>NULL</b> and <i>lpdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * The data for the counter is locked for the duration of the call to 
-     * <b>PdhGetFormattedCounterArray</b> to prevent any changes during the processing of the call.
+     * Returns an array of formatted counter values. Use this function when you want to format the counter values of a counter that contains a wildcard character for the instance name.
      * @param {Pointer<Void>} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
@@ -3418,8 +3043,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3460,7 +3085,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetformattedcounterarraya
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetformattedcounterarraya
      * @since windows5.1.2600
      */
     static PdhGetFormattedCounterArrayA(hCounter, dwFormat, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3469,12 +3094,7 @@ class Performance {
     }
 
     /**
-     * Returns an array of formatted counter values. Use this function when you want to format the counter values of a counter that contains a wildcard character for the instance name. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>ItemBuffer</i> to <b>NULL</b> and <i>lpdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * The data for the counter is locked for the duration of the call to 
-     * <b>PdhGetFormattedCounterArray</b> to prevent any changes during the processing of the call.
+     * Returns an array of formatted counter values. Use this function when you want to format the counter values of a counter that contains a wildcard character for the instance name.
      * @param {Pointer<Void>} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
@@ -3486,8 +3106,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3528,7 +3148,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetformattedcounterarrayw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetformattedcounterarrayw
      * @since windows5.1.2600
      */
     static PdhGetFormattedCounterArrayW(hCounter, dwFormat, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3538,13 +3158,6 @@ class Performance {
 
     /**
      * Returns the current raw value of the counter.
-     * @remarks
-     * The data for the counter is locked (protected) for the duration of the call to 
-     * <b>PdhGetRawCounterValue</b> to prevent any changes during processing of the call.
-     * 
-     * If 
-     * the specified counter instance does not exist, this function will return ERROR_SUCCESS and the <b>CStatus</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a> structure will contain PDH_CSTATUS_NO_INSTANCE.
      * @param {Pointer<Void>} hCounter Handle of the counter from which to retrieve the current raw value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<UInt32>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
@@ -3554,8 +3167,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3585,7 +3198,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetrawcountervalue
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetrawcountervalue
      * @since windows5.1.2600
      */
     static PdhGetRawCounterValue(hCounter, lpdwType, pValue) {
@@ -3594,19 +3207,7 @@ class Performance {
     }
 
     /**
-     * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>ItemBuffer</i> to <b>NULL</b> and <i>lpdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * The data for the counter is locked for the duration of the call to 
-     * <b>PdhGetRawCounterArray</b> to prevent any changes during processing of the call.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetRawCounterArray as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name.
      * @param {Pointer<Void>} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -3617,8 +3218,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3659,7 +3260,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetrawcounterarraya
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetrawcounterarraya
      * @since windows5.1.2600
      */
     static PdhGetRawCounterArrayA(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3668,19 +3269,7 @@ class Performance {
     }
 
     /**
-     * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>ItemBuffer</i> to <b>NULL</b> and <i>lpdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * The data for the counter is locked for the duration of the call to 
-     * <b>PdhGetRawCounterArray</b> to prevent any changes during processing of the call.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetRawCounterArray as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name.
      * @param {Pointer<Void>} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -3691,8 +3280,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3733,7 +3322,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetrawcounterarrayw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetrawcounterarrayw
      * @since windows5.1.2600
      */
     static PdhGetRawCounterArrayW(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3743,8 +3332,6 @@ class Performance {
 
     /**
      * Calculates the displayable value of two raw counter values.
-     * @remarks
-     * To retrieve the current raw counter value from the query, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> function.
      * @param {Pointer<Void>} hCounter Handle to the counter to calculate. The function uses information from the counter to determine how to calculate the value. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function.
      * @param {Integer} dwFormat 
@@ -3756,8 +3343,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3787,7 +3374,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcalculatecounterfromrawvalue
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhcalculatecounterfromrawvalue
      * @since windows5.1.2600
      */
     static PdhCalculateCounterFromRawValue(hCounter, dwFormat, rawValue1, rawValue2, fmtValue) {
@@ -3811,8 +3398,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3842,7 +3429,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcomputecounterstatistics
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhcomputecounterstatistics
      * @since windows5.1.2600
      */
     static PdhComputeCounterStatistics(hCounter, dwFormat, dwFirstEntry, dwNumEntries, lpRawValueArray, data) {
@@ -3851,16 +3438,7 @@ class Performance {
     }
 
     /**
-     * Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>lpBuffer</i> to <b>NULL</b> and <i>pdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetCounterInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values.
      * @param {Pointer<Void>} hCounter Handle of the counter from which you want to retrieve information. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
@@ -3871,8 +3449,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3913,7 +3491,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetcounterinfow
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetcounterinfow
      * @since windows5.1.2600
      */
     static PdhGetCounterInfoW(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
@@ -3922,16 +3500,7 @@ class Performance {
     }
 
     /**
-     * Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>lpBuffer</i> to <b>NULL</b> and <i>pdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetCounterInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values.
      * @param {Pointer<Void>} hCounter Handle of the counter from which you want to retrieve information. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
@@ -3942,8 +3511,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -3984,7 +3553,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetcounterinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetcounterinfoa
      * @since windows5.1.2600
      */
     static PdhGetCounterInfoA(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
@@ -4001,8 +3570,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4032,7 +3601,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhsetcounterscalefactor
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhsetcounterscalefactor
      * @since windows5.1.2600
      */
     static PdhSetCounterScaleFactor(hCounter, lFactor) {
@@ -4041,25 +3610,14 @@ class Performance {
     }
 
     /**
-     * Connects to the specified computer. (Unicode)
-     * @remarks
-     * Typically, applications do not call this function and instead the connection is made when the application adds the counter to the query.
-     * 
-     * However, you can use this function if you want to include more than the local computer in the <b>Select counters from computer</b> list on the <b>Browse Counters</b> dialog box. For details, see the <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_a">PDH_BROWSE_DLG_CONFIG</a> structure.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhConnectMachine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Connects to the specified computer.
      * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer to connect to. If <b>NULL</b>, PDH connects to the local computer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4089,7 +3647,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhconnectmachinew
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhconnectmachinew
      * @since windows5.1.2600
      */
     static PdhConnectMachineW(szMachineName) {
@@ -4100,25 +3658,14 @@ class Performance {
     }
 
     /**
-     * Connects to the specified computer. (ANSI)
-     * @remarks
-     * Typically, applications do not call this function and instead the connection is made when the application adds the counter to the query.
-     * 
-     * However, you can use this function if you want to include more than the local computer in the <b>Select counters from computer</b> list on the <b>Browse Counters</b> dialog box. For details, see the <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_a">PDH_BROWSE_DLG_CONFIG</a> structure.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhConnectMachine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Connects to the specified computer.
      * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer to connect to. If <b>NULL</b>, PDH connects to the local computer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4148,7 +3695,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhconnectmachinea
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhconnectmachinea
      * @since windows5.1.2600
      */
     static PdhConnectMachineA(szMachineName) {
@@ -4159,16 +3706,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of the computer names associated with counters in a log file. (PdhEnumMachinesW)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszMachineNameList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumMachines as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of the computer names associated with counters in a log file.
      * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
      * @param {Pointer<Char>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4176,8 +3714,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4207,7 +3745,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachinesw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenummachinesw
      * @since windows5.1.2600
      */
     static PdhEnumMachinesW(szDataSource, mszMachineList, pcchBufferSize) {
@@ -4219,16 +3757,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of the computer names associated with counters in a log file. (PdhEnumMachinesA)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszMachineNameList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumMachines as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of the computer names associated with counters in a log file.
      * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
      * @param {Pointer<Byte>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4236,8 +3765,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4267,7 +3796,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachinesa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenummachinesa
      * @since windows5.1.2600
      */
     static PdhEnumMachinesA(szDataSource, mszMachineList, pcchBufferSize) {
@@ -4279,16 +3808,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of objects available on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectsH function. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszObjectList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumObjects as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of objects available on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectsH function.
      * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the performance objects. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
@@ -4309,8 +3829,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4362,7 +3882,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectsw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectsw
      * @since windows5.1.2600
      */
     static PdhEnumObjectsW(szDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -4375,16 +3895,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of objects available on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectsH function. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszObjectList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumObjects as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of objects available on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectsH function.
      * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the performance objects. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
@@ -4405,8 +3916,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4458,7 +3969,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectsa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectsa
      * @since windows5.1.2600
      */
     static PdhEnumObjectsA(szDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -4471,17 +3982,7 @@ class Performance {
     }
 
     /**
-     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectItemsH function. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set the buffers to <b>NULL</b> and the sizes to 0), and the second time to get the data.
-     * 
-     * Consecutive calls to this function will return identical lists of counters and instances, because 
-     * <b>PdhEnumObjectItems</b> will always query the list of performance objects defined by the last call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhenumobjectsa">PdhEnumObjects</a> or <b>PdhEnumObjectItems</b>. To refresh the list of performance objects, call 
-     * <b>PdhEnumObjects</b> with a <i>bRefresh</i> flag value of <b>TRUE</b> before calling 
-     * <b>PdhEnumObjectItems</b> again.
-     * 
-     * The order of the instance and counter names is undetermined.
+     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectItemsH function.
      * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the counter and instance names. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
@@ -4493,7 +3994,7 @@ class Performance {
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {Pointer<Char>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
-     * @param {Pointer<Char>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
+     * @param {Pointer<Char>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
      * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<Char>} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4505,8 +4006,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4569,7 +4070,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemsw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectitemsw
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsW(szDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -4584,17 +4085,7 @@ class Performance {
     }
 
     /**
-     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectItemsH function. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set the buffers to <b>NULL</b> and the sizes to 0), and the second time to get the data.
-     * 
-     * Consecutive calls to this function will return identical lists of counters and instances, because 
-     * <b>PdhEnumObjectItems</b> will always query the list of performance objects defined by the last call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhenumobjectsa">PdhEnumObjects</a> or <b>PdhEnumObjectItems</b>. To refresh the list of performance objects, call 
-     * <b>PdhEnumObjects</b> with a <i>bRefresh</i> flag value of <b>TRUE</b> before calling 
-     * <b>PdhEnumObjectItems</b> again.
-     * 
-     * The order of the instance and counter names is undetermined.
+     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectItemsH function.
      * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the counter and instance names. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
@@ -4606,7 +4097,7 @@ class Performance {
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {Pointer<Byte>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
-     * @param {Pointer<Byte>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
+     * @param {Pointer<Byte>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
      * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<Byte>} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4618,8 +4109,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4682,7 +4173,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemsa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectitemsa
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsA(szDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -4697,16 +4188,7 @@ class Performance {
     }
 
     /**
-     * Creates a full counter path using the members specified in the PDH_COUNTER_PATH_ELEMENTS structure. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szFullPathBuffer</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhMakeCounterPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a full counter path using the members specified in the PDH_COUNTER_PATH_ELEMENTS structure.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_W>} pCounterPathElements A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure that contains the members used to make up the path. Only the <b>szObjectName</b> and <b>szCounterName</b> members are required, the others are optional. 
      * 
@@ -4720,8 +4202,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4751,7 +4233,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhmakecounterpathw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhmakecounterpathw
      * @since windows5.1.2600
      */
     static PdhMakeCounterPathW(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
@@ -4762,16 +4244,7 @@ class Performance {
     }
 
     /**
-     * Creates a full counter path using the members specified in the PDH_COUNTER_PATH_ELEMENTS structure. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szFullPathBuffer</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhMakeCounterPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a full counter path using the members specified in the PDH_COUNTER_PATH_ELEMENTS structure.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_A>} pCounterPathElements A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure that contains the members used to make up the path. Only the <b>szObjectName</b> and <b>szCounterName</b> members are required, the others are optional. 
      * 
@@ -4785,8 +4258,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4816,7 +4289,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhmakecounterpatha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhmakecounterpatha
      * @since windows5.1.2600
      */
     static PdhMakeCounterPathA(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
@@ -4827,16 +4300,7 @@ class Performance {
     }
 
     /**
-     * Parses the elements of the counter path and stores the results in the PDH_COUNTER_PATH_ELEMENTS structure. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>pCounterPathElements</i> to <b>NULL</b> and <i>pdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhParseCounterPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Parses the elements of the counter path and stores the results in the PDH_COUNTER_PATH_ELEMENTS structure.
      * @param {Pointer<Char>} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_W>} pCounterPathElements Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure. The structure contains pointers to the individual string elements of the path referenced by the <i>szFullPathBuffer</i> parameter. The function appends the strings to the end of the <b>PDH_COUNTER_PATH_ELEMENTS</b> structure. The allocated buffer should be large enough for the structure and the strings. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
@@ -4846,8 +4310,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4899,7 +4363,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparsecounterpathw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhparsecounterpathw
      * @since windows5.1.2600
      */
     static PdhParseCounterPathW(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
@@ -4910,16 +4374,7 @@ class Performance {
     }
 
     /**
-     * Parses the elements of the counter path and stores the results in the PDH_COUNTER_PATH_ELEMENTS structure. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>pCounterPathElements</i> to <b>NULL</b> and <i>pdwBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhParseCounterPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Parses the elements of the counter path and stores the results in the PDH_COUNTER_PATH_ELEMENTS structure.
      * @param {Pointer<Byte>} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_A>} pCounterPathElements Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure. The structure contains pointers to the individual string elements of the path referenced by the <i>szFullPathBuffer</i> parameter. The function appends the strings to the end of the <b>PDH_COUNTER_PATH_ELEMENTS</b> structure. The allocated buffer should be large enough for the structure and the strings. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
@@ -4929,8 +4384,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -4982,7 +4437,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparsecounterpatha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhparsecounterpatha
      * @since windows5.1.2600
      */
     static PdhParseCounterPathA(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
@@ -4993,16 +4448,7 @@ class Performance {
     }
 
     /**
-     * Parses the elements of an instance string. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set the buffers to <b>NULL</b> and buffer sizes to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhParseInstanceName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Parses the elements of an instance string.
      * @param {Pointer<Char>} szInstanceString <b>Null</b>-terminated string that specifies the instance string to parse into individual components. This string can contain the following formats, and is less than MAX_PATH characters in length: 
      * 
      * 
@@ -5023,8 +4469,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5065,7 +4511,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparseinstancenamew
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhparseinstancenamew
      * @since windows5.1.2600
      */
     static PdhParseInstanceNameW(szInstanceString, szInstanceName, pcchInstanceNameLength, szParentName, pcchParentNameLength, lpIndex) {
@@ -5078,16 +4524,7 @@ class Performance {
     }
 
     /**
-     * Parses the elements of an instance string. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set the buffers to <b>NULL</b> and buffer sizes to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhParseInstanceName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Parses the elements of an instance string.
      * @param {Pointer<Byte>} szInstanceString <b>Null</b>-terminated string that specifies the instance string to parse into individual components. This string can contain the following formats, and is less than MAX_PATH characters in length: 
      * 
      * 
@@ -5108,8 +4545,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5150,7 +4587,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparseinstancenamea
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhparseinstancenamea
      * @since windows5.1.2600
      */
     static PdhParseInstanceNameA(szInstanceString, szInstanceName, pcchInstanceNameLength, szParentName, pcchParentNameLength, lpIndex) {
@@ -5163,17 +4600,14 @@ class Performance {
     }
 
     /**
-     * Validates that the counter is present on the computer specified in the counter path. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhValidatePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Validates that the counter is present on the computer specified in the counter path.
      * @param {Pointer<Char>} szFullPathBuffer Null-terminated string that contains the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5247,7 +4681,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepathw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhvalidatepathw
      * @since windows5.1.2600
      */
     static PdhValidatePathW(szFullPathBuffer) {
@@ -5258,17 +4692,14 @@ class Performance {
     }
 
     /**
-     * Validates that the counter is present on the computer specified in the counter path. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhValidatePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Validates that the counter is present on the computer specified in the counter path.
      * @param {Pointer<Byte>} szFullPathBuffer Null-terminated string that contains the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5342,7 +4773,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepatha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhvalidatepatha
      * @since windows5.1.2600
      */
     static PdhValidatePathA(szFullPathBuffer) {
@@ -5353,16 +4784,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default object. This name can be used to set the initial object selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfObjectH function. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultObjectName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfObject as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default object. This name can be used to set the initial object selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfObjectH function.
      * @param {Pointer<Char>} szDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file, the <i>szDefaultObjectName</i> parameter will be a <b>null</b> string.
@@ -5375,8 +4797,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5428,7 +4850,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjectw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfobjectw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectW(szDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -5441,16 +4863,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default object. This name can be used to set the initial object selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfObjectH function. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultObjectName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfObject as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default object. This name can be used to set the initial object selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfObjectH function.
      * @param {Pointer<Byte>} szDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file, the <i>szDefaultObjectName</i> parameter will be a <b>null</b> string.
@@ -5463,8 +4876,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5516,7 +4929,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjecta
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfobjecta
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectA(szDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -5529,16 +4942,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default counter for the specified object. This name can be used to set the initial counter selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfCounterH function. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultCounterName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfCounter as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default counter for the specified object. This name can be used to set the initial counter selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfCounterH function.
      * @param {Pointer<Char>} szDataSource Should be <b>NULL</b>. 
      * 
      * 
@@ -5551,8 +4955,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5637,7 +5041,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcounterw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfcounterw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterW(szDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -5651,16 +5055,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default counter for the specified object. This name can be used to set the initial counter selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfCounterH function. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultCounterName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfCounter as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default counter for the specified object. This name can be used to set the initial counter selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfCounterH function.
      * @param {Pointer<Byte>} szDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file, <i>szDefaultCounterName</i> will be a <b>null</b> string.
@@ -5672,8 +5067,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -5758,7 +5153,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcountera
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfcountera
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterA(szDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -5772,21 +5167,16 @@ class Performance {
     }
 
     /**
-     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. To use handles to data sources, use the PdhBrowseCountersH function. (Unicode)
-     * @remarks
-     * Note that the dialog
-     *    box can return PDH_DIALOG_CANCELLED if <b>bSingleCounterPerDialog</b> is <b>FALSE</b> and the user clicks the  <b>Close</b> button, so your error handling would have to account for this.
-     * 
-     * For information on using this function, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/browsing-counters">Browsing Counters</a>.
+     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. To use handles to data sources, use the PdhBrowseCountersH function.
      * @param {Pointer<PDH_BROWSE_DLG_CONFIG_W>} pBrowseDlgData A 
      * <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_a">PDH_BROWSE_DLG_CONFIG</a> structure that specifies the behavior of the dialog box.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountersw
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhbrowsecountersw
      * @since windows5.1.2600
      */
     static PdhBrowseCountersW(pBrowseDlgData) {
@@ -5795,21 +5185,16 @@ class Performance {
     }
 
     /**
-     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. To use handles to data sources, use the PdhBrowseCountersH function. (ANSI)
-     * @remarks
-     * Note that the dialog
-     *    box can return PDH_DIALOG_CANCELLED if <b>bSingleCounterPerDialog</b> is <b>FALSE</b> and the user clicks the  <b>Close</b> button, so your error handling would have to account for this.
-     * 
-     * For information on using this function, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/browsing-counters">Browsing Counters</a>.
+     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. To use handles to data sources, use the PdhBrowseCountersH function.
      * @param {Pointer<PDH_BROWSE_DLG_CONFIG_A>} pBrowseDlgData A 
      * <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_a">PDH_BROWSE_DLG_CONFIG</a> structure that specifies the behavior of the dialog box.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountersa
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhbrowsecountersa
      * @since windows5.1.2600
      */
     static PdhBrowseCountersA(pBrowseDlgData) {
@@ -5818,45 +5203,7 @@ class Performance {
     }
 
     /**
-     * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszExpandedPathList</i> to <b>NULL</b> and <i>pcchPathListLength</i> to 0), and the second time to get the data.
-     * 
-     * The general counter path format is as follows:
-     * 
-     * \\computer\object(parent/instance#index)\counter
-     * 
-     * The parent, instance, index, and counter components of the counter path may contain either a valid name or a wildcard character. The computer, parent, instance, and index components are not necessary for all counters.
-     * 
-     * The counter paths that you must use is determined by the counter itself. For example, the LogicalDisk object has an instance index, so you must provide the #index, or a wildcard. Therefore, you could use the following format:
-     * 
-     * \LogicalDisk(/#*)\*
-     * 
-     * In comparison, the Process object does not require an instance index. Therefore, you could use the following format:
-     * 
-     * \Process(*)\ID Process
-     * 
-     * The following is a list of the possible formats:
-     * 
-     * <ul>
-     * <li>\\computer\object(parent/instance#index)\counter</li>
-     * <li>\\computer\object(parent/instance)\counter</li>
-     * <li>\\computer\object(instance#index)\counter</li>
-     * <li>\\computer\object(instance)\counter</li>
-     * <li>\\computer\object\counter</li>
-     * <li>\object(parent/instance#index)\counter</li>
-     * <li>\object(parent/instance)\counter</li>
-     * <li>\object(instance#index)\counter</li>
-     * <li>\object(instance)\counter</li>
-     * <li>\object\counter</li>
-     * </ul>
-     * If a wildcard character is specified in the parent name, all instances of the specified object that match the specified instance and counter fields will be returned.
-     * 
-     * If a wildcard character is specified in the instance name, all instances of the specified object and parent object will be returned if all instance names corresponding to the specified index match the wildcard character.
-     * 
-     * If a wildcard character is specified in the counter name, all counters of the specified object are returned.
-     * 
-     * Partial counter path string matches (for example, "pro*") are not supported.
+     * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path.
      * @param {Pointer<Char>} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<Char>} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -5867,8 +5214,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * <table>
      * <tr>
@@ -5909,7 +5256,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandcounterpathw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhexpandcounterpathw
      * @since windows5.1.2600
      */
     static PdhExpandCounterPathW(szWildCardPath, mszExpandedPathList, pcchPathListLength) {
@@ -5921,45 +5268,7 @@ class Performance {
     }
 
     /**
-     * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszExpandedPathList</i> to <b>NULL</b> and <i>pcchPathListLength</i> to 0), and the second time to get the data.
-     * 
-     * The general counter path format is as follows:
-     * 
-     * \\computer\object(parent/instance#index)\counter
-     * 
-     * The parent, instance, index, and counter components of the counter path may contain either a valid name or a wildcard character. The computer, parent, instance, and index components are not necessary for all counters.
-     * 
-     * The counter paths that you must use is determined by the counter itself. For example, the LogicalDisk object has an instance index, so you must provide the #index, or a wildcard. Therefore, you could use the following format:
-     * 
-     * \LogicalDisk(/#*)\*
-     * 
-     * In comparison, the Process object does not require an instance index. Therefore, you could use the following format:
-     * 
-     * \Process(*)\ID Process
-     * 
-     * The following is a list of the possible formats:
-     * 
-     * <ul>
-     * <li>\\computer\object(parent/instance#index)\counter</li>
-     * <li>\\computer\object(parent/instance)\counter</li>
-     * <li>\\computer\object(instance#index)\counter</li>
-     * <li>\\computer\object(instance)\counter</li>
-     * <li>\\computer\object\counter</li>
-     * <li>\object(parent/instance#index)\counter</li>
-     * <li>\object(parent/instance)\counter</li>
-     * <li>\object(instance#index)\counter</li>
-     * <li>\object(instance)\counter</li>
-     * <li>\object\counter</li>
-     * </ul>
-     * If a wildcard character is specified in the parent name, all instances of the specified object that match the specified instance and counter fields will be returned.
-     * 
-     * If a wildcard character is specified in the instance name, all instances of the specified object and parent object will be returned if all instance names corresponding to the specified index match the wildcard character.
-     * 
-     * If a wildcard character is specified in the counter name, all counters of the specified object are returned.
-     * 
-     * Partial counter path string matches (for example, "pro*") are not supported.
+     * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path.
      * @param {Pointer<Byte>} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<Byte>} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -5970,8 +5279,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * <table>
      * <tr>
@@ -6012,7 +5321,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandcounterpatha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhexpandcounterpatha
      * @since windows5.1.2600
      */
     static PdhExpandCounterPathA(szWildCardPath, mszExpandedPathList, pcchPathListLength) {
@@ -6024,34 +5333,7 @@ class Performance {
     }
 
     /**
-     * Returns the performance object name or counter name corresponding to the specified index. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szNameBuffer</i> to <b>NULL</b> and <i>pcchNameBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * <b>Windows XP:  </b>You must specify a buffer and buffer size. The function sets <i>pcchNameBufferSize</i> to either the required size or the size of the buffer that was used. If the buffer is too small, the function returns PDH_INSUFFICIENT_BUFFER instead of PDH_MORE_DATA. The maximum string size in bytes is PDH_MAX_COUNTER_NAME * sizeof(TCHAR).
-     * 
-     * The index value that you specify must match one of the index values associated with the objects or counters that were loaded on the computer. The index/name value pairs are stored in the <b>Counters</b> registry value in the following registry location.<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>\SOFTWARE</b>
-     *       <b>\Microsoft</b>
-     *          <b>\Windows NT</b>
-     *             <b>\CurrentVersion</b>
-     *                <b>\Perflib</b>
-     *                   <b>Last Counter<i> = highest counter index</i></b>
-     *                   <b>Last Help<i> = highest help index</i></b>
-     *                   <b>\009</b>
-     *                      <b>Counters<b> = 2 System 4 Memory...</b></b>
-     *                      <b>Help<b> = 3 The System Object Type...</b></b>
-     *                   <i>\supported language, other than English</i>
-     *                      <b>Counters = ...</b>
-     *                      <b>Help = ...</b></pre>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhLookupPerfNameByIndex as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the performance object name or counter name corresponding to the specified index.
      * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Integer} dwNameIndex Index of the performance object or counter.
      * @param {Pointer<Char>} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
@@ -6060,8 +5342,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -6091,7 +5373,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfnamebyindexw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhlookupperfnamebyindexw
      * @since windows5.1.2600
      */
     static PdhLookupPerfNameByIndexW(szMachineName, dwNameIndex, szNameBuffer, pcchNameBufferSize) {
@@ -6103,34 +5385,7 @@ class Performance {
     }
 
     /**
-     * Returns the performance object name or counter name corresponding to the specified index. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szNameBuffer</i> to <b>NULL</b> and <i>pcchNameBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * <b>Windows XP:  </b>You must specify a buffer and buffer size. The function sets <i>pcchNameBufferSize</i> to either the required size or the size of the buffer that was used. If the buffer is too small, the function returns PDH_INSUFFICIENT_BUFFER instead of PDH_MORE_DATA. The maximum string size in bytes is PDH_MAX_COUNTER_NAME * sizeof(TCHAR).
-     * 
-     * The index value that you specify must match one of the index values associated with the objects or counters that were loaded on the computer. The index/name value pairs are stored in the <b>Counters</b> registry value in the following registry location.<pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>\SOFTWARE</b>
-     *       <b>\Microsoft</b>
-     *          <b>\Windows NT</b>
-     *             <b>\CurrentVersion</b>
-     *                <b>\Perflib</b>
-     *                   <b>Last Counter<i> = highest counter index</i></b>
-     *                   <b>Last Help<i> = highest help index</i></b>
-     *                   <b>\009</b>
-     *                      <b>Counters<b> = 2 System 4 Memory...</b></b>
-     *                      <b>Help<b> = 3 The System Object Type...</b></b>
-     *                   <i>\supported language, other than English</i>
-     *                      <b>Counters = ...</b>
-     *                      <b>Help = ...</b></pre>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhLookupPerfNameByIndex as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the performance object name or counter name corresponding to the specified index.
      * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Integer} dwNameIndex Index of the performance object or counter.
      * @param {Pointer<Byte>} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
@@ -6139,8 +5394,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -6170,7 +5425,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfnamebyindexa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhlookupperfnamebyindexa
      * @since windows5.1.2600
      */
     static PdhLookupPerfNameByIndexA(szMachineName, dwNameIndex, szNameBuffer, pcchNameBufferSize) {
@@ -6182,10 +5437,7 @@ class Performance {
     }
 
     /**
-     * Returns the counter index corresponding to the specified counter name. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhLookupPerfIndexByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the counter index corresponding to the specified counter name.
      * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Pointer<Char>} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
      * @param {Pointer<UInt32>} pdwIndex Index of the counter.
@@ -6193,8 +5445,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
      * 
      * <table>
      * <tr>
@@ -6213,7 +5465,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfindexbynamew
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhlookupperfindexbynamew
      * @since windows5.1.2600
      */
     static PdhLookupPerfIndexByNameW(szMachineName, szNameBuffer, pdwIndex) {
@@ -6225,10 +5477,7 @@ class Performance {
     }
 
     /**
-     * Returns the counter index corresponding to the specified counter name. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhLookupPerfIndexByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the counter index corresponding to the specified counter name.
      * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Pointer<Byte>} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
      * @param {Pointer<UInt32>} pdwIndex Index of the counter.
@@ -6236,8 +5485,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
      * 
      * <table>
      * <tr>
@@ -6256,7 +5505,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfindexbynamea
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhlookupperfindexbynamea
      * @since windows5.1.2600
      */
     static PdhLookupPerfIndexByNameA(szMachineName, szNameBuffer, pdwIndex) {
@@ -6268,55 +5517,7 @@ class Performance {
     }
 
     /**
-     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters. To use handles to data sources, use the PdhExpandWildCardPathH function. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszExpandedPathList</i> to <b>NULL</b> and <i>pcchPathListLength</i> to 0), and the second time to get the data.
-     * 
-     * <b>PdhExpandWildCardPath</b> differs from 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandcounterpatha">PdhExpandCounterPath</a> in the following ways:
-     * 
-     * <ol>
-     * <li>Lets you control which wildcard characters are expanded.</li>
-     * <li>The contents of a log file can be used as the source of counter names. </li>
-     * </ol>
-     * The general counter path format is as follows:
-     * 
-     * \\computer\object(parent/instance#index)\counter
-     * 
-     * The parent, instance, index, and counter components of the counter path may contain either a valid name or a wildcard character. The computer, parent, instance, and index components are not necessary for all counters.
-     * 
-     * The following is a list of the possible formats:
-     * 
-     * <ul>
-     * <li>\\computer\object(parent/instance#index)\counter</li>
-     * <li>\\computer\object(parent/instance)\counter</li>
-     * <li>\\computer\object(instance#index)\counter</li>
-     * <li>\\computer\object(instance)\counter</li>
-     * <li>\\computer\object\counter</li>
-     * <li>\object(parent/instance#index)\counter</li>
-     * <li>\object(parent/instance)\counter</li>
-     * <li>\object(instance#index)\counter</li>
-     * <li>\object(instance)\counter</li>
-     * <li>\object\counter</li>
-     * </ul>
-     * Use an asterisk (*) as the wildcard character, for example, \object(*)\counter.
-     * 
-     * If a wildcard character is specified in the parent name, all instances of the specified object that match the specified instance and counter fields will be returned. For example, \object(instance)\counter.
-     * 
-     * If a wildcard character is specified in the instance name, all instances of the specified object and parent object will be returned if all instance names corresponding to the specified index match the wildcard character. For example, \object(parent//)\counter. If the object does not contain an instance, an error occurs.
-     * 
-     * If a wildcard character is specified in the counter name, all counters of the specified object are returned.
-     * 
-     * Partial counter path string matches (for example, "pro*") are  supported.
-     * 
-     * <b>Prior to Windows Vista:  </b>Partial wildcard matches are not supported.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhExpandWildCardPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters. To use handles to data sources, use the PdhExpandWildCardPathH function.
      * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that contains the name of a log file. The function uses the performance objects and counters defined in the log file to expand the path specified in the <i>szWildCardPath</i> parameter. 
      * 
      * If <b>NULL</b>, the function searches the computer specified in <i>szWildCardPath</i>.
@@ -6357,23 +5558,13 @@ class Performance {
      * 
      * </td>
      * </tr>
-     * 	
-     * <tr>
-     * <td width="40%"><a id="PDH_REFRESHCOUNTERS"></a><a id="pdh_PDH_REFRESHCOUNTERS"></a><dl>
-     * <dt><b>PDH_REFRESHCOUNTERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Refresh the counter list.
-     * </td>
-     * </tr>
      * </table>
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * <table>
      * <tr>
@@ -6436,7 +5627,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpatha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhexpandwildcardpatha
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathA(szDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -6449,55 +5640,7 @@ class Performance {
     }
 
     /**
-     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters. To use handles to data sources, use the PdhExpandWildCardPathH function. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszExpandedPathList</i> to <b>NULL</b> and <i>pcchPathListLength</i> to 0), and the second time to get the data.
-     * 
-     * <b>PdhExpandWildCardPath</b> differs from 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandcounterpatha">PdhExpandCounterPath</a> in the following ways:
-     * 
-     * <ol>
-     * <li>Lets you control which wildcard characters are expanded.</li>
-     * <li>The contents of a log file can be used as the source of counter names. </li>
-     * </ol>
-     * The general counter path format is as follows:
-     * 
-     * \\computer\object(parent/instance#index)\counter
-     * 
-     * The parent, instance, index, and counter components of the counter path may contain either a valid name or a wildcard character. The computer, parent, instance, and index components are not necessary for all counters.
-     * 
-     * The following is a list of the possible formats:
-     * 
-     * <ul>
-     * <li>\\computer\object(parent/instance#index)\counter</li>
-     * <li>\\computer\object(parent/instance)\counter</li>
-     * <li>\\computer\object(instance#index)\counter</li>
-     * <li>\\computer\object(instance)\counter</li>
-     * <li>\\computer\object\counter</li>
-     * <li>\object(parent/instance#index)\counter</li>
-     * <li>\object(parent/instance)\counter</li>
-     * <li>\object(instance#index)\counter</li>
-     * <li>\object(instance)\counter</li>
-     * <li>\object\counter</li>
-     * </ul>
-     * Use an asterisk (*) as the wildcard character, for example, \object(*)\counter.
-     * 
-     * If a wildcard character is specified in the parent name, all instances of the specified object that match the specified instance and counter fields will be returned. For example, \object(instance)\counter.
-     * 
-     * If a wildcard character is specified in the instance name, all instances of the specified object and parent object will be returned if all instance names corresponding to the specified index match the wildcard character. For example, \object(parent//)\counter. If the object does not contain an instance, an error occurs.
-     * 
-     * If a wildcard character is specified in the counter name, all counters of the specified object are returned.
-     * 
-     * Partial counter path string matches (for example, "pro*") are  supported.
-     * 
-     * <b>Prior to Windows Vista:  </b>Partial wildcard matches are not supported.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhExpandWildCardPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters. To use handles to data sources, use the PdhExpandWildCardPathH function.
      * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that contains the name of a log file. The function uses the performance objects and counters defined in the log file to expand the path specified in the <i>szWildCardPath</i> parameter. 
      * 
      * If <b>NULL</b>, the function searches the computer specified in <i>szWildCardPath</i>.
@@ -6538,22 +5681,13 @@ class Performance {
      * 
      * </td>
      * </tr>
-     * <tr>
-     * <td width="40%"><a id="PDH_REFRESHCOUNTERS"></a><a id="pdh_PDH_REFRESHCOUNTERS"></a><dl>
-     * <dt><b>PDH_REFRESHCOUNTERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Refresh the counter list.
-     * </td>
-     * </tr>
      * </table>
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * <table>
      * <tr>
@@ -6616,7 +5750,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpathw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhexpandwildcardpathw
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathW(szDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -6629,20 +5763,7 @@ class Performance {
     }
 
     /**
-     * Opens the specified log file for reading or writing. (Unicode)
-     * @remarks
-     * To use this function to write performance data to a log file, you must open a query using 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> and add the desired counters to it, before calling this function.
-     * 
-     * Newer operating systems can read log files that were generated on older operating systems; however, log files that were created on Windows Vista and later operating systems cannot be read on earlier operating systems.
-     * 
-     * The following rules apply to log files
-     * 
-     * - READ_ACCESS requires OPEN_EXISTING.
-     * 
-     * - UPDATE_ACCESS cannot be used with file-based logs. It can only be used with database logs.
-     * 
-     * - WRITE_ACCESS requires one of CREATE_NEW, CREATE_ALWAYS, OPEN_EXISTING, OPEN_ALWAYS.
+     * Opens the specified log file for reading or writing.
      * @param {Pointer<Char>} szLogFileName <b>Null</b>-terminated string that specifies the name of the log file to open. The name can contain an absolute or relative path. 
      * 
      * 
@@ -6667,9 +5788,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenlogw
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhopenlogw
      * @since windows5.1.2600
      */
     static PdhOpenLogW(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
@@ -6681,20 +5802,7 @@ class Performance {
     }
 
     /**
-     * Opens the specified log file for reading or writing. (ANSI)
-     * @remarks
-     * To use this function to write performance data to a log file, you must open a query using 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> and add the desired counters to it, before calling this function.
-     * 
-     * Newer operating systems can read log files that were generated on older operating systems; however, log files that were created on Windows Vista and later operating systems cannot be read on earlier operating systems.
-     * 
-     * The following rules apply to log files
-     * 
-     * - READ_ACCESS requires OPEN_EXISTING.
-     * 
-     * - UPDATE_ACCESS cannot be used with file-based logs. It can only be used with database logs.
-     * 
-     * - WRITE_ACCESS requires one of CREATE_NEW, CREATE_ALWAYS, OPEN_EXISTING, OPEN_ALWAYS.
+     * Opens the specified log file for reading or writing.
      * @param {Pointer<Byte>} szLogFileName <b>Null</b>-terminated string that specifies the name of the log file to open. The name can contain an absolute or relative path. 
      * 
      * 
@@ -6719,9 +5827,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenloga
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhopenloga
      * @since windows5.1.2600
      */
     static PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
@@ -6733,9 +5841,7 @@ class Performance {
     }
 
     /**
-     * Collects counter data for the current query and writes the data to the log file. (Unicode)
-     * @remarks
-     * If you are updating a log file from another log file, the comments from the other log file do not migrate.
+     * Collects counter data for the current query and writes the data to the log file.
      * @param {Pointer<Void>} hLog Handle of a single log file to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
      * @param {Pointer<Char>} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
@@ -6743,8 +5849,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -6774,7 +5880,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdatelogw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhupdatelogw
      * @since windows5.1.2600
      */
     static PdhUpdateLogW(hLog, szUserString) {
@@ -6785,9 +5891,7 @@ class Performance {
     }
 
     /**
-     * Collects counter data for the current query and writes the data to the log file. (ANSI)
-     * @remarks
-     * If you are updating a log file from another log file, the comments from the other log file do not migrate.
+     * Collects counter data for the current query and writes the data to the log file.
      * @param {Pointer<Void>} hLog Handle of a single log file to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
      * @param {Pointer<Byte>} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
@@ -6795,8 +5899,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -6826,7 +5930,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdateloga
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhupdateloga
      * @since windows5.1.2600
      */
     static PdhUpdateLogA(hLog, szUserString) {
@@ -6838,20 +5942,14 @@ class Performance {
 
     /**
      * Synchronizes the information in the log file catalog with the performance data in the log file.
-     * @remarks
-     * The log file catalog serves as an index to the performance data records in the log file, providing for faster searches for individual records in the file.
-     * 
-     * Catalogs should be updated when the data collection process is complete and the log file has been closed. The catalog can be updated during data collection, but doing this may disrupt the process of logging the performance data because updating the catalogs can be time consuming.
-     * 
-     * Perfmon, CSV, and TSV log files do not have catalogs. Specifying a handle to these log file types will result in a return value of PDH_NOT_IMPLEMENTED.
      * @param {Pointer<Void>} hLog Handle to the log file containing the file catalog to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -6892,7 +5990,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdatelogfilecatalog
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhupdatelogfilecatalog
      * @since windows5.1.2600
      */
     static PdhUpdateLogFileCatalog(hLog) {
@@ -6902,8 +6000,6 @@ class Performance {
 
     /**
      * Returns the size of the specified log file.
-     * @remarks
-     * If the log file handle points to multiple bound log files, the size is the sum of all the log files. If the log file is a SQL log file, the <i>llSize</i> parameter is the number of records in the log file.
      * @param {Pointer<Void>} hLog Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {Pointer<Int64>} llSize Size of the log file, in bytes.
@@ -6911,8 +6007,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -6942,7 +6038,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetlogfilesize
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetlogfilesize
      * @since windows5.1.2600
      */
     static PdhGetLogFileSize(hLog, llSize) {
@@ -6978,8 +6074,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
      * 
      * <table>
      * <tr>
@@ -6998,7 +6094,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcloselog
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhcloselog
      * @since windows5.1.2600
      */
     static PdhCloseLog(hLog, dwFlags) {
@@ -7007,10 +6103,7 @@ class Performance {
     }
 
     /**
-     * Displays a dialog window that prompts the user to specify the source of the performance data. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhSelectDataSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Displays a dialog window that prompts the user to specify the source of the performance data.
      * @param {Pointer<Void>} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
      * @param {Integer} dwFlags 
      * @param {Pointer<Char>} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
@@ -7021,8 +6114,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7052,7 +6145,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhselectdatasourcew
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhselectdatasourcew
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceW(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
@@ -7063,10 +6156,7 @@ class Performance {
     }
 
     /**
-     * Displays a dialog window that prompts the user to specify the source of the performance data. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhSelectDataSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Displays a dialog window that prompts the user to specify the source of the performance data.
      * @param {Pointer<Void>} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
      * @param {Integer} dwFlags 
      * @param {Pointer<Byte>} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
@@ -7077,8 +6167,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7108,7 +6198,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhselectdatasourcea
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhselectdatasourcea
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceA(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
@@ -7120,15 +6210,13 @@ class Performance {
 
     /**
      * Determines if the specified query is a real-time query.
-     * @remarks
-     * The term <i>real-time</i> as used in the description of this function does not imply the standard meaning of the term <i>real-time</i>. Instead, it describes the collection of performance data from a source providing current information (for example, the registry or a WMI provider) rather than from a log file.
      * @param {Pointer<Void>} hQuery Handle to the query. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @returns {Integer} If the query is a real-time query, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the query is not a real-time query, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhisrealtimequery
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhisrealtimequery
      * @since windows5.1.2600
      */
     static PdhIsRealTimeQuery(hQuery) {
@@ -7138,9 +6226,6 @@ class Performance {
 
     /**
      * Limits the samples that you can read from a log file to those within the specified time range, inclusively.
-     * @remarks
-     * When the end of the specified time range or the end of the log file is reached, the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcollectquerydata">PdhCollectQueryData</a> function will return PDH_NO_MORE_DATA.
      * @param {Pointer<Void>} hQuery Handle to the query. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
@@ -7149,8 +6234,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7180,7 +6265,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhsetquerytimerange
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhsetquerytimerange
      * @since windows5.1.2600
      */
     static PdhSetQueryTimeRange(hQuery, pInfo) {
@@ -7189,10 +6274,7 @@ class Performance {
     }
 
     /**
-     * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDataSourceTimeRange as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function.
      * @param {Pointer<Char>} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
      * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
@@ -7202,8 +6284,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7244,7 +6326,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdatasourcetimerangew
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdatasourcetimerangew
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeW(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
@@ -7255,10 +6337,7 @@ class Performance {
     }
 
     /**
-     * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDataSourceTimeRange as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function.
      * @param {Pointer<Byte>} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
      * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
@@ -7268,8 +6347,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7310,7 +6389,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdatasourcetimerangea
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdatasourcetimerangea
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeA(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
@@ -7322,16 +6401,6 @@ class Performance {
 
     /**
      * Uses a separate thread to collect the current raw data value for all counters in the specified query. The function then signals the application-defined event and waits the specified time interval before returning.
-     * @remarks
-     * PDH terminates the thread when you call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhclosequery">PdhCloseQuery</a> function. If you call <b>PdhCollectQueryDataEx</b> more than once, each subsequent call terminates the thread from the previous call and then starts a new thread.
-     * 
-     * When 
-     * <b>PdhCollectQueryDataEx</b> is called for data from one counter instance only and the counter instance does not exist, the function returns PDH_NO_DATA. However, if data from more than one counter is queried, 
-     * <b>PdhCollectQueryDataEx</b> may return ERROR_SUCCESS even if one of the counter instances does not yet exist. This is because it is not known if the specified counter instance does not exist, or if it will exist but has not yet been created. In this case, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a> for each of the counter instances of interest to determine whether they exist.
-     * 
-     * PDH stores the raw counter values for the current and previous collection. If you want to retrieve the current raw counter value, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcountervalue">PdhGetRawCounterValue</a> function. If you want to compute a displayable value for the counter value, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a>. If the counter path contains a wildcard for the instance name, instead call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetrawcounterarraya">PdhGetRawCounterArray</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcounterarraya">PdhGetFormattedCounterArray</a> functions, respectively.
      * @param {Pointer<Void>} hQuery Handle of the query. The query identifies the counters that you want to collect. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @param {Integer} dwIntervalTime Time interval to wait, in seconds.
@@ -7341,8 +6410,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7372,7 +6441,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcollectquerydataex
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhcollectquerydataex
      * @since windows5.1.2600
      */
     static PdhCollectQueryDataEx(hQuery, dwIntervalTime, hNewDataEvent) {
@@ -7397,9 +6466,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhformatfromrawvalue
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhformatfromrawvalue
      * @since windows5.1.2600
      */
     static PdhFormatFromRawValue(dwCounterType, dwFormat, pTimeBase, pRawValue1, pRawValue2, pFmtValue) {
@@ -7409,14 +6478,6 @@ class Performance {
 
     /**
      * Returns the time base of the specified counter.
-     * @remarks
-     * If you use 
-     * 			the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhformatfromrawvalue">PdhFormatFromRawValue</a> function to calculate a displayable value instead of calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcalculatecounterfromrawvalue">PdhCalculateCounterFromRawValue</a> function, you must call the 
-     * <b>PdhGetCounterTimeBase</b> function to retrieve the time base.
-     * 		
-     * 
-     * Each counter that returns time-based performance data has a time base defined for it. The time base of a counter is the number of times a counter samples data per second.
      * @param {Pointer<Void>} hCounter Handle to the counter. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<Int64>} pTimeBase Time base that specifies the number of performance values a counter samples per second.
@@ -7424,8 +6485,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7455,7 +6516,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetcountertimebase
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetcountertimebase
      * @since windows5.1.2600
      */
     static PdhGetCounterTimeBase(hCounter, pTimeBase) {
@@ -7465,8 +6526,6 @@ class Performance {
 
     /**
      * Reads the information in the specified binary trace log file.
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>pRawLogRecord</i> to <b>NULL</b> and <i>pdwBufferLength</i> to 0), and the second time to get the data.
      * @param {Pointer<Void>} hLog Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {Pointer} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
@@ -7477,8 +6536,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7519,7 +6578,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhreadrawlogrecord
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhreadrawlogrecord
      * @since windows5.1.2600
      */
     static PdhReadRawLogRecord(hLog, ftRecord, pRawLogRecord, pdwBufferLength) {
@@ -7529,17 +6588,13 @@ class Performance {
 
     /**
      * Specifies the source of the real-time data.
-     * @remarks
-     * The term <i>real-time</i> as used in the description of this function does not imply the standard meaning of the term <i>real-time</i>. Instead, it describes the collection of performance data from a source providing current information (for example, the registry or a WMI provider) rather than from a log file.
-     * 
-     * If you want to query real-time data from WMI, you must call <b>PdhSetDefaultRealTimeDataSource</b> to set the default real-time data source. You must call this function before calling any other PDH API function.
      * @param {Integer} dwDataSourceId 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following is a possible value.
      * 
      * <table>
      * <tr>
@@ -7558,7 +6613,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhsetdefaultrealtimedatasource
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhsetdefaultrealtimedatasource
      * @since windows5.1.2600
      */
     static PdhSetDefaultRealTimeDataSource(dwDataSourceId) {
@@ -7567,20 +6622,7 @@ class Performance {
     }
 
     /**
-     * Binds one or more binary log files together for reading log data. (Unicode)
-     * @remarks
-     * This function is used with the PDH functions that require a handle to a data source. For a list of these functions, see See Also.
-     * 
-     * You cannot specify more than one comma-delimited (CSV) or tab-delimited (TSV) file. The list can contain only one type of file—you cannot combine multiple file types.
-     * 
-     * To close the bound log files, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcloselog">PdhCloseLog</a> function using the log handle.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhBindInputDataSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Binds one or more binary log files together for reading log data.
      * @param {Pointer<Void>} phDataSource Handle to the bound data sources.
      * @param {Pointer<Char>} LogFileNameList <b>Null</b>-terminated string that contains one or more binary log files to bind together. Terminate each log file name with a <b>null</b>-terminator character and the list with one additional <b>null</b>-terminator character. The log file names can contain absolute or relative paths. You cannot specify more than 32 log files.
      * 
@@ -7589,9 +6631,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbindinputdatasourcew
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhbindinputdatasourcew
      * @since windows5.1.2600
      */
     static PdhBindInputDataSourceW(phDataSource, LogFileNameList) {
@@ -7602,20 +6644,7 @@ class Performance {
     }
 
     /**
-     * Binds one or more binary log files together for reading log data. (ANSI)
-     * @remarks
-     * This function is used with the PDH functions that require a handle to a data source. For a list of these functions, see See Also.
-     * 
-     * You cannot specify more than one comma-delimited (CSV) or tab-delimited (TSV) file. The list can contain only one type of file—you cannot combine multiple file types.
-     * 
-     * To close the bound log files, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcloselog">PdhCloseLog</a> function using the log handle.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhBindInputDataSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Binds one or more binary log files together for reading log data.
      * @param {Pointer<Void>} phDataSource Handle to the bound data sources.
      * @param {Pointer<Byte>} LogFileNameList <b>Null</b>-terminated string that contains one or more binary log files to bind together. Terminate each log file name with a <b>null</b>-terminator character and the list with one additional <b>null</b>-terminator character. The log file names can contain absolute or relative paths. You cannot specify more than 32 log files.
      * 
@@ -7624,9 +6653,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbindinputdatasourcea
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhbindinputdatasourcea
      * @since windows5.1.2600
      */
     static PdhBindInputDataSourceA(phDataSource, LogFileNameList) {
@@ -7647,9 +6676,9 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenqueryh
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhopenqueryh
      * @since windows5.1.2600
      */
     static PdhOpenQueryH(hDataSource, dwUserData, phQuery) {
@@ -7658,16 +6687,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of the computer names associated with counters in a log file. (PdhEnumMachinesHW)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszMachineNameList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumMachinesH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of the computer names associated with counters in a log file.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Char>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
@@ -7676,8 +6696,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7707,7 +6727,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachineshw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenummachineshw
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHW(hDataSource, mszMachineList, pcchBufferSize) {
@@ -7718,16 +6738,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of the computer names associated with counters in a log file. (PdhEnumMachinesHA)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszMachineNameList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumMachinesH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of the computer names associated with counters in a log file.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Byte>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
@@ -7736,8 +6747,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7767,7 +6778,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachinesha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenummachinesha
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHA(hDataSource, mszMachineList, pcchBufferSize) {
@@ -7778,16 +6789,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of objects available on the specified computer or in the specified log file.This function is identical to PdhEnumObjects, except that it supports the use of handles to data sources. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszObjectList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumObjectsH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of objects available on the specified computer or in the specified log file.This function is identical to PdhEnumObjects, except that it supports the use of handles to data sources.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
@@ -7806,8 +6808,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7859,7 +6861,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectshw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectshw
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHW(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -7871,16 +6873,7 @@ class Performance {
     }
 
     /**
-     * Returns a list of objects available on the specified computer or in the specified log file.This function is identical to PdhEnumObjects, except that it supports the use of handles to data sources. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszObjectList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumObjectsH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns a list of objects available on the specified computer or in the specified log file.This function is identical to PdhEnumObjects, except that it supports the use of handles to data sources.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
@@ -7899,8 +6892,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -7952,7 +6945,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectsha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectsha
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHA(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -7964,24 +6957,7 @@ class Performance {
     }
 
     /**
-     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. This function is identical to the PdhEnumObjectItems function, except that it supports the use of handles to data sources. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set the buffers to <b>NULL</b> and the sizes to 0), and the second time to get the data.
-     * 
-     * Consecutive calls to this function will return identical lists of counters and instances, because 
-     * <b>PdhEnumObjectItemsH</b> will always query the list of performance objects defined by the last call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhenumobjectsha">PdhEnumObjectsH</a> or <b>PdhEnumObjectItemsH</b>. To refresh the list of performance objects, call 
-     * <b>PdhEnumObjectsH</b> with a <i>bRefresh</i> flag value of <b>TRUE</b> before calling 
-     * <b>PdhEnumObjectItemsH</b> again.
-     * 
-     * The order of the instance and counter names is undetermined.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumObjectItemsH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. This function is identical to the PdhEnumObjectItems function, except that it supports the use of handles to data sources.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
@@ -8003,8 +6979,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -8067,7 +7043,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemshw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectitemshw
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHW(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -8081,24 +7057,7 @@ class Performance {
     }
 
     /**
-     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. This function is identical to the PdhEnumObjectItems function, except that it supports the use of handles to data sources. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set the buffers to <b>NULL</b> and the sizes to 0), and the second time to get the data.
-     * 
-     * Consecutive calls to this function will return identical lists of counters and instances, because 
-     * <b>PdhEnumObjectItemsH</b> will always query the list of performance objects defined by the last call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhenumobjectsha">PdhEnumObjectsH</a> or <b>PdhEnumObjectItemsH</b>. To refresh the list of performance objects, call 
-     * <b>PdhEnumObjectsH</b> with a <i>bRefresh</i> flag value of <b>TRUE</b> before calling 
-     * <b>PdhEnumObjectItemsH</b> again.
-     * 
-     * The order of the instance and counter names is undetermined.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumObjectItemsH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. This function is identical to the PdhEnumObjectItems function, except that it supports the use of handles to data sources.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
@@ -8120,8 +7079,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -8184,7 +7143,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemsha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumobjectitemsha
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHA(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -8198,55 +7157,7 @@ class Performance {
     }
 
     /**
-     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.This function is identical to the PdhExpandWildCardPath function, except that it supports the use of handles to data sources. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszExpandedPathList</i> to <b>NULL</b> and <i>pcchPathListLength</i> to 0), and the second time to get the data.
-     * 
-     * <b>PdhExpandWildCardPathH</b> differs from 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandcounterpatha">PdhExpandCounterPath</a> in the following ways:
-     * 
-     * <ol>
-     * <li>Lets you control which wildcard characters are expanded.</li>
-     * <li>The contents of a log file can be used as the source of counter names. </li>
-     * </ol>
-     * The general counter path format is as follows:
-     * 
-     * \\computer\object(parent/instance#index)\counter
-     * 
-     * The parent, instance, index, and counter components of the counter path may contain either a valid name or a wildcard character. The computer, parent, instance, and index components are not necessary for all counters.
-     * 
-     * The following is a list of the possible formats:
-     * 
-     * <ul>
-     * <li>\\computer\object(parent/instance#index)\counter</li>
-     * <li>\\computer\object(parent/instance)\counter</li>
-     * <li>\\computer\object(instance#index)\counter</li>
-     * <li>\\computer\object(instance)\counter</li>
-     * <li>\\computer\object\counter</li>
-     * <li>\object(parent/instance#index)\counter</li>
-     * <li>\object(parent/instance)\counter</li>
-     * <li>\object(instance#index)\counter</li>
-     * <li>\object(instance)\counter</li>
-     * <li>\object\counter</li>
-     * </ul>
-     * Use an asterisk (*) as the wildcard character, for example, \object(*)\counter.
-     * 
-     * If a wildcard character is specified in the parent name, all instances of the specified object that match the specified instance and counter fields will be returned. For example, \object(instance)\counter.
-     * 
-     * If a wildcard character is specified in the instance name, all instances of the specified object and parent object will be returned if all instance names corresponding to the specified index match the wildcard character. For example, \object(parent//)\counter.
-     * 
-     * If a wildcard character is specified in the counter name, all counters of the specified object are returned.
-     * 
-     * Partial counter path string matches (for example, "pro*") are  supported.
-     * 
-     * <b>Prior to Windows Vista:  </b>Partial wildcard matches are not supported.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhExpandWildCardPathH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.This function is identical to the PdhExpandWildCardPath function, except that it supports the use of handles to data sources.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Char>} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
@@ -8286,22 +7197,13 @@ class Performance {
      * 
      * </td>
      * </tr>
-     * <tr>
-     * <td width="40%"><a id="PDH_REFRESHCOUNTERS"></a><a id="pdh_PDH_REFRESHCOUNTERS"></a><dl>
-     * <dt><b>PDH_REFRESHCOUNTERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Refresh the counter list.
-     * </td>
-     * </tr>
      * </table>
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * <table>
      * <tr>
@@ -8353,7 +7255,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpathhw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhexpandwildcardpathhw
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHW(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -8365,55 +7267,7 @@ class Performance {
     }
 
     /**
-     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.This function is identical to the PdhExpandWildCardPath function, except that it supports the use of handles to data sources. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszExpandedPathList</i> to <b>NULL</b> and <i>pcchPathListLength</i> to 0), and the second time to get the data.
-     * 
-     * <b>PdhExpandWildCardPathH</b> differs from 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandcounterpatha">PdhExpandCounterPath</a> in the following ways:
-     * 
-     * <ol>
-     * <li>Lets you control which wildcard characters are expanded.</li>
-     * <li>The contents of a log file can be used as the source of counter names. </li>
-     * </ol>
-     * The general counter path format is as follows:
-     * 
-     * \\computer\object(parent/instance#index)\counter
-     * 
-     * The parent, instance, index, and counter components of the counter path may contain either a valid name or a wildcard character. The computer, parent, instance, and index components are not necessary for all counters.
-     * 
-     * The following is a list of the possible formats:
-     * 
-     * <ul>
-     * <li>\\computer\object(parent/instance#index)\counter</li>
-     * <li>\\computer\object(parent/instance)\counter</li>
-     * <li>\\computer\object(instance#index)\counter</li>
-     * <li>\\computer\object(instance)\counter</li>
-     * <li>\\computer\object\counter</li>
-     * <li>\object(parent/instance#index)\counter</li>
-     * <li>\object(parent/instance)\counter</li>
-     * <li>\object(instance#index)\counter</li>
-     * <li>\object(instance)\counter</li>
-     * <li>\object\counter</li>
-     * </ul>
-     * Use an asterisk (*) as the wildcard character, for example, \object(*)\counter.
-     * 
-     * If a wildcard character is specified in the parent name, all instances of the specified object that match the specified instance and counter fields will be returned. For example, \object(instance)\counter.
-     * 
-     * If a wildcard character is specified in the instance name, all instances of the specified object and parent object will be returned if all instance names corresponding to the specified index match the wildcard character. For example, \object(parent//)\counter.
-     * 
-     * If a wildcard character is specified in the counter name, all counters of the specified object are returned.
-     * 
-     * Partial counter path string matches (for example, "pro*") are  supported.
-     * 
-     * <b>Prior to Windows Vista:  </b>Partial wildcard matches are not supported.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhExpandWildCardPathH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.This function is identical to the PdhExpandWildCardPath function, except that it supports the use of handles to data sources.
      * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<Byte>} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
@@ -8453,22 +7307,13 @@ class Performance {
      * 
      * </td>
      * </tr>
-     * <tr>
-     * <td width="40%"><a id="PDH_REFRESHCOUNTERS"></a><a id="pdh_PDH_REFRESHCOUNTERS"></a><dl>
-     * <dt><b>PDH_REFRESHCOUNTERS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Refresh the counter list.
-     * </td>
-     * </tr>
      * </table>
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
      * 
      * <table>
      * <tr>
@@ -8520,7 +7365,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpathha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhexpandwildcardpathha
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -8543,8 +7388,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -8585,7 +7430,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdatasourcetimerangeh
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdatasourcetimerangeh
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeH(hDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
@@ -8594,16 +7439,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default object. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultObjectName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfObjectH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default object.
      * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultObjectName</i> will be a <b>null</b> string.
@@ -8616,8 +7452,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -8680,7 +7516,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjecthw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfobjecthw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHW(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -8692,16 +7528,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default object. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultObjectName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfObjectH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default object.
      * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultObjectName</i> will be a <b>null</b> string.
@@ -8714,8 +7541,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -8778,7 +7605,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjectha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfobjectha
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHA(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -8790,16 +7617,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default counter for the specified object. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultCounterName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfCounterH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default counter for the specified object.
      * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultCounterName</i> will be a <b>null</b> string.
@@ -8811,8 +7629,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -8897,7 +7715,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcounterhw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfcounterhw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHW(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -8910,16 +7728,7 @@ class Performance {
     }
 
     /**
-     * Retrieves the name of the default counter for the specified object. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>szDefaultCounterName</i> to <b>NULL</b> and <i>pcchBufferSize</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhGetDefaultPerfCounterH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name of the default counter for the specified object.
      * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultCounterName</i> will be a <b>null</b> string.
@@ -8931,8 +7740,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -9017,7 +7826,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcounterha
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhgetdefaultperfcounterha
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHA(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -9030,26 +7839,16 @@ class Performance {
     }
 
     /**
-     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. This function is identical to the PdhBrowseCounters function, except that it supports the use of handles to data sources. (Unicode)
-     * @remarks
-     * Note that the dialog
-     *    box can return PDH_DIALOG_CANCELLED if <b>bSingleCounterPerDialog</b> is <b>FALSE</b> and the user clicks the <b>Close</b> button, so your error handling would have to account for this.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhBrowseCountersH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. This function is identical to the PdhBrowseCounters function, except that it supports the use of handles to data sources.
      * @param {Pointer<PDH_BROWSE_DLG_CONFIG_HW>} pBrowseDlgData A 
      * <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_ha">PDH_BROWSE_DLG_CONFIG_H</a> structure that specifies the behavior of the dialog box.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountershw
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhbrowsecountershw
      * @since windows5.1.2600
      */
     static PdhBrowseCountersHW(pBrowseDlgData) {
@@ -9058,26 +7857,16 @@ class Performance {
     }
 
     /**
-     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. This function is identical to the PdhBrowseCounters function, except that it supports the use of handles to data sources. (ANSI)
-     * @remarks
-     * Note that the dialog
-     *    box can return PDH_DIALOG_CANCELLED if <b>bSingleCounterPerDialog</b> is <b>FALSE</b> and the user clicks the <b>Close</b> button, so your error handling would have to account for this.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhBrowseCountersH as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Displays a Browse Counters dialog box that the user can use to select one or more counters that they want to add to the query. This function is identical to the PdhBrowseCounters function, except that it supports the use of handles to data sources.
      * @param {Pointer<PDH_BROWSE_DLG_CONFIG_HA>} pBrowseDlgData A 
      * <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_ha">PDH_BROWSE_DLG_CONFIG_H</a> structure that specifies the behavior of the dialog box.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountersha
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhbrowsecountersha
      * @since windows5.1.2600
      */
     static PdhBrowseCountersHA(pBrowseDlgData) {
@@ -9134,15 +7923,7 @@ class Performance {
     }
 
     /**
-     * Enumerates the names of the log sets within the DSN. (Unicode)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszLogSetNameList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumLogSetNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the names of the log sets within the DSN.
      * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the DSN.
      * @param {Pointer<Char>} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -9150,8 +7931,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -9181,7 +7962,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumlogsetnamesw
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumlogsetnamesw
      * @since windows5.1.2600
      */
     static PdhEnumLogSetNamesW(szDataSource, mszDataSetNameList, pcchBufferLength) {
@@ -9193,15 +7974,7 @@ class Performance {
     }
 
     /**
-     * Enumerates the names of the log sets within the DSN. (ANSI)
-     * @remarks
-     * You should call this function twice, the first time to get the required buffer size (set <i>mszLogSetNameList</i> to <b>NULL</b> and <i>pcchBufferLength</i> to 0), and the second time to get the data.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The pdh.h header defines PdhEnumLogSetNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the names of the log sets within the DSN.
      * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the DSN.
      * @param {Pointer<Byte>} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -9209,8 +7982,8 @@ class Performance {
      * 						
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
-     * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
+     * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
      * 
      * <table>
      * <tr>
@@ -9240,7 +8013,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumlogsetnamesa
+     * @see https://docs.microsoft.com/windows/win32/api//pdh/nf-pdh-pdhenumlogsetnamesa
      * @since windows5.1.2600
      */
     static PdhEnumLogSetNamesA(szDataSource, mszDataSetNameList, pcchBufferLength) {

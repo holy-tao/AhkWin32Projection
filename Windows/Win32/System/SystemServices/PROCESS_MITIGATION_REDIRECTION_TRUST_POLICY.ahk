@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains process mitigation policy settings for the ???.
- * @remarks
- * The [GetProcessMitigationPolicy](../processthreadsapi/nf-processthreadsapi-getprocessmitigationpolicy.md)  and [SetProcessMitigationPolicy](../processthreadsapi/nf-processthreadsapi-setprocessmitigationpolicy.md)  functions use this structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process-mitigation-redirection-trust-policy
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

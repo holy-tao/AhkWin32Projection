@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The PROCESSENTRY32 (tlhelp32.h) structure describes an entry from a list of the processes residing in the system address space when a snapshot was taken.
- * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-processentry32
+ * Describes an entry from a list of the processes residing in the system address space when a snapshot was taken.
+ * @see https://docs.microsoft.com/windows/win32/api//tlhelp32/ns-tlhelp32-processentry32
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
  * @version v4.0.30319
  * @charset ANSI

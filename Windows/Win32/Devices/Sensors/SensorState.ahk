@@ -2,7 +2,7 @@
 
 /**
  * Defines possible operational states for sensors.
- * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate
+ * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/ne-sensorsapi-sensorstate
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */

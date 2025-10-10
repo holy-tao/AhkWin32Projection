@@ -3,7 +3,7 @@
 
 /**
  * The DD_ADDATTACHEDSURFACEDATA structure contains information necessary to attach a surface to another surface.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_addattachedsurfacedata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_addattachedsurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

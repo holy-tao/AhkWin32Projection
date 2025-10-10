@@ -4,7 +4,8 @@
 /**
  * Contains read-only dynamic information for extended TCP statistics on the local receiver for a TCP connection.
  * @remarks
- * The <b>TCP_ESTATS_REC_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
+ * 
+  * The <b>TCP_ESTATS_REC_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
   * 
   * The <b>TCP_ESTATS_REC_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information for extended TCP statistics on the local receiver for a TCP connection.  This information is available after the connection has been established.
   * 
@@ -170,7 +171,9 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_rec_rod_v0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_rec_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

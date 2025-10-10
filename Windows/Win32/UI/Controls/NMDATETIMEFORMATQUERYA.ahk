@@ -4,11 +4,13 @@
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
- * Contains information about a date and time picker (DTP) control callback field. (ANSI)
+ * Contains information about a date and time picker (DTP) control callback field.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The commctrl.h header defines NMDATETIMEFORMATQUERY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdatetimeformatquerya
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmdatetimeformatquerya
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI
@@ -45,9 +47,9 @@ class NMDATETIMEFORMATQUERYA extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that must be filled with the maximum size of the text that will be displayed in the callback field.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that must be filled with the maximum size of the text that will be displayed in the callback field.
      * @type {SIZE}
      */
     szMax{

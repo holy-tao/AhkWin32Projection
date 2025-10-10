@@ -3,10 +3,13 @@
 /**
  * Specifies the type of an inclusion or exclusion list.
  * @remarks
- * To retrieve the inclusion and exclusion rules that are currently stored in an <a href="https://docs.microsoft.com/windows/desktop/DevNotes/fhconfigmgr">FhConfigMgr</a> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules">IFhConfigMgr::GetIncludeExcludeRules</a> method.
+ * 
+  * To retrieve the inclusion and exclusion rules that are currently stored in an <a href="https://docs.microsoft.com/windows/desktop/DevNotes/fhconfigmgr">FhConfigMgr</a> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules">IFhConfigMgr::GetIncludeExcludeRules</a> method.
   * 
   * To add or remove an exclusion rule, call the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-addremoveexcluderule">IFhConfigMgr::AddRemoveExcludeRule</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_protected_item_category
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fhcfg/ne-fhcfg-fh_protected_item_category
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */

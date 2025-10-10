@@ -3,7 +3,7 @@
 
 /**
  * Used by the IResultOwnerData::FindItem method to support keyboard navigation in virtual lists in the result pane.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-resultfindinfo
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-resultfindinfo
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

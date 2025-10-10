@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_PROPERTY_SYNTAX enumeration (msclus.h) provides the possible values for the syntax structures in a property list.
+ * Provides the possible values for the syntax structures in a property list.
  * @remarks
- * The upper 2 bytes of a <b>CLUSTER_PROPERTY_SYNTAX</b> 
+ * 
+  * The upper 2 bytes of a <b>CLUSTER_PROPERTY_SYNTAX</b> 
   *      must be a valid <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_property_type">CLUSTER_PROPERTY_TYPE</a>. The lower 2 
   *      bytes of a <b>CLUSTER_PROPERTY_SYNTAX</b> must be a 
   *      valid <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_property_format">CLUSTER_PROPERTY_FORMAT</a>.
@@ -18,7 +19,9 @@
   *      on the server, and the second is of syntax <b>CLUSPROP_SYNTAX_LIST_VALUE_EXPANDED_SZ</b> 
   *      which is the same property value where each embedded environment variable has been replaced by its value, as 
   *      stored on the server.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_property_syntax
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_property_syntax
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

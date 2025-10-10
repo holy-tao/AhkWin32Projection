@@ -3,8 +3,11 @@
 /**
  * Flags that specify what PssCaptureSnapshot captures.
  * @remarks
- * If both <b>PSS_CREATE_FORCE_BREAKAWAY</b> and <b>PSS_CREATE_BREAKAWAY</b> are specified, then <b>PSS_CREATE_FORCE_BREAKAWAY</b> takes precedence.
- * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_capture_flags
+ * 
+  * If both <b>PSS_CREATE_FORCE_BREAKAWAY</b> and <b>PSS_CREATE_BREAKAWAY</b> are specified, then <b>PSS_CREATE_FORCE_BREAKAWAY</b> takes precedence.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ne-processsnapshot-pss_capture_flags
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */

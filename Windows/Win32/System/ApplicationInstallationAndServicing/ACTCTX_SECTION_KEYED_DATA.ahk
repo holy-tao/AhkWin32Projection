@@ -5,13 +5,16 @@
 /**
  * The ACTCTX_SECTION_KEYED_DATA structure is used by the FindActCtxSectionString and FindActCtxSectionGuid functions to return the activation context information along with either the GUID or 32-bit integer-tagged activation context section.
  * @remarks
- * Callers should initialize the 
+ * 
+  * Callers should initialize the 
   * <b>ACTCTX_SECTION_KEYED_DATA</b> structure as such:
   * 
   * "ACTCTX_SECTION_KEYED_DATA askd = { sizeof(askd) };"
   * 
   * which  initializes all members to zero/null except the size field which is set correctly.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-actctx_section_keyed_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-actctx_section_keyed_data
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

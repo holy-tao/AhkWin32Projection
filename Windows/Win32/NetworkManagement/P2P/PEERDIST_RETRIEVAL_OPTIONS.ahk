@@ -3,7 +3,7 @@
 
 /**
  * The PEER_RETRIEVAL_OPTIONS structure contains version of the content information to retrieve.
- * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_retrieval_options
+ * @see https://docs.microsoft.com/windows/win32/api//peerdist/ns-peerdist-peerdist_retrieval_options
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

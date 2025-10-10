@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the behavior of UiaGetUpdatedCache.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

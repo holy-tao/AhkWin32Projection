@@ -4,7 +4,7 @@
 
 /**
  * The Adapter structure describes a graphics adapter.
- * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-adapter
+ * @see https://docs.microsoft.com/windows/win32/api//cloneviewhelper/ns-cloneviewhelper-adapter
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

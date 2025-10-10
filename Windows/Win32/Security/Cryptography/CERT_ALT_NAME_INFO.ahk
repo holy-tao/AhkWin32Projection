@@ -3,7 +3,7 @@
 
 /**
  * The CERT_ALT_NAME_INFO structure is used in encoding and decoding extensions for subject or issuer certificates, Certificate Revocation Lists (CRLs), and Certificate Trust Lists (CTLs).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_alt_name_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_alt_name_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

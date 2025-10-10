@@ -7,7 +7,7 @@
 
 /**
  * Defines the output of the Interaction Context object.
- * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_context_output
+ * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ns-interactioncontext-interaction_context_output
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

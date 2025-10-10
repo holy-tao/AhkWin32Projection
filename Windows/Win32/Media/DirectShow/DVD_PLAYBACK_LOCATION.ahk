@@ -4,8 +4,11 @@
 /**
  * The DVD_PLAYBACK_LOCATION structure indicates DVD playback location.
  * @remarks
- * <b>TitleNum</b> and <b>ChapterNum</b> or <b>TitleNum</b> and <b>TimeCode</b> are sufficient to save the playback location for simple linear movies.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_playback_location
+ * 
+  * <b>TitleNum</b> and <b>ChapterNum</b> or <b>TitleNum</b> and <b>TimeCode</b> are sufficient to save the playback location for simple linear movies.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_playback_location
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

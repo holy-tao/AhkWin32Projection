@@ -3,7 +3,7 @@
 
 /**
  * Contains a value that specifies the type of the log data.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_log_data
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_log_data
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

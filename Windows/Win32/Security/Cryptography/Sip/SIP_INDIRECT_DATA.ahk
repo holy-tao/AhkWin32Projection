@@ -6,7 +6,7 @@
 
 /**
  * Contains the digest of the hashed subject information.
- * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_indirect_data
+ * @see https://docs.microsoft.com/windows/win32/api//mssip/ns-mssip-sip_indirect_data
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319
  */

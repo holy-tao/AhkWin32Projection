@@ -3,7 +3,7 @@
 
 /**
  * Represents a CIM qualifier.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_qualifier
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_qualifier
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

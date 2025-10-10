@@ -4,7 +4,8 @@
 /**
  * Specifies numeric parsing information.
  * @remarks
- * The following apply only to decimal numbers:
+ * 
+  * The following apply only to decimal numbers:
   * 
   * <ul>
   * <li><b>nPwr10</b> sets the decimal point position by giving the power of 10 of the least significant digit.</li>
@@ -12,7 +13,9 @@
   * <li>If there are more non-zero decimal digits than will fit into the digit array, the NUMPRS_INEXACT flag will be set.
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-numparse
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//oleauto/ns-oleauto-numparse
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

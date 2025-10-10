@@ -6,7 +6,7 @@
 
 /**
  * Is used in Authenticode signatures to store the digest and other attributes of the signed file.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-spc_indirect_data_content
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-spc_indirect_data_content
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

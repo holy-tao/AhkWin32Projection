@@ -4,7 +4,8 @@
 /**
  * Provides the local and remote names of the file to transfer.
  * @remarks
- * BITS supports the HTTP, HTTPS, and SMB protocols for <b>RemoteName</b>. For HTTP requirements, see <a href="https://docs.microsoft.com/windows/desktop/Bits/http-requirements-for-bits-downloads">HTTP Requirements for BITS Downloads</a>.
+ * 
+  * BITS supports the HTTP, HTTPS, and SMB protocols for <b>RemoteName</b>. For HTTP requirements, see <a href="https://docs.microsoft.com/windows/desktop/Bits/http-requirements-for-bits-downloads">HTTP Requirements for BITS Downloads</a>.
   * 
   * <b>BITS 1.5 and earlier:  </b>The SMB protocol for <b>RemoteName</b> is not supported.
   * 
@@ -26,7 +27,9 @@
   * <b>IIS 5.0:  </b>Downloads are limited to 4 GB.
   * 
   * <b>BITS 1.2 and earlier:  </b>For HTTP downloads, the maximum file size you can transfer is 4 GB; BITS cannot guarantee the successful transfer of files over 4 GB. If the  URL contains Unicode characters that are not in the US-ASCII character set, encode the Unicode string in UTF-8 before passing it as the remote file name to BITS. If you do not encode the string, the HTTP server may receive an incorrect URL and the job may enter the error state.
- * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_file_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//bits/ns-bits-bg_file_info
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

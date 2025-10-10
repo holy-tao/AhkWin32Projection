@@ -3,7 +3,7 @@
 
 /**
  * Describes a single storage tier region.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_storage_tier_region
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_storage_tier_region
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

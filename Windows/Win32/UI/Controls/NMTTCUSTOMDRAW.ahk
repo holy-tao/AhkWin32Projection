@@ -6,7 +6,7 @@
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code sent by a tooltip control.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmttcustomdraw
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmttcustomdraw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

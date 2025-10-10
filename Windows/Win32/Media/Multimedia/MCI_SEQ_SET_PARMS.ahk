@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MCI\_SEQ\_SET\_PARMS structure contains information for the MCI\_SET command for MIDI sequencer devices.
- * @remarks
- * When assigning data to the members of this structure, set the corresponding flags in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the members.
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-seq-set-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     static packingSize => 8
 
     /**
-     * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
      * @type {Pointer}
      */
     dwCallback {
@@ -25,7 +20,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Sequencer's time format.
      * @type {Integer}
      */
     dwTimeFormat {
@@ -34,7 +28,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Audio output channel.
      * @type {Integer}
      */
     dwAudio {
@@ -43,7 +36,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Tempo.
      * @type {Integer}
      */
     dwTempo {
@@ -52,7 +44,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Port.
      * @type {Integer}
      */
     dwPort {
@@ -61,7 +52,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Type of synchronization used by the sequencer for subordinate operation.
      * @type {Integer}
      */
     dwSlave {
@@ -70,7 +60,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Type of synchronization used by the sequencer for master operation.
      * @type {Integer}
      */
     dwMaster {
@@ -79,7 +68,6 @@ class MCI_SEQ_SET_PARMS extends Win32Struct
     }
 
     /**
-     * Data offset.
      * @type {Integer}
      */
     dwOffset {

@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Identify which components of each pixel of a render target are writable during blending. (D3D11_COLOR_WRITE_ENABLE)
+ * Identify which components of each pixel of a render target are writable during blending.
  * @remarks
- * These flags can be combined with a bitwise OR.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_color_write_enable
+ * 
+  * These flags can be combined with a bitwise OR.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_color_write_enable
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The MBN_AUTH_PROTOCOL enumerated type specifies the authentication protocol used for Packet Data Protocol (PDP) activation.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_auth_protocol
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_auth_protocol
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

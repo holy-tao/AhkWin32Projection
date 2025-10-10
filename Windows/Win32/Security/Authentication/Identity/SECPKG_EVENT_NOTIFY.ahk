@@ -3,7 +3,7 @@
 
 /**
  * The SECPKG_EVENT_NOTIFY structure contains information about security events. This structure is passed to a function registered to receive event notifications. Event notification functions are registered by calling the RegisterNotification function.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_event_notify
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_event_notify
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

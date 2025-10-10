@@ -2,7 +2,7 @@
 
 /**
  * Defines the event types that an event logging action (see FsrmActionType) can log.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmeventtype
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmeventtype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

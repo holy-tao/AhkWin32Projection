@@ -2,7 +2,7 @@
 
 /**
  * Flags to specify what parts of a PSS_HANDLE_ENTRY structure are valid.
- * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_handle_flags
+ * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ne-processsnapshot-pss_handle_flags
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */

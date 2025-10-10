@@ -5,7 +5,7 @@
 
 /**
  * Describes an XML encoded SignedInfo element.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_signed_info
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_signed_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

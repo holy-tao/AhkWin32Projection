@@ -5,7 +5,7 @@
 
 /**
  * Contains a SubjectAlgorithm to be matched in the certificate trust list (CTL) and the SubjectIdentifier to be matched in one of the CTL entries in calls to CertFindSubjectInCTL.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_any_subject_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_any_subject_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

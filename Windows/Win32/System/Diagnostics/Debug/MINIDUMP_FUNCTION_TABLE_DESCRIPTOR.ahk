@@ -4,9 +4,12 @@
 /**
  * Represents a function table stream.
  * @remarks
- * The first descriptor in the function table stream follows the header, 
+ * 
+  * The first descriptor in the function table stream follows the header, 
   * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_function_table_stream">MINIDUMP_FUNCTION_TABLE_STREAM</a>. The generic descriptor is followed by a native system descriptor, then by <b>EntryCount</b> native system function entry structures.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_function_table_descriptor
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_function_table_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

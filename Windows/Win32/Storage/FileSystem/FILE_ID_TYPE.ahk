@@ -2,7 +2,7 @@
 
 /**
  * Discriminator for the union in the FILE_ID_DESCRIPTOR structure.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-file_id_type
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ne-winbase-file_id_type
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

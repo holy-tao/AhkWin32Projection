@@ -3,7 +3,7 @@
 
 /**
  * Specifies a PKU2U client context.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-pku2u_credui_context
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-pku2u_credui_context
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

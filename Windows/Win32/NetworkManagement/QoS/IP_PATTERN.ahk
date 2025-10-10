@@ -4,11 +4,12 @@
 /**
  * The IP_PATTERN structure applies a specific pattern or corresponding mask for the IP protocol. The IP_PATTERN structure designation is used by the traffic control interface in the application of packet filters.
  * @remarks
- * The following macros are defined in Traffic.h to make it easier to reference the members of the union: 
+ * 
+  * The following macros are defined in Traffic.h to make it easier to reference the members of the union: 
   * 
+  * <pre class="syntax" xml:space="preserve"><code>#define tcSrcPort S_un.S_un_ports.s_srcport
   * 
-  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-ip_pattern
+ * @see https://docs.microsoft.com/windows/win32/api//traffic/ns-traffic-ip_pattern
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

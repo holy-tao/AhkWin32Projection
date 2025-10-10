@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_MATRIX structure specifies the graphics transform to be applied to rendered glyphs.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_matrix
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

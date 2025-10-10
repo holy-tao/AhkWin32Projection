@@ -3,7 +3,8 @@
 /**
  * Describes the content of a video sample. These flags are used in the DXVA2_ExtendedFormat structure.
  * @remarks
- * This enumeration is equivalent to the <b>DXVA_SampleFormat</b> enumeration used in DXVA 1.0.
+ * 
+  * This enumeration is equivalent to the <b>DXVA_SampleFormat</b> enumeration used in DXVA 1.0.
   * 
   * The following table shows the mapping from <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideointerlacemode">MFVideoInterlaceMode</a> enumeration values, which are used in Media Foundation media types, to <b>DXVA2_SampleFormat</b> values.
   * 
@@ -46,7 +47,9 @@
   * With the exception of MFVideoInterlace_MixedInterlaceOrProgressive, each pair of corresponding enumeration values has the same numeric value.
   * 
   * The value DXVA2_SampleSubStream has no equivalent in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideointerlacemode">MFVideoInterlaceMode</a> enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_sampleformat
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ne-dxva2api-dxva2_sampleformat
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

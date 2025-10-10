@@ -3,7 +3,7 @@
 
 /**
  * The SecPkgContext_KeyingMaterialInfo structure contains information about the exportable keying material in a security context.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_keyingmaterialinfo
+ * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_keyingmaterialinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

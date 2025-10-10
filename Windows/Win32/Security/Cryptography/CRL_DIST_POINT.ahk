@@ -6,7 +6,7 @@
 
 /**
  * Identifies a single certificate revocation list (CRL) distribution point that a certificate user can reference to determine whether certificates have been revoked.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_dist_point
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crl_dist_point
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

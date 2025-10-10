@@ -2,15 +2,18 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Used to subscribe for change notifications. (FWPM_CALLOUT_SUBSCRIPTION0)
+ * Used to subscribe for change notifications.
  * @remarks
- * Notifications are only dispatched for callouts that match the template. 
+ * 
+  * Notifications are only dispatched for callouts that match the template. 
   * 
   * If
   *    the template is <b>NULL</b>, it matches all callouts.
   * 
   * <b>FWPM_CALLOUT_SUBSCRIPTION0</b> is a specific implementation of FWPM_CALLOUT_SUBSCRIPTION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_subscription0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_callout_subscription0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

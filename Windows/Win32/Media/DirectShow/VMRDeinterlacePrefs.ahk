@@ -2,7 +2,7 @@
 
 /**
  * The VMRDeinterlacePrefs enumeration type describes the deinterlacing method that the Video Mixing Renderer Filter 7 (VMR-7) uses if the method set by the application cannot be used.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrdeinterlaceprefs
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vmrdeinterlaceprefs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

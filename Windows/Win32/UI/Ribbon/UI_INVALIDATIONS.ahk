@@ -2,7 +2,7 @@
 
 /**
  * Specifies values that identify the aspect of a Command to invalidate.
- * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_invalidations
+ * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_invalidations
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

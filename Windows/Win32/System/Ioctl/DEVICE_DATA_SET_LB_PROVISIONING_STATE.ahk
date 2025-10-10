@@ -4,7 +4,8 @@
 /**
  * Output structure for the DeviceDsmAction_Allocation action of the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @remarks
- * Provisioning state information is returned when the <b>Action</b> member of the 
+ * 
+  * Provisioning state information is returned when the <b>Action</b> member of the 
   *      <a href="https://docs.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_manage_data_set_attributes">DEVICE_MANAGE_DATA_SET_ATTRIBUTES</a> 
   *      structure is set to <b>DeviceDsmAction_Allocation</b>. The caller should include only one data 
   *      set range in the system buffer at <b>DataSetRangesOffset</b>.
@@ -51,7 +52,9 @@
   *     HBA) then the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_manage_data_set_attributes">IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES</a> 
   *     can fail with <b>ERROR_INVALID_PARAMETER</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_lb_provisioning_state
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_data_set_lb_provisioning_state
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

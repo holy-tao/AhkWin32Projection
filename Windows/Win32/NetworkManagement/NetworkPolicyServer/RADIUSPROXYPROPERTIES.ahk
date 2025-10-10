@@ -2,7 +2,7 @@
 
 /**
  * The values in the RADIUSPROXYPROPERTIES enumeration type enumerate properties related to the RADIUS proxy service.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusproxyproperties
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-radiusproxyproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Indicates the types of information that you can request about a performance counter set by calling the PerfQueryCounterSetRegistrationInfo function.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ne-perflib-perfreginfotype
+ * @see https://docs.microsoft.com/windows/win32/api//perflib/ne-perflib-perfreginfotype
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

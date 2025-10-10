@@ -3,7 +3,7 @@
 
 /**
  * Represents contextual information about an event, such as the time it was generated and which process server and COM+ application generated it.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-comsvcseventinfo
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

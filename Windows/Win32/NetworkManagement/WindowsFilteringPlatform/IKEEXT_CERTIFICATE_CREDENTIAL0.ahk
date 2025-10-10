@@ -3,8 +3,8 @@
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
- * Is used to store credential information specific to certificate authentication. (IKEEXT_CERTIFICATE_CREDENTIAL0)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_credential0
+ * Is used to store credential information specific to certificate authentication.
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_certificate_credential0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

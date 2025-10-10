@@ -2,7 +2,7 @@
 
 /**
  * Contains possible values for the SelectionActiveEnd text attribute, which indicates the location of the caret relative to a text range that represents the currently selected text.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-activeend
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-activeend
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

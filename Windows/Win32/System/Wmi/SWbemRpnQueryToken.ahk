@@ -4,7 +4,7 @@
 
 /**
  * The SWbemRpnQueryToken structure represents the query tokens in a WMIQ_ANALYSIS_RPN_SEQUENCE type query. An example of a query token is the following:\_j &gt; 4.
- * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken
+ * @see https://docs.microsoft.com/windows/win32/api//wmiutils/ns-wmiutils-swbemrpnquerytoken
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -78,7 +78,7 @@ class SWbemRpnQueryToken extends Win32Struct
     }
 
     /**
-     * Value of the first constant. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken">SWbemRpnConst</a>.
+     * Value of the first constant. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wmiutils/ns-wmiutils-tag_swbemrpnconst">SWbemRpnConst</a>.
      * @type {SWbemRpnConst}
      */
     m_Const{
@@ -99,7 +99,7 @@ class SWbemRpnQueryToken extends Win32Struct
     }
 
     /**
-     * Value of the second constant. The fields <b>m_uConst2ApparentType</b> and <b>m_uConst2</b> are used only for BETWEEN phrases. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken">SWbemRpnConst</a>.
+     * Value of the second constant. The fields <b>m_uConst2ApparentType</b> and <b>m_uConst2</b> are used only for BETWEEN phrases. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wmiutils/ns-wmiutils-tag_swbemrpnconst">SWbemRpnConst</a>.
      * @type {SWbemRpnConst}
      */
     m_Const2{

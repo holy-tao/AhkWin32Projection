@@ -10,7 +10,7 @@
 
 /**
  * Contains different levels of settings for a remote desktop connection.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_setting
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_connection_setting
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

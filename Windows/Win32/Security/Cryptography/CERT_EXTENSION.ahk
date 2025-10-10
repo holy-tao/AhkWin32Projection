@@ -4,7 +4,7 @@
 
 /**
  * The CERT_EXTENSION structure contains the extension information for a certificate, Certificate Revocation List (CRL) or Certificate Trust List (CTL).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_extension
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_extension
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

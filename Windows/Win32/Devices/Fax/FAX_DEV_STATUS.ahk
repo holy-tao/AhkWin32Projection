@@ -4,10 +4,13 @@
 /**
  * The FAX_DEV_STATUS structure contains status and identification information about an individual active fax operation.
  * @remarks
- * The FSP must either set all of the members of the <b>FAX_DEV_STATUS</b> structure to the status information for the active fax operation, or set them to zero.
+ * 
+  * The FSP must either set all of the members of the <b>FAX_DEV_STATUS</b> structure to the status information for the active fax operation, or set them to zero.
   * 
   * The fax service allocates the memory for the strings pointed to by the <b>CSI</b>, <b>CallerId</b> and <b>RoutingInfo</b> members. The size of the memory the service allocates is equal to sizeof(<b>FAX_DEV_STATUS</b>) + <b>FAXDEVREPORTSTATUS_SIZE</b>. The FSP must place the strings in the block of memory that immediately follows the <b>FAX_DEV_STATUS</b> structure. The <b>CSI</b>, <b>CallerId</b> and <b>RoutingInfo</b> members must point to the location of the strings in the memory block.
- * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_dev_status
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//faxdev/ns-faxdev-fax_dev_status
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

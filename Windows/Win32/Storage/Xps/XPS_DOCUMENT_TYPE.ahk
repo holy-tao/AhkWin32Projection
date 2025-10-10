@@ -2,7 +2,7 @@
 
 /**
  * Indicates the format into which the document was serialized.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/ne-xpsobjectmodel_1-xps_document_type
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

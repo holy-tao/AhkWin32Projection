@@ -2,7 +2,7 @@
 
 /**
  * Specifies where to attach the new InkOverlay object, behind or in front of the active layer.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkoverlayattachmode
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkoverlayattachmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

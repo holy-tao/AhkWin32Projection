@@ -2,7 +2,7 @@
 
 /**
  * Defines the options for applying template changes to derived objects.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

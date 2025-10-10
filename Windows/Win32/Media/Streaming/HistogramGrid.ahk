@@ -4,7 +4,7 @@
 
 /**
  * The HistogramGrid structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramgrid
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-histogramgrid
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

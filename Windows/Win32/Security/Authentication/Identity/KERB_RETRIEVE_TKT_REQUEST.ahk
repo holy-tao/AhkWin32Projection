@@ -6,7 +6,7 @@
 
 /**
  * Contains information used to retrieve a ticket.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_request
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

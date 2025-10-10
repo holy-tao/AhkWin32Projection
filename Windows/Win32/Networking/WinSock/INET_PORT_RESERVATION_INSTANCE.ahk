@@ -5,10 +5,13 @@
 /**
  * Contains a port reservation and a token for a block of TCP or UDP ports.
  * @remarks
- * The  <b>INET_PORT_RESERVATION_INSTANCE</b> structure is supported on Windows Vista and later.
+ * 
+  * The  <b>INET_PORT_RESERVATION_INSTANCE</b> structure is supported on Windows Vistaand later.
   * 
-  * The  <b>INET_PORT_RESERVATION_INSTANCE</b> structure is returned by the <a href="https://docs.microsoft.com/windows/win32/winsock/sio-acquire-port-reservation">SIO_ACQUIRE_PORT_RESERVATION</a> IOCTL when acquiring a runtime reservation for a block of TCP or UDP ports.
- * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-inet_port_reservation_instance
+  * The  <b>INET_PORT_RESERVATION_INSTANCE</b> structure is returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/gg699720(v=vs.85)">SIO_ACQUIRE_PORT_RESERVATION</a> IOCTL when acquring a runtime reservation for a block of TCP or UDP ports.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ns-mstcpip-inet_port_reservation_instance
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

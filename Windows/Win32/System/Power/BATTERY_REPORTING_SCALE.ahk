@@ -4,9 +4,12 @@
 /**
  * Contains the granularity of the battery capacity that is reported by IOCTL_BATTERY_QUERY_STATUS.
  * @remarks
- * The total number of <b>BATTERY_REPORTING_SCALE</b> entries returned from <a href="https://docs.microsoft.com/windows/desktop/Power/ioctl-battery-query-information">IOCTL_BATTERY_QUERY_INFORMATION</a> is indicated by the value of the <i>lpBytesReturned</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a>. To determine the number of elements in the array, divide the value of <i>lpBytesReturned</i> by the size of the 
+ * 
+  * The total number of <b>BATTERY_REPORTING_SCALE</b> entries returned from <a href="https://docs.microsoft.com/windows/desktop/Power/ioctl-battery-query-information">IOCTL_BATTERY_QUERY_INFORMATION</a> is indicated by the value of the <i>lpBytesReturned</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a>. To determine the number of elements in the array, divide the value of <i>lpBytesReturned</i> by the size of the 
   * <b>BATTERY_REPORTING_SCALE</b> structure. The maximum number of array entries that can be returned is four.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-battery_reporting_scale
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-battery_reporting_scale
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

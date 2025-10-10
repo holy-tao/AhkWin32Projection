@@ -3,7 +3,7 @@
 
 /**
  * Describes the disk partition information of a storage class resource.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_partition_info_ex2
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_partition_info_ex2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class CLUS_PARTITION_INFO_EX2 extends Win32Struct
     }
 
     /**
-     * A flag that indicates whether BitLocker encryption is enabled on the partition.
+     * A flag that indicates whether BitLocker encryption is enabled on the partion.
      * @type {Integer}
      */
     EncryptionFlags {

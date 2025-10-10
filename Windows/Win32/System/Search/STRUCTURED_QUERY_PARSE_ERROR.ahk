@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * A set of flags to be used with IQuerySolution::GetErrors to identify parsing error(s). Each parsing error indicates that one or more tokens were ignored when parsing a query string.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_parse_error
+ * A set of flags to be used with IQuerySolution::GetErrors to indentify parsing error(s). Each parsing error indicates that one or more tokens were ignored when parsing a query string.
+ * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-structured_query_parse_error
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

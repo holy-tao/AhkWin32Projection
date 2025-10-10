@@ -5,7 +5,7 @@
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.
- * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdatainfo
+ * @see https://docs.microsoft.com/windows/win32/api//vptype/ns-vptype-amvpdatainfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

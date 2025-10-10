@@ -3,7 +3,7 @@
 
 /**
  * Contains information to be passed to CryptMsgOpenToEncode if dwMsgType is CMSG_SIGNED.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_signed_encode_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_signed_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class CMSG_SIGNED_ENCODE_INFO extends Win32Struct
 
     /**
      * Array of pointers to 
-     * 			   <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info">CMSG_SIGNER_ENCODE_INFO</a> structures each holding signer information.
+     * 			   <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info">CMSG_SIGNER_ENCODE_INFO</a>structures each holding signer information.
      * @type {Pointer<CMSG_SIGNER_ENCODE_INFO>}
      */
     rgSigners {

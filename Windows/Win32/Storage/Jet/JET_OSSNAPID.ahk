@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Learn more about: JET_OSSNAPID
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-ossnapid
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

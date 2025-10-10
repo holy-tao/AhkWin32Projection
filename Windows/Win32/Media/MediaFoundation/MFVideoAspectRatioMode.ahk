@@ -2,7 +2,7 @@
 
 /**
  * Specifies the aspect-ratio mode.
- * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideoaspectratiomode
+ * @see https://docs.microsoft.com/windows/win32/api//evr/ne-evr-mfvideoaspectratiomode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

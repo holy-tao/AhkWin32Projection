@@ -3,7 +3,7 @@
 
 /**
  * WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE structure contains information that identifies the device type by category, sub-category, and a manufacturer specific OUI (Organization ID).
- * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ns-wcntypes-wcn_value_type_primary_device_type
+ * @see https://docs.microsoft.com/windows/win32/api//wcntypes/ns-wcntypes-wcn_value_type_primary_device_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */

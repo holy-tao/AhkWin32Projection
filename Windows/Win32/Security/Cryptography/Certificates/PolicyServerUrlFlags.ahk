@@ -2,7 +2,7 @@
 
 /**
  * Contains certificate enrollment policy (CEP) server flags.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-policyserverurlflags
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-policyserverurlflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

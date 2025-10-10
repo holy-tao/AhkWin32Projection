@@ -4,7 +4,7 @@
 
 /**
  * Contains global cursor information.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cursorinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-cursorinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -46,7 +46,7 @@ class CURSORINFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * A   structure that receives the screen coordinates of the cursor.
      * @type {POINT}

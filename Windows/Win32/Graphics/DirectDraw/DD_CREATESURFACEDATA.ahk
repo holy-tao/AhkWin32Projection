@@ -3,7 +3,7 @@
 
 /**
  * The DD_CREATESURFACEDATA structure contains information necessary to create a surface--in the case of CreateD3DBuffer, a command or vertex buffer.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_createsurfacedata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_createsurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class DD_CREATESURFACEDATA extends Win32Struct
     }
 
     /**
-     * Points to the <a href="https://docs.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc">DDSURFACEDESC</a> structure describing the surface or buffer that the driver should create.
+     * Points to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550339(v=vs.85)">DDSURFACEDESC</a> structure describing the surface or buffer that the driver should create.
      * @type {Pointer<DDSURFACEDESC>}
      */
     lpDDSurfaceDesc {

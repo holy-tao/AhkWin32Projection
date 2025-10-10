@@ -4,7 +4,7 @@
 
 /**
  * The CRYPT_SMIME_CAPABILITY structure specifies a single capability and its associated parameters. Single capabilities are grouped together into a list of CRYPT_SMIME_CAPABILITIES which can specify a prioritized list of capability preferences.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_smime_capability
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_smime_capability
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

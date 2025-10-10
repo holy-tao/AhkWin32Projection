@@ -1,10 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The WPD\_WHITE\_BALANCE\_SETTINGS enumeration type describes how a video or image device weights color channels to achieve a proper white balance.
- * @remarks
- * This enumeration is used by the [WPD\_STILL\_IMAGE\_WHITE\_BALANCE](still-image-properties.md) property.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-white-balance-settings
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

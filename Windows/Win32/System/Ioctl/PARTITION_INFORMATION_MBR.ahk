@@ -3,7 +3,7 @@
 
 /**
  * Contains partition information specific to master boot record (MBR) disks.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information_mbr
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-partition_information_mbr
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

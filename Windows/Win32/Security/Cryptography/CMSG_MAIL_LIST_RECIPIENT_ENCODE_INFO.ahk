@@ -6,7 +6,7 @@
 
 /**
  * The CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO structure is used with previously distributed symmetric keys for decrypting the content key encryption key (KEK).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_mail_list_recipient_encode_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_mail_list_recipient_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

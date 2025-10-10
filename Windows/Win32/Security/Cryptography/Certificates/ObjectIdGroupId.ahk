@@ -2,7 +2,7 @@
 
 /**
  * Specifies the category or group to which an object identifier (OID) belongs.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-objectidgroupid
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-objectidgroupid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -339,15 +339,12 @@ class ObjectIdGroupId{
     /**
      * Enables addition of a key length to the upper 16 bits of the XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID group ID. For example, to use the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromalgorithmname">InitializeFromAlgorithmName</a> method to initialize an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object from a 192-bit AES algorithm, specify "AES" for the <i>strAlgorithmName</i> parameter, shift the length left by 16, and perform a bitwise-<b>OR</b> combination on the shifted bit length and the <i>GroupId</i> value.
  * 
- * 
- * ``` syntax
- * DWORD dwBitLen = 192;
+ * <pre class="syntax" xml:space="preserve"><code>DWORD dwBitLen = 192;
  * 
  * ObjectIdGroupId GroupId = 
  *         (ObjectIdGroupId) (XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID | 
  *         (XCN_CRYPT_KEY_LENGTH_MASK &amp; (dwBitLen &lt;&lt; 16)));
- * 
- * ```
+ * </code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_KEY_LENGTH_MASK => 268369920

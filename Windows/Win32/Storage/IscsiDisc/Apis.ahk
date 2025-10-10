@@ -931,10 +931,9 @@ class IscsiDisc {
 
 ;@region Methods
     /**
-     * GetIscsiVersionInformation function retrieves information about the initiator version.
-     * @param {Pointer<ISCSI_VERSION_INFO>} VersionInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_version_info">ISCSI_VERSION_INFO</a> structure that contains  initiator version information.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiversioninformation
+     * 
+     * @param {Pointer<ISCSI_VERSION_INFO>} VersionInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiVersionInformation(VersionInfo) {
@@ -943,29 +942,13 @@ class IscsiDisc {
     }
 
     /**
-     * GetIscsiTargetInformation function retrieves information about the specified target. (Unicode)
-     * @remarks
-     * The iSCSI initiator service can acquire information about a single target through multiple discovery mechanisms and initiators, and the information can be different in each case, so the iSCSI initiator service maintains a list of <i>target instances</i> which are organized according to the discovery method.
      * 
-     * For instance, if a single target is discovered by multiple initiators, each of which uses a different target portal group to discover the target, the iSCSI initiator will create multiple target instances for the target, each of which refers to a different target portal group.
-     * 
-     * Since the information associated with a target is relative to the way in which it was discovered, the caller must specify the discovery mechanism in the <i>DiscoveryMechanism</i> parameter, using a correctly formatted string identifier for the discovery mechanism. The caller can retrieve a list of valid identifiers for discovery mechanisms by setting the <i>InfoClass</i> parameter to <b>null</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiTargetInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} TargetName The name of the target for which information is retrieved.
-     * @param {Pointer<Char>} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
-     * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} Buffer The buffer that contains the output data. The output data consists in <b>null</b>-terminated strings, with a double <b>null</b> termination after the last string.
-     * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
+     * @param {Pointer<Char>} TargetName 
+     * @param {Pointer<Char>} DiscoveryMechanism 
+     * @param {Integer} InfoClass 
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Void>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
@@ -977,29 +960,13 @@ class IscsiDisc {
     }
 
     /**
-     * GetIscsiTargetInformation function retrieves information about the specified target. (ANSI)
-     * @remarks
-     * The iSCSI initiator service can acquire information about a single target through multiple discovery mechanisms and initiators, and the information can be different in each case, so the iSCSI initiator service maintains a list of <i>target instances</i> which are organized according to the discovery method.
      * 
-     * For instance, if a single target is discovered by multiple initiators, each of which uses a different target portal group to discover the target, the iSCSI initiator will create multiple target instances for the target, each of which refers to a different target portal group.
-     * 
-     * Since the information associated with a target is relative to the way in which it was discovered, the caller must specify the discovery mechanism in the <i>DiscoveryMechanism</i> parameter, using a correctly formatted string identifier for the discovery mechanism. The caller can retrieve a list of valid identifiers for discovery mechanisms by setting the <i>InfoClass</i> parameter to <b>null</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiTargetInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} TargetName The name of the target for which information is retrieved.
-     * @param {Pointer<Byte>} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
-     * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} Buffer The buffer that contains the output data. The output data consists in <b>null</b>-terminated strings, with a double <b>null</b> termination after the last string.
-     * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
+     * @param {Pointer<Byte>} TargetName 
+     * @param {Pointer<Byte>} DiscoveryMechanism 
+     * @param {Integer} InfoClass 
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Void>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
@@ -1011,107 +978,17 @@ class IscsiDisc {
     }
 
     /**
-     * AddIscsiConnection function adds a new iSCSI connection to an existing session. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddIScsiConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that, on input, contains the session identifier for the session that was added.
-     * @param {Pointer<Void>} Reserved This member should be <b>null</b> on input.
-     * @param {Integer} InitiatorPortNumber The number of the port on the initiator that the initiator uses to add the connection. A value of <b>ISCSI_ANY_INITIATOR_PORT</b> indicates that the initiator can use any of its ports to add the connection.
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} TargetPortal A pointer to an ISCSI_TARGET_PORTAL-type structure that indicates the target portal to use when adding the connection. 
      * 
-     * The portal must belong to the same portal group that the initiator used to login to the target, and it must be a portal that the initiator discovered. The iSCSI initiator service does not verify that the target portal meets these requirements.
-     * @param {Integer} SecurityFlags A bitmap that specifies the characteristics of the IPsec connection that the initiator uses to establish the connection. If IPsec security policy between the initiator and the target portal is already configured because of the portal group policy or a previous connection to the portal, the existing configuration takes precedence over the configuration specified in SecurityFlags and the security bitmap is ignored. 
-     * 
-     * If the <b>ISCSI_SECURITY_FLAG_VALID</b> flag is set to 0, the iSCSI initiator service uses default values for the security flags that are defined in the registry.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED"></a><a id="iscsi_security_flag_tunnel_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec tunnel mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED"></a><a id="iscsi_security_flag_transport_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec transport mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_PFS_ENABLED"></a><a id="iscsi_security_flag_pfs_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_PFS_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with Perfect Forward Secrecy (PFS) mode enabled; otherwise, the initiator should make the connection with PFS mode disabled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED"></a><a id="iscsi_security_flag_aggressive_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with aggressive mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED flag, but not both. 
-     * 
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The Microsoft software initiator driver does not support aggressive mode.
-     * </div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED"></a><a id="iscsi_security_flag_main_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with main mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED"></a><a id="iscsi_security_flag_ike_ipsec_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with the IKE/IPsec protocol enabled; otherwise, the IKE/IPsec protocol is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_VALID"></a><a id="iscsi_security_flag_valid"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_VALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the other mask values are valid; otherwise, the iSCSI initiator service will use bitmap values that were previously defined for the target portal, or if none are available, the initiator service uses the default values defined in the registry. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the characteristics of the login session.
-     * @param {Integer} KeySize The size, in bytes, of the preshared key that is passed to the target.
-     * @param {Pointer<Byte>} Key If the IPsec security policy between the initiator and the target portal is already configured as a result of the portal group policy or a previous connection to the portal, the existing key takes precedence over the key currently specified in this member.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a>-type structure that, on output, receives an opaque value that uniquely identifies the connection that was added to the session.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsiconnectionw
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<Void>} Reserved 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} TargetPortal 
+     * @param {Integer} SecurityFlags 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Integer} KeySize 
+     * @param {Pointer<Byte>} Key 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
@@ -1122,107 +999,17 @@ class IscsiDisc {
     }
 
     /**
-     * AddIscsiConnection function adds a new iSCSI connection to an existing session. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddIScsiConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that, on input, contains the session identifier for the session that was added.
-     * @param {Pointer<Void>} Reserved This member should be <b>null</b> on input.
-     * @param {Integer} InitiatorPortNumber The number of the port on the initiator that the initiator uses to add the connection. A value of <b>ISCSI_ANY_INITIATOR_PORT</b> indicates that the initiator can use any of its ports to add the connection.
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} TargetPortal A pointer to an ISCSI_TARGET_PORTAL-type structure that indicates the target portal to use when adding the connection. 
      * 
-     * The portal must belong to the same portal group that the initiator used to login to the target, and it must be a portal that the initiator discovered. The iSCSI initiator service does not verify that the target portal meets these requirements.
-     * @param {Integer} SecurityFlags A bitmap that specifies the characteristics of the IPsec connection that the initiator uses to establish the connection. If IPsec security policy between the initiator and the target portal is already configured because of the portal group policy or a previous connection to the portal, the existing configuration takes precedence over the configuration specified in SecurityFlags and the security bitmap is ignored. 
-     * 
-     * If the <b>ISCSI_SECURITY_FLAG_VALID</b> flag is set to 0, the iSCSI initiator service uses default values for the security flags that are defined in the registry.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED"></a><a id="iscsi_security_flag_tunnel_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec tunnel mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED"></a><a id="iscsi_security_flag_transport_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec transport mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_PFS_ENABLED"></a><a id="iscsi_security_flag_pfs_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_PFS_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with Perfect Forward Secrecy (PFS) mode enabled; otherwise, the initiator should make the connection with PFS mode disabled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED"></a><a id="iscsi_security_flag_aggressive_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with aggressive mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED flag, but not both. 
-     * 
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The Microsoft software initiator driver does not support aggressive mode.
-     * </div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED"></a><a id="iscsi_security_flag_main_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with main mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED"></a><a id="iscsi_security_flag_ike_ipsec_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with the IKE/IPsec protocol enabled; otherwise, the IKE/IPsec protocol is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_VALID"></a><a id="iscsi_security_flag_valid"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_VALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the other mask values are valid; otherwise, the iSCSI initiator service will use bitmap values that were previously defined for the target portal, or if none are available, the initiator service uses the default values defined in the registry. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the characteristics of the login session.
-     * @param {Integer} KeySize The size, in bytes, of the preshared key that is passed to the target.
-     * @param {Pointer<Byte>} Key If the IPsec security policy between the initiator and the target portal is already configured as a result of the portal group policy or a previous connection to the portal, the existing key takes precedence over the key currently specified in this member.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a>-type structure that, on output, receives an opaque value that uniquely identifies the connection that was added to the session.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsiconnectiona
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<Void>} Reserved 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} TargetPortal 
+     * @param {Integer} SecurityFlags 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Integer} KeySize 
+     * @param {Pointer<Byte>} Key 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddIScsiConnectionA(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
@@ -1233,13 +1020,10 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiConnection function removes a connection from an active session.
-     * @remarks
-     * The <b>RemoveIscsiConnection</b> function will not remove the last connection of a session or the leading connection of a session. The caller must close the session by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-logoutiscsitarget">LogoutIscsiTarget</a> to remove the last connection.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that specifies the unique session identifier of the session that the connection belongs to.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a> that specifies the connection to remove.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsiconnection
+     * 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiConnection(UniqueSessionId, ConnectionId) {
@@ -1248,15 +1032,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiTargets function retrieves the list of targets that the iSCSI initiator service has discovered, and can also instruct the iSCSI initiator service to refresh the list. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
-     * @param {Pointer<UInt32>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {Pointer<Char>} Buffer Pointer to a buffer that receives and contains the list of targets. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsw
+     * 
+     * @param {Integer} ForceUpdate 
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Char>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer) {
@@ -1267,15 +1047,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiTargets function retrieves the list of targets that the iSCSI initiator service has discovered, and can also instruct the iSCSI initiator service to refresh the list. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
-     * @param {Pointer<UInt32>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {Pointer<Byte>} Buffer Pointer to a buffer that receives and contains the list of targets. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa
+     * 
+     * @param {Integer} ForceUpdate 
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Byte>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer) {
@@ -1286,59 +1062,15 @@ class IscsiDisc {
     }
 
     /**
-     * AddIscsiStaticTarget function adds a target to the list of static targets available to the iSCSI initiator. (Unicode)
-     * @remarks
-     * This routine adds a target to the iSCSI initiator service's list of static targets. If the caller specifies a value of <b>true</b> in <i>Persist</i>, the target is stored in the registry and information about the target persists across restarts of the initiator service and reboots of the operating system.
      * 
-     * By setting the <b>ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET</b> flag, callers can configure default login information for a target prior to its discovery by an iSCSI initiator, the iSNS service, or a SendTargets request.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddIScsiStaticTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} TargetName The name of the target to add to the static target list.
-     * @param {Pointer<Char>} TargetAlias An alias associated with the <i>TargetName</i>.
-     * @param {Integer} TargetFlags A bitmap of flags that affect how, and under what circumstances, a target is discovered and enumerated. 
-     * 
-     * The following table lists the flags that can be associated with a target and the meaning of each flag.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET"></a><a id="iscsi_target_flag_hide_static_target"></a><dl>
-     * <dt><b>ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The target is added to the list of static targets. However, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa">ReportIscsiTargets</a> does not report the target, unless it was also discovered dynamically by the iSCSI initiator, the Internet Storage Name Service (iSNS), or a <b>SendTargets</b> request.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_TARGET_FLAG_MERGE_TARGET_INFORMATION"></a><a id="iscsi_target_flag_merge_target_information"></a><dl>
-     * <dt><b>ISCSI_TARGET_FLAG_MERGE_TARGET_INFORMATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The iSCSI initiator service merges the information (if any) that it already has for this static target with the information that the caller passes to <b>AddIscsiStaticTarget</b>. 
-     * 
-     * If this flag is not set, the iSCSI initiator service overwrites the stored information with the information that the caller passes in.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Integer} Persist If <b>true</b>, the target information persists across restarts of the iSCSI initiator service.
-     * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a> that contains a set of mappings that the initiator uses when assigning values for the bus, target, and LUN numbers to the iSCSI LUNs associated with the target. 
-     * If <i>Mappings</i> is <b>null</b>, the initiator will select the bus, target, and LUN numbers.
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the default login parameters that an initiator uses to login to a target.
-     * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPW>} PortalGroup A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_groupa">ISCSI_TARGET_PORTAL_GROUP</a> that indicates the group of portals that an initiator can use login to the target.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsistatictargetw
+     * @param {Pointer<Char>} TargetName 
+     * @param {Pointer<Char>} TargetAlias 
+     * @param {Integer} TargetFlags 
+     * @param {Integer} Persist 
+     * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPW>} PortalGroup 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetW(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
@@ -1350,59 +1082,15 @@ class IscsiDisc {
     }
 
     /**
-     * AddIscsiStaticTarget function adds a target to the list of static targets available to the iSCSI initiator. (ANSI)
-     * @remarks
-     * This routine adds a target to the iSCSI initiator service's list of static targets. If the caller specifies a value of <b>true</b> in <i>Persist</i>, the target is stored in the registry and information about the target persists across restarts of the initiator service and reboots of the operating system.
      * 
-     * By setting the <b>ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET</b> flag, callers can configure default login information for a target prior to its discovery by an iSCSI initiator, the iSNS service, or a SendTargets request.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddIScsiStaticTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} TargetName The name of the target to add to the static target list.
-     * @param {Pointer<Byte>} TargetAlias An alias associated with the <i>TargetName</i>.
-     * @param {Integer} TargetFlags A bitmap of flags that affect how, and under what circumstances, a target is discovered and enumerated. 
-     * 
-     * The following table lists the flags that can be associated with a target and the meaning of each flag.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET"></a><a id="iscsi_target_flag_hide_static_target"></a><dl>
-     * <dt><b>ISCSI_TARGET_FLAG_HIDE_STATIC_TARGET</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The target is added to the list of static targets. However, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa">ReportIscsiTargets</a> does not report the target, unless it was also discovered dynamically by the iSCSI initiator, the Internet Storage Name Service (iSNS), or a <b>SendTargets</b> request.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_TARGET_FLAG_MERGE_TARGET_INFORMATION"></a><a id="iscsi_target_flag_merge_target_information"></a><dl>
-     * <dt><b>ISCSI_TARGET_FLAG_MERGE_TARGET_INFORMATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The iSCSI initiator service merges the information (if any) that it already has for this static target with the information that the caller passes to <b>AddIscsiStaticTarget</b>. 
-     * 
-     * If this flag is not set, the iSCSI initiator service overwrites the stored information with the information that the caller passes in.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Integer} Persist If <b>true</b>, the target information persists across restarts of the iSCSI initiator service.
-     * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a> that contains a set of mappings that the initiator uses when assigning values for the bus, target, and LUN numbers to the iSCSI LUNs associated with the target. 
-     * If <i>Mappings</i> is <b>null</b>, the initiator will select the bus, target, and LUN numbers.
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the default login parameters that an initiator uses to login to a target.
-     * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPA>} PortalGroup A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_groupa">ISCSI_TARGET_PORTAL_GROUP</a> that indicates the group of portals that an initiator can use login to the target.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsistatictargeta
+     * @param {Pointer<Byte>} TargetName 
+     * @param {Pointer<Byte>} TargetAlias 
+     * @param {Integer} TargetFlags 
+     * @param {Integer} Persist 
+     * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPA>} PortalGroup 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetA(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
@@ -1414,13 +1102,9 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiStaticTarget function removes a target from the list of static targets made available to the machine. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveIScsiStaticTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} TargetName The name of the iSCSI target to remove from the static list.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsistatictargetw
+     * 
+     * @param {Pointer<Char>} TargetName 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetW(TargetName) {
@@ -1431,13 +1115,9 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiStaticTarget function removes a target from the list of static targets made available to the machine. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveIScsiStaticTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} TargetName The name of the iSCSI target to remove from the static list.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsistatictargeta
+     * 
+     * @param {Pointer<Byte>} TargetName 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetA(TargetName) {
@@ -1448,103 +1128,13 @@ class IscsiDisc {
     }
 
     /**
-     * AddIscsiSendTargetPortal function adds a static target portal to the list of target portals to which the iSCSI initiator service transmits SendTargets requests. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorInstance The initiator that the iSCSI initiator service utilizes to transmit <b>SendTargets</b> requests to the specified target portal. If <b>null</b>, the iSCSI initiator service will use any initiator that can reach the target portal.
-     * @param {Integer} InitiatorPortNumber The port number to use for the <b>SendTargets</b> request. This port number corresponds to the source IP address on the Host-Bus Adapter (HBA).  A value of <b>ISCSI_ALL_INITIATOR_PORTS</b> indicates that the initiator must select the appropriate port based upon current routing information.
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the login options to use with the target portal.
-     * @param {Integer} SecurityFlags A bitmap that specifies the characteristics of the IPsec connection that the initiator adds to the session. If IPsec security policy between the initiator and the target portal is already configured as a result  of the portal group policy or a previous connection to the portal, the existing configuration takes precedence over the configuration specified in SecurityFlags and the security bitmap is ignored. 
      * 
-     * If the <b>ISCSI_SECURITY_FLAG_VALID</b> flag is set to 0, the iSCSI initiator service uses default values for the security flags that are defined in the registry.
-     * 
-     * Caller can set any of the following flags in the bitmap:
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED"></a><a id="iscsi_security_flag_tunnel_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec tunnel mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED"></a><a id="iscsi_security_flag_transport_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec transport mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_PFS_ENABLED"></a><a id="iscsi_security_flag_pfs_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_PFS_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with Perfect Forward Secrecy (PFS) mode enabled; otherwise, the initiator should make the connection with PFS mode disabled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED"></a><a id="iscsi_security_flag_aggressive_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with aggressive mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED flag, but not both. 
-     * 
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The Microsoft software initiator driver does not support aggressive mode.
-     * </div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED"></a><a id="iscsi_security_flag_main_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with main mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED"></a><a id="iscsi_security_flag_ike_ipsec_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with the IKE/IPsec protocol enabled; otherwise, the IKE/IPsec protocol is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_VALID"></a><a id="iscsi_security_flag_valid"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_VALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the other mask values are valid; otherwise, the iSCSI initiator service will use bitmap values that were previously defined for the target portal, or if none are available, the initiator service uses the default values defined in the registry. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that indicates the portal to which SendTargets will be sent for target discovery.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsisendtargetportalw
+     * @param {Pointer<Char>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Integer} SecurityFlags 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
@@ -1555,103 +1145,13 @@ class IscsiDisc {
     }
 
     /**
-     * AddIscsiSendTargetPortal function adds a static target portal to the list of target portals to which the iSCSI initiator service transmits SendTargets requests. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorInstance The initiator that the iSCSI initiator service utilizes to transmit <b>SendTargets</b> requests to the specified target portal. If <b>null</b>, the iSCSI initiator service will use any initiator that can reach the target portal.
-     * @param {Integer} InitiatorPortNumber The port number to use for the <b>SendTargets</b> request. This port number corresponds to the source IP address on the Host-Bus Adapter (HBA).  A value of <b>ISCSI_ALL_INITIATOR_PORTS</b> indicates that the initiator must select the appropriate port based upon current routing information.
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the login options to use with the target portal.
-     * @param {Integer} SecurityFlags A bitmap that specifies the characteristics of the IPsec connection that the initiator adds to the session. If IPsec security policy between the initiator and the target portal is already configured as a result  of the portal group policy or a previous connection to the portal, the existing configuration takes precedence over the configuration specified in SecurityFlags and the security bitmap is ignored. 
      * 
-     * If the <b>ISCSI_SECURITY_FLAG_VALID</b> flag is set to 0, the iSCSI initiator service uses default values for the security flags that are defined in the registry.
-     * 
-     * Caller can set any of the following flags in the bitmap:
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED"></a><a id="iscsi_security_flag_tunnel_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec tunnel mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED"></a><a id="iscsi_security_flag_transport_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec transport mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_PFS_ENABLED"></a><a id="iscsi_security_flag_pfs_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_PFS_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with Perfect Forward Secrecy (PFS) mode enabled; otherwise, the initiator should make the connection with PFS mode disabled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED"></a><a id="iscsi_security_flag_aggressive_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with aggressive mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED flag, but not both. 
-     * 
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The Microsoft software initiator driver does not support aggressive mode.
-     * </div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED"></a><a id="iscsi_security_flag_main_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with main mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED"></a><a id="iscsi_security_flag_ike_ipsec_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with the IKE/IPsec protocol enabled; otherwise, the IKE/IPsec protocol is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_VALID"></a><a id="iscsi_security_flag_valid"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_VALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the other mask values are valid; otherwise, the iSCSI initiator service will use bitmap values that were previously defined for the target portal, or if none are available, the initiator service uses the default values defined in the registry. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that indicates the portal to which SendTargets will be sent for target discovery.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsisendtargetportala
+     * @param {Pointer<Byte>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Integer} SecurityFlags 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
@@ -1662,15 +1162,11 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiSendTargetPortal function removes a portal from the list of portals to which the iSCSI initiator service sends SendTargets requests for target discovery. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorInstance The name of the Host Bus Adapter (HBA) that the iSCSI initiator service uses to establish a discovery session and perform <b>SendTargets</b> requests. A value of <b>null</b> indicates that the iSCSI initiator service will use any HBA that is capable of accessing the target portal.
-     * @param {Integer} InitiatorPortNumber The port number on the HBA that the iSCSI initiator service use to perform <b>SendTargets</b> requests.
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that specifies the target portal that the iSCSI initiator service removes from its list of portals.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsisendtargetportalw
+     * 
+     * @param {Pointer<Char>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1681,15 +1177,11 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiSendTargetPortal function removes a portal from the list of portals to which the iSCSI initiator service sends SendTargets requests for target discovery. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorInstance The name of the Host Bus Adapter (HBA) that the iSCSI initiator service uses to establish a discovery session and perform <b>SendTargets</b> requests. A value of <b>null</b> indicates that the iSCSI initiator service will use any HBA that is capable of accessing the target portal.
-     * @param {Integer} InitiatorPortNumber The port number on the HBA that the iSCSI initiator service use to perform <b>SendTargets</b> requests.
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that specifies the target portal that the iSCSI initiator service removes from its list of portals.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsisendtargetportala
+     * 
+     * @param {Pointer<Byte>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1700,15 +1192,11 @@ class IscsiDisc {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorInstance The name of the Host Bus Adapter (HBA) to use for the <b>SendTargets</b> request. If <b>null</b>, the iSCSI initiator service uses any HBA that can reach the indicated target portal is chosen.
-     * @param {Integer} InitiatorPortNumber The port number on the HBA to use for the <b>SendTargets</b> request. If the value is <b>ISCSI_ALL_INITIATOR_PORTS</b>, the initiator HBA will choose the appropriate port based upon current routing information.
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a>  indicating the portal to which the iSCSI initiator service sends the <b>SendTargets</b> request to refresh the list of targets.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportalw
+     * 
+     * @param {Pointer<Char>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1719,15 +1207,11 @@ class IscsiDisc {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorInstance The name of the Host Bus Adapter (HBA) to use for the <b>SendTargets</b> request. If <b>null</b>, the iSCSI initiator service uses any HBA that can reach the indicated target portal is chosen.
-     * @param {Integer} InitiatorPortNumber The port number on the HBA to use for the <b>SendTargets</b> request. If the value is <b>ISCSI_ALL_INITIATOR_PORTS</b>, the initiator HBA will choose the appropriate port based upon current routing information.
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a>  indicating the portal to which the iSCSI initiator service sends the <b>SendTargets</b> request to refresh the list of targets.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * 
+     * @param {Pointer<Byte>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1738,14 +1222,10 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiSendTargetPortals function retrieves a list of target portals that the iSCSI initiator service uses to perform automatic discovery with SendTarget requests. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiSendTargetPortals as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} PortalCount A pointer to a location that, on input, contains the number of entries in the <i>PortalInfo</i> array. On output, this parameter specifies the number of elements that contain return data.
-     * @param {Pointer<ISCSI_TARGET_PORTAL_INFOW>} PortalInfo Pointer to an array of elements contained in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO</a> structures that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsw
+     * 
+     * @param {Pointer<UInt32>} PortalCount 
+     * @param {Pointer<ISCSI_TARGET_PORTAL_INFOW>} PortalInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsW(PortalCount, PortalInfo) {
@@ -1754,14 +1234,10 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiSendTargetPortals function retrieves a list of target portals that the iSCSI initiator service uses to perform automatic discovery with SendTarget requests. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiSendTargetPortals as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} PortalCount A pointer to a location that, on input, contains the number of entries in the <i>PortalInfo</i> array. On output, this parameter specifies the number of elements that contain return data.
-     * @param {Pointer<ISCSI_TARGET_PORTAL_INFOA>} PortalInfo Pointer to an array of elements contained in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO</a> structures that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsa
+     * 
+     * @param {Pointer<UInt32>} PortalCount 
+     * @param {Pointer<ISCSI_TARGET_PORTAL_INFOA>} PortalInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsA(PortalCount, PortalInfo) {
@@ -1770,15 +1246,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiSendTargetPortalsEx function retrieves a list of static target portals that the iSCSI initiator service uses to perform automatic discovery with SendTarget requests. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiSendTargetPortalsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} PortalCount A pointer to a location that, on input, contains the number of entries in the <i>PortalInfo</i> array. On output, this parameter specifies the number of elements that contain return data.
-     * @param {Pointer<UInt32>} PortalInfoSize A pointer to a location that, on input, contains the byte-size of the buffer specified by <i>PortalInfo</i>. On output, this parameter specifies the number of bytes retrieved.
-     * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXW>} PortalInfo Pointer to an array of elements contained in a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO_EX</a> structure that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>PortalInfo</i> is insufficient to contain the output data. Otherwise, <b>ReportIscsiSendTargetPortalsEx</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexw
+     * 
+     * @param {Pointer<UInt32>} PortalCount 
+     * @param {Pointer<UInt32>} PortalInfoSize 
+     * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXW>} PortalInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsExW(PortalCount, PortalInfoSize, PortalInfo) {
@@ -1787,15 +1259,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiSendTargetPortalsEx function retrieves a list of static target portals that the iSCSI initiator service uses to perform automatic discovery with SendTarget requests. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiSendTargetPortalsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} PortalCount A pointer to a location that, on input, contains the number of entries in the <i>PortalInfo</i> array. On output, this parameter specifies the number of elements that contain return data.
-     * @param {Pointer<UInt32>} PortalInfoSize A pointer to a location that, on input, contains the byte-size of the buffer specified by <i>PortalInfo</i>. On output, this parameter specifies the number of bytes retrieved.
-     * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXA>} PortalInfo Pointer to an array of elements contained in a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO_EX</a> structure that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>PortalInfo</i> is insufficient to contain the output data. Otherwise, <b>ReportIscsiSendTargetPortalsEx</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexa
+     * 
+     * @param {Pointer<UInt32>} PortalCount 
+     * @param {Pointer<UInt32>} PortalInfoSize 
+     * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXA>} PortalInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsExA(PortalCount, PortalInfoSize, PortalInfo) {
@@ -1804,128 +1272,21 @@ class IscsiDisc {
     }
 
     /**
-     * LoginIscsiTarget function establishes a full featured login session with the indicated target. (Unicode)
-     * @remarks
-     * The <b>LoginIscsiTarget</b> function either establishes a single login session with a target, or creates a persistent login to a target. If <b>LoginIscsiTarget</b> creates a persistent login, the specified initiator should log in to the target each time the initiator is started, typically at system boot. Callers to <b>LoginIscsiTarget</b> can request the creation of a persistent login by setting the <i>IsPersistent</i> parameter to <b>true</b>.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines LoginIScsiTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} TargetName The name of the target with which to establish a login session. The target must already exist in the list of discovered targets for the iSCSI initiator service.
-     * @param {Integer} IsInformationalSession If <b>true</b>, the <b>LoginIscsiTarget</b> function establishes a login session, but the operation does not report the LUNs on the target to the "Plug and Play" Manager. If the login succeeds, management applications will be able to query the target for information with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity">SendScsiReadCapacity</a> functions, but the storage stack will not enumerate the target or load a driver for it. 
-     * 
-     * If <i>IsInformationalSession</i> is <b>false</b>, <b>LoginIscsiTarget</b> reports the LUNs associated with the target to the "Plug and Play" Manager, and the system loads drivers for the LUNs.
-     * @param {Pointer<Char>} InitiatorInstance The name of the initiator that logs in to the target. If <i>InitiatorName</i> is <b>null</b>, the iSCSI initiator service selects an initiator.
-     * @param {Integer} InitiatorPortNumber The port number of the Host Bus Adapter (HBA) that initiates the login session. If this parameter is <b>ISCSI_ANY_INITIATOR_PORT</b>, the caller did not specify a port for the initiator HBA to use when logging in to the target. 
-     * 
-     * If <i>InitiatorName</i> is <b>null</b>, <i>InitiatorPortNumber</i> must be <b>ISCSI_ANY_INITIATOR_PORT</b>.
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} TargetPortal Pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that indicates the portal that the initiator uses to open the session. The specified portal must belong to a portal group that is associated with the <i>TargetName</i>. If <i>TargetPortal</i> is <b>null</b>, the iSCSI initiator service instructs the initiator to use any portal through which the target is accessible to the initiator. If the caller specifies the value for <i>TargetPortal</i>, the iSCSI initiator service will not verify that the <i>TargetPortal</i> is accessible to the initiator HBA.
-     * @param {Integer} SecurityFlags A bitmap that specifies the characteristics of the IPsec connection that the initiator adds to the session. If an IPsec security policy between the initiator and the target portal is already configured as a result of the current portal group policy or a previous connection to the target, the existing configuration takes precedence over the configuration specified in <i>SecurityFlags</i>. 
-     * 
-     * If the ISCSI_SECURITY_FLAG_VALID flag is set to 0, the iSCSI initiator service uses default values for the security flags that are defined in the registry. 
-     * 
-     * Caller can set any of the following flags in the bitmap: 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED"></a><a id="iscsi_security_flag_tunnel_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec tunnel mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED"></a><a id="iscsi_security_flag_transport_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec transport mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_PFS_ENABLED"></a><a id="iscsi_security_flag_pfs_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_PFS_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with Perfect Forward Secrecy (PFS) mode enabled; otherwise, the initiator should make the connection with PFS mode disabled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED"></a><a id="iscsi_security_flag_aggressive_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with aggressive mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED flag, but not both. 
-     * 
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The Microsoft software initiator driver does not support aggressive mode.
-     * </div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED"></a><a id="iscsi_security_flag_main_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with main mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED"></a><a id="iscsi_security_flag_ike_ipsec_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with the IKE/IPsec protocol enabled; otherwise, the IKE/IPsec protocol is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_VALID"></a><a id="iscsi_security_flag_valid"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_VALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the other mask values are valid; otherwise, the iSCSI initiator service will use bitmap values that were previously defined for the target portal, or if none are available, the initiator service uses the default values defined in the registry. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings An array of structures of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a>, each of which holds information that the initiator uses to assign bus, target and LUN numbers to the devices that are associated with the target. If <i>Mappings</i> is <b>null</b>, the initiator will select the bus, target and LUN numbers.
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the characteristics of the login session.
-     * @param {Integer} KeySize The size, in bytes, of the target's preshared key specified by the <i>Key</i> parameter.
-     * @param {Pointer<Byte>} Key A preshared key to use when logging in to the target portal that exposes this target. 
-     * 
-     * <div class="alert"><b>Note</b>  If an IPsec policy is already associated with the target portal, the IPsec settings in this call are ignored.</div>
-     * <div> </div>
-     * @param {Integer} IsPersistent If <b>true</b>, the initiator should save the characteristics of the login session in non-volatile storage, so that the information persists across restarts of the initiator device and reboots of the operating system. The initiator should not establish the login session until after saving the persistent data. 
-     * 
-     * Whenever the initiator device restarts, it should automatically attempt to re-establish the login session with the same characteristics. If <b>false</b>, the initiator device simply logs in to the target without saving the characteristics of the login session.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that, on return, contains a unique session identifier for the login session.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a> that, on return, contains a unique connection identifier for the login session.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-loginiscsitargetw
+     * @param {Pointer<Char>} TargetName 
+     * @param {Integer} IsInformationalSession 
+     * @param {Pointer<Char>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} TargetPortal 
+     * @param {Integer} SecurityFlags 
+     * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Integer} KeySize 
+     * @param {Pointer<Byte>} Key 
+     * @param {Integer} IsPersistent 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static LoginIScsiTargetW(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
@@ -1938,128 +1299,21 @@ class IscsiDisc {
     }
 
     /**
-     * LoginIscsiTarget function establishes a full featured login session with the indicated target. (ANSI)
-     * @remarks
-     * The <b>LoginIscsiTarget</b> function either establishes a single login session with a target, or creates a persistent login to a target. If <b>LoginIscsiTarget</b> creates a persistent login, the specified initiator should log in to the target each time the initiator is started, typically at system boot. Callers to <b>LoginIscsiTarget</b> can request the creation of a persistent login by setting the <i>IsPersistent</i> parameter to <b>true</b>.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines LoginIScsiTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} TargetName The name of the target with which to establish a login session. The target must already exist in the list of discovered targets for the iSCSI initiator service.
-     * @param {Integer} IsInformationalSession If <b>true</b>, the <b>LoginIscsiTarget</b> function establishes a login session, but the operation does not report the LUNs on the target to the "Plug and Play" Manager. If the login succeeds, management applications will be able to query the target for information with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity">SendScsiReadCapacity</a> functions, but the storage stack will not enumerate the target or load a driver for it. 
-     * 
-     * If <i>IsInformationalSession</i> is <b>false</b>, <b>LoginIscsiTarget</b> reports the LUNs associated with the target to the "Plug and Play" Manager, and the system loads drivers for the LUNs.
-     * @param {Pointer<Byte>} InitiatorInstance The name of the initiator that logs in to the target. If <i>InitiatorName</i> is <b>null</b>, the iSCSI initiator service selects an initiator.
-     * @param {Integer} InitiatorPortNumber The port number of the Host Bus Adapter (HBA) that initiates the login session. If this parameter is <b>ISCSI_ANY_INITIATOR_PORT</b>, the caller did not specify a port for the initiator HBA to use when logging in to the target. 
-     * 
-     * If <i>InitiatorName</i> is <b>null</b>, <i>InitiatorPortNumber</i> must be <b>ISCSI_ANY_INITIATOR_PORT</b>.
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} TargetPortal Pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that indicates the portal that the initiator uses to open the session. The specified portal must belong to a portal group that is associated with the <i>TargetName</i>. If <i>TargetPortal</i> is <b>null</b>, the iSCSI initiator service instructs the initiator to use any portal through which the target is accessible to the initiator. If the caller specifies the value for <i>TargetPortal</i>, the iSCSI initiator service will not verify that the <i>TargetPortal</i> is accessible to the initiator HBA.
-     * @param {Integer} SecurityFlags A bitmap that specifies the characteristics of the IPsec connection that the initiator adds to the session. If an IPsec security policy between the initiator and the target portal is already configured as a result of the current portal group policy or a previous connection to the target, the existing configuration takes precedence over the configuration specified in <i>SecurityFlags</i>. 
-     * 
-     * If the ISCSI_SECURITY_FLAG_VALID flag is set to 0, the iSCSI initiator service uses default values for the security flags that are defined in the registry. 
-     * 
-     * Caller can set any of the following flags in the bitmap: 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED"></a><a id="iscsi_security_flag_tunnel_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec tunnel mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED"></a><a id="iscsi_security_flag_transport_mode_preferred"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection in IPsec transport mode. Caller should set this flag or the ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_PFS_ENABLED"></a><a id="iscsi_security_flag_pfs_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_PFS_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with Perfect Forward Secrecy (PFS) mode enabled; otherwise, the initiator should make the connection with PFS mode disabled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED"></a><a id="iscsi_security_flag_aggressive_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with aggressive mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED flag, but not both. 
-     * 
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The Microsoft software initiator driver does not support aggressive mode.
-     * </div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED"></a><a id="iscsi_security_flag_main_mode_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with main mode enabled. Caller should set this flag or the ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED flag, but not both.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED"></a><a id="iscsi_security_flag_ike_ipsec_enabled"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the initiator should make the connection with the IKE/IPsec protocol enabled; otherwise, the IKE/IPsec protocol is disabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ISCSI_SECURITY_FLAG_VALID"></a><a id="iscsi_security_flag_valid"></a><dl>
-     * <dt><b>ISCSI_SECURITY_FLAG_VALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * When set to 1, the other mask values are valid; otherwise, the iSCSI initiator service will use bitmap values that were previously defined for the target portal, or if none are available, the initiator service uses the default values defined in the registry. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings An array of structures of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a>, each of which holds information that the initiator uses to assign bus, target and LUN numbers to the devices that are associated with the target. If <i>Mappings</i> is <b>null</b>, the initiator will select the bus, target and LUN numbers.
-     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the characteristics of the login session.
-     * @param {Integer} KeySize The size, in bytes, of the target's preshared key specified by the <i>Key</i> parameter.
-     * @param {Pointer<Byte>} Key A preshared key to use when logging in to the target portal that exposes this target. 
-     * 
-     * <div class="alert"><b>Note</b>  If an IPsec policy is already associated with the target portal, the IPsec settings in this call are ignored.</div>
-     * <div> </div>
-     * @param {Integer} IsPersistent If <b>true</b>, the initiator should save the characteristics of the login session in non-volatile storage, so that the information persists across restarts of the initiator device and reboots of the operating system. The initiator should not establish the login session until after saving the persistent data. 
-     * 
-     * Whenever the initiator device restarts, it should automatically attempt to re-establish the login session with the same characteristics. If <b>false</b>, the initiator device simply logs in to the target without saving the characteristics of the login session.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that, on return, contains a unique session identifier for the login session.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a> that, on return, contains a unique connection identifier for the login session.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-loginiscsitargeta
+     * @param {Pointer<Byte>} TargetName 
+     * @param {Integer} IsInformationalSession 
+     * @param {Pointer<Byte>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} TargetPortal 
+     * @param {Integer} SecurityFlags 
+     * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings 
+     * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
+     * @param {Integer} KeySize 
+     * @param {Pointer<Byte>} Key 
+     * @param {Integer} IsPersistent 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
@@ -2072,23 +1326,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiPersistentLogins function retrieves the list of persistent login targets. (Unicode)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-persistent_iscsi_login_infoa">PERSISTENT_ISCSI_LOGIN_INFO</a> structure provides an initiator with the information required to log in to a target each time the initiator device is started.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiPersistentLogins as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} Count A pointer to the location that receives a count of the elements specified by  <i>PersistentLoginInfo</i>.
-     * @param {Pointer<PERSISTENT_ISCSI_LOGIN_INFOW>} PersistentLoginInfo An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-persistent_iscsi_login_infoa">PERSISTENT_ISCSI_LOGIN_INFO</a> structures that, on output, describe the persistent login targets.
-     * @param {Pointer<UInt32>} BufferSizeInBytes A pointer to a location that, on input, contains the byte-size of the buffer space that <i>PersistentLoginInfo</i>  specifies. If the buffer size is insufficient, this parameter specifies what is  required to contain the output data.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>PersistentLoginInfo</i> is insufficient to contain the output data. 
-     * 
-     * Otherwise, <b>ReportIscsiPersistentLogins</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsw
+     * @param {Pointer<UInt32>} Count 
+     * @param {Pointer<PERSISTENT_ISCSI_LOGIN_INFOW>} PersistentLoginInfo 
+     * @param {Pointer<UInt32>} BufferSizeInBytes 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiPersistentLoginsW(Count, PersistentLoginInfo, BufferSizeInBytes) {
@@ -2097,23 +1339,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiPersistentLogins function retrieves the list of persistent login targets. (ANSI)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-persistent_iscsi_login_infoa">PERSISTENT_ISCSI_LOGIN_INFO</a> structure provides an initiator with the information required to log in to a target each time the initiator device is started.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiPersistentLogins as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} Count A pointer to the location that receives a count of the elements specified by  <i>PersistentLoginInfo</i>.
-     * @param {Pointer<PERSISTENT_ISCSI_LOGIN_INFOA>} PersistentLoginInfo An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-persistent_iscsi_login_infoa">PERSISTENT_ISCSI_LOGIN_INFO</a> structures that, on output, describe the persistent login targets.
-     * @param {Pointer<UInt32>} BufferSizeInBytes A pointer to a location that, on input, contains the byte-size of the buffer space that <i>PersistentLoginInfo</i>  specifies. If the buffer size is insufficient, this parameter specifies what is  required to contain the output data.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>PersistentLoginInfo</i> is insufficient to contain the output data. 
-     * 
-     * Otherwise, <b>ReportIscsiPersistentLogins</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsa
+     * @param {Pointer<UInt32>} Count 
+     * @param {Pointer<PERSISTENT_ISCSI_LOGIN_INFOA>} PersistentLoginInfo 
+     * @param {Pointer<UInt32>} BufferSizeInBytes 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiPersistentLoginsA(Count, PersistentLoginInfo, BufferSizeInBytes) {
@@ -2122,12 +1352,9 @@ class IscsiDisc {
     }
 
     /**
-     * The LogoutIscsiTarget routine closes the specified login session.
-     * @remarks
-     * If the login session is not for informational purposes, the iSCSI initiator service ensures that all devices associated with the session can be safely removed from the device stack before allowing the initiator to close the session. If the session is an informational session, the iSCSI initiator service closes the session immediately.
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that contains a unique session identifier for the login session end.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-logoutiscsitarget
+     * 
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static LogoutIScsiTarget(UniqueSessionId) {
@@ -2136,16 +1363,12 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiPersistentTarget function removes a persistent login for the specified hardware initiator Host Bus Adapter (HBA), initiator port, and target portal. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveIScsiPersistentTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorInstance The name of the initiator that maintains the persistent login to remove.
-     * @param {Integer} InitiatorPortNumber The port number on which the initiator connects to <i>TargetName</i>. If <i>InitiatorPortNumber</i> is <b>ISCSI_ALL_INITIATOR_PORTS</b> the miniport driver for the initiator HBA removes the <i>TargetName</i> from the persistent login lists for all initiator ports.
-     * @param {Pointer<Char>} TargetName The name of the target.
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal The portal through which the initiator connects to the target. If <i>Portal</i> is <b>null</b> or contains no information, the miniport driver for the initiator HBA removes persistent logins for the target on all portals.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsipersistenttargetw
+     * 
+     * @param {Pointer<Char>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<Char>} TargetName 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetW(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
@@ -2157,16 +1380,12 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIscsiPersistentTarget function removes a persistent login for the specified hardware initiator Host Bus Adapter (HBA), initiator port, and target portal. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveIScsiPersistentTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorInstance The name of the initiator that maintains the persistent login to remove.
-     * @param {Integer} InitiatorPortNumber The port number on which the initiator connects to <i>TargetName</i>. If <i>InitiatorPortNumber</i> is <b>ISCSI_ALL_INITIATOR_PORTS</b> the miniport driver for the initiator HBA removes the <i>TargetName</i> from the persistent login lists for all initiator ports.
-     * @param {Pointer<Byte>} TargetName The name of the target.
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal The portal through which the initiator connects to the target. If <i>Portal</i> is <b>null</b> or contains no information, the miniport driver for the initiator HBA removes persistent logins for the target on all portals.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsipersistenttargeta
+     * 
+     * @param {Pointer<Byte>} InitiatorInstance 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<Byte>} TargetName 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetA(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
@@ -2193,12 +1412,12 @@ class IscsiDisc {
      * 
      * 
      * 
-     * If the device returns a SCSI error while processing the REPORT LUNS request, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a> returns an error code of ISDSC_SCSI_REQUEST_FAILED, and the locations pointed to by <i>ScsiStatus</i> and <i>SenseBuffer</i> contain information detailing the SCSI error.
+     * If the device returns a SCSI error while processing the REPORT LUNS request, <a href="/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a> returns an error code of ISDSC_SCSI_REQUEST_FAILED, and the locations pointed to by <i>ScsiStatus</i> and <i>SenseBuffer</i> contain information detailing the SCSI error.
      * 
      *  
      * 
      * Otherwise, <b>SendScsiInquiry</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-sendscsiinquiry
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-sendscsiinquiry
      * @since windows6.0.6000
      */
     static SendScsiInquiry(UniqueSessionId, Lun, EvpdCmddt, PageCode, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
@@ -2219,12 +1438,12 @@ class IscsiDisc {
      * 
      * 
      * 
-     * If the device returns a SCSI error while processing the REPORT LUNS request, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a> returns an error code of ISDSC_SCSI_REQUEST_FAILED, and the locations pointed to by <i>ScsiStatus</i> and <i>SenseBuffer</i> contain information detailing the SCSI error.
+     * If the device returns a SCSI error while processing the REPORT LUNS request, <a href="/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a> returns an error code of ISDSC_SCSI_REQUEST_FAILED, and the locations pointed to by <i>ScsiStatus</i> and <i>SenseBuffer</i> contain information detailing the SCSI error.
      * 
      *  
      * 
      * Otherwise, this function returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-sendscsireadcapacity
      * @since windows6.0.6000
      */
     static SendScsiReadCapacity(UniqueSessionId, Lun, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
@@ -2249,7 +1468,7 @@ class IscsiDisc {
      *  
      * 
      * Otherwise, this function returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-sendscsireportluns
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-sendscsireportluns
      * @since windows6.0.6000
      */
     static SendScsiReportLuns(UniqueSessionId, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
@@ -2258,17 +1477,10 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiInitiatorList function retrieves the list of initiator Host Bus Adapters that are running on the machine. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
-     * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {Pointer<Char>} Buffer A buffer that, on output, is filled with the list of initiator names. Each initiator name is a <b>null</b>-terminated string, except for the last initiator name, which is double-<b>null</b> terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
-     *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlistw
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Char>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiInitiatorListW(BufferSize, Buffer) {
@@ -2279,17 +1491,10 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiInitiatorList function retrieves the list of initiator Host Bus Adapters that are running on the machine. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
-     * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {Pointer<Byte>} Buffer A buffer that, on output, is filled with the list of initiator names. Each initiator name is a <b>null</b>-terminated string, except for the last initiator name, which is double-<b>null</b> terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
-     *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlista
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Byte>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiInitiatorListA(BufferSize, Buffer) {
@@ -2300,25 +1505,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportActiveIscsiTargetMappings function retrieves the target mappings that are currently active for all initiators on the computer. (Unicode)
-     * @remarks
-     * Target mappings associate bus, target and LUN numbers with the LUNs on a target device.
      * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportActiveIScsiTargetMappings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSize A pointer to a location that, on input, contains the size, in bytes, of the buffer that <i>Mappings</i> points to. If the operation succeeds, the location receives the size, in bytes, of the mapping data that was retrieved. If the buffer  that <i>Mappings</i> points to is not sufficient to contain the output data, the location receives the buffer size, in bytes, that is required.
-     * @param {Pointer<UInt32>} MappingCount If the operation succeeds, the location pointed to by <i>MappingCount</i> receives the number of mappings that were retrieved.
-     * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings A pointer to an array of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a> that, on output, is filled with the active target mappings for all initiators.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is not large enough.
-     * 
-     * Otherwise, <b>ReportActiveIscsiTargetMappings</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsw
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<UInt32>} MappingCount 
+     * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportActiveIScsiTargetMappingsW(BufferSize, MappingCount, Mappings) {
@@ -2327,25 +1518,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportActiveIscsiTargetMappings function retrieves the target mappings that are currently active for all initiators on the computer. (ANSI)
-     * @remarks
-     * Target mappings associate bus, target and LUN numbers with the LUNs on a target device.
      * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportActiveIScsiTargetMappings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSize A pointer to a location that, on input, contains the size, in bytes, of the buffer that <i>Mappings</i> points to. If the operation succeeds, the location receives the size, in bytes, of the mapping data that was retrieved. If the buffer  that <i>Mappings</i> points to is not sufficient to contain the output data, the location receives the buffer size, in bytes, that is required.
-     * @param {Pointer<UInt32>} MappingCount If the operation succeeds, the location pointed to by <i>MappingCount</i> receives the number of mappings that were retrieved.
-     * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings A pointer to an array of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_mappinga">ISCSI_TARGET_MAPPING</a> that, on output, is filled with the active target mappings for all initiators.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is not large enough.
-     * 
-     * Otherwise, <b>ReportActiveIscsiTargetMappings</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsa
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<UInt32>} MappingCount 
+     * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportActiveIScsiTargetMappingsA(BufferSize, MappingCount, Mappings) {
@@ -2354,17 +1531,13 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiTunnelModeOuterAddress function establishes the tunnel-mode outer address that the indicated initiator Host Bus Adapter (HBA) uses when communicating in IPsec tunnel mode through the specified port. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines SetIScsiTunnelModeOuterAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorName The name of the initiator with which the tunnel-mode outer address will be associated. If this parameter is <b>null</b>, all HBA initiators are configured to use the indicated tunnel-mode outer address.
-     * @param {Integer} InitiatorPortNumber Indicates the number of the port with which the tunnel-mode outer address is associated. If this parameter contains <b>ISCSI_ALL_PORTS</b>, all ports on the indicated initiator are associated with the tunnel-mode outer address.
-     * @param {Pointer<Char>} DestinationAddress The destination address to associate with the tunnel-mode outer address indicated by <i>OuterModeAddress</i>.
-     * @param {Pointer<Char>} OuterModeAddress The tunnel-mode outer address to associate with indicated initiators and ports.
-     * @param {Integer} Persist When <b>true</b>, this parameter indicates that the iSCSI initiator service stores the tunnel-mode outer address in non-volatile memory and that the address will persist across restarts of the initiator and the iSCSI initiator service.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds.Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressw
+     * 
+     * @param {Pointer<Char>} InitiatorName 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<Char>} DestinationAddress 
+     * @param {Pointer<Char>} OuterModeAddress 
+     * @param {Integer} Persist 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressW(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
@@ -2377,17 +1550,13 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiTunnelModeOuterAddress function establishes the tunnel-mode outer address that the indicated initiator Host Bus Adapter (HBA) uses when communicating in IPsec tunnel mode through the specified port. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines SetIScsiTunnelModeOuterAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorName The name of the initiator with which the tunnel-mode outer address will be associated. If this parameter is <b>null</b>, all HBA initiators are configured to use the indicated tunnel-mode outer address.
-     * @param {Integer} InitiatorPortNumber Indicates the number of the port with which the tunnel-mode outer address is associated. If this parameter contains <b>ISCSI_ALL_PORTS</b>, all ports on the indicated initiator are associated with the tunnel-mode outer address.
-     * @param {Pointer<Byte>} DestinationAddress The destination address to associate with the tunnel-mode outer address indicated by <i>OuterModeAddress</i>.
-     * @param {Pointer<Byte>} OuterModeAddress The tunnel-mode outer address to associate with indicated initiators and ports.
-     * @param {Integer} Persist When <b>true</b>, this parameter indicates that the iSCSI initiator service stores the tunnel-mode outer address in non-volatile memory and that the address will persist across restarts of the initiator and the iSCSI initiator service.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds.Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressa
+     * 
+     * @param {Pointer<Byte>} InitiatorName 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<Byte>} DestinationAddress 
+     * @param {Pointer<Byte>} OuterModeAddress 
+     * @param {Integer} Persist 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
@@ -2400,16 +1569,12 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiIKEInfo function establishes the IPsec policy and preshared key for the indicated initiator to use when performing iSCSI connections. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines SetIScsiIKEInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorName The name of the initiator HBA for which the IPsec policy is established.
-     * @param {Integer} InitiatorPortNumber The port on the initiator HBA with which to associate the key. If this parameter contains a value of <b>ISCSI_ALL_INITIATOR_PORTS</b>, all ports on the initiator are associated with the key.
-     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains the authentication method. Currently, only the IKE_AUTHENTICATION_PRESHARED_KEY_METHOD is supported.
-     * @param {Integer} Persist If <b>true</b>, this parameter indicates that the preshared key information will be stored in non-volatile memory and will persist across restarts of the computer or the iSCSI initiator service.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiikeinfow
+     * 
+     * @param {Pointer<Char>} InitiatorName 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
+     * @param {Integer} Persist 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
@@ -2420,16 +1585,12 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiIKEInfo function establishes the IPsec policy and preshared key for the indicated initiator to use when performing iSCSI connections. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines SetIScsiIKEInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorName The name of the initiator HBA for which the IPsec policy is established.
-     * @param {Integer} InitiatorPortNumber The port on the initiator HBA with which to associate the key. If this parameter contains a value of <b>ISCSI_ALL_INITIATOR_PORTS</b>, all ports on the initiator are associated with the key.
-     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains the authentication method. Currently, only the IKE_AUTHENTICATION_PRESHARED_KEY_METHOD is supported.
-     * @param {Integer} Persist If <b>true</b>, this parameter indicates that the preshared key information will be stored in non-volatile memory and will persist across restarts of the computer or the iSCSI initiator service.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiikeinfoa
+     * 
+     * @param {Pointer<Byte>} InitiatorName 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
+     * @param {Integer} Persist 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
@@ -2440,16 +1601,12 @@ class IscsiDisc {
     }
 
     /**
-     * GetIscsiIKEInfo function retrieves the IPsec policy and any established pre-shared key values associated with an initiator Host-Bus Adapter (HBA). (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiIKEInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorName A string that represents the name of the initiator HBA for which the IPsec policy is established.
-     * @param {Integer} InitiatorPortNumber A <b>ULONG</b> value that represents the port on the initiator HBA with which to associate the key. If this parameter specifies a value of <b>ISCSI_ALL_INITIATOR_PORTS</b>, all ports on the initiator are associated with the key.
-     * @param {Pointer<UInt32>} Reserved This value is reserved.
-     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains data specifying the authentication method. Currently, only the <b>IKE_AUTHENTICATION_PRESHARED_KEY_METHOD</b> is supported.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiikeinfow
+     * 
+     * @param {Pointer<Char>} InitiatorName 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<UInt32>} Reserved 
+     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
@@ -2460,16 +1617,12 @@ class IscsiDisc {
     }
 
     /**
-     * GetIscsiIKEInfo function retrieves the IPsec policy and any established pre-shared key values associated with an initiator Host-Bus Adapter (HBA). (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiIKEInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorName A string that represents the name of the initiator HBA for which the IPsec policy is established.
-     * @param {Integer} InitiatorPortNumber A <b>ULONG</b> value that represents the port on the initiator HBA with which to associate the key. If this parameter specifies a value of <b>ISCSI_ALL_INITIATOR_PORTS</b>, all ports on the initiator are associated with the key.
-     * @param {Pointer<UInt32>} Reserved This value is reserved.
-     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains data specifying the authentication method. Currently, only the <b>IKE_AUTHENTICATION_PRESHARED_KEY_METHOD</b> is supported.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiikeinfoa
+     * 
+     * @param {Pointer<Byte>} InitiatorName 
+     * @param {Integer} InitiatorPortNumber 
+     * @param {Pointer<UInt32>} Reserved 
+     * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
@@ -2480,12 +1633,11 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiGroupPresharedKey function establishes the default group preshared key for all initiators on the computer.
-     * @param {Integer} KeyLength The size, in bytes, of the preshared key.
-     * @param {Pointer<Byte>} Key The buffer that contains the preshared key.
-     * @param {Integer} Persist If <b>true</b>, this parameter indicates that the preshared key information will be stored in non-volatile memory and will persist across restarts of the computer or the iSCSI initiator service.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsigrouppresharedkey
+     * 
+     * @param {Integer} KeyLength 
+     * @param {Pointer<Byte>} Key 
+     * @param {Integer} Persist 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
@@ -2494,15 +1646,10 @@ class IscsiDisc {
     }
 
     /**
-     * The SetIscsiInitiatorCHAPSharedSecret function establishes the default Challenge Handshake Authentication Protocol (CHAP) shared secret for all initiators on the computer.
-     * @remarks
-     * When an initiator attempts to log in to a target, the initiator can issue a challenge if mutual CHAP is used. The target must respond to the challenge with the initiator CHAP shared secret.
      * 
-     * The <b>SetIscsiInitiatorCHAPSharedSecret</b> function specifies the default CHAP secret that all initiators on the computer use to authenticate a target when performing mutual CHAP. Management software can specify the CHAP secret for the initiator to provide when challenged by the target when the initiator calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-loginiscsitargeta">LoginIscsiTarget</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-addiscsistatictargeta">AddIscsiStaticTarget</a> function.
-     * @param {Integer} SharedSecretLength The size, in bytes, of the shared secret contained by the buffer specified by <i>SharedSecret</i>. The shared secret must be at least 96 bits (12 bytes) for non-IPsec connections, at least 8 bits (1 byte) for IPsec connections, and less than 128 bits (16 bytes) for all connection types.
-     * @param {Pointer<Byte>} SharedSecret The buffer that contains the shared secret.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatorchapsharedsecret
+     * @param {Integer} SharedSecretLength 
+     * @param {Pointer<Byte>} SharedSecret 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
@@ -2511,13 +1658,10 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiInitiatorRADIUSSharedSecret function establishes the Remote Authentication Dial-In User Service (RADIUS) shared secret.
-     * @remarks
-     * When an initiator attempts to log in to a target, the initiator can use the RADIUS server for authentication, or to authenticate a target. During this process the initiator uses the <i>SharedSecret</i> to communicate with the RADIUS server.
-     * @param {Integer} SharedSecretLength A <b>ULONG</b> value that represents the size, in bytes, of the shared secret contained by the buffer specified by SharedSecret. The shared secret must be at least 22 bytes, and less than, or equal to, 26 bytes in size.
-     * @param {Pointer<Byte>} SharedSecret A string that specifies the buffer containing the shared secret.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatorradiussharedsecret
+     * 
+     * @param {Integer} SharedSecretLength 
+     * @param {Pointer<Byte>} SharedSecret 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorRADIUSSharedSecret(SharedSecretLength, SharedSecret) {
@@ -2526,22 +1670,9 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiInitiatorNodeName function establishes an initiator node name for the computer. This name is utilized by any initiator nodes on the computer that are communicating with other nodes. (Unicode)
-     * @remarks
-     * The <b>SetIscsiInitiatorNodeName</b> routine does not verify that the format of the name in <i>InitiatorNodeName</i> is correct.
      * 
-     * Some hardware initiator drivers can respond immediately to a change of the node name, while others must be restarted to finalize the change to the node name.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines SetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorNodeName The initiator node name. If this parameter is <b>null</b>, initiators use a default initiator node name based upon the computer name.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamew
+     * @param {Pointer<Char>} InitiatorNodeName 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameW(InitiatorNodeName) {
@@ -2552,22 +1683,9 @@ class IscsiDisc {
     }
 
     /**
-     * SetIscsiInitiatorNodeName function establishes an initiator node name for the computer. This name is utilized by any initiator nodes on the computer that are communicating with other nodes. (ANSI)
-     * @remarks
-     * The <b>SetIscsiInitiatorNodeName</b> routine does not verify that the format of the name in <i>InitiatorNodeName</i> is correct.
      * 
-     * Some hardware initiator drivers can respond immediately to a change of the node name, while others must be restarted to finalize the change to the node name.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines SetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorNodeName The initiator node name. If this parameter is <b>null</b>, initiators use a default initiator node name based upon the computer name.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamea
+     * @param {Pointer<Byte>} InitiatorNodeName 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameA(InitiatorNodeName) {
@@ -2578,18 +1696,9 @@ class IscsiDisc {
     }
 
     /**
-     * The GetIscsiInitiatorNodeName function retrieves the common initiator node name that is used when establishing sessions from the local machine. (Unicode)
-     * @remarks
-     * All initiator Host Bus Adapters, both software and hardware, use the same node name when establishing sessions.
      * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorNodeName A caller-allocated buffer that, on output, receives the node name. The buffer must be large enough to hold <b>MAX_ISCSI_NAME_LEN+1</b> bytes.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and the appropriate Win32 or iSCSI error code if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamew
+     * @param {Pointer<Char>} InitiatorNodeName 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameW(InitiatorNodeName) {
@@ -2600,18 +1709,9 @@ class IscsiDisc {
     }
 
     /**
-     * The GetIscsiInitiatorNodeName function retrieves the common initiator node name that is used when establishing sessions from the local machine. (ANSI)
-     * @remarks
-     * All initiator Host Bus Adapters, both software and hardware, use the same node name when establishing sessions.
      * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorNodeName A caller-allocated buffer that, on output, receives the node name. The buffer must be large enough to hold <b>MAX_ISCSI_NAME_LEN+1</b> bytes.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and the appropriate Win32 or iSCSI error code if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamea
+     * @param {Pointer<Byte>} InitiatorNodeName 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameA(InitiatorNodeName) {
@@ -2622,21 +1722,9 @@ class IscsiDisc {
     }
 
     /**
-     * AddIsnsServer function adds a new server to the list of Internet Storage Name Service (iSNS) servers that the iSCSI initiator service uses to discover targets. (Unicode)
-     * @remarks
-     * When the iSCSI initiator service receives a request from the <b>AddIsnsServer</b> user-mode library function to add an iSNS server, the initiator service saves relevant data about the iSNS server in non-volatile storage. The iSCSI initiator service queries the newly added server for discovered targets immediately after adding it. From that point forward, the iSCSI initiator service automatically queries the iSNS server whenever the initiator service refreshes the target list of the iSNS server. The initiator service also refreshes the target list of the iSNS server at startup or whenever the iSNS server indicates a change.
      * 
-     * If management software does not call <b>AddIsnsServer</b> to manually add the new iSNS servers to the service list of the iSCSI initiator service, the initiator service must rely on automatic discovery mechanisms, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/about-dynamic-host-configuration-protocol">DHCP</a>, to add new iSNS servers to the list.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} Address IP address or the DNS name of the server.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsserverw
+     * @param {Pointer<Char>} Address 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddISNSServerW(Address) {
@@ -2647,21 +1735,9 @@ class IscsiDisc {
     }
 
     /**
-     * AddIsnsServer function adds a new server to the list of Internet Storage Name Service (iSNS) servers that the iSCSI initiator service uses to discover targets. (ANSI)
-     * @remarks
-     * When the iSCSI initiator service receives a request from the <b>AddIsnsServer</b> user-mode library function to add an iSNS server, the initiator service saves relevant data about the iSNS server in non-volatile storage. The iSCSI initiator service queries the newly added server for discovered targets immediately after adding it. From that point forward, the iSCSI initiator service automatically queries the iSNS server whenever the initiator service refreshes the target list of the iSNS server. The initiator service also refreshes the target list of the iSNS server at startup or whenever the iSNS server indicates a change.
      * 
-     * If management software does not call <b>AddIsnsServer</b> to manually add the new iSNS servers to the service list of the iSCSI initiator service, the initiator service must rely on automatic discovery mechanisms, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/about-dynamic-host-configuration-protocol">DHCP</a>, to add new iSNS servers to the list.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} Address IP address or the DNS name of the server.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsservera
+     * @param {Pointer<Byte>} Address 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddISNSServerA(Address) {
@@ -2672,21 +1748,9 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIsnsServer function removes a server from the list of Internet Storage Name Service (iSNS) servers that the iSCSI initiator service uses to discover targets. (Unicode)
-     * @remarks
-     * The <b>RemoveIsnsServer</b> function does not affect the list of discovered targets for the iSCSI initiator service. Targets previously discovered by the iSNS server that is being removed remain on the list of discovered targets. However, the iSNS server is also removed from the persistent list of iSNS servers.
      * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} Address The DNS or IP Address of the server to remove.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsserverw
+     * @param {Pointer<Char>} Address 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveISNSServerW(Address) {
@@ -2697,21 +1761,9 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveIsnsServer function removes a server from the list of Internet Storage Name Service (iSNS) servers that the iSCSI initiator service uses to discover targets. (ANSI)
-     * @remarks
-     * The <b>RemoveIsnsServer</b> function does not affect the list of discovered targets for the iSCSI initiator service. Targets previously discovered by the iSNS server that is being removed remain on the list of discovered targets. However, the iSNS server is also removed from the persistent list of iSNS servers.
      * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} Address The DNS or IP Address of the server to remove.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsservera
+     * @param {Pointer<Byte>} Address 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemoveISNSServerA(Address) {
@@ -2722,22 +1774,9 @@ class IscsiDisc {
     }
 
     /**
-     * RefreshIsnsServer function instructs the iSCSI initiator service to query the indicated Internet Storage Name Service (iSNS) server to refresh the list of discovered targets for the iSCSI initiator service. (Unicode)
-     * @remarks
-     * If the refresh succeeds, the iSCSI initiator service replaces the previous list of targets discovered by the indicated iSNS server with the updated list.
      * 
-     * If the iSNS server supports State Change Notifications (SCN), the iSCSI initiator can keep the iSNS target list up to date, without requiring calls of the <b>RefreshIsnsServer</b> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} Address The DNS or IP Address of the iSNS server.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsserverw
+     * @param {Pointer<Char>} Address 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RefreshISNSServerW(Address) {
@@ -2748,22 +1787,9 @@ class IscsiDisc {
     }
 
     /**
-     * RefreshIsnsServer function instructs the iSCSI initiator service to query the indicated Internet Storage Name Service (iSNS) server to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * If the refresh succeeds, the iSCSI initiator service replaces the previous list of targets discovered by the indicated iSNS server with the updated list.
      * 
-     * If the iSNS server supports State Change Notifications (SCN), the iSCSI initiator can keep the iSNS target list up to date, without requiring calls of the <b>RefreshIsnsServer</b> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} Address The DNS or IP Address of the iSNS server.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsservera
+     * @param {Pointer<Byte>} Address 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RefreshISNSServerA(Address) {
@@ -2774,17 +1800,10 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIsnsServerList function retrieves the list of Internet Storage Name Service (iSNS) servers that the iSCSI initiator service queries for discovered targets. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
-     * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {Pointer<Char>} Buffer The buffer that holds the list of iSNS servers on output. Each server name is <b>null</b> terminated, except for the last server name, which is double <b>null</b> terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
-     * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlistw
+     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Char>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportISNSServerListW(BufferSizeInChar, Buffer) {
@@ -2795,17 +1814,10 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIsnsServerList function retrieves the list of Internet Storage Name Service (iSNS) servers that the iSCSI initiator service queries for discovered targets. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
-     * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {Pointer<Byte>} Buffer The buffer that holds the list of iSNS servers on output. Each server name is <b>null</b> terminated, except for the last server name, which is double <b>null</b> terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
-     * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlista
+     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Byte>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportISNSServerListA(BufferSizeInChar, Buffer) {
@@ -2816,19 +1828,11 @@ class IscsiDisc {
     }
 
     /**
-     * GetIscsiSessionList function retrieves the list of active iSCSI sessions. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiSessionList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSize A pointer to a location that, on input, contains the size, in bytes, of the caller-allocated buffer that <i>SessionInfo</i> points to. If the operation succeeds, the location receives the size, in bytes, of the session information data that was retrieved. 
      * 
-     * If the operation fails because the output buffer size was insufficient, the location receives the size, in bytes, of the buffer size required to contain the output data.
-     * @param {Pointer<UInt32>} SessionCount A pointer to a location that, on input, contains the number of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_session_infoa">ISCSI_SESSION_INFO</a> structures that the buffer that <i>SessionInfo</i> points to can contain. If the operation succeeds, the location receives the number of <b>ISCSI_SESSION_INFO</b> structures that were retrieved.
-     * @param {Pointer<ISCSI_SESSION_INFOW>} SessionInfo A pointer to a buffer that contains a series of contiguous structures of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_session_infoa">ISCSI_SESSION_INFO</a> that describe the active login sessions.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>SessionInfo</i> was insufficient to hold the output data. 
-     * 
-     * Otherwise, <b>GetIscsiSessionList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsisessionlistw
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<UInt32>} SessionCount 
+     * @param {Pointer<ISCSI_SESSION_INFOW>} SessionInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiSessionListW(BufferSize, SessionCount, SessionInfo) {
@@ -2837,19 +1841,11 @@ class IscsiDisc {
     }
 
     /**
-     * GetIscsiSessionList function retrieves the list of active iSCSI sessions. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetIScsiSessionList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSize A pointer to a location that, on input, contains the size, in bytes, of the caller-allocated buffer that <i>SessionInfo</i> points to. If the operation succeeds, the location receives the size, in bytes, of the session information data that was retrieved. 
      * 
-     * If the operation fails because the output buffer size was insufficient, the location receives the size, in bytes, of the buffer size required to contain the output data.
-     * @param {Pointer<UInt32>} SessionCount A pointer to a location that, on input, contains the number of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_session_infoa">ISCSI_SESSION_INFO</a> structures that the buffer that <i>SessionInfo</i> points to can contain. If the operation succeeds, the location receives the number of <b>ISCSI_SESSION_INFO</b> structures that were retrieved.
-     * @param {Pointer<ISCSI_SESSION_INFOA>} SessionInfo A pointer to a buffer that contains a series of contiguous structures of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_session_infoa">ISCSI_SESSION_INFO</a> that describe the active login sessions.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>SessionInfo</i> was insufficient to hold the output data. 
-     * 
-     * Otherwise, <b>GetIscsiSessionList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsisessionlista
+     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<UInt32>} SessionCount 
+     * @param {Pointer<ISCSI_SESSION_INFOA>} SessionInfo 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetIScsiSessionListA(BufferSize, SessionCount, SessionInfo) {
@@ -2870,17 +1866,11 @@ class IscsiDisc {
     }
 
     /**
-     * GetDevicesForIscsiSession function retrieves information about the devices associated with the current session. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetDevicesForIScsiSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that contains the session identifier for the session.
-     * @param {Pointer<UInt32>} DeviceCount A pointer to a location that, on input, contains the number of elements of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_device_on_sessiona">ISCSI_DEVICE_ON_SESSION</a> that can fit in the buffer that <i>Devices</i> points to. If the operation succeeds, the location receives the number of elements retrieved. If <b>GetDevicesForIscsiSession</b> returns ERROR_INSUFFICIENT_BUFFER, the location still receives the number of elements the buffer is capable of containing.
-     * @param {Pointer<ISCSI_DEVICE_ON_SESSIONW>} Devices An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_device_on_sessiona">ISCSI_DEVICE_ON_SESSION</a>-type structures that, on output, receives information about each device associated with the session.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the caller allocated insufficient buffer space for the array in Devices. 
      * 
-     * Otherwise, <b>GetDevicesForIscsiSession</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getdevicesforiscsisessionw
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<UInt32>} DeviceCount 
+     * @param {Pointer<ISCSI_DEVICE_ON_SESSIONW>} Devices 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetDevicesForIScsiSessionW(UniqueSessionId, DeviceCount, Devices) {
@@ -2889,17 +1879,11 @@ class IscsiDisc {
     }
 
     /**
-     * GetDevicesForIscsiSession function retrieves information about the devices associated with the current session. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines GetDevicesForIScsiSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that contains the session identifier for the session.
-     * @param {Pointer<UInt32>} DeviceCount A pointer to a location that, on input, contains the number of elements of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_device_on_sessiona">ISCSI_DEVICE_ON_SESSION</a> that can fit in the buffer that <i>Devices</i> points to. If the operation succeeds, the location receives the number of elements retrieved. If <b>GetDevicesForIscsiSession</b> returns ERROR_INSUFFICIENT_BUFFER, the location still receives the number of elements the buffer is capable of containing.
-     * @param {Pointer<ISCSI_DEVICE_ON_SESSIONA>} Devices An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_device_on_sessiona">ISCSI_DEVICE_ON_SESSION</a>-type structures that, on output, receives information about each device associated with the session.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the caller allocated insufficient buffer space for the array in Devices. 
      * 
-     * Otherwise, <b>GetDevicesForIscsiSession</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getdevicesforiscsisessiona
+     * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
+     * @param {Pointer<UInt32>} DeviceCount 
+     * @param {Pointer<ISCSI_DEVICE_ON_SESSIONA>} Devices 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static GetDevicesForIScsiSessionA(UniqueSessionId, DeviceCount, Devices) {
@@ -2917,28 +1901,8 @@ class IscsiDisc {
     }
 
     /**
-     * SetupPersistentIscsiDevices function builds the list of devices and volumes assigned to iSCSI targets that are connected to the computer, and saves this list in non-volatile cache of the iSCSI initiator service.
-     * @remarks
-     * When the iSCSI Initiator service starts, it does not complete initialization until the storage stack can access and enumerate all persistent iSCSI volumes and devices. If there is a service that is dependent on data stored on a persistent volume or device, it should be configured to have a dependency on the iSCSI service (MSiSCSI).
      * 
-     * The correct procedure for a system administrator to configure a computer to use external persistent volumes is as follows:
-     * 
-     *  
-     * 
-     *  
-     * 
-     * 
-     *  
-     * 
-     * 
-     * 
-     * <ul>
-     * <li>Login to all of the targets that contain the volumes</li>
-     * <li>Configure all volumes on top of the disks</li>
-     * <li>Use management software to call the <b>SetupPersistentIscsiDevices</b> routine, so that the iSCSI initiator service will add the volumes to its list of persistent volumes.</li>
-     * </ul>
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setuppersistentiscsidevices
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static SetupPersistentIScsiDevices() {
@@ -2947,42 +1911,9 @@ class IscsiDisc {
     }
 
     /**
-     * AddPersistentIscsiDevice function adds a volume device name, drive letter, or mount point symbolic link to the list of iSCSI persistently bound volumes and devices. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddPersistentIScsiDevice as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} DevicePath A drive letter or symbolic link for a mount point of the volume.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns one of the following:
      * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ISDSC_DEVICE_NOT_ISCSI_OR_PERSISTENT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The volume or device is not located on a iSCSI target or the session to the iSCSI target is not persistent. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ISDSC_VOLUME_ALREADY_PERSISTENTLY_BOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The volume or device is already in the persistent volume or device list. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addpersistentiscsidevicew
+     * @param {Pointer<Char>} DevicePath 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceW(DevicePath) {
@@ -2993,42 +1924,9 @@ class IscsiDisc {
     }
 
     /**
-     * AddPersistentIscsiDevice function adds a volume device name, drive letter, or mount point symbolic link to the list of iSCSI persistently bound volumes and devices. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddPersistentIScsiDevice as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} DevicePath A drive letter or symbolic link for a mount point of the volume.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns one of the following:
      * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ISDSC_DEVICE_NOT_ISCSI_OR_PERSISTENT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The volume or device is not located on a iSCSI target or the session to the iSCSI target is not persistent. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ISDSC_VOLUME_ALREADY_PERSISTENTLY_BOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The volume or device is already in the persistent volume or device list. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addpersistentiscsidevicea
+     * @param {Pointer<Byte>} DevicePath 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceA(DevicePath) {
@@ -3039,15 +1937,9 @@ class IscsiDisc {
     }
 
     /**
-     * RemovePersistentIscsiDevice function removes a device or volume from the list of persistently bound iSCSI volumes. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemovePersistentIScsiDevice as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} DevicePath A drive letter, mount point, or device path for the volume or device.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ISDSC_DEVICE_NOT_FOUND if the volume that is specified by <i>VolumePath</i> is not in the list of persistently bound volumes. 
      * 
-     * Otherwise, <b>RemovePersistentIscsiDevice</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removepersistentiscsidevicew
+     * @param {Pointer<Char>} DevicePath 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceW(DevicePath) {
@@ -3058,15 +1950,9 @@ class IscsiDisc {
     }
 
     /**
-     * RemovePersistentIscsiDevice function removes a device or volume from the list of persistently bound iSCSI volumes. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemovePersistentIScsiDevice as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} DevicePath A drive letter, mount point, or device path for the volume or device.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ISDSC_DEVICE_NOT_FOUND if the volume that is specified by <i>VolumePath</i> is not in the list of persistently bound volumes. 
      * 
-     * Otherwise, <b>RemovePersistentIscsiDevice</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removepersistentiscsidevicea
+     * @param {Pointer<Byte>} DevicePath 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceA(DevicePath) {
@@ -3077,9 +1963,8 @@ class IscsiDisc {
     }
 
     /**
-     * ClearPersistentIscsiDevices function removes all volumes and devices from the list of persistently bound iSCSI volumes.
-     * @returns {Integer} returns ERROR_SUCCESS if the operation succeeds and the appropriate Win32 or iSCSI error code if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-clearpersistentiscsidevices
+     * 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ClearPersistentIScsiDevices() {
@@ -3088,14 +1973,10 @@ class IscsiDisc {
     }
 
     /**
-     * The ReportPersistentIscsiDevices function retrieves the list of persistently bound volumes and devices. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {Pointer<Char>} Buffer Pointer to a buffer that receives the list of volumes and devices that are persistently bound. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
+     * 
+     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Char>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer) {
@@ -3106,14 +1987,10 @@ class IscsiDisc {
     }
 
     /**
-     * The ReportPersistentIscsiDevices function retrieves the list of persistently bound volumes and devices. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {Pointer<Byte>} Buffer Pointer to a buffer that receives the list of volumes and devices that are persistently bound. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
-     * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
+     * 
+     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Byte>} Buffer 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer) {
@@ -3124,17 +2001,13 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiTargetPortals function retrieves target portal information discovered by the iSCSI initiator service. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiTargetPortals as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Char>} InitiatorName A string that represents the name of the initiator node.
-     * @param {Pointer<Char>} TargetName A string that represents the name of the target for which the portal information is retrieved.
-     * @param {Pointer<UInt16>} TargetPortalTag A <b>USHORT</b> value that represents a tag associated with the portal.
-     * @param {Pointer<UInt32>} ElementCount A <b>ULONG</b> value that specifies the number of portals currently reported for the specified target.
-     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portals A variable-length array of an <b>ISCSI_TARGET_PORTALW</b> structure. The number of elements contained in this array is specified by the value of <i>ElementCount</i>.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetportalsw
+     * 
+     * @param {Pointer<Char>} InitiatorName 
+     * @param {Pointer<Char>} TargetName 
+     * @param {Pointer<UInt16>} TargetPortalTag 
+     * @param {Pointer<UInt32>} ElementCount 
+     * @param {Pointer<ISCSI_TARGET_PORTALW>} Portals 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsW(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
@@ -3146,17 +2019,13 @@ class IscsiDisc {
     }
 
     /**
-     * ReportIscsiTargetPortals function retrieves target portal information discovered by the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportIScsiTargetPortals as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} InitiatorName A string that represents the name of the initiator node.
-     * @param {Pointer<Byte>} TargetName A string that represents the name of the target for which the portal information is retrieved.
-     * @param {Pointer<UInt16>} TargetPortalTag A <b>USHORT</b> value that represents a tag associated with the portal.
-     * @param {Pointer<UInt32>} ElementCount A <b>ULONG</b> value that specifies the number of portals currently reported for the specified target.
-     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portals A variable-length array of an <b>ISCSI_TARGET_PORTALW</b> structure. The number of elements contained in this array is specified by the value of <i>ElementCount</i>.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetportalsa
+     * 
+     * @param {Pointer<Byte>} InitiatorName 
+     * @param {Pointer<Byte>} TargetName 
+     * @param {Pointer<UInt16>} TargetPortalTag 
+     * @param {Pointer<UInt32>} ElementCount 
+     * @param {Pointer<ISCSI_TARGET_PORTALA>} Portals 
+     * @returns {Integer} 
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsA(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
@@ -3168,16 +2037,7 @@ class IscsiDisc {
     }
 
     /**
-     * AddRadiusServer. (Unicode)
-     * @remarks
-     * When the iSCSI initiator service receives a request from the <b>AddRadiusServer</b> user-mode library function to add a RADIUS server, the initiator service saves data associated with the server in non-volatile storage. This allows the iSCSI initiator service to utilize the RADIUS server to authenticate targets or obtain authentication information.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * AddRadiusServer.
      * @param {Pointer<Char>} Address A string that represents the IP address or DNS name associated with the RADIUS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
@@ -3198,7 +2058,7 @@ class IscsiDisc {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addradiusserverw
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-addradiusserverw
      * @since windows6.0.6000
      */
     static AddRadiusServerW(Address) {
@@ -3209,16 +2069,7 @@ class IscsiDisc {
     }
 
     /**
-     * AddRadiusServer. (ANSI)
-     * @remarks
-     * When the iSCSI initiator service receives a request from the <b>AddRadiusServer</b> user-mode library function to add a RADIUS server, the initiator service saves data associated with the server in non-volatile storage. This allows the iSCSI initiator service to utilize the RADIUS server to authenticate targets or obtain authentication information.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * AddRadiusServer.
      * @param {Pointer<Byte>} Address A string that represents the IP address or DNS name associated with the RADIUS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
@@ -3239,7 +2090,7 @@ class IscsiDisc {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addradiusservera
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-addradiusservera
      * @since windows6.0.6000
      */
     static AddRadiusServerA(Address) {
@@ -3250,13 +2101,10 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveRadiusServer function removes a Remote Authentication Dial-In User Service (RADIUS) server entry from the RADIUS server list with which an iSCSI initiator is configured. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * RemoveRadiusServer function removes a Remote Authentication Dial-In User Service (RADIUS) server entry from the RADIUS server list with which an iSCSI initiator is configured.
      * @param {Pointer<Char>} Address A string that represents the IP address or RADIUS server name.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusserverw
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-removeradiusserverw
      * @since windows6.0.6000
      */
     static RemoveRadiusServerW(Address) {
@@ -3267,13 +2115,10 @@ class IscsiDisc {
     }
 
     /**
-     * RemoveRadiusServer function removes a Remote Authentication Dial-In User Service (RADIUS) server entry from the RADIUS server list with which an iSCSI initiator is configured. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * RemoveRadiusServer function removes a Remote Authentication Dial-In User Service (RADIUS) server entry from the RADIUS server list with which an iSCSI initiator is configured.
      * @param {Pointer<Byte>} Address A string that represents the IP address or RADIUS server name.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusservera
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-removeradiusservera
      * @since windows6.0.6000
      */
     static RemoveRadiusServerA(Address) {
@@ -3284,14 +2129,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportRadiusServerList function retrieves the list of Remote Authentication Dial-In Service (RADIUS) servers the iSCSI initiator service uses during authentication. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * ReportRadiusServerList function retrieves the list of Remote Authentication Dail-In Service (RADIUS) servers the iSCSI initiator service uses during authentication.
      * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {Pointer<Char>} Buffer Pointer to a buffer that receives the list of Remote Authentication Dial-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
+     * @param {Pointer<Char>} Buffer Pointer to a buffer that receives the list of Remote Authentication Dail-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlistw
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-reportradiusserverlistw
      * @since windows6.0.6000
      */
     static ReportRadiusServerListW(BufferSizeInChar, Buffer) {
@@ -3302,14 +2144,11 @@ class IscsiDisc {
     }
 
     /**
-     * ReportRadiusServerList function retrieves the list of Remote Authentication Dial-In Service (RADIUS) servers the iSCSI initiator service uses during authentication. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * ReportRadiusServerList function retrieves the list of Remote Authentication Dail-In Service (RADIUS) servers the iSCSI initiator service uses during authentication.
      * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {Pointer<Byte>} Buffer Pointer to a buffer that receives the list of Remote Authentication Dial-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
+     * @param {Pointer<Byte>} Buffer Pointer to a buffer that receives the list of Remote Authentication Dail-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlista
+     * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-reportradiusserverlista
      * @since windows6.0.6000
      */
     static ReportRadiusServerListA(BufferSizeInChar, Buffer) {

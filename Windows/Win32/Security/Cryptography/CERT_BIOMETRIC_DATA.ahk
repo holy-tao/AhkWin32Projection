@@ -6,7 +6,7 @@
 
 /**
  * Contains information about biometric data.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_biometric_data
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_biometric_data
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

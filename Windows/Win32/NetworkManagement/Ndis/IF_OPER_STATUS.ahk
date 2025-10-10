@@ -3,8 +3,11 @@
 /**
  * The IF_OPER_STATUS enumeration specifies the operational status of an interface.
  * @remarks
- * The <b>IF_OPER_STATUS</b> enumeration is used in the <b>OperStatus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a>  structure.
- * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-if_oper_status
+ * 
+  * The <b>IF_OPER_STATUS</b> enumeration is used in the <b>OperStatus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a>  structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ifdef/ne-ifdef-if_oper_status
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

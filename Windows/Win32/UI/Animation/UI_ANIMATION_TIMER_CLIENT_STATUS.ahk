@@ -2,7 +2,7 @@
 
 /**
  * Defines activity status for a timer's client.
- * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_timer_client_status
+ * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_timer_client_status
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */

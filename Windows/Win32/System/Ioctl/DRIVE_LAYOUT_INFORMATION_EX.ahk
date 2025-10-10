@@ -8,7 +8,7 @@
 
 /**
  * Contains extended information about a drive's partitions.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_ex
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-drive_layout_information_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

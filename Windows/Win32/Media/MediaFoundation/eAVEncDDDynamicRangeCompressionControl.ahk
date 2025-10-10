@@ -2,7 +2,7 @@
 
 /**
  * Specifies the dynamic range control profile in a Dolby Digital audio stream. This enumeration is used with the AVEncDDDynamicRangeCompressionControl property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencdddynamicrangecompressioncontrol
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencdddynamicrangecompressioncontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

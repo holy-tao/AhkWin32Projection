@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies optional context attributes for a logical block range (LBA range).
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_context_attributes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -24,7 +20,6 @@ class NVME_CONTEXT_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

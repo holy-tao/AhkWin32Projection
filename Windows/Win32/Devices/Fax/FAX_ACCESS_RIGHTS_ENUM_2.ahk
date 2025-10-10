@@ -2,7 +2,7 @@
 
 /**
  * Defines access rights on the fax server.
- * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_access_rights_enum_2
+ * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_access_rights_enum_2
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

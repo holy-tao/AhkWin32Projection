@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Allow or deny certain types of messages to pass through a filter. (D3D10_INFO_QUEUE_FILTER_DESC)
+ * Allow or deny certain types of messages to pass through a filter.
  * @remarks
- * <b>D3D10_INFO_QUEUE_FILTER_DESC</b> is used to define the allow list and deny list in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter">D3D10_INFO_QUEUE_FILTER</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter_desc
+ * 
+  * <b>D3D10_INFO_QUEUE_FILTER_DESC</b> is used to define the allow list and deny list in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter">D3D10_INFO_QUEUE_FILTER</a> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

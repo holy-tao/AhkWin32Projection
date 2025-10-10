@@ -2,7 +2,7 @@
 
 /**
  * Indicates the type of caching requested for newly created objects.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olerender
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-olerender
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

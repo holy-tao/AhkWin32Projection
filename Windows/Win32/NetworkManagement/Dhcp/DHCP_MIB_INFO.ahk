@@ -4,7 +4,7 @@
 
 /**
  * Defines information returned from the DHCP-specific SNMP Management Information Block (MIB) about the current DHCP service.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_mib_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

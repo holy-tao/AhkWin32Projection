@@ -3,7 +3,7 @@
 
 /**
  * The CERT_POLICY_INFO structure contains an object identifier (OID) specifying a policy and an optional array of policy qualifiers.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_policy_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

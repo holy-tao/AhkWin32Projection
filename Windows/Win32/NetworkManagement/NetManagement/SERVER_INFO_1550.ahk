@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1550 structure specifies the percentage of free disk space remaining before an alert message is sent.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1550
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1550
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the kind of data stored in a WSD_CONFIG_PARAM structure.
- * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ne-wsdbase-wsd_config_param_type
+ * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ne-wsdbase-wsd_config_param_type
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -55,7 +55,7 @@ class WSD_CONFIG_PARAM_TYPE{
     static WSD_SECURITY_SSL_CLIENT_CERT_VALIDATION => 5
 
     /**
-     * Specifies that on incoming SSL connections, WSDAPI  will request a client certificate from the SSL client if one is not already made available by the client.  If the remote entity cannot provide a client certificate, the connection will be rejected.  Note that the SSL record that is created for that port must explicitly allow for client certificate negotiation.
+     * Specifies that on incoming SSL connections, WSDAPI  will request a client certificate from the SSL client if one is not already made available by the client.  If the remote entity cannot provide a client certificate, the connection will be rejected.  Note that the SSL record that is created for that port must expclicitly allow for client certificate negotiation.
  * 
  * The <i>pConfigData</i> member is <b>NULL</b>.
  * 

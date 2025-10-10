@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of acceleration structure post-build info that can be retrieved with calls to EmitRaytracingAccelerationStructurePostbuildInfo and BuildRaytracingAccelerationStructure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_postbuild_info_type
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_postbuild_info_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

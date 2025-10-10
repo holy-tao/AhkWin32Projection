@@ -2,11 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function. (ANSI)
+ * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The cryptdlg.h header defines CERT_SELECT_STRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-cert_select_struct_a
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//cryptdlg/ns-cryptdlg-cert_select_struct_a
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  * @charset ANSI

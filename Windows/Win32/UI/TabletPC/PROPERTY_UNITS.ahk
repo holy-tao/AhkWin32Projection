@@ -2,7 +2,7 @@
 
 /**
  * Defines constant values for the unit of measurement of a property.
- * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ne-tpcshrd-property_units
+ * @see https://docs.microsoft.com/windows/win32/api//tpcshrd/ne-tpcshrd-property_units
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

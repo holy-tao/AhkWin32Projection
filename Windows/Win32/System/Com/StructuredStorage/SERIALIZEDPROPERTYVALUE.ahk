@@ -3,7 +3,7 @@
 
 /**
  * A range of memory of arbitrary type that represents a serialized PROPVARIANT structure.
- * @see https://learn.microsoft.com/windows/win32/api/propidl/ns-propidl-serializedpropertyvalue
+ * @see https://docs.microsoft.com/windows/win32/api//propidl/ns-propidl-serializedpropertyvalue
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

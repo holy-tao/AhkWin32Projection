@@ -3,7 +3,7 @@
 
 /**
  * The SecPkgContext_DceInfo structure contains authorization data used by DCE services. The QueryContextAttributes (General) function uses this structure.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_dceinfo
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcontext_dceinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The PPP_EAP_PACKET structure specifies information about a packet being processed by the authentication protocol.
- * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_packet
+ * @see https://docs.microsoft.com/windows/win32/api//raseapif/ns-raseapif-ppp_eap_packet
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

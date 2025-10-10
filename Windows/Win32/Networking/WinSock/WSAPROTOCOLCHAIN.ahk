@@ -4,8 +4,11 @@
 /**
  * The WSAPROTOCOLCHAIN structure contains a counted list of Catalog Entry identifiers that comprise a protocol chain.
  * @remarks
- * If the length of the chain is larger than 1, this structure represents a protocol chain which consists of one or more layered protocols on top of a base protocol. The corresponding Catalog Entry IDs are in the ProtocolChain.ChainEntries array starting with the layered protocol at the top (the zeroth element in the ProtocolChain.ChainEntries array) and ending with the base protocol. Refer to Windows Sockets 2 Service Provider Interface for more information on protocol chains.
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocolchain
+ * 
+  * If the length of the chain is larger than 1, this structure represents a protocol chain which consists of one or more layered protocols on top of a base protocol. The corresponding Catalog Entry IDs are in the ProtocolChain.ChainEntries array starting with the layered protocol at the top (the zeroth element in the ProtocolChain.ChainEntries array) and ending with the base protocol. Refer to Windows Sockets 2 Service Provider Interface for more information on protocol chains.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsaprotocolchain
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

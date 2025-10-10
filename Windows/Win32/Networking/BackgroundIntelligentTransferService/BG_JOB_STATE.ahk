@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify the different states of a job.
- * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_state
+ * @see https://docs.microsoft.com/windows/win32/api//bits/ne-bits-bg_job_state
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

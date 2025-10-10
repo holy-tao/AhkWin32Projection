@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1512 structure contains the maximum size of nonpaged memory that the specified server can allocate at a particular time.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1512
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1512
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

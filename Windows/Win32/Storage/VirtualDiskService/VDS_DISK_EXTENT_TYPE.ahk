@@ -3,13 +3,16 @@
 /**
  * Defines the set of disk extents types. The type can be a partition, volume, or free space.
  * @remarks
- * ESP, MBR, and LDM metadata partitions are partition styles on GPT disks only.
+ * 
+  * ESP, MBR, and LDM metadata partitions are partition styles on GPT disks only.
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_extent">VDS_DISK_EXTENT</a> structure includes a <b>VDS_DISK_EXTENT_TYPE</b> value as a member to indicate an existing disk extent type.
   * 
   * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_DISK_EXTENT_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_DISK_EXTENT_TYPE</b> enumeration constant.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_disk_extent_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_disk_extent_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

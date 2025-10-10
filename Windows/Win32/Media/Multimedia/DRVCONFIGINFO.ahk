@@ -3,7 +3,7 @@
 
 /**
  * Contains the registry key and value names associated with the installable driver.
- * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/ns-mmiscapi-drvconfiginfo
+ * @see https://docs.microsoft.com/windows/win32/api//mmiscapi/ns-mmiscapi-drvconfiginfo
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

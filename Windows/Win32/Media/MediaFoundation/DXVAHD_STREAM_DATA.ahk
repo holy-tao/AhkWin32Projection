@@ -4,7 +4,8 @@
 /**
  * Contains per-stream data for the IDXVAHD_VideoProcessor::VideoProcessBltHD method.
  * @remarks
- * <h3><a id="Input_Surfaces"></a><a id="input_surfaces"></a><a id="INPUT_SURFACES"></a>Input Surfaces</h3>
+ * 
+  * <h3><a id="Input_Surfaces"></a><a id="input_surfaces"></a><a id="INPUT_SURFACES"></a>Input Surfaces</h3>
   * The Direct3D surfaces must be allocated in the memory pool specified by the <b>InputPool</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. The following surface types can be used:
   * 
   * 
@@ -56,7 +57,9 @@
   * </ul>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_stream_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

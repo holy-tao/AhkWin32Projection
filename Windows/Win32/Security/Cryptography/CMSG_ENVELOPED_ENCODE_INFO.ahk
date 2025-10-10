@@ -5,7 +5,7 @@
 
 /**
  * Contains information needed to encode an enveloped message. It is passed to CryptMsgOpenToEncode if the dwMsgType parameter is CMSG_ENVELOPED.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_enveloped_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

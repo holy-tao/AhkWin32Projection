@@ -5,8 +5,11 @@
 /**
  * Contains information about a network state change for a data peer on the wireless Hosted Network.
  * @remarks
- * The <b>WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE</b> structure is an extension to native wireless APIs added to support the wireless Hosted Network on Windows 7 and  later.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_data_peer_state_change
+ * 
+  * The <b>WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE</b> structure is an extension to native wireless APIs added to support the wireless Hosted Network on Windows 7 and  later.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_hosted_network_data_peer_state_change
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

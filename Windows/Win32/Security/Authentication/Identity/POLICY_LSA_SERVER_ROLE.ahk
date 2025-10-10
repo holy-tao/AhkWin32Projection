@@ -2,7 +2,7 @@
 
 /**
  * Defines values that indicate the role of an LSA server.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_lsa_server_role
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-policy_lsa_server_role
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

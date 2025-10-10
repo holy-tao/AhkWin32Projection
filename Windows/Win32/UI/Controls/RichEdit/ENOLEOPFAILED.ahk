@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a failed operation.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enoleopfailed
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-enoleopfailed
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

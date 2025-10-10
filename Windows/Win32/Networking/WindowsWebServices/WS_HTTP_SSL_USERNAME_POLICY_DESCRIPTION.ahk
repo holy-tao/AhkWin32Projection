@@ -8,7 +8,7 @@
 
 /**
  * Describes the policy specifying http channel binding with SSL transport security and username/password message security.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_ssl_username_policy_description
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_ssl_username_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

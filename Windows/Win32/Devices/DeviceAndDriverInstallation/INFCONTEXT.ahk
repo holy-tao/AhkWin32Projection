@@ -3,7 +3,7 @@
 
 /**
  * The INFCONTEXT structure stores context information that functions such as SetupGetLineText use to navigate INF files.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-infcontext
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-infcontext
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of visual style attribute to set on a window.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-windowthemeattributetype
+ * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ne-uxtheme-windowthemeattributetype
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

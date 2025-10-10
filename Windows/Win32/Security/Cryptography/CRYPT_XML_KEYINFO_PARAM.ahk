@@ -4,7 +4,7 @@
 
 /**
  * Is used by the CryptXmlSign function to specify the members of the KeyInfo element to be encoded.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_keyinfo_param
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_keyinfo_param
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

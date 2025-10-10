@@ -3,7 +3,7 @@
 
 /**
  * Defines a gamut boundary.
- * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutboundarydescription
+ * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/ns-wcsplugin-gamutboundarydescription
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

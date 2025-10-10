@@ -4,8 +4,11 @@
 /**
  * Contains information about the device that the game is running on.
  * @remarks
- * This is a Win32 API that's supported in both Win32 and UWP apps. While it works on any device family, it's only really of value on Xbox devices.
- * @see https://learn.microsoft.com/windows/win32/api/gamingdeviceinformation/ns-gamingdeviceinformation-gaming_device_model_information
+ * 
+  * This is a Win32 API that's supported in both Win32 and UWP apps. While it works on any device family, it's only really of value on Xbox devices.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//gamingdeviceinformation/ns-gamingdeviceinformation-gaming_device_model_information
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */

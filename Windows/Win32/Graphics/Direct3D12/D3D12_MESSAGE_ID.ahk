@@ -3,8 +3,11 @@
 /**
  * Specifies debug message IDs for setting up an info-queue filter (see D3D12_INFO_QUEUE_FILTER); use these messages to allow or deny message categories to pass through the storage and retrieval filters.
  * @remarks
- * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-addmessage">AddMessage</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id
+ * 
+  * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-addmessage">AddMessage</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -5834,11 +5837,21 @@ class D3D12_MESSAGE_ID{
     /**
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_ID_NON_COMMON_RESOURCE_IN_COPY_QUEUE => 1425
+    static D3D12_MESSAGE_ID_NON_COMMON_RESOURCE_IN_COPY_QUEUE => 1431
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_CREATEPIPELINESTATE_MULTIPLE_ROOT_SIGNATURES_DEFINED => 1435
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_MESSAGE_ID_TEXTURE_BARRIER_INVALID_FLAGS => 1436
 
     /**
      * 
      * @type {Integer (Int32)}
      */
-    static D3D12_MESSAGE_ID_D3D12_MESSAGES_END => 1426
+    static D3D12_MESSAGE_ID_D3D12_MESSAGES_END => 1442
 }

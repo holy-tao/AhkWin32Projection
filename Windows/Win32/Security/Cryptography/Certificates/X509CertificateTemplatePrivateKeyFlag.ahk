@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify client actions regarding a private key.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplateprivatekeyflag
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509certificatetemplateprivatekeyflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

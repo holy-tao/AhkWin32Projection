@@ -4,8 +4,11 @@
 /**
  * Contains a biometric template and associated data in a standard format.
  * @remarks
- * The <b>WINBIO_STORAGE_RECORD</b> structure and the memory it points to are the property of the component that created the structure. In particular, the component determines when the structure is deleted and when its embedded pointers become invalid. When other components are given temporary access to this structure, they must follow the rules  governing structure  lifetime set by the owning component.
- * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_storage_record
+ * 
+  * The <b>WINBIO_STORAGE_RECORD</b> structure and the memory it points to are the property of the component that created the structure. In particular, the component determines when the structure is deleted and when its embedded pointers become invalid. When other components are given temporary access to this structure, they must follow the rules  governing structure  lifetime set by the owning component.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbio_adapter/ns-winbio_adapter-winbio_storage_record
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents a metadata pattern.
- * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ns-wincodecsdk-wicmetadatapattern
+ * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/ns-wincodecsdk-wicmetadatapattern
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

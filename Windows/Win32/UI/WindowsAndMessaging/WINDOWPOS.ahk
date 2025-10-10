@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the size and position of a window.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowpos
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-windowpos
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

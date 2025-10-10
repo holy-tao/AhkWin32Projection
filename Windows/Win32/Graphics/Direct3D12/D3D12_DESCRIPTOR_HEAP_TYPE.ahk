@@ -3,7 +3,8 @@
 /**
  * Specifies a type of descriptor heap.
  * @remarks
- * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a> structure, and the following methods:
+ * 
+  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a> structure, and the following methods:
   * 
   * <ul>
   * <li>
@@ -16,7 +17,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize">GetDescriptorHandleIncrementSize</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_descriptor_heap_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

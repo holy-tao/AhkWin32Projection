@@ -5,8 +5,11 @@
 /**
  * The CAPSTATUS structure defines the current state of the capture window.
  * @remarks
- * Because the state of a capture window changes in response to various messages, an application should update the information in this structure whenever it needs to enable menu items, determine the actual state of the capture window, or call the video format dialog box. If the application yields during streaming capture, this structure returns the progress of the capture in the <b>dwCurrentVideoFrame</b>, <b>dwCurrentVideoFramesDropped</b>, <b>dwCurrentWaveSamples</b>, and <b>dwCurrentTimeElapsedMS</b> members. Use the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-get-status">WM_CAP_GET_STATUS</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capgetstatus">capGetStatus</a> macro to update the contents of this structure.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capstatus
+ * 
+  * Because the state of a capture window changes in response to various messages, an application should update the information in this structure whenever it needs to enable menu items, determine the actual state of the capture window, or call the video format dialog box. If the application yields during streaming capture, this structure returns the progress of the capture in the <b>dwCurrentVideoFrame</b>, <b>dwCurrentVideoFramesDropped</b>, dwCurre<b></b>ntWaveSamples, and <b>dwCurrentTimeElapsedMS</b> members. Use the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-get-status">WM_CAP_GET_STATUS</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capgetstatus">capGetStatus</a> macro to update the contents of this structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-capstatus
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

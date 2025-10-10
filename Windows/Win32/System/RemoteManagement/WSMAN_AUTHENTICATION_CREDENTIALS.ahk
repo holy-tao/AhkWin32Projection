@@ -4,7 +4,7 @@
 
 /**
  * Defines the authentication method and the credentials used for server or proxy authentication.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_authentication_credentials
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_authentication_credentials
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

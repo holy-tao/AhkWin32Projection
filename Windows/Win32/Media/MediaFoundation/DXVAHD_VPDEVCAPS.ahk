@@ -4,14 +4,17 @@
 /**
  * Specifies the capabilities of a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @remarks
- * In DXVA-HD, the device stores state information for each input stream. These states persist between blits. With each blit, the application selects which streams to enable or disable. Disabling a stream does not affect the state information for that stream.
+ * 
+  * In DXVA-HD, the device stores state information for each input stream. These states persist between blits. With each blit, the application selects which streams to enable or disable. Disabling a stream does not affect the state information for that stream.
   * 
   * 
   * 
   * The <b>MaxStreamStates</b> member gives the maximum number of stream states that can be set by the application. The <b>MaxInputStreams</b> member gives the maximum number of streams that can be enabled during a blit. These two values can differ.
   * 
   * To set the state data for a stream, call <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessstreamstate">IDXVAHD_VideoProcessor::SetVideoProcessStreamState</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_vpdevcaps
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

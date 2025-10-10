@@ -2,7 +2,7 @@
 
 /**
  * Contains predefined object identifiers for external properties that can be associated with a certificate in the certificate store.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-certenroll_propertyid
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-certenroll_propertyid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -85,15 +85,12 @@ class CERTENROLL_PROPERTYID{
  * 
  * The <i>pbData</i> structure member points to a byte array that contains a DER-encoded <b>EnhancedKeyUsage</b> extension in a <b>CERT_ENHKEY_USAGE</b> structure. You can encode the structure by using the CryptoAPI <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobject">CryptEncodeObject</a> function and setting the <i>lpszStructType</i> parameter to <b>X509_ENHANCED_KEY_USAGE</b>.
  * 
- * 
- * ``` syntax
- * typedef struct _CTL_USAGE 
+ * <pre class="syntax" xml:space="preserve"><code>typedef struct _CTL_USAGE 
  * {
  *     DWORD               cUsageIdentifier;
  *     LPSTR               *rgpszUsageIdentifier; 
  * } 
- * CTL_USAGE, *PCTL_USAGE, CERT_ENHKEY_USAGE, *PCERT_ENHKEY_USAGE;
- * ```
+ * CTL_USAGE, *PCTL_USAGE, CERT_ENHKEY_USAGE, *PCERT_ENHKEY_USAGE;</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ENHKEY_USAGE_PROP_ID => 9
@@ -103,15 +100,12 @@ class CERTENROLL_PROPERTYID{
  * 
  * The <i>pbData</i> structure member points to a byte array that contains a DER-encoded certificate trust list (CTL) usage identifier in a <b>CTL_USAGE</b> structure. You can encode the structure by using the CryptoAPI <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobject">CryptEncodeObject</a> function and setting the <i>lpszStructType</i> parameter to <b>X509_ENHANCED_KEY_USAGE</b>.
  * 
- * 
- * ``` syntax
- * typedef struct _CTL_USAGE 
+ * <pre class="syntax" xml:space="preserve"><code>typedef struct _CTL_USAGE 
  * {
  *     DWORD               cUsageIdentifier;
  *     LPSTR               *rgpszUsageIdentifier; 
  * } 
- * CTL_USAGE;
- * ```
+ * CTL_USAGE;</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CERT_CTL_USAGE_PROP_ID => 9

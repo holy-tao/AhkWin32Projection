@@ -2,7 +2,7 @@
 
 /**
  * Defines video processing capabilities for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_caps
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_device_caps
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

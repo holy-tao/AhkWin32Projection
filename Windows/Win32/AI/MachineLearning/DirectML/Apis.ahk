@@ -41,9 +41,7 @@ class DirectML {
 
 ;@region Methods
     /**
-     * Creates a DirectML device for a given Direct3D 12 device. (DMLCreateDevice)
-     * @remarks
-     * A newer version of this function, [DMLCreateDevice1](/windows/win32/api/directml/nf-directml-dmlcreatedevice1), was introduced in DirectML version 1.1.0. **DMLCreateDevice** is equivalent to calling **DMLCreateDevice1** and supplying a *minimumFeatureLevel* of [DML_FEATURE_LEVEL_1_0](/windows/win32/api/directml/ne-directml-dml_feature_level).
+     * Creates a DirectML device for a given Direct3D 12 device.
      * @param {Pointer<ID3D12Device>} d3d12Device Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>*</b>
      * 
      * A pointer to an [ID3D12Device](/windows/win32/api/d3d12/nn-d3d12-id3d12device) representing the Direct3D 12 device to create the DirectML device over. DirectML supports any D3D feature level, and Direct3D 12 devices created on any adapter, including WARP. However, not all features in DirectML may be available depending on the capabilities of the Direct3D 12 device. See [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) for more info.
@@ -61,7 +59,9 @@ class DirectML {
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [HRESULT](/windows/desktop/winprog/windows-data-types) error code.
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice
+     * 
+     * The Graphics Tools Feature on Demand (FOD) must be installed in order to use the DirectML debug layers. If the [DML_CREATE_DEVICE_FLAG_DEBUG](/windows/win32/api/directml/ne-directml-dml_create_device_flags) flag is specified in *flags* and the debug layers are not installed, then **DMLCreateDevice** returns **DXGI_ERROR_SDK_COMPONENT_MISSING**.
+     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-dmlcreatedevice
      * @since windows10.0.10240
      */
     static DMLCreateDevice(d3d12Device, flags, riid, ppv) {
@@ -73,9 +73,7 @@ class DirectML {
     }
 
     /**
-     * Creates a DirectML device for a given Direct3D 12 device. (DMLCreateDevice1)
-     * @remarks
-     * A newer version of this function, [DMLCreateDevice1](/windows/win32/api/directml/nf-directml-dmlcreatedevice1), was introduced in DirectML version 1.1.0. **DMLCreateDevice1** is equivalent to calling **DMLCreateDevice1** and supplying a *minimumFeatureLevel* of [DML_FEATURE_LEVEL_1_0](/windows/win32/api/directml/ne-directml-dml_feature_level).
+     * Creates a DirectML device for a given Direct3D 12 device.
      * @param {Pointer<ID3D12Device>} d3d12Device Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>*</b>
      * 
      * A pointer to an [ID3D12Device](/windows/win32/api/d3d12/nn-d3d12-id3d12device) representing the Direct3D 12 device to create the DirectML device over. DirectML supports any D3D feature level, and Direct3D 12 devices created on any adapter, including WARP. However, not all features in DirectML may be available depending on the capabilities of the Direct3D 12 device. See [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) for more info.
@@ -104,7 +102,9 @@ class DirectML {
      * If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [HRESULT](/windows/desktop/winprog/windows-data-types) error code.
      * 
      * If this version of DirectML doesn't support the *minimumFeatureLevel* requested, then this function will return **DXGI_ERROR_UNSUPPORTED**.
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice1
+     * 
+     * The Graphics Tools Feature on Demand (FOD) must be installed in order to use the DirectML debug layers. If the [DML_CREATE_DEVICE_FLAG_DEBUG](/windows/win32/api/directml/ne-directml-dml_create_device_flags) flag is specified in *flags* and the debug layers are not installed, then **DMLCreateDevice1** returns **DXGI_ERROR_SDK_COMPONENT_MISSING**.
+     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-dmlcreatedevice1
      */
     static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid, ppv) {
         result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr", ppv, "int")

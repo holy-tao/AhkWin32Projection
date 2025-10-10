@@ -3,7 +3,7 @@
 
 /**
  * Provides statistical information for a Reliable Multicast sender session. This structure is used with the RM_SENDER_STATISTICS socket option.
- * @see https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_sender_stats
+ * @see https://docs.microsoft.com/windows/win32/api//wsrm/ns-wsrm-rm_sender_stats
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

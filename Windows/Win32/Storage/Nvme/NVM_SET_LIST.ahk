@@ -3,10 +3,6 @@
 #Include .\NVME_SET_ATTRIBUTES_ENTRY.ahk
 
 /**
- * Contains an array of entries for the NVME Set Attributes command.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvm_set_list
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -17,7 +13,6 @@ class NVM_SET_LIST extends Win32Struct
     static packingSize => 8
 
     /**
-     * The number of identifiers in the entry.
      * @type {Integer}
      */
     IdentifierCount {
@@ -26,7 +21,6 @@ class NVM_SET_LIST extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<Byte>}
      */
     Reserved{
@@ -38,7 +32,6 @@ class NVM_SET_LIST extends Win32Struct
     }
 
     /**
-     * An array of [NVME_SET_ATTRIBUTES_ENTRY](ns-nvme-nvme_set_attributes_entry.md) structures that specify attribute values to be set by the set list.
      * @type {Array<NVME_SET_ATTRIBUTES_ENTRY>}
      */
     Entry{

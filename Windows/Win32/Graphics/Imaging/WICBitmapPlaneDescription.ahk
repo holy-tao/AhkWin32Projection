@@ -3,7 +3,7 @@
 
 /**
  * Specifies the pixel format and size of a component plane.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicbitmapplanedescription
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicbitmapplanedescription
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

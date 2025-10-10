@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of all options available on a DHCP server.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_all_options
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_all_options
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

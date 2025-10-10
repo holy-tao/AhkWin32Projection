@@ -1568,10 +1568,6 @@ class Urlmon {
 
     /**
      * Creates an asynchronous bind context for use with asynchronous monikers.
-     * @remarks
-     * This function automatically registers the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775060(v=vs.85)">IBindStatusCallback</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interfaces with the bind context. The client can specify flags from BSCO_OPTION to indicate which callback notifications the client is capable of receiving. If the client does not wish to receive certain notification, it can choose to implement those callback methods as empty function stubs (returning E_NOTIMPL), and they should not be called.
-     * 
-     * The <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775115(v=vs.85)">RegisterBindStatusCallback</a> function can also be used to register callback interfaces in the bind context.
      * @param {Integer} reserved This parameter is reserved and must be 0.
      * @param {Pointer<IBindStatusCallback>} pBSCb A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775060(v=vs.85)">IBindStatusCallback</a> interface used for receiving data availability and progress notification.
      * @param {Pointer<IEnumFORMATETC>} pEFetc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interface that can be used to enumerate formats for format negotiation during binding. This parameter can be <b>NULL</b>, in which case the caller is not interested in format negotiation during binding, and the default format of the object will be bound to.
@@ -1617,7 +1613,7 @@ class Urlmon {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/urlmon/nf-urlmon-createasyncbindctx
+     * @see https://docs.microsoft.com/windows/win32/api//urlmon/nf-urlmon-createasyncbindctx
      * @since windows5.0
      */
     static CreateAsyncBindCtx(reserved, pBSCb, pEFetc, ppBC) {
@@ -1864,8 +1860,6 @@ class Urlmon {
 
     /**
      * Creates an object that implements IEnumFORMATETC over a static array of FORMATETC structures.
-     * @remarks
-     * The <b>CreateFormatEnumerator</b> function creates an enumerator object that implements <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> over a static array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. The <i>cfmtetc</i> parameter specifies the number of these structures. With the pointer, you can call the standard enumeration methods to enumerate the structures.
      * @param {Integer} cfmtetc Number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the static array specified by the <i>rgfmtetc</i> parameter. The <i>cfmtetc</i> parameter cannot be zero.
      * @param {Pointer<FORMATETC>} rgfmtetc Pointer to a static array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures.
      * @param {Pointer<IEnumFORMATETC>} ppenumfmtetc Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> pointer variable that receives the interface pointer to the enumerator object.
@@ -1888,7 +1882,7 @@ class Urlmon {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/urlmon/nf-urlmon-createformatenumerator
+     * @see https://docs.microsoft.com/windows/win32/api//urlmon/nf-urlmon-createformatenumerator
      * @since windows5.0
      */
     static CreateFormatEnumerator(cfmtetc, rgfmtetc, ppenumfmtetc) {

@@ -2,7 +2,7 @@
 
 /**
  * Each message property is of type WS_MESSAGE_PROPERTY, is identified by an ID, and has an associated value.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_message_property_id
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_message_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -25,11 +25,11 @@ class WS_MESSAGE_PROPERTY_ID{
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_property">WS_MESSAGE_PROPERTY</a> structure is the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a> of the message.  The heap is
  *                     owned by the message.  A user of a message is free to make additional
- *                     allocations within this heap.  Allocations within the heap are freed
+ *                     allocations within this heap.  Allocations within the heap are free'd
  *                     when a message is reset/freed.
  *                 
  * 
- * The user of the returned heap should not call <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetheap">WsResetHeap</a> on the heap.  This will result in undefined behavior.
+ * The user of the returned heap should not call <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetheap">WsResetHeap</a>on the heap.  This will result in undefined behavior.
  *                 
  * 
  * The message object will not use the heap object unless one of
@@ -103,7 +103,7 @@ class WS_MESSAGE_PROPERTY_ID{
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a>.
  * 
- * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_property">WS_MESSAGE_PROPERTY</a> structure  is the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_node_position">WS_XML_NODE_POSITION</a> of the header element within the header buffer (the element that contains all
+ * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_property">WS_MESSAGE_PROPERTY</a> structure  is the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_node_position">WS_XML_NODE_POSITION</a>of the header element within the header buffer (the element that contains all
  *                     the message headers as children).  The header buffer itself can be
  *                     obtained using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_message_property_id">WS_MESSAGE_PROPERTY_HEADER_BUFFER</a>.
  *                 
@@ -112,7 +112,7 @@ class WS_MESSAGE_PROPERTY_ID{
  *                     point when reading or writing headers manually (when not using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetheader">WsSetHeader</a>, 
  *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetheader">WsGetHeader</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetcustomheader">WsGetCustomHeader</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsaddcustomheader">WsAddCustomHeader</a>).  
  *                     For example, the position can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetwriterposition">WsSetWriterPosition</a> or 
- *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetreaderposition">WsSetReaderPosition</a> to position an <a href="https://docs.microsoft.com/windows/desktop/wsw/xml-reader">XML Reader</a> or <a href="https://docs.microsoft.com/windows/desktop/wsw/xml-writer">XML Writer</a> within the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> containing the headers.  Additionally, 
+ *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetreaderposition">WsSetReaderPosition</a> to position an <a href="https://docs.microsoft.com/windows/desktop/wsw/xml-reader">XML Reader</a> or <a href="https://docs.microsoft.com/windows/desktop/wsw/xml-writer">XML Writer</a>within the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> containining the headers.  Additionally, 
  *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmovereader">WsMoveReader</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmovewriter">WsMoveWriter</a> can be used to move relative 
  *                     to the position that was set.
  *                 
@@ -277,7 +277,7 @@ class WS_MESSAGE_PROPERTY_ID{
  *                 
  * 
  * These XML Writer properties are used by the message object when writing headers.
- *                     In addition, channels use these properties for the writers that they create to write
+ *                     In addition, channels use these properties for the wrtiers that they create to write
  *                     messages.
  *                 
  * 
@@ -315,7 +315,7 @@ class WS_MESSAGE_PROPERTY_ID{
     static WS_MESSAGE_PROPERTY_XML_WRITER_PROPERTIES => 11
 
     /**
-     * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetmessageproperty">WsSetMessageProperty</a> to indicate whether a message contains a fault.
+     * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmessageproperty">WsGetMessageProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetmessageproperty">WsSetMessageProperty</a>to indicate whether a message contains a fault.
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_message_property">WS_MESSAGE_PROPERTY</a> structure is a <b>BOOL</b>.
@@ -456,7 +456,7 @@ class WS_MESSAGE_PROPERTY_ID{
  * The returned value is good until the message is freed or reset.
  *                 
  * 
- * A custom channel can use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetmessageproperty">WsSetMessageProperty</a> to set
+ * A custom channel can use <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetmessageproperty">WsSetMessageProperty</a>to set
  *                     the windows token representing the sender from a received message.
  *                     The function will duplicate the handle specified.
  *                 
@@ -534,7 +534,7 @@ class WS_MESSAGE_PROPERTY_ID{
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_protection_level">WS_PROTECTION_LEVEL_NONE</a>. Otherwise it is set to the level requested by the application.            
  *             
  * 
- * This property may be used to determine the status of the security verification when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_ALLOW_UNSECURED_FAULTS</a> 
+ * This property may be used to dermine the status of the security verification when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_ALLOW_UNSECURED_FAULTS</a> 
  *                 is set to <b>FALSE</b>.
  *             
  * 

@@ -4,7 +4,7 @@
 
 /**
  * The MSV1_0_INTERACTIVE_PROFILE structure contains information about an interactive logon profile. This structure is used by the LsaLogonUser function.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-msv1_0_interactive_profile
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-msv1_0_interactive_profile
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

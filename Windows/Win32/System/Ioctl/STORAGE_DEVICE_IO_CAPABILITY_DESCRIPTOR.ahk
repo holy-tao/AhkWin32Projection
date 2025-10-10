@@ -3,7 +3,7 @@
 
 /**
  * The output buffer for the StorageDeviceIoCapabilityProperty as defined in STORAGE_PROPERTY_ID.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_io_capability_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_device_io_capability_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a compressed buffer for decoding. (D3D11_VIDEO_DECODER_BUFFER_DESC1)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_video_decoder_buffer_desc1
+ * Describes a compressed buffer for decoding.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ns-d3d11_1-d3d11_video_decoder_buffer_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

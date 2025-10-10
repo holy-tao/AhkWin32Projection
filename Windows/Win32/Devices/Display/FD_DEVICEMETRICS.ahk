@@ -6,7 +6,7 @@
 
 /**
  * The FD_DEVICEMETRICS structure is used to provide device-specific font information to GDI if the iMode parameter of the driver-supplied DrvQueryFontData function is QFD_MAXEXTENTS.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_devicemetrics
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-fd_devicemetrics
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

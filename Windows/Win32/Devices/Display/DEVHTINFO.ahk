@@ -5,7 +5,7 @@
 
 /**
  * The DEVHTINFO structure is used as input to the HTUI_DeviceColorAdjustment function.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devhtinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-devhtinfo
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

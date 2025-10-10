@@ -2,11 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The SecurityFunctionTable structure is a dispatch table that contains pointers to the functions defined in SSPI. (ANSI)
+ * The SecurityFunctionTable structure is a dispatch table that contains pointers to the functions defined in SSPI.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The sspi.h header defines SecurityFunctionTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-securityfunctiontablea
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-securityfunctiontablea
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  * @charset ANSI

@@ -3,7 +3,7 @@
 
 /**
  * Contains information that is used to mark a specified file or directory, and its update sequence number (USN) change journal record with data about changes.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mark_handle_info32
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-mark_handle_info32
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

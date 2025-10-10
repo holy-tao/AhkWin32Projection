@@ -4,8 +4,11 @@
 /**
  * The DRM_VIDEO_OUTPUT_PROTECTION_IDS structure holds an array of DRM_VIDEO_OUTPUT_PROTECTION structures.
  * @remarks
- * This structure is used as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-drm_play_opl">DRM_PLAY_OPL</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-drm_video_output_protection_ids
+ * 
+  * This structure is used as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-drm_play_opl">DRM_PLAY_OPL</a> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-drm_video_output_protection_ids
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about sent and received PHY frames.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_phy_frame_statistics
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_phy_frame_statistics
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -122,7 +122,7 @@ class WLAN_PHY_FRAME_STATISTICS extends Win32Struct
     }
 
     /**
-     * Contains the number of MSDU/MMPDUs successfully received only because promiscuous mode is enabled.
+     * Contains the number of MSDU/MMPDUs successfully received only because promicscuous mode is enabled.
      * @type {Integer}
      */
     ullPromiscuousReceivedFrameCount {

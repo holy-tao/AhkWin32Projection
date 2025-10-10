@@ -2,7 +2,7 @@
 
 /**
  * Defines the options for failing IO operations that violate a file screen.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmfilescreenflags
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmfilescreenflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

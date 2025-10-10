@@ -14,7 +14,8 @@
 /**
  * Describes a graphics pipeline state object.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate">CreateGraphicsPipelineState</a> method.
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate">CreateGraphicsPipelineState</a> method.
   *       
   * 
   * The runtime validates:
@@ -51,7 +52,9 @@
   * <li>Whether the sample count and quality are supported for the render target/depth stencil formats.
   *           </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

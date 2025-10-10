@@ -3,7 +3,7 @@
 
 /**
  * Specifies search criteria for Bluetooth device searches.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_search_params
+ * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_device_search_params
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

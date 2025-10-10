@@ -3,7 +3,7 @@
 
 /**
  * Provides context information about the event.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_context
+ * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-etw_buffer_context
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The smiVENDORINFO structure contains information about the Microsoft WinSNMP implementation.
- * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smivendorinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winsnmp/ns-winsnmp-smivendorinfo
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

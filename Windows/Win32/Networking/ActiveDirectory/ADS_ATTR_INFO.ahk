@@ -4,12 +4,15 @@
 /**
  * Used to contain one or more attribute values for use with the IDirectoryObject::CreateDSObject, IDirectoryObject::GetObjectAttributes, or IDirectoryObject::SetObjectAttributes method.
  * @remarks
- * In ADSI, attributes and properties are used interchangeably. Set attributes, when creating a directory service object, using the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-createdsobject">IDirectoryObject::CreateDSObject</a> method. The  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-idirectoryobject">IDirectoryObject</a> interface also supports the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-getobjectattributes">IDirectoryObject::GetObjectAttributes</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-setobjectattributes">IDirectoryObject::SetObjectAttributes</a> methods for retrieving and modifying the attributes of the object in a directory.
+ * 
+  * In ADSI, attributes and properties are used interchangeably. Set attributes, when creating a directory service object, using the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-createdsobject">IDirectoryObject::CreateDSObject</a> method. The  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-idirectoryobject">IDirectoryObject</a> interface also supports the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-getobjectattributes">IDirectoryObject::GetObjectAttributes</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectoryobject-setobjectattributes">IDirectoryObject::SetObjectAttributes</a> methods for retrieving and modifying the attributes of the object in a directory.
   * 
   * Memory for the array of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures is not allocated with this structure.
   * 
   * The value of the <b>dwControlCode</b> member is ignored when the structure is used as an OUT parameter.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_attr_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_attr_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

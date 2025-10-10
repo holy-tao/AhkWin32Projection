@@ -3,7 +3,7 @@
 
 /**
  * HTTP_REQUEST_CHANNEL_BIND_STATUS.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_channel_bind_status
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_request_channel_bind_status
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

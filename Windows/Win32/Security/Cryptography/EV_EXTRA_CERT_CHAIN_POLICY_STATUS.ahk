@@ -3,7 +3,7 @@
 
 /**
  * Contains policy flags returned from a call to the CertVerifyCertificateChainPolicy function.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ev_extra_cert_chain_policy_status
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ev_extra_cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

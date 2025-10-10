@@ -5,7 +5,7 @@
 
 /**
  * Describes the access to resource(s) that is requested by an application at the transition out of a render pass.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_ending_access
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_render_pass_ending_access
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

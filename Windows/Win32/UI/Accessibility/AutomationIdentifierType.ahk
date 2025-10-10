@@ -2,7 +2,7 @@
 
 /**
  * Contains values used in the UiaLookupId function.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -45,7 +45,7 @@ class AutomationIdentifierType{
     static AutomationIdentifierType_LandmarkType => 5
 
     /**
-     * Specifies an annotation ID.
+     * Specifies an annotion ID.
      * @type {Integer (Int32)}
      */
     static AutomationIdentifierType_Annotation => 6

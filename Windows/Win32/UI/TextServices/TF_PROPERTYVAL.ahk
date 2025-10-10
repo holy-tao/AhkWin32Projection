@@ -6,7 +6,7 @@
 
 /**
  * The TF_PROPERTYVAL structure contains property value data. This structure is used with the IEnumTfPropertyValue::Next method.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_propertyval
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_propertyval
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

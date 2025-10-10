@@ -2,7 +2,7 @@
 
 /**
  * A value that indicates the typographic feature of text supplied by the font.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_feature_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -404,7 +404,7 @@ class DWRITE_FONT_FEATURE_TAG{
     static DWRITE_FONT_FEATURE_TAG_SIMPLIFIED_FORMS => 1819307379
 
     /**
-     * In addition to, or instead of, stylistic alternatives of individual glyphs (see 'salt' feature), some fonts may contain sets of stylistic variant glyphs corresponding to portions of the character set, such as multiple variants for lowercase letters in a Latin font. Glyphs in stylistic sets may be designed to harmonise visually, interact in particular ways, or otherwise work together. Examples of fonts including stylistic sets are Zapfino Linotype and Adobe's Poetica. Individual features numbered sequentially with the tag name convention 'ss01' 'ss02' 'ss03' . 'ss20' provide a mechanism for glyphs in these sets to be associated via GSUB lookup indexes to default forms and to each other, and for users to select from available stylistic sets
+     * In addition to, or instead of, stylistic alternatives of individual glyphs (see 'salt' feature), some fonts may contain sets of stylistic variant glyphs corresponding to portions of the character set, such as multiple variants for lowercase letters in a Latin font. Glyphs in stylistic sets may be designed to harmonise visually, interract in particular ways, or otherwise work together. Examples of fonts including stylistic sets are Zapfino Linotype and Adobe's Poetica. Individual features numbered sequentially with the tag name convention 'ss01' 'ss02' 'ss03' . 'ss20' provide a mechanism for glyphs in these sets to be associated via GSUB lookup indexes to default forms and to each other, and for users to select from available stylistic sets
  * 
  * <b>Equivalent OpenType tag:</b> 'ss01'
      * @type {Integer (UInt32)}

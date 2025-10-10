@@ -2,7 +2,7 @@
 
 /**
  * The DWRITE_PANOSE_SYMBOL_KIND enumeration contains values that specify the kind of symbol set.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_symbol_kind
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_symbol_kind
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

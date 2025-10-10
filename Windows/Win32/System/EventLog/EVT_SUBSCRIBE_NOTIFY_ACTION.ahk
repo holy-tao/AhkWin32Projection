@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible types of data that the subscription service can deliver to your callback.
- * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_subscribe_notify_action
+ * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_subscribe_notify_action
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

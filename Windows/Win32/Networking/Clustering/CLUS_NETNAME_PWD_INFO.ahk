@@ -3,7 +3,7 @@
 
 /**
  * Provides information for resetting the security principal associated with a computer name.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_pwd_info
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_netname_pwd_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class CLUS_NETNAME_PWD_INFO extends Win32Struct
     }
 
     /**
-     * Contains the ID of a security principal object on a directory server.
+     * Contains the ID of a security principal objecton a directory server.
      * @type {String}
      */
     ObjectGuid {

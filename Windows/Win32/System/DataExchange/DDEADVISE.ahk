@@ -3,7 +3,7 @@
 
 /**
  * Contains flags that specify how a DDE server application should send data to a client application during an advise loop. A client passes a handle to a DDEADVISE structure to a server as part of a WM_DDE_ADVISE message.
- * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddeadvise
+ * @see https://docs.microsoft.com/windows/win32/api//dde/ns-dde-ddeadvise
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

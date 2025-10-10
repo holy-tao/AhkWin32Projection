@@ -2,7 +2,7 @@
 
 /**
  * Indicates information about joining an existing conversation.
- * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_conversationjoinevent
+ * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_conversationjoinevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Defines the options for the DrawThemeTextEx function.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dttopts
+ * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-dttopts
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -237,7 +237,7 @@ class DTTOPTS extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * Specifies the amount of offset, in logical coordinates, between the shadow and the text.
      * @type {POINT}

@@ -3,10 +3,13 @@
 /**
  * Specifies ways to update a named property in the cache.
  * @remarks
- * The elements of this enumeration are used with the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-putex">IADs.PutEx</a> method, the document of which provides an example of how to use these enumerated constants.
+ * 
+  * The elements of this enumeration are used with the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-putex">IADs.PutEx</a> method, the document of which provides an example of how to use these enumerated constants.
   * 
   * Because Visual Basic Scripting Edition (VBScript) cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined. Use the numeric constants instead to set the appropriate flags in your VBScript applications. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_property_operation_enum
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_property_operation_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

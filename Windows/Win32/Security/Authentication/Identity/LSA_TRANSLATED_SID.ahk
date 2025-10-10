@@ -3,7 +3,7 @@
 
 /**
  * Used with the LsaLookupNames function to return information about the SID that identifies an account.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_translated_sid
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-lsa_translated_sid
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

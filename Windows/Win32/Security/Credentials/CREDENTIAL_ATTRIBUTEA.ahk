@@ -2,11 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CREDENTIAL_ATTRIBUTE structure contains an application-defined attribute of the credential. An attribute is a keyword-value pair. It is up to the application to define the meaning of the attribute. (ANSI)
+ * The CREDENTIAL_ATTRIBUTE structure contains an application-defined attribute of the credential. An attribute is a keyword-value pair. It is up to the application to define the meaning of the attribute.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The wincred.h header defines CREDENTIAL_ATTRIBUTE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-credential_attributea
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincred/ns-wincred-credential_attributea
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  * @charset ANSI

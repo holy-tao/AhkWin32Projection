@@ -3,7 +3,7 @@
 
 /**
  * An optional type description used with WS_INT16_TYPE to specify constraints on the set of values which can be deserialized.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_int16_description
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_int16_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

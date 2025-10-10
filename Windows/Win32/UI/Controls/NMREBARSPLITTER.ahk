@@ -5,7 +5,7 @@
 
 /**
  * Contains information used to handle an RBN_SPLITTERDRAG notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarsplitter
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmrebarsplitter
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

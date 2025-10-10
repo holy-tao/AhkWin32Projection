@@ -2,7 +2,7 @@
 
 /**
  * Provides information about the parent undo unit.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-uasflags
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-uasflags
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -29,10 +29,7 @@ class UASFLAGS{
     /**
      * When checking for a normal state, use this value to mask unused bits in the <i>pdwState</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleparentundounit-getparentstate">IOleParentUndoUnit::GetParentState</a> method for future compatibility. For example:
  * 
- * 
- * ``` syntax
- * fNormal = ((pdwState &amp; UAS_MASK) == UAS_NORMAL)
- * ```
+ * <pre class="syntax" xml:space="preserve"><c>fNormal = ((pdwState &amp; UAS_MASK) == UAS_NORMAL)</c></pre>
      * @type {Integer (Int32)}
      */
     static UAS_MASK => 3

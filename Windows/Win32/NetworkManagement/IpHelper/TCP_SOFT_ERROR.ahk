@@ -3,10 +3,13 @@
 /**
  * Defines the reason for non-fatal or soft errors recorded on a TCP connection.
  * @remarks
- * The <b>TCP_SOFT_ERROR</b> enumeration is defined on Windows Vista and later. 
+ * 
+  * The <b>TCP_SOFT_ERROR</b> enumeration is defined on Windows Vista and later. 
   * 
   * The values in this enumeration are defined in the IETF draft RFC on the TCP Extended Statistics MIB. For more information, see <a href="http://tools.ietf.org/html/rfc4898">http://www.ietf.org/rfc/rfc4898.txt</a>.
- * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ne-tcpestats-tcp_soft_error
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ne-tcpestats-tcp_soft_error
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

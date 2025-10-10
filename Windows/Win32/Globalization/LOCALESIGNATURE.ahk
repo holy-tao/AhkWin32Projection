@@ -3,7 +3,7 @@
 
 /**
  * Contains extended font signature information, including two code page bitfields (CPBs) that define the default and supported character sets and code pages. This structure is typically used to represent the relationships between font coverage and locales.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-localesignature
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-localesignature
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

@@ -5,7 +5,8 @@
 /**
  * Contains combo box status information.
  * @remarks
- * The following example code retrieves information about the combo box specified by the window handle.
+ * 
+  * The following example code retrieves information about the combo box specified by the window handle.
   * 
   * 
   * ```
@@ -13,7 +14,9 @@
   * GetComboBoxInfo(hwnd, &info);
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-comboboxinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-comboboxinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information used to increase the size of a partition.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_grow_partition
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_grow_partition
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

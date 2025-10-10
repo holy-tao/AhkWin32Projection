@@ -3,7 +3,7 @@
 
 /**
  * The AM_SAMPLE2_PROPERTIES structure describes the properties of a media sample. The IMediaSample2 interface uses this structure.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_sample2_properties
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-am_sample2_properties
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

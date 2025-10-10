@@ -4,7 +4,7 @@
 
 /**
  * The DD_GETINTERNALMOCOMPDATA structure contains the internal memory requirements.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getinternalmocompdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getinternalmocompdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

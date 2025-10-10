@@ -3,8 +3,11 @@
 /**
  * Indicates whether the write cache features of a device are changeable.
  * @remarks
- * The [IOCTL_STORAGE_QUERY_PROPERTY](ni-winioctl-ioctl_storage_query_property.md) request returns a **WRITE_CACHE_CHANGE** value in the [STORAGE_WRITE_CACHE_PROPERTY](ns-winioctl-storage_write_cache_property.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-write_cache_change
+ * 
+  * The [IOCTL_STORAGE_QUERY_PROPERTY](ni-winioctl-ioctl_storage_query_property.md) request returns a **WRITE_CACHE_CHANGE** value in the [STORAGE_WRITE_CACHE_PROPERTY](ns-winioctl-storage_write_cache_property.md) structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-write_cache_change
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

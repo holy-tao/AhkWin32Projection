@@ -6,7 +6,7 @@
 
 /**
  * Used to add a new Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record to the SSL SNI store or retrieve an existing record from it.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_sni_set
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_sni_set
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -3,7 +3,8 @@
 /**
  * Indicates the status of a call to IMFTransform::ProcessOutput.
  * @remarks
- * If the MFT sets this flag, the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> method returns MF_E_TRANSFORM_STREAM_CHANGE and no output data is produced. The client should respond as follows:
+ * 
+  * If the MFT sets this flag, the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> method returns MF_E_TRANSFORM_STREAM_CHANGE and no output data is produced. The client should respond as follows:
   * 
   * <ol>
   * <li>
@@ -20,7 +21,9 @@
   * </li>
   * </ol>
   * Until these steps are completed, all further calls to <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> return MF_E_TRANSFORM_STREAM_CHANGE.
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_process_output_status
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_process_output_status
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

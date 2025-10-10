@@ -3,7 +3,7 @@
 
 /**
  * The DD_SETENTRIESDATA structure contains information necessary to set palette entries.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_setentriesdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_setentriesdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

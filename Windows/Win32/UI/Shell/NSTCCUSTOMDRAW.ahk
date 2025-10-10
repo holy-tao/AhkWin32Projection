@@ -3,7 +3,7 @@
 
 /**
  * Custom draw structure used by INameSpaceTreeControlCustomDraw methods.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ns-shobjidl-nstccustomdraw
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl/ns-shobjidl-nstccustomdraw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

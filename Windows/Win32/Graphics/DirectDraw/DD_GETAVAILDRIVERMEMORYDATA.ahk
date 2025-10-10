@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETAVAILDRIVERMEMORYDATA structure contains the information needed by the driver to query and return the amount of free memory.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getavaildrivermemorydata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getavaildrivermemorydata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

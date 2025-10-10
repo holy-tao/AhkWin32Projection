@@ -4,7 +4,7 @@
 
 /**
  * A DHCPV6 message.
- * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_message
+ * @see https://docs.microsoft.com/windows/win32/api//wdspxe/ns-wdspxe-pxe_dhcpv6_message
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
  * Defines constants used in the D3D12_DEVICE_REMOVED_EXTENDED_DATA structure to specify control flags for the Direct3D runtime.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_dred_flags
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_dred_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

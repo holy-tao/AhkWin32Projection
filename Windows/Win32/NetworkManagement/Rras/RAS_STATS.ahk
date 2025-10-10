@@ -3,7 +3,7 @@
 
 /**
  * The RAS_STATS structure stores the statistics for a single-link RAS connection, or for one of the links in a multilink RAS connection.
- * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-ras_stats
+ * @see https://docs.microsoft.com/windows/win32/api//ras/ns-ras-ras_stats
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

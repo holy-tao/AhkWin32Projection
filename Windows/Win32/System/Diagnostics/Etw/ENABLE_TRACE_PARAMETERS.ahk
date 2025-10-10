@@ -2,36 +2,17 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information used to enable a provider via EnableTraceEx2.
+ * Defines the information used to enable a provider.
  * @remarks
- * The **ENABLE_TRACE_PARAMETERS** structure is a version-2 structure and replaces
-  * the
-  * [ENABLE_TRACE_PARAMETERS_V1](/windows/desktop/ETW/enable-trace-parameters-v1)
-  * structure.
+ * 
+  * The <b>ENABLE_TRACE_PARAMETERS</b> structure is a version 2 structure and replaces the <a href="https://docs.microsoft.com/windows/desktop/ETW/enable-trace-parameters-v1">ENABLE_TRACE_PARAMETERS_V1</a> structure for use with the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function.
   * 
-  * **Windows 8.1, Windows Server 2012 R2, and later:** Event payload, scope, and
-  * stack walk filters can be used by the
-  * [EnableTraceEx2](/windows/desktop/ETW/enabletraceex2) function and the
-  * **ENABLE_TRACE_PARAMETERS** and
-  * [EVENT_FILTER_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor)
-  * structures to filter on specific conditions in a logger session. For more
-  * information on event payload filters, see the **EnableTraceEx2**,
-  * [TdhCreatePayloadFilter](/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter),
-  * and
-  * [TdhAggregatePayloadFilters](/windows/desktop/api/tdh/nf-tdh-tdhaggregatepayloadfilters)
-  * functions and the **EVENT_FILTER_DESCRIPTOR** and
-  * [PAYLOAD_FILTER_PREDICATE](/windows/desktop/api/tdh/ns-tdh-payload_filter_predicate)
-  * structures.
+  * On Windows 8.1,Windows Server 2012 R2, and later, event payload , scope, and stack walk filters can be used by the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function and the <b>ENABLE_TRACE_PARAMETERS</b> and <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor">EVENT_FILTER_DESCRIPTOR</a> structures to filter on specific conditions in a logger session. For more information on event payload filters, see the <b>EnableTraceEx2</b>, <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter">TdhCreatePayloadFilter</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhaggregatepayloadfilters">TdhAggregatePayloadFilters</a> functions and the <b>EVENT_FILTER_DESCRIPTOR</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-payload_filter_predicate">PAYLOAD_FILTER_PREDICATE</a> structures. 
   * 
-  * Typically, on 64-bit computers, you cannot capture the kernel stack in certain
-  * contexts when page faults are not allowed. To enable walking the kernel stack on
-  * x64, set the `DisablePagingExecutive` Memory Management registry value to 1. The
-  * `DisablePagingExecutive` registry value is located under the following registry
-  * key:
-  * `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management`.
-  * This should only be done for temporary diagnosis purposes because it increases
-  * memory usage of the system.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-enable_trace_parameters
+  * Typically, on 64-bit computers, you cannot capture the kernel stack in certain contexts when page faults are not allowed. To enable walking the kernel stack on x64, set the <b>DisablePagingExecutive</b> Memory Management registry value to 1. The <b>DisablePagingExecutive</b> registry value is located under the following registry key:<b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Memory Management</b></p>You should consider the cost of setting this registry value before doing so.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-enable_trace_parameters
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -42,7 +23,7 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * Set to **ENABLE_TRACE_PARAMETERS_VERSION_2** (2).
+     * Set to <b>ENABLE_TRACE_PARAMETERS_VERSION_2</b>.
      * @type {Integer}
      */
     Version {
@@ -51,96 +32,122 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * Optional settings that ETW can include when writing the event. Some settings
-     * write extra data to the
-     * [extended data item](/windows/desktop/api/evntcons/ns-evntcons-event_header_extended_data_item)
-     * section of each event. Other settings control which events will be included in
-     * the trace. To use these optional settings, specify one or more of the following
-     * flags. Otherwise, set to zero.
+     * Optional settings that ETW can include when writing the event. Some settings write extra data to the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_header_extended_data_item">extended data item</a> section of each event. Other settings refine which events will be included. To use these optional settings, specify one or more of the following flags; otherwise, set to zero.
      * 
-     * - **EVENT_ENABLE_PROPERTY_IGNORE_KEYWORD_0**
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_IGNORE_KEYWORD_0"></a><a id="event_enable_property_ignore_keyword_0"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_IGNORE_KEYWORD_0</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Filters out all events that do not have a non-zero keyword specified.
      * 
-     *   Filters out events where the event's keyword is `0`.
+     * Supported on Windows 10, version 1507 and later. This is also supported on Windows 8.1 and Windows 7 with SP1 via a patch.
      * 
-     *   Supported on Windows 10, version 1507 and later. This is also supported on
-     *   Windows 8.1 and Windows 7 with SP1 via a patch.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_PROVIDER_GROUP"></a><a id="event_enable_property_provider_group"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_PROVIDER_GROUP</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that this call to <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> should enable a <a href="https://docs.microsoft.com/windows/desktop/ETW/provider-traits">Provider Group</a> rather than an individual Event Provider.
      * 
-     * - **EVENT_ENABLE_PROPERTY_PROVIDER_GROUP**
+     * Supported on Windows 10, version 1507 and later. This is also supported on Windows 8.1 and Windows 7 with SP1 via a patch.
      * 
-     *   Indicates that this call to
-     *   [EnableTraceEx2](/windows/desktop/ETW/enabletraceex2) should enable a
-     *   [Provider Group](/windows/desktop/ETW/provider-traits) rather than an
-     *   individual Event Provider.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_PROCESS_START_KEY"></a><a id="event_enable_property_process_start_key"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_PROCESS_START_KEY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Include the Process Start Key in the extended data.
      * 
-     *   Supported on Windows 10, version 1507 and later. This is also supported on
-     *   Windows 8.1 and Windows 7 with SP1 via a patch.
+     * The Process Start Key is a sequence number that identifies the process. While the Process ID may be reused within a session, the Process Start Key is guaranteed uniqueness in the current boot session.
      * 
-     * - **EVENT_ENABLE_PROPERTY_PROCESS_START_KEY**
+     * Supported on Windows 10, version 1507 and later. This is also supported on Windows 8.1 and Windows 7 with SP1 via a patch.
      * 
-     *   Include the Process Start Key in the extended data.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_EVENT_KEY"></a><a id="event_enable_property_event_key"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_EVENT_KEY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Include the Event Key in the extended data.
      * 
-     *   The Process Start Key is a sequence number that identifies the process. While
-     *   the Process ID may be reused within a session, the Process Start Key is
-     *   guaranteed to be unique in the current boot session.
+     * The Event Key is a unique identifier for the event instance that will be constant across multiple trace sessions listening to this event. It can be used to correlate simultaneous trace sessions.
      * 
-     *   Supported on Windows 10, version 1507 and later. This is also supported on
-     *   Windows 8.1 and Windows 7 with SP1 via a patch.
+     * Supported on Windows 10, version 1507 and later.
      * 
-     * - **EVENT_ENABLE_PROPERTY_EVENT_KEY**
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_EXCLUDE_INPRIVATE"></a><a id="event_enable_property_exclude_inprivate"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_EXCLUDE_INPRIVATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Filters out all events that are either marked as an InPrivate event or come from a process that is marked as InPrivate.
      * 
-     *   Include the Event Key in the extended data.
+     * InPrivate implies that the event or process contains some data that would be considered private or personal. It is up to the process or event to designate itself as InPrivate for this to work.
      * 
-     *   The Event Key is a unique identifier for the event instance that will be
-     *   constant across multiple trace sessions listening to this event. It can be
-     *   used to correlate simultaneous trace sessions.
+     * Supported on Windows 10, version 1507 and later.
      * 
-     *   Supported on Windows 10, version 1507 and later.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_SID"></a><a id="event_enable_property_sid"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_SID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Include in the extended data the security identifier (SID) of the user.
      * 
-     * - **EVENT_ENABLE_PROPERTY_EXCLUDE_INPRIVATE**
+     * Supported on Windows Vista and later.
      * 
-     *   Filters out all events that are either marked as an InPrivate event or come
-     *   from a process that is marked as InPrivate.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_TS_ID"></a><a id="event_enable_property_ts_id"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_TS_ID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Include in the extended data the terminal session identifier.
      * 
-     *   InPrivate implies that the event or process contains some data that would be
-     *   considered private or personal. It is up to the process or event to designate
-     *   itself as InPrivate for this to work.
+     * Supported on Windows Vista and later.
      * 
-     *   Supported on Windows 10, version 1507 and later.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="EVENT_ENABLE_PROPERTY_STACK_TRACE"></a><a id="event_enable_property_stack_trace"></a><dl>
+     * <dt><b>EVENT_ENABLE_PROPERTY_STACK_TRACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Include in the extended data a call stack trace for events written using <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nf-evntprov-eventwrite">EventWrite</a>.
      * 
-     * - **EVENT_ENABLE_PROPERTY_SID**
+     * If you set <b>EVENT_ENABLE_PROPERTY_STACK_TRACE</b>, ETW will drop the event if the total event size exceeds 64K. If the provider is logging events close in size to 64K maximum, it is possible that enabling stack capture will cause the event to be lost.
      * 
-     *   Include the security identifier (SID) of the user in the event's extended
-     *   data.
+     * If the stack is longer than the maximum number of frames (192), the frames will be cut from the bottom of the stack.
      * 
-     *   Supported on Windows Vista and later.
+     * For consumers,  the events will include the <a href="https://docs.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace64">EVENT_EXTENDED_ITEM_STACK_TRACE32</a> or <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_extended_item_stack_trace64">EVENT_EXTENDED_ITEM_STACK_TRACE64</a> extended item. Note that on 64-bit computers, 32-bit processes will receive 64-bit stack traces.
      * 
-     * - **EVENT_ENABLE_PROPERTY_TS_ID**
+     * Supported on Windows 7 and later.
      * 
-     *   Include the terminal session identifier in the event's extended data.
-     * 
-     *   Supported on Windows Vista and later.
-     * 
-     * - **EVENT_ENABLE_PROPERTY_STACK_TRACE**
-     * 
-     *   Add a call stack trace to the extended data of events written using
-     *   [EventWrite](/windows/desktop/api/evntprov/nf-evntprov-eventwrite).
-     * 
-     *   > [!Note]
-     *   > ETW will drop the event if the total event size exceeds 64K. If the
-     *   > provider is logging events close in size to 64K maximum, it is possible that
-     *   > enabling stack capture will cause the event to be lost.
-     * 
-     *   If the stack is longer than the maximum number of frames (192), the frames
-     *   will be cut from the bottom of the stack.
-     * 
-     *   For consumers, the events will include the
-     *   [EVENT_EXTENDED_ITEM_STACK_TRACE32](/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace64)
-     *   or
-     *   [EVENT_EXTENDED_ITEM_STACK_TRACE64](/windows/desktop/api/evntcons/ns-evntcons-event_extended_item_stack_trace64)
-     *   extended item. Note that on 64-bit computers, the trace will contain both
-     *   64-bit stacks even if the trace was started by a 32-bit trace controller.
-     * 
-     *   Supported on Windows 7 and later.
+     * </td>
+     * </tr>
+     * </table>
      * @type {Integer}
      */
     EnableProperty {
@@ -158,10 +165,7 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * A GUID that uniquely identifies the caller that is enabling or disabling the
-     * provider. If the provider does not implement
-     * [EnableCallback](/windows/desktop/api/evntprov/nc-evntprov-penablecallback), the
-     * GUID is not used.
+     * A GUID that uniquely identifies the session that is enabling or disabling the provider. If the provider does not implement <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nc-evntprov-penablecallback">EnableCallback</a>, the GUID is not used.
      * @type {Pointer<Guid>}
      */
     SourceId {
@@ -170,12 +174,11 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * A pointer to an array of
-     * [EVENT_FILTER_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor)
-     * structures that points to the filter data. The number of elements in the array
-     * is specified in the **FilterDescCount** member. There can only be one descriptor
-     * for each filter type as specified by the **Type** member of the
-     * **EVENT_FILTER_DESCRIPTOR** structure.
+     * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor">EVENT_FILTER_DESCRIPTOR</a> structures that points to the filter data. The number of elements in the array is specified in the <b>FilterDescCount</b> member. There can only be one filter for a specific filter type as specified by the <b>Type</b> member of the <b>EVENT_FILTER_DESCRIPTOR</b> structure. 
+     * 
+     * For a schematized filter (a <b>Type</b> member equal to <b>EVENT_FILTER_TYPE_SCHEMATIZED</b>), the provider uses filter data to prevent events that match the filter criteria from being written to the session. The provider determines the layout of the data and how it applies the filter to the event's data. A session can pass only one schematized filter to the provider.
+     * 
+     * A session can call the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhenumerateproviderfilters">TdhEnumerateProviderFilters</a> function to determine the schematized filters that it can pass to the provider.
      * @type {Pointer<EVENT_FILTER_DESCRIPTOR>}
      */
     EnableFilterDesc {
@@ -184,13 +187,11 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * The number of elements (filters) in the
-     * [EVENT_FILTER_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor)
-     * array pointed to by **EnableFilterDesc** member.
+     * The number of elements (filters) in the <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor">EVENT_FILTER_DESCRIPTOR</a> array pointed to by <b>EnableFilterDesc</b> member. 
      * 
-     * The **FilterDescCount** member should match the number of
-     * [EVENT_FILTER_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor)
-     * structures in the array pointed to by the **EnableFilterDesc** member.
+     * The <b>FilterDescCount</b>  member should match the number of <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor">EVENT_FILTER_DESCRIPTOR</a> structures in the array pointed to by the <b>EnableFilterDesc</b> member.
+     * 
+     * .
      * @type {Integer}
      */
     FilterDescCount {

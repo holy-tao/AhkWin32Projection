@@ -3,7 +3,7 @@
 
 /**
  * Contains address information for a service. The structure can accommodate many types of interprocess communications (IPC) mechanisms and their address forms, including remote procedure calls (RPC), named pipes, and sockets.
- * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_address
+ * @see https://docs.microsoft.com/windows/win32/api//nspapi/ns-nspapi-service_address
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

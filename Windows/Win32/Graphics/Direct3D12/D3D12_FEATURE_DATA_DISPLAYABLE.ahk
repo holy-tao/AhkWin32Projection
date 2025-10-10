@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * This feature is currently in preview.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_displayable
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class D3D12_FEATURE_DATA_DISPLAYABLE extends Win32Struct
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     DisplayableTexture {
@@ -25,7 +20,6 @@ class D3D12_FEATURE_DATA_DISPLAYABLE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     SharedResourceCompatibilityTier {

@@ -3,7 +3,7 @@
 
 /**
  * Used to associate a URL Group with a request queue.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_binding_info
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_binding_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

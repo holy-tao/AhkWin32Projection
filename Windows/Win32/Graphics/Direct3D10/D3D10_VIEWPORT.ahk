@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the dimensions of a viewport. (D3D10_VIEWPORT)
+ * Defines the dimensions of a viewport.
  * @remarks
- * In all cases, <b>Width</b> and <b>Height</b> must be ≥ 0 and <b>TopLeftX</b> + <b>Width</b> and <b>TopLeftY</b> + <b>Height</b> must be ≤ D3D10_VIEWPORT_BOUNDS_MAX.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_viewport
+ * 
+  * In all cases, <b>Width</b> and <b>Height</b> must be ≥ 0 and <b>TopLeftX</b> + <b>Width</b> and <b>TopLeftY</b> + <b>Height</b> must be ≤ D3D10_VIEWPORT_BOUNDS_MAX.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_viewport
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

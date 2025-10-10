@@ -4,7 +4,7 @@
 
 /**
  * The security binding subtype for specifying the use of a SAML assertion as a message security token.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_saml_message_security_binding
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_saml_message_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

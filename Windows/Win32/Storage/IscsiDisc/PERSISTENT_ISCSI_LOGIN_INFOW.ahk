@@ -4,9 +4,10 @@
 #Include .\ISCSI_LOGIN_OPTIONS.ahk
 
 /**
- * PERSISTENT_ISCSI_LOGIN_INFO structure contains information that describes a login session established by the Microsoft iSCSI initiator service after the machine boots up. (Unicode)
+ * PERSISTENT_ISCSI_LOGIN_INFO structure contains information that describes a login session established by the Microsoft iSCSI initiator service after the machine boots up.
  * @remarks
- * The <b>PERSISTENT_ISCSI_LOGIN_INFO</b> structure is used in conjunction with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsa">ReportIScsiPersistentLogins</a> function to retrieve the list of targets for which the Microsoft Discovery Service (iscsiexe.exe) automatically opens a login session after the machine boots up.
+ * 
+  * The <b>PERSISTENT_ISCSI_LOGIN_INFO</b> structure is used in conjunction with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsa">ReportIScsiPersistentLogins</a> function to retrieve the list of targets for which the Microsoft Discovery Service (iscsiexe.exe) automatically opens a login session after the machine boots up.
   * 
   * 
   * 
@@ -14,7 +15,9 @@
   * 
   * > [!NOTE]
   * > The iscsidsc.h header defines PERSISTENT_ISCSI_LOGIN_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-persistent_iscsi_login_infow
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ns-iscsidsc-persistent_iscsi_login_infow
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  * @charset Unicode

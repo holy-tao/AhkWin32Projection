@@ -4,8 +4,10 @@
 /**
  * Specifies a client signature when a call to the InitializeSecurityContext (Schannel) function cannot access the private key for a client certificate (in this case, the function returns SEC_I_SIGNATURE_NEEDED).
  * @remarks
- * Add a client signature to a client context by using this structure as the value of the <i>pInput</i> parameter in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_client_signature
+ * 
+  * Add a client signature to a client context by using this structure as the value of the <i>pInput</i> parameter in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-schannel_client_signature
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

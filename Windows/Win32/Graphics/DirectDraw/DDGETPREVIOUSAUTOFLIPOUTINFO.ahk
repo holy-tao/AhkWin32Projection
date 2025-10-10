@@ -3,7 +3,7 @@
 
 /**
  * The DDGETPREVIOUSAUTOFLIPOUTINFO structure provides the surface data.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddgetpreviousautoflipoutinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddgetpreviousautoflipoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

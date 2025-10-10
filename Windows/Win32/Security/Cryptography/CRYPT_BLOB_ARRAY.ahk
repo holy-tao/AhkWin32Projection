@@ -3,7 +3,7 @@
 
 /**
  * Contains an array of CRYPT_DATA_BLOB structures.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_blob_array
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_blob_array
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

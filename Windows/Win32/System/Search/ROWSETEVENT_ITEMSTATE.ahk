@@ -3,10 +3,13 @@
 /**
  * Describes whether an item that matches the search criteria of a rowset is currently in that rowset.
  * @remarks
- * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-irowsetevents">IRowsetEvents</a> to describe the state of rows in a rowset held by a client.
+ * 
+  * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-irowsetevents">IRowsetEvents</a> to describe the state of rows in a rowset held by a client.
   * 
   * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-rowsetevent_itemstate
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

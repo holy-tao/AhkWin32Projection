@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether a token has elevated privileges.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_elevation
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_elevation
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

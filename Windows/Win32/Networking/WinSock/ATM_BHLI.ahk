@@ -4,12 +4,14 @@
 /**
  * The ATM_BHLI structure is used to identify B-HLI information for an associated ATM socket.
  * @remarks
- * The following are the manifest constants associated with the 
+ * 
+  * The following are the manifest constants associated with the 
   * <b>ATM_BHLI</b> structure:
   * 
   * 
   * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/ws2atm/ns-ws2atm-atm_bhli
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2atm/ns-ws2atm-atm_bhli
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

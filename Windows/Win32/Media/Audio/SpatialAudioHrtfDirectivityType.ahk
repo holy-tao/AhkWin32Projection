@@ -2,7 +2,7 @@
 
 /**
  * Specifies the shape in which sound is emitted by an ISpatialAudioObjectForHrtf.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfdirectivitytype
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfdirectivitytype
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

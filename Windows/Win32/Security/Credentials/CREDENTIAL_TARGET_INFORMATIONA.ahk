@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CREDENTIAL_TARGET_INFORMATION structure contains the target computer's name, domain, and tree. (ANSI)
+ * The CREDENTIAL_TARGET_INFORMATION structure contains the target computer's name, domain, and tree.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The wincred.h header defines CREDENTIAL_TARGET_INFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-credential_target_informationa
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincred/ns-wincred-credential_target_informationa
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  * @charset ANSI

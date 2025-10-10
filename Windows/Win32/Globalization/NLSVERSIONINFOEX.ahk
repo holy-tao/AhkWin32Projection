@@ -4,8 +4,11 @@
 /**
  * Contains version information about an NLS capability.
  * @remarks
- * The <b>dwNLSVersion</b> and <b>dwDefinedVersion</b> members are completely independent. Although each member is defined for a single DWORD, actually each is composed of a major version and a minor version. See <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a> for more information.
- * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-nlsversioninfoex
+ * 
+  * The <b>dwNLSVersion</b> and <b>dwDefinedVersion</b> members are completely independent. Although each member is defined for a single DWORD, actually each is composed of a major version and a minor version. See <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a> for more information.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnls/ns-winnls-nlsversioninfoex
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

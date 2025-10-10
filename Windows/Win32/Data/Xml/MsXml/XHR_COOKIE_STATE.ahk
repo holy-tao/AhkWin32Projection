@@ -2,7 +2,7 @@
 
 /**
  * Specifies the state of the cookie.
- * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_cookie_state
+ * @see https://docs.microsoft.com/windows/win32/api//msxml6/ne-msxml6-xhr_cookie_state
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

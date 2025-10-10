@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the base memory address of the Admin Submission Queue.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_admin_submission_queue_base_address
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -24,7 +20,6 @@ class NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlonglong {

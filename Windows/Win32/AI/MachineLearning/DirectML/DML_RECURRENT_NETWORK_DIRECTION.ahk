@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify a direction for a recurrent DirectML operator.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_recurrent_network_direction
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_recurrent_network_direction
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

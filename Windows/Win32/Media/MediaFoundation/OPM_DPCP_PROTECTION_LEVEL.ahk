@@ -2,7 +2,7 @@
 
 /**
  * Specifies the protection level for DisplayPort Content Protection (DPCP).
- * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_dpcp_protection_level
+ * @see https://docs.microsoft.com/windows/win32/api//opmapi/ne-opmapi-opm_dpcp_protection_level
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

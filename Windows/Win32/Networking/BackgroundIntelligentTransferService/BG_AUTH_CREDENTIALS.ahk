@@ -5,7 +5,7 @@
 
 /**
  * Identifies the target (proxy or server), authentication scheme, and the user's credentials to use for user authentication requests. The structure is passed to the IBackgroundCopyJob2::SetCredentials method.
- * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_auth_credentials
+ * @see https://docs.microsoft.com/windows/win32/api//bits1_5/ns-bits1_5-bg_auth_credentials
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a computer that is accepting remote connections.
- * @see https://learn.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_machine_connect_info
+ * @see https://docs.microsoft.com/windows/win32/api//tssbx/ns-tssbx-wtssbx_machine_connect_info
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

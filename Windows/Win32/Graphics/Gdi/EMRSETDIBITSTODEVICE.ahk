@@ -5,7 +5,7 @@
 
 /**
  * The EMRSETDIBITSTODEVICE structure contains members for the SetDIBitsToDevice enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetdibitstodevice
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetdibitstodevice
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

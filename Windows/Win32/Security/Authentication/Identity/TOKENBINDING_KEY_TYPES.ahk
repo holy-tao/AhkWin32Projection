@@ -3,7 +3,7 @@
 
 /**
  * Contains all of the combinations of types of token binding keys that a client device or server supports.
- * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ns-tokenbinding-tokenbinding_key_types
+ * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/ns-tokenbinding-tokenbinding_key_types
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

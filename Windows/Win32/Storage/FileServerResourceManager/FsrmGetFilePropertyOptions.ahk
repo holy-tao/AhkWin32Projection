@@ -2,7 +2,7 @@
 
 /**
  * Flags that defines how classification properties associated with a file are retrieved.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

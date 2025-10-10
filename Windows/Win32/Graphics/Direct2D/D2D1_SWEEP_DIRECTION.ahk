@@ -2,7 +2,7 @@
 
 /**
  * Defines the direction that an elliptical arc is drawn.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_sweep_direction
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_sweep_direction
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

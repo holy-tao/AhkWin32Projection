@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_STORAGE_POOL_PROP structure (vdshwprv.h) defines the properties of a storage pool object.
+ * Defines the properties of a storage pool object.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-getproperties">IVdsStoragePool::GetProperties</a> returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/storage-pool-object">storage pool object</a>.
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-getproperties">IVdsStoragePool::GetProperties</a> returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/storage-pool-object">storage pool object</a>.
   * 
   * The following examples show how the <b>ullTotalConsumedSpace</b>, <b>ullTotalManagedSpace</b>, and <b>ullRemainingFreeSpace</b> members work together.
   * 
@@ -40,7 +41,9 @@
   * 
   * <b>ullRemainingFreeSpace</b> = 1 TB minus the amount of  managed space currently backing the LUN.  <div class="alert"><b>Note</b>  Although the LUN's size is 10 TB, there may be as little as 10 GB of managed space backing the LUN, in which case there would be 20 GB of consumed space backing the mirrored LUN.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_storage_pool_prop
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_storage_pool_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

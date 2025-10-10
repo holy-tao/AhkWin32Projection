@@ -3,7 +3,7 @@
 
 /**
  * The COLORADJUSTMENT structure defines the color adjustment values used by the StretchBlt and StretchDIBits functions when the stretch mode is HALFTONE. You can set the color adjustment values by calling the SetColorAdjustment function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-coloradjustment
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-coloradjustment
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

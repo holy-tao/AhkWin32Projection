@@ -3,7 +3,7 @@
 
 /**
  * Used when calling WinVerifyTrust to verify a CMSG_SIGNER_INFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_sgnr_info
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-wintrust_sgnr_info
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

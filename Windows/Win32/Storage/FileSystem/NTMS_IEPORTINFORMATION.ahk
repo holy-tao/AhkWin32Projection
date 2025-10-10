@@ -4,10 +4,13 @@
 /**
  * The NTMS_IEPORTINFORMATION structure defines properties specific to an insert/eject port object.
  * @remarks
- * The 
+ * 
+  * The 
   * <b>NTMS_IEPORTINFORMATION</b> structure is included in the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_ieportinformation
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_ieportinformation
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

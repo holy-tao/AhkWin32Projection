@@ -4,11 +4,14 @@
 /**
  * The RADIUS_EXTENSION_CONTROL_BLOCK structure provides information about the current RADIUS request. It also provides functions for obtaining the attributes associated with the request, and for setting the disposition of the request.
  * @remarks
- * The Extension DLL must not modify this structure. Changes to the array of attributes should be made by calling the functions provided as members of this structure.
+ * 
+  * The Extension DLL must not modify this structure. Changes to the array of attributes should be made by calling the functions provided as members of this structure.
   * 
   * NPS passes this structure to the Extension DLL when it calls the Extension DLL's implementation of 
   * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a>.
- * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_extension_control_block
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//authif/ns-authif-radius_extension_control_block
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

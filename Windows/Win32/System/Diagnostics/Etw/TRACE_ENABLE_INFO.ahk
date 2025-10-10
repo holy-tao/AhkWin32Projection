@@ -4,10 +4,11 @@
 /**
  * Defines the session and the information that the session used to enable the provider.
  * @remarks
- * The
-  * [TRACE_PROVIDER_INSTANCE_INFO](/windows/win32/api/evntrace/ns-evntrace-trace_provider_instance_info)
-  * block contains one or more of these structures.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_enable_info
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-provider-instance-info">TRACE_PROVIDER_INSTANCE_INFO</a> block contains one or more of these structures.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_enable_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -18,9 +19,7 @@ class TRACE_ENABLE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * Indicates if the provider is enabled to the session. The value is **TRUE** if
-     * the provider is enabled to the session, otherwise, the value is **FALSE**. This
-     * value should always be **TRUE**.
+     * Indicates if the provider is enabled to the session. The value is <b>TRUE</b> if the provider is enabled to the session, otherwise, the value is <b>FALSE</b>. This value should always be <b>TRUE</b>.
      * @type {Integer}
      */
     IsEnabled {
@@ -29,9 +28,7 @@ class TRACE_ENABLE_INFO extends Win32Struct
     }
 
     /**
-     * Level of detail that the session asked the provider to include in the events.
-     * For details, see the _Level_ parameter of the
-     * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
+     * Level of detail that the session asked the provider to include in the events. For details, see the <i>Level</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex-func">EnableTraceEx</a> function.
      * @type {Integer}
      */
     Level {
@@ -58,9 +55,7 @@ class TRACE_ENABLE_INFO extends Win32Struct
     }
 
     /**
-     * Additional information that the session wants ETW to include in the log file.
-     * For details, see the _EnableProperty_ parameter of the
-     * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
+     * Additional information that the session wants ETW to include in the log file. For details, see the <i>EnableProperty</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex-func">EnableTraceEx</a> function.
      * @type {Integer}
      */
     EnableProperty {
@@ -78,9 +73,7 @@ class TRACE_ENABLE_INFO extends Win32Struct
     }
 
     /**
-     * Keywords specify which events the session wants the provider to write. For
-     * details, see the _MatchAnyKeyword_ parameter of the
-     * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
+     * Keywords specify which events the session wants the provider to write. For details, see the <i>MatchAnyKeyword</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex-func">EnableTraceEx</a> function.
      * @type {Integer}
      */
     MatchAnyKeyword {
@@ -89,9 +82,7 @@ class TRACE_ENABLE_INFO extends Win32Struct
     }
 
     /**
-     * Keywords specify which events the session wants the provider to write. For
-     * details, see the _MatchAllKeyword_ parameter of the
-     * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
+     * Keywords specify which events the session wants the provider to write. For details, see the <i>MatchAllKeyword</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex-func">EnableTraceEx</a> function.
      * @type {Integer}
      */
     MatchAllKeyword {

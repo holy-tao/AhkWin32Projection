@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the ASF file sink should apply Windows Media DRM.
- * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfsink_wmdrmaction
+ * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ne-wmcontainer-mfsink_wmdrmaction
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

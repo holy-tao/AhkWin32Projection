@@ -4,7 +4,8 @@
 /**
  * A structure that is used to specify a set of callbacks that can transform the content type and encoded bytes of a sent message.
  * @remarks
- * A <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a> may wish to compress, modify, or otherwise transform
+ * 
+  * A <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a> may wish to compress, modify, or otherwise transform
   *                 the encoded bytes of a message before they are sent. A <b>WS_CHANNEL_ENCODER</b> 
   *                 provides the necessary hooks to intercept and perform these modifications.
   *             
@@ -15,17 +16,13 @@
   * 
   * The grammar for the encoder callbacks is:
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   * encodercalls := create encoderloop* free
   * encoderloop  := getcontenttype
   *              |  getcontenttype encodestart
   *              |  getcontenttype encodestart (encode*)
   *              |  getcontenttype encodestart (encode*) encodeend
-  * 
-  * ```
-  * 
+  * </code></pre>
   * The encoder may not see the full encode sequence for a message if the channel or the 
   *               encoder encounters an error while writing the message.  An encoder must be prepared to 
   *               handle transitioning to the appropriate state based upon the callbacks invoked.
@@ -38,7 +35,8 @@
   * 
   * When the channel is finished using the encoder instance it will free it via the
   *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_encoder_callback">WS_FREE_ENCODER_CALLBACK</a>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_encoder
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_channel_encoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

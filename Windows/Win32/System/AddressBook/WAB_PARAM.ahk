@@ -3,7 +3,7 @@
 
 /**
  * Do not use. Contains the input information to pass to WABOpen.
- * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wab_param
+ * @see https://docs.microsoft.com/windows/win32/api//wabapi/ns-wabapi-wab_param
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

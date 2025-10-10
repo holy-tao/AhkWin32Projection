@@ -2,7 +2,7 @@
 
 /**
  * Defines the current state of the security product that is made available to Windows Security Center.
- * @see https://learn.microsoft.com/windows/win32/api/iwscapi/ne-iwscapi-wsc_security_product_state
+ * @see https://docs.microsoft.com/windows/win32/api//iwscapi/ne-iwscapi-wsc_security_product_state
  * @namespace Windows.Win32.System.SecurityCenter
  * @version v4.0.30319
  */

@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Information about the video card's performance counter capabilities. (D3D11_COUNTER_INFO)
+ * Information about the video card's performance counter capabilities.
  * @remarks
- * This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-checkcounterinfo">ID3D11Device::CheckCounterInfo</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_counter_info
+ * 
+  * This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-checkcounterinfo">ID3D11Device::CheckCounterInfo</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_counter_info
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

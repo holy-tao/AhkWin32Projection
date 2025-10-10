@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a rate control structure definition for variable bitrate mode.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_rate_control_vbr
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     static packingSize => 8
 
     /**
-     * When [D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_INITIAL_QP](ne-d3d12video-d3d12_video_encoder_rate_control_flags.md) is enabled, allows the Initial QP to be used by the rate control algorithm.
      * @type {Integer}
      */
     InitialQP {
@@ -25,7 +20,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * When [D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_QP_RANGE](ne-d3d12video-d3d12_video_encoder_rate_control_flags.md) is enabled, limits QP range of the rate control algorithm.
      * @type {Integer}
      */
     MinQP {
@@ -34,7 +28,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * When [D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_QP_RANGE](ne-d3d12video-d3d12_video_encoder_rate_control_flags.md) is enabled, limits QP range of the rate control algorithm.
      * @type {Integer}
      */
     MaxQP {
@@ -43,7 +36,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * The maximum size, in bits, for each frame to be coded. When [D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAG_ENABLE_MAX_FRAME_SIZE](ne-d3d12video-d3d12_video_encoder_rate_control_flags.md) is enabled, limits each frame maximum size in the rate control algorithm.
      * @type {Integer}
      */
     MaxFrameBitSize {
@@ -52,7 +44,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * Average bitrate to be used, in bits/second.
      * @type {Integer}
      */
     TargetAvgBitRate {
@@ -61,7 +52,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * The maximum bit rate that can be reached in bits/second.
      * @type {Integer}
      */
     PeakBitRate {
@@ -70,7 +60,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * When [D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE](ne-d3d12video-d3d12_video_encoder_rate_control_flags.md) is enabled, specifies the capacity in bits of the Video Buffer Verifier to be used in the rate control algorithm.
      * @type {Integer}
      */
     VBVCapacity {
@@ -79,7 +68,6 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR extends Win32Struct
     }
 
     /**
-     * When [D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_VBV_SIZE_CONFIG_AVAILABLE](ne-d3d12video-d3d12_video_encoder_rate_control_flags.md) is enabled, specifies the initial fullness in bits of the Video Buffer Verifier to be used in the rate control algorithm.
      * @type {Integer}
      */
     InitialVBVFullness {

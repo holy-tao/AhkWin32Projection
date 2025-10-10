@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify types of random random-number generator.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_random_generator_type
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_random_generator_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

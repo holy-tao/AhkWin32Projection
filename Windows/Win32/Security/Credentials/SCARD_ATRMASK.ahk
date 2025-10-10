@@ -3,7 +3,7 @@
 
 /**
  * Used by the SCardLocateCardsByATR function to locate cards.
- * @see https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_atrmask
+ * @see https://docs.microsoft.com/windows/win32/api//winscard/ns-winscard-scard_atrmask
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

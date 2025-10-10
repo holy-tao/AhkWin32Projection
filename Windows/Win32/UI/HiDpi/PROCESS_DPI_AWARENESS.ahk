@@ -3,7 +3,8 @@
 /**
  * Identifies dots per inch (dpi) awareness values. DPI awareness indicates how much scaling work an application performs for DPI versus how much is done by the system.
  * @remarks
- * <div class="alert"><b>Important</b>  <p class="note">Previous versions of Windows required you to set the DPI awareness for the entire application. Now the DPI awareness is tied to individual threads, processes, or windows. This means that the DPI awareness can change while the app is running and that multiple windows can have their own independent DPI awareness values. See <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a> for more information about how DPI awareness currently works. The recommendations below about setting the DPI awareness in the application manifest are still supported, but the current recommendation is to use the <b>DPI_AWARENESS_CONTEXT</b>.
+ * 
+  * <div class="alert"><b>Important</b>  <p class="note">Previous versions of Windows required you to set the DPI awareness for the entire application. Now the DPI awareness is tied to individual threads, processes, or windows. This means that the DPI awareness can change while the app is running and that multiple windows can have their own independent DPI awareness values. See <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a> for more information about how DPI awareness currently works. The recommendations below about setting the DPI awareness in the application manifest are still supported, but the current recommendation is to use the <b>DPI_AWARENESS_CONTEXT</b>.
   * 
   * </div>
   * <div> </div>
@@ -41,7 +42,13 @@
   * <td>You will get a 1500 by 1500 rect because the system will use the actual DPI of the display and not do any scaling behind the scenes.</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness
+  *  
+  * 
+  * 
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/ne-shellscalingapi-process_dpi_awareness
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */

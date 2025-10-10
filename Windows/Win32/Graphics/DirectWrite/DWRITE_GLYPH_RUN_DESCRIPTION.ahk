@@ -3,7 +3,7 @@
 
 /**
  * Contains additional properties related to those in DWRITE_GLYPH_RUN.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_glyph_run_description
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DIDEVICESTATE structure returns information about the state of a force feedback device.
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-didevicestate
+ * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-didevicestate
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

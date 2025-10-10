@@ -2,7 +2,7 @@
 
 /**
  * Each value from the ATTRIBUTESYNTAX enumeration type specifies a possible attribute syntax.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributesyntax
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-attributesyntax
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

@@ -3,8 +3,10 @@
 /**
  * Specifies a type of credential field. Used by CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR.
  * @remarks
- * This type enables you to specify the different elements your credential provider will need to display to the user. Credential providers are not responsible for drawing their own UI, so they need to define the elements that are necessary. This type is one of the elements to support that mechanism.
- * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_type
+ * 
+  * This type enables you to specify the different elements your credential provider will need to display to the user. Credential providers are not responsible for drawing their own UI, so they need to define the elements that are necessary. This type is one of the elements to support that mechanism.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_field_type
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

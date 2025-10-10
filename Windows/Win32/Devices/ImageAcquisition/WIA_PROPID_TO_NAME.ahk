@@ -3,7 +3,7 @@
 
 /**
  * Provides a quick means by which applications can look up the standard Windows Image Acquisition (WIA) property name from the WIA property ID (or vice versa).
- * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_propid_to_name
+ * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_propid_to_name
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

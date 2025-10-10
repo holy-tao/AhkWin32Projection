@@ -2,7 +2,7 @@
 
 /**
  * Defines the actions that can be triggered in response to a quota or file screen event (for example, a quota is exceeded or a file violates a file screen).
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmactiontype
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmactiontype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

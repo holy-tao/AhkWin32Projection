@@ -5,7 +5,7 @@
 
 /**
  * The SDP_ELEMENT_DATA structure stores SDP element data.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-sdp_element_data
+ * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-sdp_element_data
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

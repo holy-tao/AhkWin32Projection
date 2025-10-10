@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The TreeTraversalOptions (uiautomationclient.h) enumeration defines values that can be used to customize tree navigation order.
+ * Defines values that can be used to customize tree navigation order.
  * @remarks
- * Option groups (flags):
+ * 
+  * Option groups (flags):
   * 
   * <ul>
   * <li>Traversal order (pre-order, post-order) defines when nodes should be tested 
@@ -15,7 +16,9 @@
   * Last-to-First means "visit the previous sibling from the child".
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-treetraversaloptions
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-treetraversaloptions
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

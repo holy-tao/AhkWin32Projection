@@ -3,8 +3,11 @@
 /**
  * Specifies the motion estimation search block sizes that a video encoder can support.
  * @remarks
- * Query for supported block sizes by calling [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) and specifying the feature value of [D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR](ne-d3d12video-d3d12_feature_video.md).
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_motion_estimator_search_block_size_flags
+ * 
+  * Query for supported block sizes by calling [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) and specifying the feature value of [D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR](ne-d3d12video-d3d12_feature_video.md).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_motion_estimator_search_block_size_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

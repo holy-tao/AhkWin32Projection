@@ -2,7 +2,7 @@
 
 /**
  * Indicates information about a user-defined event that is not covered by the general events.
- * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_customevent
+ * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_customevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

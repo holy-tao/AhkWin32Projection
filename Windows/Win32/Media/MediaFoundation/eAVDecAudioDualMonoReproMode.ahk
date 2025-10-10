@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the decoder reproduces dual mono audio. This enumeration is used with the AVDecAudioDualMonoReproMode property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecaudiodualmonorepromode
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecaudiodualmonorepromode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

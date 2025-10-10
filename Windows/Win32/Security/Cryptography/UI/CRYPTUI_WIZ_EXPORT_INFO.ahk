@@ -3,7 +3,7 @@
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function.
- * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_info
+ * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

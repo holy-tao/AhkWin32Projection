@@ -2,12 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a 3D texture. (D3D10_TEXTURE3D_DESC)
+ * Describes a 3D texture.
  * @remarks
- * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture3d">ID3D10Device::CreateTexture3D</a>. A helpful derived structure CD3D10_TEXTURE3D_DESC is declared in D3D10.h, to help create a texture description.
+ * 
+  * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture3d">ID3D10Device::CreateTexture3D</a>. A helpful derived structure CD3D10_TEXTURE3D_DESC is declared in D3D10.h, to help create a texture description.
   * 
   * The device restricts the size of subsampled, block compressed (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Block Compression (Direct3D 10)</a>), and bit format resources to be multiples of sizes specific to each format.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_texture3d_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_texture3d_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

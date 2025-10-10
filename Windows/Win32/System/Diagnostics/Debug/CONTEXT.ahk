@@ -4,8 +4,8 @@
 #Include .\XSAVE_FORMAT.ahk
 
 /**
- * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-context
+ * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations.
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-context
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

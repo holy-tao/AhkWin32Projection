@@ -2,7 +2,7 @@
 
 /**
  * Specifies the inverse telecine (IVTC) capabilities of a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_itelecine_caps
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_itelecine_caps
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

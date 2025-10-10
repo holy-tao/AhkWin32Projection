@@ -2,7 +2,7 @@
 
 /**
  * TARGETPROTOCOLTYPE enumeration indicates the type of protocol that the initiator must use to communicate with the target.
- * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ne-iscsidsc-targetprotocoltype
+ * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ne-iscsidsc-targetprotocoltype
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * Describes mapped memory from the ID2D1Bitmap1::Map API.
  * @remarks
- * The mapped rectangle is used to map a rectangle into the caller's address space.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_mapped_rect
+ * 
+  * The mapped rectangle is used to map a rectangle into the caller's address space.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_mapped_rect
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

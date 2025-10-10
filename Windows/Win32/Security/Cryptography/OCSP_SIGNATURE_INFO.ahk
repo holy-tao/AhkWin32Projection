@@ -6,7 +6,7 @@
 
 /**
  * Contains a signature for an online certificate status protocol (OCSP) request or response.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_signature_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ocsp_signature_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

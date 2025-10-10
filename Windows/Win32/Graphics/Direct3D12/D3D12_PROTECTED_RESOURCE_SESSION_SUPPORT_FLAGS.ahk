@@ -4,7 +4,8 @@
  * Defines constants that specify protected resource session support.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_protected_resource_session_support_flags
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_protected_resource_session_support_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

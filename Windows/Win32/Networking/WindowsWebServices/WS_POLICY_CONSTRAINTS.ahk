@@ -3,7 +3,7 @@
 
 /**
  * Specifies policy constraints for a channel.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_policy_constraints
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_policy_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -52,7 +52,7 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct
     }
 
     /**
-     * The number of elements specified in the <b>channelPropertyConstraints</b> array.  
+     * The number of elements specified in the <b>channelPropertyConstraints</b>array.  
      *                 
      * 
      * If this value is 0, then the channelPropertyConstraints array may be <b>NULL</b>.

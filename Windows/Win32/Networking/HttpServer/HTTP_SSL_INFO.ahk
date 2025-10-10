@@ -4,10 +4,13 @@
 /**
  * Contains data for a connection that uses Secure Sockets Layer (SSL), obtained through the SSL handshake.
  * @remarks
- * An 
+ * 
+  * An 
   * <b>HTTP_SSL_INFO</b> structure can be pointed to by the <b>pSslInfo</b> member of an 
   * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364545(v=vs.85)">HTTP_REQUEST</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_ssl_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_ssl_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

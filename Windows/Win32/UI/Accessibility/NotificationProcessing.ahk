@@ -2,7 +2,7 @@
 
 /**
  * Defines values that indicate how a notification should be processed.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-notificationprocessing
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-notificationprocessing
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
 /**
  * The MIDIEVENT structure describes a MIDI event in a stream buffer.
  * @remarks
- * The high byte of <b>dwEvent</b> contains flags and an event code. Either the MEVT_F_LONG or MEVT_F_SHORT flag must be specified. The MEVT_F_CALLBACK flag is optional. The following table describes these flags.
+ * 
+  * The high byte of <b>dwEvent</b> contains flags and an event code. Either the MEVT_F_LONG or MEVT_F_SHORT flag must be specified. The MEVT_F_CALLBACK flag is optional. The following table describes these flags.
   *       
   * 
   * <table>
@@ -56,14 +57,16 @@
   * </tr>
   * <tr>
   * <td>MEVT_TEMPO</td>
-  * <td>Short event. The data in the low 24 bits of dwEvent contain the new tempo for following events. The tempo is specified in the same format as it is for the tempo change meta-event in a MIDI file — that is, in microseconds per quarter note. (This event will have no effect if the time format specified for the stream is SMPTE time.)</td>
+  * <td>Short event. The data in the low 24 bits of dwEvent contain the new tempo for following events. The tempo is specified in the same format as it is for the tempo change meta-event in a MIDI file — that is, in microseconds per quarter note. (This event will have no affect if the time format specified for the stream is SMPTE time.)</td>
   * </tr>
   * <tr>
   * <td>MEVT_VERSION</td>
   * <td>Long event. The event data must contain a MIDISTRMBUFFVER structure.</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midievent
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-midievent
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

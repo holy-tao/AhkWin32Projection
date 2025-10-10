@@ -3,16 +3,19 @@
 /**
  * Specifies the desired data or view aspect of the object when drawing or getting data.
  * @remarks
- * Values of this enumeration are used to define the <b>dwAspect</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure. Only one <b>DVASPECT</b> value can be used to specify a single presentation aspect in a <b>FORMATETC</b> structure. The <b>FORMATETC</b> structure is used in many OLE functions and interface methods that require information on data presentation.
+ * 
+  * Values of this enumeration are used to define the <b>dwAspect</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure. Only one <b>DVASPECT</b> value can be used to specify a single presentation aspect in a <b>FORMATETC</b> structure. The <b>FORMATETC</b> structure is used in many OLE functions and interface methods that require information on data presentation.
   * 
   * 
   * 
   * The default value of <b>MiscStatus</b> is used if a subkey corresponding to the specified <b>DVASPECT</b> is not found. To set an OLE control, specify DVASPECT==1. This will cause the following to occur in the registry:
   * 
   * 
-  * <pre><b>HKEY_CLASSES_ROOT\CLSID\ . . .</b>
+  * <pre xml:space="preserve"><b>HKEY_CLASSES_ROOT\CLSID\ . . .</b>
   *    <b>MiscStatus</b> = 1</pre>
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-dvaspect
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtypes/ne-wtypes-dvaspect
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Represents the current transaction state of the transaction.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-crmtransactionstate
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-crmtransactionstate
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

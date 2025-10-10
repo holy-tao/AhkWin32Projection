@@ -3,7 +3,7 @@
 
 /**
  * Contains a range of a file to set to zeros.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_zero_data_information
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_zero_data_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

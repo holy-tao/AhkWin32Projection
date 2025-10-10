@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether a target belongs to a pool or farm.
- * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_type
+ * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-target_type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

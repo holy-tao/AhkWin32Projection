@@ -3,7 +3,7 @@
 
 /**
  * Represents the format of a synchronization entity ID.
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-id_parameter_pair
+ * @see https://docs.microsoft.com/windows/win32/api//winsync/ns-winsync-id_parameter_pair
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

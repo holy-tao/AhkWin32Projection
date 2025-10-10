@@ -3,7 +3,7 @@
 
 /**
  * Describes the memory budget for an adapter.
- * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudget
+ * @see https://docs.microsoft.com/windows/win32/api//dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudget
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class DXCoreAdapterMemoryBudget extends Win32Struct
     /**
      * Type: **uint64_t**
      * 
-     * Specifies the amount of adapter memory, in bytes, that your application has available for reservation. To reserve this adapter memory, your application should call [IDXCoreAdapter::SetState](/windows/win32/dxcore/dxcore_interface/nf-dxcore_interface-idxcoreadapter-setstate) with *state* set to [DXCoreAdapterState::AdapterMemoryBudget](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate).
+     * Specifies the amount of adapter memory, in bytes, that your application has available for reservation. To reserve this adapter memory, your application should call [IDXCoreAdapter::SetState](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-setstate) with *state* set to [DXCoreAdapterState::AdapterMemoryBudget](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate).
      * @type {Integer}
      */
     availableForReservation {

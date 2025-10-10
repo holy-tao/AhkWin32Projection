@@ -3,7 +3,7 @@
 
 /**
  * The SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS structure checks if any certificates in the chain have weak cryptography and checks if a third party root certificate is compliant with the Microsoft Root Program requirements.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ssl_f12_extra_cert_chain_policy_status
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ssl_f12_extra_cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_HINTS structure (vdshwprv.h) defines the automagic hints for a LUN or LUN plex.
+ * Defines the automagic hints for a LUN or LUN plex.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a> method passes 
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a> method passes 
   *     this structure as a parameter to provide hints for creating a LUN. It is passed as a parameter in the 
   *     <b>ApplyHints</b> method on both the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdslun">IVdsLun</a> and 
@@ -18,7 +19,9 @@
   * Hints are not directives to implementers. While implementers are in general expected to do their best to take hints into consideration, 
   *      they are not obligated to follow them. Implementers can opt for alternatives when unable to follow specified hints for
   *      technical reasons or when following them can result in a poor configuration.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hints
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_hints
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_NETINTERFACE_STATE enumeration (msclus.h) enumerates the possible values of the state of a network interface.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_netinterface_state
+ * Enumerates the possible values of the state of a network interface.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_netinterface_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

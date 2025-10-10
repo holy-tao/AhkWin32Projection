@@ -3,7 +3,7 @@
 
 /**
  * Contains definitions for the elements of the IPv6 prefix, such as IPv6 reservation, IPv6 exclusion range, and IPv6 range.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v6
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

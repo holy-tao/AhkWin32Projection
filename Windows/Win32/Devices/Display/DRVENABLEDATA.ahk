@@ -4,7 +4,8 @@
 /**
  * The DRVENABLEDATA structure contains a pointer to an array of DRVFN structures and the graphics DDI version number of an NT-based operating system.
  * @remarks
- * To run on these NT-based operating systems versions, the <b>iDriverVersion</b> member must be set as follows:
+ * 
+  * To run on these NT-based operating systems versions, the <b>iDriverVersion</b> member must be set as follows:
   * 
   * <table>
   * <tr>
@@ -68,7 +69,9 @@
   * 
   * <div class="alert"><b>Note</b>  If a driver implements a <i>DrvXxx</i> graphics DDI that is not supported in all versions of Windows, the driver cannot specify a DRVFN entry for that graphics DDI when running on versions of Windows that do not support it. If the driver does specify a DRVFN entry for such a graphics DDI, Windows will reject the driver. The <i>permedia2</i> sample demonstrates how to specify different DRVFN structures for different versions of Windows.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-drvenabledata
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-drvenabledata
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

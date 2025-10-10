@@ -3,7 +3,7 @@
 
 /**
  * A shader resource view (SRV) structure for storing a raytracing acceleration structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_acceleration_structure_srv
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_raytracing_acceleration_structure_srv
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The values of the IASOSTYPE enumeration type specify what type of operating system the client requesting authentication (SDO computer) is running.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasostype
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-iasostype
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information for the Set Signal command in Certified Output Protection Protocol (COPP).
- * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppsetsignalingcmddata
+ * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxva_coppsetsignalingcmddata
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

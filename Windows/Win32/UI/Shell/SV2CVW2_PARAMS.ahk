@@ -3,7 +3,7 @@
 
 /**
  * Holds the parameters for the IShellView2::CreateViewWindow2 method.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-sv2cvw2_params
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-sv2cvw2_params
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

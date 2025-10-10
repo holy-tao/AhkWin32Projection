@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an audio microphone boost APO notification.
- * @remarks
- * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
- * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_microphone_boost_notification
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * An [IMMDevice](..//mmdeviceapi/nn-mmdeviceapi-immdevice.md) representing the audio endpoint associated with the notification.
      * @type {Pointer<IMMDevice>}
      */
     endpoint {
@@ -25,7 +20,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A GUID representing the context associated with the originator of the event. A client can use this method to keep track of control changes made by other processes and by the hardware. The functions [IAudioVolumeLevel::SetLevel](../devicetopology/nf-devicetopology-iperchanneldblevel-setlevel.md) and [IAudioMute::SetMute](../devicetopology/nf-devicetopology-iaudiomute-setmute) use the context. When this notification is recieved, a client can inspect the context GUID to discover whether it or another client is the source of the notification.
      * @type {Pointer<Guid>}
      */
     eventContext {
@@ -34,7 +28,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A boolean value indicating the presence of a "Microphone Boost" part (connector or subunit) of an audio capture device topology.
      * @type {Integer}
      */
     microphoneBoostEnabled {
@@ -43,7 +36,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A float value specifying the volume level in decibels.
      * @type {Float}
      */
     levelInDb {
@@ -52,7 +44,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A float value specifying the minimum volume level in decibels.
      * @type {Float}
      */
     levelMinInDb {
@@ -61,7 +52,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A float value specifying the maximum volume level in decibels.
      * @type {Float}
      */
     levelMaxInDb {
@@ -70,7 +60,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A float value specifying the stepping value between consecutive volume levels in the range *levelMinInDb* to *levelMaxInDb*.
      * @type {Float}
      */
     levelStepInDb {
@@ -79,7 +68,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A boolean value indicating if the IAudioMute interface is supported by the "Microphone Boost" part of the audio capture device topology.
      * @type {Integer}
      */
     muteSupported {
@@ -88,7 +76,6 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * A boolean value indicating the current state (enabled or disabled) of the mute control
      * @type {Integer}
      */
     mute {

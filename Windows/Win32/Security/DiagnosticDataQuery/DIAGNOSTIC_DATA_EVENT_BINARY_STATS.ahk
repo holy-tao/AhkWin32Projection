@@ -5,7 +5,8 @@
  * A resource that describes this binary and the amount of diagnostic data it has sent.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_binary_stats
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_binary_stats
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

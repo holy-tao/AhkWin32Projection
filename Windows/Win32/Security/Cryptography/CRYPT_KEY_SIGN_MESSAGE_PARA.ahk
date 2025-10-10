@@ -5,7 +5,7 @@
 
 /**
  * Contains information about the cryptographic service provider (CSP) and algorithms used to sign a message.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_sign_message_para
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_key_sign_message_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

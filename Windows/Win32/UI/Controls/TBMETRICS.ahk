@@ -4,12 +4,14 @@
 /**
  * Defines the metrics of a toolbar that are used to shrink or expand toolbar items.
  * @remarks
- * The metrics specified by <b>TBMETRICS</b> structure are used to size the non-animating buttons on a toolbar. Button can shrink or expand so that all visible items fit on the window.
+ * 
+  * The metrics specified by <b>TBMETRICS</b> structure are used to size the non-animating buttons on a toolbar. Button can shrink or expand so that all visible items fit on the window.
   * 
   * The padding values are used to create a blank area between the edge of the button and the button's image and/or text. Where and how much padding is actually applied depends on the type of the button and whether it has an image. The horizontal padding is applied to both the right and left of the button, and the vertical padding is applied to both the top and bottom of the button. Padding is only applied to buttons that have the <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-control-and-button-styles">TBSTYLE_AUTOSIZE</a> style.
   * 
   * Although values for <b>cxBarPad</b> and <b>cyBarPad</b> can be set and retrieved they currently have no effect and are not used.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbmetrics
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tbmetrics
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

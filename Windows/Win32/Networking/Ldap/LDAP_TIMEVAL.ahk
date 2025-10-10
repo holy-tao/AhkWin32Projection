@@ -4,8 +4,11 @@
 /**
  * Used to represent an interval of time.
  * @remarks
- * The  <b>LDAP_TIMEVAL</b> structure specify both local timeouts and timeouts sent to the server. The exact usage is described in each LDAP function where used.
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_timeval
+ * 
+  * The  <b>LDAP_TIMEVAL</b> structure specify both local timeouts and timeouts sent to the server. The exact usage is described in each LDAP function where used.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldap_timeval
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

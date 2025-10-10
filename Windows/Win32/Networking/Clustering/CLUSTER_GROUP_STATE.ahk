@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_GROUP_STATE enumeration (msclus.h) enumerates the possible states of a group.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_state
+ * Enumerates the possible states of a group.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_group_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

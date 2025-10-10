@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of credentials used to create a client context.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_credinfo
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcontext_credinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

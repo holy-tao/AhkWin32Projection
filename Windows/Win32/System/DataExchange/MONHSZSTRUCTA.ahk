@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a Dynamic Data Exchange (DDE) string handle. A DDE monitoring application can use this structure when monitoring the activity of the string manager component of the DDE Management Library. (ANSI)
+ * Contains information about a Dynamic Data Exchange (DDE) string handle. A DDE monitoring application can use this structure when monitoring the activity of the string manager component of the DDE Management Library.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The ddeml.h header defines MONHSZSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monhszstructa
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-monhszstructa
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  * @charset ANSI

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the enrollment status of a certificate request.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentenrollstatus
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-enrollmentenrollstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

@@ -7,7 +7,7 @@
 
 /**
  * Contains information about a specific gesture.
- * @see https://learn.microsoft.com/windows/win32/api/inked/ns-inked-iec_gestureinfo
+ * @see https://docs.microsoft.com/windows/win32/api//inked/ns-inked-iec_gestureinfo
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

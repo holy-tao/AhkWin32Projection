@@ -3,7 +3,7 @@
 
 /**
  * The WM_CLIENT_PROPERTIES structure records information about the client.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_client_properties
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_client_properties
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

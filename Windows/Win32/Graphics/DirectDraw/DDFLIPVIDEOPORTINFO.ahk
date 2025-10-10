@@ -3,7 +3,7 @@
 
 /**
  * The DDFLIPVIDEOPORTINFO structure contains the video port extensions (VPE) object and surface information.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddflipvideoportinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddflipvideoportinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

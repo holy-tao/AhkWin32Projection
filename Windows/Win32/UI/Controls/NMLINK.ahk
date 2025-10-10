@@ -5,7 +5,7 @@
 
 /**
  * The NMLINK Contains notification information. Send this structure with the NM_CLICK or NM_RETURN messages.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlink
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlink
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

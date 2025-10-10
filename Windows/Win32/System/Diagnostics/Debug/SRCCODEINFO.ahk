@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The SRCCODEINFO structure (dbghelp.h) contains line information.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-srccodeinfo
+ * Contains line information.
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-srccodeinfo
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  * @charset ANSI

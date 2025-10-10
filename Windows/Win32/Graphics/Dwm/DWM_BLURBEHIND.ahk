@@ -3,7 +3,7 @@
 
 /**
  * Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the DwmEnableBlurBehindWindow function.
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_blurbehind
+ * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ns-dwmapi-dwm_blurbehind
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

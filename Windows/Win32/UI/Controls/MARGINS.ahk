@@ -3,7 +3,7 @@
 
 /**
  * Returned by the GetThemeMargins function to define the margins of windows that have visual styles applied.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-margins
+ * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-margins
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

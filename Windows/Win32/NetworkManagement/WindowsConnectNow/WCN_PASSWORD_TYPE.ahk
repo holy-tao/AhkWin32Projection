@@ -2,7 +2,7 @@
 
 /**
  * WCN_PASSWORD_TYPE enumeration defines the authentication that will be used in a WPS session.
- * @see https://learn.microsoft.com/windows/win32/api/wcndevice/ne-wcndevice-wcn_password_type
+ * @see https://docs.microsoft.com/windows/win32/api//wcndevice/ne-wcndevice-wcn_password_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */

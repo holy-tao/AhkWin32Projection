@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a completed I/O ring queue entry.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_cqe
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class IORING_CQE extends Win32Struct
     static packingSize => 8
 
     /**
-     * A **UINT_PTR** representing the user data associated with the entry. This is the same value provided as the *UserData* parameter when building the operation's submission queue entry. Applications can use this value to correlate the completion with the original operation request.
      * @type {Pointer}
      */
     UserData {
@@ -25,7 +20,6 @@ class IORING_CQE extends Win32Struct
     }
 
     /**
-     * A **HRESULT** indicating the result code of the associated I/O ring operation.
      * @type {HRESULT}
      */
     ResultCode {
@@ -34,7 +28,6 @@ class IORING_CQE extends Win32Struct
     }
 
     /**
-     * A **ULONG_PTR** representing information about the completed queue operation.
      * @type {Pointer}
      */
     Information {

@@ -4,8 +4,11 @@
 /**
  * The LINECOUNTRYLIST structure describes a list of countries/regions. This structure can contain an array of LINECOUNTRYENTRY structures. LINECOUNTRYLIST is returned by the lineGetCountry function.
  * @remarks
- * This structure may not be extended.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecountrylist
+ * 
+  * This structure may not be extended.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecountrylist
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

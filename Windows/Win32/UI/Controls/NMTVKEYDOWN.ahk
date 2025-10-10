@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a keyboard event in a tree-view control. This structure is used with the TVN_KEYDOWN notification code. The structure is identical to the TV_KEYDOWN structure, but it has been renamed to follow current naming conventions.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvkeydown
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtvkeydown
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

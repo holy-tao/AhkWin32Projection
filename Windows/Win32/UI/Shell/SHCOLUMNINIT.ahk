@@ -3,7 +3,7 @@
 
 /**
  * Passes initialization information to IColumnProvider::Initialize.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-shcolumninit
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj/ns-shlobj-shcolumninit
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

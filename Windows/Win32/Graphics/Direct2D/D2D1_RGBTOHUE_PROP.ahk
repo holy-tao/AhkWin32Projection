@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Identifiers for properties of the RGB to Hue effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_rgbtohue_prop
+ * Indentifiers for properties of the RGB to Hue effect.
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_2/ne-d2d1effects_2-d2d1_rgbtohue_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

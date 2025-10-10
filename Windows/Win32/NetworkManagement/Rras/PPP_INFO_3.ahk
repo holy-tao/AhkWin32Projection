@@ -8,7 +8,7 @@
 
 /**
  * The PPP_INFO_3 structure is used to report the results of the various Point-to-Point (PPP) projection operations for a connection.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_info_3
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_info_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * This structure is passed to the Control Panel Endpoint Extension property page through IShellPropSheetExt::AddPages and is used to create endpoint PropertyPages.
- * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ns-mmdeviceapi-audioextensionparams
+ * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/ns-mmdeviceapi-audioextensionparams
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

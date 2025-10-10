@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether the sizing mode is content or integral sizing.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-dvextentmode
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-dvextentmode
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

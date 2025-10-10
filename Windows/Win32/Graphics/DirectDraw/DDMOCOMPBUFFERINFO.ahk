@@ -3,7 +3,7 @@
 
 /**
  * The DDMOCOMPBUFFERINFO structure contains the macro block information required to render a frame and passes this information to the DD_RENDERMOCOMPDATA structure.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-ddmocompbufferinfo
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-ddmocompbufferinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -2,11 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The EVENT_INSTANCE_HEADER structure contains standard event tracing information common to all events written by TraceEventInstance.
+ * The EVENT_INSTANCE_HEADER structure contains standard event tracing information common to all events.
  * @remarks
- * Be sure to initialize the memory for this structure to zero before setting any
-  * members.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_instance_header
+ * 
+  * Be sure to initialize the memory for this structure to zero before setting any members.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_instance_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -17,10 +19,8 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     static packingSize => 8
 
     /**
-     * Total number of bytes of the event. **Size** must include the size of the
-     * **EVENT_INSTANCE_HEADER** structure, plus the size of any event-specific data
-     * appended to this structure. The size must be less than the size of the event
-     * tracing session's buffer minus 72 (0x48).
+     * Total number of bytes of the event. <b>Size</b> must include the size of the 
+     * <b>EVENT_INSTANCE_HEADER</b> structure, plus the size of any event-specific data appended to this structure. The size must be less than the size of the event tracing session's buffer minus 72 (0x48).
      * @type {Integer}
      */
     Size {
@@ -102,9 +102,9 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, identifies the thread that generated the event.
+     * On output, identifies the thread that generated the event. 
      * 
-     * Note that on Windows 2000, **ThreadId** was a **ULONGLONG** value.
+     * Note that on Windows 2000, <b>ThreadId</b> was a <b>ULONGLONG</b> value.
      * @type {Integer}
      */
     ThreadId {
@@ -113,9 +113,9 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, identifies the process that generated the event.
+     * On output, identifies  the process that generated the event.
      * 
-     * **Windows 2000:** This member is not supported.
+     * <b>Windows 2000:  </b>This member is not supported.
      * @type {Integer}
      */
     ProcessId {
@@ -124,8 +124,7 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, contains the time the event occurred, in 100-nanosecond intervals
-     * since midnight, January 1, 1601.
+     * On output, contains the time the event occurred, in 100-nanosecond intervals since midnight, January 1, 1601.
      * @type {Integer}
      */
     TimeStamp {
@@ -134,13 +133,10 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * Handle to a registered event trace class. Set this property before calling the
-     * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
-     * function.
+     * Handle to a registered event trace class. Set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function.
      * 
-     * The
-     * [RegisterTraceGuids](/windows/win32/api/evntrace/nf-evntrace-registertraceguidsa)
-     * function creates this handle (see the _TraceGuidReg_ parameter).
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/ETW/registertraceguids">RegisterTraceGuids</a> function creates this handle (see the <i>TraceGuidReg</i> parameter).
      * @type {Integer}
      */
     RegHandle {
@@ -149,8 +145,7 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, contains the event trace instance identifier associated with
-     * **RegHandle**.
+     * On output, contains the event trace instance identifier associated with <b>RegHandle</b>.
      * @type {Integer}
      */
     InstanceId {
@@ -159,8 +154,7 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, contains the event trace instance identifier associated with
-     * **ParentRegHandle**.
+     * On output, contains the event trace instance identifier associated with <b>ParentRegHandle</b>.
      * @type {Integer}
      */
     ParentInstanceId {
@@ -209,15 +203,10 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     }
 
     /**
-     * Handle to a registered event trace class of a parent event. Set this property
-     * before calling the
-     * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
-     * function if you want to trace a hierarchical relationship (parent element/child
-     * element) between related events.
+     * Handle to a registered event trace class of a parent event. Set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function if you want to trace a hierarchical relationship (parent element/child element) between related events.
      * 
-     * The
-     * [RegisterTraceGuids](/windows/win32/api/evntrace/nf-evntrace-registertraceguidsa)
-     * function creates this handle (see the _TraceGuidReg_ parameter).
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/ETW/registertraceguids">RegisterTraceGuids</a> function creates this handle (see the <i>TraceGuidReg</i> parameter).
      * @type {Integer}
      */
     ParentRegHandle {

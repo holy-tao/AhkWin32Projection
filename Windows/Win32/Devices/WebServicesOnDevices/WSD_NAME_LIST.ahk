@@ -3,7 +3,7 @@
 
 /**
  * Represents a node in a single-linked list of XML name structures.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_name_list
+ * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_name_list
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

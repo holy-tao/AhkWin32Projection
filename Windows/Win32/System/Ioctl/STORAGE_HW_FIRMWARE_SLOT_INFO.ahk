@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * This structure contains information about a slot on a device.
- * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-slot-info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * The version of this structure. This should be set to sizeof(STORAGE\_HW\_FIRMWARE\_SLOT\_INFO)
      * @type {Integer}
      */
     Version {
@@ -23,7 +20,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * The size of this structure.
      * @type {Integer}
      */
     Size {
@@ -32,7 +28,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * The slot number of this slot.
      * @type {Integer}
      */
     SlotNumber {
@@ -52,7 +47,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * Indicates whether this slot is read-only or not.
      * @type {Integer}
      */
     ReadOnly {
@@ -61,7 +55,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     Reserved0 {
@@ -70,7 +63,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Array<Byte>}
      */
     Reserved1{
@@ -82,7 +74,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * The revision of the firmware on this slot.
      * @type {Array<Byte>}
      */
     Revision{

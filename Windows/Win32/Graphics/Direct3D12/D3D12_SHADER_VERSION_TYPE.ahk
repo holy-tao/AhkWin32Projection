@@ -2,7 +2,7 @@
 
 /**
  * Enumerates the types of shaders that Direct3D recognizes. Used to encode the Version member of the D3D12_SHADER_DESC structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/ne-d3d12shader-d3d12_shader_version_type
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/ne-d3d12shader-d3d12_shader_version_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

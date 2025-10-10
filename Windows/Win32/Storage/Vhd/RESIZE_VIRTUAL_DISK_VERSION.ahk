@@ -2,7 +2,7 @@
 
 /**
  * Enumerates the possible versions for parameters for the ResizeVirtualDisk function.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-resize_virtual_disk_version
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-resize_virtual_disk_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

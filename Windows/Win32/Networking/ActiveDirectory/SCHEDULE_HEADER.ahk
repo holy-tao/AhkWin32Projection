@@ -3,7 +3,7 @@
 
 /**
  * Used to contain the replication schedule data for a replication source.
- * @see https://learn.microsoft.com/windows/win32/api/schedule/ns-schedule-schedule_header
+ * @see https://docs.microsoft.com/windows/win32/api//schedule/ns-schedule-schedule_header
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

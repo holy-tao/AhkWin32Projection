@@ -4,7 +4,7 @@
 
 /**
  * The BLENDOBJ structure controls blending by specifying the blending functions for source and destination bitmaps.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-blendobj
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-blendobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

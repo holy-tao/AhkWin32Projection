@@ -2,7 +2,7 @@
 
 /**
  * Defines the types of connection methods you can use to connect to the remote computer.
- * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_login_class
+ * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_login_class
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

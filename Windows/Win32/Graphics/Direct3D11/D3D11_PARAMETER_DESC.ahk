@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a function parameter. (D3D11_PARAMETER_DESC)
+ * Describes a function parameter.
  * @remarks
- * Get a function-parameter description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc">ID3D11FunctionParameterReflection::GetDesc</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc
+ * 
+  * Get a function-parameter description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc">ID3D11FunctionParameterReflection::GetDesc</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/ns-d3d11shader-d3d11_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

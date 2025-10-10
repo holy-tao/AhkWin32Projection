@@ -3,7 +3,7 @@
 
 /**
  * The WSANETWORKEVENTS structure is used to store a socket's internal information about network events.
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsanetworkevents
+ * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsanetworkevents
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

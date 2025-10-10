@@ -4,8 +4,11 @@
 /**
  * The ADS_CASEIGNORE_LIST structure is an ADSI representation of the Case Ignore List attribute syntax.
  * @remarks
- * A <b>Case Ignore List</b> attribute represents an ordered sequence of case insensitive strings.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_caseignore_list
+ * 
+  * A <b>Case Ignore List</b> attribute represents an ordered sequence of case insensitive strings.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_caseignore_list
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

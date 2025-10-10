@@ -2,17 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about an icon or a cursor. Extends ICONINFO. Used by GetIconInfoEx. (Unicode)
+ * Contains information about an icon or a cursor. Extends ICONINFO. Used by GetIconInfoEx.
  * @remarks
- * For monochrome icons, the <b>hbmMask</b> is twice the height of the icon (with the AND mask on top and the XOR mask on the bottom), and <b>hbmColor</b> is <b>NULL</b>. Also, in this case the height should be an even multiple of two.
-  * 
-  * For color icons, the <b>hbmMask</b> and <b>hbmColor</b> bitmaps are the same size, each of which is the size of the icon.
-  * 
-  * You can use a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getobject">GetObject</a> function to get contents of <b>hbmMask</b> and <b>hbmColor</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a> structure. The bitmap bits can be obtained with call to <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdibits">GetDIBits</a> on the bitmaps in this structure.
-  * 
+ * 
   * > [!NOTE]
   * > The winuser.h header defines ICONINFOEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-iconinfoexw
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-iconinfoexw
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  * @charset Unicode
@@ -70,7 +66,7 @@ class ICONINFOEXW extends Win32Struct
     /**
      * Type: <b>HBITMAP</b>
      * 
-     * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
+     * The icon bitmask bitmap. If this structure defines a black and white icon, this bitmask is formatted so that the upper half is the icon AND bitmask and the lower half is the icon XOR bitmask. Under this condition, the height should be an even multiple of two. If this structure defines a color icon, this mask only defines the AND bitmask of the icon.
      * @type {Pointer<Void>}
      */
     hbmMask {
@@ -81,7 +77,7 @@ class ICONINFOEXW extends Win32Struct
     /**
      * Type: <b>HBITMAP</b>
      * 
-     * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
+     * A handle to the icon color bitmap. This member can be optional if this structure defines a black and white icon. The AND bitmask of <b>hbmMask</b> is applied with the <b>SRCAND</b> flag to the destination; subsequently, the color bitmap is applied (using XOR) to the destination by using the <b>SRCINVERT</b> flag.
      * @type {Pointer<Void>}
      */
     hbmColor {

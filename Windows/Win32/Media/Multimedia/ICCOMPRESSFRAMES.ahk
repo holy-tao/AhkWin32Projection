@@ -3,7 +3,7 @@
 
 /**
  * The ICCOMPRESSFRAMES structure contains compression parameters used with the ICM_COMPRESS_FRAMES_INFO message.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-iccompressframes
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-iccompressframes
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

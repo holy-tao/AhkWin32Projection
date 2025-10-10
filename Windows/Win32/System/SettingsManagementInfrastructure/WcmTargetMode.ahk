@@ -2,7 +2,7 @@
 
 /**
  * Enumerates the various target modes.
- * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmtargetmode
+ * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/ne-wcmconfig-wcmtargetmode
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */

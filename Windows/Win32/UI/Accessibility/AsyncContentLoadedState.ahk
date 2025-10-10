@@ -2,7 +2,7 @@
 
 /**
  * Contains values that describe the progress of asynchronous loading of content.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-asynccontentloadedstate
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-asynccontentloadedstate
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

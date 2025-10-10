@@ -2,7 +2,7 @@
 
 /**
  * Define the valid object text formats to be used by SWbemObjectEx.GetText_.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemobjecttextformatenum
+ * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemobjecttextformatenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

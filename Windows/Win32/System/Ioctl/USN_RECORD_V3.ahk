@@ -5,7 +5,8 @@
 /**
  * Contains the information for an update sequence number (USN) change journal version 3.0 record.
  * @remarks
- * In output buffers returned from <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> 
+ * 
+  * In output buffers returned from <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> 
   *     operations that work with <b>USN_RECORD_V3</b>, all records are 
   *     aligned on 64-bit boundaries from the start of the buffer.
   * 
@@ -33,7 +34,9 @@
   * 
   * For more information, see 
   *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v3
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-usn_record_v3
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -60,7 +63,7 @@ class USN_RECORD_V3 extends Win32Struct
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> function. In C, you can 
      *        determine a record size by using the following code example.
      * 
-     * <div class="code"><span><table>
+     * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
      * <tr>
      * <th>C++</th>
      * </tr>
@@ -124,7 +127,7 @@ class USN_RECORD_V3 extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * The structure is a [USN_RECORD_V4 structure](ns-winioctl-usn_record_v4.md) and the remainder of the structure should be parsed using that layout.
+     * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v4">USN_RECORD_V4</a> structure and the remainder of the structure should be parsed using that layout.
      * 
      * </td>
      * </tr>

@@ -6,7 +6,7 @@
 
 /**
  * Contains information on the session user.
- * @see https://learn.microsoft.com/windows/win32/api/subauth/ns-subauth-user_all_information
+ * @see https://docs.microsoft.com/windows/win32/api//subauth/ns-subauth-user_all_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

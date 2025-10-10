@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies the color primaries of a video source. (MFVideoPrimaries)
+ * Specifies the color primaries of a video source.
  * @remarks
- * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a> attribute.
+ * 
+  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a> attribute.
   * 
   * For more information about these values, see the remarks for the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ne-dxva2api-dxva2_videoprimaries">DXVA2_VideoPrimaries</a> enumeration, which is the DirectX Video Acceleration (DXVA) equivalent of this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideoprimaries
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mfvideoprimaries
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

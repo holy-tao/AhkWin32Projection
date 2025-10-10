@@ -2,7 +2,7 @@
 
 /**
  * Specifies the current state of the filter engine.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-fwpm_service_state
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ne-fwpmtypes-fwpm_service_state
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

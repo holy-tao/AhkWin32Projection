@@ -6,7 +6,7 @@
 
 /**
  * The EMRCREATEPEN structure contains members for the CreatePen enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatepen
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatepen
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

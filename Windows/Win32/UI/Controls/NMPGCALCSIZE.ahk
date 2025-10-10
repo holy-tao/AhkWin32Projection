@@ -4,7 +4,7 @@
 
 /**
  * Contains and receives information that the pager control uses to calculate the scrollable area of the contained window. It is used with the PGN_CALCSIZE notification.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpgcalcsize
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmpgcalcsize
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

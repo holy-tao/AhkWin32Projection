@@ -5,7 +5,8 @@
  * Contains dynamic enforced address ranges used by various features related to user-mode Hardware-enforced Stack Protection (HSP).
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_dynamic_enforced_address_range
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-process_dynamic_enforced_address_range
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines what kind of Terminal Server session state change you can use to trigger a task to start.
- * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_session_state_change_type
+ * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_session_state_change_type
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

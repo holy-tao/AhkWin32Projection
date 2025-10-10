@@ -3,7 +3,8 @@
 /**
  * Provides a set of flags to be used with the following interfaces to indicate the type of condition tree node:\_ICondition, ICondition2, IConditionFactory, IConditionFactory2, and IConditionGenerator.
  * @remarks
- * &gt;Only one of following flags should be set simultaneously:
+ * 
+  * &gt;Only one of following flags should be set simultaneously:
   *                 
   * 
   * <ul>
@@ -12,7 +13,9 @@
   * <li>CONDITION_CREATION_VECTOR_LEAF</li>
   * </ul>
   * However, if none of these flags is set, then attempting to create a leaf condition with VT_VECTOR set in the PROPVARIANT results in failure.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-condition_creation_options
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-condition_creation_options
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

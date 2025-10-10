@@ -3,7 +3,7 @@
 
 /**
  * Represents a polynomial lens distortion model.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraintrinsic_distortionmodel
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfcameraintrinsic_distortionmodel
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

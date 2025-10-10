@@ -4,10 +4,11 @@
 /**
  * The USER_INFO_3 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, relative identifiers (RIDs), and other user-related network statistics.
  * @remarks
- * The
+ * 
+  * The
   * 				<b>USER_INFO_3</b> structure can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a>,
   * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a>, <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a>, and
-  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> functions.
+  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a>functions.
   * 
   * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
   * 
@@ -17,8 +18,10 @@
   * the <b>USER_INFO_4</b> structure instead of the 
   * <b>USER_INFO_3</b> structure with the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a>,
   * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a>, and
-  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> functions on Windows XP and later.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_3
+  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a>functions on Windows XP and later.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

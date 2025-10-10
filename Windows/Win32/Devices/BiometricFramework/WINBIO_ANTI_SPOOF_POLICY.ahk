@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents the antispoofing policy for a user.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-anti-spoof-policy
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class WINBIO_ANTI_SPOOF_POLICY extends Win32Struct
     static packingSize => 4
 
     /**
-     * The type of action to take for the antispoofing policy.
      * @type {Integer}
      */
     Action {
@@ -23,7 +20,6 @@ class WINBIO_ANTI_SPOOF_POLICY extends Win32Struct
     }
 
     /**
-     * The source for the antispoofing policy.
      * @type {Integer}
      */
     Source {

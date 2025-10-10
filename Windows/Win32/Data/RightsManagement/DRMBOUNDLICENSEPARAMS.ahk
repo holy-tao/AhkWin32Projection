@@ -5,7 +5,8 @@
 /**
  * Used by DRMCreateBoundLicense to bind to a license.
  * @remarks
- * In a C++ application, this structure has a default constructor that initializes the members to the following values.
+ * 
+  * In a C++ application, this structure has a default constructor that initializes the members to the following values.
   * 
   * 
   * ```cpp
@@ -25,7 +26,9 @@
   * 
   * 
   * If there is more than one rights group in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/e-gly">end-user license</a>, the <i>wszRightsGroup</i> parameter specifies the name of the rights group to use. By default, the first rights group found in the end-user license is chosen. If any one of the requested rights is not granted, the bind request (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>) will fail.
- * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drmboundlicenseparams
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ns-msdrmdefs-drmboundlicenseparams
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

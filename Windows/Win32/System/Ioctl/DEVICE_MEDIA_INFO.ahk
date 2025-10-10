@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the media supported by a device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_media_info
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_media_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

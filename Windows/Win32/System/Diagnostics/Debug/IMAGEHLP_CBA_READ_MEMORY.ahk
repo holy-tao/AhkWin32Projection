@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a memory read operation.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_cba_read_memory
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-imagehlp_cba_read_memory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

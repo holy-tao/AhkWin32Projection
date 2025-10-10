@@ -3,8 +3,8 @@
 #Include .\OPM_RANDOM_NUMBER.ahk
 
 /**
- * OPM_GET_CODEC_INFO_INFORMATION (opmapi.h) contains the result from an OPM_GET_CODEC_INFO query.
- * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_get_codec_info_information
+ * Contains the result from an OPM_GET_CODEC_INFO query.
+ * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_get_codec_info_information
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

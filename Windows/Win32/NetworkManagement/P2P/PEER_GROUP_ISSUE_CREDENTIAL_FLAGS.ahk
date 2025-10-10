@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * . (PEER_GROUP_ISSUE_CREDENTIAL_FLAGS)
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_group_issue_credential_flags
+ * .
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_group_issue_credential_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

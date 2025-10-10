@@ -3,7 +3,7 @@
 
 /**
  * Describes one entry (block) of a heap that is being examined.
- * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-heapentry32
+ * @see https://docs.microsoft.com/windows/win32/api//tlhelp32/ns-tlhelp32-heapentry32
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
  * @version v4.0.30319
  */

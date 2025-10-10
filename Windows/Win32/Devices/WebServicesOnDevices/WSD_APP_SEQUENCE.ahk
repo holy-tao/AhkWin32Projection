@@ -4,23 +4,20 @@
 /**
  * Represents application sequence information relating to WS-Discovery messages.
  * @remarks
- * The application sequencing header block allows a receiver to maintain the sequence messages that contain this header block though they may have been received out of order. This allows proper sequencing of <a href="https://docs.microsoft.com/windows/desktop/WsdApi/hello-message">Hello</a> and <a href="https://docs.microsoft.com/windows/desktop/WsdApi/bye-message">Bye</a> messages from a target service.
+ * 
+  * The application sequencing header block allows a receiver to maintain the sequence messages that contain this header block though they may have been received out of order. This allows proper sequencing of <a href="https://docs.microsoft.com/windows/desktop/WsdApi/hello-message">Hello</a> and <a href="https://docs.microsoft.com/windows/desktop/WsdApi/bye-message">Bye</a> messages from a target service.
   * 
   * The normative outline for the application sequence header block is:
   * 
   * 
   * 
-  * 
-  * ``` syntax
-  * &lt;s:Envelope ...&gt; 
+  * <pre class="syntax" xml:space="preserve"><code>&lt;s:Envelope ...&gt; 
   *   &lt;s:Header ...&gt; 
   *     &lt;d:AppSequence InstanceId='xs:nonNegativeInteger' [SequenceId='xs:anyURI']? MessageNumber='xs:nonNegativeInteger' ... /&gt;
   *   &lt;/s:Header&gt; 
   *   &lt;s:Body ...&gt; ... 
   *   &lt;/s:Body&gt; 
-  * &lt;/s:Envelope&gt;
-  * ```
-  * 
+  * &lt;/s:Envelope&gt;</code></pre>
   * The following describes normative constraints of this outline. 
   * 
   * 
@@ -38,7 +35,9 @@
   * <c>/s:Envelope/s:Header/d:AppSequence/@MessageNumber</c>
   * 
   * This setting identifies a message within the context of a sequence identifier and an instance identifier. must be incremented by a value of at least 1 for each message sent. Retransmission of this message at the transport level must maintain this value.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_app_sequence
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_app_sequence
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

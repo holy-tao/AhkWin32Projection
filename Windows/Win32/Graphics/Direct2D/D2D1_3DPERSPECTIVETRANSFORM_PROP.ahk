@@ -2,7 +2,7 @@
 
 /**
  * Identifiers for the properties of the 3D perspective transform effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_3dperspectivetransform_prop
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_3dperspectivetransform_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the SALT values for the Hmac-Secret.
- * @remarks
- * SALT values, by default, are converted into RAW Hmac-Secret values as per PRF extension.
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_hmac_secret_salt
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class WEBAUTHN_HMAC_SECRET_SALT extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size of pbFirst.
      * @type {Integer}
      */
     cbFirst {
@@ -25,7 +20,6 @@ class WEBAUTHN_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
-     * The first SALT value.
      * @type {Pointer<Byte>}
      */
     pbFirst {
@@ -34,7 +28,6 @@ class WEBAUTHN_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
-     * THe size of pbSecond.
      * @type {Integer}
      */
     cbSecond {
@@ -43,7 +36,6 @@ class WEBAUTHN_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
-     * The second SALT value.
      * @type {Pointer<Byte>}
      */
     pbSecond {

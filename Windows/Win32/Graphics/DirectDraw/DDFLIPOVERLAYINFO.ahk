@@ -3,7 +3,7 @@
 
 /**
  * The DDFLIPOVERLAYINFO structure contains the flip information for the surface.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddflipoverlayinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddflipoverlayinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

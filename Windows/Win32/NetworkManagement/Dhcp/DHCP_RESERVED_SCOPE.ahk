@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_RESERVED_SCOPE structure defines a reserved DHCP scope.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_reserved_scope
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_reserved_scope
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

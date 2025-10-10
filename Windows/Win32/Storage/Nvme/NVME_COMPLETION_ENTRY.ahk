@@ -3,10 +3,6 @@
 #Include .\NVME_COMMAND_STATUS.ahk
 
 /**
- * Specifies an entry in the Completion Queue that is 16 bytes in size.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -17,9 +13,6 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * The contents of Dword 0 contain command specific information.
-     * 
-     * If a command uses Dword 0, then the definition of this Dword is contained within the associated command definition. If a command does not use Dword 0, then this field is reserved.
      * @type {Integer}
      */
     DW0 {

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Types of magnification or minification sampler filters. (D3D10_FILTER_TYPE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_filter_type
+ * Types of magnification or minification sampler filters.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_filter_type
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

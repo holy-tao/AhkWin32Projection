@@ -4,8 +4,12 @@
 /**
  * Specifies an offset as a fixed-point real number.
  * @remarks
- * The value of the number is <b>value</b> + (<b>fract</b> / 65536.0f).
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfoffset
+ * 
+  * The value of the number is <b>value</b> + (<b>fract</b> / 65536.0f).
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfoffset
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

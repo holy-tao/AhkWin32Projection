@@ -4,10 +4,13 @@
 /**
  * Specifies the DVD title key from the current content.
  * @remarks
- * The AM_PROPERTY_DVDCOPY_TITLE_KEY property uses this structure.
+ * 
+  * The AM_PROPERTY_DVDCOPY_TITLE_KEY property uses this structure.
   * 
   * A title key is used for the DVD CSS key exchange for decryption. Implementors should get a CSS license and further instructions from CSS.
- * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_titlekey
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_dvdcopy_titlekey
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

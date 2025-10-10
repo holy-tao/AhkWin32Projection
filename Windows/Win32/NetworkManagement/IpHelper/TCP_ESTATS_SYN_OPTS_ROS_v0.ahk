@@ -4,7 +4,8 @@
 /**
  * Contains read-only static information for extended TCP statistics on SYN exchange for a TCP connection.
  * @remarks
- * The <b>TCP_ESTATS_SYN_OPTS_ROS_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
+ * 
+  * The <b>TCP_ESTATS_SYN_OPTS_ROS_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
   * 
   * The <b>TCP_ESTATS_SYN_OPTS_ROS_v0</b> is defined as version 0 of the structure for  read-only static information on SYN exchange for a TCP connection.  The TCP protocol does not permit the members of this structure to change after the SYN exchange. This information is available after the SYN exchange has completed.
   * 
@@ -57,7 +58,9 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_syn_opts_ros_v0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_syn_opts_ros_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the version of the TPM.
- * @see https://learn.microsoft.com/windows/win32/api/tbs/ns-tbs-tpm_device_info
+ * @see https://docs.microsoft.com/windows/win32/api//tbs/ns-tbs-tpm_device_info
  * @namespace Windows.Win32.System.TpmBaseServices
  * @version v4.0.30319
  */

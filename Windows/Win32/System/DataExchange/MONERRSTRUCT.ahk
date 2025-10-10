@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) error. A DDE monitoring application can use this structure to monitor errors returned by DDE Management Library functions.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monerrstruct
+ * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-monerrstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

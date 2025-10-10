@@ -2,7 +2,7 @@
 
 /**
  * Flags controlling what is returned in the enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_callback_data_flags
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ne-projectedfslib-prj_callback_data_flags
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

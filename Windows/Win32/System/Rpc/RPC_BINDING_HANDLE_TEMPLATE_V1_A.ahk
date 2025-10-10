@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the basic options with which to create an RPC binding handle. (ANSI)
+ * Contains the basic options with which to create an RPC binding handle.
  * @remarks
- * Fast binding handles are slightly different from "classic" binding handles in the way they are handled during calls to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingreset">RpcBindingReset</a>. <b>RpcBindingReset</b> is a no-op call for static fast binding handles. For classic binding handles, however, <b>RpcBindingReset</b> converts a static binding handle into a dynamic one to preserve backwards compatibility.
+ * 
+  * Fast binding handles are slightly different from "classic" binding handles in the way they are handled during calls to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingreset">RpcBindingReset</a>. <b>RpcBindingReset</b> is a no-op call for static fast binding handles. For classic binding handles, however, <b>RpcBindingReset</b> converts a static binding handle into a dynamic one to preserve backwards compatibility.
   * 
   * The following table demonstrates the behavior of static and dynamic binding handles with regards to <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingreset">RpcBindingReset</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcepresolvebinding">RpcEpResolveBinding</a>.
   *   <table>
@@ -39,7 +40,9 @@
   * <td>Resolves endpoint if not previously resolved</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_template_v1_a
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_binding_handle_template_v1_a
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset ANSI

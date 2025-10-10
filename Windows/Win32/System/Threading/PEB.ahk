@@ -4,11 +4,10 @@
 /**
  * Contains process information.
  * @remarks
- * The syntax for this structure on 64-bit Windows is as follows:
+ * 
+  * The syntax for this structure on 64-bit Windows is as follows:
   * 
-  * 
-  * ``` syntax
-  * typedef struct _PEB {
+  * <pre class="syntax" xml:space="preserve"><code>typedef struct _PEB {
   *     BYTE Reserved1[2];
   *     BYTE BeingDebugged;
   *     BYTE Reserved2[21];
@@ -18,9 +17,10 @@
   *     PPS_POST_PROCESS_INIT_ROUTINE PostProcessInitRoutine;
   *     BYTE Reserved4[136];
   *     ULONG SessionId;
-  * } PEB;
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb
+  * } PEB;</code></pre>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winternl/ns-winternl-peb
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

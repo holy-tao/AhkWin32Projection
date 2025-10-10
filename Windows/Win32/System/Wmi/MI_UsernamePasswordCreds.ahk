@@ -3,7 +3,7 @@
 
 /**
  * A username/password combination used for subscription operations.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_usernamepasswordcreds
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_usernamepasswordcreds
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

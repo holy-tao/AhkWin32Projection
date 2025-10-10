@@ -3,7 +3,7 @@
 
 /**
  * Contains stream data.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-win32_stream_id
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-win32_stream_id
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

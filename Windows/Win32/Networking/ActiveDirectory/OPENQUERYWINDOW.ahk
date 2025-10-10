@@ -3,7 +3,7 @@
 
 /**
  * Used with the ICommonQuery::OpenQueryWindow method to initialize the directory service query dialog box.
- * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-openquerywindow
+ * @see https://docs.microsoft.com/windows/win32/api//cmnquery/ns-cmnquery-openquerywindow
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

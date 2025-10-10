@@ -4,10 +4,13 @@
 /**
  * Receives output data from the FSCTL_GET_NTFS_FILE_RECORD control code.
  * @remarks
- * To retrieve data to fill in this structure, use the 
+ * 
+  * To retrieve data to fill in this structure, use the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a>
   * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_get_ntfs_file_record">FSCTL_GET_NTFS_FILE_RECORD</a> control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_file_record_output_buffer
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-ntfs_file_record_output_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

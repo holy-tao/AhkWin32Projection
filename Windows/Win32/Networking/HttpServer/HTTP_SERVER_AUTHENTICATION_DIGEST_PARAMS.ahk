@@ -3,7 +3,7 @@
 
 /**
  * Contains the information for digest authentication on a URL Group.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_server_authentication_digest_params
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_server_authentication_digest_params
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

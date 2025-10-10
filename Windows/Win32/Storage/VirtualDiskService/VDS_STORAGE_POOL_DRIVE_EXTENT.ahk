@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_STORAGE_POOL_DRIVE_EXTENT structure (vdshwprv.h) defines a drive extent that could be used by a storage pool.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_storage_pool_drive_extent
+ * Defines a drive extent that could be used by a storage pool.
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_storage_pool_drive_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

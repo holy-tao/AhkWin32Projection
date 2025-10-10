@@ -6,8 +6,10 @@
 /**
  * Contains information about the two rectangles of a split button. Sent with the NM_GETCUSTOMSPLITRECT notification.
  * @remarks
- * This information is used to draw the button. The button must be of style <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_SPLITBUTTON</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_DEFSPLITBUTTON</a>
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomsplitrectinfo
+ * 
+  * This information is used to draw the button. The button must be of style <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_SPLITBUTTON</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_DEFSPLITBUTTON</a>
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmcustomsplitrectinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

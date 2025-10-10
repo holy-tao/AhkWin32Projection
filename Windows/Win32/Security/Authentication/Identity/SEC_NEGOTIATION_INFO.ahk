@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Stores the security negotiation information.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_negotiation_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SEC_NEGOTIATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size of this structure.
      * @type {Integer}
      */
     Size {
@@ -25,7 +20,6 @@ class SEC_NEGOTIATION_INFO extends Win32Struct
     }
 
     /**
-     * The length of the name hint.
      * @type {Integer}
      */
     NameLength {
@@ -34,7 +28,6 @@ class SEC_NEGOTIATION_INFO extends Win32Struct
     }
 
     /**
-     * The name hint.
      * @type {Pointer<UInt16>}
      */
     Name {
@@ -43,7 +36,6 @@ class SEC_NEGOTIATION_INFO extends Win32Struct
     }
 
     /**
-     * Reserved.
      * @type {Pointer<Void>}
      */
     Reserved {

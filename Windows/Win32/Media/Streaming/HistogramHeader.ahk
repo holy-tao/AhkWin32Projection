@@ -6,13 +6,15 @@
 /**
  * The HistogramHeader structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.
  * @remarks
- * The <b>MF_CAPTURE_METADATA_HISTOGRAM</b> attribute contains a  histogram when a preview frame is captured.
+ * 
+  * The <b>MF_CAPTURE_METADATA_HISTOGRAM</b> attribute contains a  histogram when a preview frame is captured.
   * 
   * For the <b>ChannelMasks</b> field, the following bitmasks indicate the available channels in the histogram:
   * 
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramheader
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-histogramheader
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the direction and distance to scroll.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-scrollamount
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-scrollamount
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

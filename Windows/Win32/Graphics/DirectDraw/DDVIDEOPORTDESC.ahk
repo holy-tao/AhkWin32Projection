@@ -4,7 +4,7 @@
 
 /**
  * The DDVIDEOPORTDESC structure describes the video port extensions (VPE) object being created.
- * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportdesc
+ * @see https://docs.microsoft.com/windows/win32/api//dvp/ns-dvp-ddvideoportdesc
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

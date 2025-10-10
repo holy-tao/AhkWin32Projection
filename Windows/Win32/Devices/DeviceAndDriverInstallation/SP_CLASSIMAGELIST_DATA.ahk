@@ -3,7 +3,7 @@
 
 /**
  * An SP_CLASSIMAGELIST_DATA structure describes a class image list.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_classimagelist_data
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_classimagelist_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

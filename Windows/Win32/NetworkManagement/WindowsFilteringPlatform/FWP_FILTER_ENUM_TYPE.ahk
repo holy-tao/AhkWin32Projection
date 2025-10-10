@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the filter enum conditions should be interpreted.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_filter_enum_type
+ * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_filter_enum_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

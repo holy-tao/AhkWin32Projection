@@ -5,8 +5,11 @@
 /**
  * Represents the state of a controller.
  * @remarks
- * The <i>dwPacketNumber</i> member is incremented only if the status of the controller has changed since the controller was last polled.
- * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_state
+ * 
+  * The <i>dwPacketNumber</i> member is incremented only if the status of the controller has changed since the controller was last polled.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xinput/ns-xinput-xinput_state
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */

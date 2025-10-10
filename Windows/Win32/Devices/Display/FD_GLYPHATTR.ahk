@@ -4,14 +4,16 @@
 /**
  * The FD_GLYPHATTR structure is used to specify the return value for the FONTOBJ_pQueryGlyphAttrs and DrvQueryGlyphAttrs functions.
  * @remarks
- * If <b>iMode</b> is FO_ATTR_MODE_ROTATE (the only flag currently defined), a printer driver can determine the bit that corresponds to a particular glyph index using the following code fragment, where <i>hg</i> is the glyph index and <i>pga</i> is a pointer to an FD_GLYPHATTR structure. If the bit in the <b>aGlyphAttr</b> array associated with glyph index <i>hg</i> is set, <i>result</i> is set to 1. If the same bit in the array is not set, <i>result</i> is set to 0. Note that the bits within a byte are stored so that glyph indexes 0, 1, ..., 7 correspond to bit positions 7, 6, ..., 0 within <b>aGlyphAttr</b>[0], glyph indexes 8, 9, ..., 15 correspond to bit positions 7, 6, ..., 0 within <b>aGlyphAttr</b>[1], and so on. 
+ * 
+  * If <b>iMode</b> is FO_ATTR_MODE_ROTATE (the only flag currently defined), a printer driver can determine the bit that corresponds to a particular glyph index using the following code fragment, where <i>hg</i> is the glyph index and <i>pga</i> is a pointer to an FD_GLYPHATTR structure. If the bit in the <b>aGlyphAttr</b> array associated with glyph index <i>hg</i> is set, <i>result</i> is set to 1. If the same bit in the array is not set, <i>result</i> is set to 0. Note that the bits within a byte are stored so that glyph indexes 0, 1, ..., 7 correspond to bit positions 7, 6, ..., 0 within <b>aGlyphAttr</b>[0], glyph indexes 8, 9, ..., 15 correspond to bit positions 7, 6, ..., 0 within <b>aGlyphAttr</b>[1], and so on. 
   * 
   * 
   * ```
   * BYTE glyphBits[8] = {0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
   * result = (pga->aGlyphAttr[hg / 8]) & (glyphBits[hg % 8]);
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_glyphattr
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-fd_glyphattr
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

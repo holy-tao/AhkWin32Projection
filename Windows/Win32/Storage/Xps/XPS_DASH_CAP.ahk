@@ -3,7 +3,8 @@
 /**
  * Specifies the style of a dash cap on a dashed stroke.
  * @remarks
- * In the following illustrations, each shaded area represents the dash cap that corresponds to each  type of <b>XPS_DASH_CAP</b>.
+ * 
+  * In the following illustrations, each shaded area represents the dash cap that corresponds to each  type of <b>XPS_DASH_CAP</b>.
   * 
   * <table>
   * <tr>
@@ -27,7 +28,9 @@
   * <td><img alt="A diagram that illustrates the XPS_DASH_CAP_TRIANGLE dash cap in a dashed stroke" src="./images/xps_dash_cap_triangle_dash_caps.png"/></td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

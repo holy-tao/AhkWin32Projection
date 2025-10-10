@@ -4,7 +4,8 @@
 /**
  * Describes information about the version of the Cluster service installed locally on a node.
  * @remarks
- * To obtain cluster version information, applications declare a 
+ * 
+  * To obtain cluster version information, applications declare a 
   *     <b>CLUSTERVERSIONINFO</b> structure, specify the size of the 
   *     structure in the <b>dwVersionInfoSize</b> member, and call the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusterinformation">GetClusterInformation</a> function. 
@@ -27,7 +28,9 @@
   * </ul>
   * For more information on how the Cluster service creates and uses version numbers, see 
   *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/version-compatibility">Version Compatibility</a>.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusterversioninfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusterversioninfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

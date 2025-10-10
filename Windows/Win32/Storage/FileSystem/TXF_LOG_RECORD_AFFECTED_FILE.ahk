@@ -4,7 +4,7 @@
 
 /**
  * Contains information for a file that was affected by a transaction.
- * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_log_record_affected_file
+ * @see https://docs.microsoft.com/windows/win32/api//txfw32/ns-txfw32-txf_log_record_affected_file
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

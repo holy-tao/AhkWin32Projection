@@ -3,7 +3,8 @@
 /**
  * The MBN_PROVIDER_STATE enumerated type specifies the various states with which a provider entry can be tagged.
  * @remarks
- * The following table provides the valid combinations of values for different operations.
+ * 
+  * The following table provides the valid combinations of values for different operations.
   * 
   * <table>
   * <tr>
@@ -35,7 +36,9 @@
   * <td>MBN_PROVIDER_STATE_FORBIDDEN</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_provider_state
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_provider_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

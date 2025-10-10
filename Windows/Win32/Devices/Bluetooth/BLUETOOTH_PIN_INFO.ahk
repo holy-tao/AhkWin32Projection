@@ -3,7 +3,7 @@
 
 /**
  * BLUETOOTH_PIN_INFO structure contains information used for authentication via PIN.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_pin_info
+ * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_pin_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

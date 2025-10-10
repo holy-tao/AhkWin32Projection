@@ -2,10 +2,15 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The SEC_WINNT_AUTH_IDENTITY_EXW (Unicode) structure contains information about a user.
+ * 
  * @remarks
- * Note that when this structure is used with RPC, the structure must remain valid for the lifetime of the binding handle.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_exw
+ * 
+  * 
+  * 
+  * Note that when this structure is used with RPC, the structure must remain valid for the lifetime of the binding handle.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-sec_winnt_auth_identity_exw
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  * @charset Unicode

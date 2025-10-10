@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The WINHTTP_PROXY_SETTINGS_PARAM structure represents extended proxy settings.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_param
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
@@ -16,9 +12,6 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
-     * 
-     * Flags.
      * @type {Integer}
      */
     ullFlags {
@@ -27,9 +20,6 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The WCM connection name for which settings were retrieved.
      * @type {Pointer<Char>}
      */
     pcwszConnectionName {
@@ -38,9 +28,6 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
-     * 
-     * TBD
      * @type {Pointer<Char>}
      */
     pcwszProbeHost {

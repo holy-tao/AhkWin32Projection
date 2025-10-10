@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters used to invoke a property sheet dialog box through the OleCreatePropertyFrameIndirect function.
- * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-ocpfiparams
+ * @see https://docs.microsoft.com/windows/win32/api//olectl/ns-olectl-ocpfiparams
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

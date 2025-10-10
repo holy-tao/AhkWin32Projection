@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_VOLUME_NOTIFICATION structure (vdshwprv.h) defines the details of volume events.
+ * Defines the details of volume events.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
   *     structure as a member.
   * 
   * An application can receive volume events by implementing the 
@@ -13,7 +14,9 @@
   *     method.
   * 
   * To get the volume object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-getproperties">IVdsVolume::GetProperties</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume2-getproperties2">IVdsVolume2::GetProperties2</a> method to get the volume properties.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_volume_notification
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_volume_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

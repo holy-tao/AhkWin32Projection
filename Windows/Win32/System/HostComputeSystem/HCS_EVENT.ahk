@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * HCS_EVENT
- * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HCS_EVENT
  * @namespace Windows.Win32.System.HostComputeSystem
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class HCS_EVENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type of event [`HCS_EVENT_TYPE`](./HCS_EVENT_TYPE.md)
      * @type {Integer}
      */
     Type {
@@ -23,14 +20,6 @@ class HCS_EVENT extends Win32Struct
     }
 
     /**
-     * Optionally provides additional data for the event as a JSON document. The following table shows expected documents for specific event types.
-     * 
-     * |Event Type|JSON Document|
-     * |---|---|
-     * |`HcsEventSystemExited`|[`SystemExitStatus`](../SchemaReference.md#SystemExitStatus)|
-     * |`HcsEventSystemCrashInitiated`|[`CrashReport`](../SchemaReference.md#CrashReport)|
-     * |`HcsEventSystemCrashReport`|[`CrashReport`](../SchemaReference.md#CrashReport)|
-     * |`HcsEventProcessExited`|[`ProcessStatus`](../SchemaReference.md#ProcessStatus)|
      * @type {Pointer<Char>}
      */
     EventData {
@@ -39,7 +28,6 @@ class HCS_EVENT extends Win32Struct
     }
 
     /**
-     * Handle to a completed operation, if `Type` is `HcsEventOperationCallback`. This is only possible when [`HcsSetComputeSystemCallback`](./HcsSetComputeSystemCallback.md) has specified event option `HcsEventOptionEnableOperationCallbacks`.
      * @type {Pointer<Void>}
      */
     Operation {

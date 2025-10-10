@@ -2,7 +2,7 @@
 
 /**
  * Specifies the conversion matrix from the Y'Cb'Cr' color space to the R'G'B' color space. This enumeration is used with the AVEncVideoInputColorTransferMatrix and AVEncVideoOutputColorTransferMatrix properties.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocolortransfermatrix
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideocolortransfermatrix
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

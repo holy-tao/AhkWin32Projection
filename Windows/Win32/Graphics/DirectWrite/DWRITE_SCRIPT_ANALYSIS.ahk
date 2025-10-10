@@ -3,7 +3,7 @@
 
 /**
  * Stores the association of text and its writing system script, as well as some display attributes.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_script_analysis
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_script_analysis
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

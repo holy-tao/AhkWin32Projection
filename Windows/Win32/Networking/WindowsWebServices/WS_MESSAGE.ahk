@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The opaque type used to reference a message object.
- * @remarks
- * This object is not thread safe. For more information, see [thread safety](thread-safety.md).
- * @see https://learn.microsoft.com/windows/win32/wsw/ws-message
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

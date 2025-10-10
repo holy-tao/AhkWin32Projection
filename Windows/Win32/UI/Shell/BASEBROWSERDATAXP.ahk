@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The BASEBROWSERDATAXP structure contains protected members of the base class. (BASEBROWSERDATAXP structure)
- * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-basebrowserdataxp
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -14,9 +12,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b>HWND</b>
-     * 
-     * The handle of the browser's top-level window.
      * @type {Pointer<Void>}
      */
     _hwnd {
@@ -25,9 +20,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>*</b>
-     * 
-     * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>.
      * @type {Pointer<ITravelLog>}
      */
     _ptl {
@@ -36,14 +28,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767938(v=vs.85)">IHlinkFrame</a>*</b>
-     * 
-     * A pointer to the browser's <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767938(v=vs.85)">IHlinkFrame</a>.
-     *     
-     *                         
-     * 
-     * <div class="alert"><b>Note</b>  This member is only valid on first navigation from an hlink element-compatible application such as Word.</div>
-     * <div> </div>
      * @type {Pointer<IHlinkFrame>}
      */
     _phlf {
@@ -52,9 +36,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a>*</b>
-     * 
-     * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a> object.
      * @type {Pointer<IWebBrowser2>}
      */
     _pautoWB2 {
@@ -63,9 +44,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-iexpdispsupport">IExpDispSupport</a>*</b>
-     * 
-     * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-iexpdispsupport">IExpDispSupport</a> object.
      * @type {Pointer<IExpDispSupportXP>}
      */
     _pautoEDS {
@@ -74,9 +52,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ishellservice">IShellService</a>*</b>
-     * 
-     * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ishellservice">IShellService</a> object.
      * @type {Pointer<IShellService>}
      */
     _pautoSS {
@@ -85,7 +60,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>int</b>
      * @type {Integer}
      */
     _eSecureLockIcon {
@@ -104,9 +78,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT</b>
-     * 
-     * A view window is being created by the browser.
      * @type {Integer}
      */
     _fCreatingViewWindow {
@@ -115,9 +86,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT</b>
-     * 
-     * The browser view is in an activated state.
      * @type {Integer}
      */
     _uActivateState {
@@ -126,7 +94,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ITEMIDLIST>}
      */
     _pidlViewState {
@@ -135,9 +102,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>*</b>
-     * 
-     * A cached pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a> object associated with the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object pointed to by <b>_psv</b>.
      * @type {Pointer<IOleCommandTarget>}
      */
     _pctView {
@@ -146,9 +110,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>PCIDLIST_ABSOLUTE</b>
-     * 
-     * A PIDL of the current navigated location of the browser. This value is the same retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpidl">IBrowserService::GetPidl</a>.
      * @type {Pointer<ITEMIDLIST>}
      */
     _pidlCur {
@@ -157,9 +118,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> of the current location. This <b>IShellView</b> is bound to <b>_pidlCur</b> through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-createviewobject">IShellFolder::CreateViewObject</a>.
      * @type {Pointer<IShellView>}
      */
     _psv {
@@ -168,9 +126,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> of the current location. This <b>IShellFolder</b> is bound to <b>_pidlCur</b>.
      * @type {Pointer<IShellFolder>}
      */
     _psf {
@@ -179,9 +134,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>HWND</b>
-     * 
-     * A handle to the window returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow">_psv->CreateViewWindow</a>.
      * @type {Pointer<Void>}
      */
     _hwndView {
@@ -190,9 +142,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>LPWSTR</b>
-     * 
-     * A pointer to a buffer containing the Unicode title text for the current location.
      * @type {Pointer<Char>}
      */
     _pszTitleCur {
@@ -201,9 +150,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>PCIDLIST_ABSOLUTE</b>
-     * 
-     * The PIDL of the pending target location. Once navigation is complete, this value moves to <b>_pidlCur</b>.
      * @type {Pointer<ITEMIDLIST>}
      */
     _pidlPending {
@@ -212,9 +158,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> of the pending target location. Once navigation is complete, this value moves to <b>_psv</b>.
      * @type {Pointer<IShellView>}
      */
     _psvPending {
@@ -223,9 +166,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> of the pending target location. Once navigation is complete, this value moves to <b>_psf</b>.
      * @type {Pointer<IShellFolder>}
      */
     _psfPending {
@@ -234,9 +174,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>HWND</b>
-     * 
-     * A handle to the pending target location's view window. Once navigation is complete, this value moves to <b>_hwndView</b>.
      * @type {Pointer<Void>}
      */
     _hwndViewPending {
@@ -245,9 +182,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>LPWSTR</b>
-     * 
-     * A pointer to a buffer containing the Unicode title text for the pending target location. Once navigation is complete, this value moves to <b>_pszTitleCur</b>.
      * @type {Pointer<Char>}
      */
     _pszTitlePending {
@@ -256,9 +190,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * A value of type <b>BOOL</b> that indicates whether the browser is hosting folder content or web content.
      * @type {Integer}
      */
     _fIsViewMSHTML {
@@ -267,9 +198,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * A value of type <b>BOOL</b> that indicates whether there is a privacy concern with the browser's content.
      * @type {Integer}
      */
     _fPrivacyImpacted {
@@ -278,7 +206,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>CLSID</b>
      * @type {Pointer<Guid>}
      */
     _clsidView {
@@ -287,7 +214,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>CLSID</b>
      * @type {Pointer<Guid>}
      */
     _clsidViewPending {
@@ -296,7 +222,6 @@ class BASEBROWSERDATAXP extends Win32Struct
     }
 
     /**
-     * Type: <b>HWND</b>
      * @type {Pointer<Void>}
      */
     _hwndFrame {

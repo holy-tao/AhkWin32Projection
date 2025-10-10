@@ -3,7 +3,7 @@
 
 /**
  * The TF_LMLATTELEMENT structure contains information about a lattice element. A lattice element is used in speech recognition. This structure is used with the IEnumTfLatticeElements::Next method.
- * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ns-ctffunc-tf_lmlattelement
+ * @see https://docs.microsoft.com/windows/win32/api//ctffunc/ns-ctffunc-tf_lmlattelement
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

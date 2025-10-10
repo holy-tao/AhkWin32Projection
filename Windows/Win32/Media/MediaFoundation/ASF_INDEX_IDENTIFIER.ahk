@@ -4,8 +4,11 @@
 /**
  * Specifies an index for the ASF indexer object.
  * @remarks
- * The index object of an ASF file can contain a number of distinct indexes. Each index is identified by the type of index and the stream number. No ASF index object can contain more than one index for a particular combination of stream number and index type.
- * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ns-wmcontainer-asf_index_identifier
+ * 
+  * The index object of an ASF file can contain a number of distinct indexes. Each index is identified by the type of index and the stream number. No ASF index object can contain more than one index for a particular combination of stream number and index type.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ns-wmcontainer-asf_index_identifier
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Basic information about a profile.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_profile_info
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_profile_info
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

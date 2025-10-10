@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a certificate manager dialog box.
- * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_cert_mgr_struct
+ * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_cert_mgr_struct
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

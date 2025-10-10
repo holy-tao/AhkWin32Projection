@@ -3,7 +3,7 @@
 
 /**
  * Encapsulates an array of certificates for use with Internet Key Exchange messages.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_or_crl_bundle
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_or_crl_bundle
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

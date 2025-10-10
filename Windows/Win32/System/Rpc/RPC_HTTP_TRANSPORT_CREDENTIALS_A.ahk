@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The RPC_HTTP_TRANSPORT_CREDENTIALS structure defines additional credentials to authenticate to an RPC proxy server when using RPC/HTTP. (ANSI)
+ * The RPC_HTTP_TRANSPORT_CREDENTIALS structure defines additional credentials to authenticate to an RPC proxy server when using RPC/HTTP.
  * @remarks
- * If the <b>TransportCredentials</b> member is <b>NULL</b> and the authentication scheme is NTLM, the credentials of the currently logged on user are used. To avoid exposing user credentials on the network through a weak LM hash, user logon credentials are used only if one or both of the following conditions are true:
+ * 
+  * If the <b>TransportCredentials</b> member is <b>NULL</b> and the authentication scheme is NTLM, the credentials of the currently logged on user are used. To avoid exposing user credentials on the network through a weak LM hash, user logon credentials are used only if one or both of the following conditions are true:
   * 
   * <ul>
   * <li>Caller requested use of SSL and used the <b>ServerCertificateSubject</b> member. This scenario guarantees credentials are protected both in transit and at the final destination, even if a weak hash is used.</li>
@@ -12,7 +13,9 @@
   * </ul>
   * If the Unicode version of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfoexa">RpcBindingSetAuthInfoEx</a> function is used,  Unicode versions of the <b>RPC_HTTP_TRANSPORT_CREDENTIALS</b> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structures must also be provided, and the <b>Flags</b> member in <b>TransportCredentials</b> must be set to SEC_WINNT_AUTH_IDENTITY_UNICODE. 
   * If the ANSI version of the <b>RpcBindingSetAuthInfoEx</b> function is used,  ANSI versions of <b>RPC_HTTP_TRANSPORT_CREDENTIALS</b> and <b>SEC_WINNT_AUTH_IDENTITY</b> structures must be provided, and the <b>Flags</b> member in <b>TransportCredentials</b> must be set to SEC_WINNT_AUTH_IDENTITY_ANSI.
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_a
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_http_transport_credentials_a
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset ANSI

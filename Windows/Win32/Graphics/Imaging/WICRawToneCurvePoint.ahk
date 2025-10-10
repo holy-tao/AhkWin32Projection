@@ -3,7 +3,7 @@
 
 /**
  * Represents a raw image tone curve point.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrawtonecurvepoint
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicrawtonecurvepoint
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

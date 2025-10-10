@@ -3,8 +3,11 @@
 /**
  * Elements of the TfGravity enumeration specify the type of gravity associated with the anchor of an ITfRange object.
  * @remarks
- * For more information about anchor gravity, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ranges">Anchor Gravity</a>.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tfgravity
+ * 
+  * For more information about anchor gravity, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ranges">Anchor Gravity</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ne-msctf-tfgravity
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

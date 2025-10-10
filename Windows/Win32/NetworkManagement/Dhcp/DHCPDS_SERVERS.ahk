@@ -3,7 +3,7 @@
 
 /**
  * The DHCPDS_SERVERS structure defines a list of DHCP servers in the context of directory services.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpds_servers
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcpds_servers
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

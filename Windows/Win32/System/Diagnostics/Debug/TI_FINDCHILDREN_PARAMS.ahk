@@ -3,7 +3,7 @@
 
 /**
  * Contains type index information. It is used by the SymGetTypeInfo function.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-ti_findchildren_params
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-ti_findchildren_params
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

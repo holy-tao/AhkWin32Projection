@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1502 structure specifies the maximum number of virtual circuits per client for the specified server.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1502
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1502
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

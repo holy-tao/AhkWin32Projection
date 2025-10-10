@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSCTL_NETINTERFACE_CODES enumeration (msclus.h) enumerates Network Interface control codes.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_netinterface_codes
+ * Enumerates Network Interface control codes.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusctl_netinterface_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

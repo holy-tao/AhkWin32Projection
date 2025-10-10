@@ -4,8 +4,10 @@
 /**
  * Contains information that describes a network address.
  * @remarks
- * This structure is sent with the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-netaddr_getaddress">NetAddr_GetAddress</a> macro.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-nc_address
+ * 
+  * This structure is sent with the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-netaddr_getaddress">NetAddr_GetAddress</a> macro.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-nc_address
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

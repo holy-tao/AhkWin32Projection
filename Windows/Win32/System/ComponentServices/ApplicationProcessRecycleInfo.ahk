@@ -4,7 +4,7 @@
 
 /**
  * Represents details about the recycling of a process hosting COM+ applications.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationprocessrecycleinfo
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-applicationprocessrecycleinfo
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

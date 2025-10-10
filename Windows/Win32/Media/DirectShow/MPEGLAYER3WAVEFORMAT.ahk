@@ -4,7 +4,7 @@
 
 /**
  * The MPEGLAYER3WAVEFORMAT structure describes an MPEG Audio Layer-3 (MP3) audio format.
- * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-mpeglayer3waveformat
+ * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-mpeglayer3waveformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

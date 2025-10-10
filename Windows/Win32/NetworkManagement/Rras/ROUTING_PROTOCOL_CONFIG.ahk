@@ -3,7 +3,7 @@
 
 /**
  * The ROUTING_PROTOCOL_CONFIG structure describes the routing protocol configuration information that is passed to the multicast group manager when a protocol registers with the multicast group manager.
- * @see https://learn.microsoft.com/windows/win32/api/mgm/ns-mgm-routing_protocol_config
+ * @see https://docs.microsoft.com/windows/win32/api//mgm/ns-mgm-routing_protocol_config
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains a list of transactions.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transactions
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_list_transactions
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

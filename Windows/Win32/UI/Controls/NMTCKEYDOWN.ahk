@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a key press in a tab control. It is used with the TCN_KEYDOWN notification code. This structure supersedes the TC_KEYDOWN structure.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtckeydown
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtckeydown
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

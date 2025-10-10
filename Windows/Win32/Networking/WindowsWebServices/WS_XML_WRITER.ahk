@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The opaque type used for a reference to an XML writer.
- * @remarks
- * This object is not thread safe. For more information, see [thread safety](thread-safety.md).
- * @see https://learn.microsoft.com/windows/win32/wsw/ws-xml-writer
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

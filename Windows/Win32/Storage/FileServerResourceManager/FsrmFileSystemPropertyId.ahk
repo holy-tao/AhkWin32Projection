@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible types of file system property ids.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmfilesystempropertyid
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmfilesystempropertyid
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

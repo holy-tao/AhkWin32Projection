@@ -2,7 +2,7 @@
 
 /**
  * The ExportListOptions enumeration is used by the View.ExportList method and specifies options when writing list view contents to a file.
- * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-_exportlistoptions
+ * @see https://docs.microsoft.com/windows/win32/api//mmcobj/ne-mmcobj-_exportlistoptions
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

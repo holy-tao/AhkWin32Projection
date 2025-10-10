@@ -3,10 +3,6 @@
 #Include .\SEC_APPLICATION_PROTOCOL_LIST.ahk
 
 /**
- * Stores an array of application protocol lists.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_application_protocols
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -17,7 +13,6 @@ class SEC_APPLICATION_PROTOCOLS extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size (in bytes) of the protocol ID lists array.
      * @type {Integer}
      */
     ProtocolListsSize {
@@ -26,7 +21,6 @@ class SEC_APPLICATION_PROTOCOLS extends Win32Struct
     }
 
     /**
-     * The array of protocol ID lists.
      * @type {Array<SEC_APPLICATION_PROTOCOL_LIST>}
      */
     ProtocolLists{

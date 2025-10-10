@@ -3,7 +3,7 @@
 
 /**
  * A structure containing optional memory allocation and deallocation routines.
- * @see https://learn.microsoft.com/windows/win32/api/compressapi/ns-compressapi-compress_allocation_routines
+ * @see https://docs.microsoft.com/windows/win32/api//compressapi/ns-compressapi-compress_allocation_routines
  * @namespace Windows.Win32.Storage.Compression
  * @version v4.0.30319
  */

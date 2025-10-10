@@ -5,8 +5,11 @@
 /**
  * Describes a ID3D12VideoMotionEstimator. Pass this structure into ID3D12VideoDevice1::CreateVideoMotionEstimator to create an instance of ID3D12VideoMotionEstimator.
  * @remarks
- * Call [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) and specify [D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR](ne-d3d12video-d3d12_feature_video.md) as the feature to determine supported values.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_motion_estimator_desc
+ * 
+  * Call [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) and specify [D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR](ne-d3d12video-d3d12_feature_video.md) as the feature to determine supported values.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_motion_estimator_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains debugging information passed to a WH_DEBUG hook procedure, DebugProc.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-debughookinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-debughookinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

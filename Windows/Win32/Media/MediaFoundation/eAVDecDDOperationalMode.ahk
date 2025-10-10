@@ -2,7 +2,7 @@
 
 /**
  * Specifies the compression control mode for a Dolby AC-3 audio stream. This enumeration is used with the AVDecDDOperationalMode property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecddoperationalmode
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecddoperationalmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

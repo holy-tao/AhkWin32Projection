@@ -3,7 +3,7 @@
 
 /**
  * The FILESETINFO structure identifies the remote and local names of the file to download.
- * @see https://learn.microsoft.com/windows/win32/api/qmgr/ns-qmgr-filesetinfo
+ * @see https://docs.microsoft.com/windows/win32/api//qmgr/ns-qmgr-filesetinfo
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides the text of a prompt and information about when and where that prompt is to be displayed when using the CryptProtectData and CryptUnprotectData functions.
- * @see https://learn.microsoft.com/windows/win32/api/dpapi/ns-dpapi-cryptprotect_promptstruct
+ * @see https://docs.microsoft.com/windows/win32/api//dpapi/ns-dpapi-cryptprotect_promptstruct
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

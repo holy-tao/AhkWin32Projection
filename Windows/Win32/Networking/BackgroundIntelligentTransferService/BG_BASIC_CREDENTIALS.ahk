@@ -4,7 +4,8 @@
 /**
  * The BG_BASIC_CREDENTIALS structure identifies the user name and password to authenticate.
  * @remarks
- * The following list identifies when the <b>UserName</b> and <b>Password</b> members are required based on the authentication scheme requested:
+ * 
+  * The following list identifies when the <b>UserName</b> and <b>Password</b> members are required based on the authentication scheme requested:
   * 
   * To protect the user name and password information, call the <b>SecureZeroMemory</b> function, defined in Winbase.h, to clear the <b>UserName</b> and <b>Password</b> buffers after you use the structure.
   * 
@@ -24,7 +25,9 @@
   * 
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_basic_credentials
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//bits1_5/ns-bits1_5-bg_basic_credentials
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

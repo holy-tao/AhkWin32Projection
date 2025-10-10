@@ -4,8 +4,11 @@
 /**
  * Indicates the device state.
  * @remarks
- * A state-block mask indicates the device states that a pass or a technique changes.  The <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskenablecapture">D3D10StateBlockMaskEnableCapture</a> function provides a convenient way of setting a range of bitmasks for the array members of <b>D3D10_STATE_BLOCK_MASK</b>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask
+ * 
+  * A state-block mask indicates the device states that a pass or a technique changes.  The <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskenablecapture">D3D10StateBlockMaskEnableCapture</a> function provides a convenient way of setting a range of bitmasks for the array members of <b>D3D10_STATE_BLOCK_MASK</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/ns-d3d10effect-d3d10_state_block_mask
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

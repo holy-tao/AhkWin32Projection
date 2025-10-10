@@ -5,8 +5,11 @@
 /**
  * Contains the record for a write operation.
  * @remarks
- * If the write operation goes beyond the end of the file, the file is being extended.
- * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_log_record_write
+ * 
+  * If the write operation goes beyond the end of the file, the file is being extended.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//txfw32/ns-txfw32-txf_log_record_write
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

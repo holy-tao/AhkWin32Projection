@@ -3,7 +3,8 @@
 /**
  * Represents the style of a font face as normal, italic, or oblique.
  * @remarks
- * Three terms categorize the slant of a font: normal, italic, and oblique.
+ * 
+  * Three terms categorize the slant of a font: normal, italic, and oblique.
   *   
   * 
   * <table>
@@ -37,7 +38,9 @@
   * 
   * <div class="alert"><b>Note</b>   Values other than the ones defined in the enumeration are considered to be invalid, and they are rejected by font API functions.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_style
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

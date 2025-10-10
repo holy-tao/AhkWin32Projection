@@ -4,9 +4,12 @@
 /**
  * Defines a destination voice that is the target of a send from another voice and specifies whether a filter should be used.
  * @remarks
- * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
+ * 
+  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
   * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_send_descriptor
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_send_descriptor
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

@@ -4416,7 +4416,7 @@ class Globalization {
      * @returns {Integer} If successful, returns a value identifying the character set of the font that is currently selected into the specified device context. The following character set identifiers are defined:
      * 
      * If the function fails, it returns DEFAULT_CHARSET.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharset
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextcharset
      * @since windows5.0
      */
     static GetTextCharset(hdc) {
@@ -4438,7 +4438,7 @@ class Globalization {
      * @returns {Integer} If successful, returns a value identifying the character set of the font currently selected into the specified device context. The following character set identifiers are defined:
      * 
      * If the function fails, the return value is DEFAULT_CHARSET.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharsetinfo
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextcharsetinfo
      * @since windows5.0
      */
     static GetTextCharsetInfo(hdc, lpSig, dwFlags) {
@@ -4451,8 +4451,8 @@ class Globalization {
      * @param {Pointer<UInt32>} lpSrc Pointer to the <b>fsCsb</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> structure if <i>dwFlags</i> is set to TCI_SRCFONTSIG. Otherwise, this parameter is set to a DWORD value indicating the source.
      * @param {Pointer<CHARSETINFO>} lpCs Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-charsetinfo">CHARSETINFO</a> structure that receives the translated character set information.
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-translatecharsetinfo
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-translatecharsetinfo
      * @since windows5.0
      */
     static TranslateCharsetInfo(lpSrc, lpCs, dwFlags) {
@@ -4466,23 +4466,7 @@ class Globalization {
     }
 
     /**
-     * Formats a date as a date string for a locale specified by the locale identifier. (ANSI)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-getdateformatex">GetDateFormatEx</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark ("?"). 
-     *       
-     * 
-     * <b>Starting with Windows 8: </b><b>GetDateFormat</b>  is declared in Datetimeapi.h. Before Windows 8, it was declared in Winnls.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The datetimeapi.h header defines GetDateFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats a date as a date string for a locale specified by the locale identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale this function formats the date string for. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -4514,14 +4498,14 @@ class Globalization {
      * @param {Integer} cchDate Size, in characters, of the <i>lpDateStr</i> buffer. The application can set this parameter to 0 to return the buffer size required to hold the formatted date string. In this case, the buffer indicated by <i>lpDateStr</i> is not used.
      * @returns {Integer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/datetimeapi/nf-datetimeapi-getdateformata
+     * @see https://docs.microsoft.com/windows/win32/api//datetimeapi/nf-datetimeapi-getdateformata
      * @since windows5.0
      */
     static GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate) {
@@ -4538,23 +4522,7 @@ class Globalization {
     }
 
     /**
-     * Formats a date as a date string for a locale specified by the locale identifier. (Unicode)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-getdateformatex">GetDateFormatEx</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark ("?"). 
-     *       
-     * 
-     * <b>Starting with Windows 8: </b><b>GetDateFormat</b>  is declared in Datetimeapi.h. Before Windows 8, it was declared in Winnls.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The datetimeapi.h header defines GetDateFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats a date as a date string for a locale specified by the locale identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale this function formats the date string for. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -4586,14 +4554,14 @@ class Globalization {
      * @param {Integer} cchDate Size, in characters, of the <i>lpDateStr</i> buffer. The application can set this parameter to 0 to return the buffer size required to hold the formatted date string. In this case, the buffer indicated by <i>lpDateStr</i> is not used.
      * @returns {Integer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/datetimeapi/nf-datetimeapi-getdateformatw
+     * @see https://docs.microsoft.com/windows/win32/api//datetimeapi/nf-datetimeapi-getdateformatw
      * @since windows5.0
      */
     static GetDateFormatW(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate) {
@@ -4610,21 +4578,7 @@ class Globalization {
     }
 
     /**
-     * Formats time as a time string for a locale specified by identifier. The function formats either a specified time or the local system time. (ANSI)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-gettimeformatex">GetTimeFormatEx</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * <b>Starting with Windows 8: </b><b>GetTimeFormat</b>  is declared in Datetimeapi.h. Before Windows 8, it was declared in Winnls.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The datetimeapi.h header defines GetTimeFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats time as a time string for a locale specified by identifier. The function formats either a specified time or the local system time.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -4654,7 +4608,7 @@ class Globalization {
      * @param {Integer} cchTime Size, in TCHAR values, for the time string buffer indicated by <i>lpTimeStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the time string buffer, and does not use the <i>lpTimeStr</i> parameter.
      * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -4662,7 +4616,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/datetimeapi/nf-datetimeapi-gettimeformata
+     * @see https://docs.microsoft.com/windows/win32/api//datetimeapi/nf-datetimeapi-gettimeformata
      * @since windows5.0
      */
     static GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
@@ -4679,21 +4633,7 @@ class Globalization {
     }
 
     /**
-     * Formats time as a time string for a locale specified by identifier. The function formats either a specified time or the local system time. (Unicode)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-gettimeformatex">GetTimeFormatEx</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * <b>Starting with Windows 8: </b><b>GetTimeFormat</b>  is declared in Datetimeapi.h. Before Windows 8, it was declared in Winnls.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The datetimeapi.h header defines GetTimeFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats time as a time string for a locale specified by identifier. The function formats either a specified time or the local system time.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -4723,7 +4663,7 @@ class Globalization {
      * @param {Integer} cchTime Size, in TCHAR values, for the time string buffer indicated by <i>lpTimeStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the time string buffer, and does not use the <i>lpTimeStr</i> parameter.
      * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -4731,7 +4671,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/datetimeapi/nf-datetimeapi-gettimeformatw
+     * @see https://docs.microsoft.com/windows/win32/api//datetimeapi/nf-datetimeapi-gettimeformatw
      * @since windows5.0
      */
     static GetTimeFormatW(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
@@ -4749,94 +4689,6 @@ class Globalization {
 
     /**
      * Formats time as a time string for a locale specified by name.
-     * @remarks
-     * If a time marker exists and the TIME_NOTIMEMARKER flag is not set, the function localizes the time marker based on the specified locale identifier. Examples of time markers are "AM" and "PM" for English (United States).
-     * 
-     * The time values in the structure indicated by <i>lpTime</i> must be valid. The function checks each of the time values to determine that it is within the appropriate range of values. If any of the time values are outside the correct range, the function fails, and sets the last error to ERROR_INVALID_PARAMETER.
-     * 
-     * The function ignores the date members of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure. These include: <b>wYear</b>, <b>wMonth</b>, <b>wDayOfWeek</b>, and <b>wDay</b>.
-     * 
-     * If TIME_NOMINUTESORSECONDS or TIME_NOSECONDS is specified, the function removes the separators following the minutes and/or seconds members.
-     * 
-     * If TIME_NOTIMEMARKER is specified, the function removes the separators preceding and following the time marker.
-     * 
-     * If TIME_FORCE24HOURFORMAT is specified, the function displays any existing time marker, unless the TIME_NOTIMEMARKER flag is also set.
-     * 
-     * The function does not include milliseconds as part of the formatted time string.
-     * 
-     * The function returns no errors for a bad format string, but just forms the best possible time string. If more than two hour, minute, second, or time marker format pictures are passed in, the function defaults to two. For example, the only time marker pictures that are valid are "t" and "tt". If "ttt" is passed in, the function assumes "tt".
-     * 
-     * To obtain the time format without performing any actual formatting, the application should use the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a> function, specifying <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIMEFORMAT</a>.
-     * 
-     * The application can use the following elements to construct a format picture string. If spaces are used to separate the elements in the format string, these spaces appear in the same location in the output string. The letters must be in uppercase or lowercase as shown, for example, "ss", not "SS". Characters in the format string that are enclosed in single quotation marks appear in the same location and unchanged in the output string.
-     * 
-     * <table>
-     * <tr>
-     * <th>Picture</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>h</td>
-     * <td>Hours with no leading zero for single-digit hours; 12-hour clock</td>
-     * </tr>
-     * <tr>
-     * <td>hh</td>
-     * <td>Hours with leading zero for single-digit hours; 12-hour clock</td>
-     * </tr>
-     * <tr>
-     * <td>H</td>
-     * <td>Hours with no leading zero for single-digit hours; 24-hour clock</td>
-     * </tr>
-     * <tr>
-     * <td>HH</td>
-     * <td>Hours with leading zero for single-digit hours; 24-hour clock</td>
-     * </tr>
-     * <tr>
-     * <td>m</td>
-     * <td>Minutes with no leading zero for single-digit minutes</td>
-     * </tr>
-     * <tr>
-     * <td>mm</td>
-     * <td>Minutes with leading zero for single-digit minutes</td>
-     * </tr>
-     * <tr>
-     * <td>s</td>
-     * <td>Seconds with no leading zero for single-digit seconds</td>
-     * </tr>
-     * <tr>
-     * <td>ss</td>
-     * <td>Seconds with leading zero for single-digit seconds</td>
-     * </tr>
-     * <tr>
-     * <td>t</td>
-     * <td>One character time marker string, such as A or P</td>
-     * </tr>
-     * <tr>
-     * <td>tt</td>
-     * <td>Multi-character time marker string, such as AM or PM</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * For example, to get the time string
-     * 
-     * 
-     * ``` syntax
-     * "11:29:40 PM"
-     * ```
-     * 
-     * the application should use the picture string
-     * 
-     * 
-     * ``` syntax
-     * "hh':'mm':'ss tt"
-     * ```
-     * 
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
-     * 
-     * <b>Beginning in Windows 8: </b><b>GetTimeFormatEx</b>  is declared in Datetimeapi.h. Before Windows 8, it was declared in Winnls.h.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -4857,7 +4709,7 @@ class Globalization {
      * @param {Integer} cchTime Size, in characters, for the time string buffer indicated by <i>lpTimeStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the time string buffer, and does not use the <i>lpTimeStr</i> parameter.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpTimeStr</i>. If the <i>cchTime</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted time string, including a terminating null character.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -4865,7 +4717,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/datetimeapi/nf-datetimeapi-gettimeformatex
+     * @see https://docs.microsoft.com/windows/win32/api//datetimeapi/nf-datetimeapi-gettimeformatex
      * @since windows6.0.6000
      */
     static GetTimeFormatEx(lpLocaleName, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
@@ -4884,39 +4736,6 @@ class Globalization {
 
     /**
      * Formats a date as a date string for a locale specified by name.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * The earliest date supported by this function is January 1, 1601.
-     * 
-     * The day name, abbreviated day name, month name, and abbreviated month name are all localized based on the locale identifier.
-     * 
-     * The date values in the structure indicated by <i>lpDate</i> must be valid. The function checks each of the date values: year, month, day, and day of week. If the day of the week is incorrect, the function uses the correct value, and returns no error. If any of the other date values are outside the correct range, the function fails, and sets the last error to ERROR_INVALID_PARAMETER.
-     * 
-     * The function ignores the time members of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure indicated by <i>lpDate</i>. These include <b>wHour</b>, <b>wMinute</b>, <b>wSecond</b>, and <b>wMilliseconds</b>.
-     * 
-     * If the <i>lpFormat</i> parameter contains a bad format string, the function returns no errors, but just forms the best possible date string. For example, the only year pictures that are valid are L"yyyy" and L"yy", where the "L" indicates a Unicode (16-bit characters) string. If L"y" is passed in, the function assumes L"yy". If L"yyy" is passed in, the function assumes L"yyyy". If more than four date (L"dddd") or four month (L"MMMM") pictures are passed in, the function defaults to L"dddd" or L"MMMM".
-     * 
-     * The application should enclose any text that should remain in its exact form in the date string within single quotation marks in the date format picture. The single quotation mark can also be used as an escape character to allow the single quotation mark itself to be displayed in the date string. However, the escape sequence must be enclosed within two single quotation marks. For example, to display the date as "May '93", the format string is: L"MMMM ''''yy". The first and last single quotation marks are the enclosing quotation marks. The second and third single quotation marks are the escape sequence to allow the single quotation mark to be displayed before the century.
-     * 
-     * When the date picture contains both a numeric form of the day (either d or dd) and the full month name (MMMM), the genitive form of the month name is retrieved in the date string.
-     * 
-     * To obtain the default short and long date format without performing any actual formatting, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a> with the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sshortdate">LOCALE_SSHORTDATE</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-slongdate">LOCALE_SLONGDATE</a> constant. To get the date format for an alternate calendar, the application uses <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a> with the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-ioptionalcalendar">LOCALE_IOPTIONALCALENDAR</a> constant. To get the date format for a particular calendar, the application uses <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcalendarinfoex">GetCalendarInfoEx</a>, passing the appropriate <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar Identifier</a>. It can call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoexa">EnumCalendarInfoEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexa">EnumDateFormatsEx</a> to retrieve date formats for a particular calendar.
-     * 
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * The DATE_LONGDATE format includes two kinds of date patterns: patterns that include the day of the week and patterns that do not include the day of the week. For example, "Tuesday, October 18, 2016" or "October 18, 2016".  If your application needs to ensure that dates use one of these kinds of patterns and not the other kind, your application should perform the following actions:<ol>
-     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a> function to get all of the date formats for the DATE_LONGDATE format.</li>
-     * <li>Look for the first date format passed to the callback function that you specified for  <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a> that matches your requested calendar identifier and has a date format string that matches the requirements of your application. For example, look for the first date format that includes "dddd" if your application requires that the date include the full name of the day of the week, or look for the first date format that includes neither "ddd" nor "dddd" if your application requires that the date includes nether the abbreviated name nor the full name of the day of the week.</li>
-     * <li>Call the <b>GetDateFormatEx</b> function with the  <i>lpFormat</i> parameter set to the date format string that you identified as the appropriate format in the callback function.</li>
-     * </ol>
-     * 
-     * 
-     * If the presence or absence of the day of the week in the long date format does not matter to your application, your application can call <b>GetDateFormatEx</b> directly without first enumerating all of the long date formats by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
-     * 
-     * <b>Beginning in Windows 8: </b><b>GetDateFormatEx</b>  is declared in Datetimeapi.h. Before Windows 8, it was declared in Winnls.h.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -4942,14 +4761,14 @@ class Globalization {
      * @param {Pointer<Char>} lpCalendar Reserved; must set to <b>NULL</b>.
      * @returns {Integer} Returns the number of characters written to the <i>lpDateStr</i> buffer if successful. If the <i>cchDate</i> parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/datetimeapi/nf-datetimeapi-getdateformatex
+     * @see https://docs.microsoft.com/windows/win32/api//datetimeapi/nf-datetimeapi-getdateformatex
      * @since windows6.0.6000
      */
     static GetDateFormatEx(lpLocaleName, dwFlags, lpDate, lpFormat, lpDateStr, cchDate, lpCalendar) {
@@ -4969,132 +4788,6 @@ class Globalization {
 
     /**
      * Formats a duration of time as a time string for a locale specified by name.
-     * @remarks
-     * This function can be used with multimedia applications that display file time and sporting event applications that display finish times.
-     * 
-     * The function ignores the first three members of the [SYSTEMTIME](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-systemtime) structure: **wYear**, **wMonth**, and **wDayOfWeek**.
-     * 
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * The following are characteristics of duration format strings:
-     * 
-     * <ul>
-     * <li>
-     * Formatting characters are lowercase.
-     * 
-     * <div class="alert"><b>Note</b>  An exception is made for (H) to be consistent with <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-gettimeformatex">GetTimeFormatEx</a>.</div>
-     * <div> </div>
-     * </li>
-     * <li>Two-digit format strings for hours, minutes, and seconds prepend a leading zero if the value is less than 10.</li>
-     * <li>The first output field is not subject to any bounds testing (hours&lt;24, minutes&lt;60, seconds&lt;60, milliseconds&lt;1000). Days are not subject to bounds testing.</li>
-     * <li>The function assumes that all format strings are in decreasing field size, for example, hours, minutes, seconds, milliseconds.</li>
-     * <li>The first field to be displayed is normalized, as defined by the format string. For example, if the application specifies 310 seconds and the format string is m:ss, the output is 5:10. However, if the format string specifies minutes and seconds but the application specifies hours, the minutes field is adjusted accordingly.</li>
-     * <li>If fractions are not the first field, the number of "f" characters in the format string indicates the number of decimals to show (limit of 9). If fractions are the first field, the number of "f" characters indicates the number of significant digits below one second.</li>
-     * <li>Round-off occurs by truncation, not by the rule of five rounds up and four rounds down.</li>
-     * <li>Single quotes are used to escape characters.</li>
-     * </ul>
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
-     * 
-     * <b>Examples</b>
-     * 
-     * Following are examples of duration formats and corresponding outputs for specified time durations.
-     * 
-     * <b>SYSTEMTIME = 14 days, 2 hours, 45 minutes, 12 seconds, and 247 milliseconds</b>
-     * 
-     * <table>
-     * <tr>
-     * <th>Format</th>
-     * <th>Output</th>
-     * </tr>
-     * <tr>
-     * <td>d:hh:mm:ss</td>
-     * <td>14:02:45:12</td>
-     * </tr>
-     * <tr>
-     * <td>hh:mm:ss:ff</td>
-     * <td>338:45:12:24</td>
-     * </tr>
-     * <tr>
-     * <td>hh:mm:ss:fff</td>
-     * <td>338:45:12:247</td>
-     * </tr>
-     * <tr>
-     * <td>h' h 'mm' m 'ss' s'</td>
-     * <td>338 h 45 m 12 s</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <b>SYSTEMTIME = 345 seconds</b>
-     * 
-     * <table>
-     * <tr>
-     * <th>Format</th>
-     * <th>Output</th>
-     * </tr>
-     * <tr>
-     * <td>hh:mm:ss</td>
-     * <td>00:05:45</td>
-     * </tr>
-     * <tr>
-     * <td>h:mm:ss</td>
-     * <td>0:05:45</td>
-     * </tr>
-     * <tr>
-     * <td>mm:ss</td>
-     * <td>05:45</td>
-     * </tr>
-     * <tr>
-     * <td>m:ss</td>
-     * <td>5:45</td>
-     * </tr>
-     * <tr>
-     * <td>mm' m 'ss' s'</td>
-     * <td>05 m 45 s</td>
-     * </tr>
-     * <tr>
-     * <td>ss</td>
-     * <td>345</td>
-     * </tr>
-     * <tr>
-     * <td>ss' seconds'</td>
-     * <td>345 seconds</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <b>uulDuration = 51234567 (5.1234567 seconds)</b>
-     * 
-     * <table>
-     * <tr>
-     * <th>Format</th>
-     * <th>Output</th>
-     * </tr>
-     * <tr>
-     * <td>s.fff</td>
-     * <td>5.123</td>
-     * </tr>
-     * <tr>
-     * <td>s.ffffff</td>
-     * <td>5.123456</td>
-     * </tr>
-     * <tr>
-     * <td>s.fffffffff</td>
-     * <td>5.123456700 (add trailing zeros)</td>
-     * </tr>
-     * <tr>
-     * <td>fff 'ms'</td>
-     * <td>5123 ms</td>
-     * </tr>
-     * <tr>
-     * <td>ffffff 'microseconds'</td>
-     * <td>5123456 microseconds</td>
-     * </tr>
-     * <tr>
-     * <td>fffffffff 'ns'</td>
-     * <td>5123456700 ns</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values.
      * 
      * <ul>
@@ -5215,13 +4908,13 @@ class Globalization {
      * Alternatively, the application can set this parameter to 0. In this case, the function retrieves <b>NULL</b> in <i>lpDurationStr</i> and returns the required size for the duration string buffer.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpDurationStr</i> if successful. If <i>lpDurationStr</i> is set to <b>NULL</b> and <i>cchDuration</i> is set to 0, the function returns the required size for the duration string buffer, including the terminating null character. For example, if 10 characters are written to the buffer, the function returns 11 to include the terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li><b>ERROR_INSUFFICIENT_BUFFER</b>. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>.</li>
      * <li><b>ERROR_INVALID_PARAMETER</b>. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getdurationformatex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getdurationformatex
      * @since windows6.0.6000
      */
     static GetDurationFormatEx(lpLocaleName, dwFlags, lpDuration, ullDuration, lpFormat, lpDurationStr, cchDuration) {
@@ -5240,23 +4933,6 @@ class Globalization {
 
     /**
      * Compares two Unicode (wide character) strings, for a locale specified by name.Caution  Using CompareStringEx incorrectly can compromise the security of your application.
-     * @remarks
-     * Both <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringw">CompareString</a> and <b>CompareStringEx</b> are optimized to run at the highest speed when <i>dwCmpFlags</i> is set to 0 or NORM_IGNORECASE, <i>cchCount1</i> and <i>cchCount2</i> are set to -1, and the locale does not support any linguistic compressions, as when traditional Spanish sorting treats "ch" as a single character.
-     * 
-     * Both <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringw">CompareString</a> and <b>CompareStringEx</b> ignore Arabic kashidas during the comparison. Thus, if two strings are identical except for the presence of kashidas, the function returns CSTR_EQUAL.
-     *       
-     * 
-     * When the application uses the NORM_IGNORENONSPACE and NORM_IGNORECASE flags with the sorting function, the flags can sometimes interfere with string comparisons. This situation might result for a locale that does not support non-spacing characters or case, but uses equivalent weight levels to handle other important operations. In such cases, your application should use the LINGUISTIC_IGNOREDIACRITIC and LINGUISTIC_IGNORECASE flags. These flags provide linguistically appropriate results for sorting code points that use case and diacritic marks, and have no impact on other code points.
-     * 
-     * <b>Beginning in Windows Vista: </b> Both <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringw">CompareString</a> and <b>CompareStringEx</b> can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     *       
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
-     * 
-     * <b>Beginning in Windows 8: </b><b>CompareStringEx</b>  is declared in Stringapiset.h. Before Windows 8, it was declared in Winnls.h.
-     * 
-     * <div class="alert"><b>Note</b>  The behavior of sorting can change between Windows releases. For example, there may be new Unicode code points created. Use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getnlsversionex">GetNlsVersionEx</a> to discover if the sort version has changed.</div>
-     * <div> </div>
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -5282,13 +4958,13 @@ class Globalization {
      * <li>CSTR_EQUAL. The string indicated by <i>lpString1</i> is equivalent in lexical value to the string indicated by <i>lpString2</i>. The two strings are equivalent for sorting purposes, although not necessarily identical.</li>
      * <li>CSTR_GREATER_THAN. The string indicated by <i>lpString1</i> is greater in lexical value than the string indicated by <i>lpString2</i>.</li>
      * </ul>
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were invalid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-comparestringex
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-comparestringex
      * @since windows6.0.6000
      */
     static CompareStringEx(lpLocaleName, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2) {
@@ -5309,13 +4985,6 @@ class Globalization {
 
     /**
      * Compares two Unicode strings to test binary equivalence.
-     * @remarks
-     * This function tests for binary equality, not linguistic equality. For information about the use of the function for ordinal sorting, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>.
-     * 
-     * Applications that are concerned with linguistic equality should use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringw">CompareString</a>, <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lstrcmpa">lstrcmp</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lstrcmpia">lstrcmpi</a>. For more information about linguistic sorting, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>
-     * 
-     * 
-     * <b>Starting with Windows 8: </b><b>CompareStringOrdinal</b>  is declared in Stringapiset.h. Before Windows 8, it was declared in Winnls.h.
      * @param {Pointer<Char>} lpString1 Pointer to the first string to compare.
      * @param {Integer} cchCount1 Length of the string indicated by <i>lpString1</i>. The application supplies -1 if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {Pointer<Char>} lpString2 Pointer to the second string to compare.
@@ -5328,11 +4997,11 @@ class Globalization {
      * <li>CSTR_EQUAL. The value indicated by <i>lpString1</i> equals the value indicated by <i>lpString2</i>.</li>
      * <li>CSTR_GREATER_THAN. The value indicated by <i>lpString1</i> is greater than the value indicated by <i>lpString2</i>.</li>
      * </ul>
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * <ul>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-comparestringordinal
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-comparestringordinal
      * @since windows6.0.6000
      */
     static CompareStringOrdinal(lpString1, cchCount1, lpString2, cchCount2, bIgnoreCase) {
@@ -5349,15 +5018,7 @@ class Globalization {
     }
 
     /**
-     * The CompareStringW (Unicode) function (stringapiset.h) compares two character strings, for a locale specified by identifier.
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
-     * 
-     * If your application is calling the ANSI version of <b>CompareString</b>, the function converts parameters via the default code page of the supplied locale. Thus, an application can never use <b>CompareString</b> to handle UTF-8 text.
-     * 
-     * Normally, for case-insensitive comparisons, <b>CompareString</b> maps the lowercase "i" to the uppercase "I", even when the locale is Turkish or Azerbaijani. The  NORM_LINGUISTIC_CASING flag overrides this behavior for Turkish or Azerbaijani. If this flag is specified in conjunction with Turkish or Azerbaijani, LATIN SMALL LETTER DOTLESS I (U+0131) is the lowercase form of LATIN CAPITAL LETTER I (U+0049) and LATIN SMALL LETTER I (U+0069) is the lowercase form of LATIN CAPITAL LETTER I WITH DOT ABOVE (U+0130).
-     * 
-     * <b>Starting with Windows 8: </b>The ANSI version of the function is declared in Winnls.h, and the Unicode version is declared in Stringapiset.h. Before Windows 8, both versions were declared in Winnls.h.
+     * Compares two character strings, for a locale specified by identifier.Caution  Using CompareString incorrectly can compromise the security of your application.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> of the locale used for the comparison. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -5385,8 +5046,8 @@ class Globalization {
      * @param {Integer} cchCount1 Length of the string indicated by <i>lpString1</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {Pointer<Char>} lpString2 Pointer to the second string to compare.
      * @param {Integer} cchCount2 Length of the string indicated by <i>lpString2</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
-     * @returns {Integer} Returns the values described for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-comparestringw
+     * @returns {Integer} Returns the values described for <a href="/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-comparestringw
      * @since windows5.0
      */
     static CompareStringW(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2) {
@@ -5398,17 +5059,7 @@ class Globalization {
     }
 
     /**
-     * Maps one Unicode string to another, performing the specified transformation. (FoldStringW)
-     * @remarks
-     * The values of the <i>lpSrcStr</i> and  and <i>lpDestStr</i> parameters must not be the same. If they are the same, the function fails with ERROR_INVALID_PARAMETER.
-     * 
-     * The compatibility zone in Unicode consists of characters in the range 0xF900 through 0xFFEF that are assigned to characters from other encoding standards for characters but are actually variants of characters already in Unicode. The compatibility zone is used to support round-trip mapping to these standards. Applications can use the MAP_FOLDCZONE flag to avoid supporting the duplication of characters in the compatibility zone.
-     * 
-     * <b>Starting with Windows Vista:</b> This function supports Unicode normalization. All Unicode compatibility characters are mapped.
-     * 
-     * <b>Starting with Windows Vista:</b> The transformations indicated by the MAP_FOLDCZONE, MAP_PRECOMPOSED, and MAP_COMPOSITE flags use Unicode normalization forms KC, C, and D (through the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-normalizestring">NormalizeString</a> function) to do the mappings.
-     * 
-     * <b>Starting with Windows 8: </b>The ANSI version of the function is declared in Winnls.h and the Unicode version is declared in Stringapiset.h. Before Windows 8, both versions were declared in Winnls.h.
+     * Maps one Unicode string to another, performing the specified transformation.
      * @param {Integer} dwMapFlags 
      * @param {Pointer<Char>} lpSrcStr Pointer to a source string that the function maps.
      * @param {Integer} cchSrc Size, in characters, of the source string indicated by <i>lpSrcStr</i>, excluding the terminating null character. The application can set the parameter to any negative value to specify that the source string is null-terminated. In this case, the function calculates the string length automatically, and null-terminates the mapped string indicated by <i>lpDestStr</i>.
@@ -5418,7 +5069,7 @@ class Globalization {
      * The application can set <i>cchDest</i> to 0. In this case, the function does not use the <i>lpDestStr</i> parameter and returns the required buffer size for the mapped string. If the MAP_FOLDDIGITS flag is specified, the return value is the maximum size required, even if the actual number of characters needed is smaller than the maximum size. If the maximum size is not passed, the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} Returns the number of characters in the translated string, including a terminating null character, if successful. If the function succeeds and the value of <i>cchDest</i> is 0, the return value is the size of the buffer required to hold the translated string, including a terminating null character.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -5429,7 +5080,7 @@ class Globalization {
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation. </li>
      * <li>ERROR_PROC_NOT_FOUND. The required procedure was not found.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-foldstringw
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-foldstringw
      * @since windows5.0
      */
     static FoldStringW(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
@@ -5447,23 +5098,6 @@ class Globalization {
 
     /**
      * Retrieves character type information for the characters in the specified source string.
-     * @remarks
-     * For an overview of the use of the string functions, see <a href="https://docs.microsoft.com/windows/desktop/menurc/strings">Strings</a>.
-     * 
-     * Using the ANSI code page for the supplied locale, this function translates the source string from ANSI to Unicode. It then analyzes each Unicode character for character type information.
-     * 
-     * The ANSI version of this function converts the source string to Unicode and calls the 
-     * corresponding <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a> function. Thus the words in the output buffer correspond not to the original ANSI string but to its Unicode equivalent. The conversion from ANSI to Unicode can result in a change in string length, for example, a pair of ANSI characters can map to a single 
-     * Unicode character. Therefore, the correspondence between the words in the output buffer and the characters in the original ANSI string is not one-to-one in all cases, for example, multibyte strings. Thus, the ANSI version of this function is of limited use for multi-character strings. The Unicode version of the function is recommended instead.
-     * 
-     * This function circumvents a limitation caused by the difference in parameters between <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getstringtypea">GetStringTypeA</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a>. Because of the parameter difference, an application cannot automatically invoke the proper ANSI or Unicode version of a <b>GetStringType*</b> function through the use of the #define UNICODE switch. On the other hand, <b>GetStringTypeEx</b>, behaves properly with regard to that switch. Thus it is the recommended function.
-     * 
-     *     
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * The values of the <i>lpSrcStr</i> and <i>lpCharType</i> parameters must not be the same. If they are the same, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
-     * 
-     * The <i>Locale</i> parameter is only used to perform string conversion to Unicode. It has nothing to do with the CTYPE* values supplied by the application. These values are solely determined by Unicode code points, and do not vary on a locale basis. For example, Greek letters are specified as C1_ALPHA for any value of <i>Locale</i>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. This value uniquely defines the ANSI code page. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -5492,13 +5126,13 @@ class Globalization {
      * @param {Pointer<Char>} lpSrcStr Pointer to the string for which to retrieve the character types. The string is assumed to be null-terminated if <i>cchSrc</i> is set to any negative value.
      * @param {Integer} cchSrc Size, in characters, of the string indicated by <i>lpSrcStr</i>. The size refers to bytes for the ANSI version of the function or wide characters for the Unicode version. If the size includes a terminating null character, the function retrieves character type information for that character. If the application sets the size to any negative integer, the source string is assumed to be null-terminated and the function calculates the size automatically with an additional character for the null termination.
      * @param {Pointer<UInt16>} lpCharType Pointer to an array of 16-bit values. The length of this array must be large enough to receive one 16-bit value for each character in the source string. If <i>cchSrc</i> is not a negative number, <i>lpCharType</i> should be an array of words with <i>cchSrc</i> elements. If <i>cchSrc</i> is set to a negative number, <i>lpCharType</i> is an array of words with <i>lpSrcStr</i> + 1 elements. When the function returns, this array contains one word corresponding to each character in the source string.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li><b>ERROR_INVALID_FLAGS</b>. The values supplied for flags were not valid.</li>
      * <li><b>ERROR_INVALID_PARAMETER</b>. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-getstringtypeexw
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-getstringtypeexw
      * @since windows5.0
      */
     static GetStringTypeExW(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
@@ -5515,300 +5149,6 @@ class Globalization {
 
     /**
      * Retrieves character type information for the characters in the specified Unicode source string.
-     * @remarks
-     * For an overview of the use of the string functions, see <a href="https://docs.microsoft.com/windows/desktop/menurc/strings">Strings</a>.
-     * 
-     * The values of the <i>lpSrcStr</i> and <i>lpCharType</i> parameters must not be the same. If they are the same, the function fails with ERROR_INVALID_PARAMETER.
-     * 
-     * The <i>Locale</i> parameter used by the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getstringtypea">GetStringTypeA</a> function is not used by this function. Because of the parameter difference, an application cannot automatically invoke the proper ANSI or Unicode version of a <b>GetStringType*</b> function through the use of the #define UNICODE switch. An application can circumvent this limitation by using <a href="https://docs.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-getstringtypeexw">GetStringTypeEx</a>, which is the recommended function.
-     * 
-     * <b>Supported Character Types</b>
-     * 
-     * The character type bits are divided into several levels. The information for one level can be retrieved by a single call to this function. Each level is limited to 16 bits of information so that the other mapping functions, which are limited to 16 bits of representation per character, can also return character type information.
-     * 
-     * <u>Ctype 1</u>
-     * 
-     * These types support ANSI C and POSIX (LC_CTYPE) character typing functions. A bitwise-OR of these values is retrieved in the array in the output buffer when <i>dwInfoType</i> is set to CT_CTYPE1. For DBCS locales, the type attributes apply to both narrow characters and wide characters. The Japanese hiragana and katakana characters, and the kanji ideograph characters all have the C1_ALPHA attribute.
-     * 
-     * 
-     * <table class="clsStd">
-     * <tr>
-     * <th>Name</th>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>C1_UPPER </td>
-     * <td>0x0001</td>
-     * <td>Uppercase </td>
-     * </tr>
-     * <tr>
-     * <td>C1_LOWER</td>
-     * <td>0x0002</td>
-     * <td>Lowercase </td>
-     * </tr>
-     * <tr>
-     * <td>C1_DIGIT</td>
-     * <td>0x0004</td>
-     * <td>Decimal digits </td>
-     * </tr>
-     * <tr>
-     * <td>C1_SPACE</td>
-     * <td>0x0008</td>
-     * <td>Space characters </td>
-     * </tr>
-     * <tr>
-     * <td>C1_PUNCT</td>
-     * <td>0x0010</td>
-     * <td>Punctuation </td>
-     * </tr>
-     * <tr>
-     * <td>C1_CNTRL</td>
-     * <td>0x0020</td>
-     * <td>Control characters </td>
-     * </tr>
-     * <tr>
-     * <td>C1_BLANK</td>
-     * <td>0x0040</td>
-     * <td>Blank characters </td>
-     * </tr>
-     * <tr>
-     * <td>C1_XDIGIT</td>
-     * <td>0x0080</td>
-     * <td>Hexadecimal digits </td>
-     * </tr>
-     * <tr>
-     * <td>C1_ALPHA</td>
-     * <td>0x0100</td>
-     * <td>Any linguistic character: alphabetical, syllabary, or ideographic</td>
-     * </tr>
-     * <tr>
-     * <td>C1_DEFINED</td>
-     * <td>0x0200</td>
-     * <td>A defined character, but not one of the other C1_* types</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * 
-     * The following character types are either constant or computable from basic types and do not need to be supported by this function.
-     * 
-     * 
-     * <table class="clsStd">
-     * <tr>
-     * <th>Type</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>Alphanumeric</td>
-     * <td>Alphabetical characters and digits (C1_ALPHA and C1_DIGIT)</td>
-     * </tr>
-     * <tr>
-     * <td>Printable</td>
-     * <td>Graphic characters and blanks (all C1_* types except C1_CNTRL)</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * 
-     * <u>Ctype 2</u>
-     * 
-     * These types support proper layout of Unicode text. For DBCS locales, the character type applies to both narrow and wide characters. The direction attributes are assigned so that the bidirectional layout algorithm standardized by Unicode produces accurate results. These types are mutually exclusive. For more information about the use of these attributes, see <a href="https://www.unicode.org/standard/standard.html">The Unicode Standard</a>.
-     * 
-     * 
-     * <table class="clsStd">
-     * <tr>
-     * <th>Name</th>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>Strong</td>
-     * <td></td>
-     * <td></td>
-     * </tr>
-     * <tr>
-     * <td>C2_LEFTTORIGHT</td>
-     * <td>0x0001</td>
-     * <td>Left to right </td>
-     * </tr>
-     * <tr>
-     * <td>C2_RIGHTTOLEFT</td>
-     * <td>0x0002</td>
-     * <td>Right to left </td>
-     * </tr>
-     * <tr>
-     * <td>Weak</td>
-     * <td></td>
-     * <td></td>
-     * </tr>
-     * <tr>
-     * <td>C2_EUROPENUMBER</td>
-     * <td>0x0003</td>
-     * <td>European number, European digit</td>
-     * </tr>
-     * <tr>
-     * <td>C2_EUROPESEPARATOR</td>
-     * <td>0x0004</td>
-     * <td>European numeric separator </td>
-     * </tr>
-     * <tr>
-     * <td>C2_EUROPETERMINATOR</td>
-     * <td>0x0005</td>
-     * <td>European numeric terminator</td>
-     * </tr>
-     * <tr>
-     * <td>C2_ARABICNUMBER</td>
-     * <td>0x0006</td>
-     * <td>Arabic number </td>
-     * </tr>
-     * <tr>
-     * <td>C2_COMMONSEPARATOR</td>
-     * <td>0x0007</td>
-     * <td>Common numeric separator </td>
-     * </tr>
-     * <tr>
-     * <td>Neutral</td>
-     * <td></td>
-     * <td></td>
-     * </tr>
-     * <tr>
-     * <td>C2_BLOCKSEPARATOR</td>
-     * <td>0x0008</td>
-     * <td>Block separator </td>
-     * </tr>
-     * <tr>
-     * <td>C2_SEGMENTSEPARATOR</td>
-     * <td>0x0009</td>
-     * <td>Segment separator </td>
-     * </tr>
-     * <tr>
-     * <td>C2_WHITESPACE</td>
-     * <td>0x000A</td>
-     * <td>White space </td>
-     * </tr>
-     * <tr>
-     * <td>C2_OTHERNEUTRAL</td>
-     * <td>0x000B</td>
-     * <td>Other neutrals </td>
-     * </tr>
-     * <tr>
-     * <td>Not applicable</td>
-     * <td></td>
-     * <td></td>
-     * </tr>
-     * <tr>
-     * <td>C2_NOTAPPLICABLE</td>
-     * <td>0x0000</td>
-     * <td>No implicit directionality (for example, control codes)</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * 
-     * <u>Ctype 3</u>
-     * 
-     * These types are intended to be placeholders for extensions to the POSIX types required for general text processing or for the standard C library functions. A bitwise-OR of these values is retrieved when <i>dwInfoType</i> is set to CT_CTYPE3. For DBCS locales, the Ctype 3 attributes apply to both narrow characters and wide characters. The Japanese hiragana and katakana characters, and the kanji ideograph characters all have the C3_ALPHA attribute.
-     * 
-     * 
-     * 
-     * <table class="clsStd">
-     * <tr>
-     * <th>Name</th>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>C3_NONSPACING</td>
-     * <td>0x0001</td>
-     * <td>Nonspacing mark </td>
-     * </tr>
-     * <tr>
-     * <td>C3_DIACRITIC</td>
-     * <td>0x0002</td>
-     * <td>Diacritic nonspacing mark </td>
-     * </tr>
-     * <tr>
-     * <td>C3_VOWELMARK</td>
-     * <td>0x0004</td>
-     * <td>Vowel nonspacing mark </td>
-     * </tr>
-     * <tr>
-     * <td>C3_SYMBOL</td>
-     * <td>0x0008</td>
-     * <td>Symbol </td>
-     * </tr>
-     * <tr>
-     * <td>C3_KATAKANA</td>
-     * <td>0x0010</td>
-     * <td>Katakana character</td>
-     * </tr>
-     * <tr>
-     * <td>C3_HIRAGANA</td>
-     * <td>0x0020</td>
-     * <td>Hiragana character </td>
-     * </tr>
-     * <tr>
-     * <td>C3_HALFWIDTH</td>
-     * <td>0x0040</td>
-     * <td>Half-width (narrow) character </td>
-     * </tr>
-     * <tr>
-     * <td>C3_FULLWIDTH</td>
-     * <td>0x0080</td>
-     * <td>Full-width (wide) character </td>
-     * </tr>
-     * <tr>
-     * <td>C3_IDEOGRAPH</td>
-     * <td>0x0100</td>
-     * <td>Ideographic character </td>
-     * </tr>
-     * <tr>
-     * <td>C3_KASHIDA</td>
-     * <td>0x0200</td>
-     * <td>Arabic kashida character </td>
-     * </tr>
-     * <tr>
-     * <td>C3_LEXICAL</td>
-     * <td>0x0400</td>
-     * <td>Punctuation which is counted as part of the word (kashida, hyphen, feminine/masculine ordinal indicators, equal sign, and so forth) </td>
-     * </tr>
-     * <tr>
-     * <td>C3_ALPHA</td>
-     * <td>0x8000</td>
-     * <td>All linguistic characters (alphabetical, syllabary, and ideographic)</td>
-     * </tr>
-     * <tr>
-     * <td>C3_HIGHSURROGATE</td>
-     * <td>0x0800</td>
-     * <td><b>Windows Vista:</b> High surrogate code unit</td>
-     * </tr>
-     * <tr>
-     * <td>C3_LOWSURROGATE</td>
-     * <td>0x1000</td>
-     * <td><b>Windows Vista:</b> Low surrogate code unit</td>
-     * </tr>
-     * <tr>
-     * <td>Not applicable</td>
-     * <td></td>
-     * <td></td>
-     * </tr>
-     * <tr>
-     * <td>C3_NOTAPPLICABLE</td>
-     * <td>0x0000</td>
-     * <td>Not applicable</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * 
-     * C3_HIGHSURROGATE and C3_LOWSURROGATE are listed only for completeness, and should never be provided to this function. They are relevant only for Unicode.
-     * 
-     * <b>Starting with Windows 8: </b><b>GetStringTypeW</b>  is declared in Stringapiset.h. Before Windows 8, it was declared in Winnls.h.
      * @param {Integer} dwInfoType Flags specifying the character type information to retrieve. This parameter can have the following values. The character types are divided into different levels as described in the Remarks section.
      * 
      * <table>
@@ -5850,13 +5190,13 @@ class Globalization {
      * @param {Pointer<Char>} lpSrcStr Pointer to the Unicode string for which to retrieve the character types. The string is assumed to be null-terminated if <i>cchSrc</i> is set to any negative value.
      * @param {Integer} cchSrc Size, in characters, of the string indicated by <i>lpSrcStr</i>. If the size includes a terminating null character, the function retrieves character type information for that character. If the application sets the size to any negative integer, the source string is assumed to be null-terminated and the function calculates the size automatically with an additional character for the null termination.
      * @param {Pointer<UInt16>} lpCharType Pointer to an array of 16-bit values. The length of this array must be large enough to receive one 16-bit value for each character in the source string. If <i>cchSrc</i> is not a negative number, <i>lpCharType</i> should be an array of words with <i>cchSrc</i> elements. If <i>cchSrc</i> is set to a negative number, <i>lpCharType</i> is an array of words with <i>lpSrcStr</i> + 1 elements. When the function returns, this array contains one word corresponding to each character in the source string.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-getstringtypew
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-getstringtypew
      * @since windows5.0
      */
     static GetStringTypeW(dwInfoType, lpSrcStr, cchSrc, lpCharType) {
@@ -5873,28 +5213,6 @@ class Globalization {
 
     /**
      * Maps a character string to a UTF-16 (wide character) string.
-     * @remarks
-     * The default behavior of this function is to translate to a precomposed form of the input character string. If a precomposed form does not exist, the function attempts to translate to a composite form.
-     * 
-     * The use of the MB_PRECOMPOSED flag has very little effect on most code pages because most input data is composed already. Consider calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-normalizestring">NormalizeString</a> after converting with <b>MultiByteToWideChar</b>. <b>NormalizeString</b> provides more accurate, standard, and consistent data, and can also be faster. Note that for the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> enumeration being passed to <b>NormalizeString</b>, NormalizationC corresponds to MB_PRECOMPOSED and NormalizationD corresponds to MB_COMPOSITE.
-     * 
-     * As mentioned in the caution above, the output buffer can easily be overrun if this function is not first called with <i>cchWideChar</i> set to 0 in order to obtain the required size. If the MB_COMPOSITE flag is used, the output can be three or more characters long for each input character.
-     * 
-     * The <i>lpMultiByteStr</i> and <i>lpWideCharStr</i> pointers must not be the same. If they are the same, the function fails, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns the value ERROR_INVALID_PARAMETER.
-     * 
-     * <b>MultiByteToWideChar</b> does not null-terminate an output string if the input string length is explicitly specified without a terminating null character. To null-terminate an output string for this function, the application should pass in -1 or explicitly count the terminating null character for the input string.
-     * 
-     * The function fails if MB_ERR_INVALID_CHARS is set and an invalid character is encountered in the source string. An invalid character is one of the following:
-     * 
-     * <ul>
-     * <li>A character that is not the default character in the source string, but translates to the default character when MB_ERR_INVALID_CHARS is not set</li>
-     * <li>For DBCS strings, a character that has a lead byte but no valid trail byte</li>
-     * </ul>
-     * Starting with Windows Vista, this function fully conforms with the Unicode 4.1 specification for UTF-8 and UTF-16. The function used on earlier operating systems encodes or decodes lone <a href="https://docs.microsoft.com/windows/desktop/Intl/surrogates-and-supplementary-characters">surrogate</a> halves or mismatched surrogate pairs. Code written in earlier versions of Windows that rely on this behavior to encode random non-text binary data might run into problems. However, code that uses this function on valid UTF-8 strings will behave the same way as on earlier Windows operating systems.
-     * 
-     * <b>Windows XP:</b> To prevent the security problem of the non-shortest-form versions of UTF-8 characters, <b>MultiByteToWideChar</b> deletes these characters.
-     * 
-     * <b>Starting with Windows 8: </b><b>MultiByteToWideChar</b>  is declared in Stringapiset.h. Before Windows 8, it was declared in Winnls.h.
      * @param {Integer} CodePage Code page to use in performing the conversion. This parameter can be set to the value of any code page that is installed or available in the operating system. For a list of code pages, see <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a>. Your application can also specify one of the values shown in the following table.
      * 
      * <table>
@@ -5994,7 +5312,7 @@ class Globalization {
      * @param {Integer} cchWideChar Size, in characters, of the buffer indicated by <i>lpWideCharStr</i>. If this value is 0, the function returns the required buffer size, in characters, including any terminating null character, and makes no use of the <i>lpWideCharStr</i> buffer.
      * @returns {Integer} Returns the number of characters written to the buffer indicated by <i>lpWideCharStr</i> if successful. If the function succeeds and <i>cchWideChar</i> is 0, the return value is the required size, in characters, for the buffer indicated by <i>lpWideCharStr</i>. Also see <i>dwFlags</i> for info about how the MB_ERR_INVALID_CHARS flag affects the return value when invalid sequences are input.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -6002,7 +5320,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid. </li>
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in a string.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-multibytetowidechar
      * @since windows5.0
      */
     static MultiByteToWideChar(CodePage, dwFlags, lpMultiByteStr, cbMultiByte, lpWideCharStr, cchWideChar) {
@@ -6020,54 +5338,6 @@ class Globalization {
 
     /**
      * Maps a UTF-16 (wide character) string to a new character string.
-     * @remarks
-     * The <i>lpMultiByteStr</i> and <i>lpWideCharStr</i> pointers must not be the same. If they are the same, the function fails, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INVALID_PARAMETER.
-     * 
-     * <b>WideCharToMultiByte</b> does not null-terminate an output string if the input string length is explicitly specified without a terminating null character. To null-terminate an output string for this function, the application should pass in -1 or explicitly count the terminating null character for the input string.
-     * 
-     * If <i>cbMultiByte</i> is less than <i>cchWideChar</i>, this function writes the number of characters specified by <i>cbMultiByte</i> to the buffer indicated by <i>lpMultiByteStr</i>. However, if <i>CodePage</i> is set to CP_SYMBOL and <i>cbMultiByte</i> is less than <i>cchWideChar,</i> the function writes no characters to <i>lpMultiByteStr</i>.
-     * 
-     * The <b>WideCharToMultiByte</b> function operates most efficiently when both <i>lpDefaultChar</i> and <i>lpUsedDefaultChar</i> are set to <b>NULL</b>. The following table shows the behavior of the function for the four possible combinations of these parameters.
-     * 
-     * <table>
-     * <tr>
-     * <th><i>lpDefaultChar</i></th>
-     * <th><i>lpUsedDefaultChar</i></th>
-     * <th>Result</th>
-     * </tr>
-     * <tr>
-     * <td><b>NULL</b></td>
-     * <td><b>NULL</b></td>
-     * <td>No default checking. These parameter settings are the most efficient ones for use with this function.</td>
-     * </tr>
-     * <tr>
-     * <td>Non-null character</td>
-     * <td><b>NULL</b></td>
-     * <td>Uses the specified default character, but does not set <i>lpUsedDefaultChar</i>.</td>
-     * </tr>
-     * <tr>
-     * <td><b>NULL</b></td>
-     * <td>Non-null character</td>
-     * <td>Uses the system default character and sets <i>lpUsedDefaultChar</i> if necessary.</td>
-     * </tr>
-     * <tr>
-     * <td>Non-null character</td>
-     * <td>Non-null character</td>
-     * <td>Uses the specified default character and sets <i>lpUsedDefaultChar</i> if necessary.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Starting with Windows Vista, this function fully conforms with the Unicode 4.1 specification for UTF-8 and UTF-16. The function used on earlier operating systems encodes or decodes lone <a href="https://docs.microsoft.com/windows/desktop/Intl/surrogates-and-supplementary-characters">surrogate</a> halves or mismatched surrogate pairs. Code written in earlier versions of Windows that rely on this behavior to encode random non-text binary data might run into problems. However, code that uses this function to produce valid UTF-8 strings will behave the same way as on earlier Windows operating systems.
-     * 
-     * <b>Starting with Windows 8: </b><b>WideCharToMultiByte</b>  is declared in Stringapiset.h. Before Windows 8, it was declared in Winnls.h.
-     * 
-     * <h3><a id="wc_compositecheck_and_related_flags"></a><a id="WC_COMPOSITECHECK_AND_RELATED_FLAGS"></a>WC_COMPOSITECHECK and related flags</h3>
-     * As discussed in <a href="https://docs.microsoft.com/windows/desktop/Intl/using-unicode-normalization-to-represent-strings">Using Unicode Normalization to Represent Strings</a>, Unicode allows multiple representations of the same string (interpreted linguistically). For example, Capital A with dieresis (umlaut) can be represented either precomposed as a single Unicode code point "Ä" (U+00C4) or decomposed as the combination of Capital A and the combining dieresis character ("A" + "¨", that is U+0041 U+0308). However, most code pages provide only composed characters.
-     * 
-     * The WC_COMPOSITECHECK flag causes the <b>WideCharToMultiByte</b> function to test for decomposed Unicode characters and attempts to compose them before converting them to the requested code page. This flag is only available for conversion to <a href="https://docs.microsoft.com/windows/desktop/Intl/single-byte-character-sets">single byte (SBCS)</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/double-byte-character-sets">double byte (DBCS)</a> code pages (code pages &lt; 50000, excluding code page 42). If your application needs to convert decomposed Unicode data to single byte or double byte code pages, this flag might be useful. However, not all characters can be converted this way and it is more reliable to save and store such data as Unicode.
-     * 
-     * When an application is using WC_COMPOSITECHECK, some character combinations might remain incomplete or might have additional nonspacing characters left over. For example, A + ¨ + ¨ combines to Ä + ¨. Using the WC_DISCARDNS flag causes the function to discard additional nonspacing characters. Using the WC_DEFAULTCHAR flag causes the function to use the default replacement character (typically "?") instead. Using the WC_SEPCHARS flag causes the function to attempt to convert each additional nonspacing character to the target code page. Usually this flag also causes the use of the replacement character ("?"). However, for code page 1258 (Vietnamese) and 20269, nonspacing characters exist and can be used. The conversions for these code pages are not perfect. Some combinations do not convert correctly to code page 1258, and WC_COMPOSITECHECK corrupts data in code page 20269. As mentioned earlier, it is more reliable to design your application to save and store such data as Unicode.
      * @param {Integer} CodePage Code page to use in performing the conversion. This parameter can be set to the value of any code page that is installed or available in the operating system. For a list of code pages, see <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a>. Your application can also specify one of the values shown in the following table.
      * 
      * <table>
@@ -6164,7 +5434,7 @@ class Globalization {
      * 
      * If this parameter is set to a positive integer, the function processes exactly the specified number of characters. If the provided size does not include a terminating null character, the resulting character string is not null-terminated, and the returned length does not include this character.
      * @param {Pointer} lpMultiByteStr Pointer to a buffer that receives the converted string.
-     * @param {Integer} cbMultiByte Size, in bytes, of the buffer indicated by <i>lpMultiByteStr</i>. If this value is 0, the function returns the required buffer size, in bytes, including any terminating null character, and makes no use of the <i>lpMultiByteStr</i> buffer.
+     * @param {Integer} cbMultiByte Size, in bytes, of the buffer indicated by <i>lpMultiByteStr</i>. If this parameter is set to 0, the function returns the required buffer size for <i>lpMultiByteStr</i> and makes no use of the output parameter itself.
      * @param {Pointer<Byte>} lpDefaultChar Pointer to the character to use if a character cannot be represented in the specified code page. The application sets this parameter to <b>NULL</b> if the function is to use a system default value. To obtain the system default character, the application can call the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfo">GetCPInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a> function.
      * 
      * For the CP_UTF7 and CP_UTF8 settings for <i>CodePage</i>, this parameter must be set to <b>NULL</b>. Otherwise, the function fails with ERROR_INVALID_PARAMETER.
@@ -6173,7 +5443,7 @@ class Globalization {
      * For the CP_UTF7 and CP_UTF8 settings for <i>CodePage</i>, this parameter must be set to <b>NULL</b>. Otherwise, the function fails with ERROR_INVALID_PARAMETER.
      * @returns {Integer} If successful, returns the number of bytes written to the buffer pointed to by <i>lpMultiByteStr</i>. If the function succeeds and <i>cbMultiByte</i> is 0, the return value is the required size, in bytes, for the buffer indicated by <i>lpMultiByteStr</i>. Also see <i>dwFlags</i> for info about how the WC_ERR_INVALID_CHARS flag affects the return value when invalid sequences are input.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -6181,7 +5451,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid. </li>
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in a string.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte
+     * @see https://docs.microsoft.com/windows/win32/api//stringapiset/nf-stringapiset-widechartomultibyte
      * @since windows5.0
      */
     static WideCharToMultiByte(CodePage, dwFlags, lpWideCharStr, cchWideChar, lpMultiByteStr, cbMultiByte, lpDefaultChar, lpUsedDefaultChar) {
@@ -6199,13 +5469,9 @@ class Globalization {
 
     /**
      * Determines if a specified code page is valid.
-     * @remarks
-     * A code page is considered valid only if it is installed on the operating system. Unicode is preferred.
-     * 
-     * Starting with Windows Vista, all code pages that can be installed are loaded by default.
      * @param {Integer} CodePage <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code page identifier</a> for the code page to check.
      * @returns {Integer} Returns a nonzero value if the code page is valid, or 0 if the code page is invalid.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidcodepage
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isvalidcodepage
      * @since windows5.0
      */
     static IsValidCodePage(CodePage) {
@@ -6215,10 +5481,8 @@ class Globalization {
 
     /**
      * Retrieves the current Windows ANSI code page identifier for the operating system.Caution  The ANSI API functions, for example, the ANSI version of TextOut, implicitly use GetACP to translate text to or from Unicode.
-     * @remarks
-     * The ANSI code pages can be different on different computers, or can be changed for a single computer, leading to data corruption. For the most consistent results, applications should use UTF-8 or UTF-16 when possible.
-     * @returns {Integer} Returns the current Windows ANSI code page (ACP) identifier for the operating system. See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of identifiers for Windows ANSI code pages and other code pages.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getacp
+     * @returns {Integer} Returns the current Windows ANSI code page (ACP) identifier for the operating system. See <a href="/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of identifiers for Windows ANSI code pages and other code pages.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getacp
      * @since windows5.0
      */
     static GetACP() {
@@ -6228,10 +5492,8 @@ class Globalization {
 
     /**
      * Returns the current original equipment manufacturer (OEM) code page identifier for the operating system.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of OEM and other code pages.
      * @returns {Integer} Returns the current OEM code page identifier for the operating system.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getoemcp
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getoemcp
      * @since windows5.0
      */
     static GetOEMCP() {
@@ -6240,18 +5502,16 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about any valid installed or available code page. (GetCPInfo)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a>.
+     * Retrieves information about any valid installed or available code page.
      * @param {Integer} CodePage Identifier for the code page for which to retrieve information. For details, see the <i>CodePage</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a>.
      * @param {Pointer<CPINFO>} lpCPInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfo">CPINFO</a> structure that receives information about the code page. See the Remarks section.
-     * @returns {Integer} Returns 1 if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns 1 if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 				
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcpinfo
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcpinfo
      * @since windows5.0
      */
     static GetCPInfo(CodePage, lpCPInfo) {
@@ -6265,16 +5525,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about any valid installed or available code page. (GetCPInfoExA)
-     * @remarks
-     * The information retrieved in the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a> structure is not always useful for all code pages. To determine buffer sizes, for example, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> or <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> to request an accurate buffer size. If <b>CPINFOEX</b> settings indicate that a lead byte exists, the conversion function does not necessarily handle lead bytes differently, for example, in the case of a missing or illegal trail byte.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetCPInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about any valid installed or available code page.
      * @param {Integer} CodePage Identifier for the code page for which to retrieve information. The application can specify the code page identifier for any installed or available code page, or one of the following predefined values. See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of identifiers for ANSI and other code pages.
      * 
      * <table>
@@ -6325,13 +5576,13 @@ class Globalization {
      * </table>
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer<CPINFOEXA>} lpCPInfoEx Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a> structure that receives information about the code page.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcpinfoexa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcpinfoexa
      * @since windows5.0
      */
     static GetCPInfoExA(CodePage, dwFlags, lpCPInfoEx) {
@@ -6345,16 +5596,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about any valid installed or available code page. (GetCPInfoExW)
-     * @remarks
-     * The information retrieved in the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a> structure is not always useful for all code pages. To determine buffer sizes, for example, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> or <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> to request an accurate buffer size. If <b>CPINFOEX</b> settings indicate that a lead byte exists, the conversion function does not necessarily handle lead bytes differently, for example, in the case of a missing or illegal trail byte.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetCPInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about any valid installed or available code page.
      * @param {Integer} CodePage Identifier for the code page for which to retrieve information. The application can specify the code page identifier for any installed or available code page, or one of the following predefined values. See <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a> for a list of identifiers for ANSI and other code pages.
      * 
      * <table>
@@ -6405,13 +5647,13 @@ class Globalization {
      * </table>
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer<CPINFOEXW>} lpCPInfoEx Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a> structure that receives information about the code page.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcpinfoexw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcpinfoexw
      * @since windows5.0
      */
     static GetCPInfoExW(CodePage, dwFlags, lpCPInfoEx) {
@@ -6425,22 +5667,7 @@ class Globalization {
     }
 
     /**
-     * Compares two character strings, for a locale specified by identifier.Caution  Using CompareString incorrectly can compromise the security of your application. (CompareStringA)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
-     * 
-     * If your application is calling the ANSI version of <b>CompareString</b>, the function converts parameters via the default code page of the supplied locale. Thus, an application can never use <b>CompareString</b> to handle UTF-8 text.
-     * 
-     * Normally, for case-insensitive comparisons, <b>CompareString</b> maps the lowercase "i" to the uppercase "I", even when the locale is Turkish or Azerbaijani. The  NORM_LINGUISTIC_CASING flag overrides this behavior for Turkish or Azerbaijani. If this flag is specified in conjunction with Turkish or Azerbaijani, LATIN SMALL LETTER DOTLESS I (U+0131) is the lowercase form of LATIN CAPITAL LETTER I (U+0049) and LATIN SMALL LETTER I (U+0069) is the lowercase form of LATIN CAPITAL LETTER I WITH DOT ABOVE (U+0130).
-     * 
-     * <b>Starting with Windows 8: </b>The ANSI version of the function is declared in Winnls.h, and the Unicode version is declared in Stringapiset.h. Before Windows 8, both versions were declared in Winnls.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines CompareString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Compares two character strings, for a locale specified by identifier.Caution  Using CompareString incorrectly can compromise the security of your application.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> of the locale used for the comparison. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -6468,8 +5695,8 @@ class Globalization {
      * @param {Integer} cchCount1 Length of the string indicated by <i>lpString1</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {Pointer<SByte>} lpString2 Pointer to the second string to compare.
      * @param {Integer} cchCount2 Length of the string indicated by <i>lpString2</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
-     * @returns {Integer} Returns the values described for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-comparestringa
+     * @returns {Integer} Returns the values described for <a href="/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-comparestringa
      * @since windows5.0
      */
     static CompareStringA(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2) {
@@ -6479,8 +5706,6 @@ class Globalization {
 
     /**
      * Locates a Unicode string (wide characters) or its equivalent in another Unicode string for a locale specified by identifier.Caution  Because strings with very different binary representations can compare as identical, this function can raise certain security concerns. For more information, see the discussion of comparison functions in Security Considerations:\_International Features. Note  For interoperability reasons, the application should prefer the FindNLSStringEx function because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Although FindNLSString supports custom locales, most applications should use FindNLSStringEx for this type of support.
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-findnlsstringex">FindNLSStringEx</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -6515,14 +5740,14 @@ class Globalization {
      * @param {Pointer<Int32>} pcchFound Pointer to a buffer containing the length of the string that the function finds. For details, see the <i>pcchFound</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-findnlsstringex">FindNLSStringEx</a>.
      * @returns {Integer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. In combination with the value in <i>pcchFound</i>, this index provides the exact location of the entire found string in the source string. A return value of 0 is an error-free index into the source string, and the matching string is in the source string at offset 0.
      * 
-     * The function returns -1 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns -1 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_SUCCESS. The action completed successfully but yielded no results.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-findnlsstring
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-findnlsstring
      * @since windows6.0.6000
      */
     static FindNLSString(Locale, dwFindNLSStringFlags, lpStringSource, cchSource, lpStringValue, cchValue, pcchFound) {
@@ -6539,18 +5764,7 @@ class Globalization {
     }
 
     /**
-     * For a locale specified by identifier, maps one input character string to another using a specified transformation, or generates a sort key for the input string. (Unicode)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-lcmapstringex">LCMapStringEx</a>.
-     * 
-     * The ANSI version of <b>LCMapString</b> maps strings to and from Unicode based on the default Windows (ANSI) code page associated with the specified locale. When the ANSI version of this function is used with a Unicode-only locale, the function can succeed because the operating system uses the CP_ACP value, representing the system default Windows ANSI code page. However, characters that are undefined in the system code page appear in the string as a question mark (?).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines LCMapString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * For a locale specified by identifier, maps one input character string to another using a specified transformation, or generates a sort key for the input string.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -6606,7 +5820,7 @@ class Globalization {
      * 
      * If the function succeeds when used for string mapping it returns the number of bytes in the sort key.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -6614,14 +5828,14 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-lcmapstringw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-lcmapstringw
      * @since windows5.0
      */
     static LCMapStringW(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
@@ -6638,18 +5852,7 @@ class Globalization {
     }
 
     /**
-     * For a locale specified by identifier, maps one input character string to another using a specified transformation, or generates a sort key for the input string. (ANSI)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-lcmapstringex">LCMapStringEx</a>.
-     * 
-     * The ANSI version of <b>LCMapString</b> maps strings to and from Unicode based on the default Windows (ANSI) code page associated with the specified locale. When the ANSI version of this function is used with a Unicode-only locale, the function can succeed because the operating system uses the CP_ACP value, representing the system default Windows ANSI code page. However, characters that are undefined in the system code page appear in the string as a question mark (?).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines LCMapString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * For a locale specified by identifier, maps one input character string to another using a specified transformation, or generates a sort key for the input string.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -6705,21 +5908,21 @@ class Globalization {
      * 
      * If the function succeeds when used for string mapping it returns the number of bytes in the sort key.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-lcmapstringa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-lcmapstringa
      * @since windows5.0
      */
     static LCMapStringA(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
@@ -6736,47 +5939,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about a locale specified by identifier. (Unicode)
-     * @remarks
-     * For the operation of this function, see Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a>.
-     * 
-     * <div class="alert"><b>Note</b>   Even when the <i>LCType</i> parameter is specified as LOCALE_FONTSIGNATURE, <i>cchData</i> and the function return are still TCHAR counts. The count is different for the ANSI and Unicode versions of the function. When an application calls the generic version of <b>GetLocaleInfo</b> with LOCALE_FONTSIGNATURE, <i>cchData</i> can be safely specified as sizeof(LOCALESIGNATURE) / sizeof(TCHAR).</div>
-     * <div> </div>
-     * The following examples deal correctly with the buffer size for non-text values:
-     * 
-     * 
-     * ```cpp
-     * int   ret;
-     * CALID calid;
-     * DWORD value;
-     * 
-     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
-     *                     LOCALE_ICALENDARTYPE | LOCALE_RETURN_NUMBER,
-     *                     (LPTSTR)&value,
-     *                     sizeof(value) / sizeof(TCHAR) );
-     * calid = value;
-     * 
-     * LOCALESIGNATURE LocSig;
-     * 
-     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
-     *                     LOCALE_FONTSIGNATURE,
-     *                     (LPWSTR)&LocSig,
-     *                     sizeof(LocSig) / sizeof(TCHAR) );
-     * 
-     * ```
-     * 
-     * 
-     * The ANSI string retrieved by the ANSI version of this function is translated from Unicode to ANSI based on the default ANSI code page for the locale identifier. However, if <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> is specified, the translation is based on the system default ANSI code page.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> for which to retrieve information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -6805,16 +5968,16 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<Char>} lpLCData Pointer to a buffer in which this function retrieves the requested locale information. This pointer is not used if <i>cchData</i> is set to 0. For more information, see the Remarks section.
      * @param {Integer} cchData Size, in TCHAR values, of the data buffer indicated by <i>lpLCData</i>. Alternatively, the application can set this parameter to 0. In this case, the function does not use the <i>lpLCData</i> parameter and returns the required buffer size, including the terminating null character.
-     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getlocaleinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getlocaleinfow
      * @since windows5.0
      */
     static GetLocaleInfoW(Locale, LCType, lpLCData, cchData) {
@@ -6830,47 +5993,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about a locale specified by identifier. (ANSI)
-     * @remarks
-     * For the operation of this function, see Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a>.
-     * 
-     * <div class="alert"><b>Note</b>   Even when the <i>LCType</i> parameter is specified as LOCALE_FONTSIGNATURE, <i>cchData</i> and the function return are still TCHAR counts. The count is different for the ANSI and Unicode versions of the function. When an application calls the generic version of <b>GetLocaleInfo</b> with LOCALE_FONTSIGNATURE, <i>cchData</i> can be safely specified as sizeof(LOCALESIGNATURE) / sizeof(TCHAR).</div>
-     * <div> </div>
-     * The following examples deal correctly with the buffer size for non-text values:
-     * 
-     * 
-     * ```cpp
-     * int   ret;
-     * CALID calid;
-     * DWORD value;
-     * 
-     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
-     *                     LOCALE_ICALENDARTYPE | LOCALE_RETURN_NUMBER,
-     *                     (LPTSTR)&value,
-     *                     sizeof(value) / sizeof(TCHAR) );
-     * calid = value;
-     * 
-     * LOCALESIGNATURE LocSig;
-     * 
-     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
-     *                     LOCALE_FONTSIGNATURE,
-     *                     (LPWSTR)&LocSig,
-     *                     sizeof(LocSig) / sizeof(TCHAR) );
-     * 
-     * ```
-     * 
-     * 
-     * The ANSI string retrieved by the ANSI version of this function is translated from Unicode to ANSI based on the default ANSI code page for the locale identifier. However, if <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> is specified, the translation is based on the system default ANSI code page.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> for which to retrieve information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -6899,16 +6022,16 @@ class Globalization {
      * <div> </div>
      * @param {Pointer<Byte>} lpLCData Pointer to a buffer in which this function retrieves the requested locale information. This pointer is not used if <i>cchData</i> is set to 0. For more information, see the Remarks section.
      * @param {Integer} cchData Size, in TCHAR values, of the data buffer indicated by <i>lpLCData</i>. Alternatively, the application can set this parameter to 0. In this case, the function does not use the <i>lpLCData</i> parameter and returns the required buffer size, including the terminating null character.
-     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getlocaleinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getlocaleinfoa
      * @since windows5.0
      */
     static GetLocaleInfoA(Locale, LCType, lpLCData, cchData) {
@@ -6924,22 +6047,7 @@ class Globalization {
     }
 
     /**
-     * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults. (ANSI)
-     * @remarks
-     * This function writes to the registry, where it sets values that are associated with a particular user instead of a particular application. These registry values affect the behavior of other applications run by the user. As a rule, an application should call this function only when the user has explicitly requested the changes. The registry settings should not be changed for the convenience of a single application.
-     * 
-     * For the <i>LCType</i> parameter, the application should set <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> to use the operating system ANSI code page instead of the locale code page for string translation.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * As of Windows Vista, the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sdate">LOCALE_SDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIME</a> constants are obsolete. Do not use these constants. Use <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sshortdate">LOCALE_SSHORTDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIMEFORMAT</a> instead. A custom locale might not have a single, uniform separator character within the date or time format: for example, a format such as "12/31, 2006" or "03:56'23" might be valid.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines SetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults.
      * @param {Integer} Locale For the ANSI version of the function, the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">locale identifier</a> of the locale with the code page used when interpreting the <i>lpLCData</i> information. For the Unicode version, this parameter is ignored.
      * 
      * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
@@ -6970,7 +6078,7 @@ class Globalization {
      * </ul>
      * @param {Integer} LCType Type of locale information to set. For valid constants see "Constants Used in the LCType Parameter of GetLocaleInfo, GetLocaleInfoEx, and SetLocaleInfo" section of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-information-constants">Locale Information Constants</a>. The application can specify only one value per call, but it can use the binary OR operator to combine <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> with any other constant.
      * @param {Pointer<Byte>} lpLCData Pointer to a null-terminated string containing the locale information to set. The information must be in the format specific to the specified constant. The application uses a Unicode string for the Unicode version of the function, and an ANSI string for the ANSI version.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_ACCESS_DISABLED_BY_POLICY. The group policy of the computer or the user has forbidden this operation.</li>
@@ -6978,7 +6086,7 @@ class Globalization {
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setlocaleinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setlocaleinfoa
      * @since windows5.0
      */
     static SetLocaleInfoA(Locale, LCType, lpLCData) {
@@ -6994,22 +6102,7 @@ class Globalization {
     }
 
     /**
-     * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults. (Unicode)
-     * @remarks
-     * This function writes to the registry, where it sets values that are associated with a particular user instead of a particular application. These registry values affect the behavior of other applications run by the user. As a rule, an application should call this function only when the user has explicitly requested the changes. The registry settings should not be changed for the convenience of a single application.
-     * 
-     * For the <i>LCType</i> parameter, the application should set <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> to use the operating system ANSI code page instead of the locale code page for string translation.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * As of Windows Vista, the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sdate">LOCALE_SDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIME</a> constants are obsolete. Do not use these constants. Use <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sshortdate">LOCALE_SSHORTDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIMEFORMAT</a> instead. A custom locale might not have a single, uniform separator character within the date or time format: for example, a format such as "12/31, 2006" or "03:56'23" might be valid.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines SetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults.
      * @param {Integer} Locale For the ANSI version of the function, the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">locale identifier</a> of the locale with the code page used when interpreting the <i>lpLCData</i> information. For the Unicode version, this parameter is ignored.
      * 
      * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
@@ -7040,7 +6133,7 @@ class Globalization {
      * </ul>
      * @param {Integer} LCType Type of locale information to set. For valid constants see "Constants Used in the LCType Parameter of GetLocaleInfo, GetLocaleInfoEx, and SetLocaleInfo" section of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-information-constants">Locale Information Constants</a>. The application can specify only one value per call, but it can use the binary OR operator to combine <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> with any other constant.
      * @param {Pointer<Char>} lpLCData Pointer to a null-terminated string containing the locale information to set. The information must be in the format specific to the specified constant. The application uses a Unicode string for the Unicode version of the function, and an ANSI string for the ANSI version.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_ACCESS_DISABLED_BY_POLICY. The group policy of the computer or the user has forbidden this operation.</li>
@@ -7048,7 +6141,7 @@ class Globalization {
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setlocaleinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setlocaleinfow
      * @since windows5.0
      */
     static SetLocaleInfoW(Locale, LCType, lpLCData) {
@@ -7064,18 +6157,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about a calendar for a locale specified by identifier. (ANSI)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a calendar for a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve calendar information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7111,14 +6193,14 @@ class Globalization {
      * @param {Pointer<UInt32>} lpValue Pointer to a variable that receives the requested data as a number. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, then <i>lpValue</i> must not be <b>NULL</b>. If CAL_RETURN_NUMBER is not specified in <i>CalType</i>, then <i>lpValue</i> must be <b>NULL</b>.
      * @returns {Integer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer, with <i>cchData</i> set to a nonzero value, if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the calendar information. If the function succeeds, <i>cchData</i> is set 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value retrieved in <i>lpValue</i>, that is, 2 for the Unicode version of the function or 4 for the ANSI version.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcalendarinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcalendarinfoa
      * @since windows5.0
      */
     static GetCalendarInfoA(Locale, Calendar, CalType, lpCalData, cchData, lpValue) {
@@ -7134,18 +6216,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about a calendar for a locale specified by identifier. (Unicode)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a calendar for a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve calendar information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7181,14 +6252,14 @@ class Globalization {
      * @param {Pointer<UInt32>} lpValue Pointer to a variable that receives the requested data as a number. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, then <i>lpValue</i> must not be <b>NULL</b>. If CAL_RETURN_NUMBER is not specified in <i>CalType</i>, then <i>lpValue</i> must be <b>NULL</b>.
      * @returns {Integer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer, with <i>cchData</i> set to a nonzero value, if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the calendar information. If the function succeeds, <i>cchData</i> is set 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value retrieved in <i>lpValue</i>, that is, 2 for the Unicode version of the function or 4 for the ANSI version.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcalendarinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcalendarinfow
      * @since windows5.0
      */
     static GetCalendarInfoW(Locale, Calendar, CalType, lpCalData, cchData, lpValue) {
@@ -7204,22 +6275,7 @@ class Globalization {
     }
 
     /**
-     * Sets an item of locale information for a calendar. For more information, see Date and Calendar. (ANSI)
-     * @remarks
-     * This function only affects the user override portion of the calendar settings. It does not set the system defaults.
-     * 
-     * Calendar information is always passed as a null-terminated Unicode string in the Unicode version of this function, and as a null-terminated ANSI string in the ANSI version. No integers are allowed by this function. Any numeric values must be specified as either Unicode or ANSI text.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * CAL_ITWODIGITYEARMAX can be used with any calendar, even if the calendar is not supported for the specified locale. To avoid complications, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoa">EnumCalendarInfo</a> to ensure that the calendar is supported for the locale of interest.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines SetCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets an item of locale information for a calendar. For more information, see Date and Calendar.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -7255,14 +6311,14 @@ class Globalization {
      * </ul>
      * The application can specify only one calendar identifier per call to this function. An exception can be made if the application uses the binary OR operator to combine CAL_USE_CP_ACP with any valid CALTYPE value defined in <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>.
      * @param {Pointer<Byte>} lpCalData Pointer to a null-terminated calendar information string. The information must be in the format of the specified calendar type.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INTERNAL_ERROR. An unexpected error occurred in the function.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setcalendarinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setcalendarinfoa
      * @since windows5.0
      */
     static SetCalendarInfoA(Locale, Calendar, CalType, lpCalData) {
@@ -7278,22 +6334,7 @@ class Globalization {
     }
 
     /**
-     * Sets an item of locale information for a calendar. For more information, see Date and Calendar. (Unicode)
-     * @remarks
-     * This function only affects the user override portion of the calendar settings. It does not set the system defaults.
-     * 
-     * Calendar information is always passed as a null-terminated Unicode string in the Unicode version of this function, and as a null-terminated ANSI string in the ANSI version. No integers are allowed by this function. Any numeric values must be specified as either Unicode or ANSI text.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * CAL_ITWODIGITYEARMAX can be used with any calendar, even if the calendar is not supported for the specified locale. To avoid complications, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoa">EnumCalendarInfo</a> to ensure that the calendar is supported for the locale of interest.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines SetCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets an item of locale information for a calendar. For more information, see Date and Calendar.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
      * 
      * <ul>
@@ -7329,14 +6370,14 @@ class Globalization {
      * </ul>
      * The application can specify only one calendar identifier per call to this function. An exception can be made if the application uses the binary OR operator to combine CAL_USE_CP_ACP with any valid CALTYPE value defined in <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>.
      * @param {Pointer<Char>} lpCalData Pointer to a null-terminated calendar information string. The information must be in the format of the specified calendar type.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INTERNAL_ERROR. An unexpected error occurred in the function.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setcalendarinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setcalendarinfow
      * @since windows5.0
      */
     static SetCalendarInfoW(Locale, Calendar, CalType, lpCalData) {
@@ -7353,31 +6394,11 @@ class Globalization {
 
     /**
      * Determines if a specified character is a lead byte for the system default Windows ANSI code page (CP_ACP). A lead byte is the first byte of a two-byte character in a double-byte character set (DBCS) for the code page.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This function does not validate the presence or validity of a trail byte. Therefore, 
-     *      <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> might not recognize a 
-     *      sequence that the application using <b>IsDBCSLeadByte</b> 
-     *      reports as a lead byte. The application can easily become unsynchronized with the results of 
-     *      <b>MultiByteToWideChar</b>, potentially leading to 
-     *      unexpected errors or buffer size mismatches.</div>
-     * <div> </div>
-     * In general, instead of attempting low-level manipulation of code page data, applications should use 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> to convert the 
-     *     data to UTF-16 and work with it in that encoding.
-     * 
-     * Lead byte values are specific to each distinct DBCS. Some byte values can appear in a single code page as both 
-     *     the lead and trail byte of a DBCS character.
-     * 
-     * To make sense of a DBCS string, an application normally starts at the beginning of a string and scans forward, 
-     *     keeping track when it encounters a lead byte, and treating the next byte as the trailing part of the same 
-     *     character. If the application must back up, it should use 
-     *     <a href="https://docs.microsoft.com/windows/desktop/menurc/v">CharPrev</a> instead of attempting to develop its own 
-     *     algorithm.
      * @param {Integer} TestChar The character to test.
      * @returns {Integer} Returns a nonzero value if the test character is potentially a lead byte. The function returns 0 if the test 
      *        character is not a lead byte or if it is a single-byte character. To get extended error information, the 
-     *        application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isdbcsleadbyte
+     *        application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isdbcsleadbyte
      * @since windows5.0
      */
     static IsDBCSLeadByte(TestChar) {
@@ -7392,14 +6413,6 @@ class Globalization {
 
     /**
      * Determines if a specified character is potentially a lead byte. A lead byte is the first byte of a two-byte character in a double-byte character set (DBCS) for the code page.
-     * @remarks
-     * <div class="alert"><b>Note</b>   This function does not validate the presence or validity of a trail byte. Therefore, <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> might not recognize a sequence that the application using <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-isdbcsleadbyte">IsDBCSLeadByte</a> reports as a lead byte. The application can easily become unsynchronized with the results of <b>MultiByteToWideChar</b>, potentially leading to unexpected errors or buffer size mismatches.</div>
-     * <div> </div>
-     * In general, instead of attempting low-level manipulation of code page data, applications should use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> to convert the data to UTF-16 and work with it in that encoding.
-     * 
-     * Lead byte values are specific to each distinct DBCS. Some byte values can appear in a single code page as both the lead and trail byte of a DBCS character. Thus, <b>IsDBCSLeadByteEx</b> can only indicate a potential lead byte value.
-     * 
-     * To make sense of a DBCS string, an application normally starts at the beginning of the string and scans forward, keeping track when it encounters a lead byte, and treating the next byte as the trailing part of the same character. To back up, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-charprevexa">CharPrevExA</a> instead of attempting to develop its own algorithm.
      * @param {Integer} CodePage Identifier of the code page used to check lead byte ranges. This parameter can be one of the code page identifiers defined in <a href="https://docs.microsoft.com/windows/desktop/Intl/unicode-and-character-set-constants">Unicode and Character Set Constants</a> or one of the following predefined values. This function validates lead byte values only in code pages 932, 936, 949, 950, and 1361.
      * 
      * <table>
@@ -7449,8 +6462,8 @@ class Globalization {
      * </tr>
      * </table>
      * @param {Integer} TestChar The character to test.
-     * @returns {Integer} Returns a nonzero value if the byte is a lead byte. The function returns 0 if the byte is not a lead byte or if the character is a single-byte character. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isdbcsleadbyteex
+     * @returns {Integer} Returns a nonzero value if the byte is a lead byte. The function returns 0 if the byte is not a lead byte or if the character is a single-byte character. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isdbcsleadbyteex
      * @since windows5.0
      */
     static IsDBCSLeadByteEx(CodePage, TestChar) {
@@ -7465,10 +6478,6 @@ class Globalization {
 
     /**
      * Converts a locale name to a locale identifier.
-     * @remarks
-     * For custom locales, including those created by Microsoft, your applications should prefer locale names over locale identifiers. See [The deprecation of LCIDs](/globalization/locale/locale-names#the-deprecation-of-lcids) for more info.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpName Pointer to a null-terminated string representing a locale name, or one of the following predefined values. 
      * 
      * <ul>
@@ -7485,15 +6494,15 @@ class Globalization {
      * @param {Integer} dwFlags <b>Prior to Windows 7:</b>Reserved; should always be 0.
      * 
      * <b>Beginning in Windows 7:</b> Can be set to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-allow-neutral-names">LOCALE_ALLOW_NEUTRAL_NAMES</a> to allow the return of a neutral LCID.
-     * @returns {Integer} If successful, returns the locale identifier corresponding to the locale name.
+     * @returns {Integer} Returns the locale identifier corresponding to the locale name if successful. If the supplied locale name corresponds to a custom locale that is the user default, this function returns <a href="/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>. If the locale name corresponds to a custom locale that is not the user default, the function returns <a href="/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>.
      * 
-     * If the supplied locale name corresponds to a custom locale that is the user default, this function returns <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>.
+     * If the locale provided is a transient locale or a CLDR (Unicode Common Locale Data Repository) locale, then the LCID returned is 0x1000.
      * 
-     * If the locale name corresponds to a custom locale that is not the user default, is a transient locale, or is a CLDR (Unicode Common Locale Data Repository) locale, the function returns <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>.
-     * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return ERROR_INVALID_PARAMETER if any of the parameter values are invalid.
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * <ul>
+     * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-localenametolcid
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-localenametolcid
      * @since windows6.0.6000
      */
     static LocaleNameToLCID(lpName, dwFlags) {
@@ -7557,13 +6566,13 @@ class Globalization {
      * <b>Starting with Windows 7:</b> Can be set to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-allow-neutral-names">LOCALE_ALLOW_NEUTRAL_NAMES</a> to allow the return of a neutral name.
      * @returns {Integer} Returns the count of characters, including the terminating null character, in the locale name if successful. If the function succeeds and the value of <i>cchName</i> is 0, the return value is the required size, in characters (including nulls), for the locale name buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-lcidtolocalename
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-lcidtolocalename
      * @since windows6.0.6000
      */
     static LCIDToLocaleName(Locale, lpName, cchName, dwFlags) {
@@ -7580,8 +6589,6 @@ class Globalization {
 
     /**
      * Formats a duration of time as a time string for a locale specified by identifier.
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getdurationformatex">GetDurationFormatEx</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which this function formats the duration. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7623,13 +6630,13 @@ class Globalization {
      * Alternatively, the application can set this parameter to 0. In this case, the function retrieves <b>NULL</b> in <i>lpDurationStr</i> and returns the required size for the duration string buffer.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpDurationStr</i> if successful. If <i>lpDurationStr</i> is set to <b>NULL</b> and <i>cchDuration</i> is set to 0, the function returns the required size for the duration string buffer, including the null terminating character. For example, if 10 characters are written to the buffer, the function returns 11 to include the terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getdurationformat
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getdurationformat
      * @since windows6.0.6000
      */
     static GetDurationFormat(Locale, dwFlags, lpDuration, ullDuration, lpFormat, lpDurationStr, cchDuration) {
@@ -7646,19 +6653,7 @@ class Globalization {
     }
 
     /**
-     * Formats a number string as a number string customized for a locale specified by identifier. (ANSI)
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetNumberFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats a number string as a number string customized for a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7697,7 +6692,7 @@ class Globalization {
      * @param {Integer} cchNumber Size, in TCHAR values, for the number string buffer indicated by <i>lpNumberStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the number string buffer, and does not use the <i>lpNumberStr</i> parameter.
      * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -7705,7 +6700,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getnumberformata
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getnumberformata
      * @since windows5.0
      */
     static GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber) {
@@ -7722,19 +6717,7 @@ class Globalization {
     }
 
     /**
-     * Formats a number string as a number string customized for a locale specified by identifier. (Unicode)
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetNumberFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats a number string as a number string customized for a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7773,7 +6756,7 @@ class Globalization {
      * @param {Integer} cchNumber Size, in TCHAR values, for the number string buffer indicated by <i>lpNumberStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the number string buffer, and does not use the <i>lpNumberStr</i> parameter.
      * @returns {Integer} Returns the number of TCHAR values retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -7781,7 +6764,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getnumberformatw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getnumberformatw
      * @since windows5.0
      */
     static GetNumberFormatW(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber) {
@@ -7798,19 +6781,7 @@ class Globalization {
     }
 
     /**
-     * Formats a number string as a currency string for a locale specified by identifier. (ANSI)
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the call can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetCurrencyFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats a number string as a currency string for a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which this function formats the currency string. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7843,14 +6814,14 @@ class Globalization {
      * @param {Integer} cchCurrency Size, in characters, of the <i>lpCurrencyStr</i> buffer. The application sets this parameter to 0 if the function is to return the size of the buffer required to hold the formatted currency string. In this case, the <i>lpCurrencyStr</i> parameter is not used.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcurrencyformata
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcurrencyformata
      * @since windows5.0
      */
     static GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency) {
@@ -7867,19 +6838,7 @@ class Globalization {
     }
 
     /**
-     * Formats a number string as a currency string for a locale specified by identifier. (Unicode)
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the call can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetCurrencyFormat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Formats a number string as a currency string for a locale specified by identifier.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which this function formats the currency string. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -7912,14 +6871,14 @@ class Globalization {
      * @param {Integer} cchCurrency Size, in characters, of the <i>lpCurrencyStr</i> buffer. The application sets this parameter to 0 if the function is to return the size of the buffer required to hold the formatted currency string. In this case, the <i>lpCurrencyStr</i> parameter is not used.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is set to 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcurrencyformatw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcurrencyformatw
      * @since windows5.0
      */
     static GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency) {
@@ -7936,16 +6895,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates calendar information for a specified locale.Note  To receive a calendar identifier in addition to calendar information, the application should use the EnumCalendarInfoEx function. (ANSI)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoexa">EnumCalendarInfoEx</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates calendar information for a specified locale.Note  To receive a calendar identifier in addition to calendar information, the application should use the EnumCalendarInfoEx function.
      * @param {Pointer<CALINFO_ENUMPROCA>} lpCalInfoEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317806(v=vs.85)">EnumCalendarInfoProc</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve calendar information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
@@ -7971,13 +6921,13 @@ class Globalization {
      * </ul>
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumcalendarinfoa
      * @since windows5.0
      */
     static EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
@@ -7991,16 +6941,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates calendar information for a specified locale.Note  To receive a calendar identifier in addition to calendar information, the application should use the EnumCalendarInfoEx function. (Unicode)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoexa">EnumCalendarInfoEx</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates calendar information for a specified locale.Note  To receive a calendar identifier in addition to calendar information, the application should use the EnumCalendarInfoEx function.
      * @param {Pointer<CALINFO_ENUMPROCW>} lpCalInfoEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317806(v=vs.85)">EnumCalendarInfoProc</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve calendar information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
@@ -8026,13 +6967,13 @@ class Globalization {
      * </ul>
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumcalendarinfow
      * @since windows5.0
      */
     static EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
@@ -8046,20 +6987,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates calendar information for a locale specified by identifier.Note  Any application that runs only on Windows Vista and later should use EnumCalendarInfoExEx in preference to this function. (ANSI)
-     * @remarks
-     * This function enumerates calendar information for all applicable calendars for the specified locale, or for a single requested calendar, depending on the value of the <i>Calendar</i> parameter. The function enumerates the calendar information by calling the specified application-defined callback function. It passes the callback function a pointer to a buffer containing the requested calendar information. This process continues until <b>EnumCalendarInfoEx</b> finds the last applicable calendar or the callback function returns <b>FALSE</b>.
-     * 
-     * This function can enumerate data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumCalendarInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates calendar information for a locale specified by identifier.Note  Any application that runs only on Windows Vista and later should use EnumCalendarInfoExEx in preference to this function.
      * @param {Pointer<CALINFO_ENUMPROCEXA>} lpCalInfoEnumProcEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317807(v=vs.85)">EnumCalendarInfoProcEx</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve calendar information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8089,13 +7017,13 @@ class Globalization {
      * </ul>
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoexa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumcalendarinfoexa
      * @since windows5.0
      */
     static EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
@@ -8109,20 +7037,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates calendar information for a locale specified by identifier.Note  Any application that runs only on Windows Vista and later should use EnumCalendarInfoExEx in preference to this function. (Unicode)
-     * @remarks
-     * This function enumerates calendar information for all applicable calendars for the specified locale, or for a single requested calendar, depending on the value of the <i>Calendar</i> parameter. The function enumerates the calendar information by calling the specified application-defined callback function. It passes the callback function a pointer to a buffer containing the requested calendar information. This process continues until <b>EnumCalendarInfoEx</b> finds the last applicable calendar or the callback function returns <b>FALSE</b>.
-     * 
-     * This function can enumerate data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumCalendarInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates calendar information for a locale specified by identifier.Note  Any application that runs only on Windows Vista and later should use EnumCalendarInfoExEx in preference to this function.
      * @param {Pointer<CALINFO_ENUMPROCEXW>} lpCalInfoEnumProcEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317807(v=vs.85)">EnumCalendarInfoProcEx</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve calendar information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8152,13 +7067,13 @@ class Globalization {
      * </ul>
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoexw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumcalendarinfoexw
      * @since windows5.0
      */
     static EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
@@ -8172,22 +7087,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the time formats that are available for a locale specified by identifier.Note  For interoperability reasons, the application should prefer the EnumTimeFormatsEx function to EnumTimeFormats because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that runs only on Windows Vista and later should use EnumTimeFormatsEx. (ANSI)
-     * @remarks
-     * The function enumerates the time formats by passing a pointer to a buffer containing a time format to an application-defined callback function. The first value in the enumeration is always the user default (override) value. The function continues enumeration until the last time format is found or the callback function returns <b>FALSE</b>. 
-     * 
-     * 
-     * This function can enumerate data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the call can succeed because the system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark ("?"). 
-     * Note that any new values for <i>dwFlags</i> introduced in the future will not work with the ANSI version.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumTimeFormats as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the time formats that are available for a locale specified by identifier.Note  For interoperability reasons, the application should prefer the EnumTimeFormatsEx function to EnumTimeFormats because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that runs only on Windows Vista and later should use EnumTimeFormatsEx.
      * @param {Pointer<TIMEFMT_ENUMPROCA>} lpTimeFmtEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317832(v=vs.85)">EnumTimeFormatsProc</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve time format information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
@@ -8212,13 +7112,13 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumtimeformatsa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumtimeformatsa
      * @since windows5.0
      */
     static EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
@@ -8232,22 +7132,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the time formats that are available for a locale specified by identifier.Note  For interoperability reasons, the application should prefer the EnumTimeFormatsEx function to EnumTimeFormats because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that runs only on Windows Vista and later should use EnumTimeFormatsEx. (Unicode)
-     * @remarks
-     * The function enumerates the time formats by passing a pointer to a buffer containing a time format to an application-defined callback function. The first value in the enumeration is always the user default (override) value. The function continues enumeration until the last time format is found or the callback function returns <b>FALSE</b>. 
-     * 
-     * 
-     * This function can enumerate data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the call can succeed because the system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark ("?"). 
-     * Note that any new values for <i>dwFlags</i> introduced in the future will not work with the ANSI version.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumTimeFormats as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the time formats that are available for a locale specified by identifier.Note  For interoperability reasons, the application should prefer the EnumTimeFormatsEx function to EnumTimeFormats because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that runs only on Windows Vista and later should use EnumTimeFormatsEx.
      * @param {Pointer<TIMEFMT_ENUMPROCW>} lpTimeFmtEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317832(v=vs.85)">EnumTimeFormatsProc</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve time format information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
@@ -8272,13 +7157,13 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumtimeformatsw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumtimeformatsw
      * @since windows5.0
      */
     static EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
@@ -8292,20 +7177,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the long date, short date, or year/month formats that are available for a specified locale. (ANSI)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * For details of operation of this function, see Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexa">EnumDateFormatsEx</a>.
-     * 
-     * <div class="alert"><b>Note</b>  To enumerate the date formats for locales with alternate calendars, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexa">EnumDateFormatsEx</a>.</div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumDateFormats as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the long date, short date, or year/month formats that are available for a specified locale.
      * @param {Pointer<DATEFMT_ENUMPROCA>} lpDateFmtEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317813(v=vs.85)">EnumDateFormatsProc</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve date format information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8330,13 +7202,13 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags Flag specifying date formats. For detailed definitions, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a>.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumdateformatsa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumdateformatsa
      * @since windows5.0
      */
     static EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
@@ -8350,20 +7222,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the long date, short date, or year/month formats that are available for a specified locale. (Unicode)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * For details of operation of this function, see Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexa">EnumDateFormatsEx</a>.
-     * 
-     * <div class="alert"><b>Note</b>  To enumerate the date formats for locales with alternate calendars, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexa">EnumDateFormatsEx</a>.</div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumDateFormats as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the long date, short date, or year/month formats that are available for a specified locale.
      * @param {Pointer<DATEFMT_ENUMPROCW>} lpDateFmtEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317813(v=vs.85)">EnumDateFormatsProc</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve date format information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8388,13 +7247,13 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags Flag specifying date formats. For detailed definitions, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a>.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumdateformatsw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumdateformatsw
      * @since windows5.0
      */
     static EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
@@ -8408,26 +7267,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the long date, short date, or year/month formats that are available for a specified locale.Note  Any application that runs only on Windows Vista and later should use EnumDateFormatsExEx in preference to this function. (ANSI)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * The function enumerates the date formats by passing date format string pointers, one at a time, to the specified application-defined callback function. This process continues until <b>EnumDateFormatsEx</b> finds the last date format or the callback function returns <b>FALSE</b>.
-     * 
-     * This function enumerates all date formats for the specified locale, including alternate calendars, if any. However, the calendar identifier is not enumerated along with the date format, making formats for locales with alternate calendars difficult to use.
-     * 
-     * This function can enumerate data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?).
-     * 
-     * The application should use <b>EnumDateFormatsEx</b> (instead of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsa">EnumDateFormats</a>) to enumerate date formats for locales with alternate calendars.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumDateFormatsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the long date, short date, or year/month formats that are available for a specified locale.Note  Any application that runs only on Windows Vista and later should use EnumDateFormatsExEx in preference to this function.
      * @param {Pointer<DATEFMT_ENUMPROCEXA>} lpDateFmtEnumProcEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317814(v=vs.85)">EnumDateFormatsProcEx</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve date format information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8456,13 +7296,13 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags Flag specifying date formats. For detailed definitions, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a>.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumdateformatsexa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumdateformatsexa
      * @since windows5.0
      */
     static EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
@@ -8476,26 +7316,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the long date, short date, or year/month formats that are available for a specified locale.Note  Any application that runs only on Windows Vista and later should use EnumDateFormatsExEx in preference to this function. (Unicode)
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * The function enumerates the date formats by passing date format string pointers, one at a time, to the specified application-defined callback function. This process continues until <b>EnumDateFormatsEx</b> finds the last date format or the callback function returns <b>FALSE</b>.
-     * 
-     * This function enumerates all date formats for the specified locale, including alternate calendars, if any. However, the calendar identifier is not enumerated along with the date format, making formats for locales with alternate calendars difficult to use.
-     * 
-     * This function can enumerate data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?).
-     * 
-     * The application should use <b>EnumDateFormatsEx</b> (instead of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsa">EnumDateFormats</a>) to enumerate date formats for locales with alternate calendars.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumDateFormatsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the long date, short date, or year/month formats that are available for a specified locale.Note  Any application that runs only on Windows Vista and later should use EnumDateFormatsExEx in preference to this function.
      * @param {Pointer<DATEFMT_ENUMPROCEXW>} lpDateFmtEnumProcEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317814(v=vs.85)">EnumDateFormatsProcEx</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale for which to retrieve date format information. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8524,13 +7345,13 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags Flag specifying date formats. For detailed definitions, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumdateformatsexex">EnumDateFormatsExEx</a>.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumdateformatsexw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumdateformatsexw
      * @since windows5.0
      */
     static EnumDateFormatsExW(lpDateFmtEnumProcEx, Locale, dwFlags) {
@@ -8545,14 +7366,10 @@ class Globalization {
 
     /**
      * Determines if a language group is installed or supported on the operating system. For more information, see NLS Terminology.
-     * @remarks
-     * If the LGRPID_INSTALLED flag is specified and this function returns <b>TRUE</b>, the language group identifier is both supported and installed on the operating system.
-     * 
-     * If the LGRPID_SUPPORTED flag is specified and this function returns <b>TRUE</b>, the language group identifier is supported in the release, but not necessarily installed on the operating system.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns <b>TRUE</b> if the language group identifier passes the specified validity test, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidlanguagegroup
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isvalidlanguagegroup
      * @since windows5.0
      */
     static IsValidLanguageGroup(LanguageGroup, dwFlags) {
@@ -8562,8 +7379,6 @@ class Globalization {
 
     /**
      * Retrieves information about the current version of a specified NLS capability for a locale specified by identifier.Note  For interoperability reasons, the application should prefer the GetNLSVersionEx function to GetNLSVersion because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. This recommendation applies especially to custom locales, for which GetNLSVersionEx retrieves enough information to determine if sort behavior has changed. Any application that runs only on Windows Vista and later should use GetNLSVersionEx or at least pass the NLSVERSIONINFOEX structure when calling GetNLSVersion to obtain additional sorting versioning data.
-     * @remarks
-     * This function allows an application such as Active Directory to determine if an NLS change affects the locale identifier used for a particular index table. If it does not, there is no need to re-index the table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>.
      * @param {Integer} Function The NLS capability to query. This value must be COMPARE_STRING. See the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysnls_function">SYSNLS_FUNCTION</a> enumeration.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create an identifier or use one of the following predefined values. 
      * 
@@ -8595,14 +7410,14 @@ class Globalization {
      * 
      * <div class="alert"><b>Note</b>  On Windows Vista and later, the function can alternatively provide version information in an <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a> structure.</div>
      * <div> </div>
-     * @returns {Integer} Returns <b>TRUE</b> if and only if the application has supplied valid values in <i>lpVersionInformation</i>, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if and only if the application has supplied valid values in <i>lpVersionInformation</i>, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getnlsversion
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getnlsversion
      * @since windows6.0.6000
      */
     static GetNLSVersion(Function, Locale, lpVersionInformation) {
@@ -8617,12 +7432,6 @@ class Globalization {
 
     /**
      * Determines if the specified locale is installed or supported on the operating system. For more information, see Locales and Languages.
-     * @remarks
-     * If the LCID_INSTALLED flag is specified and this function returns a nonzero value, the locale identifier is both supported and installed on the operating system. Having an identifier installed implies that the full level of language support is available for the indicated locale. Full support includes code page translation tables, keyboard layouts, fonts, and sorting and locale data.
-     * 
-     * If LCID_SUPPORTED is specified and this function returns 0, the locale identifier is supported in the release, but not necessarily installed on the operating system.
-     * 
-     * This function can handle data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> of the locale to validate. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -8653,7 +7462,7 @@ class Globalization {
      * </ul>
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns a nonzero value if the locale identifier passes the specified validity test. The function returns 0 if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidlocale
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isvalidlocale
      * @since windows5.0
      */
     static IsValidLocale(Locale, dwFlags) {
@@ -8662,22 +7471,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about a specified geographical location. (ANSI)
-     * @remarks
-     * If the application specifies GEO_RFC1766 for <i>GeoType</i>, it should specify a language identifier for <i>LangId</i> that is appropriate to the specified geographical location identifier. The appropriate language is either a locale-neutral language or one with a locale corresponding to the specified identifier. The resulting string, compliant with RFC 4646 (Windows Vista), constitutes a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>.
-     * 
-     * For example, if <i>Location</i> is specified as 0xF4 for United States, <i>GeoType</i> is specified as GEO_RFC1766, and <i>LangId</i> is specified as either 0x09 for locale-neutral English or 0x409 for English (United States), the function retrieves "en-US" on successful return. In fact, the function ignores the locale-specific portion of the language. Thus, if the application specifies <i>LangId</i> as 0x809 for English (United Kingdom), the function also writes "en-US" to <i>lpGeoData</i>.
-     * 
-     * Consider another example. If <i>Location</i> is specified as 0xF4 for United States, <i>GeoType</i> is specified as GEO_RFC1766, and <i>LangId</i> is specified as 0x04 for Chinese, the function retrieves "zh-US" on successful return. This is not the name of a supported locale.
-     * 
-     * If the application specifies GEO_LCID for <i>GeoType</i>, the function treats the language identifier as a locale identifier (LCID). It attempts to return the locale identifier if it is associated with the provided geographical identifier in some way. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetGeoInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a specified geographical location.
      * @param {Integer} Location Identifier for the geographical location for which to get information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/table-of-geographical-locations">Table of Geographical Locations</a>. You can obtain the available values by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeoid">EnumSystemGeoID</a>.
      * @param {Integer} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
      * 
@@ -8692,13 +7486,13 @@ class Globalization {
      * <div> </div>
      * @returns {Integer} Returns the number of bytes (ANSI) or words (Unicode) of geographical location information retrieved in the output buffer. If <i>cchData</i> is set to 0, the function returns the required size for the buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getgeoinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getgeoinfoa
      * @since windows5.1.2600
      */
     static GetGeoInfoA(Location, GeoType, lpGeoData, cchData, LangId) {
@@ -8714,22 +7508,7 @@ class Globalization {
     }
 
     /**
-     * Retrieves information about a specified geographical location. (Unicode)
-     * @remarks
-     * If the application specifies GEO_RFC1766 for <i>GeoType</i>, it should specify a language identifier for <i>LangId</i> that is appropriate to the specified geographical location identifier. The appropriate language is either a locale-neutral language or one with a locale corresponding to the specified identifier. The resulting string, compliant with RFC 4646 (Windows Vista), constitutes a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>.
-     * 
-     * For example, if <i>Location</i> is specified as 0xF4 for United States, <i>GeoType</i> is specified as GEO_RFC1766, and <i>LangId</i> is specified as either 0x09 for locale-neutral English or 0x409 for English (United States), the function retrieves "en-US" on successful return. In fact, the function ignores the locale-specific portion of the language. Thus, if the application specifies <i>LangId</i> as 0x809 for English (United Kingdom), the function also writes "en-US" to <i>lpGeoData</i>.
-     * 
-     * Consider another example. If <i>Location</i> is specified as 0xF4 for United States, <i>GeoType</i> is specified as GEO_RFC1766, and <i>LangId</i> is specified as 0x04 for Chinese, the function retrieves "zh-US" on successful return. This is not the name of a supported locale.
-     * 
-     * If the application specifies GEO_LCID for <i>GeoType</i>, the function treats the language identifier as a locale identifier (LCID). It attempts to return the locale identifier if it is associated with the provided geographical identifier in some way. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetGeoInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about a specified geographical location.
      * @param {Integer} Location Identifier for the geographical location for which to get information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/table-of-geographical-locations">Table of Geographical Locations</a>. You can obtain the available values by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeoid">EnumSystemGeoID</a>.
      * @param {Integer} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
      * 
@@ -8744,13 +7523,13 @@ class Globalization {
      * <div> </div>
      * @returns {Integer} Returns the number of bytes (ANSI) or words (Unicode) of geographical location information retrieved in the output buffer. If <i>cchData</i> is set to 0, the function returns the required size for the buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getgeoinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getgeoinfow
      * @since windows5.1.2600
      */
     static GetGeoInfoW(Location, GeoType, lpGeoData, cchData, LangId) {
@@ -8767,8 +7546,6 @@ class Globalization {
 
     /**
      * Retrieves information about a geographic location that you specify by using a two-letter International Organization for Standardization (ISO) 3166-1 code or numeric United Nations (UN) Series M, Number 49 (M.49) code.
-     * @remarks
-     * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
      * @param {Pointer<Char>} location The two-letter ISO 3166-1 or numeric UN M.49 code for the geographic location for which to get information.  To get the codes that are available on the operating system, call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeonames">EnumSystemGeoNames</a>.
      * @param {Integer} geoType The type of information you want to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. The following values of the <b>SYSGEOTYPE</b> enumeration should not be used with <b>GetGeoInfoEx</b>:
      * 
@@ -8802,7 +7579,7 @@ class Globalization {
      * @param {Integer} geoDataCount The size of the buffer to which the <i>GeoData</i> parameter points, in characters. Set this parameter to 0 to specify that the function should only return the size of the buffer required to store the requested information without writing the requested information to the buffer.
      * @returns {Integer} The number of bytes of geographical location information that the function wrote the output buffer. If <i>geoDataCount</i> is  0, the function returns the size of the buffer required to hold the information without writing the information to the buffer.
      * 
-     * 0 indicates that the function did not succeed. To get extended error information,  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * 0 indicates that the function did not succeed. To get extended error information,  call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <table>
      * <tr>
@@ -8843,7 +7620,7 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getgeoinfoex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getgeoinfoex
      * @since windows10.0.16299
      */
     static GetGeoInfoEx(location, geoType, geoData, geoDataCount) {
@@ -8864,13 +7641,13 @@ class Globalization {
      * @param {Integer} GeoClass Geographical location class for which to enumerate the identifiers. At present, only GEOCLASS_NATION is supported. This type causes the function to enumerate all geographical identifiers for nations on the operating system.
      * @param {Integer} ParentGeoId Reserved. This parameter must be 0.
      * @param {Pointer<GEO_ENUMPROC>} lpGeoEnumProc Pointer to the application-defined callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317817(v=vs.85)">EnumGeoInfoProc</a>. The <b>EnumSystemGeoID</b> function makes repeated calls to this callback function until it returns <b>FALSE</b>.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemgeoid
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemgeoid
      * @since windows5.1.2600
      */
     static EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
@@ -8885,12 +7662,10 @@ class Globalization {
 
     /**
      * Enumerates the two-letter International Organization for Standardization (ISO) 3166-1 codes or numeric United Nations (UN) Series M, Number 49 (M.49) codes for geographical locations that are available on the operating system.
-     * @remarks
-     * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
      * @param {Integer} geoClass The geographical location class for which to enumerate the available two-letter ISO 3166-1 or numeric UN M.49 codes.
      * @param {Pointer<GEO_ENUMNAMEPROC>} geoEnumProc Pointer to the application-defined callback function <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-geo_enumnameproc">Geo_EnumNameProc</a>. The <b>EnumSystemGeoNames</b> function calls this callback function for each of the two-letter ISO 3166-1 or numeric UN M.49 codes for geographical locations that are available on the operating system until callback function returns <b>FALSE</b>.
      * @param {Pointer} data Application-specific information to pass to the callback function that the <i>genEnumProc</i> parameter specifies.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <table>
      * <tr>
@@ -8920,7 +7695,7 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemgeonames
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemgeonames
      * @since windows10.0.16299
      */
     static EnumSystemGeoNames(geoClass, geoEnumProc, data) {
@@ -8936,10 +7711,10 @@ class Globalization {
     /**
      * Retrieves information about the geographical location of the user. For more information, see Table of Geographical Locations.
      * @param {Integer} GeoClass Geographical location class to return. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeoclass">SYSGEOCLASS</a> enumeration.
-     * @returns {Integer} Returns the geographical location identifier of the user if <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setusergeoid">SetUserGeoID</a> has been called before to set the identifier.
+     * @returns {Integer} Returns the geographical location identifier of the user if <a href="/windows/desktop/api/winnls/nf-winnls-setusergeoid">SetUserGeoID</a> has been called before to set the identifier.
      * 
      * If no geographical location identifier has been set for the user, the function returns GEOID_NOT_AVAILABLE.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getusergeoid
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getusergeoid
      * @since windows5.1.2600
      */
     static GetUserGeoID(GeoClass) {
@@ -8949,14 +7724,12 @@ class Globalization {
 
     /**
      * Retrieves the two-letter International Organization for Standardization (ISO) 3166-1 code or numeric United Nations (UN) Series M, Number 49 (M.49) code for the default geographical location of the user.
-     * @remarks
-     * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
      * @param {Pointer<Char>} geoName Pointer to a buffer in which this function should write the null-terminated two-letter ISO 3166-1 or numeric UN M.49 code for the default geographic location of the user.
      * @param {Integer} geoNameCount The size of the buffer that the <i>geoName</i> parameter specifies. If this value is zero, the function only returns the number of characters that function would copy to the output buffer, but does not write the name of the default geographic location of the user to the buffer.
      * @returns {Integer} The number of characters
      *   the function  would copy to the output buffer, if the value of the <i>geoNameCount</i> parameter is zero. Otherwise, the  number of characters that the function copied to the buffer that the <i>geoName</i> parameter specifies.
      * 
-     * Zero indicates that the function failed. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * Zero indicates that the function failed. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <table>
      * <tr>
@@ -8997,7 +7770,7 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuserdefaultgeoname
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuserdefaultgeoname
      * @since windows10.0.16299
      */
     static GetUserDefaultGeoName(geoName, geoNameCount) {
@@ -9014,23 +7787,19 @@ class Globalization {
 
     /**
      * Sets the geographical location identifier for the user. This identifier should have one of the values described in Table of Geographical Locations.
-     * @remarks
-     * This function writes to the registry the geographical location for a particular user instead of a particular application. This action affects the behavior of other applications run by the user. As a rule, the application should call this function only when the user has explicitly requested changes, but not for purely application-specific reasons.
-     * 
-     * <b>SetUserGeoID</b> is intended for use by applications that are designed to change user settings, such as the Windows Settings app. Other applications should not call this function.
      * @param {Integer} GeoId Identifier for the geographical location of the user.
      * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * 
-     * <b>Windows XP, Windows Server 2003</b>: This function does not supply extended error information. Thus it is not appropriate for an application to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> after this function. If the application does call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, it can return a value set by some previously called function.
+     * <b>Windows XP, Windows Server 2003</b>: This function does not supply extended error information. Thus it is not appropriate for an application to call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> after this function. If the application does call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, it can return a value set by some previously called function.
      * 
-     * If this function does not succeed, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * If this function does not succeed, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_ACCESS_DISABLED_BY_POLICY. The group policy of the computer or the user has forbidden this operation.</li>
      * <li>ERROR_INTERNAL_ERROR. An unexpected error occurred in the function.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setusergeoid
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setusergeoid
      * @since windows5.1.2600
      */
     static SetUserGeoID(GeoId) {
@@ -9045,16 +7814,10 @@ class Globalization {
 
     /**
      * Sets the geographic location for the current user to the specified two-letter International Organization for Standardization (ISO) 3166-1 code or numeric United Nations (UN) Series M, Number 49 (M.49) code.
-     * @remarks
-     * This function writes to the registry the geographical location for a particular user instead of a particular application. This action affects the behavior of other applications that the user runs. As a rule, call this function only when the user has explicitly requested changes, but not for purely application-specific reasons.
-     * 
-     * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
-     * 
-     * <b>SetUserGeoName</b> is intended for use by applications that are designed to change user settings, such as the Windows Settings app. Other applications should not call this function.
      * @param {Pointer<Char>} geoName The two-letter ISO 3166-1 or numeric UN M.49 code for the geographic location to set for the current user. To get the codes that are available on the operating system, call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeonames">EnumSystemGeoNames</a>.
      * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * 
-     * If this function does not succeed, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * If this function does not succeed, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <table>
      * <tr>
@@ -9095,7 +7858,7 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setusergeoname
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setusergeoname
      * @since windows10.0.16299
      */
     static SetUserGeoName(geoName) {
@@ -9112,8 +7875,6 @@ class Globalization {
 
     /**
      * Converts a default locale value to an actual locale identifier.
-     * @remarks
-     * A call to <b>ConvertDefaultLocale</b> specifying LOCALE_SYSTEM_DEFAULT is equivalent to a call to <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getsystemdefaultlcid">GetSystemDefaultLCID</a>. A call to <b>ConvertDefaultLocale</b> specifying LOCALE_USER_DEFAULT is equivalent to a call to <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getuserdefaultlcid">GetUserDefaultLCID</a>.
      * @param {Integer} Locale Default locale identifier value to convert. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -9143,7 +7904,7 @@ class Globalization {
      * @returns {Integer} Returns the appropriate locale identifier if successful.
      * 
      * This function returns the value of the <i>Locale</i> parameter if it does not succeed. The function fails when the <i>Locale</i> value is not one of the default values listed above.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-convertdefaultlocale
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-convertdefaultlocale
      * @since windows5.0
      */
     static ConvertDefaultLocale(Locale) {
@@ -9153,12 +7914,8 @@ class Globalization {
 
     /**
      * Retrieves the language identifier for the system default UI language of the operating system, also known as the &quot;install language&quot; on Windows Vista and later. For more information, see User Interface Language Management.
-     * @remarks
-     * This function never returns a language identifier for a Language Interface Pack (LIP). It also never returns a language identifier corresponding to the locale identifier [LOCALE_CUSTOM_UNSPECIFIED](/windows/desktop/Intl/locale-custom-constants) or [LOCALE_CUSTOM_UI_DEFAULT](/windows/desktop/Intl/locale-custom-constants).
-     * 
-     * Note that this function does not necessarily return the identifier for the first language in the system preferred UI languages list. Therefore the return might not match the first element retrieved by [GetSystemPreferredUILanguages](/windows/desktop/api/winnls/nf-winnls-getsystempreferreduilanguages).
      * @returns {Integer} Returns the language identifier for the system default UI language of the operating system. For more information, see the Remarks section.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getsystemdefaultuilanguage
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getsystemdefaultuilanguage
      * @since windows5.0
      */
     static GetSystemDefaultUILanguage() {
@@ -9168,14 +7925,10 @@ class Globalization {
 
     /**
      * Returns the locale identifier of the current locale for the calling thread.Note  This function can retrieve data that changes between releases, for example, due to a custom locale.
-     * @remarks
-     * When an application process launches, it uses the Standards and Formats variable for the locale. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/nls-terminology">NLS Terminology</a>.
+     * @returns {Integer} Returns the <a href="/windows/desktop/Intl/locale-identifiers">locale identifier</a> of the locale associated with the current thread.
      * 
-     * When a new thread is created in a process, it inherits the locale of the creating thread. This locale can be either the default Standards and Formats locale or a different locale set for the creating thread in a call to <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreadlocale">SetThreadLocale</a>. <b>GetThreadLocale</b> and <b>SetThreadLocale</b> can be used to modify the locale of the new thread.
-     * @returns {Integer} Returns the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">locale identifier</a> of the locale associated with the current thread.
-     * 
-     * <b>Windows Vista</b>: This function can return the identifier of a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locale</a>. If the current thread locale is a custom locale, the function returns <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>. If the current thread locale is a supplemental custom locale, the function can return <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>. All supplemental locales share this locale identifier.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getthreadlocale
+     * <b>Windows Vista</b>: This function can return the identifier of a <a href="/windows/desktop/Intl/custom-locales">custom locale</a>. If the current thread locale is a custom locale, the function returns <a href="/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>. If the current thread locale is a supplemental custom locale, the function can return <a href="/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>. All supplemental locales share this locale identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getthreadlocale
      * @since windows5.0
      */
     static GetThreadLocale() {
@@ -9185,15 +7938,6 @@ class Globalization {
 
     /**
      * Sets the current locale of the calling thread.
-     * @remarks
-     * When a thread is created, it uses the user locale. This value is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getuserdefaultlcid">GetUserDefaultLCID</a>. The user locale can be modified for future processes and thread creation using the regional and language options portion of the Control Panel. The thread locale can also be changed using <b>SetThreadLocale</b>.
-     * 
-     * <b>SetThreadLocale</b> affects the selection of resources with a <a href="https://docs.microsoft.com/windows/desktop/menurc/language-statement">LANGUAGE</a> statement. The statement affects such functions as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdialoga">CreateDialog</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-dialogboxa">DialogBox</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadmenua">LoadMenu</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourcea">FindResource</a>. It sets the code page implied by CP_THREAD_ACP, but does not affect <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a>.
-     * 
-     * <b>Windows Vista and later: </b> Do not use <b>SetThreadLocale</b> to select a user interface language. The resource loader selects the resource that is defined in the .rc file with a <a href="https://docs.microsoft.com/windows/desktop/menurc/language-statement">LANGUAGE</a> statement, or the application can use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a>. Additionally, the application can use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreaduilanguage">SetThreadUILanguage</a>.
-     *       
-     * 
-     * <b>Windows 2000, Windows XP:</b> Do not use <b>SetThreadLocale</b> to select a user interface language. To select the resource that is defined in the .rc file with a <a href="https://docs.microsoft.com/windows/desktop/menurc/language-statement">LANGUAGE</a> statement, the application must use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a> function.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -9217,7 +7961,7 @@ class Globalization {
      * </li>
      * </ul>
      * @returns {Integer} The function should return an LCID on success. This is the LCID of the previous thread locale.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setthreadlocale
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setthreadlocale
      * @since windows5.0
      */
     static SetThreadLocale(Locale) {
@@ -9227,22 +7971,8 @@ class Globalization {
 
     /**
      * Returns the language identifier for the user UI language for the current user.
-     * @remarks
-     * This function returns only a language identifier. An application can retrieve the language name using the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getuserpreferreduilanguages">GetUserPreferredUILanguages</a> function.
-     * 
-     * If the user UI language is part of a Language Interface Pack (LIP) and corresponds to a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locale</a>, this function returns <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>.
-     * 
-     * <b>Windows Me, Windows 2000, Windows XP, Windows Server 2003:</b> The <b>GetUserDefaultUILanguage</b> function retrieves the language identifier for the current user language. If MUI is not installed on the operating system, the function retrieves the default computer user interface language.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.UInt16 GetUserDefaultUILanguage();
-     * 
-     * ```
-     * @returns {Integer} Returns the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> for the user UI language for the current user.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuserdefaultuilanguage
+     * @returns {Integer} Returns the <a href="/windows/desktop/Intl/language-identifiers">language identifier</a> for the user UI language for the current user.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuserdefaultuilanguage
      * @since windows5.0
      */
     static GetUserDefaultUILanguage() {
@@ -9252,12 +7982,10 @@ class Globalization {
 
     /**
      * Returns the language identifier of the Region Format setting for the current user.
-     * @remarks
-     * The return value is not necessarily the same as that returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getsystemdefaultlangid">GetSystemDefaultLangID</a>, even for a single-user computer.
-     * @returns {Integer} Returns the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> for the current user as set under <b>Control Panel</b> &gt; <b>Clock, Language, and Region</b> &gt; <b>Change date, time, or number formats</b> &gt; <b>Formats</b> tab &gt; <b>Format</b> dropdown.
+     * @returns {Integer} Returns the <a href="/windows/desktop/Intl/language-identifiers">language identifier</a> for the current user as set under <b>Control Panel</b> &gt; <b>Clock, Language, and Region</b> &gt; <b>Change date, time, or number formats</b> &gt; <b>Formats</b> tab &gt; <b>Format</b> dropdown.
      * 
-     * For more information on language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifier-constants-and-strings">Language Identifier Constants and Strings</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuserdefaultlangid
+     * For more information on language identifiers, see <a href="/windows/desktop/Intl/language-identifier-constants-and-strings">Language Identifier Constants and Strings</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuserdefaultlangid
      * @since windows5.0
      */
     static GetUserDefaultLangID() {
@@ -9267,10 +7995,10 @@ class Globalization {
 
     /**
      * Returns the language identifier for the system locale.
-     * @returns {Integer} Returns the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> for the system locale. This is  the language used when displaying text in programs that do not support Unicode. It is set by the Administrator under <b>Control Panel</b> &gt; <b>Clock, Language, and Region</b> &gt; <b>Change date, time, or number formats</b> &gt; <b>Administrative</b> tab.
+     * @returns {Integer} Returns the <a href="/windows/desktop/Intl/language-identifiers">language identifier</a> for the system locale. This is  the language used when displaying text in programs that do not support Unicode. It is set by the Administrator under <b>Control Panel</b> &gt; <b>Clock, Language, and Region</b> &gt; <b>Change date, time, or number formats</b> &gt; <b>Administrative</b> tab.
      * 
-     * For more information on language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifier-constants-and-strings">Language Identifier Constants and Strings</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getsystemdefaultlangid
+     * For more information on language identifiers, see <a href="/windows/desktop/Intl/language-identifier-constants-and-strings">Language Identifier Constants and Strings</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getsystemdefaultlangid
      * @since windows5.0
      */
     static GetSystemDefaultLangID() {
@@ -9280,10 +8008,8 @@ class Globalization {
 
     /**
      * Returns the locale identifier for the system locale.Note  Any application that runs only on Windows Vista and later should use GetSystemDefaultLocaleName in preference to this function.
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * @returns {Integer} Returns the locale identifier for the system default locale, identified by <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-system-default">LOCALE_SYSTEM_DEFAULT</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getsystemdefaultlcid
+     * @returns {Integer} Returns the locale identifier for the system default locale, identified by <a href="/windows/desktop/Intl/locale-system-default">LOCALE_SYSTEM_DEFAULT</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getsystemdefaultlcid
      * @since windows5.0
      */
     static GetSystemDefaultLCID() {
@@ -9293,10 +8019,8 @@ class Globalization {
 
     /**
      * Returns the locale identifier for the user default locale.Caution  If the user default locale is a custom locale, an application cannot accurately tag data with the value or exchange it.
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * @returns {Integer} Returns the locale identifier for the user default locale, represented as <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>. If the user default locale is a custom locale, this function always returns <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>, regardless of the custom locale that is selected. For example, whether the user locale is Hawaiian (US), haw-US, or Fijiian (Fiji), fj-FJ, the function returns the same value.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuserdefaultlcid
+     * @returns {Integer} Returns the locale identifier for the user default locale, represented as <a href="/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>. If the user default locale is a custom locale, this function always returns <a href="/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>, regardless of the custom locale that is selected. For example, whether the user locale is Hawaiian (US), haw-US, or Fijiian (Fiji), fj-FJ, the function returns the same value.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuserdefaultlcid
      * @since windows5.0
      */
     static GetUserDefaultLCID() {
@@ -9306,40 +8030,6 @@ class Globalization {
 
     /**
      * Sets the user interface language for the current thread.
-     * @remarks
-     * When a thread is created, the thread user interface language setting is empty and the user interface for the thread is displayed in the user-selected language. This function enables the application to change the user interface language for the current running thread.
-     * 
-     * <b>Windows Vista and later:</b> Calling this function and specifying 0 for the language identifier is identical to calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreadpreferreduilanguages">SetThreadPreferredUILanguages</a> with the MUI_CONSOLE_FILTER flag set. If the application specifies a valid nonzero language identifier, the function sets a particular user interface language for the thread. After specifying 0 for the language identifier, the application cannot use any of the following constants to correspond to a language identifier:
-     * 
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-system-default">LOCALE_SYSTEM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>
-     * </li>
-     * </ul>
-     * <b>Windows XP:</b> When the application calls this function with a language identifier of 0, the function first verifies that the current user interface does not require Uniscribe, and that it is supported by the console <a href="https://docs.microsoft.com/windows/desktop/Intl/code-pages">code page</a>. If the user interface passes these tests, the function uses the supplied value. If not, the function changes the thread user interface language to a language that the Windows console can display. Windows XP does not support a concept of thread user interface language separate from thread locale. Therefore, this function changes the thread locale on Windows XP. It is easy for your application to set a thread to use the most appropriate language for console display, based on user and system preferred UI languages, the language for non-Unicode applications, and the capabilities of the console.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.UInt16 SetThreadUILanguage(
-     *             System.UInt16 LangId
-     *             );
-     * 
-     * ```
      * @param {Integer} LangId <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language identifier</a> for the user interface language for the thread.
      * 
      * <b>Windows Vista and later:</b> The application can specify a language identifier of 0 or a nonzero identifier. For more information, see the Remarks section.
@@ -9347,8 +8037,8 @@ class Globalization {
      * <b>Windows XP:</b> The application can only set this parameter to 0. This setting causes the function to select the language that best supports the console display. For more information, see the Remarks section.
      * @returns {Integer} Returns the input language identifier if successful. If the input identifier is nonzero, the function returns that value. If the language identifier is 0, the function always succeeds and returns the identifier of the language that best supports the Windows console. See the Remarks section.
      * 
-     * If the input language identifier is nonzero and the function fails, the return value differs from the input language identifier. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setthreaduilanguage
+     * If the input language identifier is nonzero and the function fails, the return value differs from the input language identifier. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setthreaduilanguage
      * @since windows5.1.2600
      */
     static SetThreadUILanguage(LangId) {
@@ -9363,20 +8053,8 @@ class Globalization {
 
     /**
      * Returns the language identifier of the first user interface language for the current thread.
-     * @remarks
-     * Calling this function is identical to calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a> with <i>dwFlags</i> set to MUI_MERGE_SYSTEM_FALLBACK | MUI_MERGE_USER_FALLBACK | MUI_LANGUAGE_ID and using the first language in the retrieved list.
-     * 
-     * The return value for this function does not provide useful information about a Language Interface Pack (LIP) language if that language corresponds to a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locale</a>. For such a language, the function returns the hexadecimal value "1400", which corresponds to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a> if that language is specified in the user preferred UI languages list. If the language is not specified in the user preferred UI languages list, the function returns the value "1000", corresponding to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.UInt16 GetThreadUILanguage();
-     * 
-     * ```
-     * @returns {Integer} Returns the identifier for a language explicitly associated with the thread by <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreaduilanguage">SetThreadUILanguage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreadpreferreduilanguages">SetThreadPreferredUILanguages</a>. Alternatively, if no language has been explicitly associated with the current thread, the identifier can indicate a user or system user interface language.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getthreaduilanguage
+     * @returns {Integer} Returns the identifier for a language explicitly associated with the thread by <a href="/windows/desktop/api/winnls/nf-winnls-setthreaduilanguage">SetThreadUILanguage</a> or <a href="/windows/desktop/api/winnls/nf-winnls-setthreadpreferreduilanguages">SetThreadPreferredUILanguages</a>. Alternatively, if no language has been explicitly associated with the current thread, the identifier can indicate a user or system user interface language.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getthreaduilanguage
      * @since windows6.0.6000
      */
     static GetThreadUILanguage() {
@@ -9386,29 +8064,6 @@ class Globalization {
 
     /**
      * Retrieves the process preferred UI languages. For more information, see User Interface Language Management.
-     * @remarks
-     * Depending on the flags specified by the application, this function can retrieve a list consisting of the process preferred UI languages. If it encounters a duplicate language, the function only retrieves the first instance of the duplicated language.
-     * 
-     * When MUI_LANGUAGE_ID is specified, the language strings retrieved will be hexadecimal language identifiers 
-     * 
-     * that do not include the leading 0x, and will be 4 characters in length. For example, en-US will be returned 
-     * 
-     * as "0409" and en as "0009".
-     * 
-     * <div class="alert"><b>Note</b>  Use of MUI_LANGUAGE_NAME is recommended over MUI_LANGUAGE_ID.</div>
-     * <div> </div>
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean GetProcessPreferredUILanguages(
-     *             System.UInt32 dwFlags,
-     *             ref System.UInt32 pulNumLanguages,
-     *             System.IntPtr pwszLanguagesBuffer,
-     *             ref System.UInt32 pcchLanguagesBuffer
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags identifying the language format to use for the process preferred UI languages. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME. 
      * 
      * <table>
@@ -9444,14 +8099,14 @@ class Globalization {
      * @param {Pointer<UInt32>} pcchLanguagesBuffer Pointer to the size, in characters, for the language buffer indicated by <i>pwszLanguagesBuffer</i>. On successful return from the function, the parameter contains the size of the retrieved language buffer.
      * 
      * Alternatively if this parameter is set to 0 and <i>pwszLanguagesBuffer</i> is set to <b>NULL</b>, the function retrieves the required size of the language buffer in <i>pcchLanguagesBuffer</i>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
      * If the process preferred UI language list is empty or if the languages specified for the process are not valid, the function succeeds and returns an empty multistring in <i>pwszLanguagesBuffer</i> and 2 in the <i>pcchLanguagesBuffer</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getprocesspreferreduilanguages
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getprocesspreferreduilanguages
      * @since windows6.1
      */
     static GetProcessPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
@@ -9468,30 +8123,6 @@ class Globalization {
 
     /**
      * Sets the process preferred UI languages for the application process. For more information, see User Interface Language Management.
-     * @remarks
-     * Ideally, applications will call <b>SetProcessPreferredUILanguages</b> as soon as possible after launching.
-     * 
-     * After this function returns, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getprocesspreferreduilanguages">GetProcessPreferredUILanguages</a> to verify and examine the resulting language list.
-     * 
-     * When MUI_LANGUAGE_ID is specified, the input parameter language strings must use hexadecimal language 
-     * 
-     * identifiers that do not include the leading 0x, and are 4 characters in length. For example, en-US should be 
-     * 
-     * passed as "0409" and en as "0009".
-     * 
-     * <div class="alert"><b>Note</b>  Use of MUI_LANGUAGE_NAME is recommended over MUI_LANGUAGE_ID.</div>
-     * <div> </div>
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean SetProcessPreferredUILanguages(
-     *             System.UInt32 dwFlags,
-     *             System.String pwszLanguagesBuffer,
-     *             ref System.UInt32 pulNumLanguages
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags identifying the language format to use for the process preferred UI languages. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME. 
      * 
      * We recommend that you use MUI_LANGUAGE_NAME instead of MUI_LANGUAGE_ID.
@@ -9526,13 +8157,13 @@ class Globalization {
      * 
      * Alternatively, this parameter can contain <b>NULL</b> if no language list is required. In this case, the function clears the preferred UI languages for the process.
      * @param {Pointer<UInt32>} pulNumLanguages Pointer to the number of languages that has been set in the process language list from the input buffer, up to a maximum of five.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return the following error code:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return the following error code:
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER. An invalid parameter is specified.</li>
      * </ul>
      * If the process preferred UI languages list is empty or if the languages specified for the process are not valid, the function succeeds and sets 0 in the <i>pulNumLanguages</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setprocesspreferreduilanguages
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setprocesspreferreduilanguages
      * @since windows6.1
      */
     static SetProcessPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLanguages) {
@@ -9549,17 +8180,6 @@ class Globalization {
 
     /**
      * Retrieves information about the user preferred UI languages. For more information, see User Interface Language Management.
-     * @remarks
-     * When MUI_LANGUAGE_ID is specified, the language strings retrieved will be hexadecimal language identifiers that do not include the leading 0x, and will be 4 characters in length. For example, en-US will be returned as "0409" and en as "0009".
-     * 
-     * The display language cannot include more than one Language Interface Pack (LIP) language that corresponds to a [supplemental locale](/windows/desktop/Intl/custom-locales). If the list includes more than one of these languages, and if the application specifies MUI_LANGUAGE_ID in the call to the function, the language buffer contains "1400" for that language. This string corresponds to the hexadecimal value of [LOCALE_CUSTOM_UI_DEFAULT](/windows/desktop/Intl/locale-custom-constants).
-     * 
-     * The language list retrieved by this function has the following characteristics:
-     * 
-     * - Each language represents a valid NLS locale.
-     * - Each language is installed on the operating system.
-     * - The list contains one entry for each language, with no duplicate entries.
-     * - If the list is empty or does not meet these validation criteria, the system preferred UI languages list is used instead.
      * @param {Integer} dwFlags Flags identifying language format and filtering. The following flags specify the language format to use for the display language list. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME.
      * 
      * | Value | Meaning |
@@ -9578,7 +8198,7 @@ class Globalization {
      * - ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to **NULL**.
      * 
      * If the function fails for any other reason, the values of *pulNumLanguages* and *pcchLanguagesBuffer* are undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuserpreferreduilanguages
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuserpreferreduilanguages
      * @since windows6.0.6000
      */
     static GetUserPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
@@ -9595,43 +8215,6 @@ class Globalization {
 
     /**
      * Retrieves the system preferred UI languages. For more information, see User Interface Language Management.
-     * @remarks
-     * When MUI_LANGUAGE_ID is specified, the language strings retrieved will be hexadecimal language identifiers 
-     * 
-     * that do not include the leading 0x, and will be 4 characters in length. For example, en-US will be returned 
-     * 
-     * as "0409" and en as "0009".
-     * 
-     * The system preferred UI languages cannot include more than one Language Interface Pack (LIP) language that corresponds to a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locale</a>. If the list includes more than one of these languages, and if the application specifies MUI_LANGUAGE_ID in the call to the function, the language buffer contains "1400" for that language. This string corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>.
-     * 
-     * If the MUI_MACHINE_LANGUAGE_SETTINGS flag is set, this function checks each language in the list that represents a valid NLS locale. The retrieved list can contain the following items:
-     * 
-     * <ul>
-     * <li>Languages not installed on the system</li>
-     * <li>Duplicate language entries</li>
-     * <li>An empty string</li>
-     * </ul>
-     * If the MUI_MACHINE_LANGUAGE_SETTINGS flag is set and the system preferred UI languages list is empty, the function retrieves an empty string in the language buffer (two null characters, because it is a multistring buffer), 0 for the number of languages, and 2 for the buffer size.
-     * 
-     * If the MUI_MACHINE_LANGUAGE_SETTINGS flag is not set, the retrieved language list has the following characteristics:
-     * 
-     * <ul>
-     * <li>Each language represents a valid NLS locale.</li>
-     * <li>Each language is installed on the operating system.</li>
-     * <li>The list contains one entry for each language, with no duplicate entries.</li>
-     * </ul>
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean GetSystemPreferredUILanguages(
-     *             System.UInt32 dwFlags,
-     *             ref System.UInt32 pulNumLanguages,
-     *             System.IntPtr pwszLanguagesBuffer,
-     *             ref System.UInt32 pcchLanguagesBuffer
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags identifying language format and filtering. The following flags specify the format to use for the system preferred UI languages. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME.
      * 
      * <table>
@@ -9687,7 +8270,7 @@ class Globalization {
      * @param {Pointer<UInt32>} pcchLanguagesBuffer Pointer to the size, in characters, for the language buffer indicated by <i>pwszLanguagesBuffer</i>. On successful return from the function, the parameter contains the size of the retrieved language buffer.
      * 
      * Alternatively if this parameter is set to 0 and <i>pwszLanguagesBuffer</i> is set to <b>NULL</b>, the function retrieves the required size of the language buffer in <i>pcchLanguagesBuffer</i>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.
      * </li>
@@ -9695,7 +8278,7 @@ class Globalization {
      * 
      * 
      * If the function fails for any other reason, the parameters <i>pulNumLanguages</i> and <i>pcchLanguagesBuffer</i> are undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getsystempreferreduilanguages
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getsystempreferreduilanguages
      * @since windows6.0.6000
      */
     static GetSystemPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
@@ -9712,33 +8295,6 @@ class Globalization {
 
     /**
      * Retrieves the thread preferred UI languages for the current thread. For more information, see User Interface Language Management.
-     * @remarks
-     * Depending on the flags specified by the application, this function can retrieve a composite list consisting of the thread preferred UI languages, process preferred UI languages, user preferred UI languages or system preferred UI languages, and the system default UI language. If it encounters a duplicate language, the function only retrieves the first language.
-     * 
-     * If the application has called <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreadpreferreduilanguages">SetThreadPreferredUILanguages</a> with the MUI_CONSOLE_FILTER or MUI_COMPLEX_SCRIPT_FILTER flag, <b>GetThreadPreferredUILanguages</b> filters the languages in the result list. The function replaces the languages the console cannot display with a substitute language. The substitution for a language is determined from the value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sconsolefallbackname">LOCALE_SCONSOLEFALLBACKNAME</a> for the language. For more console information, see the description of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreaduilanguage">SetThreadUILanguage</a>.
-     * 
-     * Use of MUI_LANGUAGE_NAME is recommended over MUI_LANGUAGE_ID because the MUI_LANGUAGE_NAME flag can do a better job of handling Language Interface Pack (LIP) languages that correspond to <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locales</a>.
-     * 
-     * When MUI_LANGUAGE_ID is specified, the language strings retrieved will be hexadecimal language identifiers 
-     * 
-     * that do not include the leading 0x, and will be 4 characters in length. For example, en-US will be returned 
-     * 
-     * as "0409" and en as "0009".
-     * 
-     * If the application sets the MUI_LANGUAGE_ID flag, the thread preferred UI languages can include one or more languages that correspond to supplemental locales. On successful return from the function, the language buffer contains "1400" for any language corresponding to a supplemental locale. There can be only one such language in this list. The string "1400" corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>. Also on successful return from the function, the <i>pwszLanguagesBuffer</i> contains "1000" for any other language that corresponds to a supplemental locale. The string "1000" corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>, which is not useful as an input to any function, because it cannot distinguish among supplemental locales.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean GetThreadPreferredUILanguages(
-     *             System.UInt32 dwFlags,
-     *             ref System.UInt32 pulNumLanguages,
-     *             System.IntPtr pwszLanguagesBuffer,
-     *             ref System.UInt32 pcchLanguagesBuffer
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags identifying language format and filtering. The following flags specify the language format to use for the thread preferred UI languages. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME. 
      * 
      * <table>
@@ -9824,14 +8380,14 @@ class Globalization {
      * @param {Pointer<UInt32>} pcchLanguagesBuffer Pointer to the size, in characters, for the language buffer indicated by <i>pwszLanguagesBuffer</i>. On successful return from the function, the parameter contains the size of the retrieved language buffer.
      * 
      * Alternatively if this parameter is set to 0 and <i>pwszLanguagesBuffer</i> is set to <b>NULL</b>, the function retrieves the required size of the language buffer in <i>pcchLanguagesBuffer</i>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following error codes:
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * </ul>
      * 
      * 
      * If the function fails for any other reason, the parameters <i>pulNumLanguages</i> and <i>pcchLanguagesBuffer</i> are undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getthreadpreferreduilanguages
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getthreadpreferreduilanguages
      * @since windows6.0.6000
      */
     static GetThreadPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer, pcchLanguagesBuffer) {
@@ -9848,59 +8404,6 @@ class Globalization {
 
     /**
      * Sets the thread preferred UI languages for the current thread. For more information, see User Interface Language Management.
-     * @remarks
-     * When the application loads resources after a call to this function, the thread-specific preferences take priority over the languages preferred by the user.
-     * 
-     * This function can set up to five preferred languages for the thread, in order of preference. If the language buffer contains more than five valid languages, the function sets the first five valid languages and ignores the rest.
-     * 
-     * If the application calls this function with the MUI_LANGUAGE_ID flag set, the strings in the language list must use hexadecimal language 
-     * 
-     * identifiers that do not include the leading 0x, and are 4 characters in length. For example, en-US should be 
-     * 
-     * passed as "0409" and en as "0009".
-     * 
-     * When MUI_LANGUAGE_ID is specified, the hexadecimal values in the language list must each represent an actual language identifier. In particular, the following locale identifier values cannot be used to correspond to the language identifier: 
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-system-default">LOCALE_SYSTEM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>
-     * </li>
-     * </ul>
-     * Calling this function with an empty language list and setting the MUI_CONSOLE_FILTER flag has the same effect as calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setthreaduilanguage">SetThreadUILanguage</a> with the language identifier set to 0. The language is set appropriately for use in a console window.
-     * 
-     * After this function returns, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a> to verify and examine the resulting language list. When MUI_CONSOLE_FILTER or MUI_COMPLEX_FILTER has been set by <b>SetThreadPreferredUILanguages</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a> function replaces with the fallback the languages the console cannot display using the current operating system language setting. The fallback for a language is determined based on the value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sconsolefallbackname">LOCALE_SCONSOLEFALLBACKNAME</a> for the language.
-     * 
-     * Setting the MUI_COMPLEX_SCRIPT_FILTER flag in the call to <b>SetThreadPreferredUILanguages</b> causes <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a>  to remove languages that the console cannot display with languages that can only be rendered using <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe">Uniscribe</a>, and insert the fallback language as the ultimate fallback. Examples of such languages are Arabic or the various Indic languages.
-     * 
-     * Setting the MUI_CONSOLE_FILTER flag in the call to <b>SetThreadPreferredUILanguages</b> causes <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a> to remove languages the console cannot display with the current system setting and insert the fallback language as the ultimate fallback, because the console is limited to displaying characters from a single <a href="https://docs.microsoft.com/windows/desktop/Intl/code-pages">code page</a>. For example, if the user language is Japanese (Japan), but the current console code page is the code page for Russian (Russia), the console displays Japanese-language text mostly as a series of character-not-found symbols. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a> chooses a language from the fallback list that will be legible in the console.
-     * 
-     * <div class="alert"><b>Note</b>  Resource-loading functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourcea">FindResource</a>, also make calls to <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getthreadpreferreduilanguages">GetThreadPreferredUILanguages</a>.</div>
-     * <div> </div>
-     * To change the code page, the application uses the <b>setlocale</b> function, or equivalent.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean SetThreadPreferredUILanguages(
-     *             System.UInt32 dwFlags,
-     *             System.String pwszLanguagesBuffer,
-     *             ref System.UInt32 pulNumLanguages
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags identifying format and filtering for the languages to set. 
      * 
      * The following <i>format flags</i> specify the language format to use for the thread preferred UI languages. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME.
@@ -9983,7 +8486,7 @@ class Globalization {
      * When the application specifies one of the filtering flags, it must set this parameter to <b>NULL</b>. In this case, the function succeeds, but does not reset the thread preferred languages.
      * @param {Pointer<UInt32>} pulNumLanguages Pointer to the number of languages that the function has set in the thread preferred UI languages list. When the application specifies one of the filtering flags, the function must set this parameter to <b>NULL</b>.
      * @returns {Integer} Returns <b>TRUE</b> if the function succeeds or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setthreadpreferreduilanguages
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-setthreadpreferreduilanguages
      * @since windows6.0.6000
      */
     static SetThreadPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLanguages) {
@@ -9995,85 +8498,6 @@ class Globalization {
 
     /**
      * Retrieves resource-related information about a file.
-     * @remarks
-     * For the MUI_QUERY_LANGUAGE_NAME flag, this function retrieves an offset, in bytes, from the beginning of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-filemuiinfo">FILEMUIINFO</a> in the <b>dwLanguageNameOffset</b> member.
-     * 
-     * The following is sample code that accesses the language name associated with the input file:
-     * 
-     * 
-     * ```cpp
-     * LPWSTR lpszLang = reinterpret_cast<LPWSTR>(
-     *         reinterpret_cast<BYTE*>(pFileMUIInfo) +
-     *         pFileMUIInfo->dwLanguageNameOffset);
-     * 
-     * ```
-     * 
-     * 
-     * For the MUI_QUERY_RESOURCE_TYPES flag, this function retrieves language-specific resource file information in the following <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-filemuiinfo">FILEMUIINFO</a> members:
-     * 
-     * <ul>
-     * <li>The <b>dwTypeIDMUIOffset</b> member contains the offset to an array of identifiers of resources contained in the language-specific resource file.</li>
-     * <li>The <b>dwTypeIDMUISize</b> member contains the size of the array of resource identifiers for the language-specific resource file.</li>
-     * <li>The <b>dwTypeNameMUIOffset</b> member contains the offset to an array of names of resources contained in the language-specific resource file.</li>
-     * </ul>
-     * If the input file is an LN file, the function fills in all the above structure members. In addition, it fills in the following members:
-     * 
-     * <ul>
-     * <li>The <b>dwTypeIDMainOffset</b> member contains the offset to an array of identifiers of resources contained in the LN file.</li>
-     * <li>The <b>dwTypeIDMainSize</b> member contains the size of the array of resource identifiers for the LN file.</li>
-     * <li>The <b>dwTypeNameMainOffset</b> member contains the offset to an array of names of resources contained in the file.</li>
-     * </ul>
-     * The following is sample code that accesses the array of resource identifiers in the LN file.
-     * 
-     * 
-     * ```cpp
-     * DWORD *pdwTypeID = reinterpret_cast<DWORD *>(
-     *         reinterpret_cast<BYTE*>(pFileMUIInfo) +
-     *         pFileMUIInfo->dwTypeIDMainOffset);
-     * 
-     * ```
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The lists of language-specific resources are accessed in the same way.</div>
-     * <div> </div>
-     * The following is sample code to access the multistring array of resource names in the LN file.
-     * 
-     * 
-     * ```cpp
-     * LPWSTR lpszNames = reinterpret_cast<LPWSTR>(
-     *         reinterpret_cast<BYTE*>(pFileMUIInfo) +
-     *         pFileMUIInfo->dwTypeNameMainOffset);
-     * 
-     * ```
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  The lists of language-specific resources are accessed in the same way.</div>
-     * <div> </div>
-     * Each of the code samples uses two reinterpret casts. First the code casts to BYTE* so that the pointer arithmetic for the offset is done in bytes. Then the code casts the resulting pointer to the desired type.
-     * 
-     * Another approach is to write the following instead of the code shown in the samples. The effect is the same and the choice is strictly one of style.
-     * 
-     * 
-     * ```cpp
-     * DWORD ix = pFileMUIInfo->dwLanguageNameOffset - 
-     *         offsetof(struct _FILEMUIINFO, abBuffer);
-     * LPWSTR lpszLang = reinterpret_cast<LPWSTR>(&(pFileMUIInfo->abBuffer[ix]));
-     * 
-     * ```
-     * 
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean GetFileMUIInfo(
-     *             System.UInt32 dwFlags,
-     *             System.String pcwszFilePath,
-     *             ref FILEMUIINFO pFileMUIInfo,
-     *             ref System.UInt32 pcbFileMUIInfo
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags specifying the information to retrieve. Any combination of the following flags is allowed. The default value of the flags is MUI_QUERY_TYPE | MUI_QUERY_CHECKSUM.
      * 
      * <table>
@@ -10100,8 +8524,8 @@ class Globalization {
      * 
      * <div class="alert"><b>Note</b>  The value of this parameter must match the value of the <b>dwSize</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-filemuiinfo">FILEMUIINFO</a> if the value of <i>pFileMUIInfo</i> is not <b>NULL</b>.</div>
      * <div> </div>
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getfilemuiinfo
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getfilemuiinfo
      * @since windows6.0.6000
      */
     static GetFileMUIInfo(dwFlags, pcwszFilePath, pFileMUIInfo, pcbFileMUIInfo) {
@@ -10118,86 +8542,6 @@ class Globalization {
 
     /**
      * Retrieves the path to all language-specific resource files associated with the supplied LN file. The application must call this function repeatedly to get the path for each resource file.
-     * @remarks
-     * This function verifies that language-specific resource files exist, but it does not verify that they are correct. It requires the resource files to be stored according to the storage convention explained in <a href="https://docs.microsoft.com/windows/desktop/Intl/application-deployment">Application Deployment</a>.
-     * 
-     * If the call to this function specifies the MUI_LANGUAGE_ID flag, the supplied language string must 
-     * 
-     * use a hexadecimal language identifier that does not include the leading 0x, and is 4 characters in length. 
-     * 
-     * For example, en-US should be passed as "0409" and en as "0009". The returned language string will be in the 
-     * 
-     * same format.
-     * 
-     * When MUI_LANGUAGE_ID is specified, each hexadecimal value in the supplied language string must represent an actual language identifier. In particular, the values corresponding to the following locales cannot be specified: 
-     * 
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-system-default">LOCALE_SYSTEM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>
-     * </li>
-     * </ul>
-     * To receive enumerated information, the application should call this function repeatedly until it returns <b>FALSE</b>, leaving the contents of <i>pululEnumerator</i> unchanged between calls. Since each call retrieves the path to a different language-specific resource file, the application must clear the language buffer to an empty string between calls. If the application does not do this, the input value of <i>pwszLanguage</i> takes precedence over the setting of <i>dwFlags</i>.
-     * 
-     * Typically the resource loader is used to find resource files. However, your application can also use this function to find the files. If the input file path is for an LN file, the function attaches a suffix of ".mui" when looking for the corresponding language-specific resource files.
-     * 
-     * For example, the function retrieves the following files when the application passes the string "C:\mydir\Example1.dll" in <i>pcwszFilePath</i> as the root file path, with <i>dwFlags</i> set to MUI_LANGUAGE_NAME | MUI_USE_SEARCH_ALL_LANGUAGES:
-     * 
-     * <ul>
-     * <li>C:\mydir\Example1.dll<ul>
-     * <li>C:\mydir\en-US\Example1.dll.mui</li>
-     * <li>C:\mydir\ja-JP\Example1.dll.mui</li>
-     * </ul>
-     * </li>
-     * </ul>
-     * The first call to the function sets <i>pwszFileMUIPath</i>  to "C:\mydir\en-US\Example1.dll.mui". The second call sets the file path to "C:\mydir\ja-JP\Example1.dll.mui". The function returns <b>FALSE</b> when called a third time and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NO_MORE_FILES.
-     * 
-     * If the file indicated by <i>pcwszFilePath</i> does not have resource configuration data, or if the file does not exist, the function leaves the file name as it is when looking for the corresponding language-specific resource files.
-     * 
-     * For example, the application passes the string "C:\mydir\Example2.txt" in <i>pcwszFilePath</i> as the root file path, with <i>dwFlags</i> set to MUI_LANGUAGE_NAME | MUI_USER_PREFERRED_UI_LANGUAGES. Let's consider the case in which the user preferred UI languages (in order) are Catalan, "ca-ES", and Spanish (Spain), "es-ES", and where the following files exist:
-     * 
-     * <ul>
-     * <li>(no corresponding file in C:\mydir)
-     *             <ul>
-     * <li>C:\mydir\en-US\Example2.txt</li>
-     * <li>C:\mydir\en\Example2.txt</li>
-     * <li>C:\mydir\es-ES\Example2.txt</li>
-     * <li>C:\mydir\es\Example2.txt</li>
-     * <li>C:\mydir\ja-JP\Example2.txt</li>
-     * </ul>
-     * </li>
-     * </ul>
-     * The first call to the function determines that there are no resources for "ca-ES" or for the neutral language "ca". The function then tries the next option, "es-ES", for which it succeeds in finding a match. Before returning, the function sets <i>pwszFileMUIPath</i>  to "C:\mydir\es-ES\Example2.txt". A second application call to the function continues the enumeration by setting <i>pwszFileMUIPath</i> to "C:\mydir\es\Example2.txt".
-     * 
-     * If the target file and its associated resource files are actually <a href="https://docs.microsoft.com/windows/desktop/SbsCs/isolated-applications-and-side-by-side-assemblies-portal">Side-by-side enabled assemblies</a>, GetFileMUIPath cannot be used to retrieve the path to the resource file. Please refer to <a href="https://docs.microsoft.com/windows/desktop/SbsCs/using-assemblies-with-a-multilanguage-user-interface">Using Assemblies with a Multilanguage User Interface</a> for details on how to use Side-by-side assemblies with MUI support.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean GetFileMUIPath(
-     *             System.UInt32 dwFlags,
-     *             System.String pcwszFilePath,
-     *             System.Text.StringBuilder pwszLanguage,
-     *             ref System.UInt32 pcchLanguage,
-     *             System.Text.StringBuilder pwszFileMUIPath,
-     *             ref System.UInt32 pcchFileMUIPath,
-     *             ref System.UInt64 pululEnumerator
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags identifying language format and filtering. The following flags specify the format of the language indicated by <i>pwszLanguage</i>. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME.
      * 
      * <table>
@@ -10311,13 +8655,13 @@ class Globalization {
      * @param {Pointer<UInt64>} pululEnumerator Pointer to an enumeration variable. The first time this function is called, the value of the variable should be 0. Between subsequent calls, the application should not change the value of this parameter. After the function retrieves all possible language-specific resource file paths, it returns <b>FALSE</b>.
      * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. If the function fails, the output parameters do not change.
      * 
-     * To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return the following error codes:
+     * To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_NO_MORE_FILES. There were no more files to process.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getfilemuipath
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getfilemuipath
      * @since windows6.0.6000
      */
     static GetFileMUIPath(dwFlags, pcwszFilePath, pwszLanguage, pcchLanguage, pwszFileMUIPath, pcchFileMUIPath, pululEnumerator) {
@@ -10336,61 +8680,6 @@ class Globalization {
 
     /**
      * Retrieves a variety of information about an installed UI language
-     * @remarks
-     * MUI_LANGUAGE_NAME is recommended over MUI_LANGUAGE_ID because it allows the function to do a better job of handling LIP languages that do not correspond to predefined locales, but instead correspond to a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locale</a>. LIP languages that correspond to predefined locales are handled just like non-LIP languages.
-     * 
-     * If the MUI_LANGUAGE_ID flag is specified, the supplied language strings must 
-     * 
-     * use hexadecimal language identifiers that do not include the leading 0x, and are 4 characters in length. 
-     * 
-     * For example, en-US should be passed as "0409" and en as "0009". The returned language strings will be in the 
-     * 
-     * same format.
-     * 
-     * When MUI_LANGUAGE_ID is specified, and if there is such a language in the user preferred UI languages list, there can be only one such language in the list. That language can be specified in <i>pwmszLanguage</i> as "1400", which corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>. No other such language can be specified using MUI_LANGUAGE_ID. Using "1000", which corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>, in the string indicated by <i>pwmszLanguage</i> will result in an ERROR_INVALID_PARAMETER code.
-     * 
-     * A partially localized language can have a fallback language that is partially localized, requiring repeated calls to <b>GetUILanguageInfo</b> to obtain full information. Consider the case of a partially localized language Lang1 that offers a choice of three fallback languages. The Lang3 fallback language is partially localized, and offers a choice of two fallback languages. The dependencies are as follows, with the default fallback listed first:
-     * 
-     * <ul>
-     * <li>Lang1<ul>
-     * <li>Lang2</li>
-     * <li>Lang3<ul>
-     * <li>Lang5</li>
-     * <li>Lang6</li>
-     * </ul>
-     * </li>
-     * <li>Lang4</li>
-     * </ul>
-     * </li>
-     * </ul>
-     * To get the fallback language(s) of Lang1, the application passes in <i>pwmszLanguage</i> as "Lang1\0\0". On return from the function, <i>pwszFallbackLanguages</i> is set to "Lang2\0Lang3\0Lang4\0\0". Note that the ordering of this list indicates that Lang2 is the default fallback language.
-     * 
-     * To get the fallback language(s) of Lang3 in relation to Lang1, the application passes in <i>pwmszLanguage</i> as "lang1\0\lang3\0\0". On return from the function, <i>pwszFallbackLanguages</i> is set to "Lang5\0Lang6\0\0".
-     * 
-     * This function returns ERROR_INVALID_PARAMETER for any of the following:
-     * 
-     * <ul>
-     * <li><i>pwmszLanguage</i> is <b>NULL</b> or empty.</li>
-     * <li>Both MUI_LANGUAGE_ID and MUI_LANGUAGE_NAME are set.</li>
-     * <li>Any flags other than MUI_LANGUAGE_ID or MUI_LANGUAGE_NAME are set.</li>
-     * <li><i>pcchFallbackLanguages</i> is greater than 0 but <i>pwszFallbackLanguages</i> is <b>NULL</b>.</li>
-     * <li><i>pwmszLanguage</i> cannot be parsed as a multi-string buffer of language identifiers or language names, depending on the flag setting.</li>
-     * </ul>
-     * The ERROR_OBJECT_NAME_NOT_FOUND error code occurs if <i>pwmszLanguage</i> can be parsed, but is not valid. The code might also be returned for an invalid locale identifier, or if the first language in the input list is not an installed language, or if a fully localized language has defined a fallback language.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean GetUILanguageInfo(
-     *             System.UInt32 dwFlags,
-     *             System.String pwmszLanguage,
-     *             System.IntPtr pwszFallbackLanguages,
-     *             ref System.UInt32 pcchFallbackLanguages,
-     *             ref System.UInt32 pdwAttributes
-     *             );
-     * 
-     * ```
      * @param {Integer} dwFlags Flags defining the format of the specified language. The flags are mutually exclusive, and the default is MUI_LANGUAGE_NAME.
      * 
      * <table>
@@ -10425,7 +8714,7 @@ class Globalization {
      * Alternatively if this parameter is set to <b>NULL</b> and <i>pcchLanguagesBuffer</i> is set to 0, the function retrieves the required size of the language buffer in <i>pcchLanguagesBuffer</i>. The required size includes the two null characters.
      * @param {Pointer<UInt32>} pcchFallbackLanguages Pointer to the size, in characters, for the language buffer indicated by <i>pwszFallbackLanguages</i>. On successful return from the function, the parameter contains the size of the retrieved language buffer.
      * 
-     * Alternatively if this parameter is set to 0 and <i>pwszLanguagesBuffer </i> is set to <b>NULL</b>, the function retrieves the required size of the language buffer in <i>pcchLanguagesBuffer</i>.
+     * Alternatively if this parameter is set to 0 and <i>pwszLanguagesBuffer </i>is set to <b>NULL</b>, the function retrieves the required size of the language buffer in <i>pcchLanguagesBuffer</i>.
      * @param {Pointer<UInt32>} pAttributes Pointer to flags indicating attributes of the input language list. The function always retrieves the flag characterizing the last language listed.
      * 
      * <table>
@@ -10494,7 +8783,7 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>.</li>
@@ -10502,8 +8791,8 @@ class Globalization {
      * <li>ERROR_OBJECT_NAME_NOT_FOUND. The specified object name was not found, or it was not valid, or the first language in the input list is not an installed language. For more information, see Remarks.
      * </li>
      * </ul>
-     * If <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns any other error code, the parameters <i>pcchFallbackLanguages</i> and <i>pdwAttributes</i> are undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuilanguageinfo
+     * If <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns any other error code, the parameters <i>pcchFallbackLanguages</i> and <i>pdwAttributes</i> are undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuilanguageinfo
      * @since windows6.0.6000
      */
     static GetUILanguageInfo(dwFlags, pwmszLanguage, pwszFallbackLanguages, pcchFallbackLanguages, pAttributes) {
@@ -10545,14 +8834,12 @@ class Globalization {
 
     /**
      * Unsupported. NotifyUILanguageChange may be altered or unavailable.
-     * @remarks
-     * <b>NotifyUILanguageChange</b> is not supported and may be altered or unavailable in the future.
      * @param {Integer} dwFlags Reserved.
      * @param {Pointer<Char>} pcwstrNewLanguage The new language.
      * @param {Pointer<Char>} pcwstrPreviousLanguage The previous language.
      * @param {Pointer<UInt32>} pdwStatusRtrn A pointer to a <b>DWORD</b> return status.
      * @returns {Integer} A <b>BOOL</b> datatype.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-notifyuilanguagechange
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-notifyuilanguagechange
      * @since windows6.1
      */
     static NotifyUILanguageChange(dwFlags, pcwstrNewLanguage, pcwstrPreviousLanguage, pdwStatusRtrn) {
@@ -10566,59 +8853,13 @@ class Globalization {
     }
 
     /**
-     * Retrieves character type information for the characters in the specified source string.
-     * @remarks
-     * For an overview of the use of the string functions, see <a href="https://docs.microsoft.com/windows/desktop/menurc/strings">Strings</a>.
      * 
-     * Using the ANSI code page for the supplied locale, this function translates the source string from ANSI to Unicode. It then analyzes each Unicode character for character type information.
-     * 
-     * The ANSI version of this function converts the source string to Unicode and calls the 
-     * corresponding <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a> function. Thus the words in the output buffer correspond not to the original ANSI string but to its Unicode equivalent. The conversion from ANSI to Unicode can result in a change in string length, for example, a pair of ANSI characters can map to a single 
-     * Unicode character. Therefore, the correspondence between the words in the output buffer and the characters in the original ANSI string is not one-to-one in all cases, for example, multibyte strings. Thus, the ANSI version of this function is of limited use for multi-character strings. The Unicode version of the function is recommended instead.
-     * 
-     * This function circumvents a limitation caused by the difference in parameters between <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getstringtypea">GetStringTypeA</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a>. Because of the parameter difference, an application cannot automatically invoke the proper ANSI or Unicode version of a <b>GetStringType*</b> function through the use of the #define UNICODE switch. On the other hand, <b>GetStringTypeEx</b>, behaves properly with regard to that switch. Thus it is the recommended function.
-     * 
-     *     
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * The values of the <i>lpSrcStr</i> and <i>lpCharType</i> parameters must not be the same. If they are the same, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
-     * 
-     * The <i>Locale</i> parameter is only used to perform string conversion to Unicode. It has nothing to do with the CTYPE* values supplied by the application. These values are solely determined by Unicode code points, and do not vary on a locale basis. For example, Greek letters are specified as C1_ALPHA for any value of <i>Locale</i>.
-     * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. This value uniquely defines the ANSI code page. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values.
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-system-default">LOCALE_SYSTEM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
-     * </li>
-     * </ul>
-     * <b>Windows Vista and later:</b> The following custom locale identifiers are also supported.
-     * 
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UI_DEFAULT</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>
-     * </li>
-     * </ul>
-     * @param {Integer} dwInfoType Flags specifying the character type information to retrieve. For possible flag values, see the <i>dwInfoType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a>. For detailed information about the character type bits, see Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a>.
-     * @param {Pointer<Byte>} lpSrcStr Pointer to the string for which to retrieve the character types. The string is assumed to be null-terminated if <i>cchSrc</i> is set to any negative value.
-     * @param {Integer} cchSrc Size, in characters, of the string indicated by <i>lpSrcStr</i>. The size refers to bytes for the ANSI version of the function or wide characters for the Unicode version. If the size includes a terminating null character, the function retrieves character type information for that character. If the application sets the size to any negative integer, the source string is assumed to be null-terminated and the function calculates the size automatically with an additional character for the null termination.
-     * @param {Pointer<UInt16>} lpCharType Pointer to an array of 16-bit values. The length of this array must be large enough to receive one 16-bit value for each character in the source string. If <i>cchSrc</i> is not a negative number, <i>lpCharType</i> should be an array of words with <i>cchSrc</i> elements. If <i>cchSrc</i> is set to a negative number, <i>lpCharType</i> is an array of words with <i>lpSrcStr</i> + 1 elements. When the function returns, this array contains one word corresponding to each character in the source string.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
-     * 
-     * <ul>
-     * <li><b>ERROR_INVALID_FLAGS</b>. The values supplied for flags were not valid.</li>
-     * <li><b>ERROR_INVALID_PARAMETER</b>. Any of the parameter values was invalid.</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-getstringtypeexw
+     * @param {Integer} Locale 
+     * @param {Integer} dwInfoType 
+     * @param {Pointer<Byte>} lpSrcStr 
+     * @param {Integer} cchSrc 
+     * @param {Pointer<UInt16>} lpCharType 
+     * @returns {Integer} 
      */
     static GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
         lpSrcStr := lpSrcStr is String? StrPtr(lpSrcStr) : lpSrcStr
@@ -10628,22 +8869,7 @@ class Globalization {
     }
 
     /**
-     * Deprecated. (GetStringTypeA)
-     * @remarks
-     * For an overview of the use of the string functions, see <a href="https://docs.microsoft.com/windows/desktop/menurc/strings">Strings</a>.
-     * 
-     * This function converts the source string to Unicode and calls the 
-     * corresponding <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a> function. Thus the words in the output buffer correspond not to the original ANSI string but to its Unicode equivalent. The conversion from ANSI to Unicode can result in a change in string length, for example, a pair of ANSI characters can map to a single 
-     * Unicode character. Therefore, the correspondence between the words in the output buffer and the characters in the original ANSI string is not one-to-one in all cases, for example, multibyte strings. Thus <b>GetStringTypeA</b> is of limited use for multi-character strings. [GetStringTypeW function](../stringapiset/nf-stringapiset-getstringtypew.md) and [GetStringTypeEx](../stringapiset/nf-stringapiset-getstringtypeexw.md) are recommended instead.
-     * 
-     * 			 
-     * When this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * The values of the <i>lpSrcStr</i> and <i>lpCharType</i> parameters must not be the same. If they are the same, the function fails with ERROR_INVALID_PARAMETER.
-     * 
-     * The <i>Locale</i> parameter is only used to perform string conversion to Unicode. It has nothing to do with the CTYPE* values supplied by the application. These values are solely determined by Unicode code points, and do not vary on a locale basis. For example, Greek letters are specified as C1_ALPHA for any value of <i>Locale</i>.
-     * 
-     * The <i>Locale</i> parameter is not used by the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-getstringtypew">GetStringTypeW</a> function. Because of the parameter difference, an application cannot automatically invoke the proper ANSI or Unicode version of a <b>GetStringType*</b> function through the use of the #define UNICODE switch. An application can circumvent this limitation by using <a href="https://docs.microsoft.com/previous-versions/ms960831(v%3dmsdn.10)">GetStringTypeEx</a>, which is the recommended function.
+     * Deprecated.
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> that specifies the locale. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelcid">MAKELCID</a> macro to create a locale identifier or use one of the following predefined values. 
      * 
      * <ul>
@@ -10671,13 +8897,13 @@ class Globalization {
      * @param {Pointer<Byte>} lpSrcStr Pointer to the ANSI string for which to retrieve the character types. The string can be a double-byte character set (DBCS) string if the supplied locale is appropriate for DBCS. The string is assumed to be null-terminated if <i>cchSrc</i> is set to any negative value.
      * @param {Integer} cchSrc Size, in characters, of the string indicated by <i>lpSrcStr</i>. If the size includes a terminating null character, the function retrieves character type information for that character. If the application sets the size to any negative integer, the source string is assumed to be null-terminated and the function calculates the size automatically with an additional character for the null termination.
      * @param {Pointer<UInt16>} lpCharType Pointer to an array of 16-bit values. The length of this array must be large enough to receive one 16-bit value for each character in the source string. If <i>cchSrc</i> is not a negative number, <i>lpCharType</i> should be an array of words with <i>cchSrc</i> elements. If <i>cchSrc</i> is set to a negative number, <i>lpCharType</i> is an array of words with <i>lpSrcStr</i> + 1 elements. When the function returns, this array contains one word corresponding to each character in the source string.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getstringtypea
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getstringtypea
      * @since windows5.0
      */
     static GetStringTypeA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
@@ -10693,17 +8919,7 @@ class Globalization {
     }
 
     /**
-     * Maps one Unicode string to another, performing the specified transformation. (FoldStringA)
-     * @remarks
-     * The values of the <i>lpSrcStr</i> and  and <i>lpDestStr</i> parameters must not be the same. If they are the same, the function fails with ERROR_INVALID_PARAMETER.
-     * 
-     * The compatibility zone in Unicode consists of characters in the range 0xF900 through 0xFFEF that are assigned to characters from other encoding standards for characters but are actually variants of characters already in Unicode. The compatibility zone is used to support round-trip mapping to these standards. Applications can use the MAP_FOLDCZONE flag to avoid supporting the duplication of characters in the compatibility zone.
-     * 
-     * <b>Starting with Windows Vista:</b> This function supports Unicode normalization. All Unicode compatibility characters are mapped.
-     * 
-     * <b>Starting with Windows Vista:</b> The transformations indicated by the MAP_FOLDCZONE, MAP_PRECOMPOSED, and MAP_COMPOSITE flags use Unicode normalization forms KC, C, and D (through the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-normalizestring">NormalizeString</a> function) to do the mappings.
-     * 
-     * <b>Starting with Windows 8: </b>The ANSI version of the function is declared in Winnls.h and the Unicode version is declared in Stringapiset.h. Before Windows 8, both versions were declared in Winnls.h.
+     * Maps one Unicode string to another, performing the specified transformation.
      * @param {Integer} dwMapFlags 
      * @param {Pointer<Byte>} lpSrcStr Pointer to a source string that the function maps.
      * @param {Integer} cchSrc Size, in characters, of the source string indicated by <i>lpSrcStr</i>, excluding the terminating null character. The application can set the parameter to any negative value to specify that the source string is null-terminated. In this case, the function calculates the string length automatically, and null-terminates the mapped string indicated by <i>lpDestStr</i>.
@@ -10713,7 +8929,7 @@ class Globalization {
      * The application can set <i>cchDest</i> to 0. In this case, the function does not use the <i>lpDestStr</i> parameter and returns the required buffer size for the mapped string. If the MAP_FOLDDIGITS flag is specified, the return value is the maximum size required, even if the actual number of characters needed is smaller than the maximum size. If the maximum size is not passed, the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} Returns the number of characters in the translated string, including a terminating null character, if successful. If the function succeeds and the value of <i>cchDest</i> is 0, the return value is the size of the buffer required to hold the translated string, including a terminating null character.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -10724,7 +8940,7 @@ class Globalization {
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation. </li>
      * <li>ERROR_PROC_NOT_FOUND. The required procedure was not found.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-foldstringa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-foldstringa
      * @since windows5.0
      */
     static FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
@@ -10741,16 +8957,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the locales that are either installed on or supported by an operating system.Note  For interoperability reasons, the application should prefer the EnumSystemLocalesEx function to EnumSystemLocales because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that will be run only on Windows Vista and later should use EnumSystemLocalesEx. (ANSI)
-     * @remarks
-     * The function enumerates locales by passing locale identifiers, one at a time, to the specified application-defined callback function. This continues until all of the installed or supported locale identifiers have been passed to the callback function or the callback function returns <b>FALSE</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumSystemLocales as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the locales that are either installed on or supported by an operating system.Note  For interoperability reasons, the application should prefer the EnumSystemLocalesEx function to EnumSystemLocales because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that will be run only on Windows Vista and later should use EnumSystemLocalesEx.
      * @param {Pointer<LOCALE_ENUMPROCA>} lpLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317822(v=vs.85)">EnumLocalesProc</a>.
      * @param {Integer} dwFlags Flags specifying the locale identifiers to enumerate. The flags can be used singly or combined using a binary OR. If the application specifies 0 for this parameter, the function behaves as for LCID_SUPPORTED.
      * 
@@ -10790,14 +8997,14 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlocalesa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemlocalesa
      * @since windows5.0
      */
     static EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
@@ -10811,16 +9018,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the locales that are either installed on or supported by an operating system.Note  For interoperability reasons, the application should prefer the EnumSystemLocalesEx function to EnumSystemLocales because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that will be run only on Windows Vista and later should use EnumSystemLocalesEx. (Unicode)
-     * @remarks
-     * The function enumerates locales by passing locale identifiers, one at a time, to the specified application-defined callback function. This continues until all of the installed or supported locale identifiers have been passed to the callback function or the callback function returns <b>FALSE</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumSystemLocales as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the locales that are either installed on or supported by an operating system.Note  For interoperability reasons, the application should prefer the EnumSystemLocalesEx function to EnumSystemLocales because Microsoft is migrating toward the use of locale names instead of locale identifiers for new locales. Any application that will be run only on Windows Vista and later should use EnumSystemLocalesEx.
      * @param {Pointer<LOCALE_ENUMPROCW>} lpLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317822(v=vs.85)">EnumLocalesProc</a>.
      * @param {Integer} dwFlags Flags specifying the locale identifiers to enumerate. The flags can be used singly or combined using a binary OR. If the application specifies 0 for this parameter, the function behaves as for LCID_SUPPORTED.
      * 
@@ -10860,14 +9058,14 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlocalesw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemlocalesw
      * @since windows5.0
      */
     static EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
@@ -10881,27 +9079,18 @@ class Globalization {
     }
 
     /**
-     * Enumerates the language groups that are either installed on or supported by an operating system. (ANSI)
-     * @remarks
-     * This function enumerates language groups by passing language group identifiers, one at a time, to the specified application-defined callback function. This process continues until the last language group identifier is found or the callback function returns <b>FALSE</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumSystemLanguageGroups as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the language groups that are either installed on or supported by an operating system.
      * @param {Pointer<LANGUAGEGROUP_ENUMPROCA>} lpLanguageGroupEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317821(v=vs.85)">EnumLanguageGroupsProc</a>.
      * @param {Integer} dwFlags 
      * @param {Pointer} lParam Application-defined value to pass to the callback function. This parameter can be used in error checking. It can also be used to ensure thread safety in the callback function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlanguagegroupsa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemlanguagegroupsa
      * @since windows5.0
      */
     static EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, lParam) {
@@ -10915,27 +9104,18 @@ class Globalization {
     }
 
     /**
-     * Enumerates the language groups that are either installed on or supported by an operating system. (Unicode)
-     * @remarks
-     * This function enumerates language groups by passing language group identifiers, one at a time, to the specified application-defined callback function. This process continues until the last language group identifier is found or the callback function returns <b>FALSE</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumSystemLanguageGroups as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the language groups that are either installed on or supported by an operating system.
      * @param {Pointer<LANGUAGEGROUP_ENUMPROCW>} lpLanguageGroupEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317821(v=vs.85)">EnumLanguageGroupsProc</a>.
      * @param {Integer} dwFlags 
      * @param {Pointer} lParam Application-defined value to pass to the callback function. This parameter can be used in error checking. It can also be used to ensure thread safety in the callback function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlanguagegroupsw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemlanguagegroupsw
      * @since windows5.0
      */
     static EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, lParam) {
@@ -10949,28 +9129,19 @@ class Globalization {
     }
 
     /**
-     * Enumerates the locales in a specified language group. (ANSI)
-     * @remarks
-     * This function enumerates locales in the specified language group by passing locale identifiers, one at a time, to the application-defined callback function. This process continues until <b>EnumLanguageGroupLocales</b> finds the last locale identifier or the callback function returns <b>FALSE</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumLanguageGroupLocales as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the locales in a specified language group.
      * @param {Pointer<LANGGROUPLOCALE_ENUMPROCA>} lpLangGroupLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-langgrouplocale_enumproca">EnumLanguageGroupLocalesProc</a>.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer} lParam An application-defined value to pass to the callback function. This value can be used for error checking. It can also be used to ensure thread safety in the callback function.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumlanguagegrouplocalesa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumlanguagegrouplocalesa
      * @since windows5.0
      */
     static EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, lParam) {
@@ -10984,28 +9155,19 @@ class Globalization {
     }
 
     /**
-     * Enumerates the locales in a specified language group. (Unicode)
-     * @remarks
-     * This function enumerates locales in the specified language group by passing locale identifiers, one at a time, to the application-defined callback function. This process continues until <b>EnumLanguageGroupLocales</b> finds the last locale identifier or the callback function returns <b>FALSE</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumLanguageGroupLocales as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the locales in a specified language group.
      * @param {Pointer<LANGGROUPLOCALE_ENUMPROCW>} lpLangGroupLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-langgrouplocale_enumproca">EnumLanguageGroupLocalesProc</a>.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer} lParam An application-defined value to pass to the callback function. This value can be used for error checking. It can also be used to ensure thread safety in the callback function.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumlanguagegrouplocalesw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumlanguagegrouplocalesw
      * @since windows5.0
      */
     static EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, lParam) {
@@ -11019,37 +9181,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the user interface languages that are available on the operating system and calls the callback function with every language in the list. (ANSI)
-     * @remarks
-     * This function enumerates the user interface languages that are available and, depending on the flag specified, licensed for use on the operating system. It passes language identifiers or language names, one at a time, to the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-uilanguage_enumproca">EnumUILanguagesProc</a> callback function. The <b>EnumUILanguages</b> function continues to pass language identifiers or names to the callback function until the last language is found or the callback function returns <b>FALSE</b>.
-     * 
-     * For applications that run only on Windows Vista and later, MUI_LANGUAGE_NAME is recommended over MUI_LANGUAGE_ID. MUI_LANGUAGE_NAME allows differentiation between languages that are associated with a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locale</a>.
-     * 
-     * If the MUI_LANGUAGE_ID flag is specified in the call to this function, the strings passed to the callback 
-     * 
-     * function will be hexadecimal language identifiers that do not include the leading 0x, and will be 4 
-     * 
-     * characters in length. For example, en-US will be passed as "0409" and en as "0009". The value "1000" is passed to the callback function for any language associated with a supplemental locale. This value corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>. It does not distinguish among supplemental locales, even if the selected language is in the user preferred UI languages list or the system preferred UI languages list.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean EnumUILanguages(
-     *             EnumUILanguagesProc lpUILanguageEnumProc,
-     *             System.UInt32 dwFlags,
-     *             System.IntPtr lParam
-     *             );
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumUILanguages as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the user interface languages that are available on the operating system and calls the callback function with every language in the list.
      * @param {Pointer<UILANGUAGE_ENUMPROCA>} lpUILanguageEnumProc Pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-uilanguage_enumproca">EnumUILanguagesProc</a> callback function. <b>EnumUILanguages</b> calls this function repeatedly to enumerate the languages in the list.
      * @param {Integer} dwFlags Flags identifying language format and filtering. The following flags specify the format of the language to pass to the callback function. The format flags are mutually exclusive, and MUI_LANGUAGE_ID is the default. 
      * 
@@ -11127,13 +9259,13 @@ class Globalization {
      * 
      * <b>Windows 2000, Windows XP, Windows Server 2003:</b> The application must set <i>dwFlags</i> to 0.
      * @param {Pointer} lParam Application-defined value.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumuilanguagesa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumuilanguagesa
      * @since windows5.0
      */
     static EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, lParam) {
@@ -11147,37 +9279,7 @@ class Globalization {
     }
 
     /**
-     * Enumerates the user interface languages that are available on the operating system and calls the callback function with every language in the list. (Unicode)
-     * @remarks
-     * This function enumerates the user interface languages that are available and, depending on the flag specified, licensed for use on the operating system. It passes language identifiers or language names, one at a time, to the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-uilanguage_enumproca">EnumUILanguagesProc</a> callback function. The <b>EnumUILanguages</b> function continues to pass language identifiers or names to the callback function until the last language is found or the callback function returns <b>FALSE</b>.
-     * 
-     * For applications that run only on Windows Vista and later, MUI_LANGUAGE_NAME is recommended over MUI_LANGUAGE_ID. MUI_LANGUAGE_NAME allows differentiation between languages that are associated with a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">supplemental locale</a>.
-     * 
-     * If the MUI_LANGUAGE_ID flag is specified in the call to this function, the strings passed to the callback 
-     * 
-     * function will be hexadecimal language identifiers that do not include the leading 0x, and will be 4 
-     * 
-     * characters in length. For example, en-US will be passed as "0409" and en as "0009". The value "1000" is passed to the callback function for any language associated with a supplemental locale. This value corresponds to the hexadecimal value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-custom-constants">LOCALE_CUSTOM_UNSPECIFIED</a>. It does not distinguish among supplemental locales, even if the selected language is in the user preferred UI languages list or the system preferred UI languages list.
-     * 
-     * <h3><a id="C__Signature"></a><a id="c__signature"></a><a id="C__SIGNATURE"></a>C# Signature</h3>
-     * 
-     * ```cpp
-     * [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-     *         static extern System.Boolean EnumUILanguages(
-     *             EnumUILanguagesProc lpUILanguageEnumProc,
-     *             System.UInt32 dwFlags,
-     *             System.IntPtr lParam
-     *             );
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumUILanguages as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the user interface languages that are available on the operating system and calls the callback function with every language in the list.
      * @param {Pointer<UILANGUAGE_ENUMPROCW>} lpUILanguageEnumProc Pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-uilanguage_enumproca">EnumUILanguagesProc</a> callback function. <b>EnumUILanguages</b> calls this function repeatedly to enumerate the languages in the list.
      * @param {Integer} dwFlags Flags identifying language format and filtering. The following flags specify the format of the language to pass to the callback function. The format flags are mutually exclusive, and MUI_LANGUAGE_ID is the default. 
      * 
@@ -11255,13 +9357,13 @@ class Globalization {
      * 
      * <b>Windows 2000, Windows XP, Windows Server 2003:</b> The application must set <i>dwFlags</i> to 0.
      * @param {Pointer} lParam Application-defined value.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumuilanguagesw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumuilanguagesw
      * @since windows5.0
      */
     static EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, lParam) {
@@ -11275,28 +9377,17 @@ class Globalization {
     }
 
     /**
-     * Enumerates the code pages that are either installed on or supported by an operating system. (ANSI)
-     * @remarks
-     * This function enumerates the code pages by passing code page identifiers, one at a time, to the specified application-defined callback function. This process continues until all installed or supported code page identifiers have been passed to the callback function, or the callback function returns <b>FALSE</b>.
-     * 
-     * When an application is using this function to determine an appropriate code page for saving data, it should use Unicode when possible. Other code pages are not as portable as Unicode between vendors or operating systems, due to different implementations of the associated standards.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumSystemCodePages as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the code pages that are either installed on or supported by an operating system.
      * @param {Pointer<CODEPAGE_ENUMPROCA>} lpCodePageEnumProc Pointer to an application-defined callback function. The <b>EnumSystemCodePages</b> function enumerates code pages by making repeated calls to this callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317809(v=vs.85)">EnumCodePagesProc</a>.
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemcodepagesa
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemcodepagesa
      * @since windows5.0
      */
     static EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
@@ -11310,28 +9401,17 @@ class Globalization {
     }
 
     /**
-     * Enumerates the code pages that are either installed on or supported by an operating system. (Unicode)
-     * @remarks
-     * This function enumerates the code pages by passing code page identifiers, one at a time, to the specified application-defined callback function. This process continues until all installed or supported code page identifiers have been passed to the callback function, or the callback function returns <b>FALSE</b>.
-     * 
-     * When an application is using this function to determine an appropriate code page for saving data, it should use Unicode when possible. Other code pages are not as portable as Unicode between vendors or operating systems, due to different implementations of the associated standards.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumSystemCodePages as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the code pages that are either installed on or supported by an operating system.
      * @param {Pointer<CODEPAGE_ENUMPROCW>} lpCodePageEnumProc Pointer to an application-defined callback function. The <b>EnumSystemCodePages</b> function enumerates code pages by making repeated calls to this callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317809(v=vs.85)">EnumCodePagesProc</a>.
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemcodepagesw
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemcodepagesw
      * @since windows5.0
      */
     static EnumSystemCodePagesW(lpCodePageEnumProc, dwFlags) {
@@ -11346,16 +9426,6 @@ class Globalization {
 
     /**
      * Converts an internationalized domain name (IDN) or another internationalized label to a Unicode (wide character) representation of the ASCII string that represents the name in the Punycode transfer encoding syntax.
-     * @remarks
-     * The function does not null-terminate an output string if the input string length is explicitly specified without a terminating null character. To null-terminate an output string for this function, the application should supply -1 for the <i>cchUnicodeChar</i> parameter or explicitly count the terminating null character for the input string.
-     * 
-     * Note that the function always fails if the input string contains control characters (U+0001 through U+0020) or the "delete" character (U+007F). Since the character U+0000 can appear only as a terminating null character, the function always fails if U+0000 appears anywhere else in the input string.
-     * 
-     * <b>Windows XP, Windows Server 2003</b>: 
-     * 
-     * No longer supported.
-     * 
-     * The required header file and DLL are part of the Microsoft Internationalized Domain Name (IDN) Mitigation APIs, which are no longer available for download.
      * @param {Integer} dwFlags Flags specifying conversion options. The following table lists the possible values.
      * 
      * <table>
@@ -11422,7 +9492,7 @@ class Globalization {
      * 
      * If the function succeeds and the value of <i>cchASCIIChar</i> is 0, the function returns the required size, in characters including a terminating null character if it was part of the input buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -11431,7 +9501,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in a string.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-idntoascii
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-idntoascii
      * @since windows6.0.6000
      */
     static IdnToAscii(dwFlags, lpUnicodeCharStr, cchUnicodeChar, lpASCIICharStr, cchASCIIChar) {
@@ -11449,8 +9519,6 @@ class Globalization {
 
     /**
      * Converts the Punycode form of an internationalized domain name (IDN) or another internationalized label to the normal Unicode UTF-16 encoding syntax.
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-idntoascii">IdnToAscii</a>.
      * @param {Integer} dwFlags Flags specifying conversion options. For detailed definitions, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-idntoascii">IdnToAscii</a>.
      * @param {Pointer<Char>} lpASCIICharStr Pointer to a string representing the Punycode encoding of an IDN or another internationalized label. This string must consist only of ASCII characters, and can include Punycode-encoded Unicode. The function decodes Punycode values to their UTF-16 values.
      * @param {Integer} cchASCIIChar Count of characters in the input string indicated by <i>lpASCIICharStr</i>.
@@ -11460,7 +9528,7 @@ class Globalization {
      * 
      * If the function succeeds and the value of <i>cchUnicodeChar</i> is 0, the function returns the required size, in characters including a terminating null character if it was part of the input buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -11469,7 +9537,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in a string.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-idntounicode
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-idntounicode
      * @since windows6.0.6000
      */
     static IdnToUnicode(dwFlags, lpASCIICharStr, cchASCIIChar, lpUnicodeCharStr, cchUnicodeChar) {
@@ -11487,8 +9555,6 @@ class Globalization {
 
     /**
      * Converts an internationalized domain name (IDN) or another internationalized label to the NamePrep form specified by Network Working Group RFC 3491, but does not perform the additional conversion to Punycode.
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-idntoascii">IdnToAscii</a>.
      * @param {Integer} dwFlags Flags specifying conversion options. For detailed definitions, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-idntoascii">IdnToAscii</a>.
      * @param {Pointer<Char>} lpUnicodeCharStr Pointer to a Unicode string representing an IDN or another internationalized label.
      * @param {Integer} cchUnicodeChar Count of Unicode characters in the input Unicode string indicated by <i>lpUnicodeCharStr</i>.
@@ -11498,7 +9564,7 @@ class Globalization {
      * 
      * If the function succeeds and the value of <i>cchNameprepChar</i> is 0, the function returns the required size, in characters including a terminating null character if it was part of the input buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -11507,7 +9573,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in a string.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-idntonameprepunicode
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-idntonameprepunicode
      * @since windows6.0.6000
      */
     static IdnToNameprepUnicode(dwFlags, lpUnicodeCharStr, cchUnicodeChar, lpNameprepCharStr, cchNameprepChar) {
@@ -11525,45 +9591,6 @@ class Globalization {
 
     /**
      * Normalizes characters of a text string according to Unicode 4.0 TR#15. For more information, see Using Unicode Normalization to Represent Strings.
-     * @remarks
-     * Some Unicode characters have multiple equivalent binary representations consisting of sets of combining and/or composite Unicode characters. The Unicode standard defines a process called normalization that returns one binary representation when given any of the equivalent binary representations of a character. Normalization can be performed with several algorithms, called normalization forms, that obey different rules, as described in <a href="https://docs.microsoft.com/windows/desktop/Intl/using-unicode-normalization-to-represent-strings">Using Unicode Normalization to Represent Strings</a>. The Win32 and the .NET Framework currently support normalization forms C, D, KC, and KD, as defined in <a href="https://www.unicode.org/reports/tr15">Unicode Standard Annex #15: Unicode Normalization Forms</a>. Normalized strings are typically evaluated with an ordinal comparison.
-     * 
-     * The following code demonstrates the use of the buffer length estimate:
-     * 
-     * 
-     * ```cpp
-     * const int maxIterations = 10;
-     * LPWSTR strResult = NULL;
-     * HANDLE hHeap = GetProcessHeap();
-     * 
-     * int iSizeEstimated = NormalizeString(form, strInput, -1, NULL, 0);
-     * for (int i = 0; i < maxIterations; i++)
-     * {
-     *     if (strResult)
-     *         HeapFree(hHeap, 0, strResult);
-     *     strResult = (LPWSTR)HeapAlloc(hHeap, 0, iSizeEstimated * sizeof (WCHAR));
-     *     iSizeEstimated = NormalizeString(form, strInput, -1, strResult, iSizeEstimated);
-     *  
-     *     if (iSizeEstimated > 0)
-     *         break; // success 
-     *  
-     *     if (iSizeEstimated <= 0)
-     *     {
-     *         DWORD dwError = GetLastError();
-     *         if (dwError != ERROR_INSUFFICIENT_BUFFER) break; // Real error, not buffer error 
-     *  
-     *         // New guess is negative of the return value. 
-     *         iSizeEstimated = -iSizeEstimated;
-     *     }
-     * }
-     * 
-     * ```
-     * 
-     * <b>Windows XP, Windows Server 2003</b>: 
-     * 
-     * No longer supported.
-     * 
-     * The required header file and DLL are part of the Microsoft Internationalized Domain Name (IDN) Mitigation APIs, which are no longer available for download.
      * @param {Integer} NormForm Normalization form to use. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> specifies the standard Unicode normalization forms.
      * @param {Pointer<Char>} lpSrcString Pointer to the non-normalized source string.
      * @param {Integer} cwSrcLength Length, in characters, of the buffer containing the source string. The application can set this parameter to -1 if the function should assume the string to be null-terminated and calculate the length automatically.
@@ -11576,7 +9603,7 @@ class Globalization {
      * 
      * If the string in the input buffer is null-terminated or if <i>cwSrcLength</i> is -1, the string written to the destination buffer is null-terminated and the returned string length includes the terminating null character.
      * 
-     * The function returns a value that is less than or equal to 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns a value that is less than or equal to 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
@@ -11584,7 +9611,7 @@ class Globalization {
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in a string. The return value is the negative of the index of the location of the error in the input string.</li>
      * <li>ERROR_SUCCESS. The action completed successfully but yielded no results.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-normalizestring
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-normalizestring
      * @since windows6.0.6000
      */
     static NormalizeString(NormForm, lpSrcString, cwSrcLength, lpDstString, cwDstLength) {
@@ -11602,24 +9629,18 @@ class Globalization {
 
     /**
      * Verifies that a string is normalized according to Unicode 4.0 TR#15. For more information, see Using Unicode Normalization to Represent Strings.
-     * @remarks
-     * <b>Windows XP, Windows Server 2003</b>: 
-     * 
-     * No longer supported.
-     * 
-     * The required header file and DLL are part of the Microsoft Internationalized Domain Name (IDN) Mitigation APIs, which are no longer available for download.
      * @param {Integer} NormForm Normalization form to use. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> specifies the standard Unicode normalization forms.
      * @param {Pointer<Char>} lpString Pointer to the string to test.
      * @param {Integer} cwLength Length, in characters, of the input string, including a null terminating character. If this value is -1, the function assumes the string to be null-terminated and calculates the length automatically.
-     * @returns {Integer} Returns <b>TRUE</b> if the input string is already normalized to the appropriate form, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if the input string is already normalized to the appropriate form, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_NO_UNICODE_TRANSLATION. Invalid Unicode was found in string.</li>
      * <li>ERROR_SUCCESS. The action completed successfully but yielded no results.</li>
      * </ul>
-     * If you need to reliably determine <b>FALSE</b> from an error condition, then it must call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a>(ERROR_SUCCESS).
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isnormalizedstring
+     * If you need to reliably determine <b>FALSE</b> from an error condition, then it must call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a>(ERROR_SUCCESS).
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isnormalizedstring
      * @since windows6.0.6000
      */
     static IsNormalizedString(NormForm, lpString, cwLength) {
@@ -11636,74 +9657,6 @@ class Globalization {
 
     /**
      * Compares two enumerated lists of scripts.
-     * @remarks
-     * This function compares strings, such as "Latn;Cyrl;", that consist of a series of 4-character script names, with each script name followed by a semicolon. It also has a special case to account for the fact that the Latin script is often used in languages and locales for which it is not native.
-     * 
-     * This function is useful as part of a strategy to mitigate security issues related to <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-internationalized-domain-names--idns">internationalized domain names (IDNs)</a>.
-     * 
-     * The following are examples of the return of this function and a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> in various scenarios. The last two examples illustrate, respectively, a case in which the test list lacks a terminating semicolon (malformed string) and a case in which the test list is empty.
-     * 
-     * <table>
-     * <tr>
-     * <th>Locale string</th>
-     * <th>Test string</th>
-     * <th><i>dwFlags</i></th>
-     * <th>Return value</th>
-     * <th><b>GetLastError</b> return</th>
-     * </tr>
-     * <tr>
-     * <td>Hani;Hira;Kana;</td>
-     * <td>Hani;</td>
-     * <td>*</td>
-     * <td><b>TRUE</b></td>
-     * <td>(unchanged)</td>
-     * </tr>
-     * <tr>
-     * <td>Hani;Hira;Kana;</td>
-     * <td>Hani;Latn;</td>
-     * <td>0</td>
-     * <td><b>FALSE</b></td>
-     * <td>ERROR_SUCCESS</td>
-     * </tr>
-     * <tr>
-     * <td>Hani;Hira;Kana;</td>
-     * <td>Hani;Latn;</td>
-     * <td>VS_ALLOW_LATIN</td>
-     * <td><b>TRUE</b></td>
-     * <td>(unchanged)</td>
-     * </tr>
-     * <tr>
-     * <td>Hani;Hira;Kana;</td>
-     * <td>Cyrl;</td>
-     * <td>*</td>
-     * <td><b>FALSE</b></td>
-     * <td>ERROR_SUCCESS</td>
-     * </tr>
-     * <tr>
-     * <td>Hani;</td>
-     * <td>Hani;Hira;Kana;</td>
-     * <td>*</td>
-     * <td>FALSE</td>
-     * <td>ERROR_SUCCESS</td>
-     * </tr>
-     * <tr>
-     * <td>Hani;Hira;Kana;</td>
-     * <td>Cyrl</td>
-     * <td>*</td>
-     * <td><b>FALSE</b></td>
-     * <td>ERROR_INVALID_PARAMETER</td>
-     * </tr>
-     * <tr>
-     * <td>Hani;Hira;Kana;</td>
-     * <td></td>
-     * <td>*</td>
-     * <td>TRUE</td>
-     * <td>(unchanged)</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * * Results are the same whether VS_ALLOW_LATIN is passed in the <i>dwFlags</i> parameter or no flags are supplied.
      * @param {Integer} dwFlags Flags specifying script verification options.
      * 
      * <table>
@@ -11728,14 +9681,14 @@ class Globalization {
      * @param {Integer} cchTestScripts Size, in characters, of the string indicated by <i>lpTestScripts</i>. The application sets this parameter to -1 if the string is null-terminated. If this parameter is set to 0, the function fails.
      * @returns {Integer} Returns <b>TRUE</b> if the test list is non-empty and all items in the list are also included in the locale list. The function still returns <b>TRUE</b> if the locale list contains more scripts than the test list, but all the test list scripts must be contained in the locale list. If VS_ALLOW_LATIN is specified in <i>dwFlags</i>, the function behaves as if "Latn;" is always in the locale list.
      * 
-     * In all other cases, the function returns <b>FALSE</b>. This return can indicate that the test list contains an item that is not in the locale list, or it can indicate an error. To distinguish between these two cases, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * In all other cases, the function returns <b>FALSE</b>. This return can indicate that the test list contains an item that is not in the locale list, or it can indicate an error. To distinguish between these two cases, the application should call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_SUCCESS. The action completed successfully but yielded no results.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-verifyscripts
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-verifyscripts
      * @since windows6.0.6000
      */
     static VerifyScripts(dwFlags, lpLocaleScripts, cchLocaleScripts, lpTestScripts, cchTestScripts) {
@@ -11753,77 +9706,6 @@ class Globalization {
 
     /**
      * Provides a list of scripts used in the specified Unicode string.
-     * @remarks
-     * This function is useful as part of a strategy to mitigate security issues related to <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-internationalized-domain-names--idns">internationalized domain names (IDNs)</a>.
-     * 
-     * The script determination is based on the script values published by the Unicode Consortium in <a href="http://www.unicode.org/Public/4.1.0/ucd/Scripts.txt">http://www.unicode.org/Public/4.1.0/ucd/Scripts.txt</a>, except that the unassigned characters have the value "Zzzz" (UNASSIGNED) instead of "Zyyy" (COMMON).
-     * 
-     * Here are some examples of the behavior of this function:
-     * 
-     * <table>
-     * <tr>
-     * <th colspan="2">Input string</th>
-     * <th><i>dwFlags</i></th>
-     * <th><i>lpScripts</i></th>
-     * <th>Scripts</th>
-     * </tr>
-     * <tr>
-     * <td colspan="2">Microsoft.com</td>
-     * <td>0</td>
-     * <td>Latn;</td>
-     * <td>Latin</td>
-     * </tr>
-     * <tr>
-     * <td colspan="2">Microsoft.com</td>
-     * <td>GSS_ALLOW_INHERITED_COMMON</td>
-     * <td>Latn;Zyyy;</td>
-     * <td>Latin + Common</td>
-     * </tr>
-     * <tr>
-     * <td rowspan="2">Niño</td>
-     * <td>004E 0069 0241 006F</td>
-     * <td rowspan="2">GSS_ALLOW_INHERITED_COMMON</td>
-     * <td rowspan="2">Latn;</td>
-     * <td rowspan="2">Latin</td>
-     * </tr>
-     * <tr>
-     * <td>Uses LATIN SMALL LETTER N WITH TILDE</td>
-     * </tr>
-     * <tr>
-     * <td rowspan="2">Niño</td>
-     * <td>004E 0069 006E 0303 006F</td>
-     * <td rowspan="2">GSS_ALLOW_INHERITED_COMMON</td>
-     * <td rowspan="2">Latn;Qaii;</td>
-     * <td rowspan="2">Latin + Inherited</td>
-     * </tr>
-     * <tr>
-     * <td>Uses COMBINING TILDE</td>
-     * </tr>
-     * <tr>
-     * <td rowspan="2">Spооf</td>
-     * <td>0053 0070 043e 043e 0066</td>
-     * <td rowspan="2">0</td>
-     * <td rowspan="2">Latn;Cyrl;</td>
-     * <td rowspan="2">Latin + Cyrillic</td>
-     * </tr>
-     * <tr>
-     * <td>Uses CYRILLIC SMALL LETTER O</td>
-     * </tr>
-     * <tr>
-     * <td></td>
-     * <td>U+f000</td>
-     * <td>0</td>
-     * <td>Zzzz;</td>
-     * <td>Unassigned</td>
-     * </tr>
-     * <tr>
-     * <td></td>
-     * <td>U+f000</td>
-     * <td>GSS_ALLOW_INHERITED_COMMON</td>
-     * <td>Zzzz;</td>
-     * <td>Unassigned</td>
-     * </tr>
-     * </table>
      * @param {Integer} dwFlags Flags specifying options for script retrieval.
      * 
      * <table>
@@ -11858,7 +9740,7 @@ class Globalization {
      * 
      * If the function succeeds and the value of <i>cchScripts</i> is 0, the function returns the required size, in characters including a terminating null character, for the script buffer. The script count is as described above.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
@@ -11866,7 +9748,7 @@ class Globalization {
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getstringscripts
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getstringscripts
      * @since windows6.0.6000
      */
     static GetStringScripts(dwFlags, lpString, cchString, lpScripts, cchScripts) {
@@ -11884,40 +9766,6 @@ class Globalization {
 
     /**
      * Retrieves information about a locale specified by name.Note  The application should call this function in preference to GetLocaleInfo if designed to run only on Windows Vista and later. Note  This function can retrieve data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * This function normally retrieves information in text format. If the information is a numeric value and the value of <i>LCType</i> is <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-ilanguage">LOCALE_ILANGUAGE</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-idefault-constants">LOCALE_IDEFAULTLANGUAGE</a>, this function retrieves strings containing hexadecimal numbers. Otherwise, the retrieved text for numeric information is a decimal number.
-     * 
-     * There are two exceptions to this rule. First, the application can retrieve numeric values as integers by specifying <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> in the <i>LCType</i> parameter. The second exception is that <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-fontsignature">LOCALE_FONTSIGNATURE</a> behaves differently from all other locale information constants. The application must provide a data buffer of at least sizeof(LOCALESIGNATURE) bytes. On successful return from the function, the buffer is filled in as a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-localesignature">LOCALESIGNATURE</a> structure.
-     * 
-     * <div class="alert"><b>Note</b>  Even when the <i>LCType</i> parameter is specified as LOCALE_FONTSIGNATURE, <i>cchData</i> and the function return are still character counts. When an application calls <b>GetLocaleInfoEx</b> with <i>LCType</i> specified as LOCALE_FONTSIGNATURE, <i>cchData</i> can be safely specified as sizeof(LOCALESIGNATURE) / sizeof(WCHAR).</div>
-     * <div> </div>
-     * The following examples deal correctly with the buffer size for non-text values:
-     * 
-     * 
-     * ```cpp
-     * int   ret;
-     * CALID calid;
-     * DWORD value;
-     * 
-     * ret = GetLocaleInfoEx(LOCALE_NAME_USER_DEFAULT,
-     *                       LOCALE_ICALENDARTYPE | LOCALE_RETURN_NUMBER,
-     *                       (LPWSTR)&value,
-     *                       sizeof(value) / sizeof(WCHAR) );
-     * calid = value;
-     * 
-     * LOCALESIGNATURE LocSig;
-     * 
-     * ret = GetLocaleInfoEx(LOCALE_NAME_USER_DEFAULT,
-     *                       LOCALE_FONTSIGNATURE,
-     *                       (LPWSTR)&LocSig,
-     *                       sizeof(LocSig) / sizeof(WCHAR) );
-     * 
-     * ```
-     * 
-     * 
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -11944,16 +9792,16 @@ class Globalization {
      * Starting with Windows Vista, your applications should not use <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-ilanguage">LOCALE_ILANGUAGE</a> in the <i>LCType</i> parameter to avoid failure or retrieval of unexpected data. Instead, it is recommended for your applications to call <b>GetLocaleInfoEx</b>.
      * @param {Pointer<Char>} lpLCData Pointer to a buffer in which this function retrieves the requested locale information. This pointer is not used if <i>cchData</i> is set to 0.
      * @param {Integer} cchData Size, in characters, of the data buffer indicated by <i>lpLCData</i>. Alternatively, the application can set this parameter to 0. In this case, the function does not use the <i>lpLCData</i> parameter and returns the required buffer size, including the terminating null character.
-     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer, that is, 2. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * @returns {Integer} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer, that is, 2. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getlocaleinfoex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getlocaleinfoex
      * @since windows6.0.6000
      */
     static GetLocaleInfoEx(lpLocaleName, LCType, lpLCData, cchData) {
@@ -11971,10 +9819,6 @@ class Globalization {
 
     /**
      * Retrieves information about a calendar for a locale specified by name.Note  The application should call this function in preference to GetCalendarInfo if designed to run only on Windows Vista and later. Note  This function can retrieve data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -12000,14 +9844,14 @@ class Globalization {
      * @param {Pointer<UInt32>} lpValue Pointer to a variable that receives the requested data as a number. If CAL_RETURN_NUMBER is specified in <i>CalType</i>, then <i>lpValue</i> must not be <b>NULL</b>. If CAL_RETURN_NUMBER is not specified in <i>CalType</i>, then <i>lpValue</i> must be <b>NULL</b>.
      * @returns {Integer} Returns the number of characters retrieved in the <i>lpCalData</i> buffer if successful. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is not specified, the return value is the size of the buffer required to hold the locale information. If the function succeeds, <i>cchData</i> is set to 0, and CAL_RETURN_NUMBER is specified, the return value is the size of the value written to the <i>lpValue</i> parameter. This size is always 2.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcalendarinfoex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcalendarinfoex
      * @since windows6.0.6000
      */
     static GetCalendarInfoEx(lpLocaleName, Calendar, CalType, lpCalData, cchData, lpValue) {
@@ -12028,8 +9872,6 @@ class Globalization {
 
     /**
      * Formats a number string as a number string customized for a locale specified by name.Note  The application should call this function in preference to GetNumberFormat if designed to run only on Windows Vista and later. Note  This function can format data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -12059,7 +9901,7 @@ class Globalization {
      * @param {Integer} cchNumber Size, in characters, for the number string buffer indicated by <i>lpNumberStr</i>. Alternatively, the application can set this parameter to 0. In this case, the function returns the required size for the number string buffer and does not use the <i>lpNumberStr</i> parameter.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpNumberStr</i> if successful. If the <i>cchNumber</i> parameter is set to 0, the function returns the number of characters required to hold the formatted number string, including a terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
@@ -12067,7 +9909,7 @@ class Globalization {
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_OUTOFMEMORY. Not enough storage was available to complete this operation.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getnumberformatex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getnumberformatex
      * @since windows6.0.6000
      */
     static GetNumberFormatEx(lpLocaleName, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber) {
@@ -12086,8 +9928,6 @@ class Globalization {
 
     /**
      * Formats a number string as a currency string for a locale specified by name.Note  The application should call this function in preference to GetCurrencyFormat if designed to run only on Windows Vista and later. Note  This function can format data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a> or one of the following predefined values. 
      * 
      * <ul>
@@ -12117,14 +9957,14 @@ class Globalization {
      * @param {Integer} cchCurrency Size, in characters, of the <i>lpCurrencyStr</i> buffer. The application can set this parameter to 0 to return the size of the buffer required to hold the formatted currency string. In this case, the buffer indicated by <i>lpCurrencyStr</i> is not used.
      * @returns {Integer} Returns the number of characters retrieved in the buffer indicated by <i>lpCurrencyStr</i> if successful. If the <i>cchCurrency</i> parameter is 0, the function returns the size of the buffer required to hold the formatted currency string, including a terminating null character.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getcurrencyformatex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getcurrencyformatex
      * @since windows5.0
      */
     static GetCurrencyFormatEx(lpLocaleName, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency) {
@@ -12143,20 +9983,18 @@ class Globalization {
 
     /**
      * Retrieves the user default locale name.Note  The application should call this function in preference to GetUserDefaultLCID if designed to run only on Windows Vista and later.
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a buffer in which this function retrieves the locale name.
      * @param {Integer} cchLocaleName Size, in characters, of the buffer indicated by <i>lpLocaleName</i>. The maximum possible length of a locale name, including a terminating null character, is <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_MAX_LENGTH</a>. This is the recommended size to supply in this parameter.
-     * @returns {Integer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.<div class="alert"><b>Note</b>  On single-user systems, the return value is the same as that returned by <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getsystemdefaultlocalename">GetSystemDefaultLocaleName</a>.</div>
+     * @returns {Integer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.<div class="alert"><b>Note</b>  On single-user systems, the return value is the same as that returned by <a href="/windows/desktop/api/winnls/nf-winnls-getsystemdefaultlocalename">GetSystemDefaultLocaleName</a>.</div>
      * <div> </div>
      * 
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getuserdefaultlocalename
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getuserdefaultlocalename
      * @since windows6.0.6000
      */
     static GetUserDefaultLocaleName(lpLocaleName, cchLocaleName) {
@@ -12173,18 +10011,16 @@ class Globalization {
 
     /**
      * Retrieves the system default locale name.Note  It is recommended that applications call GetUserDefaultLocaleName in preference over this function.
-     * @remarks
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a buffer in which this function retrieves the locale name.
      * @param {Integer} cchLocaleName Size, in characters, of the output buffer indicated by <i>lpLocaleName</i>. The maximum possible character length of a locale name (including a terminating null character) is the value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_MAX_LENGTH</a>. This is the recommended size.
      * @returns {Integer} Returns a value greater than 0 that indicates the length of the locale name, including the terminating null character, if successful.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getsystemdefaultlocalename
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getsystemdefaultlocalename
      * @since windows6.0.6000
      */
     static GetSystemDefaultLocaleName(lpLocaleName, cchLocaleName) {
@@ -12201,10 +10037,6 @@ class Globalization {
 
     /**
      * Determines if each character in a string has a defined result for a specified NLS capability.
-     * @remarks
-     * This function differentiates between defined and undefined strings, so that an application such as Active Directory can reject strings with undefined code points. Use of the function can minimize the necessity for the application to re-index its database. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>.
-     * 
-     * For example, if <i>Function</i> is set to COMPARE_STRING, <b>IsNLSDefinedString</b> checks for undefined code points, <a href="https://docs.microsoft.com/windows/desktop/Intl/surrogates-and-supplementary-characters">surrogate pairs</a> that represent undefined Unicode characters, or ill-formed surrogate pairs. If the function returns <b>TRUE</b> for a particular string, the results, as retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringw">CompareString</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-lcmapstringa">LCMapString</a> with LCMAP_SORTKEY set, are guaranteed to be identical as long as the corresponding NLS version does not change.
      * @param {Integer} Function NLS capability to query. This value must be COMPARE_STRING. See the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysnls_function">SYSNLS_FUNCTION</a> enumeration.
      * @param {Integer} dwFlags Flags defining the function. Must be 0.
      * @param {Pointer<NLSVERSIONINFO>} lpVersionInformation Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/winnls/ns-winnls-nlsversioninfo-r1">NLSVERSIONINFO</a> structure containing version information. Typically, the information is obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getnlsversion">GetNLSVersion</a>. The application sets this parameter to <b>NULL</b> if the function is to use the current version.
@@ -12212,14 +10044,14 @@ class Globalization {
      * @param {Integer} cchStr Number of UTF-16 characters in the string indicated by <i>lpString</i>. This count can include a terminating null character. If the terminating null character is included in the character count, it does not affect the checking behavior because the terminating null character is always defined.
      * 
      * The application should supply -1 to indicate that the string is null-terminated. In this case, the function itself calculates the string length.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, only if the input string is valid, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if successful, only if the input string is valid, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isnlsdefinedstring
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isnlsdefinedstring
      * @since windows6.0.6000
      */
     static IsNLSDefinedString(Function, dwFlags, lpVersionInformation, lpString, cchStr) {
@@ -12236,26 +10068,6 @@ class Globalization {
 
     /**
      * Retrieves information about the current version of a specified NLS capability for a locale specified by name.Note  The application should call this function in preference to GetNLSVersion if designed to run only on Windows Vista and later.
-     * @remarks
-     * This function allows an application such as Active Directory to determine if an NLS change affects the locale used for a particular index table. If it does not, there is no need to re-index the table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>. In particular, to tell if a sort version changed and you need to reindex:
-     * 
-     * <ol>
-     * <li>Use <b>GetNLSVersionEx</b> to retrieve an <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a> structure when doing the original indexing of your data.</li>
-     * <li>Store the following properties with your index to identify the version:<ul>
-     * <li><b>NLSVERSIONINFOEX.dwNLSVersion</b>. This specifies the version of the sorting table you're using.</li>
-     * <li><b>NLSVERSIONINFOEX.dwEffectiveId</b>. This specifies the effective locale of your sort. A custom locale will point to an in-box locale's sort.</li>
-     * <li><b>NLSVERSIONINFOEX.guidCustomVersion</b>. This is a GUID specifying a specific custom sort for custom locales that have them.</li>
-     * </ul>
-     * </li>
-     * <li>When using the index use <b>GetNLSVersionEx</b> to discover the version of your data.</li>
-     * <li>If any of the three properties has changed, the sorting data you're using could return different results and any indexing you have may fail to find records.</li>
-     * <li>If you <u>know</u> that your data doesn't contain invalid Unicode code points (that is, all of your strings passed a call to <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-isnlsdefinedstring">IsNLSDefinedString</a>) then you may consider them the same if <u>only</u> the low byte of <b>dwNLSVersion</b> changed (the minor version described above).</li>
-     * </ol>
-     * This is covered in more detail in the blog entry <a href="https://docs.microsoft.com/archive/blogs/shawnste/">"How to tell if the collation version changed"</a> (http://blogs.msdn.com/shawnste/archive/2007/06/01/how-to-tell-if-the-collation-version-changed.aspx).
-     * 
-     * This function supports <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. If <i>lpLocaleName</i> specifies a supplemental locale, the data retrieved is the correct data for the sort order associated with that supplemental locale.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Integer} function The NLS capability to query. This value must be COMPARE_STRING. See the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysnls_function">SYSNLS_FUNCTION</a> enumeration.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
@@ -12274,14 +10086,14 @@ class Globalization {
      * 
      * <div class="alert"><b>Note</b>  On Windows Vista and later, the function can alternatively provide version information in an <a href="https://docs.microsoft.com/windows/win32/api/winnls/ns-winnls-nlsversioninfo-r1">NLSVERSIONINFO</a> structure.</div>
      * <div> </div>
-     * @returns {Integer} Returns <b>TRUE</b> if and only if the application has supplied valid values in <i>lpVersionInformation</i>, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns <b>TRUE</b> if and only if the application has supplied valid values in <i>lpVersionInformation</i>, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getnlsversionex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-getnlsversionex
      * @since windows6.0.6000
      */
     static GetNLSVersionEx(function, lpLocaleName, lpVersionInformation) {
@@ -12298,10 +10110,6 @@ class Globalization {
 
     /**
      * Determines if the NLS version is valid for a given NLS function.
-     * @remarks
-     * Initialize the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a> structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getnlsversionex">GetNLSVersionEx</a>. See the Remarks for <b>GetNLSVersionEx</b> for a discussion on how the members of <b>NLSVERSIONINFOEX</b> can be used to determine if a sort version has changed and you need to reindex data.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Integer} function The NLS capability to query. This value must be COMPARE_STRING. See the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysnls_function">SYSNLS_FUNCTION</a> enumeration.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
@@ -12318,7 +10126,7 @@ class Globalization {
      * </ul>
      * @param {Pointer<NLSVERSIONINFOEX>} lpVersionInformation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a> structure. The application must initialize the <b>dwNLSVersionInfoSize</b> member to <c> sizeof(NLSVERSIONINFOEX)</c>.
      * @returns {Integer} Returns a nonzero value if the NLS version is valid, or zero if the version is invalid.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidnlsversion
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isvalidnlsversion
      * @since windows8.0
      */
     static IsValidNLSVersion(function, lpLocaleName, lpVersionInformation) {
@@ -12330,23 +10138,6 @@ class Globalization {
 
     /**
      * Locates a Unicode string (wide characters) or its equivalent in another Unicode string for a locale specified by name.Caution  Because strings with very different binary representations can compare as identical, this function can raise certain security concerns. For more information, see the discussion of comparison functions in Security Considerations:\_International Features.
-     * @remarks
-     * This function provides a variety of search options, including search direction, character equivalence filtering, and locale-specific filtering. Note that equivalence depends on the locale and flags specified in the call to the function. The filtering flags can alter the results of the search. For example, the potential matches increase when the function ignores case or diacritic marks when performing the search.
-     * 
-     * By default, this function maps the lowercase "i" to the uppercase "I", even when the <i>Locale</i> parameter specifies Turkish (Turkey) or Azerbaijani (Azerbaijan). To override this behavior for Turkish or Azerbaijani, the application should specify NORM_LINGUISTIC_CASING. If this flag is specified for the correct locale, "ı" (lowercase dotless I) is the lowercase form of "I" (uppercase dotless I) and "i" (lowercase dotted I) is the lowercase form of "ı" (uppercase dotted I).
-     * 
-     * 
-     * For many scripts (notably Latin scripts), NORM_IGNORENONSPACE coincides with LINGUISTIC_IGNOREDIACRITIC and NORM_IGNORECASE coincides with LINGUISTIC_IGNORECASE, with the following exceptions:
-     * 
-     * <ul>
-     * <li>NORM_IGNORENONSPACE ignores any secondary distinction, whether or not it is a diacritic. Scripts for Korean, Japanese, Chinese, Indic languages, and others use this distinction for purposes other than diacritics. LINGUISTIC_IGNOREDIACRITIC ignores only actual diacritics, instead of simply ignoring the second sorting weight.</li>
-     * <li>NORM_IGNORECASE ignores any tertiary distinction, whether or not it is actually linguistic case. For example, in Arabic and Indic scripts, this flag distinguishes alternate forms of a character. However, the differences do not correspond to linguistic case. LINGUISTIC_IGNORECASE ignores only actual linguistic casing, instead of ignoring the third sorting weight.</li>
-     * </ul>
-     * In contrast to other NLS API functions, which return 0 for failure, this function returns -1 if it fails. On success, it returns a 0-based index. Use of this index helps the function avoid off-by-one errors and one-character buffer overruns.
-     * 
-     * This function is one of the few NLS functions that calls <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> even when it succeeds. It makes this call to clear the last error in a thread when it fails to match the search string. This clears the value returned by <b>GetLastError</b>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -12518,14 +10309,14 @@ class Globalization {
      * @param {Pointer} sortHandle Reserved; must be 0.
      * @returns {Integer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. In combination with the value in <i>pcchFound</i>, this index provides the exact location of the entire found string in the source string. A return value of 0 is an error-free index into the source string, and the matching string is in the source string at offset 0.
      * 
-     * The function returns -1 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns -1 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_SUCCESS. The action completed successfully but yielded no results.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-findnlsstringex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-findnlsstringex
      * @since windows6.0.6000
      */
     static FindNLSStringEx(lpLocaleName, dwFindNLSStringFlags, lpStringSource, cchSource, lpStringValue, cchValue, pcchFound, lpVersionInformation, sortHandle) {
@@ -12546,17 +10337,6 @@ class Globalization {
 
     /**
      * For a locale specified by name, maps an input character string to another using a specified transformation, or generates a sort key for the input string.Note  The application should call this function in preference to LCMapString if designed to run only on Windows Vista and later.
-     * @remarks
-     * The application can use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-lcmapstringa">LCMapString</a> or <b>LCMapStringEx</b> to generate a sort key. To do this, the application specifies  LCMAP_SORTKEY for the <i>dwMapFlags</i> parameter. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>.
-     * 
-     * > [!NOTE]
-     * > Sort keys are opaque byte streams. Callers should treat them as a byte array of the length returned by the API and not rely on any internal structure that may appear to be present. Zero, one or more of the bytes in the returned sort key could be 0. Absence or presence of a zero byte should not be expected.
-     * 
-     * Another way for your application to use <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-lcmapstringa">LCMapString</a> or <b>LCMapStringEx</b> is in mapping strings. In this case, the application does not specify LCMAP_SORTKEY for the <i>dwMapFlags</i> parameter, but supplies some other combination of flags. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>.
-     * 
-     * <b>Beginning in Windows Vista:</b> This function can handle data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
      * <ul>
@@ -12750,14 +10530,14 @@ class Globalization {
      * 
      * If the function succeeds when used for string mapping it returns the number of bytes in the sort key.
      * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * This function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-lcmapstringex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-lcmapstringex
      * @since windows6.0.6000
      */
     static LCMapStringEx(lpLocaleName, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest, lpVersionInformation, sortHandle) {
@@ -12778,15 +10558,9 @@ class Globalization {
 
     /**
      * Determines if the specified locale name is valid for a locale that is installed or supported on the operating system.Note  An application running only on Windows Vista and later should call this function in preference to IsValidLocale to determine the validity of a supplemental locale.
-     * @remarks
-     * On Windows Vista and later, all supported locales should be installed on all operating systems.
-     * 
-     * This function can handle the name of a <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locale</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to the locale name to validate.
      * @returns {Integer} Returns a nonzero value if the locale name is valid, or returns 0 for an invalid name.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidlocalename
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-isvalidlocalename
      * @since windows6.0.6000
      */
     static IsValidLocaleName(lpLocaleName) {
@@ -12798,10 +10572,6 @@ class Globalization {
 
     /**
      * Enumerates calendar information for a locale specified by name.Note  The application should call this function in preference to EnumCalendarInfo or EnumCalendarInfoEx if designed to run only on Windows Vista and later. Note  This function can enumerate data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * This function enumerates calendar information for all applicable calendars for the specified locale, or for a single requested calendar, depending on the value of the <i>Calendar</i> parameter. The function enumerates the calendar information by calling the specified application-defined callback function. It passes the callback function a pointer to a buffer containing the requested calendar information, a calendar identifier, and an application-defined parameter that is useful for multi-threaded applications. This process continues until <b>EnumCalendarInfoExEx</b> finds the last applicable calendar or the callback function returns <b>FALSE</b>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<CALINFO_ENUMPROCEXEX>} pCalInfoEnumProcExEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317808(v=vs.85)">EnumCalendarInfoProcExEx</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
@@ -12819,13 +10589,13 @@ class Globalization {
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
      * @param {Pointer} lParam Application-provided parameter to pass to the callback function. This value is especially useful for multi-threaded applications.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoexex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumcalendarinfoexex
      * @since windows6.0.6000
      */
     static EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalType, lParam) {
@@ -12845,12 +10615,6 @@ class Globalization {
 
     /**
      * Enumerates the long date, short date, or year/month formats that are available for a locale specified by name.Note  The application should call this function in preference to EnumDateFormats or EnumDateFormatsEx if designed to run only on Windows Vista and later. Note  This function can enumerate data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This API is being updated to support the May 2019 Japanese era change. If your application supports the Japanese calendar, you should validate that it properly handles the new era. See <a href="https://docs.microsoft.com/windows/uwp/design/globalizing/japanese-era-change">Prepare your application for the Japanese era change</a> for more information.</div>
-     * <div> </div>
-     * The function enumerates the date formats by passing date format string pointers, one at a time, to the specified application-defined callback function, along with an application-defined constant that is useful for multi-threaded applications. This process continues until <b>EnumDateFormatsExEx</b> finds the last date format or the callback function returns <b>FALSE</b>.
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<DATEFMT_ENUMPROCEXEX>} lpDateFmtEnumProcExEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317815(v=vs.85)">EnumDateFormatsProcExEx</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
@@ -12867,14 +10631,14 @@ class Globalization {
      * </ul>
      * @param {Integer} dwFlags 
      * @param {Pointer} lParam An application-provided parameter to pass to the callback function. This value is especially useful for multi-threaded applications.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumdateformatsexex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumdateformatsexex
      * @since windows6.0.6000
      */
     static EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, lParam) {
@@ -12891,10 +10655,6 @@ class Globalization {
 
     /**
      * Enumerates the time formats that are available for a locale specified by name.Note  The application should call this function in preference to EnumTimeFormats if designed to run only on Windows Vista and later. Note  This function can enumerate data that changes between releases, for example, due to a custom locale. If your application must persist or transmit data, see Using Persistent Locale Data.
-     * @remarks
-     * This function enumerates the time formats by passing time format string pointers, one at a time, to the specified application-defined callback function, along with an application-defined constant that is useful for multi-threaded applications. The first value in the enumeration is always the user default (override) value. The function continues enumeration until the last time format is found or the callback function returns <b>FALSE</b>. 
-     * 
-     * <b>Beginning in Windows 8:</b> If your app passes language tags to this function from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {Pointer<TIMEFMT_ENUMPROCEX>} lpTimeFmtEnumProcEx Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317833(v=vs.85)">EnumTimeFormatsProcEx</a>.
      * @param {Pointer<Char>} lpLocaleName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-names">locale name</a>, or one of the following predefined values. 
      * 
@@ -12911,13 +10671,13 @@ class Globalization {
      * </ul>
      * @param {Integer} dwFlags The time format. Set to 0 to use the current user's long time format, or TIME_NOSECONDS (starting with Windows 7) to use the short time format.
      * @param {Pointer} lParam An application-provided parameter to be passed to the callback function. This is especially useful for multi-threaded applications.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumtimeformatsex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumtimeformatsex
      * @since windows6.0.6000
      */
     static EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, lParam) {
@@ -12934,12 +10694,6 @@ class Globalization {
 
     /**
      * Enumerates the locales that are either installed on or supported by an operating system.Note  The application should call this function in preference to EnumSystemLocales if designed to run only on Windows Vista and later.
-     * @remarks
-     * This function enumerates locales by passing locale names, one at a time, to the application-defined callback function specified by <i>lpLocaleEnumProcEx</i>. Enumeration continues until all installed or supported names have been passed to the callback function or the callback function returns <b>FALSE</b>.
-     * 
-     * The choices for the <i>dwFlags</i> parameter are different from those for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemlocalesa">EnumSystemLocales</a>, which must distinguish between installed and supported locales.
-     * 
-     * If <i>dwFlags</i> specifies <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-alternate-sorts">LOCALE_ALTERNATE_SORTS</a>, the callback function is called for every locale that represents an alternate sort order. For example, Spanish (Spain) defaults to international sort order, but traditional sort order is available for an alternate sort. German (Germany) defaults to dictionary sort order, but there is an alternate phone book sort order available.
      * @param {Pointer<LOCALE_ENUMPROCEX>} lpLocaleEnumProcEx Pointer to an application-defined callback function. The <b>EnumSystemLocalesEx</b> function enumerates locales by making repeated calls to this callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-locale_enumprocex">EnumLocalesProcEx</a>.
      * @param {Integer} dwFlags Flags identifying the locales to enumerate. The flags can be used singly or combined using a binary OR. If the application specifies 0 for this parameter, the function behaves as for <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-all">LOCALE_ALL</a>.
      * 
@@ -12961,14 +10715,14 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Pointer} lParam An application-provided parameter to be passed to the callback function. This is especially useful for multi-threaded applications.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_BADDB. The function could not access the data. This situation should not normally occur, and typically indicates a bad installation, a disk problem, or the like.</li>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumsystemlocalesex
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-enumsystemlocalesex
      * @since windows6.0.6000
      */
     static EnumSystemLocalesEx(lpLocaleEnumProcEx, dwFlags, lParam) {
@@ -12985,12 +10739,6 @@ class Globalization {
 
     /**
      * Finds a possible locale name match for the supplied name.
-     * @remarks
-     * The retrieved locale name indicates a specific locale, including language and country/region, even if the input language is neutral. For example, an input of "en" for English (United States) causes the function to retrieve "en-US".
-     * 
-     * This function can retrieve data from <a href="https://docs.microsoft.com/windows/desktop/Intl/custom-locales">custom locales</a>. Data is not guaranteed to be the same from computer to computer or between runs of an application, nor does the return of a valid locale guarantee that it will be valid on another computer. If your application must persist or transmit data, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-persistent-locale-data">Using Persistent Locale Data</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> Language tags obtained from the <a href="https://docs.microsoft.com/uwp/api/Windows.Globalization">Windows.Globalization</a> namespace must be converted by  <b>ResolveLocaleName</b> before they can be used with any National Language Support functions.
      * @param {Pointer<Char>} lpNameToResolve Pointer to a name to resolve, for example, "en-XA" for English (Private Use).
      * @param {Pointer<Char>} lpLocaleName Pointer to a buffer in which this function retrieves the locale name that is the match for the input name. For example, the match for the name "en-XA" is "en-US" for English (United States).
      * 
@@ -12999,11 +10747,11 @@ class Globalization {
      * @param {Integer} cchLocaleName Size, in characters, of the buffer indicated by <i>lpLocaleName</i>. The maximum possible length of a locale name, including a terminating null character, is the value of <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_MAX_LENGTH</a>. This is the recommended size to supply in this parameter.
      * @returns {Integer} Returns the size of the buffer containing the locale name, including the terminating null character, if successful.
      * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * <ul>
      * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to <b>NULL</b>.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-resolvelocalename
+     * @see https://docs.microsoft.com/windows/win32/api//winnls/nf-winnls-resolvelocalename
      * @since windows6.1
      */
     static ResolveLocaleName(lpNameToResolve, lpLocaleName, cchLocaleName) {
@@ -13021,19 +10769,12 @@ class Globalization {
 
     /**
      * Retrieves a list of available ELS platform-supported services, along with associated information, according to application-specified criteria.
-     * @remarks
-     * The ELS application can either retrieve all services or filter the services according to specified options. For an associated procedure and code sample, see <a href="https://docs.microsoft.com/windows/desktop/Intl/enumerating-and-freeing-services">Enumerating and Freeing Services</a>.
-     * 
-     * To avoid resource leaks, the application must free the pointer indicated by <i>prgServices</i> with a call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingfreeservices">MappingFreeServices</a>.  
-     * 
-     * 
-     * For performance reasons, it is recommended to retrieve services infrequently. For example, if the application needs a specific service, by GUID, it can be enumerated when needed and cached for future use.
      * @param {Pointer<MAPPING_ENUM_OPTIONS>} pOptions Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_enum_options">MAPPING_ENUM_OPTIONS</a> structure containing criteria to use during enumeration of services. The application specifies <b>NULL</b> for this parameter to retrieve all installed services.
      * @param {Pointer<MAPPING_SERVICE_INFO>} prgServices Address of a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_service_info">MAPPING_SERVICE_INFO</a> structures containing service information matching the criteria supplied in the <i>pOptions</i> parameter.
      * @param {Pointer<UInt32>} pdwServicesCount Pointer to a DWORD variable in which this function retrieves the number of retrieved services.
      * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.<div class="alert"><b>Note</b>  The application must test for any failure before proceeding with further operations.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappinggetservices
+     * @see https://docs.microsoft.com/windows/win32/api//elscore/nf-elscore-mappinggetservices
      * @since windows6.1
      */
     static MappingGetServices(pOptions, prgServices, pdwServicesCount) {
@@ -13046,13 +10787,9 @@ class Globalization {
 
     /**
      * Frees memory and resources allocated for the application to interact with one or more ELS services. The memory and resources are allocated in an application call to MappingGetServices.
-     * @remarks
-     * <div class="alert"><b>Caution</b>  Services should not be freed before freeing the property bags produced by those services.</div>
-     * <div> </div>
-     * Since all services currently run in the application process, the ELS platform does not unload the service DLLs when the services are released. The operating system unloads the DLLs automatically when the application terminates.
      * @param {Pointer<MAPPING_SERVICE_INFO>} pServiceInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_service_info">MAPPING_SERVICE_INFO</a> structures containing service descriptions retrieved by a prior call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappinggetservices">MappingGetServices</a>. This parameter cannot be set to <b>NULL</b>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingfreeservices
+     * @see https://docs.microsoft.com/windows/win32/api//elscore/nf-elscore-mappingfreeservices
      * @since windows6.1
      */
     static MappingFreeServices(pServiceInfo) {
@@ -13065,17 +10802,6 @@ class Globalization {
 
     /**
      * Calls upon an ELS service to recognize text. For example, the Microsoft Language Detection service will attempt to recognize the language in which the input text is written.
-     * @remarks
-     * The type of text to recognize depends on the service type used by the application. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/requesting-text-recognition">Requesting Text Recognition</a>.
-     * 
-     * <div class="alert"><b>Warning</b>  The data referred to by <i>pszText</i> and <i>pOptions</i> must remain valid until the property bag structure passed by <i>pBag</i> is freed via 
-     * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingfreepropertybag">MappingFreePropertyBag</a>. This is because both synchronous and asynchronous calls to 
-     * 
-     * <b>MappingRecognizeText</b> and <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingdoaction">MappingDoAction</a> will attempt to use the data passed to the initial 
-     * 
-     * call to <b>MappingRecognizeText</b>.</div>
-     * <div> </div>
      * @param {Pointer<MAPPING_SERVICE_INFO>} pServiceInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_service_info">MAPPING_SERVICE_INFO</a> structure containing information about the service to use in text recognition. The structure must be one of the structures retrieved by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappinggetservices">MappingGetServices</a>. This parameter cannot be set to <b>NULL</b>.
      * @param {Pointer<Char>} pszText Pointer to the text to recognize. The text must be UTF-16, but some services have additional requirements for the input format. This parameter cannot be set to <b>NULL</b>.
      * @param {Integer} dwLength Length, in characters, of the text specified in <i>pszText</i>.
@@ -13083,7 +10809,7 @@ class Globalization {
      * @param {Pointer<MAPPING_OPTIONS>} pOptions Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_options">MAPPING_OPTIONS</a> structure containing options that affect the result and behavior of text recognition. The application does not have to specify values for all structure members. This parameter can be set to <b>NULL</b> to use the default mapping options.
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pbag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure in which the service stores its results. On input, the application passes a structure with only the size provided, and the other members set to 0. On output, the structure is filled with information produced by the service during text recognition. This parameter cannot be set to <b>NULL</b>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingrecognizetext
+     * @see https://docs.microsoft.com/windows/win32/api//elscore/nf-elscore-mappingrecognizetext
      * @since windows6.1
      */
     static MappingRecognizeText(pServiceInfo, pszText, dwLength, dwIndex, pOptions, pbag) {
@@ -13098,24 +10824,11 @@ class Globalization {
 
     /**
      * Causes an ELS service to perform an action after text recognition has occurred. For example, a phone dialer service first must recognize phone numbers and then can perform the &quot;action&quot; of dialing a number.
-     * @remarks
-     * The application must precede the call to <b>MappingDoAction</b> with a call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a>.
-     * 
-     * <div class="alert"><b>Warning</b>  The data referred to by the <i>pszText</i> and <i>pOptions</i> arguments passed to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a> 
-     * 
-     * must remain valid until the property bag structure passed by <i>pBag</i> is freed via 
-     * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingfreepropertybag">MappingFreePropertyBag</a>. This is because both synchronous and asynchronous calls to 
-     * 
-     * <b>MappingRecognizeText</b> and <b>MappingDoAction</b> will attempt to use the data passed to the initial 
-     * 
-     * call to <b>MappingRecognizeText</b>.</div>
-     * <div> </div>
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pBag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure containing the results of a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a>. This parameter cannot be set to <b>NULL</b>.
      * @param {Integer} dwRangeIndex A starting index inside the text recognition results for a recognized text range. This value should be between 0 and the range count.
      * @param {Pointer<Char>} pszActionId Pointer to the identifier of the action to perform. This parameter cannot be set to <b>NULL</b>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingdoaction
+     * @see https://docs.microsoft.com/windows/win32/api//elscore/nf-elscore-mappingdoaction
      * @since windows6.1
      */
     static MappingDoAction(pBag, dwRangeIndex, pszActionId) {
@@ -13130,16 +10843,9 @@ class Globalization {
 
     /**
      * Frees memory and resources allocated during an ELS text recognition operation.
-     * @remarks
-     * An ELS service allocates memory and resources for data retrieved from application calls to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a>. The <b>MappingFreePropertyBag</b> function releases these resources.
-     * 
-     * <div class="alert"><b>Caution</b>  Services should not be freed before freeing the property bags produced by those services.</div>
-     * <div> </div>
-     * <div class="alert"><b>Caution</b>  The application must call this function only once for each call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a> when the property bag is no longer needed. Not calling <b>MappingFreePropertyBag</b> after each call to <b>MappingRecognizeText</b> causes a resource leak. For more information about memory allocation for the property bag, see the remarks for the <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure.</div>
-     * <div> </div>
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pBag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure containing the properties for which to free resources. This parameter cannot be set to <b>NULL</b>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns an error HRESULT value if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/elscore/nf-elscore-mappingfreepropertybag
+     * @see https://docs.microsoft.com/windows/win32/api//elscore/nf-elscore-mappingfreepropertybag
      * @since windows6.1
      */
     static MappingFreePropertyBag(pBag) {
@@ -13152,20 +10858,9 @@ class Globalization {
 
     /**
      * Frees a script cache.
-     * @remarks
-     * An application can free the script cache at any time, with certain limitations if the application is multi-threaded. Uniscribe maintains reference counts in its <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">font and shaper caches</a> and frees font data only when all sizes of the font are free. It frees shaper data only when all supported fonts are freed.
-     * 
-     * The application should free the script cache for a style when it discards that style.
-     * 
-     * <b>ScriptFreeCache</b> always sets its parameter to <b>NULL</b> to help avoid misreferencing.
-     * 
-     * Uniscribe functions are re-entrant. Cache creation is interlocked through a single process-wide semaphore. <b>ScriptFreeCache</b> should not be called at a time when another thread might be accessing the particular cache to free. For performance reasons, the cache is not locked during <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> or <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} psc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application cant test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptfreecache
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptfreecache
      * @since windows5.0
      */
     static ScriptFreeCache(psc) {
@@ -13178,100 +10873,6 @@ class Globalization {
 
     /**
      * Breaks a Unicode string into individually shapeable items.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * The function delimits items by either a change of shaping engine or a change of direction.
-     * 
-     * The application can create multiple ranges, or runs that fall entirely within a single item, from each <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structure retrieved by <b>ScriptItemize</b>. However, it should not combine multiple items into a single run. Later, when measuring or rendering, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> for each run and must pass the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure retrieved by <b>ScriptItemize</b> in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structure.
-     * 
-     * If the text handled by an application can include any right-to-left content, the application uses the <i>psControl</i> and <i>psState</i> parameters in calling <b>ScriptItemize</b>. However, the application does not have to do this and can handle bidirectional text itself instead of relying on Uniscribe to do so. The <i>psControl</i> and <i>psState</i> parameters are useful in some strictly left-to-right scenarios, for example, when the <b>fLinkStringBefore</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a> is not specific to right-to-left scripts. The application sets <i>psControl</i> and <i>psState</i> to <b>NULL</b> to have <b>ScriptItemize</b> break the Unicode string purely by character code.
-     * 
-     * The application can set all parameters to non-<b>NULL</b> values to have the function perform a full Unicode bidirectional analysis. To permit a correct Unicode bidirectional analysis, the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> structure should be initialized according to the reading order at paragraph start, and <b>ScriptItemize</b> should be passed the whole paragraph. In particular, the <b>uBidiLevel</b> member should be initialized to 0 for left-to-right and 1 for right-to-left.
-     * 
-     * The <b>fRTL</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> is referenced in <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> enabled="1". The <b>fNumeric</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_properties">SCRIPT_PROPERTIES</a> is retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetproperties">ScriptGetProperties</a>. These members together provide the same classification as the <b>lpClass</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gcp_resultsa">GCP_RESULTS</a>, referenced by <i>lpResults</i> in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>.
-     * 
-     * European digits U+0030 through U+0039 can be rendered as national digits, as shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>SCRIPT_STATE.fDigitSubstitute</th>
-     * <th>SCRIPT_CONTROL.fContextDigits</th>
-     * <th>Digit shapes displayed for Unicode U+0030 through U+0039</th>
-     * </tr>
-     * <tr>
-     * <td><b>FALSE</b></td>
-     * <td>Any</td>
-     * <td>European digits</td>
-     * </tr>
-     * <tr>
-     * <td><b>TRUE</b></td>
-     * <td><b>FALSE</b></td>
-     * <td>As specified in <b>uDefaultLanguage</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a>.</td>
-     * </tr>
-     * <tr>
-     * <td><b>TRUE</b></td>
-     * <td><b>TRUE</b></td>
-     * <td>As prior strong text, defaulting to <b>uDefaultLanguage</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a>.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * In context digit mode, one of the following actions occurs:
-     * 
-     * <ul>
-     * <li>If the script specified by <b>uDefaultLanguage</b> is in the same direction as the output, all digits encountered before the first letters are rendered in the language indicated by <b>uDefaultLanguage</b>.</li>
-     * <li>If the script specified by <b>uDefaultLanguage</b> is in the opposite direction from the output, all digits encountered before the first letters are rendered in European digits.</li>
-     * </ul>
-     * For example, if <b>uDefaultLanguage</b> indicates LANG_ARABIC, initial digits are in Arabic-Indic in a right-to-left embedding. However, they are in European digits in a left-to-right embedding.
-     * 
-     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/digit-shapes">Digit Shapes</a>.
-     * 
-     * The Unicode control characters and definitions, and their effects on <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> members, are provided in the following table. For more information on Unicode control characters, see the <a href="https://www.unicode.org/standard/standard.html">The Unicode Standard</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Unicode control characters</th>
-     * <th>Meaning</th>
-     * <th>Effect on SCRIPT_STATE</th>
-     * </tr>
-     * <tr>
-     * <td>NADS</td>
-     * <td>Override European digits (NODS) with national digit shapes.</td>
-     * <td>Set <b>fDigitSubstitute</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>NODS</td>
-     * <td>Use nominal digit shapes, otherwise known as European digits. See NADS.</td>
-     * <td>Clear <b>fDigitSubstitute</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>ASS</td>
-     * <td>Activate swapping of symmetric pairs, for example, parentheses. For these characters, left and right are interpreted as opening and closing. This is the default. See ISS.</td>
-     * <td>Clear <b>fInhibitSymSwap</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>ISS</td>
-     * <td>Inhibit swapping of symmetric pairs. See ASS.</td>
-     * <td>Set <b>fInhibitSymSwap</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>AAFS</td>
-     * <td>Activate Arabic form shaping for Arabic presentation forms. See IAFS.</td>
-     * <td>Set <b>fCharShape</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>IAFS</td>
-     * <td>Inhibit Arabic form shaping, that is, ligatures and cursive connections, for Arabic presentation forms. Nominal Arabic characters are not affected. This is the default. See AAFS.</td>
-     * <td>Clear <b>fCharShape</b>.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The <b>fArabicNumContext</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> supports the context-sensitive display of numerals in Arabic script text. It indicates if digits are rendered using native Arabic script digit shapes or European digits. At the beginning of a paragraph, this member should normally be initialized to <b>TRUE</b> for an Arabic locale, or <b>FALSE</b> for any other locale. The function updates the script state it as it processes strong text.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Char>} pwcInChars Pointer to a Unicode string to itemize.
      * @param {Integer} cInChars Number of characters in <i>pwcInChars</i> to itemize.
      * @param {Integer} cMaxItems Maximum number of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structures defining items to process.
@@ -13290,7 +10891,7 @@ class Globalization {
      * The function returns E_INVALIDARG if <i>pwcInChars</i> is set to <b>NULL</b>, <i>cInChars</i> is 0, <i>pItems</i> is set to <b>NULL</b>, or <i>cMaxItems</i> &lt; 2.
      * 
      * The function returns E_OUTOFMEMORY if the value of <i>cMaxItems</i> is insufficient. As in all error cases, no items are fully processed and no part of the output array contains defined values. If the function returns E_OUTOFMEMORY, the application can call it again with a larger <i>pItems</i> buffer.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptitemize
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptitemize
      * @since windows5.0
      */
     static ScriptItemize(pwcInChars, cInChars, cMaxItems, psControl, psState, pItems, pcItems) {
@@ -13305,51 +10906,12 @@ class Globalization {
 
     /**
      * Converts an array of run embedding levels to a map of visual-to-logical position and/or logical-to-visual position.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * This function handles only data that pertains to a single line of text.
-     * 
-     * The run embedding levels are defined in the Unicode bidirectional algorithm. They describe the direction of a run, the direction of any runs in which it is embedded, and the direction of the paragraph. No other input is required for the call to this function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/unicode">Unicode</a>.
-     * 
-     * The following table lists the predefined embedding levels. The application can add levels as needed.
-     * 
-     * <table>
-     * <tr>
-     * <th>Level</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>0</td>
-     * <td>A left-to-right run in a left-to-right paragraph.</td>
-     * </tr>
-     * <tr>
-     * <td>1</td>
-     * <td>A right-to-left run embedded in a left-to-right run in a left-to-right paragraph. Alternatively, a right-to-left run, not embedded in another run, in a right-to-left paragraph.</td>
-     * </tr>
-     * <tr>
-     * <td>2</td>
-     * <td>A left-to-right run embedded in a right-to-left run of type 1.</td>
-     * </tr>
-     * <tr>
-     * <td>3</td>
-     * <td>A right-to-left run embedded in a left-to-right run of type 2.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * A "logical position" refers to the placement of a run relative to other runs. It is the position in a backing store, and corresponds to the order in which the user reads the text aloud. The "visual position" of a run refers to the way the run is visually displayed on the line, taking into account the possible directions that the run can have.
-     * 
-     * The application can call this function setting either <i>piLogicalToVisual</i> or <i>piVisualToLogical</i>, or both.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Integer} cRuns Number of runs to process.
      * @param {Pointer<Byte>} pbLevel Pointer to an array, of length indicated by <i>cRuns</i>, containing run embedding levels. Embedding levels for all runs on the line must be included, ordered logically. For more information, see the Remarks section.
      * @param {Pointer<Int32>} piVisualToLogical Pointer to an array, of length indicated by <i>cRuns</i>, in which this function retrieves the run embedding levels reordered to visual order. The first array element represents the run to display at the far left, and subsequent entries should be displayed progressing from left to right. The function sets this parameter to <b>NULL</b> if there is no output.
      * @param {Pointer<Int32>} piLogicalToVisual Pointer to an array, of length indicated by <i>cRuns</i>, in which this function retrieves the visual run positions. The first array element is the relative visual position where the first logical run should be displayed, the leftmost display position being 0. The function sets this parameter to <b>NULL</b> if there is no output.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptlayout
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptlayout
      * @since windows5.0
      */
     static ScriptLayout(cRuns, pbLevel, piVisualToLogical, piLogicalToVisual) {
@@ -13362,21 +10924,6 @@ class Globalization {
 
     /**
      * Generates glyphs and visual attributes for a Unicode run.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * If this function returns E_OUTOFMEMORY, the application might call <b>ScriptShape</b> repeatedly, with successively larger output buffers, until a large enough buffer is provided. The number of glyphs generated by a code point varies according to the script and the font. For a simple script, a Unicode code point might generate a single glyph. However, a complex script font might construct characters from components, and thus generate several times as many glyphs as characters. Also, there are special cases, such as invalid character representations, in which extra glyphs are added to represent the invalid sequence. Therefore, a reasonable guess for the size of the buffer indicated by <i>pwOutGlyphs</i> is 1.5 times the length of the character buffer, plus an additional 16 glyphs for rare cases, for example, invalid sequence representation.
-     * 
-     * This function can set the <b>fNoGlyphIndex</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure if the font or operating system cannot support glyph indexes.
-     * 
-     * The application can call <b>ScriptShape</b> to determine if a font supports the characters in a given string. If the function returns S_OK, the application should check the output for missing glyphs. If <b>fLogicalOrder</b> is set to <b>TRUE</b> in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure, the function always generates glyphs in the same order as the original Unicode characters. If <b>fLogicalOrder</b> is set to <b>FALSE</b>, the function generates right-to-left items in reverse order so that <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scripttextout">ScriptTextOut</a> does not have to reverse them before calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>.
-     * 
-     * If the <b>eScript</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> is set to SCRIPT_UNDEFINED, shaping is disabled. In this case, <b>ScriptShape</b> displays the glyph that is in the font cmap table. If no glyph is in the table, the function indicates that glyphs are missing.
-     * 
-     * <b>ScriptShape</b> sequences clusters uniformly within the run, and sequences glyphs uniformly within a cluster. It uses the value of the <b>fRTL</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a>, from <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a>, to identify sequencing as left-to-right or right-to-left.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<Char>} pwcChars Pointer to an array of Unicode characters defining the run.
@@ -13394,9 +10941,9 @@ class Globalization {
      * <ul>
      * <li>E_OUTOFMEMORY. The output buffer length indicated by <i>cMaxGlyphs</i> is insufficient.</li>
      * <li>E_PENDING. The script cache specified by the <i>psc</i> parameter does not contain enough information to shape the string, and the device context has been passed as <b>NULL</b> so that the function is unable to complete the shaping process. The application should set up a correct device context for the run, and call this function again with the appropriate value in <i>hdc</i> and with all other parameters the same.</li>
-     * <li>USP_E_SCRIPT_NOT_IN_FONT. The font corresponding to the device context does not support the script required by the run indicated by <i>pwcChars</i>. The application should choose another font, using either <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetcmap">ScriptGetCMap</a> or another function to select the font.</li>
+     * <li>USP_E_SCRIPT_NOT_IN_FONT. The font corresponding to the device context does not support the script required by the run indicated by <i>pwcChars</i>. The application should choose another font, using either <a href="/windows/desktop/api/usp10/nf-usp10-scriptgetcmap">ScriptGetCMap</a> or another function to select the font.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptshape
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptshape
      * @since windows5.0
      */
     static ScriptShape(hdc, psc, pwcChars, cChars, cMaxGlyphs, psa, pwOutGlyphs, pwLogClust, psva, pcGlyphs) {
@@ -13411,15 +10958,6 @@ class Globalization {
 
     /**
      * Generates glyph advance width and two-dimensional offset information from the output of ScriptShape.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * The composite ABC width for the whole item identifies how much the glyphs <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">overhang</a> to the left of the start position and to the right of the length implied by the sum of the advance widths. The total advance width of the line is exactly abcA+abcB+abcC. The abcA and abcC values are maintained as proportions of the cell height represented in 8 bits and are thus roughly +/-1 percent. The total width retrieved, which is the sum of the abcA+abcB+abcC values indicated by <i>piAdvance</i>, is accurate to the resolution of the TrueType shaping engine.
-     * 
-     * All arrays are in visual order unless the <b>fLogicalOrder</b> member is set in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure indicated by the <i>psa</i> parameter.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<UInt16>} pwGlyphs Pointer to a glyph buffer obtained from an earlier call to the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> function.
@@ -13432,7 +10970,7 @@ class Globalization {
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * The function returns E_PENDING if the script cache specified by the <i>psc</i> parameter does not contain enough information to place the glyphs, and the <i>hdc</i> parameter is set to <b>NULL</b> so that the function cannot complete the placement process. The application should set up a correct device context for the run, and call this function again with the appropriate device context and with all other parameters the same.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptplace
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptplace
      * @since windows5.0
      */
     static ScriptPlace(hdc, psc, pwGlyphs, cGlyphs, psva, psa, piAdvance, pGoffset, pABC) {
@@ -13445,23 +10983,6 @@ class Globalization {
 
     /**
      * Displays text for the specified script shape and place information.
-     * @remarks
-     * This function calls the operating system <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function for text display. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a>.
-     * 
-     * All arrays are in display order unless the <b>fLogicalOrder</b> member is set in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure indicated by <i>psa</i>.
-     * 
-     * For any run that is rendered right-to-left and was generated in logical order by forcing the <b>fLogicalOrder</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a>, the application must call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> (hdc, TA_RIGHT) and give the right-side coordinate before calling <b>ScriptTextOut</b>.
-     * 
-     * The array indicated by <i>piJustify</i> provides cell widths for each glyph. When the width of a glyph differs from the unjustified width, specified by <i>piAdvance</i>, space is added to or removed from the glyph cell at its trailing edge. The glyph is always aligned with the leading edge of its cell. This rule applies even in visual order.
-     * 
-     * When a glyph cell is extended, the extra space is usually made up by the addition of white space. However, for Arabic scripts, the extra space is made up by one or more kashida glyphs, unless the extra space is insufficient for the shortest kashida glyph in the font. The width of the shortest kashida is available by calling <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetfontproperties">ScriptGetFontProperties</a>.
-     * 
-     * The application should pass a value for <i>piJustify</i> only if the string must be justified by <b>ScriptTextOut</b>. Normally, the application should pass <b>NULL</b>.
-     * 
-     * The application should not use <b>ScriptTextOut</b> to write to a metafile unless the metafile will be played back without any font substitution, for example, immediately on the same system for scalable page preview. <b>ScriptTextOut</b> records glyph numbers in the metafile. Since glyph numbers vary considerably from one font to another, the file is unlikely to play back correctly when different fonts are substituted. For example, when a metafile is played back at a different scale, a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a> request recorded in the metafile can resolve to a bitmap instead of a TrueType font. Likewise, if the metafile is played back on a different computer, the requested fonts might not be installed. To write complex scripts in a metafile in a font-independent manner, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> to write the logical characters directly, so that glyph generation and placement do not occur until the text is played back.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>. Note that, unlike some other related Uniscribe functions, this function defines the handle as mandatory.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} x Value of the x coordinate of the first glyph.
@@ -13475,7 +10996,7 @@ class Globalization {
      * @param {Pointer<Int32>} piJustify Pointer to an array of justified advance widths (cell widths). The application can set this parameter to <b>NULL</b>.
      * @param {Pointer<GOFFSET>} pGoffset Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-goffset">GOFFSET</a> structure containing the x and y offsets for the combining glyph.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scripttextout
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scripttextout
      * @since windows5.0
      */
     static ScriptTextOut(hdc, psc, x, y, fuOptions, lprc, psa, pwGlyphs, cGlyphs, piAdvance, piJustify, pGoffset) {
@@ -13492,23 +11013,6 @@ class Globalization {
 
     /**
      * Creates an advance widths table to allow text justification when passed to the ScriptTextOut function.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * This function provides a simple implementation of multilingual justification. It establishes the amount of adjustment to make at each glyph position on the line. It interprets the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> array generated by a call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a>, giving top priority to kashida. The function uses interword spacing if no kashida points are available. It uses intercharacter spacing if no interword points are available.
-     * 
-     * <div class="alert"><b>Note</b>  Sophisticated text formatters might generate their own delta dx array by combining formatter-specific features with the information retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> array.</div>
-     * <div> </div>
-     * The application should pass the justified advance widths generated by <b>ScriptJustify</b> to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scripttextout">ScriptTextOut</a> in the <i>piJustify</i> parameter.
-     * 
-     * <b>ScriptJustify</b> creates a justified array containing updated advance widths for each glyph. When an advance width for a glyph is increased, the extra width is rendered to the right of the glyph, with a white space or, for Arabic text, a kashida.
-     * 
-     * <div class="alert"><b>Note</b>  Kashida insertion occurs to the right of the glyph to justify visually. Microsoft Word and Microsoft PowerPoint use this concept. Any change in the kashida placement algorithm should accompany a change in the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scripttextout">ScriptTextOut</a> handler for a particular script, for example, the Arabic TextOut justification handler.</div>
-     * <div> </div>
-     * Sometimes the application tries to handle glyphs that cannot be justified, in which case the <b>uJustification</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> is set to SCRIPT_JUSTIFY_NONE. In this case, <b>ScriptJustify</b> copies the input array indicated by <i>piAdvance</i> to the output array indicated by <i>piJustify</i> and returns S_FALSE to the application.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<UInt16>} psva Pointer to an array, of length indicated by <i>cGlyphs</i>, containing <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> structures. Each structure contains visual attributes for a glyph in the line to process.
      * @param {Pointer<Int32>} piAdvance Pointer to an advance widths array, of length indicated by <i>cGlyphs</i>, obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
      * @param {Integer} cGlyphs Count of glyphs for the arrays indicated by <i>psva</i> and <i>piAdvance</i>. This parameter also indicates the count of glyphs for the output parameter <i>piJustify</i>.
@@ -13516,7 +11020,7 @@ class Globalization {
      * @param {Integer} iMinKashida Minimum width of a kashida glyph to generate.
      * @param {Pointer<Int32>} piJustify Pointer to a buffer in which this function retrieves an array, of length indicated by <i>cGlyphs</i>, containing justified advance widths. The justified widths are sometimes called "cell widths" to distinguish them from unjustified advance widths.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptjustify
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptjustify
      * @since windows5.0
      */
     static ScriptJustify(psva, piAdvance, cGlyphs, iDx, iMinKashida, piJustify) {
@@ -13529,27 +11033,12 @@ class Globalization {
 
     /**
      * Retrieves information for determining line breaks.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * This function does not require a device context and does not perform glyph shaping.
-     * 
-     * This function retrieves cursor movement and formatting break positions for an item in an array of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> structures. To support mixed formatting within a single word correctly, the call to <b>ScriptBreak</b> should pass whole items as retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a>, and not the finer formatting runs.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> structure identifies valid caret positions and line breaks. The <b>fCharStop</b> member specifies a flag that marks cluster boundaries for scripts that are conventionally restricted from moving inside clusters. The same boundaries can also be inferred by inspecting the logical cluster information retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a>. However, <b>ScriptBreak</b> is considerably faster in implementation and does not require a device context to be prepared.
-     * 
-     * The flags designated by the <b>fWordStop</b>, <b>fSoftBreak</b>, and <b>fWhiteSpace</b> members of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> are only available through <b>ScriptBreak</b>.
-     * 
-     * Most shaping engines that identify invalid sequences set the flag indicated by the <b>fInvalid</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> in <b>ScriptBreak</b>. The <b>fInvalidLogAttr</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_properties">SCRIPT_PROPERTIES</a> identifies the applicable scripts.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Char>} pwcChars Pointer to the Unicode characters to process.
      * @param {Integer} cChars Number of Unicode characters to process.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from an earlier call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a>.
      * @param {Pointer<Byte>} psla Pointer to a buffer in which this function retrieves the character attributes as a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> structure.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptbreak
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptbreak
      * @since windows5.0
      */
     static ScriptBreak(pwcChars, cChars, psa, psla) {
@@ -13564,15 +11053,6 @@ class Globalization {
 
     /**
      * Generates the x offset from the left end or leading edge of a run to either the leading or trailing edge of a logical character cluster.
-     * @remarks
-     * The leading or trailing edge of the character and the leading edge of a run depend on the direction of text in the run.
-     * 
-     * For scripts in which the caret is conventionally placed in the middle of clusters (for example, Arabic and Hebrew), the retrieved x position of the carat can be an interpolated position for any code point in the line.
-     * 
-     * For scripts in which the caret is conventionally snapped to the boundaries of clusters (for example, Thai and Indian), the x position is snapped to the requested edge of the cluster containing the logical character position indicated by <i>iCP</i>.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Integer} iCP Logical character position in the run. This parameter corresponds to the offset of any logical character in the cluster.
      * @param {Integer} fTrailing <b>TRUE</b> to use the trailing edge of the logical character cluster to compute the offset. This parameter is set to <b>FALSE</b> to use the leading edge of the logical character cluster.
      * @param {Integer} cChars Number of characters in the run.
@@ -13583,7 +11063,7 @@ class Globalization {
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure. The <b>fLogicalOrder</b> member specifies the end of the run from which to measure the offset. If the flag is set, the leading edge of the run is used. If the flag is not set, the left end of the run is used.
      * @param {Pointer<Int32>} piX Pointer to the buffer in which the function retrieves the x position of the caret.
      * @returns {HRESULT} Returns 0 if successful. This function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptcptox
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptcptox
      * @since windows5.0
      */
     static ScriptCPtoX(iCP, fTrailing, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, piX) {
@@ -13596,37 +11076,6 @@ class Globalization {
 
     /**
      * Generates the leading or trailing edge of a logical character cluster from the x offset of a run.
-     * @remarks
-     * The values passed to this function normally are the results of earlier calls to other Uniscribe functions. See <a href="https://docs.microsoft.com/windows/desktop/Intl/managing-caret-placement-and-hit-testing">Managing Caret Placement and Hit Testing</a> for details.
-     * 
-     * The leading and trailing edges of the logical character are determined by the direction of text in the run (left-to-right or right-to-left). For the left-to-right direction, the leading edge is the same as the left edge. For the right-to-left direction, the leading edge is the right edge.
-     * 
-     * For scripts in which the caret is conventionally placed in the middle of a cluster, for example, Arabic and Hebrew, the retrieved character position can be for any code point in the line. In this case, the <i>piTrailing</i> parameter is set to either 0 or 1.
-     * 
-     * For scripts in which the caret is conventionally snapped to the boundaries of a cluster, the retrieved character position is always the position of the first code point in a cluster (considered logically). The <i>piTrailing</i> parameter is set to 0 or to the number of code points in the cluster.
-     * 
-     * The appropriate caret position for a mouse hit is always the retrieved character position plus the distance indicated by <i>piTrailing</i>.
-     * 
-     * When <i>iX</i> indicates a position outside the run, <b>ScriptXtoCP</b> acts as if there is an extra infinitely large character beyond each end of the run. This results in the behavior shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th><i>iX</i> position (outside the run)</th>
-     * <th>Result</th>
-     * </tr>
-     * <tr>
-     * <td>Before the run, that is: <i>iX</i> &lt; 0 if run is left-to-right, or <i>iX</i> &gt;= sum of advances if run is right-to-left</td>
-     * <td>Value of <i>piCP</i> is -1 and value of <i>piTrailing</i> is 0</td>
-     * </tr>
-     * <tr>
-     * <td>After the run, that is: <i>iX</i> &gt;= sum of advances if run is left-to-right, or <i>iX</i> &lt; 0 if run is right-to-left</td>
-     * <td>Value of <i>piCP</i> is value of <i>cChars</i> and value of <i>piTrailing</i> is 1</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Integer} iX Offset, in logical units, from the end of the run specified by the <b>fLogicalOrder</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure indicated by the <i>psa</i> parameter.
      * @param {Integer} cChars Count of logical code points in the run.
      * @param {Integer} cGlyphs Count of glyphs in the run.
@@ -13634,10 +11083,10 @@ class Globalization {
      * @param {Pointer<UInt16>} psva Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> structures containing the visual attributes for the glyph.
      * @param {Pointer<Int32>} piAdvance Pointer to an array of advance widths.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure. The <b>fLogicalOrder</b> member indicates <b>TRUE</b> to use the leading edge of the run, or <b>FALSE</b> to use the trailing edge.
-     * @param {Pointer<Int32>} piCP Pointer to a buffer in which this function retrieves the character position corresponding to the x coordinate.
+     * @param {Pointer<Int32>} piCP Pointer to a buffer in which this function retrieves the character position corrresponding to the x coordinate.
      * @param {Pointer<Int32>} piTrailing Pointer to a buffer in which this function retrieves the distance, in code points, from the leading edge of the logical character to the <i>iX</i> position. If this value is 0, the <i>iX</i> position is at the leading edge of the logical character. For more information, see the Remarks section.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptxtocp
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptxtocp
      * @since windows5.0
      */
     static ScriptXtoCP(iX, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, piCP, piTrailing) {
@@ -13650,13 +11099,6 @@ class Globalization {
 
     /**
      * Converts the glyph advance widths for a specific font into logical widths.
-     * @remarks
-     * This function is useful for recording widths in a font-independent manner. It converts the glyph advance widths calculated for a specific font into logical widths, one per code point, in the same order as the code points. If the same string is then displayed on a different device using a different font, the logical widths can be applied by using <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptapplylogicalwidth">ScriptApplyLogicalWidth</a> to approximate the original placement. This mechanism is useful when implementing print preview. On the preview screen, it is important to match the layout and placement of the final printed result.
-     * 
-     * <div class="alert"><b>Note</b>  Ligature glyph widths are divided evenly among the characters they represent.</div>
-     * <div> </div>
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure.
      * @param {Integer} cChars Count of the logical code points in the run.
      * @param {Integer} cGlyphs Count of the glyphs in the run.
@@ -13665,7 +11107,7 @@ class Globalization {
      * @param {Pointer<UInt16>} psva Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_visattr">SCRIPT_VISATTR</a> structure defining visual attributes.
      * @param {Pointer<Int32>} piDx Pointer to an array of logical widths.
      * @returns {HRESULT} Currently returns S_OK in all cases.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetlogicalwidths
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetlogicalwidths
      * @since windows5.0
      */
     static ScriptGetLogicalWidths(psa, cChars, cGlyphs, piGlyphWidth, pwLogClust, psva, piDx) {
@@ -13678,11 +11120,6 @@ class Globalization {
 
     /**
      * Takes an array of advance widths for a run and generates an array of adjusted advance glyph widths.
-     * @remarks
-     * This function can be used to reapply logical widths obtained with <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetlogicalwidths">ScriptGetLogicalWidths</a>. It can be useful in situations such as metafiling, for which advance width information must be recorded and reapplied in a font-independent manner, independent of glyph substitutions, such as ligaturization.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Int32>} piDx Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">advance widths</a> in logical order, one per code point.
      * @param {Integer} cChars Count of the logical code points in the run.
      * @param {Integer} cGlyphs Glyph count.
@@ -13693,7 +11130,7 @@ class Globalization {
      * @param {Pointer<ABC>} pABC Pointer to the overall <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">ABC width</a> of a run. On input, the parameter should contain the run ABC widths retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>. On output, the parameter indicates the ABC width updated to match the new widths.
      * @param {Pointer<Int32>} piJustify Pointer to an array in which the function retrieves the glyph advance widths. This array is suitable for passing to the <i>piJustify</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scripttextout">ScriptTextOut</a>.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptapplylogicalwidth
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptapplylogicalwidth
      * @since windows5.0
      */
     static ScriptApplyLogicalWidth(piDx, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, pABC, piJustify) {
@@ -13706,19 +11143,6 @@ class Globalization {
 
     /**
      * Retrieves the glyph indexes of the Unicode characters in a string according to either the TrueType cmap table or the standard cmap table implemented for old-style fonts.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * This function can be used to determine the characters in a run that are supported by the selected font. The application can scan the retrieved glyph buffer, looking for the default glyph to determine characters that are not available. The application should determine the default glyph index for the selected font by calling <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetfontproperties">ScriptGetFontProperties</a>.
-     * 
-     * The return value for this function indicates the presence of any missing glyphs.
-     * 
-     * <div class="alert"><b>Note</b>  The function assumes a 1:1 relationship between the elements in the input and output arrays. However, the function does not support this relationship for UTF-16 surrogate pairs. For a surrogate pair, the function does not retrieve the glyph index for the supplementary-plane character. Similarly, the function does not support Unicode Variation-Selector (VS) sequences, each of which consists of a Unicode graphic character followed by one of a set of VARIATION SELECTOR characters to select a particular glyph representation for that graphic character. For a VS sequence, the function retrieves the glyph index for the default glyph mapped by the cmap for the two characters, instead of the glyph index for the particular glyph for the VS sequence.</div>
-     * <div> </div>
-     * Some code points can be rendered by a combination of glyphs, as well as by a single glyph, for example, 00C9; LATIN CAPITAL LETTER E WITH ACUTE. In this case, if the font supports the capital E glyph and the acute glyph, but not a single glyph for 00C9, <b>ScriptGetCMap</b> shows that 00C9 is unsupported. To determine the font support for a string that contains these kinds of code points, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a>. If the function returns S_OK, the application should check the output for missing glyphs.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<Char>} pwcInChars Pointer to a string of Unicode characters.
@@ -13759,7 +11183,7 @@ class Globalization {
      * <td>Some of the Unicode code points were mapped to the default glyph.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetcmap
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetcmap
      * @since windows5.0
      */
     static ScriptGetCMap(hdc, psc, pwcInChars, cChars, dwFlags, pwOutGlyphs) {
@@ -13774,11 +11198,6 @@ class Globalization {
 
     /**
      * Retrieves the ABC width of a given glyph.
-     * @remarks
-     * This function is limited in its usefulness. For example, it is useful for drawing glyph charts. It should not be used for ordinary complex script text formatting.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} wGlyph Glyph to analyze.
@@ -13786,7 +11205,7 @@ class Globalization {
      * @returns {HRESULT} Returns S_OK if the ABC width of the glyph is retrieved. The function returns a nonzero HRESULT value if it does not succeed.
      * 
      * The function returns E_HANDLE if the font or operating system does not support glyph indexes.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetglyphabcwidth
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetglyphabcwidth
      * @since windows5.0
      */
     static ScriptGetGlyphABCWidth(hdc, psc, wGlyph, pABC) {
@@ -13799,15 +11218,10 @@ class Globalization {
 
     /**
      * Retrieves information about the current scripts.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/determining-if-a-script-requires-glyph-shaping">Determining If a Script Requires Glyph Shaping</a> for an example of the use of this function.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<SCRIPT_PROPERTIES>} ppSp Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_properties">SCRIPT_PROPERTIES</a> structures indexed by script.
      * @param {Pointer<Int32>} piNumScripts Pointer to the number of scripts. The valid range for this value is 0 through <i>piNumScripts</i>-1.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetproperties
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetproperties
      * @since windows5.0
      */
     static ScriptGetProperties(ppSp, piNumScripts) {
@@ -13820,16 +11234,11 @@ class Globalization {
 
     /**
      * Retrieves information from the font cache on the special glyphs used by a font.
-     * @remarks
-     * The structure retrieved by this function identifies the glyphs that are used for blanks, missing glyphs, invalid combinations, and the smallest kashida.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_FONTPROPERTIES>} sfp Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_fontproperties">SCRIPT_FONTPROPERTIES</a> structure in which this function retrieves the information from the font cache.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontproperties
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetfontproperties
      * @since windows5.0
      */
     static ScriptGetFontProperties(hdc, psc, sfp) {
@@ -13842,14 +11251,11 @@ class Globalization {
 
     /**
      * Retrieves the height of the currently cached font.
-     * @remarks
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<Int32>} tmHeight Pointer to a buffer in which the function retrieves the font height.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptcachegetheight
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptcachegetheight
      * @since windows5.0
      */
     static ScriptCacheGetHeight(hdc, psc, tmHeight) {
@@ -13862,15 +11268,6 @@ class Globalization {
 
     /**
      * Analyzes a plain text string.
-     * @remarks
-     * Use of this function is the first step in handling plain text strings. Such a string has only one font, one style, one size, one color, and so forth. <b>ScriptStringAnalyse</b> allocates temporary buffers for item analyses, glyphs, advance widths, and the like. Then it automatically runs <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a>, <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a>, <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptbreak">ScriptBreak</a>. The results are available through all the other <b>ScriptString*</b> functions.
-     * 
-     * On successful return from this function, <i>pssa</i> indicates a dynamically allocated structure that the application can pass successively to the other <b>ScriptString*</b> functions. The application must ultimately free the structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringfree">ScriptStringFree</a>.
-     * 
-     * Although the functionality of <b>ScriptStringAnalyse</b> can be implemented by direct calls to other functions, use of the function itself drastically reduces the amount of code required in the application for plain text handling.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. If <i>dwFlags</i> is set to SSA_GLYPHS, the device context handle is required. If <i>dwFlags</i> is set to SSA_BREAK, the device context handle is optional. If the device context handle is provided, the function inspects the current font in the device context. If the current font is a symbolic font, the function treats the character string as a single neutral SCRIPT_UNDEFINED item.
      * @param {Pointer<Void>} pString Pointer to the string to analyze. The string must have at least one character. It can be a Unicode string or use the character set from a Windows ANSI <a href="https://docs.microsoft.com/windows/desktop/Intl/code-pages">code page</a>, as specified by the <i>iCharset</i> parameter.
      * @param {Integer} cString Length of the string to analyze. The length is measured in characters for an ANSI string or in wide characters for a Unicode string. The length must be at least 1.
@@ -14053,7 +11450,7 @@ class Globalization {
      * 
      * 
      * The function can also return a system error converted to an HRESULT type. An example is an error returned due to lack of memory or a GDI call using the device context.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringanalyse
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringanalyse
      * @since windows5.0
      */
     static ScriptStringAnalyse(hdc, pString, cString, cGlyphs, iCharset, dwFlags, iReqWidth, psControl, psState, piDx, pTabdef, pbInClass, pssa) {
@@ -14066,14 +11463,9 @@ class Globalization {
 
     /**
      * Frees a SCRIPT_STRING_ANALYSIS structure.
-     * @remarks
-     * When your application is finished with a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure, it should free the associated memory by calling this function. After this function is called, the pointers retrieved from <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_pcoutchars">ScriptString_pcOutChars</a>, <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_plogattr">ScriptString_pLogAttr</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_psize">ScriptString_pSize</a> that are associated with the <i>pssa</i> parameter are invalid.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} pssa Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringfree
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringfree
      * @since windows5.0
      */
     static ScriptStringFree(pssa) {
@@ -14086,16 +11478,9 @@ class Globalization {
 
     /**
      * Returns a pointer to a SIZE structure for an analyzed string.
-     * @remarks
-     * The size returned by this function is the size before the effect of the justification requested by setting the SSA_FIT flag in <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a>. The difference between the value of <i>iReqWidth</i> in <b>ScriptStringAnalyse</b> and the size returned by <b>ScriptString_pSize</b> is the effect of justification.
-     * 
-     * The pointer returned by this function is valid only until the application passes the associated <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringfree">ScriptStringFree</a>.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for a string.
-     * @returns {Pointer<SIZE>} Returns a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure containing the size (width and height) of the analyzed string if successful. The function returns <b>NULL</b> if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstring_psize
+     * @returns {Pointer<SIZE>} Returns a pointer to a <a href="/previous-versions/dd145106(v=vs.85)">SIZE</a> structure containing the size (width and height) of the analyzed string if successful. The function returns <b>NULL</b> if it does not succeed.
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstring_psize
      * @since windows5.0
      */
     static ScriptString_pSize(ssa) {
@@ -14105,16 +11490,9 @@ class Globalization {
 
     /**
      * Returns a pointer to the length of a string after clipping.
-     * @remarks
-     * To use this function, the application needs to specify SSA_CLIP in its original call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a>.
-     * 
-     * The pointer returned by this function is valid only until the application passes the associated <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringfree">ScriptStringFree</a>.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @returns {Pointer<Int32>} Returns a pointer to the length of the string after clipping if successful. The length is the number of Unicode code points. The function returns <b>NULL</b> if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstring_pcoutchars
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstring_pcoutchars
      * @since windows5.0
      */
     static ScriptString_pcOutChars(ssa) {
@@ -14124,18 +11502,9 @@ class Globalization {
 
     /**
      * Returns a pointer to a logical attributes buffer for an analyzed string.
-     * @remarks
-     * The pointer returned by this function is valid only until the application passes the associated <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringfree">ScriptStringFree</a>.
-     * 
-     * The logical attribute buffer contains at least the number of integers indicated by the <i>ssa</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_pcoutchars">ScriptString_pcOutChars</a>.
-     * 
-     * When scanning the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> array for a word break point, the application should look backward for the values of the <b>fWordStop</b> and <b>fWhiteSpace</b> members. <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a> just calls <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptbreak">ScriptBreak</a> on each run, and <b>ScriptBreak</b> never sets <b>fWordBreak</b> on the first character of a run, because it has no information that the previous run ended in white space.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
-     * @returns {Pointer<Byte>} Returns a pointer to a buffer containing <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> structures defining logical attributes if successful. The function returns <b>NULL</b> if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstring_plogattr
+     * @returns {Pointer<Byte>} Returns a pointer to a buffer containing <a href="/windows/win32/api/usp10/ns-usp10-script_logattr">SCRIPT_LOGATTR</a> structures defining logical attributes if successful. The function returns <b>NULL</b> if it does not succeed.
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstring_plogattr
      * @since windows5.0
      */
     static ScriptString_pLogAttr(ssa) {
@@ -14145,17 +11514,10 @@ class Globalization {
 
     /**
      * Creates an array that maps an original character position to a glyph position.
-     * @remarks
-     * When the number of glyphs and the number of characters are equal, the function retrieves an array that references every glyph. This is the same treatment that occurs in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>.
-     * 
-     * To use this function, the application needs to specify SSA_GLYPHS in its original call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a>.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Pointer<UInt32>} puOrder Pointer to a buffer in which this function retrieves an array of glyph positions, indexed by the original character position. The array should have room for at least the number of integers indicated by the <i>ssa</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_pcoutchars">ScriptString_pcOutChars</a>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringgetorder
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringgetorder
      * @since windows5.0
      */
     static ScriptStringGetOrder(ssa, puOrder) {
@@ -14168,15 +11530,12 @@ class Globalization {
 
     /**
      * Retrieves the x coordinate for the leading or trailing edge of a character position.
-     * @remarks
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Integer} icp Character position in the string.
      * @param {Integer} fTrailing <b>TRUE</b> to indicate the trailing edge of the character position (<i>icp</i>) that corresponds to the x coordinate. This parameter is set to <b>FALSE</b> to indicate the leading edge of the character position.
      * @param {Pointer<Int32>} pX Pointer to a buffer in which this function retrieves the x coordinate corresponding to the character position.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringcptox
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringcptox
      * @since windows5.0
      */
     static ScriptStringCPtoX(ssa, icp, fTrailing, pX) {
@@ -14189,19 +11548,12 @@ class Globalization {
 
     /**
      * Converts an x coordinate to a character position.
-     * @remarks
-     * If the x coordinate corresponds to the leading edge of the character, the value of <i>piTrailing</i> is 0. If the x coordinate corresponds to the trailing edge of the character, the value of <i>piTrailing</i> is a positive integer. As for <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptxtocp">ScriptXtoCP</a>, the value is 1 for a character that can be rendered on its own. The value is greater than 1 if the character is part of a cluster in a script for which cursors are not placed within a cluster, to indicate the offset to the next legitimate logical cursor position.
-     * 
-     * If the x coordinate is before the beginning of the line, the function retrieves -1 for <i>piCh</i> and 1 for <i>piTrailing</i>, indicating the trailing edge of the nonexistent character before the line. If the x coordinate is after the end of the line, the function retrieves for <i>piCh</i> the first index beyond the length of the line and 0 for <i>piTrailing</i>. The 0 value indicates the leading edge of the nonexistent character after the line.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Integer} iX The x coordinate.
      * @param {Pointer<Int32>} piCh Pointer to a variable in which this function retrieves the character position corresponding to the x coordinate.
      * @param {Pointer<Int32>} piTrailing Pointer to a variable in which this function retrieves a value indicating if the x coordinate is for the leading edge or the trailing edge of the character position. For more information, see the Remarks section.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringxtocp
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringxtocp
      * @since windows5.0
      */
     static ScriptStringXtoCP(ssa, iX, piCh, piTrailing) {
@@ -14214,17 +11566,10 @@ class Globalization {
 
     /**
      * Converts visual widths into logical widths.
-     * @remarks
-     * This function converts the visual widths generated by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a> into logical widths, one per original character, in logical order.
-     * 
-     * To use this function, the application needs to specify SSA_GLYPHS in its original call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a>.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Pointer<Int32>} piDx Pointer to a buffer in which this function retrieves logical widths. The buffer should have room for at least the number of integers indicated by the <i>ssa</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstring_pcoutchars">ScriptString_pcOutChars</a>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringgetlogicalwidths
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringgetlogicalwidths
      * @since windows5.0
      */
     static ScriptStringGetLogicalWidths(ssa, piDx) {
@@ -14237,16 +11582,9 @@ class Globalization {
 
     /**
      * Checks a SCRIPT_STRING_ANALYSIS structure for invalid sequences.
-     * @remarks
-     * This function is intended for use in editors that reject the input of invalid sequences.
-     * 
-     * Invalid sequences are only checked for scripts with the <b>fRejectInvalid</b> member set in the associated <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_properties">SCRIPT_PROPERTIES</a> structure. For example, it is conventional for Notepad to reject invalid Thai character sequences. However, invalid Indian sequences are not conventionally rejected, but instead are displayed in composition with a missing base character symbol.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for a string.
      * @returns {HRESULT} Returns S_OK if no invalid sequences are found. The function returns S_FALSE if one or more invalid sequences are found. The function returns a nonzero HRESULT value if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringvalidate
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringvalidate
      * @since windows5.0
      */
     static ScriptStringValidate(ssa) {
@@ -14259,13 +11597,6 @@ class Globalization {
 
     /**
      * Displays a string generated by a prior call to ScriptStringAnalyse and optionally adds highlighting.
-     * @remarks
-     * To use this function, the application needs to specify SSA_GLYPHS in its original call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a>.
-     * 
-     * The application should not use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> with TA_UPDATECP when using <b>ScriptStringOut</b> because selected text cannot be rendered correctly. If the application must use this flag, it can unset and reset the flag as necessary to avoid the problem.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Integer} iX The x-coordinate of the reference point used to position the string.
      * @param {Integer} iY The y-coordinate of the reference point used to position the string.
@@ -14275,7 +11606,7 @@ class Globalization {
      * @param {Integer} iMaxSel Zero-based index specifying the ending position in the string.
      * @param {Integer} fDisabled <b>TRUE</b> if the operating system applies disabled-text highlighting by setting the background color to COLOR_HIGHLIGHT behind all selected characters. The application can set this parameter to <b>FALSE</b> if the operating system applies enabled-text highlighting by setting the background color to COLOR_HIGHLIGHT and the text color to COLOR_HIGHLIGHTTEXT for each selected character.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero <b>HRESULT</b> value if it does not succeed. The application can't test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptstringout
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptstringout
      * @since windows5.0
      */
     static ScriptStringOut(ssa, iX, iY, uOptions, prc, iMinSel, iMaxSel, fDisabled) {
@@ -14288,16 +11619,11 @@ class Globalization {
 
     /**
      * Determines whether a Unicode string requires complex script processing.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Char>} pwcInChars Pointer to the string to test.
      * @param {Integer} cInChars Length of the input string, in characters.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} Returns S_OK if the string requires complex script processing. The function returns S_FALSE if the string can be handled by standard API function calls, that is, it contains only characters laid out side-by-side and left-to-right. The function returns a nonzero HRESULT value if it does not succeed.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptiscomplex
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptiscomplex
      * @since windows5.0
      */
     static ScriptIsComplex(pwcInChars, cInChars, dwFlags) {
@@ -14312,36 +11638,6 @@ class Globalization {
 
     /**
      * Reads the National Language Support (NLS) native digit and digit substitution settings and records them in a SCRIPT_DIGITSUBSTITUTE structure. For more information, see Digit Shapes.
-     * @remarks
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * This function supports context digit substitution only for Arabic and Persian locales. For other locales, context digit substitution is mapped to no substitution.
-     * 
-     * The following example shows the typical way to call this function.
-     * 
-     * 
-     * ```cpp
-     * SCRIPT_DIGITSUBSTITUTE sds;
-     * ScriptRecordDigitSubstitution(LOCALE_USER_DEFAULT, &sds);
-     * 
-     * ```
-     * 
-     * 
-     * At every itemization, the application can use the results as shown in the next example.
-     * 
-     * 
-     * ```cpp
-     * SCRIPT_CONTROL sc = {0};
-     * SCRIPT_STATE   ss = {0};
-     * ScriptApplyDigitSubstitution(&sds, &sc, &ss);
-     * 
-     * ```
-     * 
-     * 
-     * For performance reasons, your application should not call <b>ScriptRecordDigitSubstitution</b> frequently. The function requires considerable overhead to call it every time <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a> is called. Instead, the application can save the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a> structure and update it only when a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message is received. Alternatively, the application can update the structure when a <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regnotifychangekeyvalue">RegNotifyChangeKeyValue</a> call in a dedicated thread indicates a change in the registry under HKCU\Control Panel\International.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Integer} Locale <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale identifier</a> of the locale to query. Typically, the application should set this parameter to <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>. Alternatively, the setting can indicate a specific locale combined with <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-nouseroverride">LOCALE_NOUSEROVERRIDE</a> to obtain the default settings.
      * @param {Pointer<SCRIPT_DIGITSUBSTITUTE>} psds Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a> structure. This structure can be passed later to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptapplydigitsubstitution">ScriptApplyDigitSubstitution</a>.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
@@ -14351,7 +11647,7 @@ class Globalization {
      * <li>E_INVALIDARG. The <i>Locale</i> parameter indicates a locale that is invalid or not installed.</li>
      * <li>E_POINTER. The <i>psds</i> parameter is set to <b>NULL</b>.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptrecorddigitsubstitution
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptrecorddigitsubstitution
      * @since windows5.0
      */
     static ScriptRecordDigitSubstitution(Locale, psds) {
@@ -14364,18 +11660,13 @@ class Globalization {
 
     /**
      * Applies the specified digit substitution settings to the specified script control and script state structures.
-     * @remarks
-     * This function does not actually substitute digits. It just fills in the structures that describe the digit substitution policy. See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<SCRIPT_DIGITSUBSTITUTE>} psds Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a> structure. The application sets this parameter to <b>NULL</b> if the function is to call <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptrecorddigitsubstitution">ScriptRecordDigitSubstitution</a> with LOCALE_USER_DEFAULT.
      * @param {Pointer<UInt32>} psc Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a> structure with the <b>fContextDigits</b> and <b>uDefaultLanguage</b> members updated.
      * @param {Pointer<UInt16>} pss Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> structure with the <b>fDigitSubstitute</b> member updated.
      * @returns {HRESULT} Returns S_OK if successful. The function returns a nonzero HRESULT value if it does not succeed.
      * 
-     * The function returns E_INVALIDARG if it does not recognize the <b>DigitSubstitute</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptapplydigitsubstitution
+     * The function returns E_INVALIDARG if it does not recognize the <b>DigitSubstitute</b> member of <a href="/windows/win32/api/usp10/ns-usp10-script_digitsubstitute">SCRIPT_DIGITSUBSTITUTE</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptapplydigitsubstitution
      * @since windows5.0
      */
     static ScriptApplyDigitSubstitution(psds, psc, pss) {
@@ -14388,41 +11679,6 @@ class Globalization {
 
     /**
      * Generates glyphs and visual attributes for a Unicode run with OpenType information. Each run consists of one call to this function.
-     * @remarks
-     * <b>ScriptShapeOpenType</b> is preferred over the older <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> function. Some advantages of the <b>ScriptShapeOpenType</b> include the following:
-     * 
-     * <ul>
-     * <li>Parameters directly correspond to OpenType tags in font layout tables.</li>
-     * <li>Parameters define features applied to each character.</li>
-     * <li>Input is divided into runs. Each run has OpenType properties and consists of a single call to <b>ScriptShapeOpenType</b>.</li>
-     * </ul>
-     * If this function returns E_OUTOFMEMORY, the application might call <b>ScriptShapeOpenType</b> repeatedly, with successively larger output buffers, until a large enough buffer is provided. The number of glyphs generated by a code point varies according to the script and the font. For a simple script, a Unicode code point might generate a single glyph. However, a complex script font might construct characters from components, and thus generate several times as many glyphs as characters. Also, there are special cases, such as invalid character representations, in which extra glyphs are added to represent the invalid sequence. Therefore, a reasonable guess for the size of the buffer indicated by <i>pwOutGlyphs</i> is 1.5 times the length of the character buffer, plus an additional 16 glyphs for rare cases, for example, invalid sequence representation.
-     * 
-     * This function can set the <b>fNoGlyphIndex</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure if the font or operating system cannot support glyph indexes.
-     * 
-     * The application can call <b>ScriptShapeOpenType</b> to determine if a font supports the characters in a given string. If the function returns S_OK, the application should check the output for missing glyphs. If <b>fLogicalOrder</b> is set to <b>TRUE</b> in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure, the function always generates glyphs in the same order as the original Unicode characters. If <b>fLogicalOrder</b> is set to <b>FALSE</b>, the function generates right-to-left items in reverse order so that <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scripttextout">ScriptTextOut</a> does not have to reverse them before calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>.
-     * 
-     * If the <b>eScript</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> is set to SCRIPT_UNDEFINED, shaping is disabled. In this case, <b>ScriptShapeOpenType</b> displays the glyph that is in the font cmap table. If no glyph is in the table, the function indicates that glyphs are missing.
-     * 
-     * <b>ScriptShapeOpenType</b> sequences clusters uniformly within the run, and sequences glyphs uniformly within a cluster. It uses the value of the <b>fRTL</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a>, from <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>, to identify if sequencing is left-to-right or right-to-left.
-     * 
-     * For the <i>rpRangeProperties</i> parameter, the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-textrange_properties">TEXTRANGE_PROPERTIES</a> structure points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-opentype_feature_record">OPENTYPE_FEATURE_RECORD</a> structures. This array is used as follows:
-     * 
-     * <ul>
-     * <li>Each element of the array indicated for <i>rpRangeProperties</i> describes a range.</li>
-     * <li>Spans of text sharing particular properties tend to "nest," and nested spans can share <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-opentype_feature_record">OPENTYPE_FEATURE_RECORD</a> information. For example, in the illustration below:<ul>
-     * <li>The rows of numbers at the top represent ranges, items, and runs, respectively.</li>
-     * <li>Each span labeled here with a letter represents a single OpenType feature. The features that fall into each range are stored in the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-opentype_feature_record">OPENTYPE_FEATURE_RECORD</a> array of that range.</li>
-     * <li>For each range, the array of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-opentype_feature_record">OPENTYPE_FEATURE_RECORD</a> structures corresponds to the letters for the spans that contain that range.</li>
-     * <li>In this illustration, range 2 is indirectly associated with the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-opentype_feature_record">OPENTYPE_FEATURE_RECORD</a> structures for spans A, B, and C. Range 4 is associated only with the structures for spans A and D.</li>
-     * </ul>
-     * </li>
-     * </ul>
-     * <img alt="Illustration showing the range, item, run, and feature of each word in a line of text that uses six properties to present eight words" border="" src="./images/Nested_Properties.GIF"/>
-     * <div class="alert"><b>Note</b>  The illustration makes use of many calls to <b>ScriptShapeOpenType</b>, each representing one run.</div>
-     * <div> </div>
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. The structure identifies the shaping engine, so that glyphs can be formed correctly.
@@ -14448,9 +11704,9 @@ class Globalization {
      * <ul>
      * <li>E_OUTOFMEMORY. The output buffer length indicated by <i>cMaxGlyphs</i> is insufficient.</li>
      * <li>E_PENDING. The script cache specified by the <i>psc</i> parameter does not contain enough information to shape the string, and the device context has been passed as <b>NULL</b> so that the function is unable to complete the shaping process. The application should set up a correct device context for the run and call this function again with the appropriate context value in <i>hdc</i> and with all other parameters the same.</li>
-     * <li>USP_E_SCRIPT_NOT_IN_FONT. The font corresponding to the device context does not support the required script. The application should choose another font, using either <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetcmap">ScriptGetCMap</a> or another method to select the font.</li>
+     * <li>USP_E_SCRIPT_NOT_IN_FONT. The font corresponding to the device context does not support the required script. The application should choose another font, using either <a href="/windows/desktop/api/usp10/nf-usp10-scriptgetcmap">ScriptGetCMap</a> or another method to select the font.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptshapeopentype
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptshapeopentype
      * @since windows6.0.6000
      */
     static ScriptShapeOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, cChars, cMaxGlyphs, pwLogClust, pCharProps, pwOutGlyphs, pOutGlyphProps, pcGlyphs) {
@@ -14465,19 +11721,6 @@ class Globalization {
 
     /**
      * Generates glyphs and visual attributes for a Unicode run with OpenType information from the output of ScriptShapeOpenType.
-     * @remarks
-     * This function is preferred over the older <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a> function. Some advantages of <b>ScriptPlaceOpenType</b> include the following:
-     * 
-     * <ul>
-     * <li>Parameters directly correspond to OpenType tags in font layout tables.</li>
-     * <li>Parameters define features applied to each character. Input is divided into ranges, and each range has OpenType properties associated with it.</li>
-     * </ul>
-     * The composite ABC width for the whole item identifies how much the glyphs <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe-glossary">overhang</a> to the left of the start position and to the right of the length implied by the sum of the advance widths. The total advance width of the line is exactly abcA+abcB+abcC. The abcA and abcC values are maintained as proportions of the cell height represented in 8 bits and are thus roughly +/-1 percent. The total width retrieved, which is the sum of the abcA+abcB+abcC values indicated by <i>piAdvance</i>, is accurate to the resolution of the TrueType shaping engine.
-     * 
-     * All arrays are in visual order unless the <b>fLogicalOrder</b> member is set in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure indicated by the <i>psa</i> parameter.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This structures identifies the shaping engine that governs the generated list of glyphs and their associated widths, and x and y placement offsets.
@@ -14504,7 +11747,7 @@ class Globalization {
      * The function returns E_OUTOFMEMORY if the output buffer length indicated by <i>cGlyphs</i> is too small. The application can try calling again with larger buffers.
      * 
      * The function returns E_PENDING if the script cache specified by the <i>psc</i> parameter does not contain enough information to place the glyphs, and the <i>hdc</i> parameter is passed as <b>NULL</b> so that the function is unable to complete the placement process. The application should set up a correct device context for the run, and call this function again with the appropriate value in <i>hdc</i> and with all other parameters the same.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptplaceopentype
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptplaceopentype
      * @since windows6.0.6000
      */
     static ScriptPlaceOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, pwLogClust, pCharProps, cChars, pwGlyphs, pGlyphProps, cGlyphs, piAdvance, pGoffset, pABC) {
@@ -14519,106 +11762,6 @@ class Globalization {
 
     /**
      * Breaks a Unicode string into individually shapeable items and provides an array of feature tags for each shapeable item for OpenType processing.
-     * @remarks
-     * <b>ScriptItemizeOpenType</b> is preferred over the older <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a> function. One advantage of <b>ScriptItemizeOpenType</b> is the availability of feature tags for each shapeable item.
-     * 
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/displaying-text-with-uniscribe">Displaying Text with Uniscribe</a> for a discussion of the context in which this function is normally called.
-     * 
-     * The function delimits items by either a change of shaping engine or a change of direction.
-     * 
-     * The application can create multiple ranges, or runs that fall entirely within a single item, from each <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structure retrieved by <b>ScriptItemizeOpenType</b>. However, it should not combine multiple items into a single run. When measuring or rendering, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshapeopentype">ScriptShapeOpenType</a> for each run and must pass the corresponding <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure in the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structure retrieved by <b>ScriptItemizeOpenType</b>.
-     * 
-     * If the text handled by an application can include any right-to-left content, the application uses the <i>psControl</i> and <i>psState</i> parameters in calling <b>ScriptItemizeOpenType</b>. However, the application does not have to do this and can handle bidirectional text itself instead of relying on Uniscribe to do so. The <i>psControl</i> and <i>psState</i> parameters are useful in some strictly left-to-right scenarios, for example, when the <b>fLinkStringBefore</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a> is not specific to right-to-left scripts. The application sets <i>psControl</i> and <i>psState</i> to <b>NULL</b> to have <b>ScriptItemizeOpenType</b> break the Unicode string purely by character code.
-     * 
-     * The application can set all parameters to non-<b>NULL</b> values to have the function perform a full Unicode bidirectional analysis. To permit a correct Unicode bidirectional analysis, the <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> structure should be initialized according to the reading order at paragraph start, and <b>ScriptItemizeOpenType</b> should be passed the whole paragraph. In particular, the <b>uBidiLevel</b> member should be initialized to 0 for left-to-right and 1 for right-to-left.
-     * 
-     * The <b>fRTL</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> is referenced in <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a>. The <b>fNumeric</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_properties">SCRIPT_PROPERTIES</a> is retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetproperties">ScriptGetProperties</a>. These members together provide the same classification as the <b>lpClass</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gcp_resultsa">GCP_RESULTS</a>, referenced by <i>lpResults</i> in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>.
-     * 
-     * European digits U+0030 through U+0039 can be rendered as national digits, as shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>SCRIPT_STATE.fDigitSubstitute</th>
-     * <th>SCRIPT_CONTROL.fContextDigits</th>
-     * <th>Digit shapes displayed for Unicode U+0030 through U+0039</th>
-     * </tr>
-     * <tr>
-     * <td><b>FALSE</b></td>
-     * <td>Any</td>
-     * <td>European digits</td>
-     * </tr>
-     * <tr>
-     * <td><b>TRUE</b></td>
-     * <td><b>FALSE</b></td>
-     * <td>As specified in <b>uDefaultLanguage</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a>.</td>
-     * </tr>
-     * <tr>
-     * <td><b>TRUE</b></td>
-     * <td><b>TRUE</b></td>
-     * <td>As prior strong text, defaulting to <b>uDefaultLanguage</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control">SCRIPT_CONTROL</a>.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * In context digit mode, one of the following actions occurs:
-     * 
-     * <ul>
-     * <li>If the script specified by <b>uDefaultLanguage</b> is in the same direction as the output, all digits encountered before the first letters are rendered in the language indicated by <b>uDefaultLanguage</b>.</li>
-     * <li>If the script specified by <b>uDefaultLanguage</b> is in the opposite direction from the output, all digits encountered before the first letters are rendered in European digits.</li>
-     * </ul>
-     * For example, if <b>uDefaultLanguage</b> indicates LANG_ARABIC, initial digits are in Arabic-Indic in a right-to-left embedding. However they are in European digits in a left-to-right embedding.
-     * 
-     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/digit-shapes">Digit Shapes</a>.
-     * 
-     * The Unicode control characters and definitions, and their effects on <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> members, are provided in the following table. For more information on Unicode control characters, see the <a href="https://www.unicode.org/standard/standard.html">The Unicode Standard</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Unicode control characters</th>
-     * <th>Meaning</th>
-     * <th>Effect on SCRIPT_STATE</th>
-     * </tr>
-     * <tr>
-     * <td>NADS</td>
-     * <td>Override European digits (NODS) with national digit shapes.</td>
-     * <td>Set <b>fDigitSubstitute</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>NODS</td>
-     * <td>Use nominal digit shapes, otherwise known as European digits. See NADS.</td>
-     * <td>Clear <b>fDigitSubstitute</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>ASS</td>
-     * <td>Activate swapping of symmetric pairs, for example, parentheses. For these characters, left and right are interpreted as opening and closing. This is the default. See ISS.</td>
-     * <td>Clear <b>fInhibitSymSwap</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>ISS</td>
-     * <td>Inhibit swapping of symmetric pairs. See ASS.</td>
-     * <td>Set <b>fInhibitSymSwap</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>AAFS</td>
-     * <td>Activate Arabic form shaping for Arabic presentation forms. See IAFS.</td>
-     * <td>Set <b>fCharShape</b>.</td>
-     * </tr>
-     * <tr>
-     * <td>IAFS</td>
-     * <td>Inhibit Arabic form shaping, that is, ligatures and cursive connections, for Arabic presentation forms. Nominal Arabic characters are not affected. This is the default. See AAFS.</td>
-     * <td>Clear <b>fCharShape</b>.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The <b>fArabicNumContext</b> member of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> supports the context-sensitive display of numerals in Arabic script text. It indicates if digits are rendered using native Arabic script digit shapes or European digits. At the beginning of a paragraph, this member should normally be initialized to <b>TRUE</b> for an Arabic locale, or <b>FALSE</b> for any other locale. The function updates the script state it as it processes strong text.
-     * 
-     * The output parameter <i>pScriptTags</i> indicates an array with entries parallel to items. For each item, this function retrieves a script tag that should be used for shaping in all subsequent operations.
-     * 
-     * A script tag is usually determined by <b>ScriptItemizeOpenType</b> from input characters. If the function retrieves a specific script tag, the application should pass it to other functions without change. However, when characters are neutral (for example, digits) and the script cannot be determined, the application should choose an appropriate script tag, for example, based on font and language associated with text.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Char>} pwcInChars Pointer to a Unicode string to itemize.
      * @param {Integer} cInChars Number of characters in <i>pwcInChars</i> to itemize.
      * @param {Integer} cMaxItems Maximum number of <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_item">SCRIPT_ITEM</a> structures defining items to process.
@@ -14649,7 +11792,7 @@ class Globalization {
      * <li><i>pScriptTags</i> is set to <b>NULL</b></li>
      * <li><i>cMaxItems</i> &lt; 2</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptitemizeopentype
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptitemizeopentype
      * @since windows6.0.6000
      */
     static ScriptItemizeOpenType(pwcInChars, cInChars, cMaxItems, psControl, psState, pItems, pScriptTags, pcItems) {
@@ -14664,21 +11807,6 @@ class Globalization {
 
     /**
      * Retrieves a list of scripts available in the font for OpenType processing. Scripts comprising the list are retrieved from the font located in the supplied device context or from the script shaping engine that processes the font of the current run.
-     * @remarks
-     * While formally declared as a ULONG type, <a href="https://docs.microsoft.com/windows/desktop/Intl/opentype-tag">OPENTYPE_TAG</a> defines a 4-byte array that contains four 8-bit ASCII values of space, A-Z or a-z. For example, the script tags for Latin and Arabic scripts are "latn" and "arab", respectively.
-     * 
-     * This function retrieves a single tag from a font in the following cases:
-     * 
-     * <ul>
-     * <li>The <i>psa</i> value is associated with text for a single complex script.</li>
-     * <li>The <i>psa</i> parameter indicates <b>NULL</b> and the font supports a single script.</li>
-     * </ul>
-     * If <b>ScriptGetFontScriptTags</b> retrieves all tags from a font, the tags are usually for neutral items, such as digits. Note that more than one tag might be applicable because some text runs of neutral items are not script-specific.
-     * 
-     * If a tag corresponding to a particular script is present, a shaping engine might be unable to use the font to shape the given item because the engine lacks a needed item, such as a specific language system or a specific feature.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the appropriate font script tags can be retrieved. The application supplies a non-<b>NULL</b> value for this parameter to retrieve script tags appropriate for the current run.
@@ -14690,7 +11818,7 @@ class Globalization {
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of matching tags exceeds the value of <i>cMaxTags</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontscripttags
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetfontscripttags
      * @since windows6.0.6000
      */
     static ScriptGetFontScriptTags(hdc, psc, psa, cMaxTags, pScriptTags, pcTags) {
@@ -14703,11 +11831,6 @@ class Globalization {
 
     /**
      * Retrieves a list of language tags that are available for the specified item and are supported by a specified script tag for OpenType processing. The tags comprising the list are retrieved from the font in the specified device context or cache.
-     * @remarks
-     * While formally declared as a ULONG type, the <a href="https://docs.microsoft.com/windows/desktop/Intl/opentype-tag">OPENTYPE_TAG</a> structure contains a 4-byte array that contains four 8-bit ASCII values of space, A-Z, or a-z. For example, the language tags for Romanian, Urdu, and Persian are "ROM ", "URD ", and "FAR ", respectively. Note that each tag ends with a space.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the font language tags for the appropriate font and scripts can be retrieved.
@@ -14720,7 +11843,7 @@ class Globalization {
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of matching tags exceeds <i>cMaxTags</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontlanguagetags
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetfontlanguagetags
      * @since windows6.0.6000
      */
     static ScriptGetFontLanguageTags(hdc, psc, psa, tagScript, cMaxTags, pLangsysTags, pcTags) {
@@ -14733,13 +11856,6 @@ class Globalization {
 
     /**
      * Retrieves a list of typographic features for the defined writing system for OpenType processing. The typographic feature tags comprising the list are retrieved from the font in the supplied device context or cache.
-     * @remarks
-     * While formally declared as a ULONG type, an <a href="https://docs.microsoft.com/windows/desktop/Intl/opentype-tag">OPENTYPE_TAG</a> structure contains a 4-byte array that contains four 8-bit ASCII values of space, A-Z, or a-z. For example, the feature tag for the Ligature feature is "liga".
-     * 
-     * This function hides script-required or language-required features because the shaping engine controls these features. The application has no control over the shaping engine handling for language-required features. For example, <b>ScriptGetFontFeatureTags</b> hides the Arabic script features for initial, medial, and final forms.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the font feature tags for the appropriate font and scripts can be retrieved.
@@ -14753,7 +11869,7 @@ class Globalization {
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of matching tags exceeds the value of <i>cMaxTags</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontfeaturetags
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetfontfeaturetags
      * @since windows6.0.6000
      */
     static ScriptGetFontFeatureTags(hdc, psc, psa, tagScript, tagLangSys, cMaxTags, pFeatureTags, pcTags) {
@@ -14766,17 +11882,6 @@ class Globalization {
 
     /**
      * Retrieves a list of alternate glyphs for a specified character that can be accessed through a specified OpenType feature.
-     * @remarks
-     * When using alternate glyphs, the application first reshapes the original glyph without applying any feature tag, then selects an alternate. The original glyph is established as the base glyph. If another alternate is required, the original glyph provides information to match with the corresponding alternates list.
-     * 
-     * If an alternate glyph is used as the base glyph, no matching output list is found. The user interface uses the selected final form without providing the capability to choose another alternate.
-     * 
-     * The operations of <b>ScriptGetFontAlternateGlyphs</b> can be emulated by <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptsubstitutesingleglyph">ScriptSubstituteSingleGlyph</a>. The application should try parameters one by one while glyphs are substituted.
-     * 
-     * For shaping fonts with Uniscribe, <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshapeopentype">ScriptShapeOpenType</a> is preferred over the older <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> function.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure defining the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the array of alternate glyphs can be created with the correct scope.
@@ -14794,7 +11899,7 @@ class Globalization {
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
      * 
      * If the number of alternate glyphs exceeds the value of <i>cMaxAlternates</i>, the function fails with E_OUTOFMEMORY. The application can try calling again with larger buffers.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptgetfontalternateglyphs
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptgetfontalternateglyphs
      * @since windows6.0.6000
      */
     static ScriptGetFontAlternateGlyphs(hdc, psc, psa, tagScript, tagLangSys, tagFeature, wGlyphId, cMaxAlternates, pAlternateGlyphs, pcAlternates) {
@@ -14807,11 +11912,6 @@ class Globalization {
 
     /**
      * Enables substitution of a single glyph with one alternate form of the same glyph for OpenType processing.
-     * @remarks
-     * This function uses one-to-one substitution in which the application can substitute one glyph with one alternate form. Most often, applications use this function to set a bullet or an alternate glyph at the beginning or end of a line.
-     * 
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure indicating the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine so that the correct substitute glyph is used.
@@ -14824,7 +11924,7 @@ class Globalization {
      * @param {Integer} wGlyphId Identifier of the original glyph.
      * @param {Pointer<UInt16>} pwOutGlyphId Pointer to the location in which this function retrieves the identifier of the alternate glyph.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptsubstitutesingleglyph
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptsubstitutesingleglyph
      * @since windows6.0.6000
      */
     static ScriptSubstituteSingleGlyph(hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, pwOutGlyphId) {
@@ -14837,16 +11937,6 @@ class Globalization {
 
     /**
      * Positions a single glyph with a single adjustment using a specified feature provided in the font for OpenType processing. Most often, applications use this function to align a glyph optically at the beginning or end of a line.
-     * @remarks
-     * This function positions an individual glyph by adjusting the advance width and/or the offset of the given glyph. The function assumes that the font requires only one adjustment.
-     * 
-     * A typical use of this function is the slight adjustment of the margin to account for the visual impression made by certain characters. In Latin script, for example, at the beginning of a line it is common to make a slight adjustment to the left for an initial capital (such as "T" or "O") that does not have a vertical line on the left part of the glyph. Although doing this breaks the strict linear margin, the eye perceives the margin as more even.
-     * 
-     * The following examples demonstrate this effect. The first example shows strict alignment; the next two examples show an adjustment of the initial "T" to the left. The adjustments are by one pixel and two pixels, respectively. The magnified images to the right show how the "T" pushes slightly farther into the left margin in each successive case.
-     * 
-     * <img alt="Illustration showing the same block of text three times, with enlargements of each showing slightly different alignment" border="" src="./images/HAlign.gif"/>
-     * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Void>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This structure identifies the shaping engine, so that the advance widths can be retrieved.
@@ -14862,7 +11952,7 @@ class Globalization {
      * @param {Pointer<Int32>} piOutAdvance Pointer to the location in which this function retrieves the new advance width adjusted for the alternate glyph.
      * @param {Pointer<GOFFSET>} pOutGoffset Pointer to the location in which this function retrieves the new glyph offset adjusted for the alternate glyph.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
-     * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptpositionsingleglyph
+     * @see https://docs.microsoft.com/windows/win32/api//usp10/nf-usp10-scriptpositionsingleglyph
      * @since windows6.0.6000
      */
     static ScriptPositionSingleGlyph(hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, iAdvance, GOffset, piOutAdvance, pOutGoffset) {
@@ -27809,30 +24899,20 @@ class Globalization {
 
     /**
      * Determines the distance between the specified language code and the closest match in a list of languages.
-     * @remarks
-     * You can use this function for localization to find the closest match to a candidate language in the list of user languages.
      * @param {Pointer<Char>} pszLanguage Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A [BCP-47](https://tools.ietf.org/html/bcp47) language tag that represents the candidate language.
      * @param {Pointer<Char>} pszLanguagesList Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A character delimited list of [BCP-47](https://tools.ietf.org/html/bcp47) language tags to compare to the candidate language. This is typically the list of user languages.
-     * 
-     * If the *wchListDelimiter* parameter is `L'\0'`, then the *pszLanguagesList* is a double null-terminated list of language tags.
-     * Otherwise, the *pszLanguagesList* is a null-terminated string in which the language tags are separated by the provided delimiter.
      * @param {Integer} wchListDelimiter Type: **[wchar_t](/windows/win32/midl/wchar-t)**
      * 
-     * The character used as a delimiter in the language list, or `L'\0'` to indicate that the language list is a double null-terminated list.
-     * The function is slightly more efficient if this parameter is `L'\0'`.
+     * The character used as a delimiter in the language list.
      * @param {Pointer<Double>} pClosestDistance Type: **[double](/windows/win32/midl/double)**
      * 
-     * Receives the distance between the candidate language and the closest language in the list.
-     * The value is in the range 0.0 to 1.0, where 1.0 is an exact match.
+     * The distance between the candidate language and the closest language in the list.
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
-     * 
-     * If there is no match to any language in the list, the function returns `HRESULT_FROM_WIN32(ERROR_NO_MATCH)`
-     * and a distance of 0.0.
-     * @see https://learn.microsoft.com/windows/win32/api/bcp47mrm/nf-bcp47mrm-getdistanceofclosestlanguageinlist
+     * @see https://docs.microsoft.com/windows/win32/api//bcp47mrm/nf-bcp47mrm-getdistanceofclosestlanguageinlist
      */
     static GetDistanceOfClosestLanguageInList(pszLanguage, pszLanguagesList, wchListDelimiter, pClosestDistance) {
         pszLanguage := pszLanguage is String? StrPtr(pszLanguage) : pszLanguage
@@ -27847,13 +24927,11 @@ class Globalization {
 
     /**
      * Determines whether a BCP-47 language tag is well-formed.
-     * @remarks
-     * If this function returns `true`, an application can safely construct a Windows Runtime [Language](https://docs.microsoft.com/uwp/api/Windows.Globalization.Language) by using this tag. If it returns `false`, attempting to construct a Language for the given tag will throw an exception.
      * @param {Pointer<Char>} pszTag Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A [BCP-47](https://tools.ietf.org/html/bcp47) language tag.
      * @returns {Integer} `true` if the language tag is well-formed as defined by [BCP-47](https://tools.ietf.org/html/bcp47), except when the language tag can never be valid according to BCP-47. Otherwise it returns `false`.
-     * @see https://learn.microsoft.com/windows/win32/api/bcp47mrm/nf-bcp47mrm-iswellformedtag
+     * @see https://docs.microsoft.com/windows/win32/api//bcp47mrm/nf-bcp47mrm-iswellformedtag
      */
     static IsWellFormedTag(pszTag) {
         pszTag := pszTag is String? StrPtr(pszTag) : pszTag
@@ -27863,18 +24941,11 @@ class Globalization {
     }
 
     /**
-     * Deprecated. Gets the supported date range for a specified calendar.
-     * @remarks
-     * The earliest date supported by this function is January 1, 1601.
      * 
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
-     * @param {Integer} Calendar [Calendar identifier](calendar-identifiers.md) for which to get the supported date range.
-     * @param {Pointer<CALDATETIME>} lpCalMinDateTime Pointer to a [**CALDATETIME**](caldatetime.md) structure defining the minimum supported date.
-     * @param {Pointer<CALDATETIME>} lpCalMaxDateTime Pointer to a [**CALDATETIME**](caldatetime.md) structure defining the maximum supported date.
-     * @returns {Integer} Returns **TRUE** if successful or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
-     * 
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/getcalendarsupporteddaterange
+     * @param {Integer} Calendar 
+     * @param {Pointer<CALDATETIME>} lpCalMinDateTime 
+     * @param {Pointer<CALDATETIME>} lpCalMaxDateTime 
+     * @returns {Integer} 
      */
     static GetCalendarSupportedDateRange(Calendar, lpCalMinDateTime, lpCalMaxDateTime) {
         result := DllCall("KERNEL32.dll\GetCalendarSupportedDateRange", "uint", Calendar, "ptr", lpCalMinDateTime, "ptr", lpCalMaxDateTime, "int")
@@ -27882,42 +24953,14 @@ class Globalization {
     }
 
     /**
-     * Deprecated.
-     * @remarks
-     * The earliest date supported by this function is January 1, 1601.
      * 
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the name of this function to get the function address.
-     * @param {Pointer<Char>} lpszLocale Pointer to a locale name, or one of the following predefined values.
-     * 
-     * -   [LOCALE\_NAME\_INVARIANT](locale-name-constants.md)
-     * -   [LOCALE\_NAME\_SYSTEM\_DEFAULT](locale-name-constants.md)
-     * -   [LOCALE\_NAME\_USER\_DEFAULT](locale-name-constants.md)
-     * @param {Integer} dwFlags Flags specifying date format options. If *lpFormat* is not set to **NULL**, this parameter must be set to 0. If *lpFormat* is set to **NULL**, the application can specify a combination of the following values and [LOCALE\_NOUSEROVERRIDE](locale-nouseroverride.md).
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                               | Meaning                                                                                                                       |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-     * | <span id="DATE_SHORTDATE"></span><span id="date_shortdate"></span><dl> <dt>**DATE\_SHORTDATE**</dt> </dl>    | Use the short date format. This is the default. This value cannot be used with DATE\_LONGDATE or DATE\_YEARMONTH. <br/> |
-     * | <span id="DATE_LONGDATE"></span><span id="date_longdate"></span><dl> <dt>**DATE\_LONGDATE**</dt> </dl>       | Use the long date format. This value cannot be used with DATE\_SHORTDATE or DATE\_YEARMONTH. <br/>                      |
-     * | <span id="DATE_YEARMONTH"></span><span id="date_yearmonth"></span><dl> <dt>**DATE\_YEARMONTH**</dt> </dl>    | Use the year/month format. This value cannot be used with DATE\_SHORTDATE or DATE\_LONGDATE.<br/>                       |
-     * | <span id="DATE_LTRREADING"></span><span id="date_ltrreading"></span><dl> <dt>**DATE\_LTRREADING**</dt> </dl> | Add marks for left-to-right reading layout. This value cannot be used with DATE\_RTLREADING.<br/>                       |
-     * | <span id="DATE_RTLREADING"></span><span id="date_rtlreading"></span><dl> <dt>**DATE\_RTLREADING**</dt> </dl> | Add marks for right-to-left reading layout. This value cannot be used with DATE\_LTRREADING<br/>                        |
-     * @param {Pointer<CALDATETIME>} lpCalDateTime Pointer to a [**CALDATETIME**](caldatetime.md) structure that contains the date and calendar information to format.
-     * @param {Pointer<Char>} lpFormat Pointer to a format picture string that is used to form the date string. Possible values for the format picture string are defined in [Day, Month, Year, and Era Format Pictures](day--month--year--and-era-format-pictures.md).
-     * 
-     * The format picture string must be null-terminated. The function uses the locale only for information not specified in the format picture string, for example, the day and month names for the locale. The application sets this parameter to **NULL** if the function is to use the date format of the specified locale.
-     * @param {Pointer<Char>} lpDateStr Pointer to a buffer in which this function receives the formatted date string.
-     * @param {Integer} cchDate Size, in characters, of the *lpDateStr* buffer. Alternatively, the application can set this parameter to 0. In this case, the function returns the number of characters required to hold the formatted date string, and the *lpDateStr* parameter is not used.
-     * @returns {Integer} Returns the number of characters written to the *lpDateStr* buffer if successful. If the *cchDate* parameter is set to 0, the function returns the number of characters required to hold the formatted date string, including the terminating null character.
-     * 
-     * This function returns 0 if it does not succeed. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
-     * 
-     * -   ERROR\_DATE\_OUT\_OF\_RANGE. The specified date was out of range.
-     * -   ERROR\_INSUFFICIENT\_BUFFER. A supplied buffer size was not large enough, or it was incorrectly set to **NULL**.
-     * -   ERROR\_INVALID\_FLAGS. The values supplied for flags were not valid.
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/getcalendardateformatex
+     * @param {Pointer<Char>} lpszLocale 
+     * @param {Integer} dwFlags 
+     * @param {Pointer<CALDATETIME>} lpCalDateTime 
+     * @param {Pointer<Char>} lpFormat 
+     * @param {Pointer<Char>} lpDateStr 
+     * @param {Integer} cchDate 
+     * @returns {Integer} 
      */
     static GetCalendarDateFormatEx(lpszLocale, dwFlags, lpCalDateTime, lpFormat, lpDateStr, cchDate) {
         lpszLocale := lpszLocale is String? StrPtr(lpszLocale) : lpszLocale
@@ -27929,18 +24972,11 @@ class Globalization {
     }
 
     /**
-     * Deprecated. Converts a specified SYSTEMTIME structure to a CALDATETIME structure.
-     * @remarks
-     * The earliest date supported by this function is January 1, 1601.
      * 
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
-     * @param {Pointer<SYSTEMTIME>} lpSysTime Pointer to the [**SYSTEMTIME**](/windows/win32/api/minwinbase/ns-minwinbase-systemtime) structure to convert.
-     * @param {Integer} calId The system [calendar identifier](calendar-identifiers.md) to use in the conversion.
-     * @param {Pointer<CALDATETIME>} lpCalDateTime Pointer to the equivalent [**CALDATETIME**](caldatetime.md) structure.
-     * @returns {Integer} Returns **TRUE** if successful or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
-     * 
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/convertsystemtimetocaldatetime
+     * @param {Pointer<SYSTEMTIME>} lpSysTime 
+     * @param {Integer} calId 
+     * @param {Pointer<CALDATETIME>} lpCalDateTime 
+     * @returns {Integer} 
      */
     static ConvertSystemTimeToCalDateTime(lpSysTime, calId, lpCalDateTime) {
         result := DllCall("KERNEL32.dll\ConvertSystemTimeToCalDateTime", "ptr", lpSysTime, "uint", calId, "ptr", lpCalDateTime, "int")
@@ -27948,15 +24984,9 @@ class Globalization {
     }
 
     /**
-     * Deprecated. Gets the day of the week that corresponds to a specified day and populates the DayOfWeek member in the specified CALDATETIME structure with that value.
-     * @remarks
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the name of this function to get the function address.
-     * @param {Pointer<CALDATETIME>} lpCalDateTime Pointer to the [**CALDATETIME**](caldatetime.md) structure containing the date for which to set the day of the week.
-     * @returns {Integer} Returns **TRUE** if successful or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
      * 
-     * -   ERROR\_DATE\_OUT\_OF\_RANGE. The specified date was out of range.
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/updatecalendardayofweek
+     * @param {Pointer<CALDATETIME>} lpCalDateTime 
+     * @returns {Integer} 
      */
     static UpdateCalendarDayOfWeek(lpCalDateTime) {
         result := DllCall("KERNEL32.dll\UpdateCalendarDayOfWeek", "ptr", lpCalDateTime, "int")
@@ -27964,17 +24994,11 @@ class Globalization {
     }
 
     /**
-     * Deprecated. Adjusts a date by a specified number of years, months, weeks, or days.
-     * @remarks
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
-     * @param {Pointer<CALDATETIME>} lpCalDateTime Pointer to a [**CALDATETIME**](caldatetime.md) structure that contains the date and calendar information to adjust.
-     * @param {Integer} calUnit The [**CALDATETIME\_DATEUNIT**](caldatetime-dateunit.md) enumeration value indicating the date unit, for example, DayUnit.
-     * @param {Integer} amount The amount by which to adjust the specified date.
-     * @returns {Integer} Returns **TRUE** if successful or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
      * 
-     * -   ERROR\_DATE\_OUT\_OF\_RANGE. The specified date was out of range.
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/adjustcalendardate
+     * @param {Pointer<CALDATETIME>} lpCalDateTime 
+     * @param {Integer} calUnit 
+     * @param {Integer} amount 
+     * @returns {Integer} 
      */
     static AdjustCalendarDate(lpCalDateTime, calUnit, amount) {
         result := DllCall("KERNEL32.dll\AdjustCalendarDate", "ptr", lpCalDateTime, "int", calUnit, "int", amount, "int")
@@ -27982,16 +25006,10 @@ class Globalization {
     }
 
     /**
-     * Deprecated. Converts a specified CALDATETIME structure to a SYSTEMTIME structure.
-     * @remarks
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
-     * @param {Pointer<CALDATETIME>} lpCalDateTime Pointer to the [**CALDATETIME**](caldatetime.md) structure to convert.
-     * @param {Pointer<SYSTEMTIME>} lpSysTime Pointer to the equivalent [**SYSTEMTIME**](/windows/win32/api/minwinbase/ns-minwinbase-systemtime) structure.
-     * @returns {Integer} Returns **TRUE** if successful or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
      * 
-     * -   ERROR\_DATE\_OUT\_OF\_RANGE. The specified date was out of range.
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/convertcaldatetimetosystemtime
+     * @param {Pointer<CALDATETIME>} lpCalDateTime 
+     * @param {Pointer<SYSTEMTIME>} lpSysTime 
+     * @returns {Integer} 
      */
     static ConvertCalDateTimeToSystemTime(lpCalDateTime, lpSysTime) {
         result := DllCall("KERNEL32.dll\ConvertCalDateTimeToSystemTime", "ptr", lpCalDateTime, "ptr", lpSysTime, "int")
@@ -27999,16 +25017,11 @@ class Globalization {
     }
 
     /**
-     * Deprecated. Identifies whether the specified year is a leap year within the given era for the specific calendar.
-     * @remarks
-     * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with that module handle and the name of this function to get the function address.
-     * @param {Integer} calId The [calendar identifier](calendar-identifiers.md) to use for checking leap year.
-     * @param {Integer} year The year to check.
-     * @param {Integer} era The era to check.
-     * @returns {Integer} Returns **TRUE** if the specified year is a leap year, or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
      * 
-     * -   ERROR\_INVALID\_PARAMETER. Any of the parameter values was invalid.
-     * @see https://learn.microsoft.com/windows/win32/Intl/iscalendarleapyear
+     * @param {Integer} calId 
+     * @param {Integer} year 
+     * @param {Integer} era 
+     * @returns {Integer} 
      */
     static IsCalendarLeapYear(calId, year, era) {
         result := DllCall("KERNEL32.dll\IsCalendarLeapYear", "uint", calId, "uint", year, "uint", era, "int")
@@ -28017,14 +25030,6 @@ class Globalization {
 
     /**
      * Locates a Unicode string (wide characters) in another Unicode string for a non-linguistic comparison.
-     * @remarks
-     * Since <b>FindStringOrdinal</b> provides a binary comparison, it does not return linguistically appropriate results. The ordinal comparison might be mistaken for English sorting behavior. However, it does not find matches when characters vary by linguistically insignificant amounts. See <a href="https://docs.microsoft.com/windows/desktop/Intl/sorting">Sorting</a> for information about choosing an appropriate sorting function.
-     * 
-     * In contrast to NLS functions that return 0 for failure, this function returns -1 if it fails. On success, it returns a 0-based index. Use of this index helps the function avoid off-by-one errors and one-character buffer overruns.
-     * 
-     * This function is one of the few NLS functions that calls <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> even when it succeeds. It makes this call to clear the last error in a thread when it fails to match the search string. This clears the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * <b>Starting with Windows 8: </b><b>FindStringOrdinal</b>  is declared in Libloaderapi.h. Before Windows 8, it was declared in Winnls.h.
      * @param {Integer} dwFindStringOrdinalFlags Flags specifying details of the find operation. These flags are mutually exclusive, with FIND_FROMSTART being the default. The application can specify just one of the find flags.
      * 
      * <table>
@@ -28080,14 +25085,14 @@ class Globalization {
      * @param {Integer} bIgnoreCase <b>TRUE</b> if the function is to perform a case-insensitive comparison, and <b>FALSE</b> otherwise. The comparison is not a linguistic operation and is not appropriate for all locales and languages. Its behavior is similar to that for English.
      * @returns {Integer} Returns a 0-based index into the source string indicated by <i>lpStringSource</i> if successful. If the function succeeds, the found string is the same size as the value of <i>lpStringValue</i>. A return value of 0 indicates that the function found a match at the beginning of the source string.
      * 
-     * The function returns -1 if it does not succeed or if it does not find the search string. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * The function returns -1 if it does not succeed or if it does not find the search string. To get extended error information, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
      * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
      * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
      * <li>ERROR_SUCCESS. The action completed successfully but yielded no results.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-findstringordinal
+     * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-findstringordinal
      * @since windows6.1
      */
     static FindStringOrdinal(dwFindStringOrdinalFlags, lpStringSource, cchSource, lpStringValue, cchValue, bIgnoreCase) {
@@ -28104,29 +25109,7 @@ class Globalization {
     }
 
     /**
-     * Compares two character strings. The comparison is case-sensitive. (ANSI)
-     * @remarks
-     * The <b>lstrcmp</b> function compares two strings by checking the first characters against each other, the second characters against each other, and so on until it finds an inequality or reaches the ends of the strings. 
-     * 
-     *  Note that the <i>lpString1</i> and <i>lpString2</i> parameters must be null-terminated, otherwise the string comparison can be incorrect. 
-     * 
-     * The function calls <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>, using the current thread locale, and subtracts 2 from the result, to maintain the C run-time conventions for comparing strings. 
-     * 
-     * The language (user locale) selected by the user at setup time, or through Control Panel, determines which string is greater (or whether the strings are the same). If no language (user locale) is selected, the system performs the comparison by using default values.
-     * 
-     * With a double-byte character set (DBCS) version of the system, this function can compare two DBCS strings. 
-     * 
-     * The <b>lstrcmp</b> function uses a word sort, rather than a string sort. A word sort treats hyphens and apostrophes differently than it treats other symbols that are not alphanumeric, in order to ensure that words such as "coop" and "co-op" stay together within a sorted list. For a detailed discussion of word sorts and string sorts, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>. 
-     * 
-     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/security-considerations--international-features">Security Considerations: International Features</a> for security considerations regarding choice of comparison functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcmp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Compares two character strings. The comparison is case-sensitive.
      * @param {Pointer<Byte>} lpString1 Type: <b>LPCTSTR</b>
      * 
      * The first null-terminated string to be compared.
@@ -28140,7 +25123,7 @@ class Globalization {
      * 						<i>lpString2</i>, the return value is negative. If the string pointed to by 
      * 						<i>lpString1</i> is greater than the string pointed to by 
      * 						<i>lpString2</i>, the return value is positive. If the strings are equal, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcmpa
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcmpa
      * @since windows5.0
      */
     static lstrcmpA(lpString1, lpString2) {
@@ -28152,29 +25135,7 @@ class Globalization {
     }
 
     /**
-     * Compares two character strings. The comparison is case-sensitive. (Unicode)
-     * @remarks
-     * The <b>lstrcmp</b> function compares two strings by checking the first characters against each other, the second characters against each other, and so on until it finds an inequality or reaches the ends of the strings. 
-     * 
-     *  Note that the <i>lpString1</i> and <i>lpString2</i> parameters must be null-terminated, otherwise the string comparison can be incorrect. 
-     * 
-     * The function calls <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>, using the current thread locale, and subtracts 2 from the result, to maintain the C run-time conventions for comparing strings. 
-     * 
-     * The language (user locale) selected by the user at setup time, or through Control Panel, determines which string is greater (or whether the strings are the same). If no language (user locale) is selected, the system performs the comparison by using default values.
-     * 
-     * With a double-byte character set (DBCS) version of the system, this function can compare two DBCS strings. 
-     * 
-     * The <b>lstrcmp</b> function uses a word sort, rather than a string sort. A word sort treats hyphens and apostrophes differently than it treats other symbols that are not alphanumeric, in order to ensure that words such as "coop" and "co-op" stay together within a sorted list. For a detailed discussion of word sorts and string sorts, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>. 
-     * 
-     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/security-considerations--international-features">Security Considerations: International Features</a> for security considerations regarding choice of comparison functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcmp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Compares two character strings. The comparison is case-sensitive.
      * @param {Pointer<Char>} lpString1 Type: <b>LPCTSTR</b>
      * 
      * The first null-terminated string to be compared.
@@ -28188,7 +25149,7 @@ class Globalization {
      * 						<i>lpString2</i>, the return value is negative. If the string pointed to by 
      * 						<i>lpString1</i> is greater than the string pointed to by 
      * 						<i>lpString2</i>, the return value is positive. If the strings are equal, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcmpw
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcmpw
      * @since windows5.0
      */
     static lstrcmpW(lpString1, lpString2) {
@@ -28200,29 +25161,7 @@ class Globalization {
     }
 
     /**
-     * Compares two character strings. The comparison is not case-sensitive. (ANSI)
-     * @remarks
-     * The <b>lstrcmpi</b> function compares two strings by checking the first characters against each other, the second characters against each other, and so on until it finds an inequality or reaches the ends of the strings. 
-     * 
-     *  Note that the <i>lpString1</i> and <i>lpString2</i> parameters must be null-terminated, otherwise the string comparison can be incorrect. 
-     * 
-     * The function calls <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>, using the current thread locale, and subtracts 2 from the result, to maintain the C run-time conventions for comparing strings.
-     * 
-     * For some locales, the <b>lstrcmpi</b> function may be insufficient. If this occurs, use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a> to ensure proper comparison. For example, in Japan call  with the <b>NORM_IGNORECASE</b>, <b>NORM_IGNOREKANATYPE</b>, and  <b>NORM_IGNOREWIDTH</b>  values to achieve the most appropriate non-exact string comparison. The <b>NORM_IGNOREKANATYPE</b> and <b>NORM_IGNOREWIDTH</b> values are ignored in non-Asian locales, so you can set these values for all locales and be guaranteed to have a culturally correct "insensitive" sorting regardless of the locale. Note that specifying these values slows performance, so use them only when necessary.
-     * 
-     * With a double-byte character set (DBCS) version of the system, this function can compare two DBCS strings. 
-     * 
-     * The <b>lstrcmpi</b> function uses a word sort, rather than a string sort. A word sort treats hyphens and apostrophes differently than it treats other symbols that are not alphanumeric, in order to ensure that words such as "coop" and "co-op" stay together within a sorted list. For a detailed discussion of word sorts and string sorts, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>. 
-     * 
-     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/security-considerations--international-features">Security Considerations: International Features</a> for security considerations regarding choice of comparison functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcmpi as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Compares two character strings. The comparison is not case-sensitive.
      * @param {Pointer<Byte>} lpString1 Type: <b>LPCTSTR</b>
      * 
      * The first null-terminated string to be compared.
@@ -28236,7 +25175,7 @@ class Globalization {
      * 						<i>lpString2</i>, the return value is negative. If the string pointed to by 
      * 						<i>lpString1</i> is greater than the string pointed to by 
      * 						<i>lpString2</i>, the return value is positive. If the strings are equal, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcmpia
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcmpia
      * @since windows5.0
      */
     static lstrcmpiA(lpString1, lpString2) {
@@ -28248,29 +25187,7 @@ class Globalization {
     }
 
     /**
-     * Compares two character strings. The comparison is not case-sensitive. (Unicode)
-     * @remarks
-     * The <b>lstrcmpi</b> function compares two strings by checking the first characters against each other, the second characters against each other, and so on until it finds an inequality or reaches the ends of the strings. 
-     * 
-     *  Note that the <i>lpString1</i> and <i>lpString2</i> parameters must be null-terminated, otherwise the string comparison can be incorrect. 
-     * 
-     * The function calls <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>, using the current thread locale, and subtracts 2 from the result, to maintain the C run-time conventions for comparing strings.
-     * 
-     * For some locales, the <b>lstrcmpi</b> function may be insufficient. If this occurs, use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a> to ensure proper comparison. For example, in Japan call  with the <b>NORM_IGNORECASE</b>, <b>NORM_IGNOREKANATYPE</b>, and  <b>NORM_IGNOREWIDTH</b>  values to achieve the most appropriate non-exact string comparison. The <b>NORM_IGNOREKANATYPE</b> and <b>NORM_IGNOREWIDTH</b> values are ignored in non-Asian locales, so you can set these values for all locales and be guaranteed to have a culturally correct "insensitive" sorting regardless of the locale. Note that specifying these values slows performance, so use them only when necessary.
-     * 
-     * With a double-byte character set (DBCS) version of the system, this function can compare two DBCS strings. 
-     * 
-     * The <b>lstrcmpi</b> function uses a word sort, rather than a string sort. A word sort treats hyphens and apostrophes differently than it treats other symbols that are not alphanumeric, in order to ensure that words such as "coop" and "co-op" stay together within a sorted list. For a detailed discussion of word sorts and string sorts, see <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a>. 
-     * 
-     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
-     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/security-considerations--international-features">Security Considerations: International Features</a> for security considerations regarding choice of comparison functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcmpi as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Compares two character strings. The comparison is not case-sensitive.
      * @param {Pointer<Char>} lpString1 Type: <b>LPCTSTR</b>
      * 
      * The first null-terminated string to be compared.
@@ -28284,7 +25201,7 @@ class Globalization {
      * 						<i>lpString2</i>, the return value is negative. If the string pointed to by 
      * 						<i>lpString1</i> is greater than the string pointed to by 
      * 						<i>lpString2</i>, the return value is positive. If the strings are equal, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcmpiw
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcmpiw
      * @since windows5.0
      */
     static lstrcmpiW(lpString1, lpString2) {
@@ -28296,57 +25213,7 @@ class Globalization {
     }
 
     /**
-     * Copies a specified number of characters from a source string into a buffer.Warning  Do not use. (ANSI)
-     * @remarks
-     * The buffer pointed to by <i>lpString1</i> must 
-     * 			be large enough to include a terminating null character, and the string length 
-     * 			value specified by <i>iMaxLength</i> includes room 
-     * 			for a terminating null character. 
-     * 
-     * The <b>lstrcpyn</b> function has an undefined behavior if source 
-     *     and destination buffers overlap.
-     * 
-     * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
-     * Using this function incorrectly can compromise the security 
-     * 			of your application. This function uses structured exception handling (SEH) to catch 
-     * 			access violations and other errors. When this function catches SEH errors, it returns 
-     * 			<b>NULL</b> without null-terminating the string and without notifying the 
-     * 			caller of the error. The caller is not safe to assume that insufficient space is 
-     * 			the error condition.
-     * 
-     * If the buffer pointed to by <i>lpString1</i> is not large 
-     * 			enough to contain the copied string, a buffer overrun can occur. When copying an entire 
-     * 			string, note that <b>sizeof</b> returns the number of bytes. 
-     * 			For example, if <i>lpString1</i> points to a buffer 
-     * 			<i>szString1</i> which is declared as 
-     * 			<c>TCHAR szString[100]</c>, then sizeof(szString1) gives the size of 
-     * 			the buffer in bytes rather than <b>WCHAR</b>, which could lead to a buffer 
-     * 			overflow for the Unicode version of the function. 
-     * 
-     * Buffer overflow situations are the cause 
-     * 			of many security problems in applications and can cause a denial of service attack against 
-     * 			the application if an access violation occurs. In the worst case, a buffer overrun may 
-     * 			allow an attacker to inject executable code into your process, especially if 
-     * 			<i>lpString1</i> is a stack-based buffer.
-     * 
-     * Using <c>sizeof(szString1)/sizeof(szString1[0])</c> 
-     * 				gives the proper size of the buffer. 
-     * 
-     * Consider using <a href="https://docs.microsoft.com/windows/desktop/api/strsafe/nf-strsafe-stringcchcopya">StringCchCopy</a> instead; use either 
-     * 				<c>StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);</c>, 
-     * 				being aware that <c>buffer</c> must not be a pointer or 
-     * 				use <c>StringCchCopy(buffer, ARRAYSIZE(buffer), src);</c>, 
-     * 				being aware that, when copying to a pointer, the caller is responsible for 
-     * 				passing in the size of the pointed-to memory in characters. 
-     * 
-     * Review <a href="https://docs.microsoft.com/windows/desktop/AppUIStart/sec-ui">Security Considerations: Windows User Interface</a> before continuing.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcpyn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Copies a specified number of characters from a source string into a buffer.Warning  Do not use.
      * @param {Pointer<Byte>} lpString1 Type: <b>LPTSTR</b>
      * 
      * The destination buffer, which receives the copied characters. The buffer 
@@ -28370,7 +25237,7 @@ class Globalization {
      * 
      * If the function fails, the return value is <b>NULL</b> 
      *                     and <i>lpString1</i> may not be null-terminated.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcpyna
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcpyna
      * @since windows5.0
      */
     static lstrcpynA(lpString1, lpString2, iMaxLength) {
@@ -28382,57 +25249,7 @@ class Globalization {
     }
 
     /**
-     * Copies a specified number of characters from a source string into a buffer.Warning  Do not use. (Unicode)
-     * @remarks
-     * The buffer pointed to by <i>lpString1</i> must 
-     * 			be large enough to include a terminating null character, and the string length 
-     * 			value specified by <i>iMaxLength</i> includes room 
-     * 			for a terminating null character. 
-     * 
-     * The <b>lstrcpyn</b> function has an undefined behavior if source 
-     *     and destination buffers overlap.
-     * 
-     * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
-     * Using this function incorrectly can compromise the security 
-     * 			of your application. This function uses structured exception handling (SEH) to catch 
-     * 			access violations and other errors. When this function catches SEH errors, it returns 
-     * 			<b>NULL</b> without null-terminating the string and without notifying the 
-     * 			caller of the error. The caller is not safe to assume that insufficient space is 
-     * 			the error condition.
-     * 
-     * If the buffer pointed to by <i>lpString1</i> is not large 
-     * 			enough to contain the copied string, a buffer overrun can occur. When copying an entire 
-     * 			string, note that <b>sizeof</b> returns the number of bytes. 
-     * 			For example, if <i>lpString1</i> points to a buffer 
-     * 			<i>szString1</i> which is declared as 
-     * 			<c>TCHAR szString[100]</c>, then sizeof(szString1) gives the size of 
-     * 			the buffer in bytes rather than <b>WCHAR</b>, which could lead to a buffer 
-     * 			overflow for the Unicode version of the function. 
-     * 
-     * Buffer overflow situations are the cause 
-     * 			of many security problems in applications and can cause a denial of service attack against 
-     * 			the application if an access violation occurs. In the worst case, a buffer overrun may 
-     * 			allow an attacker to inject executable code into your process, especially if 
-     * 			<i>lpString1</i> is a stack-based buffer.
-     * 
-     * Using <c>sizeof(szString1)/sizeof(szString1[0])</c> 
-     * 				gives the proper size of the buffer. 
-     * 
-     * Consider using <a href="https://docs.microsoft.com/windows/desktop/api/strsafe/nf-strsafe-stringcchcopya">StringCchCopy</a> instead; use either 
-     * 				<c>StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);</c>, 
-     * 				being aware that <c>buffer</c> must not be a pointer or 
-     * 				use <c>StringCchCopy(buffer, ARRAYSIZE(buffer), src);</c>, 
-     * 				being aware that, when copying to a pointer, the caller is responsible for 
-     * 				passing in the size of the pointed-to memory in characters. 
-     * 
-     * Review <a href="https://docs.microsoft.com/windows/desktop/AppUIStart/sec-ui">Security Considerations: Windows User Interface</a> before continuing.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcpyn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Copies a specified number of characters from a source string into a buffer.Warning  Do not use.
      * @param {Pointer<Char>} lpString1 Type: <b>LPTSTR</b>
      * 
      * The destination buffer, which receives the copied characters. The buffer 
@@ -28456,7 +25273,7 @@ class Globalization {
      * 
      * If the function fails, the return value is <b>NULL</b> 
      *                     and <i>lpString1</i> may not be null-terminated.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcpynw
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcpynw
      * @since windows5.0
      */
     static lstrcpynW(lpString1, lpString2, iMaxLength) {
@@ -28468,43 +25285,7 @@ class Globalization {
     }
 
     /**
-     * Copies a string to a buffer. (ANSI)
-     * @remarks
-     * With a double-byte character set (DBCS) version of the system, this function can be used 
-     * 			to copy a DBCS string. 
-     * 
-     * The <b>lstrcpy</b> function has an 
-     * 			undefined behavior if source and destination buffers overlap.
-     * 
-     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
-     * Using this function incorrectly can compromise the security 
-     * 			of your application. This function uses structured exception handling (SEH) to catch 
-     * 			access violations and other errors. When this function catches SEH errors, it returns 
-     * 			<b>NULL</b> without null-terminating the string and without notifying the 
-     * 			caller of the error. The caller is not safe to assume that insufficient space is 
-     * 			the error condition.
-     * 
-     * <i>lpString1</i> must be large enough to hold <i>lpString2</i> 
-     * 			and the closing '\0', otherwise a buffer overrun may occur.
-     * 
-     * Buffer overflow situations are the cause of many security problems in applications and 
-     * 			can cause a denial of service attack against the application if an access violation occurs. 
-     * 			In the worst case, a buffer overrun may allow an attacker to inject executable code into 
-     * 			your process, especially if <i>lpString1</i> is a stack-based buffer.
-     * 
-     * Consider using <a href="https://docs.microsoft.com/windows/desktop/api/strsafe/nf-strsafe-stringcchcopya">StringCchCopy</a> instead; use either 
-     * 				<c>StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);</c>, 
-     * 				being aware that <c>buffer</c> must not be a pointer or 
-     * 				use <c>StringCchCopy(buffer, ARRAYSIZE(buffer), src);</c>, 
-     * 				being aware that, when copying to a pointer, the caller is responsible for 
-     * 				passing in the size of the pointed-to memory in characters. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcpy as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Copies a string to a buffer.
      * @param {Pointer<Byte>} lpString1 Type: <b>LPTSTR</b>
      * 
      * A buffer to receive the contents of the string pointed to by the 
@@ -28520,7 +25301,7 @@ class Globalization {
      * 
      * If the function fails, the return value is <b>NULL</b> 
      *                     and <i>lpString1</i> may not be null-terminated.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcpya
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcpya
      * @since windows5.0
      */
     static lstrcpyA(lpString1, lpString2) {
@@ -28532,43 +25313,7 @@ class Globalization {
     }
 
     /**
-     * Copies a string to a buffer. (Unicode)
-     * @remarks
-     * With a double-byte character set (DBCS) version of the system, this function can be used 
-     * 			to copy a DBCS string. 
-     * 
-     * The <b>lstrcpy</b> function has an 
-     * 			undefined behavior if source and destination buffers overlap.
-     * 
-     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
-     * Using this function incorrectly can compromise the security 
-     * 			of your application. This function uses structured exception handling (SEH) to catch 
-     * 			access violations and other errors. When this function catches SEH errors, it returns 
-     * 			<b>NULL</b> without null-terminating the string and without notifying the 
-     * 			caller of the error. The caller is not safe to assume that insufficient space is 
-     * 			the error condition.
-     * 
-     * <i>lpString1</i> must be large enough to hold <i>lpString2</i> 
-     * 			and the closing '\0', otherwise a buffer overrun may occur.
-     * 
-     * Buffer overflow situations are the cause of many security problems in applications and 
-     * 			can cause a denial of service attack against the application if an access violation occurs. 
-     * 			In the worst case, a buffer overrun may allow an attacker to inject executable code into 
-     * 			your process, especially if <i>lpString1</i> is a stack-based buffer.
-     * 
-     * Consider using <a href="https://docs.microsoft.com/windows/desktop/api/strsafe/nf-strsafe-stringcchcopya">StringCchCopy</a> instead; use either 
-     * 				<c>StringCchCopy(buffer, sizeof(buffer)/sizeof(buffer[0]), src);</c>, 
-     * 				being aware that <c>buffer</c> must not be a pointer or 
-     * 				use <c>StringCchCopy(buffer, ARRAYSIZE(buffer), src);</c>, 
-     * 				being aware that, when copying to a pointer, the caller is responsible for 
-     * 				passing in the size of the pointed-to memory in characters. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcpy as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Copies a string to a buffer.
      * @param {Pointer<Char>} lpString1 Type: <b>LPTSTR</b>
      * 
      * A buffer to receive the contents of the string pointed to by the 
@@ -28584,7 +25329,7 @@ class Globalization {
      * 
      * If the function fails, the return value is <b>NULL</b> 
      *                     and <i>lpString1</i> may not be null-terminated.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcpyw
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcpyw
      * @since windows5.0
      */
     static lstrcpyW(lpString1, lpString2) {
@@ -28596,10 +25341,7 @@ class Globalization {
     }
 
     /**
-     * Appends one string to another.Warning  Do not use. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Appends one string to another.Warning  Do not use.
      * @param {Pointer<Byte>} lpString1 Type: <b>LPTSTR</b>
      * 
      * The first null-terminated string. This buffer must be large enough 
@@ -28614,7 +25356,7 @@ class Globalization {
      * 
      * If the function fails, the return value is <b>NULL</b> 
      *                     and <i>lpString1</i> may not be null-terminated.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcata
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcata
      * @since windows5.0
      */
     static lstrcatA(lpString1, lpString2) {
@@ -28626,10 +25368,7 @@ class Globalization {
     }
 
     /**
-     * Appends one string to another.Warning  Do not use. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines lstrcat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Appends one string to another.Warning  Do not use.
      * @param {Pointer<Char>} lpString1 Type: <b>LPTSTR</b>
      * 
      * The first null-terminated string. This buffer must be large enough 
@@ -28644,7 +25383,7 @@ class Globalization {
      * 
      * If the function fails, the return value is <b>NULL</b> 
      *                     and <i>lpString1</i> may not be null-terminated.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrcatw
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrcatw
      * @since windows5.0
      */
     static lstrcatW(lpString1, lpString2) {
@@ -28656,17 +25395,14 @@ class Globalization {
     }
 
     /**
-     * Determines the length of the specified string (not including the terminating null character). (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines lstrlen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Determines the length of the specified string (not including the terminating null character).
      * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be checked.
      * @returns {Integer} Type: <b>int</b>
      * 
      * The function returns the length of the string, in characters. If <i>lpString</i> is <b>NULL</b>, the function returns 0.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrlena
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrlena
      * @since windows5.0
      */
     static lstrlenA(lpString) {
@@ -28677,17 +25413,14 @@ class Globalization {
     }
 
     /**
-     * Determines the length of the specified string (not including the terminating null character). (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines lstrlen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Determines the length of the specified string (not including the terminating null character).
      * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be checked.
      * @returns {Integer} Type: <b>int</b>
      * 
      * The function returns the length of the string, in characters. If <i>lpString</i> is <b>NULL</b>, the function returns 0.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lstrlenw
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lstrlenw
      * @since windows5.0
      */
     static lstrlenW(lpString) {
@@ -28699,17 +25432,13 @@ class Globalization {
 
     /**
      * Determines if a buffer is likely to contain a form of Unicode text.
-     * @remarks
-     * This function uses various statistical and deterministic methods to make its determination, under the control of flags passed in the <i>lpiResult</i> parameter. When the function returns, the results of such tests are reported using the same parameter.
-     * 
-     * The IS_TEXT_UNICODE_STATISTICS and IS_TEXT_UNICODE_REVERSE_STATISTICS tests use statistical analysis. These tests are not foolproof. The statistical tests assume certain amounts of variation between low and high bytes in a string, and some ASCII strings can slip through. For example, if <i>lpv</i> indicates the ASCII string 0x41, 0x0A, 0x0D, 0x1D (A\n\r^Z), the string passes the IS_TEXT_UNICODE_STATISTICS test, although failure would be preferable.
      * @param {Pointer} lpv Pointer to the input buffer to examine.
      * @param {Integer} iSize Size, in bytes, of the input buffer indicated by <i>lpv</i>.
      * @param {Pointer<UInt32>} lpiResult On input, pointer to the tests to apply to the input buffer text. On output, this parameter receives the results of the specified tests: 1 if the contents of the buffer pass a test, 0 for failure. Only flags that are set upon input to the function are significant upon output.
      * 
      * If <i>lpiResult</i> is <b>NULL</b>, the function uses all available tests to determine if the data in the buffer is likely to be Unicode text.
      * @returns {Integer} Returns a nonzero value if the data in the buffer passes the specified tests. The function returns 0 if the data in the buffer does not pass the specified tests.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-istextunicode
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-istextunicode
      * @since windows5.0
      */
     static IsTextUnicode(lpv, iSize, lpiResult) {

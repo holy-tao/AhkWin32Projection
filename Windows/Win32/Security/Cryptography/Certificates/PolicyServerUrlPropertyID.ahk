@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the type of property value to be returned by the GetStringProperty method or set by the SetStringProperty method on the IX509PolicyServerUrl interface.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-policyserverurlpropertyid
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-policyserverurlpropertyid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

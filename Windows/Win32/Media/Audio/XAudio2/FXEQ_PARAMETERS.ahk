@@ -4,13 +4,16 @@
 /**
  * Parameters for use with the FXEQ XAPO.
  * @remarks
- * Each band ranges from <b>FrequencyCenterN</b> - (<b>BandwidthN</b> / 2) to <b>FrequencyCenterN</b> + (<b>BandwidthN</b> / 2).
+ * 
+  * Each band ranges from <b>FrequencyCenterN</b> - (<b>BandwidthN</b> / 2) to <b>FrequencyCenterN</b> + (<b>BandwidthN</b> / 2).
   * 
   * 
   * 
   * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
   * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * @see https://learn.microsoft.com/windows/win32/api/xapofx/ns-xapofx-fxeq_parameters
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xapofx/ns-xapofx-fxeq_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

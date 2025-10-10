@@ -3,7 +3,7 @@
 
 /**
  * Specifies the interface to the XML data provider.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_data_provider
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_data_provider
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

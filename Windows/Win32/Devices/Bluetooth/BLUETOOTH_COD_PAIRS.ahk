@@ -4,11 +4,14 @@
 /**
  * The BLUETOOTH_COD_PAIRS structure provides for specification and retrieval of Bluetooth Class Of Device (COD) information.
  * @remarks
- * If a minor code is provided in <b>ulCODMask</b> it must also match the minor code returned by the remote device.  A major code must be set if a minor code is specified; zero is not a valid major code.
+ * 
+  * If a minor code is provided in <b>ulCODMask</b> it must also match the minor code returned by the remote device.  A major code must be set if a minor code is specified; zero is not a valid major code.
   * 
   * See the Bluetooth specification at 
   * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for Class Of Device information.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_cod_pairs
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_cod_pairs
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

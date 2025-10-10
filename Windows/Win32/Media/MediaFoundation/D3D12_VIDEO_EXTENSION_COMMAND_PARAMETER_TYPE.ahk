@@ -3,8 +3,11 @@
 /**
  * Specifies the types of parameters for video extension commands.
  * @remarks
- * Values from this enumeration are used by the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_extension_command_parameter_type
+ * 
+  * Values from this enumeration are used by the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO](ns-d3d12video-d3d12_video_extension_command_parameter_info.md) structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_extension_command_parameter_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

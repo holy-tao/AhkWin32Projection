@@ -3,7 +3,7 @@
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to contain the operational state data for a computer.
- * @see https://learn.microsoft.com/windows/win32/api/dsrole/ns-dsrole-dsrole_operation_state_info
+ * @see https://docs.microsoft.com/windows/win32/api//dsrole/ns-dsrole-dsrole_operation_state_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

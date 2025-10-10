@@ -2,7 +2,7 @@
 
 /**
  * The POLICY_NOTIFICATION_INFORMATION_CLASS enumeration defines the types of policy information and policy domain information for which your application can request notification of changes.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_notification_information_class
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-policy_notification_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

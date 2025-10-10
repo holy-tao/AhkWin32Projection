@@ -3,7 +3,8 @@
 /**
  * Specifies the options for handling a name collision when saving a library.
  * @remarks
- * <h3><a id="Used_By"></a><a id="used_by"></a><a id="USED_BY"></a>Used By</h3>
+ * 
+  * <h3><a id="Used_By"></a><a id="used_by"></a><a id="USED_BY"></a>Used By</h3>
   * <ul>
   * <li>
   * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-save">IShellLibrary::Save</a>
@@ -15,7 +16,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shsavelibraryinfolderpath">SHSaveLibraryInFolderPath</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-librarysaveflags
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-librarysaveflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

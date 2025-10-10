@@ -3,8 +3,11 @@
 /**
  * Defines the set of volume shadow copy protection levels.
  * @remarks
- * When a volume is in shadow copy protection mode, requesters must set shadow copy storage area (diff area) associations using the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea">IVssDifferentialSoftwareSnapshotMgmt::AddDiffArea</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ne-vsmgmt-vss_protection_level
+ * 
+  * When a volume is in shadow copy protection mode, requesters must set shadow copy storage area (diff area) associations using the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea">IVssDifferentialSoftwareSnapshotMgmt::AddDiffArea</a> method.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ne-vsmgmt-vss_protection_level
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

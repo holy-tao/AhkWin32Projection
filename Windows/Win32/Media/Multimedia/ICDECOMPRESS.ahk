@@ -3,7 +3,7 @@
 
 /**
  * The ICDECOMPRESS structure contains decompression parameters used with the ICM_DECOMPRESS message.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdecompress
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-icdecompress
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

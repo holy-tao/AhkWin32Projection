@@ -5,7 +5,8 @@
 /**
  * Contains information about a Ribbon event.
  * @remarks
- * For top-level events (application menu opened/closed, ribbon minimized/expanded/pinned), <b>Modes</b> is present but set to zero (and can be ignored by the application).
+ * 
+  * For top-level events (application menu opened/closed, ribbon minimized/expanded/pinned), <b>Modes</b> is present but set to zero (and can be ignored by the application).
   * 
   * 
   * 
@@ -14,7 +15,9 @@
   * 
   * 
   * For all other events, <b>Params</b> contains additional data about the event.
- * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ns-uiribbon-ui_eventparams
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ns-uiribbon-ui_eventparams
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

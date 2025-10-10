@@ -2,7 +2,7 @@
 
 /**
  * Defines the threading behavior for SetInputMode or SetUpdateMode. The exact meaning of each constant depends on the method called.
- * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_input_mode
+ * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_input_mode
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

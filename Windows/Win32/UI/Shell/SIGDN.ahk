@@ -3,7 +3,8 @@
 /**
  * Requests the form of an item's display name to retrieve through IShellItem::GetDisplayName and SHGetNameFromIDList.
  * @remarks
- * Different forms of an item's name can be retrieved through the item's properties, including those listed here. Note that not all properties are present on all items, so only those appropriate to the item will appear.
+ * 
+  * Different forms of an item's name can be retrieved through the item's properties, including those listed here. Note that not all properties are present on all items, so only those appropriate to the item will appear.
   *             
   *                 
   * 
@@ -21,7 +22,8 @@
   * <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-itemfolderpathdisplaynarrow">PKEY_ItemFolderPathDisplayNarrow</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-sigdn
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-sigdn
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

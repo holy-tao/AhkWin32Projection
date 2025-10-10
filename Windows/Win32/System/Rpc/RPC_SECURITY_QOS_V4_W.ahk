@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The RPC_SECURITY_QOS_V4 structure defines version 4 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (Unicode)
+ * The RPC_SECURITY_QOS_V4 structure defines version 4 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions.
  * @remarks
- * The following listing defines the availability of QOS versions on various Windows operating systems:
+ * 
+  * The following listing defines the availability of QOS versions on various Windows operating systems:
   * 
   * <ul>
   * <li>Version 1: Windows 2000 and later.</li>
@@ -26,7 +27,9 @@
   * 
   * <div class="alert"><b>Note</b>  Some security providers, such as Kerberos, support delegation-impersonation type. On Windows editions that support delegation-impersonation type, if the client has asked for delegation but the security provider is unable to provide it, the call fails with PRC_S_SEC_PKG_ERROR unless the RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE flag is specified.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_security_qos_v4_w
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_security_qos_v4_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset Unicode

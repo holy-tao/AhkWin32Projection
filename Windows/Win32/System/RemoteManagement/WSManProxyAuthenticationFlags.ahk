@@ -2,7 +2,7 @@
 
 /**
  * Determines the proxy authentication mechanism.
- * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/ne-wsmandisp-wsmanproxyauthenticationflags
+ * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/ne-wsmandisp-wsmanproxyauthenticationflags
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

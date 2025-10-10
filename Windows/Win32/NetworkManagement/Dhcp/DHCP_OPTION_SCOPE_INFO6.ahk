@@ -5,7 +5,7 @@
 
 /**
  * Defines the data associated with a DHCP option scope.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info6
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

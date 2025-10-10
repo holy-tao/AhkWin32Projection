@@ -3,7 +3,7 @@
 
 /**
  * Is used to retrieve and set the number of ports available for the Point-to-Point Tunneling Protocol (PPTP) and Layer 2 Tunneling Protocol (L2TP) on a device.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_1
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_server_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

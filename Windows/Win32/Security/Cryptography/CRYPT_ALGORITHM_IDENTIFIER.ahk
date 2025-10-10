@@ -4,7 +4,7 @@
 
 /**
  * Specifies an algorithm used to encrypt a private key.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_algorithm_identifier
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

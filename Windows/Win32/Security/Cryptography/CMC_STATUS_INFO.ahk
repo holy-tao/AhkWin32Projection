@@ -4,8 +4,10 @@
 /**
  * Contains status information about Certificate Management Messages over CMS.
  * @remarks
- * Additional members of the union may be defined in future versions.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_status_info
+ * 
+  * Additional members of the union may be defined in future versions.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmc_status_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

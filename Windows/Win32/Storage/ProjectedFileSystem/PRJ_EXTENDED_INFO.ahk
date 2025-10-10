@@ -5,7 +5,8 @@
  * Specifies optional extended information for directory enumeration and placeholder information.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_extended_info
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_extended_info
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

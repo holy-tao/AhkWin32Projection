@@ -3,7 +3,8 @@
 /**
  * Represents the density of a typeface, in terms of the lightness or heaviness of the strokes.
  * @remarks
- * Weight differences are generally differentiated by an increased stroke or thickness that is associated with a given character in a typeface, as compared to a "normal" character from that same typeface. 
+ * 
+  * Weight differences are generally differentiated by an increased stroke or thickness that is associated with a given character in a typeface, as compared to a "normal" character from that same typeface. 
   * The following illustration shows an example of Normal and UltraBold weights for the Palatino Linotype typeface.
   * 
   * <img alt='Illustration of the letter "W" in Normal and UltraBold weights' src="./images/FontWeight_for_Palatino.png"/>
@@ -11,7 +12,9 @@
   * <div class="alert"><b>Note</b>  Not all weights are available for all typefaces. When a weight is not available for a typeface, the closest matching weight is returned.</div>
   * <div> </div>
   * Font weight values less than 1 or greater than 999 are considered invalid, and they are rejected by font API functions.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_weight
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

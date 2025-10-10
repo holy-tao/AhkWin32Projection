@@ -4,8 +4,11 @@
 /**
  * Contains options used by the MappingGetServices function to enumerate ELS services.
  * @remarks
- * The <b>Size</b> member is the only required member of this structure. All the other members are optional. The application can set any of the members that it needs for search criteria.
- * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_enum_options
+ * 
+  * The <b>Size</b> member is the only required member of this structure. All the other members are optional. The application can set any of the members that it needs for search criteria.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//elscore/ns-elscore-mapping_enum_options
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

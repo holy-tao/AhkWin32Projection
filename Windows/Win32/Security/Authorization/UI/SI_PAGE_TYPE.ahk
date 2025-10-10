@@ -2,7 +2,7 @@
 
 /**
  * Contains values that indicate the types of property pages in an access control editor property sheet.
- * @see https://learn.microsoft.com/windows/win32/api/aclui/ne-aclui-si_page_type
+ * @see https://docs.microsoft.com/windows/win32/api//aclui/ne-aclui-si_page_type
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */

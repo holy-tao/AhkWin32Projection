@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an array of MI_Sint8 types. (MI_ConstSint8A)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constsint8a
+ * Represents an array of MI_Sint8 types.
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_constsint8a
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

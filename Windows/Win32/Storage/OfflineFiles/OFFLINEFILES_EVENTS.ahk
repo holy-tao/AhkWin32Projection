@@ -2,7 +2,7 @@
 
 /**
  * Event identifier codes describing events to be received or excluded by an event sink.
- * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_events
+ * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_events
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

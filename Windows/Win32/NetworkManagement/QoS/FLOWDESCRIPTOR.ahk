@@ -4,7 +4,7 @@
 
 /**
  * The FLOWDESCRIPTOR structure specifies one or more filters for a given FLOWSPEC.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-flowdescriptor
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-flowdescriptor
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

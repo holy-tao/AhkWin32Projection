@@ -3,7 +3,7 @@
 
 /**
  * Defines a verb that an object supports. The IOleObject::EnumVerbs method creates an enumerator that can enumerate these structures for an object, and supplies a pointer to the enumerator's IEnumOLEVERB.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-oleverb
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ns-oleidl-oleverb
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

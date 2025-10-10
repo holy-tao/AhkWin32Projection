@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about the capabilities and enrollment requirements of the engine adapter for a biometric unit.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-engine-info
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The generic capabilities of the engine component that is connected to a specific biometric unit.
      * @type {Integer}
      */
     GenericEngineCapabilities {
@@ -23,7 +20,6 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     }
 
     /**
-     * The type of biometric unit for which this structure contains information about capabilities and enrollment requirements of the engine adapter. For example, if the value of the **Factor** member is **WINBIO\_TYPE\_FINGERPRINT**, the **WINBIO\_EXTENDED\_ENGINE\_INFO** structure applies to a fingerprint reader and contains the relevant information in the **Specifc.Fingerprint** structure.
      * @type {Integer}
      */
     Factor {

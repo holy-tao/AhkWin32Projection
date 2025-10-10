@@ -3,7 +3,7 @@
 
 /**
  * Represents statistical information about a process hosting COM+ applications.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationprocessstatistics
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-applicationprocessstatistics
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

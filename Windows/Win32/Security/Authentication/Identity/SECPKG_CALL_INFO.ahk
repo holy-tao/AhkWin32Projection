@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a currently executing call.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_call_info
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_call_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

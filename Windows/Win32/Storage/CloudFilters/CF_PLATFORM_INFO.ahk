@@ -4,10 +4,13 @@
 /**
  * Returns information for the cloud files platform. This is intended for sync providers running on multiple versions of Windows.
  * @remarks
- * The platform is a combination of the cloud filter and the placeholder files API library, which are always kept in sync with each other. This API is intended for sync providers that need to make decisions based on the platform capabilities of multiple versions of Windows.
+ * 
+  * The platform is a combination of the cloud filter and the placeholder files API library, which are always kept in sync with each other. This API is intended for sync providers that need to make decisions based on the platform capabilities of multiple versions of Windows.
   * 
   * If you are building an app that uses or is aware of placeholder files, this may be useful to you.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_platform_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_platform_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

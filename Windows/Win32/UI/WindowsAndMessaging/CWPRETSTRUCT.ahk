@@ -3,7 +3,7 @@
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROCRET hook procedure, CallWndRetProc.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cwpretstruct
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-cwpretstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

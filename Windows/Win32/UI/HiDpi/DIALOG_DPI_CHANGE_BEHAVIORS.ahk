@@ -2,7 +2,7 @@
 
 /**
  * In Per Monitor v2 contexts, dialogs will automatically respond to DPI changes by resizing themselves and re-computing the positions of their child windows (here referred to as re-layouting).
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-dialog_dpi_change_behaviors
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-dialog_dpi_change_behaviors
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */

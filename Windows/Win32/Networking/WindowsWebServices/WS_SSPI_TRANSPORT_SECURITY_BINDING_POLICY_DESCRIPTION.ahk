@@ -3,8 +3,8 @@
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 
 /**
- * This type description is used with template APIs to describe the templates generated accordingly to input policy setting. (WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION)
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_sspi_transport_security_binding_policy_description
+ * This type description is used with template APIs to describe the templates generated accordingly to input policy setting.
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_sspi_transport_security_binding_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines the file formats that you can use when generating reports.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreportformat
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmreportformat
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

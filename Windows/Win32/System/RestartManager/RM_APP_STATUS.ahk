@@ -3,8 +3,11 @@
 /**
  * Describes the current status of an application that is acted upon by the Restart Manager.
  * @remarks
- * The constants  of <b>RM_APP_STATUS</b> can be combined with OR operators. The combination describes the history of actions taken by Restart Manager on the application.
- * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_app_status
+ * 
+  * The constants  of <b>RM_APP_STATUS</b> can be combined with OR operators. The combination describes the history of actions taken by Restart Manager on the application.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_app_status
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

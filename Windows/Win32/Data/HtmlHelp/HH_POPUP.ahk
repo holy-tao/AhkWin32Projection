@@ -5,7 +5,7 @@
 
 /**
  * Use this structure to specify or modify the attributes of a pop-up window.
- * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_popup
+ * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/ns-htmlhelp-hh_popup
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

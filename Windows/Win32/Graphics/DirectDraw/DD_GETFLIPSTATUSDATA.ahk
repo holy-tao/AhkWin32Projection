@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETFLIPSTATUSDATA structure returns the flip status information.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getflipstatusdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getflipstatusdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

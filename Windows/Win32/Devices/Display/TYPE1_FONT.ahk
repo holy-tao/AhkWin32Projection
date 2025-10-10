@@ -4,10 +4,13 @@
 /**
  * The TYPE1_FONT structure contains the information necessary for a PostScript driver to access a Type1 font through GDI.
  * @remarks
- * A PostScript driver can obtain a list of installed Type1 fonts by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-enggettype1fontlist">EngGetType1FontList</a>.
+ * 
+  * A PostScript driver can obtain a list of installed Type1 fonts by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-enggettype1fontlist">EngGetType1FontList</a>.
   * 
   * Each PostScript Type1 font comes with two separate files: a .<i>pfm</i> file and a .<i>pfb</i> file. The .<i>pfm</i> file contains font metrics information; the .<i>pfb</i> file contains the PostScript Type1 binary font data.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-type1_font
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-type1_font
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

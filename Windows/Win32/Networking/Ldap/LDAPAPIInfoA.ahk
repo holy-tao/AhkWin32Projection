@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Retrieves data about the API and implementations used. (ANSI)
+ * Retrieves data about the API and implementations used.
  * @remarks
- * A pointer to this structure is passed with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_API_INFO</a> session option, to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a>, to retrieve data about this LDAP API library.  The data returned includes a list of any API extensions supported by the implementation. When the structure data is no longer required, the caller must free the individual strings and string arrays returned in this structure by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a> functions.
+ * 
+  * A pointer to this structure is passed with the <a href="https://docs.microsoft.com/previous-versions/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_API_INFO</a> session option, to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a>, to retrieve data about this LDAP API library.  The data returned includes a list of any API extensions supported by the implementation. When the structure data is no longer required, the caller must free the individual strings and string arrays returned in this structure by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a> functions.
   * 
   * 
   * 
@@ -12,7 +13,9 @@
   * 
   * > [!NOTE]
   * > The winldap.h header defines LDAPAPIInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapapiinfoa
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldapapiinfoa
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  * @charset ANSI

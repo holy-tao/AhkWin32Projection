@@ -2,7 +2,7 @@
 
 /**
  * Represents the severity of the log event passed to the LogEvent callback function.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-log_level
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ne-resapi-log_level
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Describes a pointer.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-bindptr
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-bindptr
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

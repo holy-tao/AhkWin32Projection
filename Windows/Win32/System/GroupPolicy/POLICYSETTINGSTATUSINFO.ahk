@@ -4,7 +4,7 @@
 
 /**
  * The POLICYSETTINGSTATUSINFO structure provides information about a policy-setting event.
- * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-policysettingstatusinfo
+ * @see https://docs.microsoft.com/windows/win32/api//userenv/ns-userenv-policysettingstatusinfo
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

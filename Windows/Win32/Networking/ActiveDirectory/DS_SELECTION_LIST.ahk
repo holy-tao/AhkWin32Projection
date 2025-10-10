@@ -4,7 +4,7 @@
 
 /**
  * The DS_SELECTION_LIST structure contains data about the objects the user selected from an object picker dialog box.
- * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-ds_selection_list
+ * @see https://docs.microsoft.com/windows/win32/api//objsel/ns-objsel-ds_selection_list
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

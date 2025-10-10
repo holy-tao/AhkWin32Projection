@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The DD_WAITFORVERTICALBLANKDATA structure contains information necessary to obtain the monitor's vertical blank information. (DDHAL_WAITFORVERTICALBLANKDATA)
- * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddhal_waitforverticalblankdata
+ * The DD_WAITFORVERTICALBLANKDATA structure contains information necessary to obtain the monitor's vertical blank information.
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawi/ns-ddrawi-ddhal_waitforverticalblankdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

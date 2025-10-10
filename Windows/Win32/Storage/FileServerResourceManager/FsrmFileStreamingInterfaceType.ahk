@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible streaming interface types.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmfilestreaminginterfacetype
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmfilestreaminginterfacetype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

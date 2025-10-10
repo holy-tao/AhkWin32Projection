@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1540 structure specifies whether the server allows redirected server drives to be shared.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1540
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1540
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

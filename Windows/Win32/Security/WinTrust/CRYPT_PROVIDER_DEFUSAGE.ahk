@@ -3,7 +3,7 @@
 
 /**
  * Used by the WintrustGetDefaultForUsage function to retrieve callback information for a provider's default usage.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_defusage
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_defusage
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

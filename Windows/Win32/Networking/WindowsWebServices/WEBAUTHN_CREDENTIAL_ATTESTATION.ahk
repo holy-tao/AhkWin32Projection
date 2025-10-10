@@ -3,15 +3,6 @@
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
- * Contains the attestation data for a credential.
- * @remarks
- * The **pvAttestationDecode** depends on the **dwAttestationDecodeType**:
-  * 
-  * | **Decode type** | **Decode value** |
-  * |----------|----------|
-  * | **WEBAUTHN_ATTESTATION_DECODE_NONE** | **NULL** - not able to decode the CBOR attestation information |
-  * | **WEBAUTHN_ATTESTATION_DECODE_COMMON** | **PWEBAUTHN_COMMON_ATTESTATION** |
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_attestation
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -22,7 +13,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -31,7 +21,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The attestation format type.
      * @type {Pointer<Char>}
      */
     pwszFormatType {
@@ -40,7 +29,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The size of **pbAuthenticatorData**.
      * @type {Integer}
      */
     cbAuthenticatorData {
@@ -49,7 +37,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The authenticator data that was created for this credential.
      * @type {Pointer<Byte>}
      */
     pbAuthenticatorData {
@@ -58,7 +45,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The size of the CBOR encoded attestation information.
      * @type {Integer}
      */
     cbAttestation {
@@ -67,7 +53,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The encoded CBOR attestation information.
      * @type {Pointer<Byte>}
      */
     pbAttestation {
@@ -76,7 +61,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The attestation decode type.
      * @type {Integer}
      */
     dwAttestationDecodeType {
@@ -85,7 +69,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The attestation decode value.
      * @type {Pointer<Void>}
      */
     pvAttestationDecode {
@@ -94,7 +77,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The size of **pbAttestationObject**.
      * @type {Integer}
      */
     cbAttestationObject {
@@ -103,7 +85,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The CBOR encoded Attestation Object to be returned to the Relying Party.
      * @type {Pointer<Byte>}
      */
     pbAttestationObject {
@@ -112,7 +93,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The size of **pbCredentialId**.
      * @type {Integer}
      */
     cbCredentialId {
@@ -121,7 +101,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The CredentialId bytes extracted from the Authenticator Data. Used by Edge to return to the Relying Party.
      * @type {Pointer<Byte>}
      */
     pbCredentialId {
@@ -130,7 +109,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The extensions for this credential.
      * @type {WEBAUTHN_EXTENSIONS}
      */
     Extensions{
@@ -142,7 +120,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * One of the **WEBAUTHN_CTAP_TRANSPORT** bits is passed, according to the transport that was used.
      * @type {Integer}
      */
     dwUsedTransport {
@@ -151,7 +128,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * The EP attestation flag.
      * @type {Integer}
      */
     bEpAtt {
@@ -160,7 +136,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * Indicates whether the authenticator supports large blob attestation.
      * @type {Integer}
      */
     bLargeBlobSupported {
@@ -169,7 +144,6 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * Indicates whether the relying party requires a resident key.
      * @type {Integer}
      */
     bResidentKey {

@@ -1432,12 +1432,6 @@ class Authorization {
 ;@region Methods
     /**
      * Determines which access bits can be granted to a client for a given set of security descriptors.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzaccesscheckcallback">AuthzAccessCheckCallback</a> callback function will be called if the DACL of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure pointed to by the <i>pSecurityDescriptor</i> parameter contains a callback <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE).
-     * 
-     * Security attribute variables must be present in the client context if referred to in a conditional expression, otherwise the conditional expression term referencing them will evaluate to unknown. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-definition-language-for-conditional-aces-">Security Descriptor Definition Language for Conditional ACEs</a> topic.
-     * 
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/centralized-authorization-policy">Centralized Authorization Policy</a> overviews.
      * @param {Integer} Flags 
      * @param {Pointer<Void>} hAuthzClientContext A handle to a structure that represents the client.
      * 					
@@ -1463,8 +1457,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzaccesscheck
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzaccesscheck
      * @since windows5.1.2600
      */
     static AuthzAccessCheck(Flags, hAuthzClientContext, pRequest, hAuditEvent, pSecurityDescriptor, OptionalSecurityDescriptorArray, OptionalSecurityDescriptorCount, pReply, phAccessCheckResults) {
@@ -1479,19 +1473,6 @@ class Authorization {
 
     /**
      * Performs a fast access check based on a cached handle containing the static granted bits from a previous AuthzAccessCheck call.
-     * @remarks
-     * The client context pointer is stored in the <i>AuthzHandle</i> parameter. The structure of the client context must be exactly the same as it was at the time <i>AuthzHandle</i> was created. This restriction is for the following fields:
-     * 
-     * <ul>
-     * <li>SIDs</li>
-     * <li>RestrictedSids</li>
-     * <li>Privileges</li>
-     * </ul>
-     * Pointers to the primary <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> and the optional security descriptor array are stored in <i>AuthzHandle</i> at the time of handle creation. These pointers must still be valid. 
-     * 
-     * The <b>AuthzCachedAccessCheck</b> function maintains a cache as a result of evaluating Central Access Policies (CAP) on objects unless CAPs are ignored, for example when the AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES flag is used. The client may call the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecentralaccesspolicycache">AuthzFreeCentralAccessPolicyCache</a> function to free up this cache. Note that this requires a subsequent call to <b>AuthzCachedAccessCheck</b> to rebuild the cache if necessary. 
-     * 
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/centralized-authorization-policy">Centralized Authorization Policy</a> overviews.
      * @param {Integer} Flags Reserved for future use.
      * @param {Pointer<Void>} hAccessCheckResults A handle to the cached access check results.
      * @param {Pointer<AUTHZ_ACCESS_REQUEST>} pRequest Access request handle specifying the desired <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a>, principal self <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SID</a>, and the object type list structure (if any).
@@ -1501,7 +1482,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Expected values of the Error members of array elements returned are shown in the following table.
      * 
@@ -1552,7 +1533,7 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzcachedaccesscheck
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzcachedaccesscheck
      * @since windows5.1.2600
      */
     static AuthzCachedAccessCheck(Flags, hAccessCheckResults, pRequest, hAuditEvent, pReply) {
@@ -1580,8 +1561,8 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_access_reply">AUTHZ_ACCESS_REPLY</a> structure.
      * @returns {Integer} If the function succeeds, it returns a nonzero value. 
      * 
-     * If the function fails, it returns a zero value. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzopenobjectaudit
+     * If the function fails, it returns a zero value. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzopenobjectaudit
      * @since windows5.1.2600
      */
     static AuthzOpenObjectAudit(Flags, hAuthzClientContext, pRequest, hAuditEvent, pSecurityDescriptor, OptionalSecurityDescriptorArray, OptionalSecurityDescriptorCount, pReply) {
@@ -1600,8 +1581,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzfreehandle
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzfreehandle
      * @since windows5.1.2600
      */
     static AuthzFreeHandle(hAccessCheckResults) {
@@ -1657,8 +1638,8 @@ class Authorization {
      * </td>
      * </tr>
      * <tr>
-     * <td width="40%"><a id="AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES"></a><a id="authz_rm_flag_no_central_access_policies"></a><dl>
-     * <dt><b>AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES</b></dt>
+     * <td width="40%"><a id="AUTHZ_RM_FLAG_NO_CENTRALIZED_ACCESS_POLICIES"></a><a id="authz_rm_flag_no_centralized_access_policies"></a><dl>
+     * <dt><b>AUTHZ_RM_FLAG_NO_CENTRALIZED_ACCESS_POLICIES</b></dt>
      * <dt></dt>
      * </dl>
      * </td>
@@ -1681,8 +1662,8 @@ class Authorization {
      * @param {Pointer<Void>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
      * @returns {Integer} If the function succeeds, the function returns a nonzero value. 
      * 
-     * If the function fails, it returns a zero value. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeresourcemanager
+     * If the function fails, it returns a zero value. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeresourcemanager
      * @since windows5.1.2600
      */
     static AuthzInitializeResourceManager(Flags, pfnDynamicAccessCheck, pfnComputeDynamicGroups, pfnFreeDynamicGroups, szResourceManagerName, phAuthzResourceManager) {
@@ -1699,23 +1680,13 @@ class Authorization {
 
     /**
      * Allocates and initializes a resource manager structure.
-     * @remarks
-     * If the AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES flag is specified, then <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> and <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a> ignore CAPID (Central Access Policie ID) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_scoped_policy_id_ace">SYSTEM_SCOPED_POLICY_ID_ACE</a> and will not evaluate CAPs.
-     * 
-     * If the AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES flag is not specified and pfnGetCentralAccessPolicy is <b>NULL</b>, then <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> and <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a> will get CAPs from LSA. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/ntlsa/nf-ntlsa-lsagetappliedcapids">LsaGetAppliedCAPIDs</a>.
-     * 
-     * If the AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES flag is not specified and a central access policy callback is provided by the resource manager, then <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> and <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a> will get CAPs from the resource manager by invoking the callback.
-     * 
-     * The LSA and the central access policy callback can indicate that CAPs are not supported, in which case <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzaccesscheck">AuthzAccessCheck</a> and <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a> ignore CAPID ACEs and will not evaluate CAPs.
-     * 
-     * The LSA and the central access policy callback may fail to return a CAP that corresponds to a particular CAPID, in which case <b>AuthzAccessCheck</b> and <b>AuthzCachedAccessCheck</b> use the same default CAP as the kernel AccessCheck.
      * @param {Integer} Flags 
      * @param {Pointer<AUTHZ_INIT_INFO>} pAuthzInitInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_init_info">AUTHZ_INIT_INFO</a> structure that contains the authorization resource manager initialization information.
      * @param {Pointer<Void>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
      * @returns {Integer} If the function succeeds, the function returns a value of <b>TRUE</b>. 
      * 
-     * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeresourcemanagerex
+     * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeresourcemanagerex
      * @since windows8.0
      */
     static AuthzInitializeResourceManagerEx(Flags, pAuthzInitInfo, phAuthzResourceManager) {
@@ -1734,8 +1705,8 @@ class Authorization {
      * @param {Pointer<Void>} phAuthzResourceManager A handle to the resource manager. When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>. 
      * 
-     * If the function fails, it returns <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeremoteresourcemanager
+     * If the function fails, it returns <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeremoteresourcemanager
      * @since windows8.0
      */
     static AuthzInitializeRemoteResourceManager(pRpcInitInfo, phAuthzResourceManager) {
@@ -1754,8 +1725,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzfreeresourcemanager
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzfreeresourcemanager
      * @since windows5.1.2600
      */
     static AuthzFreeResourceManager(hAuthzResourceManager) {
@@ -1770,8 +1741,6 @@ class Authorization {
 
     /**
      * Initializes a client authorization context from a kernel token. The kernel token must have been opened for TOKEN_QUERY.
-     * @remarks
-     * This function calls the  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzcomputegroupscallback">AuthzComputeGroupsCallback</a> callback function to add <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifiers</a> to the newly created context.
      * @param {Integer} Flags Reserved for future use.
      * @param {Pointer<Void>} TokenHandle A handle to the client token used to initialize the <i>pAuthzClientContext</i> parameter. The token must have been opened with TOKEN_QUERY access.
      * @param {Pointer<Void>} hAuthzResourceManager A handle to the resource manager that created this client context. This handle is stored in the client context structure.
@@ -1783,8 +1752,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializecontextfromtoken
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializecontextfromtoken
      * @since windows5.1.2600
      */
     static AuthzInitializeContextFromToken(Flags, TokenHandle, hAuthzResourceManager, pExpirationTime, Identifier, DynamicGroupArgs, phAuthzClientContext) {
@@ -1799,17 +1768,6 @@ class Authorization {
 
     /**
      * Creates a user-mode client context from a user security identifier (SID).
-     * @remarks
-     * If possible, call the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinitializecontextfromtoken">AuthzInitializeContextFromToken</a>  function instead of <b>AuthzInitializeContextFromSid</b>. <b>AuthzInitializeContextFromSid</b> attempts to retrieve the information available in a logon token had the client actually logged on. An actual logon token provides more information, such as logon type and logon properties, and reflects the behavior of the authentication package used for the logon. The client context  created by <b>AuthzInitializeContextFromToken</b> uses a logon token, and the resulting client context is more complete and accurate than a client context created by <b>AuthzInitializeContextFromSid</b>.
-     * 
-     * This function resolves valid user SIDs only.
-     * 
-     * <b>Windows XP:  </b>This function resolves group memberships for valid user and group SIDs (unless the AUTHZ_SKIP_TOKEN_GROUPS flag is used). Support for resolving memberships of group SIDs may be altered or unavailable in subsequent versions.
-     * 
-     * This function calls the  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzcomputegroupscallback">AuthzComputeGroupsCallback</a> callback function to add SIDs to the newly created context.
-     * 
-     * <div class="alert"><b>Important</b>  Applications should not assume that the calling context has permission to use this function. The <b>AuthzInitializeContextFromSid</b> function reads the tokenGroupsGlobalAndUniversal attribute of the SID specified in the call to determine the current user's group memberships. If the user's object is in <a href="https://docs.microsoft.com/windows/desktop/AD/active-directory-domain-services">Active Directory</a>, the calling context must have read access to the tokenGroupsGlobalAndUniversal attribute on the user object. When a new domain is created, the default access compatibility selection is <b>Permissions compatible with Windows 2000 and Windows Server 2003 operating systems</b>. When this option is set, the  <b>Pre-Windows 2000 Compatible Access</b> group includes only the <b>Authenticated Users</b>  built-in security identifiers. Therefore, applications may not have access to the tokenGroupsGlobalAndUniversal attribute; in this case, the <b>AuthzInitializeContextFromSid</b> function  fails with ACCESS_DENIED. Applications that use this function should correctly handle this error and provide supporting documentation. To simplify granting accounts permission to query a user's group information, add accounts that need the ability to look up group information to the Windows Authorization Access Group.</div>
-     * <div> </div>
      * @param {Integer} Flags The following flags are defined. 
      * 
      * Starting with Windows 8 and Windows Server 2012,  when you call this function on a remote context handle, the upper 16 bits must be zero.
@@ -1883,8 +1841,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializecontextfromsid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializecontextfromsid
      * @since windows5.1.2600
      */
     static AuthzInitializeContextFromSid(Flags, UserSid, hAuthzResourceManager, pExpirationTime, Identifier, DynamicGroupArgs, phAuthzClientContext) {
@@ -1899,8 +1857,6 @@ class Authorization {
 
     /**
      * Creates a new client context based on an existing client context.
-     * @remarks
-     * This function calls the  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzcomputegroupscallback">AuthzComputeGroupsCallback</a> callback function to add <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifiers</a> to the newly created context.
      * @param {Integer} Flags Reserved for future use.
      * @param {Pointer<Void>} hAuthzClientContext The handle to an existing client context.
      * @param {Pointer<Int64>} pExpirationTime Sets the time limit for how long the returned context structure is valid. If no value is passed, then the token never expires. Expiration time is not currently enforced.
@@ -1910,8 +1866,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializecontextfromauthzcontext
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializecontextfromauthzcontext
      * @since windows5.1.2600
      */
     static AuthzInitializeContextFromAuthzContext(Flags, hAuthzClientContext, pExpirationTime, Identifier, DynamicGroupArgs, phNewAuthzClientContext) {
@@ -1932,8 +1888,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializecompoundcontext
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializecompoundcontext
      * @since windows8.0
      */
     static AuthzInitializeCompoundContext(UserContext, DeviceContext, phCompoundContext) {
@@ -1958,8 +1914,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzaddsidstocontext
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzaddsidstocontext
      * @since windows5.1.2600
      */
     static AuthzAddSidsToContext(hAuthzClientContext, Sids, SidCount, RestrictedSids, RestrictedSidCount, phNewAuthzClientContext) {
@@ -1982,8 +1938,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzmodifysecurityattributes
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzmodifysecurityattributes
      * @since windows6.1
      */
     static AuthzModifySecurityAttributes(hAuthzClientContext, pOperations, pAttributes) {
@@ -1998,14 +1954,6 @@ class Authorization {
 
     /**
      * Adds, deletes, or modifies user and device claims in the Authz client context.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration must have only one element if 
-     *     the value of that element is AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL. 
-     *     Otherwise, the array has the same number of elements as the corresponding 
-     *     PAUTHZ_SECURITY_ATTRIBUTES_INFORMATION.
-     * 
-     * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration is AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE and the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error code is ERROR_ALREADY_EXISTS, the claim's values have duplicate entries.
      * @param {Pointer<Void>} hAuthzClientContext A handle to the client context to be modified.
      * @param {Integer} ClaimClass Type of information to be modified. The caller can specify AuthzContextInfoUserClaims or AuthzContextInfoDeviceClaims.
      * @param {Pointer<Int32>} pClaimOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the type of claim modification to make.
@@ -2013,8 +1961,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzmodifyclaims
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzmodifyclaims
      * @since windows8.0
      */
     static AuthzModifyClaims(hAuthzClientContext, ClaimClass, pClaimOperations, pClaims) {
@@ -2029,12 +1977,6 @@ class Authorization {
 
     /**
      * Adds, deletes, or modifies user and device groups in the Authz client context.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration must have only one element if the value of that element is AUTHZ_SID_OPERATION_REPLACE_ALL. Otherwise, the array has the same number of elements as the corresponding 
-     * PTOKEN_GROUPS.
-     * 
-     * 
-     * When you want to use <b>AuthzModifySids</b> to delete, the SIDs are matched but not the SID flags. If no matching SID is found, no modifications are done and the call fails.
      * @param {Pointer<Void>} hAuthzClientContext A handle to the client context to be modified.
      * @param {Integer} SidClass Type of information to be modified. The caller can specify AuthzContextInfoGroupsSids, AuthzContextInfoRestrictedSids, or AuthzContextInfoDeviceSids.
      * @param {Pointer<Int32>} pSidOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration values that specify the group modifications to make.
@@ -2042,8 +1984,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzmodifysids
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzmodifysids
      * @since windows8.0
      */
     static AuthzModifySids(hAuthzClientContext, SidClass, pSidOperations, pSids) {
@@ -2065,8 +2007,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzsetappcontainerinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzsetappcontainerinformation
      * @since windows8.0
      */
     static AuthzSetAppContainerInformation(hAuthzClientContext, pAppContainerSid, CapabilityCount, pCapabilitySids) {
@@ -2089,8 +2031,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzgetinformationfromcontext
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzgetinformationfromcontext
      * @since windows5.1.2600
      */
     static AuthzGetInformationFromContext(hAuthzClientContext, InfoClass, BufferSize, pSizeRequired, Buffer) {
@@ -2109,8 +2051,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzfreecontext
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzfreecontext
      * @since windows5.1.2600
      */
     static AuthzFreeContext(hAuthzClientContext) {
@@ -2135,8 +2077,8 @@ class Authorization {
      * @param {Integer} dwAdditionalParameterCount Must be set to zero.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeobjectaccessauditevent
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeobjectaccessauditevent
      * @since windows5.1.2600
      */
     static AuthzInitializeObjectAccessAuditEvent(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, phAuditEvent, dwAdditionalParameterCount) {
@@ -2204,8 +2146,8 @@ class Authorization {
      * @param {Integer} dwAdditionalParameterCount Must be set to zero.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeobjectaccessauditevent2
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeobjectaccessauditevent2
      * @since windowsserver2003
      */
     static AuthzInitializeObjectAccessAuditEvent2(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, szAdditionalInfo2, phAuditEvent, dwAdditionalParameterCount) {
@@ -2230,8 +2172,8 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzfreeauditevent
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzfreeauditevent
      * @since windows5.1.2600
      */
     static AuthzFreeAuditEvent(hAuditEvent) {
@@ -2267,7 +2209,7 @@ class Authorization {
      * The members of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structure are used as follows to install the security event source in the security log key:
      * 
      * <ul>
-     * <li>The <b>szEventSourceName</b> member is added as a registry key under <pre><b>HKEY_LOCAL_MACHINE</b>
+     * <li>The <b>szEventSourceName</b> member is added as a registry key under <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
      *    <b>SYSTEM</b>
      *       <b>CurrentControlSet</b>
      *          <b>Services</b>
@@ -2284,8 +2226,8 @@ class Authorization {
      * </ul>
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinstallsecurityeventsource
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinstallsecurityeventsource
      * @since windowsserver2003
      */
     static AuthzInstallSecurityEventSource(dwFlags, pRegistration) {
@@ -2306,8 +2248,8 @@ class Authorization {
      * This function removes the source information from the registry. For more information about the registry keys and values affected, see the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinstallsecurityeventsource">AuthzInstallSecurityEventSource</a> function.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzuninstallsecurityeventsource
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzuninstallsecurityeventsource
      * @since windowsserver2003
      */
     static AuthzUninstallSecurityEventSource(dwFlags, szEventSourceName) {
@@ -2330,8 +2272,8 @@ class Authorization {
      * @param {Pointer<UInt32>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzenumeratesecurityeventsources
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzenumeratesecurityeventsources
      * @since windowsserver2003
      */
     static AuthzEnumerateSecurityEventSources(dwFlags, Buffer, pdwCount, pdwLength) {
@@ -2346,24 +2288,13 @@ class Authorization {
 
     /**
      * Registers a security event source with the Local Security Authority (LSA).
-     * @remarks
-     * This function  validates the <i>szEventSourceName</i> parameter  and sets up the appropriate structures and RPC connections to log events with that source name.  The validation is handled by an underlying call to an LSA API.  
-     * 
-     * The LSA API  verifies the following:
-     * 
-     * <ul>
-     * <li>The caller has the  SeAuditPrivilege access right.</li>
-     * <li>The event source is not already in use.</li>
-     * <li>The event source is registered.</li>
-     * <li>The calling application matches the executable image path in the event source registration, if one exists.</li>
-     * </ul>
      * @param {Integer} dwFlags This parameter is reserved for future use. Set this parameter to zero.
      * @param {Pointer<Char>} szEventSourceName A pointer to the name of the security event source to register.
      * @param {Pointer<Void>} phEventProvider A pointer to a handle to the registered security event source.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzregistersecurityeventsource
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzregistersecurityeventsource
      * @since windowsserver2003
      */
     static AuthzRegisterSecurityEventSource(dwFlags, szEventSourceName, phEventProvider) {
@@ -2380,14 +2311,12 @@ class Authorization {
 
     /**
      * Unregisters a security event source with the Local Security Authority (LSA).
-     * @remarks
-     * This function deallocates any resources and closes any RPC connections associated with a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzregistersecurityeventsource">AuthzRegisterSecurityEventSource</a> function.
      * @param {Integer} dwFlags This parameter is reserved for future use. Set this parameter to zero.
      * @param {Pointer<Void>} phEventProvider A pointer to a handle to the security event source to unregister.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzunregistersecurityeventsource
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzunregistersecurityeventsource
      * @since windowsserver2003
      */
     static AuthzUnregisterSecurityEventSource(dwFlags, phEventProvider) {
@@ -2438,8 +2367,8 @@ class Authorization {
      * @param {Integer} dwCount The number of AuditParamFlag  type/value pairs that appear in the variable arguments section that follows this parameter.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzreportsecurityevent
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzreportsecurityevent
      * @since windowsserver2003
      */
     static AuthzReportSecurityEvent(dwFlags, hEventProvider, dwAuditId, pUserSid, dwCount) {
@@ -2461,8 +2390,8 @@ class Authorization {
      * @param {Pointer<AUDIT_PARAMS>} pParams An array of audit parameters.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzreportsecurityeventfromparams
+     * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzreportsecurityeventfromparams
      * @since windowsserver2003
      */
     static AuthzReportSecurityEventFromParams(dwFlags, hEventProvider, dwAuditId, pUserSid, pParams) {
@@ -2477,16 +2406,14 @@ class Authorization {
 
     /**
      * Registers a CAP update notification callback.
-     * @remarks
-     * This function is intended for applications that manually manage CAP usage to get notified of CAP changes in the system.
      * @param {Pointer<Void>} phCapChangeSubscription Pointer to the CAP change notification subscription handle. When you have finished using the handle, unsubscribe by passing this parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzunregistercapchangenotification">AuthzUnregisterCapChangeNotification</a> function.
      * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCapChangeCallback The CAP change notification callback function.
      * @param {Pointer<Void>} pCallbackContext The context of the user to be passed to the callback function.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzregistercapchangenotification
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzregistercapchangenotification
      * @since windows8.0
      */
     static AuthzRegisterCapChangeNotification(phCapChangeSubscription, pfnCapChangeCallback, pCallbackContext) {
@@ -2501,14 +2428,12 @@ class Authorization {
 
     /**
      * Removes a previously registered CAP update notification callback.
-     * @remarks
-     * This function blocks operations until all callbacks are complete. Do not call this function from inside a callback function because it will cause a deadlock.
      * @param {Pointer<Void>} hCapChangeSubscription Handle of the CAP change notification subscription to unregister.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzunregistercapchangenotification
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzunregistercapchangenotification
      * @since windows8.0
      */
     static AuthzUnregisterCapChangeNotification(hCapChangeSubscription) {
@@ -2523,13 +2448,11 @@ class Authorization {
 
     /**
      * Decreases the CAP cache reference count by one so that the CAP cache can be deallocated.
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/centralized-authorization-policy">Centralized Authorization Policy</a> overviews.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzfreecentralaccesspolicycache
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzfreecentralaccesspolicycache
      * @since windows8.0
      */
     static AuthzFreeCentralAccessPolicyCache() {
@@ -2543,38 +2466,7 @@ class Authorization {
     }
 
     /**
-     * Creates a new access control list (ACL) by merging new access control or audit control information into an existing ACL structure. (ANSI)
-     * @remarks
-     * Each entry in the array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures specifies access control or audit control information for a specified trustee. A trustee can be a user, group, or other <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) value, such as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon identifier</a> or logon type (for instance, a Windows service or batch job). You can use a name or a SID to identify a trustee.
-     * 
-     * You can use the <b>SetEntriesInAcl</b> function to modify the list of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) or a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL). Note that <b>SetEntriesInAcl</b> does not prevent you from mixing access control and audit control information in the same 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a>; however, the resulting ACL will contain meaningless entries.
-     * 
-     * For a DACL, the <b>grfAccessMode</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure specifies whether to allow, deny, or revoke access rights for the trustee. This member can specify one of the following values:
-     * 
-     * <ul>
-     * <li>GRANT_ACCESS</li>
-     * <li>SET_ACCESS</li>
-     * <li>DENY_ACCESS</li>
-     * <li>REVOKE_ACCESS</li>
-     * </ul>
-     *  For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * The <b>SetEntriesInAcl</b> function places any new access-denied ACEs at the beginning of the list of ACEs for the new 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a>. This function  places any new access-allowed ACEs just before any existing access-allowed ACEs.
-     * 
-     * For a SACL, the <b>grfAccessMode</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure can specify the following values:
-     * 
-     * <ul>
-     * <li>REVOKE_ACCESS</li>
-     * <li>SET_AUDIT_FAILURE</li>
-     * <li>SET_AUDIT_SUCCESS</li>
-     * </ul>
-     * SET_AUDIT_FAILURE and  SET_AUDIT_SUCCESS can be combined. For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * The <b>SetEntriesInAcl</b> function places any new system-audit ACEs at the beginning of the list of ACEs for the new ACL.
+     * Creates a new access control list (ACL) by merging new access control or audit control information into an existing ACL structure.
      * @param {Integer} cCountOfExplicitEntries The number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures in the <i>pListOfExplicitEntries</i> array.
      * @param {Pointer<EXPLICIT_ACCESS_A>} pListOfExplicitEntries A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the access control information to merge into the existing ACL.
@@ -2584,7 +2476,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setentriesinacla
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setentriesinacla
      * @since windows5.1.2600
      */
     static SetEntriesInAclA(cCountOfExplicitEntries, pListOfExplicitEntries, OldAcl, NewAcl) {
@@ -2593,38 +2485,7 @@ class Authorization {
     }
 
     /**
-     * Creates a new access control list (ACL) by merging new access control or audit control information into an existing ACL structure. (Unicode)
-     * @remarks
-     * Each entry in the array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures specifies access control or audit control information for a specified trustee. A trustee can be a user, group, or other <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) value, such as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon identifier</a> or logon type (for instance, a Windows service or batch job). You can use a name or a SID to identify a trustee.
-     * 
-     * You can use the <b>SetEntriesInAcl</b> function to modify the list of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) or a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL). Note that <b>SetEntriesInAcl</b> does not prevent you from mixing access control and audit control information in the same 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a>; however, the resulting ACL will contain meaningless entries.
-     * 
-     * For a DACL, the <b>grfAccessMode</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure specifies whether to allow, deny, or revoke access rights for the trustee. This member can specify one of the following values:
-     * 
-     * <ul>
-     * <li>GRANT_ACCESS</li>
-     * <li>SET_ACCESS</li>
-     * <li>DENY_ACCESS</li>
-     * <li>REVOKE_ACCESS</li>
-     * </ul>
-     *  For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * The <b>SetEntriesInAcl</b> function places any new access-denied ACEs at the beginning of the list of ACEs for the new 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a>. This function  places any new access-allowed ACEs just before any existing access-allowed ACEs.
-     * 
-     * For a SACL, the <b>grfAccessMode</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure can specify the following values:
-     * 
-     * <ul>
-     * <li>REVOKE_ACCESS</li>
-     * <li>SET_AUDIT_FAILURE</li>
-     * <li>SET_AUDIT_SUCCESS</li>
-     * </ul>
-     * SET_AUDIT_FAILURE and  SET_AUDIT_SUCCESS can be combined. For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * The <b>SetEntriesInAcl</b> function places any new system-audit ACEs at the beginning of the list of ACEs for the new ACL.
+     * Creates a new access control list (ACL) by merging new access control or audit control information into an existing ACL structure.
      * @param {Integer} cCountOfExplicitEntries The number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures in the <i>pListOfExplicitEntries</i> array.
      * @param {Pointer<EXPLICIT_ACCESS_W>} pListOfExplicitEntries A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the access control information to merge into the existing ACL.
@@ -2634,7 +2495,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setentriesinaclw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setentriesinaclw
      * @since windows5.1.2600
      */
     static SetEntriesInAclW(cCountOfExplicitEntries, pListOfExplicitEntries, OldAcl, NewAcl) {
@@ -2643,24 +2504,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves an array of structures that describe the access control entries (ACEs) in an access control list (ACL). (ANSI)
-     * @remarks
-     * Each entry in the array of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures describes access control information from an 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> for a trustee. A trustee can be a user, group, or program (such as a Windows service).
-     * 
-     * Each <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure specifies a set of access rights and an access mode flag that indicates whether the ACE allows, denies, or audits the specified rights.
-     * 
-     * For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), the access mode flag can be  either GRANT_ACCESS or DENY_ACCESS. For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), the access mode flag can be SET_AUDIT_ACCESS, SET_AUDIT_FAILURE, or both. For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetExplicitEntriesFromAcl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves an array of structures that describe the access control entries (ACEs) in an access control list (ACL).
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> information.
@@ -2670,7 +2514,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getexplicitentriesfromacla
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getexplicitentriesfromacla
      * @since windows5.1.2600
      */
     static GetExplicitEntriesFromAclA(pacl, pcCountOfExplicitEntries, pListOfExplicitEntries) {
@@ -2679,24 +2523,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves an array of structures that describe the access control entries (ACEs) in an access control list (ACL). (Unicode)
-     * @remarks
-     * Each entry in the array of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures describes access control information from an 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> for a trustee. A trustee can be a user, group, or program (such as a Windows service).
-     * 
-     * Each <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure specifies a set of access rights and an access mode flag that indicates whether the ACE allows, denies, or audits the specified rights.
-     * 
-     * For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), the access mode flag can be  either GRANT_ACCESS or DENY_ACCESS. For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * For a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), the access mode flag can be SET_AUDIT_ACCESS, SET_AUDIT_FAILURE, or both. For information about these values, see <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-access_mode">ACCESS_MODE</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetExplicitEntriesFromAcl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves an array of structures that describe the access control entries (ACEs) in an access control list (ACL).
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> information.
@@ -2706,7 +2533,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getexplicitentriesfromaclw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getexplicitentriesfromaclw
      * @since windows5.1.2600
      */
     static GetExplicitEntriesFromAclW(pacl, pcCountOfExplicitEntries, pListOfExplicitEntries) {
@@ -2715,21 +2542,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves the effective access rights that an ACL structure grants to a specified trustee. The trustee's effective access rights are the access rights that the ACL grants to the trustee or to any groups of which the trustee is a member. (ANSI)
-     * @remarks
-     * The <b>GetEffectiveRightsFromAcl</b> function checks all access-allowed and access-denied <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) to determine the effective rights for the trustee. For all ACEs that allow or deny rights to a group, <b>GetEffectiveRightsFromAcl</b> enumerates the members of the group to determine whether the trustee is a member. The function returns an error if it cannot enumerate the members of a group.
-     * 
-     * A trustee's group rights are enumerated by <b>GetEffectiveRightsFromAcl</b> on the local computer, even if the trustee is accessing objects on a remote computer. This function does not evaluate group rights on remote computers.
-     * 
-     * The <b>GetEffectiveRightsFromAcl</b>  function does not consider  the following:
-     * 
-     * <ul>
-     * <li>Implicitly granted access rights, such as READ_CONTROL and WRITE_DAC, for the owner of an object when determining effective rights.</li>
-     * <li>Privileges held by the trustee when determining effective access rights.</li>
-     * <li>Group rights associated with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>, such as interactive, network, authenticated users, and so forth, in determining effective access rights.</li>
-     * <li><a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">Resource manager</a> policy. For example, for file objects, Delete and Read attributes can be provided by the parent even if they have been denied on the object.</li>
-     * </ul>
-     * The <b>GetEffectiveRightsFromAcl</b> function fails and returns <b>ERROR_INVALID_ACL</b> if the specified ACL contains an inherited access-denied ACE.
+     * Retrieves the effective access rights that an ACL structure grants to a specified trustee. The trustee's effective access rights are the access rights that the ACL grants to the trustee or to any groups of which the trustee is a member.
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's effective access rights.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
@@ -2739,7 +2552,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-geteffectiverightsfromacla
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-geteffectiverightsfromacla
      * @since windows5.1.2600
      */
     static GetEffectiveRightsFromAclA(pacl, pTrustee, pAccessRights) {
@@ -2748,21 +2561,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves the effective access rights that an ACL structure grants to a specified trustee. The trustee's effective access rights are the access rights that the ACL grants to the trustee or to any groups of which the trustee is a member. (Unicode)
-     * @remarks
-     * The <b>GetEffectiveRightsFromAcl</b> function checks all access-allowed and access-denied <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) to determine the effective rights for the trustee. For all ACEs that allow or deny rights to a group, <b>GetEffectiveRightsFromAcl</b> enumerates the members of the group to determine whether the trustee is a member. The function returns an error if it cannot enumerate the members of a group.
-     * 
-     * A trustee's group rights are enumerated by <b>GetEffectiveRightsFromAcl</b> on the local computer, even if the trustee is accessing objects on a remote computer. This function does not evaluate group rights on remote computers.
-     * 
-     * The <b>GetEffectiveRightsFromAcl</b>  function does not consider  the following:
-     * 
-     * <ul>
-     * <li>Implicitly granted access rights, such as READ_CONTROL and WRITE_DAC, for the owner of an object when determining effective rights.</li>
-     * <li>Privileges held by the trustee when determining effective access rights.</li>
-     * <li>Group rights associated with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>, such as interactive, network, authenticated users, and so forth, in determining effective access rights.</li>
-     * <li><a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">Resource manager</a> policy. For example, for file objects, Delete and Read attributes can be provided by the parent even if they have been denied on the object.</li>
-     * </ul>
-     * The <b>GetEffectiveRightsFromAcl</b> function fails and returns <b>ERROR_INVALID_ACL</b> if the specified ACL contains an inherited access-denied ACE.
+     * Retrieves the effective access rights that an ACL structure grants to a specified trustee. The trustee's effective access rights are the access rights that the ACL grants to the trustee or to any groups of which the trustee is a member.
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's effective access rights.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
@@ -2772,7 +2571,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-geteffectiverightsfromaclw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-geteffectiverightsfromaclw
      * @since windows5.1.2600
      */
     static GetEffectiveRightsFromAclW(pacl, pTrustee, pAccessRights) {
@@ -2781,16 +2580,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves the audited access rights for a specified trustee. (ANSI)
-     * @remarks
-     * The <b>GetAuditedPermissionsFromAcl</b> function checks all system-audit ACEs in the ACL to determine the audited rights for the trustee. For all ACEs that specify audited rights for a group, <b>GetAuditedPermissionsFromAcl</b> enumerates the members of the group to determine whether the trustee is a member. The function returns an error if it cannot enumerate the members of a group.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetAuditedPermissionsFromAcl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the audited access rights for a specified trustee.
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's audited access rights.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
@@ -2801,7 +2591,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getauditedpermissionsfromacla
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getauditedpermissionsfromacla
      * @since windows5.1.2600
      */
     static GetAuditedPermissionsFromAclA(pacl, pTrustee, pSuccessfulAuditedRights, pFailedAuditRights) {
@@ -2810,16 +2600,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves the audited access rights for a specified trustee. (Unicode)
-     * @remarks
-     * The <b>GetAuditedPermissionsFromAcl</b> function checks all system-audit ACEs in the ACL to determine the audited rights for the trustee. For all ACEs that specify audited rights for a group, <b>GetAuditedPermissionsFromAcl</b> enumerates the members of the group to determine whether the trustee is a member. The function returns an error if it cannot enumerate the members of a group.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetAuditedPermissionsFromAcl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the audited access rights for a specified trustee.
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's audited access rights.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
@@ -2830,7 +2611,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getauditedpermissionsfromaclw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getauditedpermissionsfromaclw
      * @since windows5.1.2600
      */
     static GetAuditedPermissionsFromAclW(pacl, pTrustee, pSuccessfulAuditedRights, pFailedAuditRights) {
@@ -2839,31 +2620,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves a copy of the security descriptor for an object specified by name. (ANSI)
-     * @remarks
-     * If any of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters are non-<b>NULL</b>, and the <i>SecurityInfo</i> parameter specifies that they be retrieved from the object, those parameters will point to the corresponding parameters in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i>. If the security descriptor does not contain the requested information, the corresponding parameter will be set to  <b>NULL</b>.
-     * 
-     * To read the owner, group, or DACL from the object's security descriptor, the object's DACL must grant READ_CONTROL access to the caller, or the caller must be the owner of the object.
-     * 
-     * To read the system access control list of the object, the SE_SECURITY_NAME privilege must be enabled for the calling process. For information about the security implications of  enabling privileges, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * You can use the <b>GetNamedSecurityInfo</b> function with the following types of objects:
-     * 
-     * <ul>
-     * <li>Local or remote files or directories on an NTFS file system</li>
-     * <li>Local or remote printers</li>
-     * <li>Local or remote Windows services</li>
-     * <li>Network shares</li>
-     * <li>Registry keys</li>
-     * <li>Semaphores, events, mutexes, and waitable timers</li>
-     * <li>File-mapping objects</li>
-     * <li>Directory service objects</li>
-     * </ul>
-     * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's security descriptor, then this function could fail.
-     * 
-     * This function transfers information in plaintext. The information transferred by this function is signed unless signing has been turned off for the system, but no encryption is performed.  
-     * 
-     * For more information about controlling access to objects through user accounts, group  accounts, or logon sessions,  see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a>.
+     * Retrieves a copy of the security descriptor for an object specified by name.
      * @param {Pointer<Byte>} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
@@ -2881,7 +2638,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getnamedsecurityinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getnamedsecurityinfoa
      * @since windows5.1.2600
      */
     static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
@@ -2892,31 +2649,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves a copy of the security descriptor for an object specified by name. (Unicode)
-     * @remarks
-     * If any of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters are non-<b>NULL</b>, and the <i>SecurityInfo</i> parameter specifies that they be retrieved from the object, those parameters will point to the corresponding parameters in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i>. If the security descriptor does not contain the requested information, the corresponding parameter will be set to  <b>NULL</b>.
-     * 
-     * To read the owner, group, or DACL from the object's security descriptor, the object's DACL must grant READ_CONTROL access to the caller, or the caller must be the owner of the object.
-     * 
-     * To read the system access control list of the object, the SE_SECURITY_NAME privilege must be enabled for the calling process. For information about the security implications of  enabling privileges, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * You can use the <b>GetNamedSecurityInfo</b> function with the following types of objects:
-     * 
-     * <ul>
-     * <li>Local or remote files or directories on an NTFS file system</li>
-     * <li>Local or remote printers</li>
-     * <li>Local or remote Windows services</li>
-     * <li>Network shares</li>
-     * <li>Registry keys</li>
-     * <li>Semaphores, events, mutexes, and waitable timers</li>
-     * <li>File-mapping objects</li>
-     * <li>Directory service objects</li>
-     * </ul>
-     * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's security descriptor, then this function could fail.
-     * 
-     * This function transfers information in plaintext. The information transferred by this function is signed unless signing has been turned off for the system, but no encryption is performed.  
-     * 
-     * For more information about controlling access to objects through user accounts, group  accounts, or logon sessions,  see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a>.
+     * Retrieves a copy of the security descriptor for an object specified by name.
      * @param {Pointer<Char>} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
@@ -2934,7 +2667,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getnamedsecurityinfow
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getnamedsecurityinfow
      * @since windows5.1.2600
      */
     static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
@@ -2946,28 +2679,6 @@ class Authorization {
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @remarks
-     * If the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, and <i>ppSacl</i> parameters are non-<b>NULL</b>, and the <i>SecurityInfo</i> parameter specifies that they be retrieved from the object, those parameters will point to the corresponding parameters in the security descriptor returned in <i>ppSecurityDescriptor</i>.
-     * 
-     * To read the owner, group, or DACL from the object's security descriptor, the calling process must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the object or the object's DACL must grant the access.
-     * 
-     * To read the SACL from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the handle was opened. The proper way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege. For information about the security implications of enabling  privileges, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * You can use the <b>GetSecurityInfo</b> function with the following types of objects:
-     * 
-     * <ul>
-     * <li>Local or remote files or directories on an NTFS file system</li>
-     * <li>Named pipes</li>
-     * <li>Local or remote printers</li>
-     * <li>Local or remote Windows services</li>
-     * <li>Network shares</li>
-     * <li>Registry keys</li>
-     * <li>Semaphores, events, mutexes, and waitable timers</li>
-     * <li>Processes, threads, jobs, and file-mapping objects</li>
-     * <li>Interactive service window stations and desktops</li>
-     * <li>Directory service objects</li>
-     * </ul>
-     * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's security descriptor, then this function could fail.
      * @param {Pointer<Void>} handle A handle to the object from which to retrieve security information.
      * @param {Integer} ObjectType <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration value that indicates the type of object.
      * @param {Integer} SecurityInfo A set of 
@@ -2984,7 +2695,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getsecurityinfo
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
      * @since windows5.1.2600
      */
     static GetSecurityInfo(handle, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
@@ -2993,28 +2704,7 @@ class Authorization {
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified object. (ANSI)
-     * @remarks
-     * If you are setting the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) or any elements in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of an object, the system automatically propagates any inheritable <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) to existing child objects, according to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-inheritance-rules">rules of inheritance</a>.
-     * 
-     * You can use the <b>SetNamedSecurityInfo</b> function with the following types of objects:
-     * 
-     * <ul>
-     * <li>Local or remote files or directories on an NTFS</li>
-     * <li>Local or remote printers</li>
-     * <li>Local or remote Windows services</li>
-     * <li>Network shares</li>
-     * <li>Registry keys</li>
-     * <li>Semaphores, events, mutexes, and waitable timers</li>
-     * <li>File-mapping objects</li>
-     * <li>Directory service objects</li>
-     * </ul>
-     * The <b>SetNamedSecurityInfo</b> function does not reorder access-allowed or access-denied ACEs based on the preferred order. When propagating inheritable ACEs to existing child objects, <b>SetNamedSecurityInfo</b> puts inherited ACEs in order after all of the noninherited ACEs in the DACLs of the child objects.
-     * 
-     * This function transfers information in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>. The information transferred by this function is signed unless signing has been turned off for the system, but no encryption is performed.  
-     * 
-     * When you update access rights of a folder indicated by an UNC   path, for example \\Test\TestFolder, the original inherited ACE is removed and the full volume path is not included.
+     * Sets specified security information in the security descriptor of a specified object.
      * @param {Pointer<Byte>} pObjectName A pointer to a <b>null</b>-terminated string that specifies the name of the object for which to set security information. This can be the name of a local or remote file or directory on an NTFS file system, network share, registry key, semaphore, event, mutex, file mapping, or waitable timer. 
      * 
      * 
@@ -3036,7 +2726,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setnamedsecurityinfoa
      * @since windows5.1.2600
      */
     static SetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
@@ -3047,28 +2737,7 @@ class Authorization {
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified object. (Unicode)
-     * @remarks
-     * If you are setting the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) or any elements in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of an object, the system automatically propagates any inheritable <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) to existing child objects, according to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-inheritance-rules">rules of inheritance</a>.
-     * 
-     * You can use the <b>SetNamedSecurityInfo</b> function with the following types of objects:
-     * 
-     * <ul>
-     * <li>Local or remote files or directories on an NTFS</li>
-     * <li>Local or remote printers</li>
-     * <li>Local or remote Windows services</li>
-     * <li>Network shares</li>
-     * <li>Registry keys</li>
-     * <li>Semaphores, events, mutexes, and waitable timers</li>
-     * <li>File-mapping objects</li>
-     * <li>Directory service objects</li>
-     * </ul>
-     * The <b>SetNamedSecurityInfo</b> function does not reorder access-allowed or access-denied ACEs based on the preferred order. When propagating inheritable ACEs to existing child objects, <b>SetNamedSecurityInfo</b> puts inherited ACEs in order after all of the noninherited ACEs in the DACLs of the child objects.
-     * 
-     * This function transfers information in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>. The information transferred by this function is signed unless signing has been turned off for the system, but no encryption is performed.  
-     * 
-     * When you update access rights of a folder indicated by an UNC   path, for example \\Test\TestFolder, the original inherited ACE is removed and the full volume path is not included.
+     * Sets specified security information in the security descriptor of a specified object.
      * @param {Pointer<Char>} pObjectName A pointer to a <b>null</b>-terminated string that specifies the name of the object for which to set security information. This can be the name of a local or remote file or directory on an NTFS file system, network share, registry key, semaphore, event, mutex, file mapping, or waitable timer. 
      * 
      * 
@@ -3090,7 +2759,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfow
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setnamedsecurityinfow
      * @since windows5.1.2600
      */
     static SetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
@@ -3102,33 +2771,6 @@ class Authorization {
 
     /**
      * Sets specified security information in the security descriptor of a specified object. The caller identifies the object by a handle.
-     * @remarks
-     * If you are setting the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) or any elements in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of an object, the system automatically propagates any inheritable <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) to existing child objects, according to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-inheritance-rules">ACE inheritance rules</a>.
-     * 
-     * 
-     * You can use the <b>SetSecurityInfo</b> function with the following types of objects:
-     * 
-     * <ul>
-     * <li>Local or remote files or directories on an NTFS</li>
-     * <li>Named pipes</li>
-     * <li>Local or remote printers</li>
-     * <li>Local or remote Windows services</li>
-     * <li>Network shares</li>
-     * <li>Registry keys</li>
-     * <li>Semaphores, events, mutexes, and waitable timers</li>
-     * <li>Processes, threads, jobs, and file-mapping objects</li>
-     * <li>Window stations and desktops</li>
-     * <li>Directory service objects</li>
-     * </ul>
-     * 
-     * 
-     * The <b>SetSecurityInfo</b> function does not reorder access-allowed or access-denied ACEs based on the preferred order. When propagating inheritable ACEs to existing child objects, <b>SetSecurityInfo</b> puts inherited ACEs in order after all of the noninherited ACEs in the DACLs of the child objects.
-     * 
-     * <div class="alert"><b>Note</b>  If share access to the children of the object is not available, this function will not propagate unprotected ACEs to the children. For example, if a directory is opened with exclusive access, the operating system will not propagate unprotected ACEs to the subdirectories or files of that directory when the security on the directory is changed.</div>
-     * <div> </div>
-     * <div class="alert"><b>Warning</b>  If the supplied <i>handle</i> was opened with an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> value of <b>MAXIMUM_ALLOWED</b>, then the <b>SetSecurityInfo</b> function will not propagate ACEs to children.</div>
-     * <div> </div>
      * @param {Pointer<Void>} handle A handle to the object for which to set security information.
      * @param {Integer} ObjectType A member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object identified by the <i>handle</i> parameter.
@@ -3142,7 +2784,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-setsecurityinfo
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setsecurityinfo
      * @since windows5.1.2600
      */
     static SetSecurityInfo(handle, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
@@ -3151,19 +2793,7 @@ class Authorization {
     }
 
     /**
-     * Returns information about the source of inherited access control entries (ACEs) in an access control list (ACL). (ANSI)
-     * @remarks
-     * The <b>GetInheritanceSource</b> function allocates memory for the names returned in the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structure. When the function has finished using this memory, the calling program must free it by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-freeinheritedfromarray">FreeInheritedFromArray</a>. Note that the caller must provide memory for the array itself. If the caller allocated the memory, the caller must free that memory after calling <b>FreeInheritedFromArray</b>.
-     * 
-     * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>, then this function could fail.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetInheritanceSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns information about the source of inherited access control entries (ACEs) in an access control list (ACL).
      * @param {Pointer<Byte>} pObjectName A pointer to the name of the object that uses the ACL to be checked.
      * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
@@ -3177,7 +2807,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getinheritancesourcea
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getinheritancesourcea
      * @since windows5.1.2600
      */
     static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
@@ -3188,19 +2818,7 @@ class Authorization {
     }
 
     /**
-     * Returns information about the source of inherited access control entries (ACEs) in an access control list (ACL). (Unicode)
-     * @remarks
-     * The <b>GetInheritanceSource</b> function allocates memory for the names returned in the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structure. When the function has finished using this memory, the calling program must free it by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-freeinheritedfromarray">FreeInheritedFromArray</a>. Note that the caller must provide memory for the array itself. If the caller allocated the memory, the caller must free that memory after calling <b>FreeInheritedFromArray</b>.
-     * 
-     * This function does not handle race conditions. If your thread calls this function at the approximate time that another thread changes the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>, then this function could fail.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetInheritanceSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns information about the source of inherited access control entries (ACEs) in an access control list (ACL).
      * @param {Pointer<Char>} pObjectName A pointer to the name of the object that uses the ACL to be checked.
      * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
@@ -3214,7 +2832,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-getinheritancesourcew
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getinheritancesourcew
      * @since windows5.1.2600
      */
     static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
@@ -3232,7 +2850,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-freeinheritedfromarray
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-freeinheritedfromarray
      * @since windows5.1.2600
      */
     static FreeInheritedFromArray(pInheritArray, AceCnt, pfnArray) {
@@ -3241,23 +2859,7 @@ class Authorization {
     }
 
     /**
-     * Resets specified security information in the security descriptor of a specified tree of objects. (ANSI)
-     * @remarks
-     * Setting a <b>NULL</b> owner, group, DACL, or SACL is not supported by this function.
-     * 
-     * If the caller does not contain the proper privileges and permissions to support the requested owner, group, DACL, and SACL updates, then none of the updates are performed.
-     * 
-     * This function is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa">TreeSetNamedSecurityInfo</a> function:
-     * 
-     * <ul>
-     * <li>If the <i>KeepExplicit</i> parameter of <b>TreeResetNamedSecurityInfo</b> is set to <b>TRUE</b>, then the function is equivalent to  <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa">TreeSetNamedSecurityInfo</a> with the  <i>dwAction</i> parameter set to  TREE_SEC_INFO_RESET_KEEP_EXPLICIT.</li>
-     * <li>If the <i>KeepExplicit</i> parameter of <b>TreeResetNamedSecurityInfo</b> is set to <b>FALSE</b>, then the function is equivalent to  <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa">TreeSetNamedSecurityInfo</a> with the  <i>dwAction</i> parameter set to  TREE_SEC_INFO_RESET.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines TreeResetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Resets specified security information in the security descriptor of a specified tree of objects.
      * @param {Pointer<Byte>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
@@ -3278,7 +2880,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-treeresetnamedsecurityinfoa
      * @since windows5.1.2600
      */
     static TreeResetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
@@ -3289,23 +2891,7 @@ class Authorization {
     }
 
     /**
-     * Resets specified security information in the security descriptor of a specified tree of objects. (Unicode)
-     * @remarks
-     * Setting a <b>NULL</b> owner, group, DACL, or SACL is not supported by this function.
-     * 
-     * If the caller does not contain the proper privileges and permissions to support the requested owner, group, DACL, and SACL updates, then none of the updates are performed.
-     * 
-     * This function is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa">TreeSetNamedSecurityInfo</a> function:
-     * 
-     * <ul>
-     * <li>If the <i>KeepExplicit</i> parameter of <b>TreeResetNamedSecurityInfo</b> is set to <b>TRUE</b>, then the function is equivalent to  <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa">TreeSetNamedSecurityInfo</a> with the  <i>dwAction</i> parameter set to  TREE_SEC_INFO_RESET_KEEP_EXPLICIT.</li>
-     * <li>If the <i>KeepExplicit</i> parameter of <b>TreeResetNamedSecurityInfo</b> is set to <b>FALSE</b>, then the function is equivalent to  <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa">TreeSetNamedSecurityInfo</a> with the <i>dwAction</i> parameter set to  TREE_SEC_INFO_RESET.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines TreeResetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Resets specified security information in the security descriptor of a specified tree of objects.
      * @param {Pointer<Char>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
@@ -3326,7 +2912,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treeresetnamedsecurityinfow
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-treeresetnamedsecurityinfow
      * @since windows5.1.2600
      */
     static TreeResetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
@@ -3337,25 +2923,7 @@ class Authorization {
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified tree of objects. (ANSI)
-     * @remarks
-     * Setting a <b>NULL</b> owner, group, DACL, or SACL is not supported by this function.
-     * 
-     * If the caller does not contain the proper privileges and permissions to support the requested owner, group, DACL, and SACL updates, then none of the updates is performed.
-     * 
-     * This function provides the same functionality as the <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setnamedsecurityinfoa">SetNamedSecurityInfo</a> function when the value of the <i>dwAction</i> parameter is set to <b>TREE_SEC_INFO_SET</b>, the value of the <i>ProgressInvokeSetting</i> parameter is set to <b>ProgressInvokePrePostError</b>, and the function pointed to by the <i>fnProgress</i> parameter sets the value of its <i>pInvokeSetting</i> parameter to <b>ProgressInvokePrePostError</b>.
-     * 
-     * This function is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa">TreeResetNamedSecurityInfo</a> function:
-     * 
-     * <ul>
-     * <li>If the <i>dwAction</i> parameter of <b>TreeSetNamedSecurityInfo</b> is set to TREE_SEC_INFO_RESET_KEEP_EXPLICIT, then the function is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa">TreeResetNamedSecurityInfo</a> with the <i>KeepExplicit</i> parameter set to <b>TRUE</b>.</li>
-     * <li>If the <i>dwAction</i> parameter of <b>TreeSetNamedSecurityInfo</b> is set to TREE_SEC_INFO_RESET, then the function is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa">TreeResetNamedSecurityInfo</a> with the <i>KeepExplicit</i> parameter set to <b>FALSE</b>.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines TreeSetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets specified security information in the security descriptor of a specified tree of objects.
      * @param {Pointer<Byte>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
@@ -3376,7 +2944,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-treesetnamedsecurityinfoa
      * @since windows6.0.6000
      */
     static TreeSetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
@@ -3387,25 +2955,7 @@ class Authorization {
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified tree of objects. (Unicode)
-     * @remarks
-     * Setting a <b>NULL</b> owner, group, DACL, or SACL is not supported by this function.
-     * 
-     * If the caller does not contain the proper privileges and permissions to support the requested owner, group, DACL, and SACL updates, then none of the updates is performed.
-     * 
-     * This function provides the same functionality as the <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setnamedsecurityinfoa">SetNamedSecurityInfo</a> function when the value of the <i>dwAction</i> parameter is set to <b>TREE_SEC_INFO_SET</b>, the value of the <i>ProgressInvokeSetting</i> parameter is set to <b>ProgressInvokePrePostError</b>, and the function pointed to by the <i>fnProgress</i> parameter sets the value of its <i>pInvokeSetting</i> parameter to <b>ProgressInvokePrePostError</b>.
-     * 
-     * This function is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa">TreeResetNamedSecurityInfo</a> function:
-     * 
-     * <ul>
-     * <li>If the <i>dwAction</i> parameter of <b>TreeSetNamedSecurityInfo</b> is set to TREE_SEC_INFO_RESET_KEEP_EXPLICIT, then the function is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa">TreeResetNamedSecurityInfo</a> with the <i>KeepExplicit</i> parameter set to <b>TRUE</b>.</li>
-     * <li>If the <i>dwAction</i> parameter of <b>TreeSetNamedSecurityInfo</b> is set to TREE_SEC_INFO_RESET, then the function is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-treeresetnamedsecurityinfoa">TreeResetNamedSecurityInfo</a> with the <i>KeepExplicit</i> parameter set to <b>FALSE</b>.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines TreeSetNamedSecurityInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets specified security information in the security descriptor of a specified tree of objects.
      * @param {Pointer<Char>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
@@ -3426,7 +2976,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfow
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-treesetnamedsecurityinfow
      * @since windows6.0.6000
      */
     static TreeSetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
@@ -3437,16 +2987,7 @@ class Authorization {
     }
 
     /**
-     * Allocates and initializes a new security descriptor. (ANSI)
-     * @remarks
-     * The <b>BuildSecurityDescriptor</b> function is intended for trusted servers that implement or expose security on their own objects. The function uses self-relative security descriptors suitable for serializing into a stream and storing to disk, as a trusted server might require.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines BuildSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Allocates and initializes a new security descriptor.
      * @param {Pointer<TRUSTEE_A>} pOwner A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the owner for the new security descriptor. If the structure uses the TRUSTEE_IS_NAME form, <b>BuildSecurityDescriptor</b> looks up the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) associated with the specified trustee name. 
@@ -3488,7 +3029,7 @@ class Authorization {
      * 						
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildsecuritydescriptora
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildsecuritydescriptora
      * @since windows5.1.2600
      */
     static BuildSecurityDescriptorA(pOwner, pGroup, cCountOfAccessEntries, pListOfAccessEntries, cCountOfAuditEntries, pListOfAuditEntries, pOldSD, pSizeNewSD, pNewSD) {
@@ -3497,16 +3038,7 @@ class Authorization {
     }
 
     /**
-     * Allocates and initializes a new security descriptor. (Unicode)
-     * @remarks
-     * The <b>BuildSecurityDescriptor</b> function is intended for trusted servers that implement or expose security on their own objects. The function uses self-relative security descriptors suitable for serializing into a stream and storing to disk, as a trusted server might require.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines BuildSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Allocates and initializes a new security descriptor.
      * @param {Pointer<TRUSTEE_W>} pOwner A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the owner for the new security descriptor. If the structure uses the TRUSTEE_IS_NAME form, <b>BuildSecurityDescriptor</b> looks up the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) associated with the specified trustee name. 
@@ -3548,7 +3080,7 @@ class Authorization {
      * 						
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildsecuritydescriptorw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildsecuritydescriptorw
      * @since windows5.1.2600
      */
     static BuildSecurityDescriptorW(pOwner, pGroup, cCountOfAccessEntries, pListOfAccessEntries, cCountOfAuditEntries, pListOfAuditEntries, pOldSD, pSizeNewSD, pNewSD) {
@@ -3557,22 +3089,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves security information from a self-relative security descriptor. (ANSI)
-     * @remarks
-     * The <b>LookupSecurityDescriptorParts</b> function retrieves the names of the owner and primary group of the security descriptor. This function also returns descriptions of the ACEs in the DACL and audit-control entries in the SACL of the security descriptor.
-     * 
-     * The parameters other than <i>pSD</i> can be <b>NULL</b> if you are not interested in the information. If you do not want information about the DACL, both <i>pListOfAccessEntries</i> and <i>cCountOfAuditEntries</i> must be <b>NULL</b>. If you do not want information about the SACL, both <i>pListOfAuditEntries</i> and <i>cCountOfAuditEntries</i> must be <b>NULL</b>. Similarly, if you do want DACL or SACL information, both of the corresponding parameters must not be <b>NULL</b>.
-     * 
-     * When you have finished using any of the buffers returned by the <i>pOwner</i>, <i>pGroup</i>, <i>pListOfAccessEntries</i>, or <i>pListOfAuditEntries</i> parameters, free them by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * 
-     * The <b>LookupSecurityDescriptorParts</b> function is intended for trusted servers that implement or expose security on their own objects. The function works with a self-relative security descriptor suitable for serializing into a stream and storing to disk, as a trusted server might require.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines LookupSecurityDescriptorParts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves security information from a self-relative security descriptor.
      * @param {Pointer<TRUSTEE_A>} ppOwner A pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the owner 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID)  in the <i>pSD</i> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME. 
@@ -3599,7 +3116,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-lookupsecuritydescriptorpartsa
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-lookupsecuritydescriptorpartsa
      * @since windows5.1.2600
      */
     static LookupSecurityDescriptorPartsA(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
@@ -3608,22 +3125,7 @@ class Authorization {
     }
 
     /**
-     * Retrieves security information from a self-relative security descriptor. (Unicode)
-     * @remarks
-     * The <b>LookupSecurityDescriptorParts</b> function retrieves the names of the owner and primary group of the security descriptor. This function also returns descriptions of the ACEs in the DACL and audit-control entries in the SACL of the security descriptor.
-     * 
-     * The parameters other than <i>pSD</i> can be <b>NULL</b> if you are not interested in the information. If you do not want information about the DACL, both <i>pListOfAccessEntries</i> and <i>cCountOfAuditEntries</i> must be <b>NULL</b>. If you do not want information about the SACL, both <i>pListOfAuditEntries</i> and <i>cCountOfAuditEntries</i> must be <b>NULL</b>. Similarly, if you do want DACL or SACL information, both of the corresponding parameters must not be <b>NULL</b>.
-     * 
-     * When you have finished using any of the buffers returned by the <i>pOwner</i>, <i>pGroup</i>, <i>pListOfAccessEntries</i>, or <i>pListOfAuditEntries</i> parameters, free them by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * 
-     * The <b>LookupSecurityDescriptorParts</b> function is intended for trusted servers that implement or expose security on their own objects. The function works with a self-relative security descriptor suitable for serializing into a stream and storing to disk, as a trusted server might require.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines LookupSecurityDescriptorParts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves security information from a self-relative security descriptor.
      * @param {Pointer<TRUSTEE_W>} ppOwner A pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the owner 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID)  in the <i>pSD</i> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME. 
@@ -3650,7 +3152,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-lookupsecuritydescriptorpartsw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-lookupsecuritydescriptorpartsw
      * @since windows5.1.2600
      */
     static LookupSecurityDescriptorPartsW(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
@@ -3659,10 +3161,12 @@ class Authorization {
     }
 
     /**
-     * Initializes an EXPLICIT_ACCESS structure with data specified by the caller. The trustee is identified by a name string. (ANSI)
+     * Initializes an EXPLICIT_ACCESS structure with data specified by the caller. The trustee is identified by a name string.
      * @remarks
+     * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildExplicitAccessWithName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<EXPLICIT_ACCESS_A>} pExplicitAccess A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure to initialize. The <b>BuildExplicitAccessWithName</b> function does not allocate any memory. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} pTrusteeName A pointer to a <b>null</b>-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the 
@@ -3726,7 +3230,7 @@ class Authorization {
      * @param {Integer} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildexplicitaccesswithnamea
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildexplicitaccesswithnamea
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
@@ -3736,10 +3240,12 @@ class Authorization {
     }
 
     /**
-     * Initializes an EXPLICIT_ACCESS structure with data specified by the caller. The trustee is identified by a name string. (Unicode)
+     * Initializes an EXPLICIT_ACCESS structure with data specified by the caller. The trustee is identified by a name string.
      * @remarks
+     * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildExplicitAccessWithName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pExplicitAccess A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure to initialize. The <b>BuildExplicitAccessWithName</b> function does not allocate any memory. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} pTrusteeName A pointer to a <b>null</b>-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the 
@@ -3803,7 +3309,7 @@ class Authorization {
      * @param {Integer} Inheritance Specifies an inheritance type for the <b>grfInheritance</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure. This value is a set of bit flags that determine whether other containers or objects can inherit the ACE from the primary object to which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is attached. The value of this member corresponds to the inheritance portion (low-order byte) of the <b>AceFlags</b> member of the
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildexplicitaccesswithnamew
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildexplicitaccesswithnamew
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
@@ -3845,10 +3351,12 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure. The caller specifies the trustee name. The function sets other members of the structure to default values. (ANSI)
+     * Initializes a TRUSTEE structure. The caller specifies the trustee name. The function sets other members of the structure to default values.
      * @remarks
+     * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithName</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<Byte>} pName A pointer to a null-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildTrusteeWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
@@ -3904,7 +3412,7 @@ class Authorization {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithnamea
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithnamea
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameA(pTrustee, pName) {
@@ -3914,10 +3422,12 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure. The caller specifies the trustee name. The function sets other members of the structure to default values. (Unicode)
+     * Initializes a TRUSTEE structure. The caller specifies the trustee name. The function sets other members of the structure to default values.
      * @remarks
+     * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithName</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<Char>} pName A pointer to a null-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildTrusteeWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
@@ -3973,7 +3483,7 @@ class Authorization {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithnamew
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithnamew
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameW(pTrustee, pName) {
@@ -4003,10 +3513,12 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure. The caller specifies the security identifier (SID) of the trustee. The function sets other members of the structure to default values and does not look up the name associated with the SID. (ANSI)
+     * Initializes a TRUSTEE structure. The caller specifies the security identifier (SID) of the trustee. The function sets other members of the structure to default values and does not look up the name associated with the SID.
      * @remarks
+     * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<Void>} pSid A pointer to a 
@@ -4063,7 +3575,7 @@ class Authorization {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsida
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithsida
      * @since windows5.1.2600
      */
     static BuildTrusteeWithSidA(pTrustee, pSid) {
@@ -4071,10 +3583,12 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure. The caller specifies the security identifier (SID) of the trustee. The function sets other members of the structure to default values and does not look up the name associated with the SID. (Unicode)
+     * Initializes a TRUSTEE structure. The caller specifies the security identifier (SID) of the trustee. The function sets other members of the structure to default values and does not look up the name associated with the SID.
      * @remarks
+     * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<Void>} pSid A pointer to a 
@@ -4131,7 +3645,7 @@ class Authorization {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithsidw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithsidw
      * @since windows5.1.2600
      */
     static BuildTrusteeWithSidW(pTrustee, pSid) {
@@ -4139,8 +3653,9 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values. (ANSI)
+     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values.
      * @remarks
+     * 
      * This function does not allocate memory for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_sid">OBJECTS_AND_SID</a> structures.
@@ -4154,6 +3669,8 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithObjectsAndSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
+     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithObjectsAndSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_SID>} pObjSid A pointer to an 
@@ -4164,7 +3681,7 @@ class Authorization {
      * @param {Pointer<Void>} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsida
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandsida
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndSidA(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, pSid) {
@@ -4172,8 +3689,9 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values. (Unicode)
+     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values.
      * @remarks
+     * 
      * This function does not allocate memory for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_sid">OBJECTS_AND_SID</a> structures.
@@ -4187,6 +3705,8 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithObjectsAndSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
+     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithObjectsAndSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_SID>} pObjSid A pointer to an 
@@ -4197,7 +3717,7 @@ class Authorization {
      * @param {Pointer<Void>} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandsidw
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandsidw
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndSidW(pTrustee, pObjSid, pObjectGuid, pInheritedObjectGuid, pSid) {
@@ -4205,8 +3725,9 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values. The caller also specifies the name of the trustee. (ANSI)
+     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values. The caller also specifies the name of the trustee.
      * @remarks
+     * 
      * This function does not allocate memory for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structures.
@@ -4219,6 +3740,8 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithObjectsAndName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
+     * 
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that will be initialized by this function. If the value of this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_NAME_A>} pObjName A pointer to an 
@@ -4230,7 +3753,7 @@ class Authorization {
      * @param {Pointer<Byte>} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
      * @param {Pointer<Byte>} Name A pointer to a string that specifies the name used to identify the trustee.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandnamea
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandnamea
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndNameA(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
@@ -4242,8 +3765,9 @@ class Authorization {
     }
 
     /**
-     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values. The caller also specifies the name of the trustee. (Unicode)
+     * Initializes a TRUSTEE structure with the object-specific access control entry (ACE) information and initializes the remaining members of the structure to default values. The caller also specifies the name of the trustee.
      * @remarks
+     * 
      * This function does not allocate memory for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structures.
@@ -4256,6 +3780,8 @@ class Authorization {
      * 
      * > [!NOTE]
      * > The aclapi.h header defines BuildTrusteeWithObjectsAndName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
+     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that will be initialized by this function. If the value of this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
      * @param {Pointer<OBJECTS_AND_NAME_W>} pObjName A pointer to an 
@@ -4267,7 +3793,7 @@ class Authorization {
      * @param {Pointer<Char>} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
      * @param {Pointer<Char>} Name A pointer to a string that specifies the name used to identify the trustee.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-buildtrusteewithobjectsandnamew
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandnamew
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndNameW(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
@@ -4279,22 +3805,13 @@ class Authorization {
     }
 
     /**
-     * Retrieves the trustee name from the specified TRUSTEE structure. (ANSI)
-     * @remarks
-     * The <b>GetTrusteeName</b> function does not allocate any memory.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetTrusteeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the trustee name from the specified TRUSTEE structure.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer<Byte>} If the <b>TrusteeForm</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
+     * @returns {Pointer<Byte>} If the <b>TrusteeForm</b> member of the <a href="/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
      * 
-     * If the <b>TrusteeForm</b> member is TRUSTEE_IS_SID, the return value is <b>NULL</b>. The function does not look up the name associated with a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteenamea
+     * If the <b>TrusteeForm</b> member is TRUSTEE_IS_SID, the return value is <b>NULL</b>. The function does not look up the name associated with a <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteenamea
      * @since windows5.1.2600
      */
     static GetTrusteeNameA(pTrustee) {
@@ -4303,22 +3820,13 @@ class Authorization {
     }
 
     /**
-     * Retrieves the trustee name from the specified TRUSTEE structure. (Unicode)
-     * @remarks
-     * The <b>GetTrusteeName</b> function does not allocate any memory.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The aclapi.h header defines GetTrusteeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the trustee name from the specified TRUSTEE structure.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer<Char>} If the <b>TrusteeForm</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
+     * @returns {Pointer<Char>} If the <b>TrusteeForm</b> member of the <a href="/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
      * 
-     * If the <b>TrusteeForm</b> member is TRUSTEE_IS_SID, the return value is <b>NULL</b>. The function does not look up the name associated with a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteenamew
+     * If the <b>TrusteeForm</b> member is TRUSTEE_IS_SID, the return value is <b>NULL</b>. The function does not look up the name associated with a <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteenamew
      * @since windows5.1.2600
      */
     static GetTrusteeNameW(pTrustee) {
@@ -4327,14 +3835,11 @@ class Authorization {
     }
 
     /**
-     * Retrieves the trustee type from the specified TRUSTEE structure. This value indicates whether the trustee is a user, a group, or the trustee type is unknown. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The aclapi.h header defines GetTrusteeType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the trustee type from the specified TRUSTEE structure. This value indicates whether the trustee is a user, a group, or the trustee type is unknown.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Integer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteetypea
+     * @returns {Integer} The return value is one of the constants from the <a href="/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteetypea
      * @since windows5.1.2600
      */
     static GetTrusteeTypeA(pTrustee) {
@@ -4343,14 +3848,11 @@ class Authorization {
     }
 
     /**
-     * Retrieves the trustee type from the specified TRUSTEE structure. This value indicates whether the trustee is a user, a group, or the trustee type is unknown. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The aclapi.h header defines GetTrusteeType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the trustee type from the specified TRUSTEE structure. This value indicates whether the trustee is a user, a group, or the trustee type is unknown.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Integer} The return value is one of the constants from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteetypew
+     * @returns {Integer} The return value is one of the constants from the <a href="/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteetypew
      * @since windows5.1.2600
      */
     static GetTrusteeTypeW(pTrustee) {
@@ -4359,15 +3861,12 @@ class Authorization {
     }
 
     /**
-     * Retrieves the trustee name from the specified TRUSTEE structure. This value indicates whether the structure uses a name string or a security identifier (SID) to identify the trustee. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The aclapi.h header defines GetTrusteeForm as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the trustee name from the specified TRUSTEE structure. This value indicates whether the structure uses a name string or a security identifier (SID) to identify the trustee.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @returns {Integer} The return value is one of the constants from the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteeforma
+     * <a href="/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteeforma
      * @since windows5.1.2600
      */
     static GetTrusteeFormA(pTrustee) {
@@ -4376,15 +3875,12 @@ class Authorization {
     }
 
     /**
-     * Retrieves the trustee name from the specified TRUSTEE structure. This value indicates whether the structure uses a name string or a security identifier (SID) to identify the trustee. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The aclapi.h header defines GetTrusteeForm as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the trustee name from the specified TRUSTEE structure. This value indicates whether the structure uses a name string or a security identifier (SID) to identify the trustee.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @returns {Integer} The return value is one of the constants from the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-gettrusteeformw
+     * <a href="/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteeformw
      * @since windows5.1.2600
      */
     static GetTrusteeFormW(pTrustee) {
@@ -4433,24 +3929,14 @@ class Authorization {
     }
 
     /**
-     * Converts a security identifier (SID) to a string format suitable for display, storage, or transmission. (ANSI)
-     * @remarks
-     * The <b>ConvertSidToStringSid</b> function uses the standard S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings. For more information about SID string notation, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertSidToStringSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
      * @param {Pointer<Void>} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
      * @param {Pointer<Byte>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4491,7 +3977,7 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsidtostringsida
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertsidtostringsida
      * @since windows5.1.2600
      */
     static ConvertSidToStringSidA(Sid, StringSid) {
@@ -4505,24 +3991,14 @@ class Authorization {
     }
 
     /**
-     * Converts a security identifier (SID) to a string format suitable for display, storage, or transmission. (Unicode)
-     * @remarks
-     * The <b>ConvertSidToStringSid</b> function uses the standard S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings. For more information about SID string notation, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertSidToStringSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
      * @param {Pointer<Void>} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
      * @param {Pointer<Char>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4563,7 +4039,7 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsidtostringsidw
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertsidtostringsidw
      * @since windows5.1.2600
      */
     static ConvertSidToStringSidW(Sid, StringSid) {
@@ -4577,10 +4053,7 @@ class Authorization {
     }
 
     /**
-     * Converts a string-format security identifier (SID) into a valid, functional SID. You can use this function to retrieve a SID that the ConvertSidToStringSid function converted to string format. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertStringSidToSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a string-format security identifier (SID) into a valid, functional SID. You can use this function to retrieve a SID that the ConvertSidToStringSid function converted to string format.
      * @param {Pointer<Byte>} StringSid A pointer to a null-terminated string containing the string-format SID to convert. 
      * 
      * 
@@ -4592,7 +4065,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4622,7 +4095,7 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsidtosida
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertstringsidtosida
      * @since windows5.1.2600
      */
     static ConvertStringSidToSidA(StringSid, Sid) {
@@ -4638,10 +4111,7 @@ class Authorization {
     }
 
     /**
-     * Converts a string-format security identifier (SID) into a valid, functional SID. You can use this function to retrieve a SID that the ConvertSidToStringSid function converted to string format. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertStringSidToSid as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a string-format security identifier (SID) into a valid, functional SID. You can use this function to retrieve a SID that the ConvertSidToStringSid function converted to string format.
      * @param {Pointer<Char>} StringSid A pointer to a null-terminated string containing the string-format SID to convert. 
      * 
      * 
@@ -4653,7 +4123,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4683,7 +4153,7 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsidtosidw
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertstringsidtosidw
      * @since windows5.1.2600
      */
     static ConvertStringSidToSidW(StringSid, Sid) {
@@ -4699,17 +4169,7 @@ class Authorization {
     }
 
     /**
-     * Converts a string-format security descriptor into a valid, functional security descriptor. (ANSI)
-     * @remarks
-     * If <b>ace_type</b> is ACCESS_ALLOWED_OBJECT_ACE_TYPE
-     * and neither <b>object_guid</b> nor <b>inherit_object_guid</b> has a  <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> specified, then <b>ConvertStringSecurityDescriptorToSecurityDescriptor</b> converts <b>ace_type</b> to ACCESS_ALLOWED_ACE_TYPE. For information about the  <b>ace_type</b>,  <b>object_guid</b>, and <b>inherit_object_guid</b> fields, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-strings">Ace Strings</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertStringSecurityDescriptorToSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a string-format security descriptor into a valid, functional security descriptor.
      * @param {Pointer<Byte>} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
@@ -4720,7 +4180,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4756,12 +4216,12 @@ class Authorization {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
+     * A <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora
      * @since windows5.1.2600
      */
     static ConvertStringSecurityDescriptorToSecurityDescriptorA(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
@@ -4777,17 +4237,7 @@ class Authorization {
     }
 
     /**
-     * Converts a string-format security descriptor into a valid, functional security descriptor. (Unicode)
-     * @remarks
-     * If <b>ace_type</b> is ACCESS_ALLOWED_OBJECT_ACE_TYPE
-     * and neither <b>object_guid</b> nor <b>inherit_object_guid</b> has a  <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> specified, then <b>ConvertStringSecurityDescriptorToSecurityDescriptor</b> converts <b>ace_type</b> to ACCESS_ALLOWED_ACE_TYPE. For information about the  <b>ace_type</b>,  <b>object_guid</b>, and <b>inherit_object_guid</b> fields, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-strings">Ace Strings</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertStringSecurityDescriptorToSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a string-format security descriptor into a valid, functional security descriptor.
      * @param {Pointer<Char>} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
@@ -4798,7 +4248,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4834,12 +4284,12 @@ class Authorization {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
+     * A <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptorw
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptorw
      * @since windows5.1.2600
      */
     static ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
@@ -4855,19 +4305,7 @@ class Authorization {
     }
 
     /**
-     * Converts a security descriptor to a string format. You can use the string format to store or transmit the security descriptor. (ANSI)
-     * @remarks
-     * If the DACL is <b>NULL</b>, and the SE_DACL_PRESENT control bit is set in the input security descriptor, the function fails.
-     * 
-     * If the DACL is <b>NULL</b>, and the SE_DACL_PRESENT control bit is not set in the input security descriptor, the resulting security descriptor string does not have a D: component. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertSecurityDescriptorToStringSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a security descriptor to a string format. You can use the string format to store or transmit the security descriptor.
      * @param {Pointer<Void>} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
@@ -4882,7 +4320,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -4918,7 +4356,7 @@ class Authorization {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor could not be found in an account lookup operation.
+     * A <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor could not be found in an account lookup operation.
      * 
      * </td>
      * </tr>
@@ -4929,12 +4367,12 @@ class Authorization {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) is not valid. This error is returned if the SE_DACL_PRESENT flag is set in the input security descriptor and the DACL is <b>NULL</b>.
+     * The <a href="/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) is not valid. This error is returned if the SE_DACL_PRESENT flag is set in the input security descriptor and the DACL is <b>NULL</b>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptora
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptora
      * @since windows5.1.2600
      */
     static ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
@@ -4948,19 +4386,7 @@ class Authorization {
     }
 
     /**
-     * Converts a security descriptor to a string format. You can use the string format to store or transmit the security descriptor. (Unicode)
-     * @remarks
-     * If the DACL is <b>NULL</b>, and the SE_DACL_PRESENT control bit is set in the input security descriptor, the function fails.
-     * 
-     * If the DACL is <b>NULL</b>, and the SE_DACL_PRESENT control bit is not set in the input security descriptor, the resulting security descriptor string does not have a D: component. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertSecurityDescriptorToStringSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a security descriptor to a string format. You can use the string format to store or transmit the security descriptor.
      * @param {Pointer<Void>} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
@@ -4975,7 +4401,7 @@ class Authorization {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -5011,7 +4437,7 @@ class Authorization {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor could not be found in an account lookup operation.
+     * A <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor could not be found in an account lookup operation.
      * 
      * </td>
      * </tr>
@@ -5022,12 +4448,12 @@ class Authorization {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) is not valid. This error is returned if the SE_DACL_PRESENT flag is set in the input security descriptor and the DACL is <b>NULL</b>.
+     * The <a href="/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) is not valid. This error is returned if the SE_DACL_PRESENT flag is set in the input security descriptor and the DACL is <b>NULL</b>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptorw
+     * @see https://docs.microsoft.com/windows/win32/api//sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptorw
      * @since windows5.1.2600
      */
     static ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {

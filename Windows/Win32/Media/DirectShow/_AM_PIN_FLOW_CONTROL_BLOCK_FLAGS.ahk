@@ -2,7 +2,7 @@
 
 /**
  * Defines flags that specify how to block data flow from an output pin.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_pin_flow_control_block_flags
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_am_pin_flow_control_block_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

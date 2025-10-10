@@ -3,7 +3,7 @@
 
 /**
  * Query information about the amount of data streamed out to the stream-output buffers in between ID3D10Asynchronous::Begin and ID3D10Asynchronous::End.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_query_data_so_statistics
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_query_data_so_statistics
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

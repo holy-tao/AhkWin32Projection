@@ -4,10 +4,6 @@
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
- * The options for the WebAuthNAuthenticatorMakeCredential operation.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_make_credential_options
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -18,7 +14,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     static packingSize => 8
 
     /**
-     * Version of this structure.
      * @type {Integer}
      */
     dwVersion {
@@ -27,7 +22,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * Time that the operation is expected to complete within. This is used as guidance, and can be overridden by the platform.
      * @type {Integer}
      */
     dwTimeoutMilliseconds {
@@ -36,7 +30,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * Credentials used for exclusion.
      * @type {WEBAUTHN_CREDENTIALS}
      */
     CredentialList{
@@ -48,7 +41,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * _Optional_ extensions to parse when performing the operation.
      * @type {WEBAUTHN_EXTENSIONS}
      */
     Extensions{
@@ -60,7 +52,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * _Optional_ platform vs cross-platform authenticators.
      * @type {Integer}
      */
     dwAuthenticatorAttachment {
@@ -69,7 +60,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * Require key to be resident or not. This is _optional_ and defaults to **FALSE**.
      * @type {Integer}
      */
     bRequireResidentKey {
@@ -78,7 +68,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The user verification requirement.
      * @type {Integer}
      */
     dwUserVerificationRequirement {
@@ -87,7 +76,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The attestation conveyance preference.
      * @type {Integer}
      */
     dwAttestationConveyancePreference {
@@ -96,7 +84,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The flags (_reserved for future use_).
      * @type {Integer}
      */
     dwFlags {
@@ -105,7 +92,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The _optional_ cancellation Id.  See [WebAuthNGetCancellationId](./nf-webauthn-webauthngetcancellationid.md) for more information.
      * @type {Pointer<Guid>}
      */
     pCancellationId {
@@ -114,7 +100,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The exclude credential list. If present, **CredentialList** will be ignored.
      * @type {Pointer<WEBAUTHN_CREDENTIAL_LIST>}
      */
     pExcludeCredentialList {
@@ -123,7 +108,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The enterprise attestation.
      * @type {Integer}
      */
     dwEnterpriseAttestation {
@@ -132,7 +116,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * The requested large blob support: **none**, **required** or **preferred**. User will receive **NTE_INVALID_PARAMETER** when large blob is set to **required** or **preferred** and **bRequireResidentKey** isn't set to **TRUE**.
      * @type {Integer}
      */
     dwLargeBlobSupport {
@@ -141,7 +124,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * Prefer key to be resident. Optional parameter, defaulting to **FALSE**. When **TRUE**, overrides **bRequireResidentKey**.
      * @type {Integer}
      */
     bPreferResidentKey {
@@ -150,7 +132,6 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * Indicates whether the client is using in-private mode in the browser. An _optional_ parameter that defaults to **FALSE**.
      * @type {Integer}
      */
     bBrowserInPrivateMode {

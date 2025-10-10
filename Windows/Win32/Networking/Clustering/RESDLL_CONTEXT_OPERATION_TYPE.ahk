@@ -2,7 +2,7 @@
 
 /**
  * Specifies the various types of context operations for the GET_OPERATION_CONTEXT_PARAMS structure.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-resdll_context_operation_type
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ne-resapi-resdll_context_operation_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The HANDLETABLE structure is an array of handles, each of which identifies a graphics device interface (GDI) object.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-handletable
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-handletable
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

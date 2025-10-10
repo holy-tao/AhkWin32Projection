@@ -3,7 +3,7 @@
 
 /**
  * The DD_SYNCVIDEOPORTDATA structure contains the video port extensions (VPE) object information.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_syncvideoportdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_syncvideoportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

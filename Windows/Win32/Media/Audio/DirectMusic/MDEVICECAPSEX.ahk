@@ -3,7 +3,7 @@
 
 /**
  * The MDEVICECAPSEX structure contains device capability information for Plug and Play (PnP) device drivers.
- * @see https://learn.microsoft.com/windows/win32/api/mmddk/ns-mmddk-mdevicecapsex
+ * @see https://docs.microsoft.com/windows/win32/api//mmddk/ns-mmddk-mdevicecapsex
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  * @version v4.0.30319
  */

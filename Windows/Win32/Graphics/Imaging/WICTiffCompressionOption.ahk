@@ -2,7 +2,7 @@
 
 /**
  * Specifies the Tagged Image File Format (TIFF) compression options.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wictiffcompressionoption
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wictiffcompressionoption
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

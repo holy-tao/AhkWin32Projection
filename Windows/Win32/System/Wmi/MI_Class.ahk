@@ -4,8 +4,11 @@
 /**
  * Represents the schema of an instance.
  * @remarks
- * The <b>MI_Class</b> object represents the schema of an instance.  Classes can be retrieved from the server, and instances can be queried for the <b>MI_Class</b> object.  Use the <b>MI_Class</b> APIs rather than navigating the structures themselves.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_class
+ * 
+  * The <b>MI_Class</b> object represents the schema of an instance.  Classes can be retrieved from the server, and instances can be queried for the <b>MI_Class</b> object.  Use the <b>MI_Class</b> APIs rather than navigating the structures themselves.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_class
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

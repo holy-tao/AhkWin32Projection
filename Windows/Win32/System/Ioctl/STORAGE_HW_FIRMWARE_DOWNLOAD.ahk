@@ -3,7 +3,7 @@
 
 /**
  * This structure contains a firmware image payload to be downloaded to the target.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_download
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_hw_firmware_download
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

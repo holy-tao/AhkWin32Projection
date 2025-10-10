@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_ISCSI_SHARED_SECRET structure (vdshwprv.h) defines a CHAP shared secret.
+ * Defines a CHAP shared secret.
  * @remarks
- * This structure is used by the following methods: 
+ * 
+  * This structure is used by the following methods: 
   * 
   * <ul>
   * <li>
@@ -19,7 +20,9 @@
   * For one-way CHAP, the secret is set on the target. The initiator must remember the CHAP secret of the target in order to do a successful login. 
   * 
   * For mutual CHAP, secrets are set on the target and the initiator. To do a successful login, the target and the initiator must remember each other's secrets.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_shared_secret
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_iscsi_shared_secret
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The DISPLAYCONFIG_MODE_INFO_TYPE enumeration specifies that the information that is contained within the DISPLAYCONFIG_MODE_INFO structure is either source or target mode.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_mode_info_type
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_mode_info_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

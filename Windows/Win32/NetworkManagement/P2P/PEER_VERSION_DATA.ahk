@@ -3,7 +3,7 @@
 
 /**
  * The PEER_VERSION_DATA structure contains the version information about the Peer Graphing and Grouping APIs.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_version_data
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_version_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The DISPLAYCONFIG_SCANLINE_ORDERING enumeration specifies the method that the display uses to create an image on a screen.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_scanline_ordering
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_scanline_ordering
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

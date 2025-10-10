@@ -2,7 +2,7 @@
 
 /**
  * Lists the type of logon profile returned.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-kerb_profile_buffer_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-kerb_profile_buffer_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

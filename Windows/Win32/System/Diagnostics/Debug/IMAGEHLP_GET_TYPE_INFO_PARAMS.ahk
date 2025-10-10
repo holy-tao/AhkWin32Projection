@@ -3,7 +3,7 @@
 
 /**
  * Contains type information for a module.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_get_type_info_params
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-imagehlp_get_type_info_params
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Supplies data about a port type.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_port_type
+ * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_port_type
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

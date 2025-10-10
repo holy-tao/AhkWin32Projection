@@ -2,7 +2,7 @@
 
 /**
  * Used with the IBrowserService2::_UIActivateView method to set the state of a browser view.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-svuia_status
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-svuia_status
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

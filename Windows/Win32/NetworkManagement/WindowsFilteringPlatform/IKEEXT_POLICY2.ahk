@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Is used to store the IKE/AuthIP main mode negotiation policy. (IKEEXT_POLICY2)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_policy2
+ * Is used to store the IKE/AuthIP main mode negotiation policy.
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_policy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

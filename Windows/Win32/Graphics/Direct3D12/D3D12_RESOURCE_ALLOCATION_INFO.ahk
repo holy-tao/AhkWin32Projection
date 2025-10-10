@@ -4,8 +4,11 @@
 /**
  * Describes parameters needed to allocate resources.
  * @remarks
- * This structure is used by the [ID3D12Device::GetResourceAllocationInfo](./nf-d3d12-id3d12device-getresourceallocationinfo.md) and [ID3D12Device::GetResourceAllocationInfo1](./nf-d3d12-id3d12device4-getresourceallocationinfo1.md) methods.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_allocation_info
+ * 
+  * This structure is used by the [ID3D12Device::GetResourceAllocationInfo](./nf-d3d12-id3d12device-getresourceallocationinfo.md) and [ID3D12Device::GetResourceAllocationInfo1](./nf-d3d12-id3d12device4-getresourceallocationinfo1.md) methods.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_resource_allocation_info
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

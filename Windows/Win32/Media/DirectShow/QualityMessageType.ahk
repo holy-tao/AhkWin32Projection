@@ -2,7 +2,7 @@
 
 /**
  * Describes a quality message type.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-qualitymessagetype
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-qualitymessagetype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

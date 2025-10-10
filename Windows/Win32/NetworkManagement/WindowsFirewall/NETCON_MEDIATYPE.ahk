@@ -2,7 +2,7 @@
 
 /**
  * The values of the NETCON_MEDIATYPE enumerate the possible ways the computer connects to the network.
- * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_mediatype
+ * @see https://docs.microsoft.com/windows/win32/api//netcon/ne-netcon-netcon_mediatype
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

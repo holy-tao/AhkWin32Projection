@@ -2,7 +2,7 @@
 
 /**
  * Specifies the state of an application installation.
- * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sl_genuine_state
+ * @see https://docs.microsoft.com/windows/win32/api//slpublic/ne-slpublic-sl_genuine_state
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

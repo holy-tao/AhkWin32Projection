@@ -2,7 +2,7 @@
 
 /**
  * Duplication flags for use by PssDuplicateSnapshot.
- * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_duplicate_flags
+ * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ne-processsnapshot-pss_duplicate_flags
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */

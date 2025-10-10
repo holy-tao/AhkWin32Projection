@@ -3,7 +3,7 @@
 
 /**
  * A support structure used in the MI_ParameterSet structure. Use the functions with the name prefix MI_ParameterSet_ to manipulate these structures.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_parametersetft
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_parametersetft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

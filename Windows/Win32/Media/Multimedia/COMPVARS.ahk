@@ -4,8 +4,11 @@
 /**
  * The COMPVARS structure describes compressor settings for functions such as ICCompressorChoose, ICSeqCompressFrame, and ICCompressorFree.
  * @remarks
- * You can let <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-iccompressorchoose">ICCompressorChoose</a> fill the contents of this structure or you can do it manually. If you manually fill the structure, you must provide information for the following members: <b>cbSize</b>, <b>hic</b>, <b>lpbiOut</b>, <b>lKey</b>, and <b>lQ</b>. Also, you must set the <b>ICMF_COMPVARS_VALID</b> flag in the <b>dwFlags</b> member.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-compvars
+ * 
+  * You can let <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-iccompressorchoose">ICCompressorChoose</a> fill the contents of this structure or you can do it manually. If you manually fill the structure, you must provide information for the following members: <b>cbSize</b>, <b>hic</b>, <b>lpbiOut</b>, <b>lKey</b>, and <b>lQ</b>. Also, you must set the <b>ICMF_COMPVARS_VALID</b> flag in the <b>dwFlags</b> member.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-compvars
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

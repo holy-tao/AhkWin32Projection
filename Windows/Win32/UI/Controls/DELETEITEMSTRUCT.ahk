@@ -3,7 +3,7 @@
 
 /**
  * Describes a deleted list box or combo box item.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-deleteitemstruct
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-deleteitemstruct
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

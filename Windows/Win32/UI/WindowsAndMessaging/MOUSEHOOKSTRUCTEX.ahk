@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a mouse event passed to a WH_MOUSE hook procedure, MouseProc. This is an extension of the MOUSEHOOKSTRUCT structure that includes information about wheel movement or the use of the X button.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousehookstructex
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-mousehookstructex
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

@@ -6,8 +6,10 @@
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.
  * @remarks
- * The value your application returns depends on the current drawing stage. The <b>dwDrawStage</b> member of the associated <b>NMCUSTOMDRAW</b> structure holds a value that specifies the drawing stage. When the <b>dwDrawStage</b> member equals CDDS_PREPAINT and CDDS_PREERASE, some controls send the CDDS_PREERASE message first and expect the return value to indicate which subsequent messages will be sent. For a code sample that illustrates states and drawing stages, see <a href="https://docs.microsoft.com/windows/desktop/Controls/custom-draw">Customizing a Control's Appearance Using Custom Draw</a>.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomdraw
+ * 
+  * The value your application returns depends on the current drawing stage. The <b>dwDrawStage</b> member of the associated <b>NMCUSTOMDRAW</b> structure holds a value that specifies the drawing stage. When the <b>dwDrawStage</b> member equals CDDS_PREPAINT and CDDS_PREERASE, some controls send the CDDS_PREERASE message first and expect the return value to indicate which subsequent messages will be sent. For a code sample that illustrates states and drawing stages, see <a href="https://docs.microsoft.com/windows/desktop/Controls/custom-draw">Customizing a Control's Appearance Using Custom Draw</a>.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmcustomdraw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

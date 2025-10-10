@@ -2,7 +2,7 @@
 
 /**
  * Identifies the type of UI component that is needed in the shell.
- * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/ne-shellscalingapi-shell_ui_component
+ * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/ne-shellscalingapi-shell_ui_component
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

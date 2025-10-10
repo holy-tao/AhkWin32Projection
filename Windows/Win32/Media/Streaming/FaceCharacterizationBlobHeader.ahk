@@ -3,7 +3,7 @@
 
 /**
  * The FaceCharacterizationBlobHeader structure describes the size and count information of the blob format for the MF_CAPTURE_METADATA_FACEROICHARACTERIZATIONS attribute.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facecharacterizationblobheader
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-facecharacterizationblobheader
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

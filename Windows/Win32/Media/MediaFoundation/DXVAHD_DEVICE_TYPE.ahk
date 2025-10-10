@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_type
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_device_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

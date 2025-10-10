@@ -3,7 +3,7 @@
 
 /**
  * Describes the configuration of a Microsoft Direct3D 11 decoder device for DirectX Video Acceleration (DXVA).
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_decoder_config
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_decoder_config
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

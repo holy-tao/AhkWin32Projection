@@ -4,8 +4,11 @@
 /**
  * Contains an array of pointers to property structures.
  * @remarks
- * The <i>apProps</i> element contains an array of pointers to properties rather than the structures themselves so that property values can be reused with multiple elements with lower memory usage.
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_properties
+ * 
+  * The <i>apProps</i> element contains an array of pointers to properties rather than the structures themselves so that property values can be reused with multiple elements with lower memory usage.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-reco_lattice_properties
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

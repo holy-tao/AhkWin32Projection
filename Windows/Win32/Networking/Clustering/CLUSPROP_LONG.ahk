@@ -5,7 +5,7 @@
 
 /**
  * Describes signed LONG data.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_long
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_long
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

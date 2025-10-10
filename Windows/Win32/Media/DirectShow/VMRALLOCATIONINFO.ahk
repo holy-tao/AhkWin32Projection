@@ -4,7 +4,7 @@
 
 /**
  * The VMRALLOCATIONINFO structure is used in the VMR-7 filter's IVMRSurfaceAllocator::AllocateSurface method.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrallocationinfo
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrallocationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -42,7 +42,7 @@ class VMRALLOCATIONINFO extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that specifies the aspect ratio of the new surface.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that specifies the aspect ratio of the new surface.
      * @type {SIZE}
      */
     szAspectRatio{

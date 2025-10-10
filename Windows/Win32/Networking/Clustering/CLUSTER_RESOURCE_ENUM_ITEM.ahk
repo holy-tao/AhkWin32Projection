@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CLUSTER_RESOURCE_ENUM_ITEM structure represents the properties of a cluster resource and is used to enumerate cluster resources in the ClusterResourceEnumEx function.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_resource_enum_item
+ * Represents the properties of a cluster resource. This structure is used to enumerate cluster resources in the ClusterResourceEnumEx function.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-cluster_resource_enum_item
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

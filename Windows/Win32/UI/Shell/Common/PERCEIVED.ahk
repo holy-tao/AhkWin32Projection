@@ -3,8 +3,10 @@
 /**
  * Specifies a file's perceived type. This set of constants is used in the AssocGetPerceivedType function.
  * @remarks
- * Prior to Windows Vista, this enumeration was declared in Shlwapi.h.
- * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-perceived
+ * 
+  * Prior to Windows Vista, this enumeration was declared in Shlwapi.h.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shtypes/ne-shtypes-perceived
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

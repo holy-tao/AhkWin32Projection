@@ -3,7 +3,7 @@
 
 /**
  * Contains a handle to a token. This token is linked to the token being queried by the GetTokenInformation function or set by the SetTokenInformation function.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_linked_token
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_linked_token
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

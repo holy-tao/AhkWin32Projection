@@ -4,7 +4,8 @@
 /**
  * Contains information about special processing for each script.
  * @remarks
- * This structure is filled by the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetproperties">ScriptGetProperties</a> function.
+ * 
+  * This structure is filled by the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptgetproperties">ScriptGetProperties</a> function.
   * 
   * Many Uniscribe scripts do not correspond directly to 8-bit character sets. When some of the characters in a script are supported by more than one character set, the <b>fAmbiguousCharSet</b> member is set. The application should do further processing to determine the character set to use when requesting a font suitable for the run. For example, it might determine that the run consists of multiple languages and split the run so that a different font is used for each language.
   * 
@@ -34,7 +35,9 @@
   *     }
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_properties
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_properties
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

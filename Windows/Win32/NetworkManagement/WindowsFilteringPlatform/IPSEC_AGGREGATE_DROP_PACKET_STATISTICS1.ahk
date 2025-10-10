@@ -3,7 +3,7 @@
 
 /**
  * Stores aggregate IPsec kernel packet drop statistics.
- * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_aggregate_drop_packet_statistics1
+ * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_aggregate_drop_packet_statistics1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

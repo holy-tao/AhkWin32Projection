@@ -4,7 +4,8 @@
 /**
  * The GROUP_USERS_INFO_1 structure contains global group member information.
  * @remarks
- * If you are calling the 
+ * 
+  * If you are calling the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupgetusers">NetGroupGetUsers</a> function or the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetusers">NetGroupSetUsers</a> function, the <b>grui1_name</b> member contains the name of a user that is a member of the specified group.
   * 
@@ -15,7 +16,9 @@
   * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
   * 
   * Windows Vista and later include an addition to the access control security mechanism of Windows that labels processes and other securable objects with an integrity level. Internet-facing programs are at higher risk for exploits than other programs because they download untrustworthy content from unknown sources. Running these programs with fewer permissions, or at a lower integrity level, than other programs reduces the ability of an exploit to modify the system or harm user data files. The SE_GROUP_INTEGRITY and SE_GROUP_INTEGRITY_ENABLED attributes of the <b>grui1_attributes</b> member are used for this purpose.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-group_users_info_1
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-group_users_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

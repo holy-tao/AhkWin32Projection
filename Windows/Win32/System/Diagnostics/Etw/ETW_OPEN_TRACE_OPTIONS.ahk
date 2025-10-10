@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Provides configuration parameters to OpenTraceFromBufferStream, OpenTraceFromFile, OpenTraceFromRealTimeLogger, OpenTraceFromRealTimeLoggerWithAllocationOptions functions.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_open_trace_options
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -16,10 +12,6 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
     static packingSize => 8
 
     /**
-     * A bitfield enum providing further configurations for the processing sessions. Current supported values:
-     * 
-     * - ETW_PROCESS_TRACE_MODE_NONE
-     * - ETW_PROCESS_TRACE_MODE_RAW_TIMESTAMP – Timestamps in the EVENT_RECORD provided to the EventCallback will not be converted to file time as they are by default. Instead, they will remain in the clock type of the original event (e.g. QueryPerformanceCounter, CPU timestamp counter, or GetSystemTimeAsFileTime).
      * @type {Integer}
      */
     ProcessTraceModes {
@@ -28,7 +20,6 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
     }
 
     /**
-     * Function pointer of type [PEVENT_RECORD_CALLBACK](nc-evntrace-pevent_record_callback.md). Called for each event in time order. If NULL then all event playback processing will be bypassed for improved performance.
      * @type {Pointer<PEVENT_RECORD_CALLBACK>}
      */
     EventCallback {
@@ -37,7 +28,6 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
     }
 
     /**
-     * User defined context that will be available in EVENT_RECORD.UserContext inside the EventCallback.
      * @type {Pointer<Void>}
      */
     EventCallbackContext {
@@ -46,7 +36,6 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
     }
 
     /**
-     * Called for each buffer once processing on that buffer is complete. If NULL then no buffer callback will be executed.
      * @type {Pointer<PETW_BUFFER_CALLBACK>}
      */
     BufferCallback {
@@ -55,7 +44,6 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
     }
 
     /**
-     * User defined context that will be passed to the [BufferCallback](nc-evntrace-petw_buffer_callback.md) as the CallbackContext parameter.
      * @type {Pointer<Void>}
      */
     BufferCallbackContext {

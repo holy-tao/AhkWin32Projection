@@ -3,7 +3,7 @@
 
 /**
  * Contains the result from a Signaling query in Certified Output Protection Protocol (COPP).
- * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppstatussignalingcmddata
+ * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxva_coppstatussignalingcmddata
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

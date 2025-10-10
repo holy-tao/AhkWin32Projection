@@ -2,7 +2,7 @@
 
 /**
  * The MBN_CTRL_CAPS enumerated type represents all of the Mobile Broadband device control capabilities as bit fields.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_ctrl_caps
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_ctrl_caps
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

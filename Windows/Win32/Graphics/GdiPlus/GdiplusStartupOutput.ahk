@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The GdiplusStartup function uses the GdiplusStartupOutput structure to return (in its output parameter) a pointer to a hook function and a pointer to an unhook function.
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/ns-gdiplusinit-gdiplusstartupoutput
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
@@ -12,6 +14,9 @@ class GdiplusStartupOutput extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: <b>NotificationHookProc</b>
+     * 
+     * Receives a pointer to a hook function.
      * @type {Pointer}
      */
     NotificationHook {
@@ -20,6 +25,9 @@ class GdiplusStartupOutput extends Win32Struct
     }
 
     /**
+     * Type: <b>NotificationUnhookProc</b>
+     * 
+     * Receives a pointer to an unhook function.
      * @type {Pointer}
      */
     NotificationUnhook {

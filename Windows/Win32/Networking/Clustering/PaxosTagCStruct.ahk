@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the Paxos tag values of a cluster node, which stores information about the cluster configuration version of the node when the cluster uses a File Share witness.
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-paxostagcstruct
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -12,6 +14,7 @@ class PaxosTagCStruct extends Win32Struct
     static packingSize => 8
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__PaxosTagVtable {
@@ -20,6 +23,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__NextEpochVtable {
@@ -28,6 +32,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__NextEpoch_DateTimeVtable {
@@ -36,6 +41,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     NextEpoch_DateTime_ticks {
@@ -44,6 +50,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * The next epoch of the cluster configuration.
      * @type {Integer}
      */
     NextEpoch_Value {
@@ -52,6 +59,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__BoundryNextEpoch {
@@ -60,6 +68,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__EpochVtable {
@@ -68,6 +77,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__Epoch_DateTimeVtable {
@@ -76,6 +86,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     Epoch_DateTime_ticks {
@@ -84,6 +95,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * The epoch of the cluster configuration.
      * @type {Integer}
      */
     Epoch_Value {
@@ -92,6 +104,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__BoundryEpoch {
@@ -100,6 +113,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * The sequence of the cluster configuration.
      * @type {Integer}
      */
     Sequence {
@@ -108,6 +122,7 @@ class PaxosTagCStruct extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     __padding__BoundrySequence {

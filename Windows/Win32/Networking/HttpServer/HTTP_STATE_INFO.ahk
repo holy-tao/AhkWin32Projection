@@ -4,8 +4,11 @@
 /**
  * Used to enable or disable a Server Session or URL Group.
  * @remarks
- * When the <b>HttpServerStateProperty</b> is set on a server session or a URL group, the <b>HTTP_STATE_INFO</b> structure must be used. Server Sessions, and URL Groups represent a configuration for a part of the namespace where inheritance is involved.  When traversing the namespace for a request, the HTTP Server API may encounter multiple applicable URL Groups. The property configuration structures must carry information identifying if it is present in a specific URL group.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_state_info
+ * 
+  * When the <b>HttpServerStateProperty</b> is set on a server session or a URL group, the <b>HTTP_STATE_INFO</b> structure must be used. Server Sessions, and URL Groups represent a configuration for a part of the namespace where inheritance is involved.  When traversing the namespace for a request, the HTTP Server API may encounter multiple applicable URL Groups. The property configuration structures must carry information identifying if it is present in a specific URL group.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_state_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

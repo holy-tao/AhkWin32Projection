@@ -6,7 +6,7 @@
 
 /**
  * The MPEG1VIDEOINFO structure describes an MPEG-1 video stream.
- * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-mpeg1videoinfo
+ * @see https://docs.microsoft.com/windows/win32/api//amvideo/ns-amvideo-mpeg1videoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

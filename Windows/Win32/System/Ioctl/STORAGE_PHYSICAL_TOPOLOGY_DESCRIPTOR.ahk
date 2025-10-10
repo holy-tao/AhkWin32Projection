@@ -4,7 +4,7 @@
 
 /**
  * The STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR structure is one of the query result structures returned from an IOCTL_STORAGE_QUERY_PROPERTY request.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_topology_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_physical_topology_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

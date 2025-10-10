@@ -4,7 +4,7 @@
 
 /**
  * Defines an access control entry (ACE) for the system access control list (SACL) that specifies the scoped policy identifier for a securable object.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_scoped_policy_id_ace
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_scoped_policy_id_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains the column sort data of a single column in a column set.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_sort_data
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_sort_data
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

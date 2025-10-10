@@ -3,6 +3,8 @@
 #Include .\Effect.ahk
 
 /**
+ * The RedEyeCorrection class enables you to correct the red eyes that sometimes occur in flash photographs.
+ * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-redeyecorrection
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

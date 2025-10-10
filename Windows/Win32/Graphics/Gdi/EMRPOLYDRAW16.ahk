@@ -6,7 +6,7 @@
 
 /**
  * The EMRPOLYDRAW16 structure contains members for the PolyDraw enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolydraw16
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrpolydraw16
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class EMRPOLYDRAW16 extends Win32Struct
     }
 
     /**
-     * An array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-points">POINTS</a> structures, representing the data points in logical units.
+     * An array of <a href="https://docs.microsoft.com/previous-versions/dd162808(v=vs.85)">POINTS</a> structures, representing the data points in logical units.
      * @type {Array<POINTS>}
      */
     apts{

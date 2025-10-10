@@ -3,8 +3,11 @@
 /**
  * The DMO_OUTPUT_STREAM_INFO_FLAGS enumeration defines flags that describe an output stream.
  * @remarks
- * The DMO_OUTPUT_STREAMF_DISCARDABLE and DMO_OUTPUT_STREAMF_OPTIONAL flags are mutually exclusive. The DMO can set one of these flags (or neither), but not both.
- * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_output_stream_info_flags
+ * 
+  * The DMO_OUTPUT_STREAMF_DISCARDABLE and DMO_OUTPUT_STREAMF_OPTIONAL flags are mutually exclusive. The DMO can set one of these flags (or neither), but not both.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ne-mediaobj-_dmo_output_stream_info_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

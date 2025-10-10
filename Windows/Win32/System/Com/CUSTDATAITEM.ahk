@@ -6,7 +6,7 @@
 
 /**
  * Represents a custom data item.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-custdataitem
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-custdataitem
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

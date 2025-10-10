@@ -4,7 +4,7 @@
 
 /**
  * The TF_SELECTION structure contains text selection data.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_selection
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_selection
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Contains information about the touch contact area reported by the touch digitizer.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_input
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-touch_hit_testing_input
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

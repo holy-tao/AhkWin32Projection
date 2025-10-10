@@ -3,7 +3,7 @@
 
 /**
  * Computes the reciprocal for each element of the input tensor, placing the result into the corresponding element of the output tensor.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_recip_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_recip_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

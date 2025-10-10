@@ -2,7 +2,7 @@
 
 /**
  * Specifies options for saving and deleting templates.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-committemplateflags
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-committemplateflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

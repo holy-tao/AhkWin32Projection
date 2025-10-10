@@ -4,7 +4,7 @@
 
 /**
  * Contains information used with the PGN_HOTITEMCHANGE notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpghotitem
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmpghotitem
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

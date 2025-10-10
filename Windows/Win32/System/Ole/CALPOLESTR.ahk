@@ -3,7 +3,7 @@
 
 /**
  * Specifies a counted array of strings used to specify the predefined strings that a property can accept.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-calpolestr
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-calpolestr
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

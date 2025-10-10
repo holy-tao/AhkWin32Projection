@@ -2,7 +2,7 @@
 
 /**
  * The MPEG_REQUEST_TYPE enumeration type specifies a request for MPEG-2 data.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ne-mpeg2structs-mpeg_request_type
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ne-mpeg2structs-mpeg_request_type
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

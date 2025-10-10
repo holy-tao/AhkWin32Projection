@@ -3,10 +3,13 @@
 /**
  * Performance counter types.
  * @remarks
- * In addition to these performance counters, independent hardware vendors may define their own set of performance counters for their devices. The enum values for these counters would start after D3D10_COUNTER_DEVICE_DEPENDENT_0 and would be defined by those hardware vendors.
+ * 
+  * In addition to these performance counters, independent hardware vendors may define their own set of performance counters for their devices. The enum values for these counters would start after D3D10_COUNTER_DEVICE_DEPENDENT_0 and would be defined by those hardware vendors.
   * 
   * A device can support one or more of these performance counters, but it is not required to support any of them.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_counter
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_counter
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

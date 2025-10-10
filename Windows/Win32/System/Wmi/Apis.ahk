@@ -342,20 +342,6 @@ class Wmi {
 ;@region Methods
     /**
      * Initializes an application so that it can make Management Infrastructure (MI) client API calls.
-     * @remarks
-     * This API needs to be called only once per application; although, it can be called multiple times safely. 
-     *     Calling this API multiple times will result in a small amount of extra memory usage.  When called, the application 
-     *     passes in an <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_application">MI_Application</a> pointer to be initialized. 
-     *     This pointer must be closed by calling 
-     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_application_close">MI_Application_Close</a>. Not doing so will cause 
-     *     memory leaks and potential crashes during shutdown.
-     * 
-     * MI.h defines 
-     *      <b>MI_Application_Initialize</b> as 
-     *    <b>MI_Application_InitializeV1</b> with this 
-     *      line:
-     * 
-     * <c>#define MI_Application_Initialize MI_Application_InitializeV1</c>
      * @param {Integer} flags Must be 0.
      * @param {Pointer<UInt16>} applicationID An optional string (usually <b>GUID</b> in string format) to represent a client 
      *     application. This string may be used for application specific configuration and application specific 
@@ -368,7 +354,7 @@ class Wmi {
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_application_close">MI_Application_Close</a> before the application 
      *   shuts down. If an application passes this handle, pass it by value rather than as a pointer.
      * @returns {Integer} This function returns MI_Result MI_MAIN_CALL.
-     * @see https://learn.microsoft.com/windows/win32/api/mi/nf-mi-mi_application_initializev1
+     * @see https://docs.microsoft.com/windows/win32/api//mi/nf-mi-mi_application_initializev1
      * @since windows8.0
      */
     static MI_Application_InitializeV1(flags, applicationID, extendedError, application) {

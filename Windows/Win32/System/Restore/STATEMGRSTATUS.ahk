@@ -4,7 +4,8 @@
 /**
  * Contains status information used by the SRSetRestorePoint function.
  * @remarks
- * The following table lists the status codes returned in the <b>nStatus</b> member. Note that all the status codes indicate failure except ERROR_SUCCESS.
+ * 
+  * The following table lists the status codes returned in the <b>nStatus</b> member. Note that all the status codes indicate failure except ERROR_SUCCESS.
   * 
   * <table>
   * <tr>
@@ -40,7 +41,9 @@
   * <td>The call timed out due to a wait on a mutex for setting restore points.</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-statemgrstatus
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//srrestoreptapi/ns-srrestoreptapi-statemgrstatus
  * @namespace Windows.Win32.System.Restore
  * @version v4.0.30319
  */

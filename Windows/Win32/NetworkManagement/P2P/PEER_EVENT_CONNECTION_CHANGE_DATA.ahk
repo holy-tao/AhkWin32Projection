@@ -3,7 +3,7 @@
 
 /**
  * Points to the PEER_EVENT_CONNECTION_CHANGE_DATA structure if one of the following peer events is triggered.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_connection_change_data
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_connection_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

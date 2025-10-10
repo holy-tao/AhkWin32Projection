@@ -4,8 +4,11 @@
 /**
  * The MMC_LISTPAD_INFO structure is introduced in MMC 1.1.
  * @remarks
- * Allocate the <b>szTitle</b> and <b>szButtonText</b> strings with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release it.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_listpad_info
+ * 
+  * Allocate the <b>szTitle</b> and <b>szButtonText</b> strings with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release it.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_listpad_info
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

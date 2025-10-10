@@ -2,7 +2,7 @@
 
 /**
  * The DBKINDENUM enumerated type specifies the combination of GUID, property number, or property name to use to identify a database object.
- * @see https://learn.microsoft.com/windows/win32/api/oledbguid/ne-oledbguid-dbkindenum
+ * @see https://docs.microsoft.com/windows/win32/api//oledbguid/ne-oledbguid-dbkindenum
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

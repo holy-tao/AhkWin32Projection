@@ -2,7 +2,7 @@
 
 /**
  * Specifies the units in which the timed text is measured.
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type
+ * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

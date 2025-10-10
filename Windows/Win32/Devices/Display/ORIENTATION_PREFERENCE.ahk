@@ -2,7 +2,7 @@
 
 /**
  * Indicates the screen orientation preference for a desktop app process.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-orientation_preference
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-orientation_preference
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The NTMS_ALLOCATION_INFORMATION structure contains information about the source media pool from which a medium was taken.
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_allocation_information
+ * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_allocation_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the formats that are available to interpret extension data.
- * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ne-tokenbinding-tokenbinding_extension_format
+ * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/ne-tokenbinding-tokenbinding_extension_format
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

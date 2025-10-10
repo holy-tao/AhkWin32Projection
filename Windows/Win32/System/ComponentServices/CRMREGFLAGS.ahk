@@ -2,7 +2,7 @@
 
 /**
  * Controls which phases of transaction completion should be received by the CRM compensator and whether recovery should fail if in-doubt transactions remain after recovery has been attempted.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-crmregflags
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-crmregflags
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

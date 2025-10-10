@@ -3,7 +3,7 @@
 
 /**
  * Data structure returned from KeyCredentialManagerGetInformation.
- * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/ns-keycredmgr-keycredentialmanagerinfo
+ * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/ns-keycredmgr-keycredentialmanagerinfo
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * These flags enumerate reasons why URLs are included or excluded from the current crawl scope.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-clusion_reason
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-clusion_reason
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

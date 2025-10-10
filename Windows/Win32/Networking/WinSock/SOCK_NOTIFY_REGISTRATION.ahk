@@ -5,7 +5,8 @@
  * Represents info supplied to the [ProcessSocketNotifications](/windows/win32/api/winsock2/nf-winsock2-processsocketnotifications) function.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-sock_notify_registration
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-sock_notify_registration
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

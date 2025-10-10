@@ -2,7 +2,7 @@
 
 /**
  * The values of the ASM_NAME enumeration are the property IDs for the name-value pairs included in a side-by-side assembly name.
- * @see https://learn.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_name
+ * @see https://docs.microsoft.com/windows/win32/api//winsxs/ne-winsxs-asm_name
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

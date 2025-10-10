@@ -4,7 +4,7 @@
 
 /**
  * Describes a set of Axis-aligned bounding boxes that are used in the D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS structure to provide input data to a raytracing acceleration structure build operation.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_geometry_aabbs_desc
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_raytracing_geometry_aabbs_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

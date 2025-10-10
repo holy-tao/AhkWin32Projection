@@ -5,8 +5,11 @@
 /**
  * Represents a column in the lattice.
  * @remarks
- * There is one column per recognition segment. Each column contains one or more elements. An element is usually a word or character that is a recognition alternate. Elements start with the same stroke index, but do not necessarily contain the same number of strokes (for example, see column 0 in the "together" <a href="https://docs.microsoft.com/windows/desktop/tablet/recognizer-lattice-structure">example</a>). The structure also holds properties that are valid for the whole column.
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_column
+ * 
+  * There is one column per recognition segment. Each column contains one or more elements. An element is usually a word or character that is a recognition alternate. Elements start with the same stroke index, but do not necessarily contain the same number of strokes (for example, see column 0 in the "together" <a href="https://docs.microsoft.com/windows/desktop/tablet/recognizer-lattice-structure">example</a>). The structure also holds properties that are valid for the whole column.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-reco_lattice_column
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

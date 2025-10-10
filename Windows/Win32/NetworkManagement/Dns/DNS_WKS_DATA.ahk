@@ -4,10 +4,13 @@
 /**
  * The DNS_WKS_DATA structure represents a DNS well-known services (WKS) record as specified in section 3.4.2 of RFC 1035.
  * @remarks
- * The 
+ * 
+  * The 
   * <b>DNS_WKS_DATA</b> structure is used in conjunction with the 
   * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wks_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_wks_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

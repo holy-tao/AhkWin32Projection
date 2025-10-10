@@ -2,7 +2,7 @@
 
 /**
  * Indicates which values in the CM_COLUMNINFO structure should be set during calls to IColumnManager::SetColumnInfo.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-cm_mask
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-cm_mask
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

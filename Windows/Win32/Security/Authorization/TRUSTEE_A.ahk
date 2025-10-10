@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies. (ANSI)
+ * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies.
  * @remarks
- * A trustee name can have any of the following formats:
+ * 
+  * A trustee name can have any of the following formats:
   * 
   * <ul>
   * <li>A fully qualified name, such as "g:\remotedir\abc".</li>
@@ -41,7 +42,9 @@
   * 
   * > [!NOTE]
   * > The accctrl.h header defines TRUSTEE_ as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/accctrl/ns-accctrl-trustee_a
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//accctrl/ns-accctrl-trustee_a
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  * @charset ANSI

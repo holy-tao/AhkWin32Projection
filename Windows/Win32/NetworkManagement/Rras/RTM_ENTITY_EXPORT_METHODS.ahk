@@ -3,7 +3,7 @@
 
 /**
  * The RTM_ENTITY_EXPORT_METHODS structure contains the set of methods exported by a client.
- * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_export_methods
+ * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_entity_export_methods
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

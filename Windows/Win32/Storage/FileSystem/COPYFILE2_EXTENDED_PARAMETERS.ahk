@@ -4,10 +4,13 @@
 /**
  * Contains extended parameters for the CopyFile2 function.
  * @remarks
- * To compile an application that uses this structure, define the <b>_WIN32_WINNT</b> 
+ * 
+  * To compile an application that uses this structure, define the <b>_WIN32_WINNT</b> 
   *     macro as <b>_WIN32_WINNT_WIN8</b> or later. For more information, see 
   *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_extended_parameters
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-copyfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -149,17 +152,6 @@ class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct
      *         <b>COPY_FILE_RESTARTABLE</b>. If so the copy is resumed. If not the file will be fully 
      *         copied.
      * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="COPY_FILE_RESTARTABLE"></a><a id="copy_file_restartable"></a><dl>
-     * <dt><b>COPY_FILE_REQUEST_COMPRESSED_TRAFFIC</b></dt>
-     * <dt> 0x10000000</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <p>Request the underlying transfer channel compress the data during the copy operation. The request may not be supported for all mediums, in which case it is ignored. The compression attributes and parameters (computational complexity, memory usage) are not configurable through this API, and are subject to change between different OS releases.</p>
-     * <p>This flag was introduced in Windows 10, version 1903 and Windows Server 2022. On Windows 10, the flag is supported for files residing on SMB shares, where the negotiated SMB protocol version is SMB v3.1.1 or greater.</p>
      * </td>
      * </tr>
      * </table>

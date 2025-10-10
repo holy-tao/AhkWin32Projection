@@ -3,7 +3,7 @@
 
 /**
  * The header of an opened user dictionary file. Used to get the user dictionary's properties, such as version, title, description, and copyright.
- * @see https://learn.microsoft.com/windows/win32/api/msime/ns-msime-imeshf
+ * @see https://docs.microsoft.com/windows/win32/api//msime/ns-msime-imeshf
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

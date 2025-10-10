@@ -3,7 +3,7 @@
 
 /**
  * This structure contains data for the input processor profile.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_inputprocessorprofile
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_inputprocessorprofile
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the attributes to be set on a disk device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-set_disk_attributes
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-set_disk_attributes
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

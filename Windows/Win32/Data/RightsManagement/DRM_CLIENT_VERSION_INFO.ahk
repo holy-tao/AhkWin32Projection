@@ -3,7 +3,7 @@
 
 /**
  * Receives information about the version of the Active Directory Rights Management Services (AD RMS) client and the hierarchy, such as Production or Pre-production.
- * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drm_client_version_info
+ * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ns-msdrmdefs-drm_client_version_info
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

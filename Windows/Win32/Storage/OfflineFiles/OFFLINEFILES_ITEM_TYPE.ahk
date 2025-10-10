@@ -2,7 +2,7 @@
 
 /**
  * Identifies the type of an item in the Offline Files cache.
- * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_item_type
+ * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_item_type
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

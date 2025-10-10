@@ -2,7 +2,7 @@
 
 /**
  * Defines a set of flags used by all callback functions.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmancallbackflags
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ne-wsman-wsmancallbackflags
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

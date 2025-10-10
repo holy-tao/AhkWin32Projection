@@ -3,7 +3,7 @@
 
 /**
  * Used to query a DirectML device for its support for a particular data type within tensors.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_feature_query_tensor_data_type_support
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_feature_query_tensor_data_type_support
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

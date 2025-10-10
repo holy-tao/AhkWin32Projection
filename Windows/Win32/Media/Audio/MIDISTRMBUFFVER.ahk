@@ -3,7 +3,7 @@
 
 /**
  * The MIDISTRMBUFFVER structure contains version information for a long MIDI event of the MEVT_VERSION type.
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midistrmbuffver
+ * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-midistrmbuffver
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines status flags for the MF_TOPOLOGY_RESOLUTION_STATUS attribute.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_topology_resolution_status_flags
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_topology_resolution_status_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

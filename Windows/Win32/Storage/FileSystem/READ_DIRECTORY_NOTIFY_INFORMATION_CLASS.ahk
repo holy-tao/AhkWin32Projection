@@ -2,7 +2,7 @@
 
 /**
  * Indicates the possible types of information that an application that calls the ReadDirectoryChangesExW function can request.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-read_directory_notify_information_class
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ne-minwinbase-read_directory_notify_information_class
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

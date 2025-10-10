@@ -3,7 +3,7 @@
 
 /**
  * The MBN_PIN_INFO structure represents the current PIN state of the device.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_pin_info
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_pin_info
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

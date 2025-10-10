@@ -2,7 +2,7 @@
 
 /**
  * Specifies a property type for setup and configuration of a Microsoft Simple Certificate Enrollment Protocol (SCEP) role using IMSCEPSetup.
- * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty
+ * @see https://docs.microsoft.com/windows/win32/api//casetup/ne-casetup-mscepsetupproperty
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

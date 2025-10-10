@@ -2,7 +2,7 @@
 
 /**
  * Contains values that indicate the type of status change that occurred on a Remote Desktop Session Host (RD Session Host) server or a user session.
- * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_notification_type
+ * @see https://docs.microsoft.com/windows/win32/api//tssbx/ne-tssbx-wtssbx_notification_type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * A list of commonly used security identifiers (SIDs). Programs can pass these values to the CreateWellKnownSid function to create a SID from this list.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-well_known_sid_type
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-well_known_sid_type
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
@@ -405,13 +405,13 @@ class WELL_KNOWN_SID_TYPE{
     static WinUntrustedLabelSid => 65
 
     /**
-     * Indicates a SID that matches a low level of trust label.
+     * Indicates a SID that matches an low level of trust label.
      * @type {Integer (Int32)}
      */
     static WinLowLabelSid => 66
 
     /**
-     * Indicates a SID that matches a medium level of trust label.
+     * Indicates a SID that matches an medium level of trust label.
      * @type {Integer (Int32)}
      */
     static WinMediumLabelSid => 67

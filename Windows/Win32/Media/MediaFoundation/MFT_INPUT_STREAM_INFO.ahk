@@ -4,7 +4,8 @@
 /**
  * Contains information about an input stream on a Media Foundation transform (MFT). To get these values, call IMFTransform::GetInputStreamInfo.
  * @remarks
- * Before the media types are set, the only values that should be considered valid are the MFT_INPUT_STREAM_REMOVABLE and MFT_INPUT_STREAM_OPTIONAL flags in the <b>dwFlags</b> member.
+ * 
+  * Before the media types are set, the only values that should be considered valid are the MFT_INPUT_STREAM_REMOVABLE and MFT_INPUT_STREAM_OPTIONAL flags in the <b>dwFlags</b> member.
   * 
   * <ul>
   * <li>
@@ -17,7 +18,9 @@
   * </li>
   * </ul>
   * After you set a media type on all of the input and output streams (not including optional streams), all of the values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-getinputstreaminfo">GetInputStreamInfo</a> method are valid. They might change if you set different media types.
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-mft_input_stream_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mftransform/ns-mftransform-mft_input_stream_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

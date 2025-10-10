@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a menu.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-menuinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

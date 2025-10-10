@@ -3,8 +3,11 @@
 /**
  * Describes the status of the user.
  * @remarks
- * <b>UserUnloaded</b>, <b>UserUnregistered</b>, and <b>UnknownStatus</b> should not appear in typical use.
- * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmuserstatus
+ * 
+  * <b>UserUnloaded</b>, <b>UserUnregistered</b>, and <b>UnknownStatus</b> should not appear in typical use.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/ne-wcmconfig-wcmuserstatus
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */

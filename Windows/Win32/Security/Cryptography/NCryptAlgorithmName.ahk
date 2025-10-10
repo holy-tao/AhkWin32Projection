@@ -3,7 +3,7 @@
 
 /**
  * Used to contain information about a CNG algorithm.
- * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncryptalgorithmname
+ * @see https://docs.microsoft.com/windows/win32/api//ncrypt/ns-ncrypt-ncryptalgorithmname
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

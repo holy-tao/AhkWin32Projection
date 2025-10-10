@@ -2,7 +2,7 @@
 
 /**
  * Contains values that differentiate between a primary token and an impersonation token.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-token_type
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-token_type
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

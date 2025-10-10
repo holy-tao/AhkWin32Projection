@@ -2,7 +2,7 @@
 
 /**
  * Specifies values used by any sync engine to expose their internal engine states to the Property Store's PKEY_StorageProviderStatus value in the File Indexer To update the property, first call IShellItem2::GetPropertyStore with the GPS_EXTRINSICPROPERTIES flag. Next, call the IPropertyStore::SetValue method of the returned object, specifying the PKEY_StorageProviderStatus key, to set the property's bitmask value using these SYNC_ENGINE_STATE_FLAGS.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-sync_engine_state_flags
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl/ne-shobjidl-sync_engine_state_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

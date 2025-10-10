@@ -3,7 +3,7 @@
 
 /**
  * Performs the following linear dequantization function on every element in *InputTensor* with respect to its corresponding element in *ScaleTensor* and `ZeroPointTensor`, placing the results in the corresponding element of *OutputTensor*.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_dequantize_linear_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_dequantize_linear_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

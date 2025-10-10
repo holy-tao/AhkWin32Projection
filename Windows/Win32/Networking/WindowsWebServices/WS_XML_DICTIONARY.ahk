@@ -4,7 +4,8 @@
 /**
  * Represents a set of unique strings. This information is used by the binary encoding to write a more compact xml document.
  * @remarks
- * All strings and values within a dictionary must be unique.  Dictionaries are
+ * 
+  * All strings and values within a dictionary must be unique.  Dictionaries are
   *         always assumed to be well-formed, so it is up to the creator of the dictionary
   *         to ensure that this is the case.
   *       
@@ -12,9 +13,7 @@
   * A dictionary might be declared as:
   *       
   * 
-  * 
-  * ``` syntax
-  * struct PurchaseOrderDictionary
+  * <pre class="syntax" xml:space="preserve"><code>struct PurchaseOrderDictionary
   * {
   *     WS_XML_DICTIONARY dictionary;
   *     WS_XML_STRING quantity;
@@ -36,17 +35,14 @@
   *     WS_XML_STRING_DICTIONARY_VALUE("PurchaseOrder",      &amp;purchaseOrderDictionary.dictionary, 2),
   *     WS_XML_STRING_DICTIONARY_VALUE("http://example.com", &amp;purchaseOrderDictionary.dictionary, 3),
   * };
-  * 
-  * ```
-  * 
+  * </code></pre>
   * Strings from the dictionary might be used as:
   *       
   * 
+  * <pre class="syntax" xml:space="preserve"><c>WsWriteStartElement(xmlWriter, NULL, &amp;purchaseOrderDictionary.purchaseOrder, &amp;purchaseOrderDictionary.purchaseOrderNamespace, error);</c></pre>
   * 
-  * ``` syntax
-  * WsWriteStartElement(xmlWriter, NULL, &amp;purchaseOrderDictionary.purchaseOrder, &amp;purchaseOrderDictionary.purchaseOrderNamespace, error);
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_dictionary
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_dictionary
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

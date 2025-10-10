@@ -2,7 +2,7 @@
 
 /**
  * The PHONE_BUTTON_FUNCTION enum provides detailed information on a button's function.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_button_function
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_button_function
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

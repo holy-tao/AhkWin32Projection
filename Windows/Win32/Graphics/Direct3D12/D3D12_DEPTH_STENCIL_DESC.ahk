@@ -3,9 +3,10 @@
 #Include .\D3D12_DEPTH_STENCILOP_DESC.ahk
 
 /**
- * Describes depth-stencil state. (D3D12_DEPTH_STENCIL_DESC)
+ * Describes depth-stencil state.
  * @remarks
- * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> object contains a depth-stencil-state structure that controls how depth-stencil testing is performed by the output-merger stage.
+ * 
+  * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> object contains a depth-stencil-state structure that controls how depth-stencil testing is performed by the output-merger stage.
   *       
   * 
   * This table shows the default values of depth-stencil states.
@@ -25,7 +26,7 @@
   * </tr>
   * <tr>
   * <td>DepthFunc</td>
-  * <td>D3D12_COMPARISON_FUNC_LESS</td>
+  * <td>D3D12_COMPARISON_LESS</td>
   * </tr>
   * <tr>
   * <td>StencilEnable</td>
@@ -41,14 +42,14 @@
   * </tr>
   * <tr>
   * <td>
-  * FrontFace.StencilFailOp
+  * FrontFace.StencilFunc
   * 
   * and
   * 
-  * BackFace.StencilFailOp
+  * BackFace.StencilFunc
   * 
   * </td>
-  * <td>D3D12_STENCIL_OP_KEEP</td>
+  * <td>D3D12_COMPARISON_ALWAYS</td>
   * </tr>
   * <tr>
   * <td>
@@ -74,20 +75,22 @@
   * </tr>
   * <tr>
   * <td>
-  * FrontFace.StencilFunc
+  * FrontFace.StencilFailOp
   * 
   * and
   * 
-  * BackFace.StencilFunc
+  * BackFace.StencilFailOp
   * 
   * </td>
-  * <td>D3D12_COMPARISON_FUNC_ALWAYS</td>
+  * <td>D3D12_STENCIL_OP_KEEP</td>
   * </tr>
   * </table>
   *  
   * 
   * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_depth_stencil_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

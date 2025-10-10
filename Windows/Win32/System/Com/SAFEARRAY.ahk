@@ -5,12 +5,16 @@
 /**
  * Represents a safe array.
  * @remarks
- * The array <b>rgsabound</b> is stored with the left-most dimension in rgsabound[0] and the right-most dimension in <c>rgsabound[cDims - 1]</c>. If an array was specified in a C-like syntax as a [2][5], it would have two elements in the <b>rgsabound</b> vector. Element 0 has an <b>lLbound</b> of 0 and a <b>cElements</b> of 2. Element 1 has an <b>lLbound</b> of 0 and a <b>cElements</b> of 5.
+ * 
+  * The array <b>rgsabound</b> is stored with the left-most dimension in rgsabound[0] and the right-most dimension in <c>rgsabound[cDims - 1]</c>. If an array was specified in a C-like syntax as a [2][5], it would have two elements in the <b>rgsabound</b> vector. Element 0 has an <b>lLbound</b> of 0 and a <b>cElements</b> of 2. Element 1 has an <b>lLbound</b> of 0 and a <b>cElements</b> of 5.
   * 
   * 
   * 
   * The <b>fFeatures</b> flags describe attributes of an array that can affect how the array is released. The <b>fFeatures</b> field describes what type of data is stored in the <b>SAFEARRAY</b> and how the array is allocated. This allows freeing the array without referencing its containing variant.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-safearray
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

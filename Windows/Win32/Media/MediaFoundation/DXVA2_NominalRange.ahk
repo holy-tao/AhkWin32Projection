@@ -3,7 +3,8 @@
 /**
  * Describes how to map color data to a normalized [0...1] range.
  * @remarks
- * For YUV colors, these flags specify how to convert between Y'CbCr and Y'PbPr. The Y'PbPr color space has a range of [0..1] for Y' (luma) and [-0.5...0.5] for Pb/Pr (chroma).
+ * 
+  * For YUV colors, these flags specify how to convert between Y'CbCr and Y'PbPr. The Y'PbPr color space has a range of [0..1] for Y' (luma) and [-0.5...0.5] for Pb/Pr (chroma).
   * 
   * <table>
   * <tr>
@@ -105,7 +106,9 @@
   * This enumeration is equivalent to the <b>DXVA_NominalRange</b> enumeration used in DXVA 1.0, although it defines additional values.
   * 
   * If you are using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface to describe the video format, the nominal range is specified in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-nominal-range-attribute">MF_MT_VIDEO_NOMINAL_RANGE</a> attribute.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_nominalrange
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ne-dxva2api-dxva2_nominalrange
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

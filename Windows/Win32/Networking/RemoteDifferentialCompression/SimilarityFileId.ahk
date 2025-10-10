@@ -3,7 +3,7 @@
 
 /**
  * Contains the similarity file ID for a file.
- * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similarityfileid
+ * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-similarityfileid
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

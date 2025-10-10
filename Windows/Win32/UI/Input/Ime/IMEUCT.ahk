@@ -2,7 +2,7 @@
 
 /**
  * Type of user comment in a IMEWRD structure.
- * @see https://learn.microsoft.com/windows/win32/api/msime/ne-msime-imeuct
+ * @see https://docs.microsoft.com/windows/win32/api//msime/ne-msime-imeuct
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

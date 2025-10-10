@@ -2,7 +2,7 @@
 
 /**
  * Indicates types of filter lists.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_filter_list_type
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ne-wlanapi-wlan_filter_list_type
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

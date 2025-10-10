@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUS_RESSUBCLASS_STORAGE enumeration (msclus.h) identifies a resource subclass that manages a shared bus.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_ressubclass_storage
+ * Identifies a resource subclass that manages a shared bus.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clus_ressubclass_storage
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

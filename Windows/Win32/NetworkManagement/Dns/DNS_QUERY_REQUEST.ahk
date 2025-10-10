@@ -3,7 +3,7 @@
 
 /**
  * The DNS_QUERY_REQUEST structure contains the DNS query parameters used in a call to DnsQueryEx.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_request
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_query_request
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

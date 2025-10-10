@@ -2,16 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The WIA\_RAW\_HEADER structure defines an image in the RAW data format of a device and enables applications to use RAW format in Windows Image Acquisition (WIA) transfers.
- * @remarks
- * Because this is not a file format, use an empty string for the WIA\_IPA\_FILE\_EXTENSION property.
-  * 
-  * The palette and the data can come in either order.
-  * 
-  * **RawDataSize** does not include either the header or the palette. Use this field to verify that the transfer of the image has been successful.
-  * 
-  * **PaletteSize** is bytes, not the number of entries in the palette.
- * @see https://learn.microsoft.com/windows/win32/wia/-wia-wia-raw-header
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -22,10 +12,6 @@ class WIA_RAW_HEADER extends Win32Struct
     static packingSize => 4
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The name of the format. This must be the literal 'WRAW' (four single byte ASCII characters).
      * @type {Integer}
      */
     Tag {
@@ -34,10 +20,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The version of the RAW format. Always use 0x00010000.
      * @type {Integer}
      */
     Version {
@@ -46,10 +28,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The total valid bytes in the header.
      * @type {Integer}
      */
     HeaderSize {
@@ -58,10 +36,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The horizontal resolution in dots per inch.
      * @type {Integer}
      */
     XRes {
@@ -70,10 +44,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The vertical resolution in dots per inch.
      * @type {Integer}
      */
     YRes {
@@ -82,10 +52,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The width of the image in pixels.
      * @type {Integer}
      */
     XExtent {
@@ -94,10 +60,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The height of the image in pixels.
      * @type {Integer}
      */
     YExtent {
@@ -106,10 +68,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The number of bytes in a line of an uncompressed image. Use 0 when the data is compressed to signal that the number of bytes per line is unknown.
      * @type {Integer}
      */
     BytesPerLine {
@@ -118,10 +76,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The total number of bits per pixel for all the pixel's channels.
      * @type {Integer}
      */
     BitsPerPixel {
@@ -130,10 +84,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The number of color channels in a pixel.
      * @type {Integer}
      */
     ChannelsPerPixel {
@@ -142,18 +92,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The WIA\_IPA\_DATATYPE of the image. Since WIA\_IPA\_FORMAT is set to WiaImgFmt\_RAW, this is a list of allowed values from which the application picks.
-     * 
-     * 
-     * **BitsPerChannel\[8\]**
-     * 
-     * Type: **BYTE**
-     * 
-     * 
-     * The number of bits in a channel, up to a maximum of 8.
      * @type {Integer}
      */
     DataType {
@@ -173,10 +111,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * A WIA\_IPA\_COMPRESSION value specifying the type of compression used, if any.
      * @type {Integer}
      */
     Compression {
@@ -185,10 +119,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * A WIA\_IPA\_PHOTOMETRIC\_INTERP value specifying the photometric interpretation of the image.
      * @type {Integer}
      */
     PhotometricInterp {
@@ -197,10 +127,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * A value representing the image line order. This is always either WIA\_LINE\_ORDER\_TOP\_TO\_BOTTOM or WIA\_LINE\_ORDER\_BOTTOM\_TO\_TOP.
      * @type {Integer}
      */
     LineOrder {
@@ -209,10 +135,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The position of the raw image data in bytes, starting from position where the header ends or the position where the palette ends.
      * @type {Integer}
      */
     RawDataOffset {
@@ -221,10 +143,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The size, in bytes, of the raw image data.
      * @type {Integer}
      */
     RawDataSize {
@@ -233,10 +151,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The position of the palette in bytes, starting from the position where the header ends or the position where the data ends. (This value is 0, if there is no palette.)
      * @type {Integer}
      */
     PaletteOffset {
@@ -245,10 +159,6 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * Type: **DWORD**
-     * 
-     * 
-     * The size, in bytes, of the palette table. (This is 0, if there is no palette.)
      * @type {Integer}
      */
     PaletteSize {

@@ -3,7 +3,7 @@
 
 /**
  * Gathers elements from the input tensor along the given axis using the indices tensor to remap into the input.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_gather_elements_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_gather_elements_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

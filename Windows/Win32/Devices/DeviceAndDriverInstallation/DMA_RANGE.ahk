@@ -3,7 +3,7 @@
 
 /**
  * The DMA_RANGE structure specifies a resource requirements list that describes DMA channel usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
- * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-dma_range
+ * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-dma_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

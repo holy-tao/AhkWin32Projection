@@ -2,7 +2,7 @@
 
 /**
  * Defines the set of EAP packet types.
- * @see https://learn.microsoft.com/windows/win32/api/eapmethodtypes/ne-eapmethodtypes-eapcode
+ * @see https://docs.microsoft.com/windows/win32/api//eapmethodtypes/ne-eapmethodtypes-eapcode
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

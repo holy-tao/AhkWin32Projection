@@ -5,7 +5,7 @@
 
 /**
  * Represents a datetime formatted as an xsd:dateTime.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_datetime_text
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_datetime_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

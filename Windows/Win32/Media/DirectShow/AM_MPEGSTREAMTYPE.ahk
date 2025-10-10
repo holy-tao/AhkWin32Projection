@@ -4,7 +4,7 @@
 
 /**
  * The AM_MPEGSTREAMTYPE structure defines the media type for an MPEG-1 program stream.
- * @see https://learn.microsoft.com/windows/win32/api/mpegtype/ns-mpegtype-am_mpegstreamtype
+ * @see https://docs.microsoft.com/windows/win32/api//mpegtype/ns-mpegtype-am_mpegstreamtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

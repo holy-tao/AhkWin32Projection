@@ -2,7 +2,7 @@
 
 /**
  * Describes the resulting disposition of a request to process a response message.
- * @see https://learn.microsoft.com/windows/win32/api/certpol/ne-certpol-x509scepdisposition
+ * @see https://docs.microsoft.com/windows/win32/api//certpol/ne-certpol-x509scepdisposition
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

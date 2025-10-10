@@ -3,7 +3,7 @@
 
 /**
  * The WKSTA_USER_INFO_0 structure contains the name of the user on a specified workstation.
- * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_user_info_0
+ * @see https://docs.microsoft.com/windows/win32/api//lmwksta/ns-lmwksta-wksta_user_info_0
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

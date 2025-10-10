@@ -4,7 +4,7 @@
 
 /**
  * Specifies the version, notification type, and the buffer location in a WnvRequestNotification function call.
- * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_notification_param
+ * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ns-wnvapi-wnv_notification_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

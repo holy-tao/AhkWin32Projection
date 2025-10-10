@@ -3,8 +3,11 @@
 /**
  * Specifies whether loudness equalization is enabled in an audio decoder or digital signal processor (DSP).
  * @remarks
- * Loudness equalization is a DSP process that maintains a consistent volume level when the audio stream changes.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdsploudnessequalization
+ * 
+  * Loudness equalization is a DSP process that maintains a consistent volume level when the audio stream changes.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdsploudnessequalization
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

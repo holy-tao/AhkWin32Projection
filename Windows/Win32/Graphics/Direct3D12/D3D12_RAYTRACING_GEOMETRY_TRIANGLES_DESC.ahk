@@ -4,7 +4,7 @@
 
 /**
  * Describes a set of triangles used as raytracing geometry. The geometry pointed to by this struct are always in triangle list form, indexed or non-indexed. Triangle strips are not supported.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_geometry_triangles_desc
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_raytracing_geometry_triangles_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -53,17 +53,6 @@ class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct
      * <li><b>DXGI_FORMAT_R16G16B16A16_FLOAT</b>  - A16 component is ignored, other data can be packed there, such as setting vertex stride to 6 bytes.</li>
      * <li><b>DXGI_FORMAT_R16G16_SNORM</b>  - third component is assumed 0</li>
      * <li><b>DXGI_FORMAT_R16G16B16A16_SNORM</b>   - A16 component is ignored, other data can be packed there, such as setting vertex stride to 6 bytes.</li>
-     * </ul>
-     * 
-     * Tier 1.1 devices support the following additional formats:
-     * <ul>
-     * <li><b>DXGI_FORMAT_R16G16B16A16_UNORM</b>   - A16 component is ignored, other data can be packed there, such as setting vertex stride to 6 bytes</li>
-     * <li><b>DXGI_FORMAT_R16G16_UNORM</b>   - third component assumed 0</li>
-     * <li><b>DXGI_FORMAT_R10G10B10A2_UNORM</b>   - A2 component is ignored, stride must be 4 bytes</li>
-     * <li><b>DXGI_FORMAT_R8G8B8A8_UNORM</b>   - A8 component is ignored, other data can be packed there, such as setting vertex stride to 3 bytes</li>
-     * <li><b>DXGI_FORMAT_R8G8_UNORM</b>   - third component assumed 0</li>
-     * <li><b>DXGI_FORMAT_R8G8B8A8_SNORM</b>  - A8 component is ignored, other data can be packed there, such as setting vertex stride to 3 bytes</li>
-     * <li><b>DXGI_FORMAT_R8G8_SNORM</b>   - third component assumed 0</li>
      * </ul>
      * @type {Integer}
      */

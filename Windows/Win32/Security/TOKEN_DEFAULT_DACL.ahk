@@ -4,8 +4,11 @@
 /**
  * Specifies a discretionary access control list (DACL).
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-gettokeninformation">GetTokenInformation</a> function retrieves the default DACL for an access token, in the form of a <b>TOKEN_DEFAULT_DACL</b> structure. This structure is also used with the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-settokeninformation">SetTokenInformation</a> function to set the default DACL.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_default_dacl
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-gettokeninformation">GetTokenInformation</a> function retrieves the default DACL for an access token, in the form of a <b>TOKEN_DEFAULT_DACL</b> structure. This structure is also used with the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-settokeninformation">SetTokenInformation</a> function to set the default DACL.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_default_dacl
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

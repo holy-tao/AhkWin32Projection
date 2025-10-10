@@ -2,7 +2,7 @@
 
 /**
  * Specifies how to remove a filter from the filter graph.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_rem_filter_flags
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_rem_filter_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

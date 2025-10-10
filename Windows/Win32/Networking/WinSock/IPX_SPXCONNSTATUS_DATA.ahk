@@ -3,7 +3,7 @@
 
 /**
  * The IPX_SPXCONNSTATUS_DATA structure provides information about a connected SPX socket.
- * @see https://learn.microsoft.com/windows/win32/api/wsnwlink/ns-wsnwlink-ipx_spxconnstatus_data
+ * @see https://docs.microsoft.com/windows/win32/api//wsnwlink/ns-wsnwlink-ipx_spxconnstatus_data
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

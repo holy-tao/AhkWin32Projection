@@ -2,7 +2,7 @@
 
 /**
  * The WMT_IMAGE_TYPE enumeration type defines the types of images that can be used for banner ads. This type is used as the value of the BannerImageType attribute.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_image_type
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_image_type
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

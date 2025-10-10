@@ -3,7 +3,7 @@
 
 /**
  * Provides progress information related to the reply portion of an upload-reply job.
- * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_job_reply_progress
+ * @see https://docs.microsoft.com/windows/win32/api//bits1_5/ns-bits1_5-bg_job_reply_progress
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

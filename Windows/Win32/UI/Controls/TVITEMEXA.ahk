@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies or receives attributes of a tree-view item. This structure is an enhancement to the TVITEM structure. New applications should use this structure where appropriate. (ANSI)
+ * Specifies or receives attributes of a tree-view item. This structure is an enhancement to the TVITEM structure. New applications should use this structure where appropriate.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The commctrl.h header defines TVITEMEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvitemexa
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tvitemexa
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI

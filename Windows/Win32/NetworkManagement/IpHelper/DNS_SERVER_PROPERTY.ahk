@@ -3,10 +3,6 @@
 #Include .\DNS_SERVER_PROPERTY_TYPES.ahk
 
 /**
- * Describes a DNS server property, which is set in the [**DNS_INTERFACE_SETTINGS3**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) structure, and configured through the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_server_property
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
@@ -17,9 +13,6 @@ class DNS_SERVER_PROPERTY extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
-     * 
-     * Must be set to **DNS_INTERFACE_SETTINGS_VERSION1**.
      * @type {Integer}
      */
     Version {
@@ -28,9 +21,6 @@ class DNS_SERVER_PROPERTY extends Win32Struct
     }
 
     /**
-     * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
-     * 
-     * Must be the index of the corresponding server present in the [**DNS_INTERFACE_SETTINGS3::NameServer**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) or **::ProfileNameServer** member. For proper usage, see the *ServerProperties* and *ProfileServerProperties* members in the topic for the [**DNS_INTERFACE_SETTINGS3**](ns-netioapi-dns_interface_settings3.md) structure.
      * @type {Integer}
      */
     ServerIndex {
@@ -39,9 +29,6 @@ class DNS_SERVER_PROPERTY extends Win32Struct
     }
 
     /**
-     * Type: **[DNS_SERVER_PROPERTY_TYPE](ne-netioapi-dns_server_property_type.md)**
-     * 
-     * Must be set to **DnsServerDohProperty**. Describes a DNS-over-HTTPS server property.
      * @type {Integer}
      */
     Type {
@@ -50,9 +37,6 @@ class DNS_SERVER_PROPERTY extends Win32Struct
     }
 
     /**
-     * Type: **[DNS_SERVER_PROPERTY_TYPES](ns-netioapi-dns_server_property_types.md)**
-     * 
-     * If the *Type* member is set to **DnsServerDohProperty**, then the **DNS_SERVER_PROPERTY_TYPES::DohSettings** field must point to a valid **DNS_DOH_SERVER_SETTINGS** object.
      * @type {DNS_SERVER_PROPERTY_TYPES}
      */
     Property{

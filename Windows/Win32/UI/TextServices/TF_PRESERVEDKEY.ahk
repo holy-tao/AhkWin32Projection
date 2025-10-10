@@ -4,8 +4,11 @@
 /**
  * The TF_PRESERVEDKEY structure represents a preserved key.
  * @remarks
- * Preserved keys are registered by TSF text services and provide keyboard shortcuts to common commands implemented by the TSF text service.
- * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_preservedkey
+ * 
+  * Preserved keys are registered by TSF text services and provide keyboard shortcuts to common commands implemented by the TSF text service.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_preservedkey
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
