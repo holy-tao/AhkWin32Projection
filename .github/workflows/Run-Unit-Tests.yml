@@ -1,17 +1,16 @@
-name: CI
+name: Validation Tests
 
 on: 
   pull_request:
   workflow_dispatch:
 
 jobs:
-  test:
-    name: Validation Tests
+  syntax-validation:
+    name: Syntax Validation
     runs-on: windows-latest
     permissions:
       contents: read
       checks: write
-      pull-requests: write
 
     steps:
       - name: Checkout Repository
@@ -20,7 +19,7 @@ jobs:
           submodules: recursive
 
       - name: Install AutoHotkey V2
-        shell: powershell
+        shell: pwsh
         env:
             url: https://github.com/AutoHotkey/AutoHotkey/releases/download/v2.0.19/AutoHotkey_2.0.19.zip
         run: |
@@ -55,6 +54,31 @@ jobs:
           ./Tests/AhkValidationMarkdownReport.ps1 -LogPath Tests/validation.log -OutPath Tests/validation-results.md
           Write-Output "Done!"
 
+  unit-tests:
+    name: Unit Tests
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      checks: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install AutoHotkey V2
+        shell: pwsh
+        env:
+            url: https://github.com/AutoHotkey/AutoHotkey/releases/download/v2.0.19/AutoHotkey_2.0.19.zip
+        run: |
+          $cwd = (Get-Item .).FullName
+          Invoke-WebRequest "$env:url" -OutFile "$cwd\autohotkey.zip"
+          Expand-Archive -Path "$cwd\autohotkey.zip" -DestinationPath "$cwd\autohotkey" -Force
+          Remove-Item -Path "$cwd\autohotkey.zip" -Force -ErrorAction SilentlyContinue
+
+          Write-Output ("$cwd\autohotkey;" + "$cwd\autohotkey\Compiler") | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      
       - name: Run Unit Tests
         working-directory: Tests
         shell: powershell
