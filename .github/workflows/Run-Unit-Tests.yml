@@ -43,7 +43,6 @@ jobs:
 
           if ($changed) {
             Write-Output "Found changed AHK files:"
-            $changed | ForEach-Object { Write-Output " - $_" }
 
             ./Tests/ValidateAhkFiles.ps1 -AhkExePath "$PWD/autohotkey/AutoHotkey64.exe" -Files $changed 2>&1 | Tee-Object -FilePath Tests/validation.log
           }
